@@ -42,11 +42,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Assistant.cs" />
+    <Compile Include="Attila\BuildingBranch.cs" />
+    <Compile Include="Attila\BuildingLevel.cs" />
+    <Compile Include="Attila\BuildingsLibrary.cs" />
+    <Compile Include="Attila\BuildingSlot.cs" />
+    <Compile Include="Attila\Faction.cs" />
+    <Compile Include="Attila\FactionsList.cs" />
+    <Compile Include="Attila\Globals.cs" />
+    <Compile Include="Attila\Map.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Attila\ProvinceCombination.cs" />
+    <Compile Include="Attila\ProvinceData.cs" />
+    <Compile Include="Attila\ProvinceReligion.cs" />
+    <Compile Include="Attila\ProvinceTraditions.cs" />
+    <Compile Include="Attila\ProvinceWealth.cs" />
+    <Compile Include="Attila\RegionData.cs" />
+    <Compile Include="Attila\Simulator.cs" />
+    <Compile Include="Attila\TechLevel.cs" />
+    <Compile Include="Attila\WealthBonus.cs" />
+    <Compile Include="Attila\XorShift.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Attila\XMLs\twa_map.xml" />
+    <Content Include="Attila\XMLs\twa_mpack_buildings_wre.xml" />
+    <Content Include="Attila\XMLs\twa_mpack_factions.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

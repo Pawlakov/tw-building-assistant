@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant", "TWBuildingAssistant\TWBuildingAssistant.csproj", "{67663F9B-BE2A-4B3C-BBA0-1B09F846C298}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attila", "Attila\Attila.csproj", "{67663F9B-BE2A-4B3C-BBA0-1B09F846C298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{2B3F7039-A2A9-4975-8353-794731DCD0BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant", "TWBuildingAssistant\TWBuildingAssistant.csproj", "{B3381705-A539-4CE0-B8B8-ACD98191124E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Religion", "Religion\Religion.csproj", "{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wealth", "Wealth\Wealth.csproj", "{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{67663F9B-BE2A-4B3C-BBA0-1B09F846C298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67663F9B-BE2A-4B3C-BBA0-1B09F846C298}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67663F9B-BE2A-4B3C-BBA0-1B09F846C298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B3F7039-A2A9-4975-8353-794731DCD0BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B3F7039-A2A9-4975-8353-794731DCD0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B3F7039-A2A9-4975-8353-794731DCD0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B3F7039-A2A9-4975-8353-794731DCD0BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3381705-A539-4CE0-B8B8-ACD98191124E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3381705-A539-4CE0-B8B8-ACD98191124E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3381705-A539-4CE0-B8B8-ACD98191124E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3381705-A539-4CE0-B8B8-ACD98191124E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

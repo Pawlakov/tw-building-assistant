@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<religions>
+	<religion n="LATIN_CHRISTIAN" ro="1">
+	</religion>
+	<religion n="GREEK_CHRISTIAN" rr="5">
+	</religion>
+	<religion n="ARIAN_CHRISTIAN" ri="1">
+	</religion>
+	<religion n="EAST_CHRISTIAN">
+		<multiplier c="ALL">0,05</multiplier>
+	</religion>
+	<religion n="GRAECOROMAN_PAGAN" s="2">
+	</religion>
+	<religion n="CELTIC_PAGAN">
+		<multiplier c="ALL">0,03</multiplier>
+	</religion>
+	<religion n="GERMANIC_PAGAN">
+	</religion>
+	<religion n="SLAVIC_PAGAN" po="1">
+	</religion>
+	<religion n="SEMITIC_PAGAN">
+	</religion>
+	<religion n="MANICHEIC" po ="1">
+	</religion>
+	<religion n="ZOROASTRIAN" g="1">
+	</religion>
+	<religion n="TENGRI">
+	</religion>
+	<religion n="JUDAISTIC">
+		<multiplier c="INDUSTRY">0,01</multiplier>
+	</religion>
+	<religion n="MINOR">
+	</religion>
+</religions>

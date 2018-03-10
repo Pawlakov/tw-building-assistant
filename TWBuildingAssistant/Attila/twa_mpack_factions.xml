@@ -1,23 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <factions>
-	<!--
-	<faction n="EasternRomanEmpire-GreekChristian(Modpack)" b="XMLs/ModPack/twa_mpack_buildings_ere_grechri.xml">
-		<bonus c="MARITIME_COMMERCE" m="true">-0,08</bonus>
-		<bonus c="ALL" m="true">-0,4</bonus>
-	</faction>
-	<faction n="EasternRomanEmpire-GreekChristian(Modpack)-LegacyTechs" b="XMLs/ModPack/twa_mpack_buildings_ere_grechri_legacy.xml">
-		<bonus c="MARITIME_COMMERCE" m="true">-0,08</bonus>
-		<bonus c="ALL" m="true">-0,4</bonus>
-	</faction>
-	<faction n="WesternRomanEmpire-LatinChristian(Modpack)" b="XMLs/ModPack/twa_mpack_buildings_wre_lachri.xml" r="1">
-		<bonus c="MARITIME_COMMERCE" m="true">-0,08</bonus>
-		<bonus c="ALL" m="true">-0,6</bonus>
-	</faction>
-	<faction n="WesternRomanEmpire-LatinChristian(Modpack)-LegacyTechs" b="XMLs/ModPack/twa_mpack_buildings_wre_lachri_legacy.xml" r="1">
-		<bonus c="MARITIME_COMMERCE" m="true">-0,08</bonus>
-		<bonus c="ALL" m="true">-0,6</bonus>
-	</faction>
-	-->
 	<faction n="WesternRomanEmpire(Modpack)" b="XMLs/ModPack/twa_mpack_buildings_wre.xml">
 		<techlevel>
 			<universal>

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TWBuildingAssistant")]
+[assembly: AssemblyTitle("Utilities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TWBuildingAssistant")]
+[assembly: AssemblyProduct("Utilities")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b3381705-a539-4ce0-b8b8-acd98191124e")]
+[assembly: Guid("2b3f7039-a2a9-4975-8353-794731dcd0bc")]
 
 // Version information for an assembly consists of the following four values:
 //

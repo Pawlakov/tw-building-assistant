@@ -1,46 +1,64 @@
 ﻿using System;
 namespace Religion
 {
+	/// <summary>
+	/// Obiekty tej zawiera informacje o wplywach religijnych wewnątrz jednej prowincji.
+	/// </summary>
 	public class ProvinceReligion
 	{
-		int _influence;
-		int _counterinfluence;
-		Religion _stateReligion;
-		//
-		public ProvinceReligion(ProvinceTraditions localTraditions, Religion stateReligion)
+		/// <summary>
+		/// Tworzy nowy obiekt informacji o religii wewnątrz prowincji.
+		/// </summary>
+		/// <param name="localTraditions">Zbiór tradycji religijnych prowincji dla której tworzony jest ten obiekt.</param>
+		public ProvinceReligion(ProvinceTraditions localTraditions)
 		{
-			_stateReligion = stateReligion;
-			_influence = localTraditions.GetTraditionExactly(_stateReligion) + Globals.EnvInfluence;
-			_counterinfluence = localTraditions.GetTraditionExcept(_stateReligion);
+			if (localTraditions == null)
+				throw new ReligionException("Próbowano utworzyć obiekt religii prowincji bez podania jej zbioru tradycji religijnych.");
+			if (Religion.StateReligion == null)
+				throw new ReligionException("Próbowano utworzyć obiekt religii prowincji nie mając wybranej religii państwowej.");
+			Influence = localTraditions.GetTraditionExactly(Religion.StateReligion) + Religion.StateReligion.ReligiousInfluence;
+			Counterinfluence = localTraditions.GetTraditionExcept(Religion.StateReligion);
 		}
+		/// <summary>
+		/// Funkcja dodaje określoną liczbę wpływów pewnej religii.
+		/// </summary>
+		/// <param name="ammount">Ilosć dodanych wpływów.</param>
+		/// <param name="religion">Której religi wływy będą dodane.</param>
 		public void AddInfluence(int ammount, Religion religion)
 		{
-			if (this.religion == religion || religion == Religion.STATE)
-				influence += ammount;
+			if (religion.IsState())
+				Influence += ammount;
 			else
-				counterinfluence += ammount;
+				Counterinfluence += ammount;
 		}
-		public int Order
+		/// <summary>
+		/// Wpływ obecnego rozkładu religii w prowincji na porządek publiczny.
+		/// </summary>
+		public int PublicOrder
 		{
 			get
 			{
-				float percentage = StateReligionPercentage;
-				return (int)Math.Floor(-6 + (percentage * 17 + 220) / 300);
+				throw new NotImplementedException("Wątpliwej jakości wzór na obliczanie wpływu religii na porządek publiczny.");
+				//double percentage = StateReligionPercentage;
+				//return (int)Math.Floor(-6 + (percentage * 17 + 220) / 300);
 			}
 		}
-		public int Influence
-		{
-			get { return _influence; }
-		}
-		public int Counterinfluence
-		{
-			get { return _counterinfluence; }
-		}
+		/// <summary>
+		/// Ilość wpływów religii państwowej w tej prowincji.
+		/// </summary>
+		public int Influence { get; private set; }
+		/// <summary>
+		/// Ilość wpływów religii niepaństwowych w tej prowincji.
+		/// </summary>
+		public int Counterinfluence { get; private set; }
+		/// <summary>
+		/// Wpływ (w procentach) religii państwowej w prowincji.
+		/// </summary>
 		public double StateReligionPercentage
 		{
 			get
 			{
-				return 100.0 * (_influence / (_counterinfluence + (double)_influence));
+				return 100.0 * (Influence / (Counterinfluence + (double)Influence));
 			}
 		}
 	}

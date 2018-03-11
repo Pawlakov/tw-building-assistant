@@ -85,7 +85,6 @@
     <Compile Include="ProvinceData.cs" />
     <Compile Include="RegionData.cs" />
     <Compile Include="Simulator.cs" />
-    <Compile Include="TechLevel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -6,6 +6,9 @@ namespace Utilities
 	/// </summary>
 	public class XorShift
 	{
+		const int _startingX = -2024026859;
+		const int _startingY = -1785047579;
+		const int _startingZ = -1626195019;
 		int _x;
 		int _y;
 		int _z;
@@ -15,9 +18,9 @@ namespace Utilities
 		/// <param name="seed">Inicjująca wartość.</param>
 		public XorShift(int seed)
 		{
-			_x = seed - 2024026859;
-			_y = -1785047579;
-			_z = -1626195019;
+			_x = seed + _startingX;
+			_y = _startingY;
+			_z = _startingZ;
 		}
 		/// <summary>
 		/// Tworzy nową instancję generatora. Inicjowany unikalną wartością.
@@ -28,7 +31,7 @@ namespace Utilities
 		/// </summary>
 		/// <param name="lowerLimit">Dolna granica przedziału losowania. Wylosowana liczba nie będzie od niej mniejsza.</param>
 		/// <param name="upperLimit">Górna granica przedziału losowania. Wylosowana liczba będzie od niej mniejsza.</param>
-		/// <returns></returns>
+		/// <returns>Wartość (pseudo)losowa.</returns>
 		public int Next(int lowerLimit, int upperLimit)
 		{
 			int temporary;

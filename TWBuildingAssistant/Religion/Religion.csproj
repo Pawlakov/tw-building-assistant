@@ -52,9 +52,6 @@
     <Compile Include="ProvinceReligion.cs" />
     <Compile Include="ProvinceTraditions.cs" />
     <Compile Include="Religion.cs" />
-    <Compile Include="StateReligionDialog.xaml.cs">
-      <DependentUpon>StateReligionDialog.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="religions.xml" />
@@ -64,12 +61,6 @@
       <Project>{f291aaf0-6660-47ef-b20f-f0c1d7ee40d0}</Project>
       <Name>Wealth</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="StateReligionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

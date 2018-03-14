@@ -38,7 +38,7 @@ namespace Map
 				throw (new MapException(String.Format("Niewłąciwy poziom żyzności w prowincji {0} (jest {1}).", Name, Fertility)));
 			try
 			{
-				Climate = (Climate)Enum.Parse(typeof(Climate), node.Attributes.GetNamedItem("c").InnerText);
+				Climate = Climate.Parse(node.Attributes.GetNamedItem("c").InnerText);
 			}
 			catch (Exception exception)
 			{

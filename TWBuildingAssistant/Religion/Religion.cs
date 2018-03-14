@@ -41,11 +41,11 @@ namespace Religion
 					throw new ReligionException(String.Format("Nie powiodło się utworzenie obiektu religii (na miejscu {0} w pliku).", whichReligion), exception);
 				}
 			}
-			_stateReligion = -1;
 			PickStateReligion();
 		}
 		public static void PickStateReligion()
 		{
+			_stateReligion = -1;
 			for (int whichReligion = 0; whichReligion < ReligionTypesCount; ++whichReligion)
 				Console.WriteLine("{0}. {1}", whichReligion, _religions[whichReligion].ToString());
 			while (true)

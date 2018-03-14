@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-namespace Technology
+namespace Faction
 {
 	class TechnologyTree
 	{
@@ -54,12 +54,5 @@ namespace Technology
 		{
 			
 		}
-	}
-
-	class TechnologyException : Exception
-	{
-		public TechnologyException() : base("Bład w module technologii.") { }
-		public TechnologyException(string message) : base(message) { }
-		public TechnologyException(string message, Exception innerException) : base(message, innerException) { }
 	}
 }

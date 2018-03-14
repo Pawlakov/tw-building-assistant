@@ -13,7 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Religion", "Religion\Religi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wealth", "Wealth\Wealth.csproj", "{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Technology", "Technology\Technology.csproj", "{A3E46562-1BBB-43D5-B2BB-75124FA6C84A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faction", "Technology\Faction.csproj", "{A3E46562-1BBB-43D5-B2BB-75124FA6C84A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buildings", "Buildings\Buildings.csproj", "{81B13254-68FF-4F4C-B8AA-FD1E34037088}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map", "Map\Map.csproj", "{FF4027CE-94B7-4223-9A0B-4FFE38883C87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{A3E46562-1BBB-43D5-B2BB-75124FA6C84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3E46562-1BBB-43D5-B2BB-75124FA6C84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3E46562-1BBB-43D5-B2BB-75124FA6C84A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81B13254-68FF-4F4C-B8AA-FD1E34037088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81B13254-68FF-4F4C-B8AA-FD1E34037088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81B13254-68FF-4F4C-B8AA-FD1E34037088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81B13254-68FF-4F4C-B8AA-FD1E34037088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF4027CE-94B7-4223-9A0B-4FFE38883C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF4027CE-94B7-4223-9A0B-4FFE38883C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF4027CE-94B7-4223-9A0B-4FFE38883C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF4027CE-94B7-4223-9A0B-4FFE38883C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

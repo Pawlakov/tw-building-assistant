@@ -3,10 +3,7 @@ namespace TWAssistant
 {
 	namespace Attila
 	{
-		public enum Resource { NONE, IRON, LEAD, GEMSTONES, OLIVE, FUR, WINE, SILK, MARBLE, SALT, GOLD, DYE, LUMBER, SPICE };
 		public enum BuildingType { TOWN, CENTERTOWN, CITY, CENTERCITY, COAST, RESOURCE, SPICE };
-		public enum Climate { NORTH, MEDIUM, EAST, SOUTH };
-		public enum Weather { EXTREME, BAD, NORMAL };
 		public static class Globals
 		{
 			static public readonly Map map;

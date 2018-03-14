@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-namespace Technology
+namespace Faction
 {
 	internal class TechnologyLevel
 	{

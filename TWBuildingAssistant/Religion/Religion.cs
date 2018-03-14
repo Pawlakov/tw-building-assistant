@@ -4,7 +4,7 @@ namespace Religion
 {
 	public class Religion
 	{
-		private const string _filename = "religions.xml";
+		private const string _filename = "twa_religions.xml";
 		private static readonly Religion[] _religions;
 		private static int _stateReligion;
 		/// <summary>

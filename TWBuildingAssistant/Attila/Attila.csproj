@@ -72,10 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildingSlot.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProvinceCombination.cs" />
     <Compile Include="Simulator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +92,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Religion\Religion.csproj">
+    <ProjectReference Include="..\Religion\Religions.csproj">
       <Project>{78f0bb52-e6d6-46b2-9d32-d8e57d9cae7b}</Project>
-      <Name>Religion</Name>
+      <Name>Religions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

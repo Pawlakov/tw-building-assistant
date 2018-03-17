@@ -9,15 +9,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Util
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant", "TWBuildingAssistant\TWBuildingAssistant.csproj", "{B3381705-A539-4CE0-B8B8-ACD98191124E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Religion", "Religion\Religion.csproj", "{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Religions", "Religion\Religions.csproj", "{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wealth", "Wealth\Wealth.csproj", "{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WealthBonuses", "Wealth\WealthBonuses.csproj", "{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faction", "Technology\Faction.csproj", "{A3E46562-1BBB-43D5-B2BB-75124FA6C84A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buildings", "Buildings\Buildings.csproj", "{81B13254-68FF-4F4C-B8AA-FD1E34037088}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map", "Map\Map.csproj", "{FF4027CE-94B7-4223-9A0B-4FFE38883C87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvinceCombinations", "ProvinceCombinations\ProvinceCombinations.csproj", "{B829E5F3-6644-4EDD-BBCA-E88266A427BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimateAndWeather", "ClimateManager\ClimateAndWeather.csproj", "{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{FF4027CE-94B7-4223-9A0B-4FFE38883C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF4027CE-94B7-4223-9A0B-4FFE38883C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF4027CE-94B7-4223-9A0B-4FFE38883C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B829E5F3-6644-4EDD-BBCA-E88266A427BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B829E5F3-6644-4EDD-BBCA-E88266A427BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B829E5F3-6644-4EDD-BBCA-E88266A427BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B829E5F3-6644-4EDD-BBCA-E88266A427BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

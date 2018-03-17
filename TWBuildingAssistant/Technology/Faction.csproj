@@ -50,9 +50,9 @@
     <Compile Include="TechnologyTree.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wealth\Wealth.csproj">
+    <ProjectReference Include="..\Wealth\WealthBonuses.csproj">
       <Project>{f291aaf0-6660-47ef-b20f-f0c1d7ee40d0}</Project>
-      <Name>Wealth</Name>
+      <Name>WealthBonuses</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

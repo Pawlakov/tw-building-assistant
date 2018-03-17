@@ -8,27 +8,31 @@ namespace Map
 	/// </summary>
 	public class Map
 	{
-		private static Map _map = null;
 		/// <summary>
 		/// Jedna jedyna instancja mapy.
 		/// </summary>
-		public static Map TheMap
+		public static Map TheMap { get; private set; } = null;
+		/// <summary>
+		/// Tworzy instancję mapy dostępnej później poprzez właściwość TheMap. Nie wywoływać więcej niż raz.
+		/// </summary>
+		/// <returns>Nową TheMap.</returns>
+		public static Map CreateTheMap()
 		{
-			get
+			if(TheMap == null)
 			{
-				if (_map == null)
-					_map = new Map();
-				return _map;
+				TheMap = new Map();
+				return TheMap;
 			}
+			throw new MapException("Attempted to create second instance of a map (there can be only one).");
 		}
 		//
 		//
 		//
-		const string _fileName = "twa_map.xml";
-		readonly ProvinceData[] _provinces;
-		readonly XmlNodeList _nodes;
-		readonly string[] _names;
-		Map()
+		private const string _fileName = "twa_map.xml";
+		private readonly ProvinceData[] _provinces;
+		private readonly XmlNodeList _nodes;
+		private readonly string[] _names;
+		private Map()
 		{
 			XmlDocument sourceDocument = new XmlDocument();
 			try
@@ -85,7 +89,7 @@ namespace Map
 			return result;
 		}
 	}
-	public class MapException : Exception
+	internal class MapException : Exception
 	{
 		public MapException() : base("Błąd w module mapy.") { }
 		public MapException(string message) : base(message) { }

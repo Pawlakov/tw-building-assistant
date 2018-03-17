@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-namespace Religion
+namespace Map
 {
 	/// <summary>
 	/// Zbiór tradycji religijnych prowincji.
@@ -15,24 +15,24 @@ namespace Religion
 		public ProvinceTraditions(XmlNode node)
 		{
 			if (node == null)
-				throw new ReligionException("Próbowano utworzyć zbiór tradycji na podstawie pustej wartości.");
-			_traditions = new int[Religion.ReligionTypesCount];
+				throw new MapException("Próbowano utworzyć zbiór tradycji na podstawie pustej wartości.");
+			_traditions = new int[Religion.Religion.ReligionTypesCount];
 			XmlNodeList nodeList = node.ChildNodes;
 			for (int whichTradition = 0; whichTradition < nodeList.Count; ++whichTradition)
 			{
 				string innerText = nodeList[whichTradition].Attributes.GetNamedItem("r").InnerText;
 				if (innerText == null)
-					throw new ReligionException("Wpis w zbiorze tradycji nie posiada parametru r.");
-				Religion religion = Religion.Parse(innerText);
+					throw new MapException("Wpis w zbiorze tradycji nie posiada parametru r.");
+				Religion.Religion religion = Religion.Religion.Parse(innerText);
 				if (religion == null)
-					throw new ReligionException(String.Format("Wartość {0} nie została rozpoznana jako prawidłowa religia.", innerText));
+					throw new MapException(String.Format("Wartość {0} nie została rozpoznana jako prawidłowa religia.", innerText));
 				try
 				{
 					_traditions[(int)religion] += Convert.ToInt32(nodeList[whichTradition].InnerText);
 				}
 				catch(Exception exception)
 				{
-					throw new ReligionException(String.Format("Wartość wpisu w zbiorze tradycji nie jest prawidłowa (religia: {0})", innerText), exception);
+					throw new MapException(String.Format("Wartość wpisu w zbiorze tradycji nie jest prawidłowa (religia: {0})", innerText), exception);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace Religion
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla podanej religii.</returns>
-		public int GetTraditionExactly(Religion religion)
+		public int GetTraditionExactly(Religion.Religion religion)
 		{
 			return _traditions[(int)religion];
 		}
@@ -50,10 +50,10 @@ namespace Religion
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla wszystkich religii poza podaną.</returns>
-		public int GetTraditionExcept(Religion religion)
+		public int GetTraditionExcept(Religion.Religion religion)
 		{
 			int result = 0;
-			for (int whichReligion = 0; whichReligion < Religion.ReligionTypesCount; ++whichReligion)
+			for (int whichReligion = 0; whichReligion < Religion.Religion.ReligionTypesCount; ++whichReligion)
 				if (whichReligion != (int)religion)
 					result += _traditions[whichReligion];
 			return result;

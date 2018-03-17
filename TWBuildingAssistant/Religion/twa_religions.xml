@@ -1,34 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <religions>
-	<religion n="LATIN_CHRISTIAN" ro="1">
+	<religion n="LatinChristian" ro="1">
 	</religion>
-	<religion n="GREEK_CHRISTIAN" rr="5">
+	<religion n="GreekChristian" rr="5">
 	</religion>
-	<religion n="ARIAN_CHRISTIAN" ri="1">
+	<religion n="ArianChristian" ri="1">
 	</religion>
-	<religion n="EAST_CHRISTIAN">
-		<multiplier c="ALL">0,05</multiplier>
+	<religion n="EastChristian">
+		<multiplier c="All">0,05</multiplier>
 	</religion>
-	<religion n="GRAECOROMAN_PAGAN" s="2">
+	<religion n="GraecoromanPagan" s="2">
 	</religion>
-	<religion n="CELTIC_PAGAN">
-		<multiplier c="ALL">0,03</multiplier>
+	<religion n="CelticPagan">
+		<multiplier c="All">0,03</multiplier>
 	</religion>
-	<religion n="GERMANIC_PAGAN">
+	<religion n="GermanicPagan">
 	</religion>
-	<religion n="SLAVIC_PAGAN" po="1">
+	<religion n="SlavicPagan" po="1">
 	</religion>
-	<religion n="SEMITIC_PAGAN">
+	<religion n="SemiticPagan">
 	</religion>
-	<religion n="MANICHEIC" po ="1">
+	<religion n="Manicheic" po ="1">
 	</religion>
-	<religion n="ZOROASTRIAN" g="1">
+	<religion n="Zoroastrian" g="1">
 	</religion>
-	<religion n="TENGRI">
+	<religion n="Tengri">
 	</religion>
-	<religion n="JUDAISTIC">
-		<multiplier c="INDUSTRY">0,01</multiplier>
+	<religion n="Judaistic">
+		<multiplier c="Industry">0,01</multiplier>
 	</religion>
-	<religion n="MINOR">
+	<religion n="Minor">
 	</religion>
 </religions>

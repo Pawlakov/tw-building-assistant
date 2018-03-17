@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{78F0BB52-E6D6-46B2-9D32-D8E57D9CAE7B}</ProjectGuid>
+    <ProjectGuid>{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Religion</RootNamespace>
-    <AssemblyName>Religion</AssemblyName>
+    <RootNamespace>WealthBonuses</RootNamespace>
+    <AssemblyName>WealthBonuses</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -22,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\WealthBonuses.xml</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,36 +33,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>bin\Release\Religion.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\WealthBonuses.xml</DocumentationFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MultiplierBonus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProvinceReligion.cs" />
-    <Compile Include="ProvinceTraditions.cs" />
-    <Compile Include="Religion.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="twa_religions.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Wealth\Wealth.csproj">
-      <Project>{f291aaf0-6660-47ef-b20f-f0c1d7ee40d0}</Project>
-      <Name>Wealth</Name>
-    </ProjectReference>
+    <Compile Include="SimpleBonus.cs" />
+    <Compile Include="WealthBonus.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

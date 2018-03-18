@@ -16,12 +16,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faction", "Technology\Faction.csproj", "{A3E46562-1BBB-43D5-B2BB-75124FA6C84A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buildings", "Buildings\Buildings.csproj", "{81B13254-68FF-4F4C-B8AA-FD1E34037088}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F291AAF0-6660-47EF-B20F-F0C1D7EE40D0} = {F291AAF0-6660-47EF-B20F-F0C1D7EE40D0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Map", "Map\Map.csproj", "{FF4027CE-94B7-4223-9A0B-4FFE38883C87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvinceCombinations", "ProvinceCombinations\ProvinceCombinations.csproj", "{B829E5F3-6644-4EDD-BBCA-E88266A427BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClimateAndWeather", "ClimateManager\ClimateAndWeather.csproj", "{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resources\Resources.csproj", "{0D4ED3CB-5FB8-43FC-A440-8EAB4AB2E8BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +74,10 @@ Global
 		{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24B5255B-C9B7-41D5-9BB3-6B80B5D047CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D4ED3CB-5FB8-43FC-A440-8EAB4AB2E8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D4ED3CB-5FB8-43FC-A440-8EAB4AB2E8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D4ED3CB-5FB8-43FC-A440-8EAB4AB2E8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D4ED3CB-5FB8-43FC-A440-8EAB4AB2E8BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

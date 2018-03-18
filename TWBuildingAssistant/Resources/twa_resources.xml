@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+	<resource n="Iron">
+		<branch n="Iron" t="RESOURCE" r="IRON">
+			<level n="Iron" l="1" lot="0" >
+			</level>
+			<level n="IronWeapons" l="2" lot="0" o ="-1" s="-2">
+			</level>
+			<level n="IronWeapons" l="3" lot="0" o ="-2" s="-4">
+			</level>
+			<level n="IronWeapons" l="4" lot="4" o ="-4" s="-6">
+			</level>
+			<level n="IronTools" l="2" lot="0" o ="-1" s="-2">
+				<bonus c ="INDUSTRY" m="true">0,05</bonus>
+				<bonus c ="AGRICULTURE" m="true">0,05</bonus>
+			</level>
+			<level n="IronTools" l="3" lot="0" o ="-2" s="-4">
+				<bonus c ="INDUSTRY" m="true">0,1</bonus>
+				<bonus c ="AGRICULTURE" m="true">0,1</bonus>
+			</level>
+			<level n="IronTools" l="4" lot="4" o ="-4" s="-6">
+				<bonus c ="INDUSTRY" m="true">0,15</bonus>
+				<bonus c ="AGRICULTURE" m="true">0,15</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Lead">
+		<branch n="Lead" t="RESOURCE" r="LEAD">
+			<level n="Lead" l="1" lot="0" >
+				<bonus c ="INDUSTRY" m="true">0,05</bonus>
+			</level>
+			<level n="Lead" l="2" lot="0" o ="-1" s="-2">
+				<bonus c ="INDUSTRY" m="true">0,1</bonus>
+			</level>
+			<level n="Lead" l="3" lot="0" o ="-2" s="-4">
+				<bonus c ="INDUSTRY" m="true">0,15</bonus>
+			</level>
+			<level n="Lead" l="4" lot="4" o ="-4" s="-6">
+				<bonus c ="INDUSTRY" m="true">0,2</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Gemstones">
+		<branch n="Gemstones" t="RESOURCE" r="GEMSTONES">
+			<level n="Gemstones" l="1" lot="0" >
+			</level>
+			<level n="Gemstones" l="2" lot="0" o ="-1" s="-2">
+			</level>
+			<level n="Gemstones" l="3" lot="0" o ="-2" s="-4">
+			</level>
+			<level n="Gemstones" l="4" lot="4" o ="-4" s="-6">
+			</level>
+		</branch>
+	</resource>
+	<resource n="Olive">
+		<branch n="Olive" t="RESOURCE" r="OLIVE">
+			<level n="Olive" l="1" lot="0" f="50">
+				<bonus c ="COMMERCE" m="true">0,05</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,05</bonus>
+			</level>
+			<level n="Olive" l="2" lot="0" f="90" s="-1">
+				<bonus c ="COMMERCE" m="true">0,1</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,1</bonus>
+			</level>
+			<level n="Olive" l="3" lot="0" f="130" s="-3">
+				<bonus c ="COMMERCE" m="true">0,15</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,15</bonus>
+			</level>
+			<level n="Olive" l="4" lot="4" f="170" s="-5">
+				<bonus c ="COMMERCE" m="true">0,2</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,2</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Fur">
+		<branch n="Fur" t="RESOURCE" r="FUR">
+			<level n="Fur" l="1" lot="0" f="30">
+				<bonus c ="COMMERCE" m="false">100</bonus>
+			</level>
+			<level n="Fur" l="2" lot="0" f="50" s="-1">
+				<bonus c ="COMMERCE" m="false">200</bonus>
+			</level>
+			<level n="Fur" l="3" lot="0" f="70" s="-3">
+				<bonus c ="COMMERCE" m="false">300</bonus>
+			</level>
+			<level n="Fur" l="4" lot="4" f="90" s="-5">
+				<bonus c ="COMMERCE" m="false">500</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Wine">
+		<branch n="Wine" t="RESOURCE" r="WINE">
+			<level n="Wine" l="1" lot="0" f="50" o="3">
+			</level>
+			<level n="Wineyard" l="2" lot="0" f="50" o="5" s="-1">
+			</level>
+			<level n="Wineyard" l="3" lot="0" f="70" o="7" s="-3">
+			</level>
+			<level n="Wineyard" l="4" lot="4" f="90" o="9" s="-5">
+			</level>
+			<level n="Orchard" l="2" lot="0" f="90" o="3" s="-1">
+			</level>
+			<level n="Orchard" l="3" lot="0" f="139" o="4" s="-3">
+			</level>
+			<level n="Orchard" l="4" lot="4" f="170" o="5" s="-5">
+			</level>
+		</branch>
+	</resource>
+	<resource n="Silk">
+		<branch n="Silk" t="RESOURCE" r="SILK">
+			<level n="Silk" l="1" lot="0" >
+				<bonus c ="COMMERCE" m="true">0,05</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,05</bonus>
+			</level>
+			<level n="Silk" l="2" lot="0" o="-1" s="-2">
+				<bonus c ="COMMERCE" m="true">0,1</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,1</bonus>
+			</level>
+			<level n="Silk" l="3" lot="0" o="-2" s="-4">
+				<bonus c ="COMMERCE" m="true">0,15</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,15</bonus>
+			</level>
+			<level n="Silk" l="4" lot="4" o="-4" s="-6">
+				<bonus c ="COMMERCE" m="true">0,2</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,2</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Marble">
+		<branch n="Marble" t="RESOURCE" r="MARBLE" rel="STATE" rex="false">
+			<level n="Marble" l="1" lot="0">
+			</level>
+			<level n="MarbleSculptor" l="2" lot="0" o="-1" s="-2" r="1">
+				<bonus c ="CULTURE" m="true">0,5</bonus>
+			</level>
+			<level n="MarbleSculptor" l="3" lot="0" o="-2" s="-4" r="2">
+				<bonus c ="CULTURE" m="true">0,10</bonus>
+			</level>
+			<level n="MarbleSculptor" l="4" lot="4" o="-4" s="-6" r="3">
+				<bonus c ="CULTURE" m="true">0,15</bonus>
+			</level>
+			<level n="MarbleQuarry" l="2" lot="0" o="-2" s="-2">
+				<bonus c ="INDUSTRY" m="false">600</bonus>
+			</level>
+			<level n="MarbleQuarry" l="3" lot="0" o="-4" s="-4">
+				<bonus c ="INDUSTRY" m="false">1000</bonus>
+			</level>
+			<level n="MarbleQuarry" l="4" lot="4" o="-8" s="-6">
+				<bonus c ="INDUSTRY" m="false">1650</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Salt">
+		<branch n="Salt" t="RESOURCE" r="SALT">
+			<level n="Salt" l="1" lot="0" f="30">
+				<bonus c ="INDUSTRY" m="false">120</bonus>
+			</level>
+			<level n="Salt" l="2" lot="0" f="50" o="-1" s="-2">
+				<bonus c ="INDUSTRY" m="false">240</bonus>
+			</level>
+			<level n="Salt" l="3" lot="0" f="70" o="-2" s="-4">
+				<bonus c ="INDUSTRY" m="false">450</bonus>
+			</level>
+			<level n="Salt" l="4" lot="4" f="90" o="-4" s="-6">
+				<bonus c ="INDUSTRY" m="false">900</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Gold">
+		<branch n="Gold" t="RESOURCE" r="GOLD">
+			<level n="Gold" l="1" lot="0" o="-2" s="-2">
+				<bonus c ="INDUSTRY" m="false">600</bonus>
+				<bonus c ="COMMERCE" m="true">0,1</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,1</bonus>
+			</level>
+			<level n="GoldMine" l="2" lot="0" o="-5" s="-3">
+				<bonus c ="INDUSTRY" m="false">1200</bonus>
+			</level>
+			<level n="GoldMine" l="3" lot="0" o="-10" s="-6">
+				<bonus c ="INDUSTRY" m="false">1500</bonus>
+			</level>
+			<level n="GoldMine" l="4" lot="4" o="-15" s="-10">
+				<bonus c ="INDUSTRY" m="false">2500</bonus>
+			</level>
+			<level n="GoldJeweller" l="2" lot="0" o="-5" s="-3">
+				<bonus c ="INDUSTRY" m="false">1200</bonus>
+			</level>
+			<level n="GoldJeweller" l="3" lot="0" o="-10" s="-6">
+				<bonus c ="INDUSTRY" m="false">2000</bonus>
+			</level>
+			<level n="GoldJeweller" l="4" lot="4" o="-15" s="-10">
+				<bonus c ="INDUSTRY" m="false">3000</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Dye">
+		<branch n="Dye" t="RESOURCE" r="DYE">
+			<level n="Dye" l="1" lot="0">
+				<bonus c ="INDUSTRY" m="true">0,02</bonus>
+				<bonus c ="COMMERCE" m="true">0,02</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,02</bonus>
+			</level>
+			<level n="Dye" l="2" lot="0" s="-2">
+				<bonus c ="INDUSTRY" m="true">0,04</bonus>
+				<bonus c ="COMMERCE" m="true">0,04</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,04</bonus>
+			</level>
+			<level n="Dye" l="3" lot="0" s="-4">
+				<bonus c ="INDUSTRY" m="true">0,06</bonus>
+				<bonus c ="COMMERCE" m="true">0,06</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,06</bonus>
+			</level>
+			<level n="Dye" l="4" lot="4" s="-6">
+				<bonus c ="INDUSTRY" m="true">0,08</bonus>
+				<bonus c ="COMMERCE" m="true">0,08</bonus>
+				<bonus c ="MARITIME_COMMERCE" m="true">0,08</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Lumber">
+		<branch n="Lumber" t="RESOURCE" r="LUMBER">
+			<level n="Lumber" l="1" lot="0">
+				<bonus c ="INDUSTRY" m="true">0,05</bonus>
+			</level>
+			<level n="Lumber" l="2" lot="0">
+				<bonus c ="INDUSTRY" m="true">0,1</bonus>
+			</level>
+			<level n="Lumber" l="3" lot="0">
+				<bonus c ="INDUSTRY" m="true">0,15</bonus>
+			</level>
+			<level n="Lumber" l="4" lot="4">
+				<bonus c ="INDUSTRY" m="true">0,2</bonus>
+			</level>
+		</branch>
+	</resource>
+	<resource n="Spiece">
+		<branch n="SpicePort" t="SPICE">
+			<level n="SpicePort" l="1" lot="0">
+				<bonus c ="MARITIME_COMMERCE" m="false">150</bonus>
+			</level>
+			<level n="SpicePort" l="2" lot="0" o="-2" s="-2">
+				<bonus c ="MARITIME_COMMERCE" m="false">300</bonus>
+			</level>
+			<level n="SpicePort" l="3" lot="0" o="-4" s="-4">
+				<bonus c ="MARITIME_COMMERCE" m="false">500</bonus>
+			</level>
+			<level n="SpicePort" l="4" lot="4" o="-6" s="-6">
+				<bonus c ="MARITIME_COMMERCE" m="false">825</bonus>
+			</level>
+		</branch>
+	</resource>
+</resources>

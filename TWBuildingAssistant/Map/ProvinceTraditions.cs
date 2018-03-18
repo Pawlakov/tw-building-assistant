@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml;
+using System.Globalization;
 namespace Map
 {
 	/// <summary>
@@ -7,7 +8,7 @@ namespace Map
 	/// </summary>
 	public class ProvinceTraditions
 	{
-		readonly int[] _traditions;
+		private readonly int[] _traditions;
 		/// <summary>
 		/// Tworzy zbiór tradycji religijnych dla prowincji.
 		/// </summary>
@@ -15,24 +16,26 @@ namespace Map
 		public ProvinceTraditions(XmlNode node)
 		{
 			if (node == null)
-				throw new MapException("Próbowano utworzyć zbiór tradycji na podstawie pustej wartości.");
-			_traditions = new int[Religion.Religion.ReligionTypesCount];
+				throw new ArgumentNullException("node");
+			if (node.Name != "traditions")
+				throw new ArgumentException("Given node is not traditions node.", "node");
+			_traditions = new int[Religions.ReligionsManager.Singleton.ReligionTypesCount];
 			XmlNodeList nodeList = node.ChildNodes;
 			for (int whichTradition = 0; whichTradition < nodeList.Count; ++whichTradition)
 			{
-				string innerText = nodeList[whichTradition].Attributes.GetNamedItem("r").InnerText;
-				if (innerText == null)
-					throw new MapException("Wpis w zbiorze tradycji nie posiada parametru r.");
-				Religion.Religion religion = Religion.Religion.Parse(innerText);
-				if (religion == null)
-					throw new MapException(String.Format("Wartość {0} nie została rozpoznana jako prawidłowa religia.", innerText));
+				if(nodeList[whichTradition].Name != "tradition")
+					throw new FormatException("Given node is not tradition node.");
 				try
 				{
-					_traditions[(int)religion] += Convert.ToInt32(nodeList[whichTradition].InnerText);
+					string innerText = nodeList[whichTradition].Attributes.GetNamedItem("r").InnerText;
+					Religions.ReligionData religion = Religions.ReligionsManager.Singleton.Parse(innerText);
+					if (religion == null)
+						throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Value {0} was not recognized as any religion.", innerText));
+					_traditions[Religions.ReligionsManager.Singleton.GetIndex(religion)] += Convert.ToInt32(nodeList[whichTradition].InnerText);
 				}
 				catch(Exception exception)
 				{
-					throw new MapException(String.Format("Wartość wpisu w zbiorze tradycji nie jest prawidłowa (religia: {0})", innerText), exception);
+					throw new FormatException("Could not read tradition node's religion attribute.", exception);
 				}
 			}
 		}
@@ -41,20 +44,20 @@ namespace Map
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla podanej religii.</returns>
-		public int GetTraditionExactly(Religion.Religion religion)
+		public int GetTraditionExactly(Religions.ReligionData religion)
 		{
-			return _traditions[(int)religion];
+			return _traditions[Religions.ReligionsManager.Singleton.GetIndex(religion)];
 		}
 		/// <summary>
 		/// Zwraca wpływ wszystkich religii poza daną w tej prowincji.
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla wszystkich religii poza podaną.</returns>
-		public int GetTraditionExcept(Religion.Religion religion)
+		public int GetTraditionExcept(Religions.ReligionData religion)
 		{
 			int result = 0;
-			for (int whichReligion = 0; whichReligion < Religion.Religion.ReligionTypesCount; ++whichReligion)
-				if (whichReligion != (int)religion)
+			for (int whichReligion = 0; whichReligion < Religions.ReligionsManager.Singleton.ReligionTypesCount; ++whichReligion)
+				if (whichReligion != Religions.ReligionsManager.Singleton.GetIndex(religion))
 					result += _traditions[whichReligion];
 			return result;
 		}

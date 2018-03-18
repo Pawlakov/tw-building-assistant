@@ -7,9 +7,9 @@ namespace Map
 	/// </summary>
 	public class RegionData
 	{
-		const int _cityDefaultSlotsCount = 6;
-		const int _townDefaultSlotsCount = 4;
-		readonly int _slotsCountOffset;
+		private const int _cityDefaultSlotsCount = 6;
+		private const int _townDefaultSlotsCount = 4;
+		private int SlotsCountOffset { get; }
 		/// <summary>
 		/// Tworzy nowy zestaw informacji o regionie.
 		/// </summary>
@@ -18,30 +18,27 @@ namespace Map
 		public RegionData(XmlNode node, bool isCity)
 		{
 			if (node == null)
-				throw new MapException("Próbowano utworzyć dane regionu na podstawie pustej wartości.");
+				throw new ArgumentNullException("node");
+			if (node.Name != "region")
+				throw new ArgumentException("Given node is not region node.", "node");
 			IsCity = isCity;
-			Resource = Resource.NONE;
-			_slotsCountOffset = 0;
+			Resource = null;
+			SlotsCountOffset = 0;
 			try
 			{
 				Name = node.Attributes.GetNamedItem("n").InnerText;
 			}
 			catch (Exception exception)
 			{
-				throw new MapException("Nie udało się odczytać nazwy tego regionu.", exception);
+				throw new FormatException("Could not read name attribute for this region.", exception);
 			}
 			XmlNode temporary;
 			temporary = node.Attributes.GetNamedItem("r");
 			if (temporary != null)
 			{
-				try
-				{
-					Resource = (Resource)Enum.Parse(typeof(Resource), temporary.InnerText);
-				}
-				catch (Exception exception)
-				{
-					throw new MapException(String.Format("Nie odczytano nazwy zasobu dla regionu {0}.", Name), exception);
-				}
+				Resource = Resources.ResourcesManager.Singleton.Parse(temporary.InnerText);
+				if(Resource == null)
+					throw new FormatException(String.Format("Could not recognize resource type of region {0}.", Name));
 			}
 			try
 			{
@@ -49,18 +46,18 @@ namespace Map
 			}
 			catch (Exception exception)
 			{
-				throw new MapException(String.Format("Nie odczytano informacji o dostępie do morza dla regionu {0}.", Name), exception);
+				throw new FormatException(String.Format("Could not read 'is coastal' attribute of region {0}.", Name), exception);
 			}
 			temporary = node.Attributes.GetNamedItem("o");
 			if (temporary != null)
 			{
 				try
 				{
-					_slotsCountOffset = Convert.ToInt32(temporary.InnerText);
+					SlotsCountOffset = Convert.ToInt32(temporary.InnerText);
 				}
 				catch (Exception exception)
 				{
-					throw new MapException(String.Format("Nie odczytano odchylenia rozmiaru dla regionu {0}.", Name), exception);
+					throw new FormatException(String.Format("Could not read slots count offset of region {0}.", Name), exception);
 				}
 			}
 		}
@@ -71,7 +68,7 @@ namespace Map
 		/// <summary>
 		/// Specjalny zasób obecny w regionie.
 		/// </summary>
-		public Resource Resource { get; }
+		public Resources.Resource Resource { get; }
 		/// <summary>
 		/// Jeśli prawdziwe, to miasto ma możliwość budowy portu.
 		/// </summary>
@@ -92,7 +89,7 @@ namespace Map
 					result = _cityDefaultSlotsCount;
 				else
 					result = _townDefaultSlotsCount;
-				return result += (_slotsCountOffset);
+				return result + SlotsCountOffset;
 			}
 		}
 	}

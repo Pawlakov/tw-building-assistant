@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Xml;
+using System.Globalization;
 namespace Map
 {
-	public enum Resource { NONE, IRON, LEAD, GEMSTONES, OLIVE, FUR, WINE, SILK, MARBLE, SALT, GOLD, DYE, LUMBER, SPICE };
 	/// <summary>
 	/// Zawiera i udostępnia informacje o wszystkich prowincjach w grze.
 	/// </summary>
@@ -11,19 +11,19 @@ namespace Map
 		/// <summary>
 		/// Jedna jedyna instancja mapy.
 		/// </summary>
-		public static Map TheMap { get; private set; } = null;
+		public static Map Singleton { get; private set; } = null;
 		/// <summary>
 		/// Tworzy instancję mapy dostępnej później poprzez właściwość TheMap. Nie wywoływać więcej niż raz.
 		/// </summary>
 		/// <returns>Nową TheMap.</returns>
-		public static Map CreateTheMap()
+		public static Map CreateSingleton()
 		{
-			if(TheMap == null)
+			if(Singleton == null)
 			{
-				TheMap = new Map();
-				return TheMap;
+				Singleton = new Map();
+				return Singleton;
 			}
-			throw new MapException("Attempted to create second instance of a map (there can be only one).");
+			throw new InvalidOperationException("Attempted to create second instance of a map (there can be only one).");
 		}
 		//
 		//
@@ -41,7 +41,7 @@ namespace Map
 			}
 			catch(Exception exception)
 			{
-				throw new MapException("Nie udało się otworzyć pliku mapy.", exception);
+				throw new Exception(String.Format(CultureInfo.CurrentCulture, "Falied to load file {0}.", _fileName), exception);
 			}
 			_nodes = sourceDocument.GetElementsByTagName("province");
 			_provinces = new ProvinceData[_nodes.Count];
@@ -54,7 +54,7 @@ namespace Map
 				}
 				catch(Exception exception)
 				{
-					throw new MapException(String.Format("Nie udało się odczytać nazwy prowincji o indeksie {0}.", whichProvince), exception);
+					throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Could not read name of province {0}.", whichProvince), exception);
 				}
 			}
 		}
@@ -67,6 +67,8 @@ namespace Map
 		{
 			get
 			{
+				if (whichProvince < 0 || whichProvince >= ProvincesCount)
+					throw new ArgumentOutOfRangeException("whichProvince", whichProvince, "Index out of range.");
 				if (_provinces[whichProvince] == null)
 				{
 					try
@@ -75,11 +77,15 @@ namespace Map
 					}
 					catch(Exception exception)
 					{
-						throw new MapException(String.Format("Nie powiodło się utworzenie informacji o prowincji {0} (indeks: {1}).", _names[whichProvince], whichProvince), exception);
+						throw new FormatException(String.Format("Failed to create province {0}.", _names[whichProvince]), exception);
 					}
 				}
 				return _provinces[whichProvince];
 			}
+		}
+		public int ProvincesCount
+		{
+			get { return _provinces.Length; }
 		}
 		public override string ToString()
 		{
@@ -88,11 +94,5 @@ namespace Map
 				result += String.Format("{0}. {1}\n", whichProvince, _names[whichProvince]);
 			return result;
 		}
-	}
-	internal class MapException : Exception
-	{
-		public MapException() : base("Błąd w module mapy.") { }
-		public MapException(string message) : base(message) { }
-		public MapException(string message, Exception innerException) : base(message, innerException) { }
 	}
 }

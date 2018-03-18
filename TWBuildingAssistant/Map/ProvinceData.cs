@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-
+using System.Globalization;
 namespace Map
 {
 	/// <summary>
@@ -8,8 +8,8 @@ namespace Map
 	/// </summary>
 	public class ProvinceData
 	{
-		const int _regionsInProvinceCount = 3;
-		readonly RegionData[] _regions;
+		private const int _regionsInProvinceCount = 3;
+		private readonly RegionData[] _regions;
 		/// <summary>
 		/// Tworzy nowy zestaw informacji o prowincji.
 		/// </summary>
@@ -17,14 +17,16 @@ namespace Map
 		public ProvinceData(XmlNode node)
 		{
 			if (node == null)
-				throw new MapException("Próbowano utworzyć zestaw danych o prowincji na podstawie pustej wartości.");
+				throw new ArgumentNullException("node");
+			if (node.Name != "province")
+				throw new ArgumentException("Given node is not province node.", "node");
 			try
 			{
 				Name = node.Attributes.GetNamedItem("n").InnerText;
 			}
 			catch (Exception exception)
 			{
-				throw new MapException("Nie powiodło się odczytanie nazwy dla tej prowincji.", exception);
+				throw new FormatException("Could not read province's name.", exception);
 			}
 			try
 			{
@@ -32,29 +34,24 @@ namespace Map
 			}
 			catch (Exception exception)
 			{
-				throw new MapException(String.Format("Nie powiodło się odczytanie żyzności prowincji {0}.", Name), exception);
+				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Could not read fertility level of province {0}.", Name), exception);
 			}
 			if (Fertility > 6 || Fertility < 1)
-				throw (new MapException(String.Format("Niewłąciwy poziom żyzności w prowincji {0} (jest {1}).", Name, Fertility)));
-			try
-			{
-				Climate = Climate.Parse(node.Attributes.GetNamedItem("c").InnerText);
-			}
-			catch (Exception exception)
-			{
-				throw new MapException(String.Format("Nie powiodło się odczytanie typu klimatu prowincji {0}.", Name), exception);
-			}
+				throw (new FormatException(String.Format(CultureInfo.CurrentCulture, "Invalid fertility level in province {0} (is {1}).", Name, Fertility)));
+			Climate = ClimateAndWeather.ClimateManager.Singleton.Parse(node.Attributes.GetNamedItem("c").InnerText);
+			if (Climate == null)
+				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Could not read climate type of province {0}.", Name));
 			//
 			XmlNodeList childNodeList = node.ChildNodes;
-			if (childNodeList.Count != 4)
-				throw (new MapException(String.Format("Niewłaściwa ilość składników wewnątrz węzła prowincji {0}.", Name)));
+			if (childNodeList.Count != (_regionsInProvinceCount + 1))
+				throw (new FormatException(String.Format(CultureInfo.CurrentCulture, "Incorrect child nodes count in province {0}.", Name)));
 			try
 			{
-				Traditions = new Religion.ProvinceTraditions(childNodeList[0]);
+				Traditions = new ProvinceTraditions(childNodeList[0]);
 			}
 			catch (Exception exception)
 			{
-				throw new MapException(String.Format("Nie powiodło się tworzenie zbioru tradycji religijnych dla prowincji {0}.", Name), exception);
+				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Failed to create religious traditions set for province {0}.", Name), exception);
 			}
 			//
 			_regions = new RegionData[_regionsInProvinceCount];
@@ -66,7 +63,7 @@ namespace Map
 				}
 				catch(Exception excepion)
 				{
-					throw new MapException(String.Format("Nie powiodło się tworzenie {0}-ego regionu w prowincji {1}", whichRegion, Name), excepion);
+					throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Failed to create region {0} of province {1}.", whichRegion, Name), excepion);
 				}
 			}
 		}
@@ -81,11 +78,11 @@ namespace Map
 		/// <summary>
 		/// Typ klimatu panującego w prowincji.
 		/// </summary>
-		public Climate Climate { get; }
+		public ClimateAndWeather.Climate Climate { get; }
 		/// <summary>
 		/// Zbiór informacji o tradycjach religijnych w tej prowincji.
 		/// </summary>
-		public Religion.ProvinceTraditions Traditions { get; }
+		public ProvinceTraditions Traditions { get; }
 		/// <summary>
 		/// Indekser pozwalający na dostęp do informacji o regionach tej prowincji.
 		/// </summary>

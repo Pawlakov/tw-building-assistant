@@ -5,17 +5,16 @@ namespace WealthBonuses
 	/// <summary>
 	/// Obiekt tej klasy reprezentuje pojedyńczy prosty bonus dochodowy.
 	/// </summary>
-	class SimpleBonus : WealthBonus
+	public class SimpleBonus : WealthBonus
 	{
-		readonly int _value;
-		readonly int _perFertilityValue;
+		// Stan wewnętrzny:
 		//
-		/// <summary>
-		/// Tworzy nowy bonus prosty.
-		/// </summary>
-		/// <param name="innerText">Tekstowa reprezentacja wartości bonusu.</param>
-		/// <param name="categoryText">Tekstowa reprezentacja kategorii bonusu.</param>
-		public SimpleBonus(string innerText, string categoryText) : base(categoryText)
+		private int Value { get; }
+		private int ValuePerFertility { get; }
+		//
+		// Interfejs wewnętrzny:
+		//
+		internal SimpleBonus(string innerText, string categoryText) : base(categoryText)
 		{
 			if (innerText == null)
 				throw new ArgumentNullException("innerText");
@@ -38,20 +37,23 @@ namespace WealthBonuses
 			}
 			try
 			{
-				_value = Convert.ToInt32(firstValue, CultureInfo.InvariantCulture);
-				_perFertilityValue = Convert.ToInt32(secondValue, CultureInfo.InvariantCulture);
+				Value = Convert.ToInt32(firstValue, CultureInfo.InvariantCulture);
+				ValuePerFertility = Convert.ToInt32(secondValue, CultureInfo.InvariantCulture);
 			}
 			catch (Exception exception)
 			{
 				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Could not convert {0} to valid value(s).", innerText), exception);
 			}
-			if (_perFertilityValue < 0)
+			if (ValuePerFertility < 0)
 				throw new ArgumentOutOfRangeException("innerText", innerText, "You cannot create negative fertility-dependent bonus.");
-			if (Category == WealthCategory.Maintenance && _value > 0)
+			if (Category == WealthCategory.Maintenance && Value > 0)
 				throw new ArgumentOutOfRangeException("innerText", innerText, "You cannot create positive maintenance bonus.");
-			if (Category != WealthCategory.Maintenance && _value < 0)
+			if (Category != WealthCategory.Maintenance && Value < 0)
 				throw new ArgumentOutOfRangeException("innerText", innerText, "You cannot create negative non-maintenance bonus.");
 		}
+		//
+		// Interfejs publiczny:
+		//
 		/// <summary>
 		/// Wykonuje ten bonus na podanych teblicach.
 		/// </summary>
@@ -64,20 +66,18 @@ namespace WealthBonuses
 				throw new ArgumentNullException("values");
 			if (values.Length != WealthCategoriesCount)
 				throw new ArgumentException("Length of values array should be equal to wealth categories count.", "values");
-			if (multipliers == null)
-				throw new ArgumentNullException("multipliers");
-			if (multipliers.Length != WealthCategoriesCount)
-				throw new ArgumentException("Length of multipliers array should be equal to wealth categories count.", "multipliers");
 			if (fertility > 6 || fertility < 0)
 				throw new ArgumentOutOfRangeException("fertility", fertility, "Fertility level out of range.");
-			values[(int)Category] += (_value + (_perFertilityValue * fertility));
+			values[(int)Category] += (Value + (ValuePerFertility * fertility));
 		}
 		/// <summary>
 		/// Zwraca prosty opis tego bonusu.
 		/// </summary>
 		public override string ToString()
 		{
-			return String.Format(CultureInfo.CurrentCulture, "+{0} wealth from {1}", _value, Category);
+			if(ValuePerFertility == 0)
+				return String.Format(CultureInfo.CurrentCulture, "+{0} wealth from {1}", Value, Category);
+			return String.Format(CultureInfo.CurrentCulture, "+{0} (additionaly +{1} per every fertility level) wealth from {2}", Value, ValuePerFertility, Category);
 		}
 	}
 }

@@ -5,16 +5,15 @@ namespace WealthBonuses
 	/// <summary>
 	/// Obiekt tej klasy reprezentuje pojedyńczy bonus dochodowy będący mnożnikiem.
 	/// </summary>
-	class MultiplierBonus : WealthBonus
+	public class MultiplierBonus : WealthBonus
 	{
-		readonly double _value;
+		// Stan wewnętrzny:
 		//
-		/// <summary>
-		/// Tworzy nowy bonus mnożący.
-		/// </summary>
-		/// <param name="innerText">Tekstowa reprezentacja wartości bonusu.</param>
-		/// <param name="categoryText">Tekstowa reprezentacja kategorii bonusu.</param>
-		public MultiplierBonus(string innerText, string categoryText) : base(categoryText)
+		private double Value { get; }
+		//
+		// Interfejs wewnętrzny:
+		//
+		internal MultiplierBonus(string innerText, string categoryText) : base(categoryText)
 		{
 			if (innerText == null)
 				throw new ArgumentNullException("innerText");
@@ -22,15 +21,18 @@ namespace WealthBonuses
 				throw new ArgumentOutOfRangeException("categoryText", categoryText, "You cannot create multiplier wealth bonus in 'MAINTENANCE' category.");
 			try
 			{
-				_value = Convert.ToDouble(innerText, CultureInfo.InvariantCulture);
+				Value = Convert.ToDouble(innerText, CultureInfo.InvariantCulture);
 			}
 			catch(Exception exception)
 			{
 				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Could not convert {0} to valid value.", innerText), exception);
 			}
-			if (_value < 0)
+			if (Value < 0)
 				throw new ArgumentOutOfRangeException("innerText", innerText, "You cannot create negative multiplier bonus.");
 		}
+		//
+		// Interfejs publiczny:
+		//
 		/// <summary>
 		/// Wykonuje ten bonus na podanych teblicach.
 		/// </summary>
@@ -39,28 +41,22 @@ namespace WealthBonuses
 		/// <param name="fertility">Pozoim żyzności prowincji dla której bonusy są stosowane.</param>
 		public override void Execute(int[] values, double[] multipliers, int fertility)
 		{
-			if (values == null)
-				throw new ArgumentNullException("values");
-			if (values.Length != WealthCategoriesCount)
-				throw new ArgumentException("Length of values array should be equal to wealth categories count.", "values");
 			if (multipliers == null)
 				throw new ArgumentNullException("multipliers");
 			if (multipliers.Length != WealthCategoriesCount)
 				throw new ArgumentException("Length of multipliers array should be equal to wealth categories count.", "multipliers");
-			if (fertility > 6 || fertility < 0)
-				throw new ArgumentOutOfRangeException("fertility", fertility, "Fertility level out of range.");
 			if (Category != WealthCategory.All)
-				multipliers[(int)Category] += _value;
+				multipliers[(int)Category] += Value;
 			else
 				for (int whichCategory = 0; whichCategory < WealthCategoriesCount - 1; ++whichCategory)
-					multipliers[whichCategory] += _value;
+					multipliers[whichCategory] += Value;
 		}
 		/// <summary>
 		/// Zwraca prosty opis tego bonusu.
 		/// </summary>
 		public override string ToString()
 		{
-			return String.Format(CultureInfo.CurrentCulture, "+{0}% wealth from {1}", _value, Category);
+			return String.Format(CultureInfo.CurrentCulture, "+{0}% wealth from {1}", Value, Category);
 		}
 	}
 }

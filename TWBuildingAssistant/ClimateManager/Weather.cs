@@ -4,21 +4,24 @@ namespace ClimateAndWeather
 {
 	internal class Weather
 	{
+		// Interfejs wewnętrzny:
+		//
 		internal Weather(XmlNode node)
 		{
-			if (node == null)
-				throw new ArgumentNullException("node");
 			if (node.Name != "weather")
-				throw new ArgumentException("Given node is not weather node.", "node");
-			try
-			{
-				Name = node.Attributes.GetNamedItem("n").InnerText;
-			}
-			catch (Exception exception)
-			{
-				throw new FormatException("XML does not contain 'n' attribute (name).", exception);
-			}
+				throw new ArgumentException("Given XML node is not weather node.");
+			XmlNode temporary = node.Attributes.GetNamedItem("n");
+			if(temporary == null)
+				throw new FormatException("Weather XML node does not contain name attribute.");
+			Name = temporary.InnerText;
 		}
-		public string Name { get; }
+		public override string ToString()
+		{
+			return Name;
+		}
+		//
+		// Stan wewnętrzny:
+		//
+		private string Name { get; }
 	}
 }

@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <climates>
 	<climate n="North">
-		<for_weather n="Extreme" po="-4" f="-8"/>
-		<for_weather n="Bad" po="-3" f="-4"/>
-		<for_weather n="Normal" po="0" f="-2"/>
-		<for_weather n="Good" po="0" f="0"/>
+		<for_weather i="0" po="-4" f="-8"/>
+		<for_weather i="1" po="-3" f="-4"/>
+		<for_weather i="2" po="0" f="-2"/>
+		<for_weather i="3" po="0" f="0"/>
 	</climate>
 	<climate n="Medium">
-		<for_weather n="Extreme" po="-5" f="-3"/>
-		<for_weather n="Bad" po="-5" f="-3"/>
-		<for_weather n="Normal" po="-0" f="-1"/>
-		<for_weather n="Good" po="0" f="0"/>
+		<for_weather i="0" po="-5" f="-3"/>
+		<for_weather i="1" po="-5" f="-3"/>
+		<for_weather i="2" po="-0" f="-1"/>
+		<for_weather i="3" po="0" f="0"/>
 	</climate>
 	<climate n="East">
-		<for_weather n="Extreme" po="-5" f="-3"/>
-		<for_weather n="Bad" po="-5" f="-3"/>
-		<for_weather n="Normal" po="0" f="-1"/>
-		<for_weather n="Good" po="0" f="0"/>
+		<for_weather i="0" po="-5" f="-3"/>
+		<for_weather i="1" po="-5" f="-3"/>
+		<for_weather i="2" po="0" f="-1"/>
+		<for_weather i="3" po="0" f="0"/>
 	</climate>
 	<climate n="South">
-		<for_weather n="Extreme" po="-4" f="-3"/>
-		<for_weather n="Bad" po="-3" f="-3"/>
-		<for_weather n="Normal" po="0" f="-1"/>
-		<for_weather n="Good" po="0" f="0"/>
+		<for_weather i="0" po="-4" f="-3"/>
+		<for_weather i="1" po="-3" f="-3"/>
+		<for_weather i="2" po="0" f="-1"/>
+		<for_weather i="3" po="0" f="0"/>
 	</climate>
 </climates>

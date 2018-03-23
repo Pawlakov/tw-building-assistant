@@ -50,10 +50,15 @@
     <Compile Include="ClimateManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Weather.cs" />
+    <Compile Include="WeatherManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="twa_climates.xml" />
-    <Content Include="twa_weathers.xml" />
+    <Content Include="twa_climates.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="twa_weathers.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

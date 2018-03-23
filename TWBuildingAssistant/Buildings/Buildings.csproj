@@ -58,6 +58,10 @@
     <Content Include="twa_mpack_buildings_wre.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Technology\Technologies.csproj">
+      <Project>{a3e46562-1bbb-43d5-b2bb-75124fa6c84a}</Project>
+      <Name>Technologies</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wealth\WealthBonuses.csproj">
       <Project>{f291aaf0-6660-47ef-b20f-f0c1d7ee40d0}</Project>
       <Name>WealthBonuses</Name>

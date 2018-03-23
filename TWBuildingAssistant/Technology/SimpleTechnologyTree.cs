@@ -2,12 +2,12 @@
 using System.Xml;
 namespace Faction
 {
-	public abstract class TechnologyTree
+	public class SimpleTechnologyTree
 	{
 		protected int _desiredTechnologyLevel;
 		protected const int _technologyLevelsCount = 5;
 		protected readonly TechnologyLevel[] _universalLevels;
-		public TechnologyTree(XmlNodeList nodeList)
+		public SimpleTechnologyTree(XmlNodeList nodeList)
 		{
 			if (nodeList == null)
 				throw new TechnologyException("Próbowano utworzyć drzewo technologii na podstawie pustej wartości.");
@@ -34,12 +34,25 @@ namespace Faction
 			SumLevels();
 			PickDesiredTechnologyLevel();
 		}
+		void SumLevels()
+		{
+			for (int whichLevel = 1; whichLevel < _technologyLevelsCount; ++whichLevel)
+				_universalLevels[whichLevel].Cumulate(_universalLevels[whichLevel - 1]);
+		}
+		void PickDesiredTechnologyLevel()
+		{
+			throw new NotImplementedException();
+		}
 		public virtual TechnologyLevel DesiredTechnologyLevel
 		{
 			get
 			{
 				return _universalLevels[_desiredTechnologyLevel];
 			}
+		}
+		public override string ToString()
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

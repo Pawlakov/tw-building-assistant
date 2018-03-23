@@ -2,7 +2,7 @@
 using System.Xml;
 namespace Faction
 {
-	class LegacyTechnologyTree : TechnologyTree
+	public class LegacyTechnologyTree : TechnologyTree
 	{
 		bool _useLegacy;
 		readonly TechnologyLevel[] _antilegacyLevels;

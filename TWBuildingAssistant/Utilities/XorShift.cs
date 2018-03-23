@@ -4,35 +4,28 @@ namespace Utilities
 	/// <summary>
 	/// Szybki generator liczb losowych.
 	/// </summary>
-	public class XorShift
+	public static class XorShift
 	{
-		const int _startingX = -2024026859;
-		const int _startingY = -1785047579;
-		const int _startingZ = -1626195019;
-		int _x;
-		int _y;
-		int _z;
-		/// <summary>
-		/// Tworzy nową instancję generatora.
-		/// </summary>
-		/// <param name="seed">Inicjująca wartość.</param>
-		public XorShift(int seed)
+		private const int _startingX = -2024026859;
+		private const int _startingY = -1785047579;
+		private const int _startingZ = -1626195019;
+		private static int _x;
+		private static int _y;
+		private static int _z;
+		static XorShift()
 		{
-			_x = seed + _startingX;
+			DateTime currentTime = DateTime.Now;
+			_x = currentTime.Millisecond + _startingX;
 			_y = _startingY;
 			_z = _startingZ;
 		}
-		/// <summary>
-		/// Tworzy nową instancję generatora. Inicjowany unikalną wartością.
-		/// </summary>
-		public XorShift() : this(Guid.NewGuid().GetHashCode()) { }
 		/// <summary>
 		/// Zwraca kolejną losową liczbę całkowitą.
 		/// </summary>
 		/// <param name="lowerLimit">Dolna granica przedziału losowania. Wylosowana liczba nie będzie od niej mniejsza.</param>
 		/// <param name="upperLimit">Górna granica przedziału losowania. Wylosowana liczba będzie od niej mniejsza.</param>
 		/// <returns>Wartość (pseudo)losowa.</returns>
-		public int Next(int lowerLimit, int upperLimit)
+		public static int Next(int lowerLimit, int upperLimit)
 		{
 			int temporary;
 			_x ^= (_x << 16);

@@ -2,12 +2,17 @@
 using System.Xml;
 namespace Faction
 {
-	internal class TechnologyLevel
+	public class TechnologyLevel
 	{
-		public TechnologyLevel(XmlNode node)
+		public TechnologyLevel(TechnologyTree containingTree, XmlNode node)
 		{
 			if (node == null)
-				throw new TechnologyException("Próbowano utworzyć poziom technologii na podstawie pustej wartości.");
+				throw new ArgumentNullException("node");
+			if (containingTree == null)
+				throw new ArgumentNullException("containingTree");
+			if (node.Name != "techlevel")
+				throw new ArgumentException("Given node is not technology level node.", "node");
+			ContainingTree = containingTree;
 			XmlNodeList bonusNodesList = node.ChildNodes;
 			Sanitation = 0;
 			Fertility = 0;
@@ -35,43 +40,46 @@ namespace Faction
 			}
 			catch(Exception exception)
 			{
-				throw new TechnologyException("Nie powiodło się konwertowanie którejś z wartości liczbowych przy tworzeniu obiektu poziomu technologii.", exception);
+				throw new FormatException("Failed to load attributes of this technology level.", exception);
 			}
-			WealthBonuses = new Wealth.WealthBonus[bonusNodesList.Count];
+			Bonuses = new WealthBonuses.WealthBonus[bonusNodesList.Count];
 			try
 			{
-				for (int whichBonus = 0; whichBonus < WealthBonuses.Length; ++whichBonus)
-					WealthBonuses[whichBonus] = Wealth.WealthBonus.MakeBonus(bonusNodesList[whichBonus]);
+				for (int whichBonus = 0; whichBonus < Bonuses.Length; ++whichBonus)
+					Bonuses[whichBonus] = WealthBonuses.WealthBonus.MakeBonus(bonusNodesList[whichBonus]);
 			}
 			catch(Exception exception)
 			{
-				throw new TechnologyException("Nie powiodło się tworzenie bonusów dochodowych wewnątrz poziomu technolgii.", exception);
+				throw new Exception("Failed to create wealth bonus objects for this technology level.", exception);
 			}
 		}
+		private TechnologyTree ContainingTree { get; }
 		public int Sanitation { get; private set; }
 		public int Fertility { get; private set; }
 		public int Growth { get; private set; }
 		public int PublicOrder { get; private set; }
 		public int ReligiousInfluence { get; private set; }
-		public Wealth.WealthBonus[] WealthBonuses { get; private set; }
+		public WealthBonuses.WealthBonus[] Bonuses { get; private set; }
 		public void Cumulate(TechnologyLevel added)
 		{
+			if (added == null)
+				throw new ArgumentNullException("added");
 			Sanitation += added.Sanitation;
 			Fertility += added.Fertility;
 			Growth += added.Growth;
 			PublicOrder += added.PublicOrder;
 			ReligiousInfluence += added.ReligiousInfluence;
-			Wealth.WealthBonus[] newArray = new Wealth.WealthBonus[WealthBonuses.Length + added.WealthBonuses.Length];
+			WealthBonuses.WealthBonus[] newArray = new WealthBonuses.WealthBonus[Bonuses.Length + added.Bonuses.Length];
 			try
 			{
-				WealthBonuses.CopyTo(newArray, 0);
-				added.WealthBonuses.CopyTo(newArray, WealthBonuses.Length);
+				Bonuses.CopyTo(newArray, 0);
+				added.Bonuses.CopyTo(newArray, Bonuses.Length);
 			}
 			catch(Exception exception)
 			{
-				throw new TechnologyException("Nie powiodło się łączenie tablic bonusów poziomu technologii.", exception);
+				throw new Exception("Failed to cumulate wealth bonuses of technology levels..", exception);
 			}
-			WealthBonuses = newArray;
+			Bonuses = newArray;
 		}
 		public override string ToString()
 		{
@@ -86,10 +94,14 @@ namespace Faction
 				result += (" sanitation +" + Sanitation);
 			if (ReligiousInfluence != 0)
 				result += (" religious influence +" + ReligiousInfluence);
-			if (WealthBonuses.Length > 0)
-				foreach (Wealth.WealthBonus bonus in WealthBonuses)
+			if (Bonuses.Length > 0)
+				foreach (WealthBonuses.WealthBonus bonus in Bonuses)
 					result += ("\n  " + bonus.ToString());
 			return result;
+		}
+		public bool IsAvailable()
+		{
+			return ContainingTree(this);
 		}
 	}
 }

@@ -1,24 +1,32 @@
-﻿namespace TWBuildingAssistant
+﻿using System;
+namespace TWBuildingAssistant
 {
 	class Program
 	{
 		public static void Main()
 		{
-			Utilities.XorShift randomEngine = new Utilities.XorShift();
-			int[] table = new int[10];
-			for (int i = 0; i < 10; ++i)
-				table[i] = 0;
-			//
-			int outcome;
-			for (int i = 0; i < 0x00ffffff; ++i)
+			ClimateAndWeather.Climate myClimate;
+			myClimate = ClimateAndWeather.ClimateManager.Singleton.Parse("Medium");
+			try
 			{
-				outcome = randomEngine.Next(0, 10);
-				table[outcome] += 1;
+				Console.WriteLine("Porządek publiczny dla MEDIUM: {0}", myClimate.PublicOrder);
 			}
-			//
-			for (int i = 0; i < 10; ++i)
-				System.Console.WriteLine(table[i]);
-			System.Console.ReadKey();
+			catch(Exception exception)
+			{
+				Console.WriteLine("Nie odczytałem orządku publicznego dla MEDIUM.");
+				Console.WriteLine("Wyjątek: {0}", exception.Message);
+			}
+			ClimateAndWeather.WeatherManager.Singleton.ChangeWorstCaseWeather();
+			try
+			{
+				Console.WriteLine("Porządek publiczny dla MEDIUM: {0}", myClimate.PublicOrder);
+			}
+			catch (Exception exception)
+			{
+				Console.WriteLine("Nie odczytałem orządku publicznego dla MEDIUM.");
+				Console.WriteLine("Wyjątek: {0}", exception.ToString());
+			}
+			Console.ReadKey();
 		}
 	}
 }

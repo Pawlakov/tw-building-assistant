@@ -89,23 +89,21 @@ namespace ClimateAndWeather
 		public void ChangeWorstCaseWeather()
 		{
 			OnWorstCaseWeatherChanging(EventArgs.Empty);
-			Console.WriteLine("Which weather should be assumed as 'worst case'?.");
+			Console.WriteLine("Which weather should be assumed as worst case:");
 			for (int whichWeather = 0; whichWeather < WeatherTypesCount; ++whichWeather)
 				Console.WriteLine("{0}. {1}", whichWeather, _weathers[whichWeather].ToString());
-			int choice;
 			do
 			{
 				Console.Write("From 0 to {0}: ", WeatherTypesCount - 1);
 				try
 				{
-					choice = Convert.ToInt32(Console.ReadLine(), CultureInfo.InvariantCulture);
+					WorstCaseWeatherIndex = Convert.ToInt32(Console.ReadLine(), CultureInfo.InvariantCulture);
 				}
 				catch (Exception)
 				{
-					choice = -1;
+					WorstCaseWeatherIndex = -1;
 				}
-			} while (choice < 0 || choice > (WeatherTypesCount - 1));
-			WorstCaseWeatherIndex = choice;
+			} while (WorstCaseWeatherIndex < 0 || WorstCaseWeatherIndex > (WeatherTypesCount - 1));
 			OnWorstCaseWeatherChanged(EventArgs.Empty);
 		}
 		//

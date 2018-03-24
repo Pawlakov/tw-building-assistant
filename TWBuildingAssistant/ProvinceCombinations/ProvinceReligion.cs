@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Religion
+namespace Religions
 {
 	/// <summary>
 	/// Obiekty tej zawiera informacje o wplywach religijnych wewnątrz jednej prowincji.
@@ -44,14 +44,6 @@ namespace Religion
 			}
 		}
 		/// <summary>
-		/// Ilość wpływów religii państwowej w tej prowincji.
-		/// </summary>
-		public int Influence { get; private set; }
-		/// <summary>
-		/// Ilość wpływów religii niepaństwowych w tej prowincji.
-		/// </summary>
-		public int Counterinfluence { get; private set; }
-		/// <summary>
 		/// Wpływ (w procentach) religii państwowej w prowincji.
 		/// </summary>
 		public double StateReligionPercentage
@@ -61,5 +53,10 @@ namespace Religion
 				return 100.0 * (Influence / (Counterinfluence + (double)Influence));
 			}
 		}
+		//
+		// Stan wewnętrzny:
+		//
+		private readonly int[] _influences;
+		private Religion CurrentStateReligion { get; set; }
 	}
 }

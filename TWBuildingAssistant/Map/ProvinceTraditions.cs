@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Xml;
 using System.Globalization;
-namespace Map
+namespace Religions
 {
 	/// <summary>
 	/// Zbiór tradycji religijnych prowincji.
 	/// </summary>
 	public class ProvinceTraditions
 	{
+		// Stan wewnętrzny:
+		//
 		private readonly int[] _traditions;
+		//
+		// Interfejs zewnętrzny:
+		//
 		/// <summary>
 		/// Tworzy zbiór tradycji religijnych dla prowincji.
 		/// </summary>
@@ -19,21 +24,21 @@ namespace Map
 				throw new ArgumentNullException("node");
 			if (node.Name != "traditions")
 				throw new ArgumentException("Given node is not traditions node.", "node");
-			_traditions = new int[Religions.ReligionsManager.Singleton.ReligionTypesCount];
+			_traditions = new int[ReligionsManager.Singleton.ReligionTypesCount];
 			XmlNodeList nodeList = node.ChildNodes;
 			for (int whichTradition = 0; whichTradition < nodeList.Count; ++whichTradition)
 			{
-				if(nodeList[whichTradition].Name != "tradition")
+				if (nodeList[whichTradition].Name != "tradition")
 					throw new FormatException("Given node is not tradition node.");
 				try
 				{
 					string innerText = nodeList[whichTradition].Attributes.GetNamedItem("r").InnerText;
-					Religions.ReligionData religion = Religions.ReligionsManager.Singleton.Parse(innerText);
+					IReligion religion = ReligionsManager.Singleton.Parse(innerText);
 					if (religion == null)
 						throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Value {0} was not recognized as any religion.", innerText));
-					_traditions[Religions.ReligionsManager.Singleton.GetIndex(religion)] += Convert.ToInt32(nodeList[whichTradition].InnerText);
+					_traditions[ReligionsManager.Singleton.GetIndex(religion)] += Convert.ToInt32(nodeList[whichTradition].InnerText, CultureInfo.InvariantCulture);
 				}
-				catch(Exception exception)
+				catch (Exception exception)
 				{
 					throw new FormatException("Could not read tradition node's religion attribute.", exception);
 				}
@@ -44,20 +49,24 @@ namespace Map
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla podanej religii.</returns>
-		public int GetTraditionExactly(Religions.ReligionData religion)
+		public int GetTraditionExactly(IReligion religion)
 		{
-			return _traditions[Religions.ReligionsManager.Singleton.GetIndex(religion)];
+			if (religion == null)
+				throw new ArgumentNullException("religion");
+			return _traditions[ReligionsManager.Singleton.GetIndex(religion)];
 		}
 		/// <summary>
 		/// Zwraca wpływ wszystkich religii poza daną w tej prowincji.
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla wszystkich religii poza podaną.</returns>
-		public int GetTraditionExcept(Religions.ReligionData religion)
+		public int GetTraditionExcept(IReligion religion)
 		{
+			if (religion == null)
+				throw new ArgumentNullException("religion");
 			int result = 0;
-			for (int whichReligion = 0; whichReligion < Religions.ReligionsManager.Singleton.ReligionTypesCount; ++whichReligion)
-				if (whichReligion != Religions.ReligionsManager.Singleton.GetIndex(religion))
+			for (int whichReligion = 0; whichReligion < ReligionsManager.Singleton.ReligionTypesCount; ++whichReligion)
+				if (whichReligion != ReligionsManager.Singleton.GetIndex(religion))
 					result += _traditions[whichReligion];
 			return result;
 		}

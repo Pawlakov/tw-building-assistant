@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Xml;
+using System.Linq;
+using System.Xml.Linq;
 using System.Globalization;
 namespace WealthBonuses
 {
@@ -11,23 +12,18 @@ namespace WealthBonuses
 		// Fabryka obiektów:
 		//
 		/// <summary>
-		/// Metoda tworząca obiekty SimpleBonus lub MultiplierBonus na podstawie węzła XML.
+		/// Metoda tworząca obiekty SimpleBonus lub MultiplierBonus na podstawie elementu XML.
 		/// </summary>
-		/// <param name="node">Węzeł XML zawierający niezbędne dane.</param>
-		public static WealthBonus MakeBonus(XmlNode node)
+		/// <param name="element">Element XML zawierający niezbędne dane.</param>
+		public static WealthBonus MakeBonus(XElement element)
 		{
-			if (node == null)
+			if (element == null)
 				throw new ArgumentNullException("node");
-			XmlAttributeCollection attributes = node.Attributes;
-			if (node.Name == "multiplier")
-				return new MultiplierBonus(node.InnerText, attributes.GetNamedItem("c").InnerText);
-			if (node.Name == "bonus")
-			{
-				if (attributes.GetNamedItem("m") != null)
-					throw new FormatException("Given node uses obsolete format.");
-				return new SimpleBonus(node.InnerText, attributes.GetNamedItem("c").InnerText);
-			}
-			throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, "Given node is neither multiplier, nor bonus but {0} which is unacceptable.", node.Name), "node");
+			if (element.Name == "multiplier")
+				return new MultiplierBonus((string)element, (string)element.Attribute("c"));
+			if (element.Name == "bonus")
+				return new SimpleBonus((string)element, (string)element.Attribute("c"));
+			throw new ArgumentException(String.Format(CultureInfo.CurrentCulture, "Given XML element is neither multiplier, nor bonus but {0}.", element.Name), "element");
 		}
 	}
 }

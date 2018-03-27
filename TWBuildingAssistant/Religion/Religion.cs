@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Xml;
-using System.Globalization;
+using System.Linq;
+using System.Xml.Linq;
 namespace Religions
 {
 	/// <summary>
@@ -10,46 +10,30 @@ namespace Religions
 	{
 		// Interfejs wewnętrzny:
 		//
-		internal Religion(XmlNode node)
+		internal Religion(XElement element)
 		{
-			if (node.Name != "religion")
-				throw new ArgumentException("Given node is not religion node.", "node");
-			XmlAttributeCollection attributes = node.Attributes;
-			XmlNodeList children = node.ChildNodes;
-			if (children.Count > 1)
-				throw new ArgumentException("XML node has too many child elements.", "node");
-			XmlNode temporary = attributes.GetNamedItem("n");
-			if (temporary == null)
-				throw new FormatException("Could not read the 'n' attribute of XML node.");
-			Name = temporary.InnerText;
+			Name = (string)element.Attribute("n");
+			int? temporary = (int?)element.Attribute("po");
+			if (temporary.HasValue)
+				PublicOrder = temporary.Value;
+			temporary = (int?)element.Attribute("g");
+			if (temporary.HasValue)
+				Growth = temporary.Value;
+			temporary = (int?)element.Attribute("rr");
+			if (temporary.HasValue)
+				ResearchRate = temporary.Value;
+			temporary = (int?)element.Attribute("s");
+			if (temporary.HasValue)
+				Sanitation = temporary.Value;
+			temporary = (int?)element.Attribute("ri");
+			if (temporary.HasValue)
+				ReligiousInfluence = temporary.Value;
+			temporary = (int?)element.Attribute("ro");
+			if (temporary.HasValue)
+				ReligiousOsmosis = temporary.Value;
 			try
 			{
-				temporary = attributes.GetNamedItem("po");
-				if (temporary != null)
-					PublicOrder = Convert.ToInt32(temporary.InnerText, CultureInfo.InvariantCulture);
-				temporary = attributes.GetNamedItem("g");
-				if (temporary != null)
-					Growth = Convert.ToInt32(temporary.InnerText, CultureInfo.InvariantCulture);
-				temporary = attributes.GetNamedItem("rr");
-				if (temporary != null)
-					ResearchRate = Convert.ToInt32(temporary.InnerText, CultureInfo.InvariantCulture);
-				temporary = attributes.GetNamedItem("s");
-				if (temporary != null)
-					Sanitation = Convert.ToInt32(temporary.InnerText, CultureInfo.InvariantCulture);
-				temporary = attributes.GetNamedItem("ri");
-				if (temporary != null)
-					ReligiousInfluence = Convert.ToInt32(temporary.InnerText, CultureInfo.InvariantCulture);
-				temporary = attributes.GetNamedItem("ro");
-				if (temporary != null)
-					ReligiousOsmosis = Convert.ToInt32(temporary.InnerText, CultureInfo.InvariantCulture);
-			}
-			catch (Exception exception)
-			{
-				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Failed to read attributes of religion {0}.", Name), exception);
-			}
-			try
-			{
-				WealthBonus = WealthBonuses.BonusFactory.MakeBonus(children[0]);
+				WealthBonus = WealthBonuses.BonusFactory.MakeBonus(element.Elements().ToArray()[0]);
 			}
 			catch (Exception exception)
 			{

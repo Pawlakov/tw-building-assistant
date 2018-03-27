@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
-using System.Xml;
+using System.Xml.Linq;
+using System.Linq;
 namespace Religions
 {
 	/// <summary>
@@ -25,28 +26,14 @@ namespace Religions
 		private static ReligionsManager HiddenSingleton { get; set; } = null;
 		private ReligionsManager()
 		{
-			XmlDocument sourceFile = new XmlDocument();
+			XDocument sourceFile = XDocument.Load(_sourceFilename);
 			try
 			{
-				sourceFile.Load(_fileName);
+				_religions = (from XElement element in sourceFile.Root.Elements() select new Religion(element)).ToArray();
 			}
 			catch (Exception exception)
 			{
-				throw new Exception(String.Format(CultureInfo.CurrentCulture, "Failed to open file {0}", _fileName), exception);
-			}
-			XmlNode root = sourceFile.LastChild;
-			XmlNodeList nodeList = root.ChildNodes;
-			_religions = new Religion[nodeList.Count];
-			for (int whichReligion = 0; whichReligion < _religions.Length; ++whichReligion)
-			{
-				try
-				{
-					_religions[whichReligion] = new Religion(nodeList[whichReligion]);
-				}
-				catch (Exception exception)
-				{
-					throw new Exception(String.Format(CultureInfo.CurrentCulture, "Failed to create religion object number {0}.", whichReligion), exception);
-				}
+				throw new Exception("Failed to create religion objects.", exception);
 			}
 			StateReligionRelay = new StateReligion();
 		}
@@ -124,7 +111,7 @@ namespace Religions
 		//
 		// Stałe:
 		//
-		private const string _fileName = "twa_religions.xml";
+		private const string _sourceFilename = "twa_religions.xml";
 		//
 		// Stan wewnętrzny:
 		//

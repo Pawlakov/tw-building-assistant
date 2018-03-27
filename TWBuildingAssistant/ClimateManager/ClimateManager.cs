@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Xml;
-using System.Globalization;
+using System.Linq;
+using System.Xml.Linq;
 namespace ClimateAndWeather
 {
 	/// <summary>
@@ -19,16 +19,7 @@ namespace ClimateAndWeather
 			get
 			{
 				if (HiddenSingleton == null)
-				{
-					try
-					{
 						HiddenSingleton = new ClimateManager();
-					}
-					catch(Exception exception)
-					{
-						throw new Exception("Failed to create instance of climate manager.", exception);
-					}
-				}
 				return HiddenSingleton;
 			}
 		}
@@ -37,29 +28,9 @@ namespace ClimateAndWeather
 		/// </summary>
 		private ClimateManager()
 		{
-			XmlDocument sourceFile = new XmlDocument();
-			try
-			{
-				sourceFile.Load(_fileName);
-			}
-			catch (Exception exception)
-			{
-				throw new Exception(String.Format(CultureInfo.CurrentCulture, "Failed to open file {0}", _fileName), exception);
-			}
-			XmlNode rootNode = sourceFile.LastChild;
-			XmlNodeList nodeList = rootNode.ChildNodes;
-			_climates = new Climate[nodeList.Count];
-			for (int whichClimate = 0; whichClimate < _climates.Length; ++whichClimate)
-			{
-				try
-				{
-					_climates[whichClimate] = new Climate(nodeList[whichClimate]);
-				}
-				catch (Exception exception)
-				{
-					throw new Exception(String.Format(CultureInfo.CurrentCulture, "Failed to create climate object number {0}.", whichClimate), exception);
-				}
-			}
+			XDocument sourceFile;
+			sourceFile = XDocument.Load(_sourceFilename);
+			_climates = (from XElement element in sourceFile.Root.Elements() select new Climate(element)).ToArray();
 		}
 		//
 		// Interfejs publiczny:
@@ -82,7 +53,7 @@ namespace ClimateAndWeather
 		//
 		// Stałe:
 		//
-		private const string _fileName = "twa_climates.xml";
+		private const string _sourceFilename = "twa_climates.xml";
 		//
 		// Stan wewnętrzny:
 		//

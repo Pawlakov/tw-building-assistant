@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Xml;
+using System.Xml.Linq;
 namespace ClimateAndWeather
 {
 	internal class Weather
 	{
 		// Interfejs wewnętrzny:
 		//
-		internal Weather(XmlNode node)
+		internal Weather(XElement element)
 		{
-			if (node.Name != "weather")
-				throw new ArgumentException("Given XML node is not weather node.");
-			XmlNode temporary = node.Attributes.GetNamedItem("n");
-			if(temporary == null)
-				throw new FormatException("Weather XML node does not contain name attribute.");
-			Name = temporary.InnerText;
+			Name = (string)element.Attribute("n");
 		}
 		public override string ToString()
 		{

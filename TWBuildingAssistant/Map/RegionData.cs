@@ -7,15 +7,14 @@ namespace Map
 	/// </summary>
 	public class RegionData
 	{
+		// Stałe:
+		//
 		private const int _cityDefaultSlotsCount = 6;
 		private const int _townDefaultSlotsCount = 4;
-		private int SlotsCountOffset { get; }
-		/// <summary>
-		/// Tworzy nowy zestaw informacji o regionie.
-		/// </summary>
-		/// <param name="node">Węzeł XML zawierający konieczne informacje.</param>
-		/// <param name="isCity">Jeżeli prawdziwe, to region posiada duże miasto (w przeciwnym przypadku małe).</param>
-		public RegionData(XmlNode node, bool isCity)
+		//
+		// Interfejs wewnętrzny:
+		//
+		internal RegionData(XmlNode node, bool isCity)
 		{
 			if (node == null)
 				throw new ArgumentNullException("node");
@@ -37,7 +36,7 @@ namespace Map
 			if (temporary != null)
 			{
 				Resource = Resources.ResourcesManager.Singleton.Parse(temporary.InnerText);
-				if(Resource == null)
+				if (Resource == null)
 					throw new FormatException(String.Format("Could not recognize resource type of region {0}.", Name));
 			}
 			try
@@ -61,6 +60,13 @@ namespace Map
 				}
 			}
 		}
+		//
+		// Stan wewnętrzny:
+		//
+		private int SlotsCountOffset { get; }
+		//
+		// Stan wewnętrzny / Interfejs publiczny:
+		//
 		/// <summary>
 		/// Nazwa stolicy regionu.
 		/// </summary>
@@ -77,6 +83,9 @@ namespace Map
 		/// Jeśli prawdziwe to region zawiera duże miasto (małe w przeciwnym wypadku).
 		/// </summary>
 		public bool IsCity { get; }
+		//
+		// Interfejs publiczny:
+		//
 		/// <summary>
 		/// Liczba slotów budowlanych w stolicy regionu.
 		/// </summary>

@@ -53,7 +53,9 @@
     <Compile Include="RegionData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="twa_map.xml" />
+    <Content Include="twa_map.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClimateManager\ClimateAndWeather.csproj">
@@ -68,6 +70,11 @@
       <Project>{0d4ed3cb-5fb8-43fc-a440-8eab4ab2e8bf}</Project>
       <Name>Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="twa_map.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

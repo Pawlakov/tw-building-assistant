@@ -53,13 +53,8 @@
   <ItemGroup>
     <Content Include="twa_resources.xml">
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Buildings\Buildings.csproj">
-      <Project>{81b13254-68ff-4f4c-b8aa-fd1e34037088}</Project>
-      <Name>Buildings</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Xml;
-using System.Globalization;
+﻿using System.Linq;
+using System.Xml.Linq;
 namespace Resources
 {
 	/// <summary>
@@ -8,52 +7,37 @@ namespace Resources
 	/// </summary>
 	public class ResourcesManager
 	{
+		// Singleton:
+		//
+		private static ResourcesManager HiddenSingleton { get; set; }
 		/// <summary>
 		/// Odwołanie do jedynego obiektu.
 		/// </summary>
-		public static ResourcesManager Singleton { get; private set; } = null;
-		/// <summary>
-		/// Tworzy jedyny obiekt a następnie go zwraca. Nie wywoływać więcej niż raz.
-		/// </summary>
-		public static ResourcesManager CreateSingleton()
+		public static ResourcesManager Singleton
 		{
-			if (Singleton == null)
+			get
 			{
-				Singleton = new ResourcesManager();
-				return Singleton;
+				if (HiddenSingleton == null)
+					HiddenSingleton = new ResourcesManager();
+				return HiddenSingleton;
 			}
-			throw new InvalidOperationException("You cannot create another singleton when one already exists.");
 		}
-		//
-		//
-		//
-		private const string _fileName = "twa_resources.xml";
-		private readonly Resource[] _resources;
 		private ResourcesManager()
 		{
-			XmlDocument sourceFile = new XmlDocument();
-			try
-			{
-				sourceFile.Load(_fileName);
-			}
-			catch (Exception exception)
-			{
-				throw new Exception(String.Format(CultureInfo.CurrentCulture, "Failed to open file {0}", _fileName), exception);
-			}
-			XmlNodeList nodeList = sourceFile.GetElementsByTagName("resource");
-			_resources = new Resource[nodeList.Count];
-			for (int whichResource = 0; whichResource < _resources.Length; ++whichResource)
-			{
-				try
-				{
-					_resources[whichResource] = new Resource(nodeList[whichResource]);
-				}
-				catch (Exception exception)
-				{
-					throw new Exception(String.Format(CultureInfo.CurrentCulture, "Failed to create resource object number {0}.", whichResource), exception);
-				}
-			}
+			XDocument sourceFile = XDocument.Load(_sourceFilename);
+			_resources = (from XElement element in sourceFile.Root.Elements() select new Resource(element)).ToArray();
 		}
+		//
+		// Stałe:
+		//
+		private const string _sourceFilename = "twa_resources.xml";
+		//
+		// Stan wewnętrzny:
+		//
+		private readonly Resource[] _resources;
+		//
+		// Interfejs publiczny:
+		//
 		/// <summary>
 		/// Liczba dostępnych rodzajów zasobów.
 		/// </summary>

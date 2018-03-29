@@ -40,8 +40,8 @@ namespace Religions
 		//
 		// Interfejs publiczny:
 		//
-		internal event StateReligionChangingHandler StateReligionChanging;
-		internal event StateReligionChangedHandler StateReligionChanged;
+		public event StateReligionChangingHandler StateReligionChanging;
+		public event StateReligionChangedHandler StateReligionChanged;
 		/// <summary>
 		/// Liczba wszystkich dostępnych religii.
 		/// </summary>
@@ -130,6 +130,6 @@ namespace Religions
 			StateReligionChanged?.Invoke(this, EventArgs.Empty);
 		}
 	}
-	internal delegate void StateReligionChangingHandler(ReligionsManager sender, EventArgs e);
-	internal delegate void StateReligionChangedHandler(ReligionsManager sender, EventArgs e);
+	public delegate void StateReligionChangingHandler(ReligionsManager sender, EventArgs e);
+	public delegate void StateReligionChangedHandler(ReligionsManager sender, EventArgs e);
 }

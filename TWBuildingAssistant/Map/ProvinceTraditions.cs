@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Xml;
+using System.Xml.Linq;
 using System.Globalization;
-namespace Religions
+namespace Map
 {
 	/// <summary>
 	/// Zbiór tradycji religijnych prowincji.
@@ -17,58 +17,56 @@ namespace Religions
 		/// <summary>
 		/// Tworzy zbiór tradycji religijnych dla prowincji.
 		/// </summary>
-		/// <param name="node">Węzeł XML zawierający niezbędne informacje.</param>
-		public ProvinceTraditions(XmlNode node)
+		/// <param name="element">Element XML zawierający niezbędne informacje.</param>
+		internal ProvinceTraditions(XElement element)
 		{
-			if (node == null)
-				throw new ArgumentNullException("node");
-			if (node.Name != "traditions")
-				throw new ArgumentException("Given node is not traditions node.", "node");
-			_traditions = new int[ReligionsManager.Singleton.ReligionTypesCount];
-			XmlNodeList nodeList = node.ChildNodes;
-			for (int whichTradition = 0; whichTradition < nodeList.Count; ++whichTradition)
+			_traditions = new int[Religions.ReligionsManager.Singleton.ReligionTypesCount];
+			foreach (XElement traditionElement in element.Elements())
 			{
-				if (nodeList[whichTradition].Name != "tradition")
-					throw new FormatException("Given node is not tradition node.");
-				try
-				{
-					string innerText = nodeList[whichTradition].Attributes.GetNamedItem("r").InnerText;
-					IReligion religion = ReligionsManager.Singleton.Parse(innerText);
-					if (religion == null)
-						throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Value {0} was not recognized as any religion.", innerText));
-					_traditions[ReligionsManager.Singleton.GetIndex(religion)] += Convert.ToInt32(nodeList[whichTradition].InnerText, CultureInfo.InvariantCulture);
-				}
-				catch (Exception exception)
-				{
-					throw new FormatException("Could not read tradition node's religion attribute.", exception);
-				}
+				string innerText = (string)traditionElement.Attribute("r");
+				Religions.IReligion religion = Religions.ReligionsManager.Singleton.Parse(innerText);
+				if (religion == null)
+					throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Value {0} was not recognized as any religion.", innerText));
+				_traditions[Religions.ReligionsManager.Singleton.GetIndex(religion)] += (int)traditionElement;
 			}
+			CurrentStateReligion = Religions.ReligionsManager.Singleton.StateReligion;
+			Religions.ReligionsManager.Singleton.StateReligionChanged += (Religions.ReligionsManager sender, EventArgs e) => { CurrentStateReligion = sender.StateReligion; };
 		}
 		/// <summary>
 		/// Zwraca wpływ danej religii w tej prowincji.
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla podanej religii.</returns>
-		public int GetTraditionExactly(IReligion religion)
+		public int StateReligionTradition
 		{
-			if (religion == null)
-				throw new ArgumentNullException("religion");
-			return _traditions[ReligionsManager.Singleton.GetIndex(religion)];
+			get
+			{
+				if (CurrentStateReligion == null)
+					throw new InvalidOperationException("State religion is unknown.");
+				return _traditions[Religions.ReligionsManager.Singleton.GetIndex(CurrentStateReligion)];
+			}
 		}
 		/// <summary>
 		/// Zwraca wpływ wszystkich religii poza daną w tej prowincji.
 		/// </summary>
 		/// <param name="religion">Dana religia.</param>
 		/// <returns>Wpływ dla wszystkich religii poza podaną.</returns>
-		public int GetTraditionExcept(IReligion religion)
+		public int OtherReligionsTradition
 		{
-			if (religion == null)
-				throw new ArgumentNullException("religion");
-			int result = 0;
-			for (int whichReligion = 0; whichReligion < ReligionsManager.Singleton.ReligionTypesCount; ++whichReligion)
-				if (whichReligion != ReligionsManager.Singleton.GetIndex(religion))
-					result += _traditions[whichReligion];
-			return result;
+			get
+			{
+				if (CurrentStateReligion == null)
+					throw new InvalidOperationException("State religion is unknown.");
+				int result = 0;
+				for (int whichReligion = 0; whichReligion < Religions.ReligionsManager.Singleton.ReligionTypesCount; ++whichReligion)
+					if (whichReligion != Religions.ReligionsManager.Singleton.GetIndex(CurrentStateReligion))
+						result += _traditions[whichReligion];
+				return result;
+			}
 		}
+		//
+		// Stan wewnętrzny:
+		//
+		private Religions.Religion CurrentStateReligion { get; set; }
 	}
 }

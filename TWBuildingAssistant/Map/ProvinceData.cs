@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Xml;
+using System.Linq;
+using System.Xml.Linq;
 using System.Globalization;
+using System.Collections.Generic;
 namespace Map
 {
 	/// <summary>
@@ -8,81 +10,40 @@ namespace Map
 	/// </summary>
 	public class ProvinceData
 	{
+		// Stałe:
+		//
 		private const int _regionsInProvinceCount = 3;
-		private readonly RegionData[] _regions;
-		/// <summary>
-		/// Tworzy nowy zestaw informacji o prowincji.
-		/// </summary>
-		/// <param name="node">Węzeł XML zawierający potrzebne informacje.</param>
-		public ProvinceData(XmlNode node)
+		private const int _minimalDefaultFretility = 1;
+		private const int _maximalDefaultFertility = 6;
+		//
+		// Interfejs wewnętrzny:
+		//
+		internal ProvinceData(XElement element)
 		{
-			if (node == null)
-				throw new ArgumentNullException("node");
-			if (node.Name != "province")
-				throw new ArgumentException("Given node is not province node.", "node");
-			try
-			{
-				Name = node.Attributes.GetNamedItem("n").InnerText;
-			}
-			catch (Exception exception)
-			{
-				throw new FormatException("Could not read province's name.", exception);
-			}
-			try
-			{
-				Fertility = Convert.ToInt32(node.Attributes.GetNamedItem("f").InnerText);
-			}
-			catch (Exception exception)
-			{
-				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Could not read fertility level of province {0}.", Name), exception);
-			}
-			if (Fertility > 6 || Fertility < 1)
+			Name = (string)element.Attribute("n");
+			DefaultFertility = (int)element.Attribute("f");
+			if (Fertility > _maximalDefaultFertility || Fertility < _minimalDefaultFretility)
 				throw (new FormatException(String.Format(CultureInfo.CurrentCulture, "Invalid fertility level in province {0} (is {1}).", Name, Fertility)));
-			Climate = ClimateAndWeather.ClimateManager.Singleton.Parse(node.Attributes.GetNamedItem("c").InnerText);
+			Climate = ClimateAndWeather.ClimateManager.Singleton.Parse((string)element.Attribute("c"));
 			if (Climate == null)
 				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Could not read climate type of province {0}.", Name));
-			//
-			XmlNodeList childNodeList = node.ChildNodes;
-			if (childNodeList.Count != (_regionsInProvinceCount + 1))
+			Traditions = new ProvinceTraditions(element.Element("traditions"));
+			IEnumerable<XElement> regionElements = from XElement regionElement in element.Elements() where regionElement.Name == "region" select regionElement;
+			if (regionElements.Count() != _regionsInProvinceCount)
 				throw (new FormatException(String.Format(CultureInfo.CurrentCulture, "Incorrect child nodes count in province {0}.", Name)));
-			try
-			{
-				Traditions = new ProvinceTraditions(childNodeList[0]);
-			}
-			catch (Exception exception)
-			{
-				throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Failed to create religious traditions set for province {0}.", Name), exception);
-			}
-			//
 			_regions = new RegionData[_regionsInProvinceCount];
-			for (int whichRegion = 0; whichRegion < _regionsInProvinceCount; ++whichRegion)
+			int whichRegion = 0;
+			foreach(XElement regionElement in regionElements)
 			{
-				try
-				{
-					_regions[whichRegion] = new RegionData(childNodeList.Item(whichRegion + 1), !Convert.ToBoolean(whichRegion));
-				}
-				catch(Exception excepion)
-				{
-					throw new FormatException(String.Format(CultureInfo.CurrentCulture, "Failed to create region {0} of province {1}.", whichRegion, Name), excepion);
-				}
+				_regions[whichRegion] = new RegionData(regionElement, !Convert.ToBoolean(whichRegion));
+				++whichRegion;
 			}
+			CurrentFertilityDrop = 0;
+			Map.Singleton.FertilityDropChanged += (Map sender, EventArgs e) => { CurrentFertilityDrop = sender.FertilityDrop; };
 		}
-		/// <summary>
-		/// Nazwa prowincji.
-		/// </summary>
-		public string Name { get; }
-		/// <summary>
-		/// Poziom żyzności prowincji (z zakresu od 1 do 6).
-		/// </summary>
-		public int Fertility { get; }
-		/// <summary>
-		/// Typ klimatu panującego w prowincji.
-		/// </summary>
-		public ClimateAndWeather.Climate Climate { get; }
-		/// <summary>
-		/// Zbiór informacji o tradycjach religijnych w tej prowincji.
-		/// </summary>
-		public ProvinceTraditions Traditions { get; }
+		//
+		// Interfejs publiczny:
+		//
 		/// <summary>
 		/// Indekser pozwalający na dostęp do informacji o regionach tej prowincji.
 		/// </summary>
@@ -99,5 +60,41 @@ namespace Map
 		{
 			get { return _regionsInProvinceCount; }
 		}
+		/// <summary>
+		/// Obecny poziom żyzności prowincji (z zakresu od 0 do 6).
+		/// </summary>
+		public int Fertility
+		{
+			get
+			{
+				if (DefaultFertility - CurrentFertilityDrop < 0)
+					return 0;
+				return DefaultFertility - CurrentFertilityDrop;
+			}
+		}
+		//
+		// Interfejs publiczny / Stan wewnętrzny:
+		//
+		/// <summary>
+		/// Nazwa prowincji.
+		/// </summary>
+		public string Name { get; }
+		/// <summary>
+		/// Domyślny poziom żyzności prowincji (z zakresu od 1 do 6).
+		/// </summary>
+		public int DefaultFertility { get; }
+		/// <summary>
+		/// Typ klimatu panującego w prowincji.
+		/// </summary>
+		public ClimateAndWeather.Climate Climate { get; }
+		/// <summary>
+		/// Zbiór informacji o tradycjach religijnych w tej prowincji.
+		/// </summary>
+		public ProvinceTraditions Traditions { get; }
+		//
+		// Stan wewnętrzny:
+		//
+		private readonly RegionData[] _regions;
+		private int CurrentFertilityDrop { get; set; }
 	}
 }

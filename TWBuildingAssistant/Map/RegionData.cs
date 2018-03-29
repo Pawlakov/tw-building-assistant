@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Xml;
+using System.Xml.Linq;
 namespace Map
 {
 	/// <summary>
@@ -14,51 +14,21 @@ namespace Map
 		//
 		// Interfejs wewnętrzny:
 		//
-		internal RegionData(XmlNode node, bool isCity)
+		internal RegionData(XElement element, bool isCity)
 		{
-			if (node == null)
-				throw new ArgumentNullException("node");
-			if (node.Name != "region")
-				throw new ArgumentException("Given node is not region node.", "node");
 			IsCity = isCity;
 			Resource = null;
 			SlotsCountOffset = 0;
-			try
+			Name = (string)element.Attribute("n");
+			if (element.Attribute("r") != null)
 			{
-				Name = node.Attributes.GetNamedItem("n").InnerText;
-			}
-			catch (Exception exception)
-			{
-				throw new FormatException("Could not read name attribute for this region.", exception);
-			}
-			XmlNode temporary;
-			temporary = node.Attributes.GetNamedItem("r");
-			if (temporary != null)
-			{
-				Resource = Resources.ResourcesManager.Singleton.Parse(temporary.InnerText);
+				Resource = Resources.ResourcesManager.Singleton.Parse((string)element.Attribute("r"));
 				if (Resource == null)
 					throw new FormatException(String.Format("Could not recognize resource type of region {0}.", Name));
 			}
-			try
-			{
-				IsCoastal = Convert.ToBoolean(node.Attributes.GetNamedItem("c").InnerText);
-			}
-			catch (Exception exception)
-			{
-				throw new FormatException(String.Format("Could not read 'is coastal' attribute of region {0}.", Name), exception);
-			}
-			temporary = node.Attributes.GetNamedItem("o");
-			if (temporary != null)
-			{
-				try
-				{
-					SlotsCountOffset = Convert.ToInt32(temporary.InnerText);
-				}
-				catch (Exception exception)
-				{
-					throw new FormatException(String.Format("Could not read slots count offset of region {0}.", Name), exception);
-				}
-			}
+			IsCoastal = (bool)element.Attribute("c");
+			if (element.Attribute("o") != null)
+				SlotsCountOffset = (int)element.Attribute("o");
 		}
 		//
 		// Stan wewnętrzny:

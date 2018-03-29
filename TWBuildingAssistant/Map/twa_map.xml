@@ -7,9 +7,9 @@
 			<tradition r="ArianChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Corduba" c="false" />
-		<region n="Hispalis" c="false" />
-		<region n="Malaca" c="true" r="Wine" />
+		<region n="Corduba" ic="false" />
+		<region n="Hispalis" ic="false" />
+		<region n="Malaca" ic="true" r="Wine" />
 	</province>
 	<province n="Carthaginensis" f="4" c="Medium">
 		<traditions>
@@ -18,9 +18,9 @@
 			<tradition r="GraecoromanPagan">3</tradition>
 			<tradition r="CelticPagan">1</tradition>
 		</traditions>
-		<region n="CarthagoNova" c="true" />
-		<region n="Segobriga" c="false" r="Olive" />
-		<region n="Toletum" c="false" />
+		<region n="CarthagoNova" ic="true" />
+		<region n="Segobriga" ic="false" r="Olive" />
+		<region n="Toletum" ic="false" />
 	</province>
 	<province n="Gallaecia" f="6" c="North">
 		<traditions>
@@ -28,9 +28,9 @@
 			<tradition r="GraecoromanPagan">3</tradition>
 			<tradition r="CelticPagan">3</tradition>
 		</traditions>
-		<region n="Bracara" c="false" r="Gold" />
-		<region n="Brigantium" c="true" />
-		<region n="Asturica" c="false" />
+		<region n="Bracara" ic="false" r="Gold" />
+		<region n="Brigantium" ic="true" />
+		<region n="Asturica" ic="false" />
 	</province>
 	<province n="Lusitania" f="6" c="Medium">
 		<traditions>
@@ -39,9 +39,9 @@
 			<tradition r="GraecoromanPagan">3</tradition>
 			<tradition r="CelticPagan">2</tradition>
 		</traditions>
-		<region n="EmeritaAugusta" c="false" />
-		<region n="Olispo" c="true" />
-		<region n="PaxAugusta" c="false" r="Iron" />
+		<region n="EmeritaAugusta" ic="false" />
+		<region n="Olispo" ic="true" />
+		<region n="PaxAugusta" ic="false" r="Iron" />
 	</province>
 	<province n="Tarraconensis" f="4" c="Medium">
 		<traditions>
@@ -50,9 +50,9 @@
 			<tradition r="GraecoromanPagan">3</tradition>
 			<tradition r="CelticPagan">3</tradition>
 		</traditions>
-		<region n="Tarraco" c="true" />
-		<region n="Pompaelo" c="false" r="Marble" />
-		<region n="Caesaraugsta" c="false" />
+		<region n="Tarraco" ic="true" />
+		<region n="Pompaelo" ic="false" r="Marble" />
+		<region n="Caesaraugsta" ic="false" />
 	</province>
 	<!--Africa-->
 	<province n="Africa" f="6" c="South">
@@ -61,18 +61,18 @@
 			<tradition r="ArianChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Carthago" c="true" />
-		<region n="Hadrumentum" c="true" />
-		<region n="Constantina" c="false" r="Marble" />
+		<region n="Carthago" ic="true" />
+		<region n="Hadrumentum" ic="true" />
+		<region n="Constantina" ic="false" r="Marble" />
 	</province>
 	<province n="InsulaeOccidentalis" f="6" c="Medium">
 		<traditions>
 			<tradition r="LatinChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Caralis" c="true" />
-		<region n="Palma" c="true" />
-		<region n="Ajax" c="true" />
+		<region n="Caralis" ic="true" />
+		<region n="Palma" ic="true" />
+		<region n="Ajax" ic="true" />
 	</province>
 	<province n="Mauretania" f="6" c="South">
 		<traditions>
@@ -80,9 +80,9 @@
 			<tradition r="ArianChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Caesarea" c="true" />
-		<region n="Tingis" c="true" r="Lumber" />
-		<region n="Tamousiga" c="true" />
+		<region n="Caesarea" ic="true" />
+		<region n="Tingis" ic="true" r="Lumber" />
+		<region n="Tamousiga" ic="true" />
 	</province>
 	<province n="Sahara" f="1" c="South">
 		<traditions>
@@ -92,9 +92,9 @@
 			<tradition r="GraecoromanPagan">1</tradition>
 			<tradition r="Minor">1</tradition>
 		</traditions>
-		<region n="Garama" c="false" />
-		<region n="Cydamus" c="false" />
-		<region n="Dimmidi" c="false" r="Gemstones" />
+		<region n="Garama" ic="false" />
+		<region n="Cydamus" ic="false" />
+		<region n="Dimmidi" ic="false" r="Gemstones" />
 	</province>
 	<province n="Tripolitana" f="4" c="South">
 		<traditions>
@@ -102,9 +102,9 @@
 			<tradition r="ArianChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="LeptisMagna" c="true" />
-		<region n="Sabrata" c="true" r="Dye" />
-		<region n="Macomades" c="true" />
+		<region n="LeptisMagna" ic="true" />
+		<region n="Sabrata" ic="true" r="Dye" />
+		<region n="Macomades" ic="true" />
 	</province>
 	<!--Gallia-->
 	<province n="Aquitania" f="6" c="North">
@@ -113,9 +113,9 @@
 			<tradition r="ArianChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Burdigala" c="true" />
-		<region n="Avaricum" c="false" r="Gold" />
-		<region n="Elusa" c="false" />
+		<region n="Burdigala" ic="true" />
+		<region n="Avaricum" ic="false" r="Gold" />
+		<region n="Elusa" ic="false" />
 	</province>
 	<province n="Belgica" f="5" c="North">
 		<traditions>
@@ -124,9 +124,9 @@
 			<tradition r="Manicheic">2</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="AugustaTreverorum" c="false" r="Lumber" />
-		<region n="ColoniaAgrippina" c="false" />
-		<region n="Durocortorum" c="false" />
+		<region n="AugustaTreverorum" ic="false" r="Lumber" />
+		<region n="ColoniaAgrippina" ic="false" />
+		<region n="Durocortorum" ic="false" />
 	</province>
 	<province n="Lugdunensis" f="5" c="North">
 		<traditions>
@@ -135,9 +135,9 @@
 			<tradition r="GraecoromanPagan">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Lugdunum" c="false" />
-		<region n="Turonum" c="false" />
-		<region n="Rotomagus" c="true" r="Salt" />
+		<region n="Lugdunum" ic="false" />
+		<region n="Turonum" ic="false" />
+		<region n="Rotomagus" ic="true" r="Salt" />
 	</province>
 	<province n="MaximaSequanorum" f="5" c="North">
 		<traditions>
@@ -145,9 +145,9 @@
 			<tradition r="ArianChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Vesontio" c="false" />
-		<region n="Argentoratum" c="false" o="-1"/>
-		<region n="Octodurum" c="false" r="Iron" />
+		<region n="Vesontio" ic="false" />
+		<region n="Argentoratum" ic="false" o="-1"/>
+		<region n="Octodurum" ic="false" r="Iron" />
 	</province>
 	<province n="Narbonensis" f="6" c="Medium">
 		<traditions>
@@ -157,9 +157,9 @@
 			<tradition r="Manicheic">1</tradition>
 			<tradition r="CelticPagan">1</tradition>
 		</traditions>
-		<region n="AquaeSextiae" c="false" r="Wine" />
-		<region n="Vienna" c="false" />
-		<region n="Narbo" c="true" />
+		<region n="AquaeSextiae" ic="false" r="Wine" />
+		<region n="Vienna" ic="false" />
+		<region n="Narbo" ic="true" />
 	</province>
 	<!--Italia-->
 	<province n="Italia" f="6" c="Medium">
@@ -169,9 +169,9 @@
 			<tradition r="GraecoromanPagan">13</tradition>
 			<tradition r="Manicheic">2</tradition>
 		</traditions>
-		<region n="Roma" c="false" />
-		<region n="Fiorentia" c="false" />
-		<region n="Neapolis" c="true" r="Salt" />
+		<region n="Roma" ic="false" />
+		<region n="Fiorentia" ic="false" />
+		<region n="Neapolis" ic="true" r="Salt" />
 	</province>
 	<province n="Liguria" f="6" c="Medium">
 		<traditions>
@@ -180,9 +180,9 @@
 			<tradition r="GraecoromanPagan">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Mediolanum" c="false" />
-		<region n="Genua" c="true" r="Marble" />
-		<region n="Segusio" c="false" />
+		<region n="Mediolanum" ic="false" />
+		<region n="Genua" ic="true" r="Marble" />
+		<region n="Segusio" ic="false" />
 	</province>
 	<province n="MagnaGraecia" f="5" c="Medium">
 		<traditions>
@@ -190,9 +190,9 @@
 			<tradition r="ArianChristian">3</tradition>
 			<tradition r="GraecoromanPagan">13</tradition>
 		</traditions>
-		<region n="Tarentum" c="true" />
-		<region n="Syracusae" c="true" r="Wine" />
-		<region n="Rhegium" c="true" />
+		<region n="Tarentum" ic="true" />
+		<region n="Syracusae" ic="true" r="Wine" />
+		<region n="Rhegium" ic="true" />
 	</province>
 	<province n="RaetiaEtNoricum" f="5" c="North">
 		<traditions>
@@ -201,9 +201,9 @@
 			<tradition r="CelticPagan">3</tradition>
 			<tradition r="Manicheic">2</tradition>
 		</traditions>
-		<region n="AugustaVindelicorum" c="false" />
-		<region n="Iuvavum" c="false" r="Lumber" />
-		<region n="Virunum" c="false" />
+		<region n="AugustaVindelicorum" ic="false" />
+		<region n="Iuvavum" ic="false" r="Lumber" />
+		<region n="Virunum" ic="false" />
 	</province>
 	<province n="Venetia" f="6" c="Medium">
 		<traditions>
@@ -212,9 +212,9 @@
 			<tradition r="LatinChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Ravenna" c="true" />
-		<region n="Verona" c="false" r="Olive" />
-		<region n="Aquileia" c="true" />
+		<region n="Ravenna" ic="true" />
+		<region n="Verona" ic="false" r="Olive" />
+		<region n="Aquileia" ic="true" />
 	</province>
 	<!--Britannia-->
 	<province n="BritanniaInferior" f="4" c="North">
@@ -224,9 +224,9 @@
 			<tradition r="CelticPagan">3</tradition>
 			<tradition r="Manicheic">1</tradition>
 		</traditions>
-		<region n="Eburacum" c="false" />
-		<region n="Lindum" c="false" />
-		<region n="Segontium" c="true" r="Lead" />
+		<region n="Eburacum" ic="false" />
+		<region n="Lindum" ic="false" />
+		<region n="Segontium" ic="true" r="Lead" />
 	</province>
 	<province n="BritanniaSuperior" f="4" c="North">
 		<traditions>
@@ -235,34 +235,34 @@
 			<tradition r="CelticPagan">3</tradition>
 			<tradition r="Manicheic">2</tradition>
 		</traditions>
-		<region n="Londinium" c="false" r="Iron" />
-		<region n="Corinium" c="false" />
-		<region n="Camulodunum" c="true" />
+		<region n="Londinium" ic="false" r="Iron" />
+		<region n="Corinium" ic="false" />
+		<region n="Camulodunum" ic="true" />
 	</province>
 	<province n="CaledoniaEtHibernia" f="4" c="North">
 		<traditions>
 			<tradition r="CelticPagan">3</tradition>
 		</traditions>
-		<region n="Tuesis" c="false" />
-		<region n="Eildon" c="false" r="Lumber" />
-		<region n="Eblana" c="true" />
+		<region n="Tuesis" ic="false" />
+		<region n="Eildon" ic="false" r="Lumber" />
+		<region n="Eblana" ic="true" />
 	</province>
 	<province n="Frisia" f="4" c="North">
 		<traditions>
 			<tradition r="ArianChristian">1</tradition>
 			<tradition r="GermanicPagan">3</tradition>
 		</traditions>
-		<region n="Tulifurdum" c="false" r="Fur" />
-		<region n="Flevum" c="true" />
-		<region n="Angulus" c="false" />
+		<region n="Tulifurdum" ic="false" r="Fur" />
+		<region n="Flevum" ic="true" />
+		<region n="Angulus" ic="false" />
 	</province>
 	<province n="Scandza" f="3" c="North">
 		<traditions>
 			<tradition r="GermanicPagan">3</tradition>
 		</traditions>
-		<region n="Hrefnesholt" c="true" r="Lumber" />
-		<region n="Hafn" c="true" />
-		<region n="Alabu" c="true" />
+		<region n="Hrefnesholt" ic="true" r="Lumber" />
+		<region n="Hafn" ic="true" />
+		<region n="Alabu" ic="true" />
 	</province>
 	<!--Germania-->
 	<province n="Germania" f="4" c="North">
@@ -271,9 +271,9 @@
 			<tradition r="ArianChristian">1</tradition>
 			<tradition r="GermanicPagan">3</tradition>
 		</traditions>
-		<region n="Uburzis" c="false" r="Gemstones" />
-		<region n="Aregelia" c="false" />
-		<region n="Lupfurdum" c="false" />
+		<region n="Uburzis" ic="false" r="Gemstones" />
+		<region n="Aregelia" ic="false" />
+		<region n="Lupfurdum" ic="false" />
 	</province>
 	<province n="Germanosarmatia" f="2" c="North">
 		<traditions>
@@ -282,17 +282,17 @@
 			<tradition r="GermanicPagan">2</tradition>
 			<tradition r="Tengri">1</tradition>
 		</traditions>
-		<region n="Palteskja" c="false" />
-		<region n="Duna" c="true" r="Gemstones" />
-		<region n="Oium" c="false" />
+		<region n="Palteskja" ic="false" />
+		<region n="Duna" ic="true" r="Gemstones" />
+		<region n="Oium" ic="false" />
 	</province>
 	<province n="Gothiscandza" f="3" c="North">
 		<traditions>
 			<tradition r="GermanicPagan">3</tradition>
 		</traditions>
-		<region n="Gothiscandza" c="true" />
-		<region n="Ascaucalis" c="false" r="Salt" />
-		<region n="Rugion" c="true" />
+		<region n="Gothiscandza" ic="true" />
+		<region n="Ascaucalis" ic="false" r="Salt" />
+		<region n="Rugion" ic="true" />
 	</province>
 	<province n="Hercynia" f="4" c="North">
 		<traditions>
@@ -300,9 +300,9 @@
 			<tradition r="ArianChristian">2</tradition>
 			<tradition r="GermanicPagan">3</tradition>
 		</traditions>
-		<region n="Casurgis" c="false" />
-		<region n="Budorgis" c="false" r="Lead" />
-		<region n="Nitrahwa" c="false" />
+		<region n="Casurgis" ic="false" />
+		<region n="Budorgis" ic="false" r="Lead" />
+		<region n="Nitrahwa" ic="false" />
 	</province>
 	<province n="Transcarpathia" f="6" c="North">
 		<traditions>
@@ -311,9 +311,9 @@
 			<tradition r="GermanicPagan">2</tradition>
 			<tradition r="Tengri">1</tradition>
 		</traditions>
-		<region n="Arheimar" c="false" />
-		<region n="Leopolis" c="false" r="Dye" />
-		<region n="Belz" c="false" />
+		<region n="Arheimar" ic="false" />
+		<region n="Leopolis" ic="false" r="Dye" />
+		<region n="Belz" ic="false" />
 	</province>
 	<!--Iliria-->
 	<province n="Dalmatia" f="5" c="Medium">
@@ -323,9 +323,9 @@
 			<tradition r="LatinChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Salona" c="true" r="Wine" />
-		<region n="Siscia" c="false" />
-		<region n="Domavia" c="false" />
+		<region n="Salona" ic="true" r="Wine" />
+		<region n="Siscia" ic="false" />
+		<region n="Domavia" ic="false" />
 	</province>
 	<province n="Dardania" f="5" c="Medium">
 		<traditions>
@@ -334,9 +334,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Serdica" c="false" />
-		<region n="Scupi" c="false" r="Lead" />
-		<region n="Viminacium" c="false" />
+		<region n="Serdica" ic="false" />
+		<region n="Scupi" ic="false" r="Lead" />
+		<region n="Viminacium" ic="false" />
 	</province>
 	<province n="Macedonia" f="4" c="Medium">
 		<traditions>
@@ -345,9 +345,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Thessalonica" c="true" />
-		<region n="Corinthus" c="true" r="Marble" />
-		<region n="Dyrrachium" c="true" r="Olive" />
+		<region n="Thessalonica" ic="true" />
+		<region n="Corinthus" ic="true" r="Marble" />
+		<region n="Dyrrachium" ic="true" r="Olive" />
 	</province>
 	<province n="Pannonia" f="6" c="North">
 		<traditions>
@@ -356,9 +356,9 @@
 			<tradition r="CelticPagan">3</tradition>
 			<tradition r="Manicheic">1</tradition>
 		</traditions>
-		<region n="Sirmium" c="false" />
-		<region n="Sopianae" c="false" />
-		<region n="Savaria" c="false" r="Fur" />
+		<region n="Sirmium" ic="false" />
+		<region n="Sopianae" ic="false" />
+		<region n="Savaria" ic="false" r="Fur" />
 	</province>
 	<province n="Thracia" f="5" c="Medium">
 		<traditions>
@@ -367,9 +367,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">2</tradition>
 		</traditions>
-		<region n="Constantinopolis" c="true" />
-		<region n="Trimontium" c="false" r="Gold" />
-		<region n="Marcianopolis" c="false" />
+		<region n="Constantinopolis" ic="true" />
+		<region n="Trimontium" ic="false" r="Gold" />
+		<region n="Marcianopolis" ic="false" />
 	</province>
 	<!--Sarmatia-->
 	<province n="Dacia" f="5" c="North">
@@ -379,9 +379,9 @@
 			<tradition r="GermanicPagan">3</tradition>
 			<tradition r="Minor">1</tradition>
 		</traditions>
-		<region n="Apulum" c="false" r="Salt" />
-		<region n="Romula" c="false" r="Iron" />
-		<region n="Petrodava" c="false" />
+		<region n="Apulum" ic="false" r="Salt" />
+		<region n="Romula" ic="false" r="Iron" />
+		<region n="Petrodava" ic="false" />
 	</province>
 	<province n="Hyperborea" f="3" c="North">
 		<traditions>
@@ -389,9 +389,9 @@
 			<tradition r="SlavicPagan">1</tradition>
 			<tradition r="Tengri">3</tradition>
 		</traditions>
-		<region n="Kariskos" c="false" r="Fur" />
-		<region n="Moramar" c="false" />
-		<region n="Sylis" c="false" />
+		<region n="Kariskos" ic="false" r="Fur" />
+		<region n="Moramar" ic="false" />
+		<region n="Sylis" ic="false" />
 	</province>
 	<province n="SarmatiaEuropaea" f="4" c="North">
 		<traditions>
@@ -401,9 +401,9 @@
 			<tradition r="GraecoromanPagan">1</tradition>
 			<tradition r="Tengri">1</tradition>
 		</traditions>
-		<region n="Chersonessus" c="true" r="Wine" />
-		<region n="Olbia" c="true" />
-		<region n="Gelonus" c="false" />
+		<region n="Chersonessus" ic="true" r="Wine" />
+		<region n="Olbia" ic="true" />
+		<region n="Gelonus" ic="false" />
 	</province>
 	<province n="SarmatiaAsiatica" f="4" c="North">
 		<traditions>
@@ -411,18 +411,18 @@
 			<tradition r="Zoroastrian">1</tradition>
 			<tradition r="Tengri">2</tradition>
 		</traditions>
-		<region n="Anacopia" c="true" />
-		<region n="Tanais" c="true" r="Gold" />
-		<region n="Samandar" c="false" />
+		<region n="Anacopia" ic="true" />
+		<region n="Tanais" ic="true" r="Gold" />
+		<region n="Samandar" ic="false" />
 	</province>
 	<province n="Scythia" f="2" c="North">
 		<traditions>
 			<tradition r="Minor">3</tradition>
 			<tradition r="Tengri">3</tradition>
 		</traditions>
-		<region n="Sarai" c="false" />
-		<region n="Raha" c="false" r="Lumber" />
-		<region n="Bolghar" c="false" />
+		<region n="Sarai" ic="false" />
+		<region n="Raha" ic="false" r="Lumber" />
+		<region n="Bolghar" ic="false" />
 	</province>
 	<!--Oriens-->
 	<province n="Asia" f="4" c="Medium">
@@ -432,9 +432,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Ephesus" c="true" />
-		<region n="Synnada" c="false" r="Marble" />
-		<region n="Cyzicus" c="true" />
+		<region n="Ephesus" ic="true" />
+		<region n="Synnada" ic="false" r="Marble" />
+		<region n="Cyzicus" ic="true" />
 	</province>
 	<province n="Bithynia" f="5" c="Medium">
 		<traditions>
@@ -443,9 +443,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Ancyra" c="false" r="Silk"  o="-1"/>
-		<region n="Sinope" c="false" />
-		<region n="Nicomedia" c="true" />
+		<region n="Ancyra" ic="false" r="Silk"  o="-1"/>
+		<region n="Sinope" ic="false" />
+		<region n="Nicomedia" ic="true" />
 	</province>
 	<province n="Cappadocia" f="4" c="Medium">
 		<traditions>
@@ -453,9 +453,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="CaesareaEusebia" c="false" o="-1"/>
-		<region n="Melitene" c="false" r="Lead" />
-		<region n="Trapezus" c="true" />
+		<region n="CaesareaEusebia" ic="false" o="-1"/>
+		<region n="Melitene" ic="false" r="Lead" />
+		<region n="Trapezus" ic="true" />
 	</province>
 	<province n="Cilicia" f="4" c="Medium">
 		<traditions>
@@ -463,9 +463,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Tarsus" c="true" r="Olive" />
-		<region n="Iconium" c="false" />
-		<region n="Myra" c="true" />
+		<region n="Tarsus" ic="true" r="Olive" />
+		<region n="Iconium" ic="false" />
+		<region n="Myra" ic="true" />
 	</province>
 	<province n="Syria" f="4" c="Medium">
 		<traditions>
@@ -474,9 +474,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Antiochia" c="true" />
-		<region n="Tyrus" c="true" r="Dye" />
-		<region n="Emesa" c="false" />
+		<region n="Antiochia" ic="true" />
+		<region n="Tyrus" ic="true" r="Dye" />
+		<region n="Emesa" ic="false" />
 	</province>
 	<!--Aegyptus-->
 	<province n="Aegyptus" f="6" c="South">
@@ -485,27 +485,27 @@
 			<tradition r="GreekChristian">1</tradition>
 			<tradition r="ArianChristian">4</tradition>
 		</traditions>
-		<region n="Alexandria" c="true" />
-		<region n="Berenice" c="true" />
-		<region n="Oxyrhynchus" c="false" r="Gold" />
+		<region n="Alexandria" ic="true" />
+		<region n="Berenice" ic="true" />
+		<region n="Oxyrhynchus" ic="false" r="Gold" />
 	</province>
 	<province n="Aethiopia" f="4" c="South">
 		<traditions>
 			<tradition r="SemiticPagan">1</tradition>
 			<tradition r="EastChristian">1</tradition>
 		</traditions>
-		<region n="Aksum" c="false" r="Fur" />
-		<region n="Adulis" c="true" r="Spice"/>
-		<region n="Pachoras" c="false" />
+		<region n="Aksum" ic="false" r="Fur" />
+		<region n="Adulis" ic="true" r="Spice"/>
+		<region n="Pachoras" ic="false" />
 	</province>
 	<province n="InsulaeOrientalis" f="6" c="Medium">
 		<traditions>
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Gortyna" c="true" />
-		<region n="Constantia" c="true" />
-		<region n="Rhodes" c="true" />
+		<region n="Gortyna" ic="true" />
+		<region n="Constantia" ic="true" />
+		<region n="Rhodes" ic="true" />
 	</province>
 	<province n="Lybia" f="3" c="South">
 		<traditions>
@@ -513,9 +513,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="Ptolemais" c="true" r="Olive" />
-		<region n="Paraetonium" c="true" />
-		<region n="Augila" c="false" />
+		<region n="Ptolemais" ic="true" r="Olive" />
+		<region n="Paraetonium" ic="true" />
+		<region n="Augila" ic="false" />
 	</province>
 	<province n="Palaestinea" f="3" c="Medium">
 		<traditions>
@@ -526,9 +526,9 @@
 			<tradition r="GreekChristian">3</tradition>
 			<tradition r="GraecoromanPagan">3</tradition>
 		</traditions>
-		<region n="NovaTrajanaBostra" c="false" o="-1"/>
-		<region n="Aila" c="true" r="Gemstones" />
-		<region n="AeliaCapitolina" c="false" />
+		<region n="NovaTrajanaBostra" ic="false" o="-1"/>
+		<region n="Aila" ic="true" r="Gemstones" />
+		<region n="AeliaCapitolina" ic="false" />
 	</province>
 	<!--Persia-->
 	<province n="ArabiaFelix" f="1" c="South">
@@ -536,9 +536,9 @@
 			<tradition r="SemiticPagan">2</tradition>
 			<tradition r="Judaistic">2</tradition>
 		</traditions>
-		<region n="Zafar" c="false" r="Lead" />
-		<region n="Omana" c="true" r="Spice" />
-		<region n="Eudaemon" c="true" />
+		<region n="Zafar" ic="false" r="Lead" />
+		<region n="Omana" ic="true" r="Spice" />
+		<region n="Eudaemon" ic="true" />
 	</province>
 	<province n="ArabiaMagna" f="1" c="South">
 		<traditions>
@@ -546,9 +546,9 @@
 			<tradition r="Zoroastrian">2</tradition>
 			<tradition r="Judaistic">1</tradition>
 		</traditions>
-		<region n="Yathrib" c="false" r="Iron" />
-		<region n="Hira" c="false" />
-		<region n="Damatha" c="false"/>
+		<region n="Yathrib" ic="false" r="Iron" />
+		<region n="Hira" ic="false" />
+		<region n="Damatha" ic="false"/>
 	</province>
 	<province n="Armenia" f="4" c="East">
 		<traditions>
@@ -557,18 +557,18 @@
 			<tradition r="GraecoromanPagan">1</tradition>
 			<tradition r="GreekChristian">1</tradition>
 		</traditions>
-		<region n="Duin" c="false" />
-		<region n="Tosp" c="false" r="Lumber" />
-		<region n="Payttakaran" c="false"/>
+		<region n="Duin" ic="false" />
+		<region n="Tosp" ic="false" r="Lumber" />
+		<region n="Payttakaran" ic="false"/>
 	</province>
 	<province n="Asorastan" f="6" c="East">
 		<traditions>
 			<tradition r="Zoroastrian">4</tradition>
 			<tradition r="Manicheic">4</tradition>
 		</traditions>
-		<region n="Ctesiphon" c="false" />
-		<region n="Meshan" c="true" r="Spice" />
-		<region n="Arbela" c="false" r="Marble"/>
+		<region n="Ctesiphon" ic="false" />
+		<region n="Meshan" ic="true" r="Spice" />
+		<region n="Arbela" ic="false" r="Marble"/>
 	</province>
 	<province n="Caucasia" f="3" c="North">
 		<traditions>
@@ -577,9 +577,9 @@
 			<tradition r="GraecoromanPagan">1</tradition>
 			<tradition r="GreekChristian">1</tradition>
 		</traditions>
-		<region n="Mtskheta" c="false" />
-		<region n="Kotais" c="false" r="Silk" />
-		<region n="Gabala" c="false"/>
+		<region n="Mtskheta" ic="false" />
+		<region n="Kotais" ic="false" r="Silk" />
+		<region n="Gabala" ic="false"/>
 	</province>
 	<province n="Khwarasan" f="3" c="East">
 		<traditions>
@@ -587,9 +587,9 @@
 			<tradition r="Manicheic">4</tradition>
 			<tradition r="Minor">2</tradition>
 		</traditions>
-		<region n="Abarshahr" c="false" />
-		<region n="Harev" c="false" />
-		<region n="Merv" c="false" r="Silk"/>
+		<region n="Abarshahr" ic="false" />
+		<region n="Harev" ic="false" />
+		<region n="Merv" ic="false" r="Silk"/>
 	</province>
 	<province n="Makran" f="3" c="East">
 		<traditions>
@@ -597,18 +597,18 @@
 			<tradition r="Manicheic">3</tradition>
 			<tradition r="Minor">2</tradition>
 		</traditions>
-		<region n="Pura" c="false" />
-		<region n="Harmosia" c="true" r="Spice" />
-		<region n="Phra" c="false" r="Salt"/>
+		<region n="Pura" ic="false" />
+		<region n="Harmosia" ic="true" r="Spice" />
+		<region n="Phra" ic="false" r="Salt"/>
 	</province>
 	<province n="MediaAtropatene" f="4" c="East">
 		<traditions>
 			<tradition r="Zoroastrian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Ecbatana" c="false" r="Silk"/>
-		<region n="Ganzaga" c="false" />
-		<region n="Rhaga" c="false" />
+		<region n="Ecbatana" ic="false" r="Silk"/>
+		<region n="Ganzaga" ic="false" />
+		<region n="Rhaga" ic="false" />
 	</province>
 	<province n="Osroene" f="6" c="East">
 		<traditions>
@@ -617,35 +617,35 @@
 			<tradition r="GreekChristian">2</tradition>
 			<tradition r="GraecoromanPagan">2</tradition>
 		</traditions>
-		<region n="Edessa" c="false" r="Wine" />
-		<region n="Amida" c="false" />
-		<region n="Nisibis" c="false" />
+		<region n="Edessa" ic="false" r="Wine" />
+		<region n="Amida" ic="false" />
+		<region n="Nisibis" ic="false" />
 	</province>
 	<province n="Persis" f="3" c="East">
 		<traditions>
 			<tradition r="Zoroastrian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Stakhr" c="false" />
-		<region n="Straf" c="false" r="Dye" />
-		<region n="Behdesir" c="false" />
+		<region n="Stakhr" ic="false" />
+		<region n="Straf" ic="false" r="Dye" />
+		<region n="Behdesir" ic="false" />
 	</province>
 	<province n="Spahan" f="3" c="East">
 		<traditions>
 			<tradition r="Zoroastrian">3</tradition>
 			<tradition r="Manicheic">3</tradition>
 		</traditions>
-		<region n="Spahan" c="false" r="Gold" />
-		<region n="Issatis" c="false" />
-		<region n="Susa" c="false" />
+		<region n="Spahan" ic="false" r="Gold" />
+		<region n="Issatis" ic="false" />
+		<region n="Susa" ic="false" />
 	</province>
 	<province n="Transcaspia" f="4" c="North">
 		<traditions>
 			<tradition r="Zoroastrian">3</tradition>
 			<tradition r="Minor">3</tradition>
 		</traditions>
-		<region n="Kath" c="false" r="Iron" />
-		<region n="Siahkuh" c="false" />
-		<region n="Dahistan" c="false" />
+		<region n="Kath" ic="false" r="Iron" />
+		<region n="Siahkuh" ic="false" />
+		<region n="Dahistan" ic="false" />
 	</province>
 </map>

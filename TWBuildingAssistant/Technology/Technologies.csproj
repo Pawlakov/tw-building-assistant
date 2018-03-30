@@ -50,13 +50,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleTechnologyTree.cs" />
     <Compile Include="TechnologyLevel.cs" />
-    <Compile Include="TechnologyTree.cs" />
+    <Compile Include="ITechnologyTree.cs" />
+    <Compile Include="TechnologyTreeFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wealth\WealthBonuses.csproj">
       <Project>{f291aaf0-6660-47ef-b20f-f0c1d7ee40d0}</Project>
       <Name>WealthBonuses</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="twa_mpack_technologies_wre.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="twa_mpack_technologies.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

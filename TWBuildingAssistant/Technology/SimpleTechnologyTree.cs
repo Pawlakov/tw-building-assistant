@@ -1,58 +1,82 @@
 ﻿using System;
-using System.Xml;
-namespace Faction
+using System.Linq;
+using System.Xml.Linq;
+using System.Globalization;
+using System.Collections.Generic;
+namespace Technologies
 {
-	public class SimpleTechnologyTree
+	public class SimpleTechnologyTree : ITechnologyTree
 	{
-		protected int _desiredTechnologyLevel;
-		protected const int _technologyLevelsCount = 5;
-		protected readonly TechnologyLevel[] _universalLevels;
-		public SimpleTechnologyTree(XmlNodeList nodeList)
+		// Stałe:
+		//
+		private const int _technologyLevelsCount = 5;
+		//
+		// Stan wewnętrzny:
+		//
+		private int DesiredTechnologyLevelIndex { get; set; } = -1;
+		private readonly TechnologyLevel[] _levels;
+		//
+		// Interfejs wewnętrzny
+		//
+		internal SimpleTechnologyTree(XElement element)
 		{
-			if (nodeList == null)
-				throw new TechnologyException("Próbowano utworzyć drzewo technologii na podstawie pustej wartości.");
-			if (nodeList.Count != _technologyLevelsCount)
-				throw new TechnologyException("Prze stosupełnienie. A tak na serio, to zła liczba poziomów technologi w pliku XML.");
-			XmlNode temporaryNode;
-			_universalLevels = new TechnologyLevel[_technologyLevelsCount];
-			for (int whichLevel = 0; whichLevel < _technologyLevelsCount; ++whichLevel)
+			IEnumerable<TechnologyLevel> temporary = from XElement levelElement in element.Elements() select new TechnologyLevel(this, levelElement);
+			_levels = new TechnologyLevel[_technologyLevelsCount];
+			_levels[0] = new TechnologyLevel(this);
+			temporary.ToArray().CopyTo(_levels, 1);
+			for (int whichLevel = 1; whichLevel < _technologyLevelsCount; ++whichLevel)
+				_levels[whichLevel].Cumulate(_levels[whichLevel - 1]);
+		}
+		//
+		// Pomocnicze:
+		//
+		private void OnDesiredTechnologyLevelChanging()
+		{
+			DesiredTechnologyChanging?.Invoke(this, EventArgs.Empty);
+		}
+		private void OnDesiredTechnologyLevelChanged()
+		{
+			DesiredTechnologyChanged?.Invoke(this, EventArgs.Empty);
+		}
+		//
+		// Interfejs publiczny:
+		//
+		public event DesiredTechnologyLevelChangedHandler DesiredTechnologyChanged;
+		public event DesiredTechnologyLevelChangingHandler DesiredTechnologyChanging;
+		public void ChangeDesiredTechnologyLevel()
+		{
+			OnDesiredTechnologyLevelChanging();
+			Console.WriteLine("Pick your desired technology level:");
+			do
 			{
-				temporaryNode = nodeList[whichLevel];
-				if (temporaryNode.ChildNodes.Count != 1 && temporaryNode.ChildNodes.Count != 2)
-					throw new TechnologyException(String.Format("Niewłaściwa liczba węzłów XML w poziomie {0} technologii", whichLevel));
-				if (temporaryNode.ChildNodes[0].Name != "universal")
-					throw new TechnologyException(String.Format("Niewłaściwy węzeł XML w poziomie {0} technologii.", whichLevel));
+				Console.Write("From 0 to {0}: ", _technologyLevelsCount - 1);
 				try
 				{
-					_universalLevels[whichLevel] = new TechnologyLevel(temporaryNode.ChildNodes[0]);
+					DesiredTechnologyLevelIndex = Convert.ToInt32(Console.ReadLine(), CultureInfo.InvariantCulture);
 				}
-				catch (Exception exception)
+				catch (Exception)
 				{
-					throw new TechnologyException(String.Format("Nie powiodło się tworzenie {0} poziomu technolgii.", whichLevel), exception);
+					DesiredTechnologyLevelIndex = -1;
 				}
-			}
-			SumLevels();
-			PickDesiredTechnologyLevel();
+			} while (DesiredTechnologyLevelIndex < 0 || DesiredTechnologyLevelIndex > (_technologyLevelsCount - 1));
+			OnDesiredTechnologyLevelChanged();
 		}
-		void SumLevels()
+		public bool IsLevelReasearched(TechnologyLevel level)
 		{
-			for (int whichLevel = 1; whichLevel < _technologyLevelsCount; ++whichLevel)
-				_universalLevels[whichLevel].Cumulate(_universalLevels[whichLevel - 1]);
+			if (DesiredTechnologyLevelIndex < 0)
+				throw new InvalidOperationException("Desired technology level is not set.");
+			for (int whichLevel = 0; whichLevel < DesiredTechnologyLevelIndex + 1; ++whichLevel)
+				if (level == _levels[whichLevel])
+					return true;
+			return false;
 		}
-		void PickDesiredTechnologyLevel()
+		public TechnologyLevel Parse(int level, bool? isLegacy)
 		{
-			throw new NotImplementedException();
-		}
-		public virtual TechnologyLevel DesiredTechnologyLevel
-		{
-			get
-			{
-				return _universalLevels[_desiredTechnologyLevel];
-			}
-		}
-		public override string ToString()
-		{
-			throw new NotImplementedException();
+			if (level < 0 || level >= _technologyLevelsCount)
+				throw new ArgumentOutOfRangeException("level", level, "Technology level out of range.");
+			if (isLegacy.HasValue)
+				throw new ArgumentOutOfRangeException("useLegacy", isLegacy, "I can't come up with clear message for this one.");
+			return _levels[level];
 		}
 	}
 }

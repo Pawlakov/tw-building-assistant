@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attila", "Attila\Attila.csproj", "{67663F9B-BE2A-4B3C-BBA0-1B09F846C298}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simulator", "Attila\Simulator.csproj", "{67663F9B-BE2A-4B3C-BBA0-1B09F846C298}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "Utilities\Utilities.csproj", "{2B3F7039-A2A9-4975-8353-794731DCD0BC}"
 EndProject

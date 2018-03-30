@@ -51,9 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClimateManager\ClimateAndWeather.csproj">
-      <Project>{24b5255b-c9b7-41d5-9bb3-6b80b5d047cc}</Project>
-      <Name>ClimateAndWeather</Name>
+    <ProjectReference Include="..\Attila\Simulator.csproj">
+      <Project>{67663f9b-be2a-4b3c-bba0-1b09f846c298}</Project>
+      <Name>Simulator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

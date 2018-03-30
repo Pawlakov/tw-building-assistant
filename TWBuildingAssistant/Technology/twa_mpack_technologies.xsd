@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="techtree">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" name="techlevel">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="universal">
+								<xs:complexType mixed="true">
+									<xs:sequence minOccurs="0">
+										<xs:element maxOccurs="unbounded" name="bonus">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="c" type="xs:string" use="required" />
+														<xs:attribute name="m" type="xs:boolean" use="required" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="g" type="xs:unsignedByte" use="optional" />
+									<xs:attribute name="o" type="xs:unsignedByte" use="optional" />
+									<xs:attribute name="r" type="xs:unsignedByte" use="optional" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="antilegacy">
+								<xs:complexType mixed="true">
+									<xs:sequence minOccurs="0">
+										<xs:element name="bonus">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="c" type="xs:string" use="required" />
+														<xs:attribute name="m" type="xs:boolean" use="required" />
+													</xs:extension>
+												</xs:simpleContent>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="g" type="xs:unsignedByte" use="optional" />
+									<xs:attribute name="o" type="xs:unsignedByte" use="optional" />
+									<xs:attribute name="r" type="xs:unsignedByte" use="optional" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="t" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,17 +1,25 @@
-﻿using System;
-using System.Xml;
-namespace Buildings
+﻿namespace Buildings
 {
-	class EvaluableBuilding : Building
+	public class BuildingHandle
 	{
-		internal EvaluableBuilding(XmlNode node) : base(node)
+		// Interfejs wewnętrzny:
+		//
+		internal BuildingHandle(Building containedBuilding)
 		{
+			ContainedBuilding = containedBuilding;
 			ResetUsefuliness();
 		}
+		//
+		// Stan wewnętrzny / Interfejs publiczny:
+		//
 		/// <summary>
 		/// Ile razy od ostatniego zresetowania użyteczności ten poziom budynku został użyty w działającej kombinacji.
 		/// </summary>
 		public int Usefuliness { get; private set; }
+		public Building ContainedBuilding { get; }
+		//
+		// Interfejs publiczny:
+		//
 		/// <summary>
 		/// Nagradza budynek za znalezienie się w działającej kombinacji.
 		/// </summary>

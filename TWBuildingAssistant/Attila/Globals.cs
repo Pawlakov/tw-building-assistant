@@ -1,7 +1,6 @@
 ﻿using System;
 namespace Simulator
 {
-	public enum BuildingType { TOWN, CENTERTOWN, CITY, CENTERCITY, COAST, RESOURCE, SPICE };
 	internal static class Globals
 	{
 		static public readonly int minimalOrder;

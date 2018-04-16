@@ -1,81 +1,46 @@
-﻿using System;
-using System.Xml;
+﻿using System.Linq;
+using System.Xml.Linq;
 namespace Buildings
 {
 	public class Building
 	{
-		internal Building(XmlNode node)
+		// Interfejs wewnętrzny:
+		//
+		internal Building(XElement element, Technologies.ITechnologyTree tree)
 		{
-			isLegacy = null;
+			Name = (string)element.Attribute("n");
+			Level = (int)element.Attribute("l");
+			Technology = tree.Parse((int)element.Attribute("t"), (bool?)element.Attribute("il"));
 			//
-			food = 0;
-			irigation = 0;
-			foodPerFertility = 0;
-			//
-			order = 0;
-			growth = 0;
-			science = 0;
-			//
-			regionalSanitation = 0;
-			provincionalSanitation = 0;
-			//
-			religiousInfluence = 0;
-			religiousOsmosis = 0;
-			//
-			Usefuliness = 0;
-			//
-			XmlNode temporary = levelNode.Attributes.GetNamedItem("n");
-			name = temporary.InnerText;
-			temporary = levelNode.Attributes.GetNamedItem("l");
-			level = Convert.ToInt32(temporary.InnerText);
-			temporary = levelNode.Attributes.GetNamedItem("lot");
-			levelOfTechnology = Convert.ToInt32(temporary.InnerText);
-			temporary = levelNode.Attributes.GetNamedItem("lcy");
+			XAttribute temporary;
+			temporary = element.Attribute("f");
 			if (temporary != null)
-				isLegacy = Convert.ToBoolean(temporary.InnerText);
-			//
-			temporary = levelNode.Attributes.GetNamedItem("f");
+				Food = (int)temporary;
+			temporary = element.Attribute("i");
 			if (temporary != null)
-				food = Convert.ToInt32(temporary.InnerText);
-			temporary = levelNode.Attributes.GetNamedItem("i");
+				Irrigation = (int)temporary;
+			temporary = element.Attribute("fpf");
 			if (temporary != null)
-				irigation = Convert.ToInt32(temporary.InnerText);
-			temporary = levelNode.Attributes.GetNamedItem("_f");
+				FoodPerFertility = (int)temporary;
+			temporary = element.Attribute("po");
 			if (temporary != null)
-				foodPerFertility = Convert.ToInt32(temporary.InnerText);
-			//
-			temporary = levelNode.Attributes.GetNamedItem("o");
+				PublicOrder = (int)temporary;
+			temporary = element.Attribute("g");
 			if (temporary != null)
-				order = Convert.ToInt32(temporary.InnerText);
-			//
-			temporary = levelNode.Attributes.GetNamedItem("g");
+				Growth = (int)temporary;
+			temporary = element.Attribute("rr");
 			if (temporary != null)
-				growth = Convert.ToInt32(temporary.InnerText);
-			//
-			temporary = levelNode.Attributes.GetNamedItem("sc");
+				ResearchRate = (int)temporary;
+			temporary = element.Attribute("rs");
 			if (temporary != null)
-				science = Convert.ToInt32(temporary.InnerText);
-			XmlNodeList bonusNodeList = levelNode.ChildNodes;
-			wealthBonuses = new WealthBonus[bonusNodeList.Count];
-			for (int whichBonus = 0; whichBonus < wealthBonuses.Length; ++whichBonus)
-			{
-				wealthBonuses[whichBonus] = new WealthBonus(bonusNodeList.Item(whichBonus));
-			}
-			//
-			temporary = levelNode.Attributes.GetNamedItem("s");
+				RegionalSanitation = (int)temporary;
+			temporary = element.Attribute("ps");
 			if (temporary != null)
-				regionalSanitation = Convert.ToInt32(temporary.InnerText);
-			temporary = levelNode.Attributes.GetNamedItem("_s");
-			if (temporary != null)
-				provincionalSanitation = Convert.ToInt32(temporary.InnerText);
-			//
-			temporary = levelNode.Attributes.GetNamedItem("r");
-			if (temporary != null)
-				religiousInfluence = Convert.ToInt32(temporary.InnerText);
-			temporary = levelNode.Attributes.GetNamedItem("ro");
-			if (temporary != null)
-				religiousOsmosis = Convert.ToInt32(temporary.InnerText);
+				ProvincionalSanitation = (int)temporary;
+			Bonuses = (from XElement bonusElement in element.Elements() select WealthBonuses.BonusFactory.MakeBonus(bonusElement)).ToArray();
 		}
+		//
+		// Stan wewnętrzny / Interfejs publiczny:
 		//
 		/// <summary>
 		/// Nazwa tego budynku.
@@ -85,19 +50,22 @@ namespace Buildings
 		/// Poziom tego budynku wewnątrz gałęzi budynków.
 		/// </summary>
 		public int Level { get; }
-		//
 		public int Irrigation { get; }
 		public int PublicOrder { get; }
 		public int Growth { get; }
 		public int ResearchRate { get; }
-		public WealthBonuses.WealthBonus[] WealthBonuses { get; }
+		public WealthBonuses.WealthBonus[] Bonuses { get; }
 		public int RegionalSanitation { get; }
 		public int ProvincionalSanitation { get; }
-		public int ReligiousInfluence { get; }
-		public int ReligiousOsmosis { get; }
+		//
+		// Stan wewnętrzny:
 		//
 		private int Food { get; }
 		private int FoodPerFertility { get; }
+		public Technologies.TechnologyLevel Technology { get; }
+		//
+		// Interfejs publiczny:
+		//
 		/// <summary>
 		/// Zwraca żywność zapewnianą przez ten budynek dla podanego poziomu żyzności.
 		/// </summary>
@@ -106,29 +74,9 @@ namespace Buildings
 		{
 			return Food + fertility * FoodPerFertility;
 		}
-		//
-		public int LevelOfTechnology { get; }
 		public virtual bool IsAvailable()
 		{
-			if (levelOfTechnology > Globals.levelOfTechnology)
-			{
-				if (isLegacy == true)
-					return true;
-				return false;
-			}
-			else
-			{
-				if (isLegacy == null)
-					return true;
-				if (isLegacy == true)
-				{
-					if (levelOfTechnology == 0)
-						return true;
-					return Globals.useLegacy;
-				}
-				return !Globals.useLegacy;
-			}
-			// By to miało sens należy wpierw przetworzyć moduł technologiczny.
+			return Technology.IsAvailable;
 		}
 	}
 }

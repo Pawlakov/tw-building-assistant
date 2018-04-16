@@ -46,26 +46,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AntilegacyBuilding.cs" />
-    <Compile Include="BuildingBranch.cs" />
+    <Compile Include="Branch.cs" />
+    <Compile Include="BranchHandle.cs" />
     <Compile Include="Building.cs" />
+    <Compile Include="BuildingFactory.cs" />
+    <Compile Include="BuildingPool.cs" />
     <Compile Include="BuildingsLibrary.cs" />
-    <Compile Include="EvaluableBuilding.cs" />
-    <Compile Include="LegacyBuilding.cs" />
+    <Compile Include="BuildingHandle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReligiousBranch.cs" />
+    <Compile Include="ReligiousBuilding.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="twa_mpack_buildings_wre.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Religion\Religions.csproj">
+      <Project>{78f0bb52-e6d6-46b2-9d32-d8e57d9cae7b}</Project>
+      <Name>Religions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Technology\Technologies.csproj">
       <Project>{a3e46562-1bbb-43d5-b2bb-75124fa6c84a}</Project>
       <Name>Technologies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities\Utilities.csproj">
+      <Project>{2b3f7039-a2a9-4975-8353-794731dcd0bc}</Project>
+      <Name>Utilities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wealth\WealthBonuses.csproj">
       <Project>{f291aaf0-6660-47ef-b20f-f0c1d7ee40d0}</Project>
       <Name>WealthBonuses</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="twa_mpack_buildings.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

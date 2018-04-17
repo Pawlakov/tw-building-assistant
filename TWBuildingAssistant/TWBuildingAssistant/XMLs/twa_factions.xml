@@ -18,7 +18,7 @@
 		<bonus c="ALL" m="true">-0,6</bonus>
 	</faction>
 	-->
-	<faction n="WesternRomanEmpire(Modpack)" b="XMLs/ModPack/twa_mpack_buildings_wre.xml">
+	<faction n="WesternRomanEmpire(Modpack)" b="XMLs/twa_buildings_wre.xml">
 		<techlevel>
 			<universal>
 			</universal>

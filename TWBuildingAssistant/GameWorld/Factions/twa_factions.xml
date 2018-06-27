@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<factions>
+	<faction n="WesternRomanEmpire(Modpack)" b="twa_buildings_wre.xml"  t="twa_technologies_wre.xml"/>
+</factions>

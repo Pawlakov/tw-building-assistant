@@ -1,4 +1,4 @@
-﻿namespace GameWorld.WealthBonuses
+﻿namespace GameWorld.Effects
 {
 	// Katrgorie dochodów (bonusów dochodowych).
 	public enum WealthCategory

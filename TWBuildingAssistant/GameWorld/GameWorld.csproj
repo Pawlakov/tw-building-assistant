@@ -11,6 +11,8 @@
     <AssemblyName>GameWorld</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Enums.NET, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7ea1c1650d506225, processorArchitecture=MSIL">
-      <HintPath>..\packages\Enums.NET.2.3.1\lib\net45\Enums.NET.dll</HintPath>
+      <HintPath>..\packages\Enums.NET.2.3.2\lib\net45\Enums.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -47,7 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BonusPackage.cs" />
+    <Compile Include="Effects\BonusType.cs" />
+    <Compile Include="Effects\ProvincionalEffectsPackage.cs" />
+    <Compile Include="Effects\RegionalEffectsPackage.cs" />
+    <Compile Include="Effects\Wealth.cs" />
+    <Compile Include="Effects\WealthBonus.cs" />
+    <Compile Include="Effects\WealthBonusesFactory.cs" />
+    <Compile Include="Effects\WealthCategory.cs" />
+    <Compile Include="Effects\WealthRecord.cs" />
     <Compile Include="Buildings\BuildingBranch.cs" />
     <Compile Include="Buildings\BuildingLevel.cs" />
     <Compile Include="Buildings\BuildingsLibrary.cs" />
@@ -59,7 +71,6 @@
     <Compile Include="Combinations\Combination.cs" />
     <Compile Include="Combinations\BuildingSlot.cs" />
     <Compile Include="Combinations\ProvinceReligion.cs" />
-    <Compile Include="Combinations\ProvinceWealth.cs" />
     <Compile Include="SimulationKit.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Factions\Faction.cs" />
@@ -85,12 +96,6 @@
     <Compile Include="Technologies\SimpleTechnologyTree.cs" />
     <Compile Include="Technologies\TechnologyLevel.cs" />
     <Compile Include="Technologies\TechnologyTreeFactory.cs" />
-    <Compile Include="WealthBonuses\BonusFactory.cs" />
-    <Compile Include="WealthBonuses\FertilityDependentBonus.cs" />
-    <Compile Include="WealthBonuses\MultiplierBonus.cs" />
-    <Compile Include="WealthBonuses\SimpleBonus.cs" />
-    <Compile Include="WealthBonuses\WealthBonus.cs" />
-    <Compile Include="WealthBonuses\WealthCategory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Buildings\twa_buildings_wre.xml">

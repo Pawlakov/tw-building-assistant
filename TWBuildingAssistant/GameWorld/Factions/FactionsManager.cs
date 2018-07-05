@@ -75,7 +75,7 @@ namespace GameWorld.Factions
 		{
 			get { return Faction.Fertility; }
 		}
-		public IEnumerable<WealthBonuses.WealthBonus> Bonuses
+		public IEnumerable<Effects.WealthBonus> Bonuses
 		{
 			get { return Faction.Bonuses; }
 		}

@@ -141,11 +141,11 @@ namespace GameWorld.Map
 				return Province.Fertility;
 			}
 		}
-		public IEnumerable<WealthBonuses.WealthBonus> Bonuses
+		public IEnumerable<Effects.WealthBonus> Bonuses
 		{
 			get
 			{
-				return new List<WealthBonuses.WealthBonus>();
+				return new List<Effects.WealthBonus>();
 			}
 		}
 		//

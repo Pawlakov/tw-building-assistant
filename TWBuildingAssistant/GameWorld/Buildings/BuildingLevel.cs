@@ -25,7 +25,7 @@ namespace GameWorld.Buildings
 			get { return ContainingBranch.Religion; }
 		}
 		//
-		public List<WealthBonuses.WealthBonus> Bonuses
+		public List<Effects.WealthBonus> Bonuses
 		{
 			get { return _bonuses.ToList(); }
 		}
@@ -43,7 +43,7 @@ namespace GameWorld.Buildings
 		private Technologies.TechnologyLevel LevelOfTechnology { get; }
 		private int RegularFood { get; }
 		private int FoodPerFertility { get; }
-		private WealthBonuses.WealthBonus[] _bonuses;
+		private Effects.WealthBonus[] _bonuses;
 		//
 		public BuildingLevel(BuildingBranch branch, XElement element, ITechnologyLevelAssigner technologyLevelAssigner)
 		{
@@ -75,7 +75,7 @@ namespace GameWorld.Buildings
 				ReligiousInfluence = (int)element.Attribute("ri");
 			if (element.Attribute("ro") != null)
 				ReligiousOsmosis = (int)element.Attribute("ro");
-			_bonuses = (from XElement subelement in element.Elements() select WealthBonuses.BonusFactory.MakeBonus(subelement)).ToArray();
+			_bonuses = (from XElement subelement in element.Elements() select Effects.WealthBonusesFactory.MakeBonus(subelement)).ToArray();
 		}
 		//
 		// Czy w obecnej sytuacji budynek jest dostępny.

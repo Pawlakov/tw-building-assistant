@@ -48,7 +48,7 @@ namespace GameWorld.Factions
 		{
 			get { return TechLevels.CurrentLevel.ResearchRate; }
 		}
-		public IEnumerable<WealthBonuses.WealthBonus> Bonuses
+		public IEnumerable<Effects.WealthBonus> Bonuses
 		{
 			get { return TechLevels.CurrentLevel.Bonuses; }
 		}

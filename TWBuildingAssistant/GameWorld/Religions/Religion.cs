@@ -33,7 +33,7 @@ namespace GameWorld.Religions
 			if (temporary.HasValue)
 				ReligiousOsmosis = temporary.Value;
 			if (element.Elements().Count() > 0)
-				WealthBonus = WealthBonuses.BonusFactory.MakeBonus(element.Elements().First());
+				WealthBonus = Effects.WealthBonusesFactory.MakeBonus(element.Elements().First());
 			stateReligionTracker.StateReligionChanged += (Map.IStateReligionTracker sender, EventArgs e) => { _stateReligion = sender.StateReligion; };
 		}
 		//
@@ -46,14 +46,14 @@ namespace GameWorld.Religions
 		public int ReligiousOsmosis { get; }
 		public int Food { get; }
 		public int Fertility { get; }
-		public IEnumerable<WealthBonuses.WealthBonus> Bonuses
+		public IEnumerable<Effects.WealthBonus> Bonuses
 		{
 			get
 			{
 				if (WealthBonus != null)
-					return new WealthBonuses.WealthBonus[] { WealthBonus };
+					return new Effects.WealthBonus[] { WealthBonus };
 				else
-					return new WealthBonuses.WealthBonus[0];
+					return new Effects.WealthBonus[0];
 			}
 		}
 		// Metoda sprawdza czy ta religia jest wybrana jako państwowa.
@@ -66,7 +66,7 @@ namespace GameWorld.Religions
 		}
 		// Aktualna religia państwowa. Aktualizowana przez event.
 		private Religion _stateReligion;
-		private WealthBonuses.WealthBonus WealthBonus { get; }
+		private Effects.WealthBonus WealthBonus { get; }
 		// Funkcja do walidacji elementu XML jako opisu religii.
 		public static bool ValidateElement(XElement element, out string message)
 		{
@@ -144,7 +144,7 @@ namespace GameWorld.Religions
 					message = "XML element has too many sub-elements (name: " + (string)element.Attribute("n") + ").";
 					return false;
 				}
-				if (!WealthBonuses.BonusFactory.ValidateElement(element.Elements().First(), out string submessage))
+				if (!Effects.WealthBonusesFactory.ValidateElement(element.Elements().First(), out string submessage))
 				{
 					message = "XML element's sub-element is not a valid description of a wealth bonus (name: " + (string)element.Attribute("n") + "): " + submessage;
 					return false;

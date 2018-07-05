@@ -93,7 +93,7 @@ namespace GameWorld.Religions
 				throw new InvalidOperationException("State religion is not set yet.");
 			}
 		}
-		public IEnumerable<WealthBonuses.WealthBonus> Bonuses
+		public IEnumerable<Effects.WealthBonus> Bonuses
 		{
 			get
 			{

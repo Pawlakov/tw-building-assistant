@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+
 namespace GameWorld.Combinations
 {
 	public class Combination
@@ -51,7 +52,7 @@ namespace GameWorld.Combinations
 		}
 		//
 		// Przeliczenie wszystkich parametrów prowincji.
-		public void Calculate(BonusPackage environment)
+		public void Calculate(Effects.ProvincionalEffectsPackage environment)
 		{
 			// Żyznośc musi być wyliczona wczśnie ponieważ pozostałe obliczenia od niej zależą.
 			CalculateFertility(environment);
@@ -59,13 +60,13 @@ namespace GameWorld.Combinations
 			Food = environment.Food;
 			PublicOrder = environment.PublicOrder;
 			for (int whichRegion = 0; whichRegion < _sanitation.Length; ++whichRegion)
-				_sanitation[whichRegion] = environment.Sanitation;
+				_sanitation[whichRegion] = environment.ProvincionalSanitation;
 			ReligiousOsmosis = environment.ReligiousOsmosis;
 			ResearchRate = environment.ResearchRate;
 			Growth = environment.Growth;
 			// Tworzenie kalkulatorów pomocniczych.
-			ProvinceWealth wealthCalculator = new ProvinceWealth(Fertility);
-			wealthCalculator.AddBonuses(environment.Bonuses);
+			Effects.Wealth wealthCalculator = new Effects.Wealth();
+			wealthCalculator.AddBonuses(environment.WealthBonuses);
 			ProvinceReligion religionCalculator = new ProvinceReligion(Province.Traditions);
 			religionCalculator.AddInfluence(environment.ReligiousInfluence);
 			// Uwzględnienie wpływu kombinacji.
@@ -93,11 +94,11 @@ namespace GameWorld.Combinations
 				}
 			// Uwzględnienie wyników kalkulatorów.
 			PublicOrder += religionCalculator.PublicOrder;
-			Wealth = wealthCalculator.Wealth;
+			Wealth = wealthCalculator.TotalWealth(Fertility);
 		}
 		//
 		// Wyliczanie poziomu żyzności w tej kombinacji.
-		private void CalculateFertility(BonusPackage environment)
+		private void CalculateFertility(Effects.ProvincionalEffectsPackage environment)
 		{
 			// Uwzględnienie wpływu z zewnątrz.
 			Fertility = environment.Fertility;

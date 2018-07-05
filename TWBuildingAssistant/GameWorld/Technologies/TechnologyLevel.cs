@@ -17,7 +17,7 @@ namespace GameWorld.Technologies
 		public int Food { get; private set; }
 		public int ReligiousOsmosis { get; private set; }
 		public int ResearchRate { get; private set; }
-		public IEnumerable<WealthBonuses.WealthBonus> Bonuses { get; private set; }
+		public IEnumerable<Effects.WealthBonus> Bonuses { get; private set; }
 		public bool IsAvailable { get; private set; }
 		// Do efektów tej technologii dodaje efekty innego poziomu.
 		public void Cumulate(TechnologyLevel added)
@@ -60,13 +60,13 @@ namespace GameWorld.Technologies
 			temporary = element.Attribute("rr");
 			if (temporary != null)
 				ResearchRate = (int)temporary;
-			Bonuses = from XElement bonusElement in element.Elements() select WealthBonuses.BonusFactory.MakeBonus(bonusElement);
+			Bonuses = from XElement bonusElement in element.Elements() select Effects.WealthBonusesFactory.MakeBonus(bonusElement);
 		}
 		public TechnologyLevel(ITechnologyTree containingTree)
 		{
 			ContainingTree = containingTree;
 			containingTree.DesiredTechnologyChanged += (ITechnologyTree sender, EventArgs e) => { IsAvailable = containingTree.IsLevelReasearched(this); };
-			Bonuses = new WealthBonuses.WealthBonus[0];
+			Bonuses = new Effects.WealthBonus[0];
 		}
 	}
 }

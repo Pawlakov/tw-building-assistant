@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+
 namespace GameWorld
 {
 	// Cały świat gry używany do symulacji.
@@ -57,22 +58,22 @@ namespace GameWorld
 			}
 		}
 		// Uchwytuje migawkę wpływu otoczenia na kombinację w tej chwili.
-		public BonusPackage Environment
+		public Effects.ProvincionalEffectsPackage Environment
 		{
 			get
 			{
-				return new BonusPackage()
-				{
-					PublicOrder = _religionsManager.PublicOrder + _provincesManager.PublicOrder + _factionsManager.PublicOrder,
-					Food = _religionsManager.Food + _provincesManager.Food + _factionsManager.Food,
-					Sanitation = _religionsManager.Sanitation + _provincesManager.Sanitation + _factionsManager.Sanitation,
-					Fertility = _religionsManager.Fertility + _provincesManager.Fertility + _factionsManager.Fertility,
-					ReligiousOsmosis = _religionsManager.ReligiousOsmosis + _provincesManager.ReligiousOsmosis + _factionsManager.ReligiousOsmosis,
-					ReligiousInfluence = _religionsManager.ReligiousInfluence + _provincesManager.ReligiousInfluence + _factionsManager.ReligiousInfluence,
-					ResearchRate = _religionsManager.ResearchRate + _provincesManager.ResearchRate + _factionsManager.ResearchRate,
-					Growth = _religionsManager.Growth + _provincesManager.Growth + _factionsManager.Growth,
-					Bonuses = _religionsManager.Bonuses.Concat(_provincesManager.Bonuses.Concat(_factionsManager.Bonuses))
-				};
+				return new Effects.ProvincionalEffectsPackage(
+				_religionsManager.PublicOrder + _provincesManager.PublicOrder + _factionsManager.PublicOrder,
+				_religionsManager.Food + _provincesManager.Food + _factionsManager.Food,
+				_religionsManager.Sanitation + _provincesManager.Sanitation + _factionsManager.Sanitation,
+				_religionsManager.ReligiousOsmosis + _provincesManager.ReligiousOsmosis +
+				_factionsManager.ReligiousOsmosis,
+				_religionsManager.ReligiousInfluence + _provincesManager.ReligiousInfluence +
+				_factionsManager.ReligiousInfluence,
+				_religionsManager.ResearchRate + _provincesManager.ResearchRate + _factionsManager.ResearchRate,
+				_religionsManager.Growth + _provincesManager.Growth + _factionsManager.Growth,
+				_religionsManager.Fertility + _provincesManager.Fertility + _factionsManager.Fertility,
+				_religionsManager.Bonuses.Concat(_provincesManager.Bonuses.Concat(_factionsManager.Bonuses)));
 			}
 		}
 	}

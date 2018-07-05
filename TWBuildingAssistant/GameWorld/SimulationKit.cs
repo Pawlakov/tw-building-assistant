@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace GameWorld
 {
 	// Obiekt tej klasy służy do przeprowadzania symulacji zachowania kombinacji.
 	public class SimulationKit
 	{
 		// Wpływ czynników poza kombinacją.
-		private readonly BonusPackage _enivronment;
+		private readonly Effects.ProvincionalEffectsPackage _enivronment;
 		// Kombinacja sama w sobie.
 		private readonly Combinations.Combination _combination;
 		// Listy dostępnych budynków dla każdego wolnego miejsca.

@@ -147,7 +147,7 @@ namespace GameWorld.Religions
 		{
 			get { return StateReligion.Fertility; }
 		}
-		public IEnumerable<WealthBonuses.WealthBonus> Bonuses
+		public IEnumerable<Effects.WealthBonus> Bonuses
 		{
 			get { return StateReligion.Bonuses; }
 		}

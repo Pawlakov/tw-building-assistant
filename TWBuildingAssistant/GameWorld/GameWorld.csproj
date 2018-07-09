@@ -71,6 +71,7 @@
     <Compile Include="Combinations\Combination.cs" />
     <Compile Include="Combinations\BuildingSlot.cs" />
     <Compile Include="Combinations\ProvinceReligion.cs" />
+    <Compile Include="Resources\SlotType.cs" />
     <Compile Include="SimulationKit.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Factions\Faction.cs" />
@@ -113,9 +114,6 @@
     <Content Include="Religions\twa_religions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\twa_resources.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Technologies\twa_technologies_wre.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -123,6 +121,9 @@
   <ItemGroup>
     <None Include="LargerDiagram.cd" />
     <None Include="packages.config" />
+    <None Include="Resources\twa_resources.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

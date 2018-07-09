@@ -1,64 +1,68 @@
 ﻿using System;
-using System.Xml.Linq;
-using EnumsNET;
+using Newtonsoft.Json;
+
 namespace GameWorld.Resources
 {
-	// Obiekty zawierają informacje o zasobach specjalnych.
 	public class Resource
 	{
+		// Instance members:
+
 		public string Name { get; }
-		// Typ slotu w którym powinien się z naleźć budynek wydobywający zasób.
-		public ReplacedBuildingType BuildingType { get; }
-		// Czy postawienie budynku wydobywającego ten zasób jest konieczne.
+		public SlotType BuildingType { get; }
 		public bool IsMandatory { get; }
-		//
-		public Resource(XElement element)
+
+		[JsonConstructor]
+		public Resource(string name, SlotType? buildingType, bool? isMandatory)
 		{
-			if (element == null)
-				throw new ArgumentNullException("element");
-			if (!ValidateElement(element, out string message))
+			if (buildingType == null)
+				throw new ArgumentNullException(nameof(buildingType));
+			if (isMandatory == null)
+				throw new ArgumentNullException(nameof(isMandatory));
+			if (!ValidateValues(buildingType.Value, isMandatory.Value, out var message))
 				throw new FormatException(message);
-			Name = (string)element.Attribute("n");
-			BuildingType = Enums.Parse<ReplacedBuildingType>((string)element.Attribute("bt"));
-			IsMandatory = (bool)element.Attribute("im");
+			Name = name ?? throw new ArgumentNullException(nameof(name));
+			BuildingType = buildingType.Value;
+			IsMandatory = isMandatory.Value;
 		}
-		//
-		public static bool ValidateElement(XElement element, out string message)
+
+		public override string ToString()
 		{
-			if (element.Attribute("n") == null)
+			return Name;
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj != null && (ReferenceEquals(this, obj) || Equals(obj as Resource));
+		}
+
+		private bool Equals(Resource other)
+		{
+			return other != null && (string.Equals(Name, other.Name) && BuildingType == other.BuildingType && IsMandatory == other.IsMandatory);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
 			{
-				message = "XML element lacks 'n' attribute.";
+				var hashCode = (Name != null ? Name.GetHashCode() : 0);
+				hashCode = (hashCode * 397) ^ (int) BuildingType;
+				hashCode = (hashCode * 397) ^ IsMandatory.GetHashCode();
+				return hashCode;
+			}
+		}
+
+		// Classifier members:
+
+		public static bool ValidateValues(SlotType buildingType, bool isMandatory, out string message)
+		{
+			if (buildingType == SlotType.General && isMandatory)
+			{
+				message = "Mandatory replacement of general building.";
 				return false;
 			}
-			if (element.Attribute("bt") == null)
-			{
-				message = "XML element lacks 'bt' attribute (name: " + (string)element.Attribute("n") + ").";
-				return false;
-			}
-			if (element.Attribute("im") == null)
-			{
-				message = "XML element lacks 'im' attribute (name: " + (string)element.Attribute("n") + ").";
-				return false;
-			}
-			if (!Enums.TryParse((string)element.Attribute("bt"), out ReplacedBuildingType nothing))
-			{
-				message = "XML element's 'bt' attribute is not a ReplacedBuildingType value (name: " + (string)element.Attribute("n") + ").";
-				return false;
-			}
-			if (!Boolean.TryParse((string)element.Attribute("im"), out bool irrelevant))
-			{
-				message = "XML element's 'im' attribute is not a boolean value (name: " + (string)element.Attribute("n") + ").";
-				return false;
-			}
-			message = "XML element is a valid representation of a resource.";
+
+			message = "Values are valid.";
 			return true;
-		}
-		//
-		public enum ReplacedBuildingType
-		{
-			Main,
-			General,
-			Coast
 		}
 	}
 }

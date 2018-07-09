@@ -32,7 +32,7 @@
 			</level>
 		</branch>
 	</building_category>
-	<building_category n="Coast">
+	<building_category n="Coastal">
 		<branch n="Port">
 			<level n="Port" l="1" t="0">
 				<bonus c ="MaritimeCommerce">225</bonus>

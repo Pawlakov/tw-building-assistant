@@ -54,6 +54,7 @@
     <Compile Include="GameWorld\Effects\WealthBonusFactoryTests.cs" />
     <Compile Include="GameWorld\Effects\WealthBonusTests.cs" />
     <Compile Include="GameWorld\Effects\WealthTests.cs" />
+    <Compile Include="GameWorld\Resources\ResourceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

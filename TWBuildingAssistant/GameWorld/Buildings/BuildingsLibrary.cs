@@ -29,7 +29,7 @@ namespace GameWorld.Buildings
 			Dictionary<string, XElement> buildingCategories = (from XElement element in sourceFile.Root.Elements() select element).ToDictionary((XElement element) => (string)element.Attribute("n"));
 			_cityCenterBuilding = new BuildingBranch(buildingCategories["CenterCity"].Elements().First(), technologyLevelAssigner, religionParser);
 			_townCenterBuilding = new BuildingBranch(buildingCategories["CenterTown"].Elements().First(), technologyLevelAssigner, religionParser);
-			_coastBuilding = new BuildingBranch(buildingCategories["Coast"].Elements().First(), technologyLevelAssigner, religionParser);
+			_coastBuilding = new BuildingBranch(buildingCategories["Coastal"].Elements().First(), technologyLevelAssigner, religionParser);
 			var sharedBuildings = from XElement element in buildingCategories["Shared"].Elements() select new BuildingBranch(element, technologyLevelAssigner, religionParser);
 			var cityBuildings = from XElement element in buildingCategories["City"].Elements() select new BuildingBranch(element, technologyLevelAssigner, religionParser);
 			var townBuildings = from XElement element in buildingCategories["Town"].Elements() select new BuildingBranch(element, technologyLevelAssigner, religionParser);
@@ -44,9 +44,9 @@ namespace GameWorld.Buildings
 			// Czy do zbioru dołączyć budynek specjalny zasobu?
 			bool includeResource = resource != null && 
 				(
-				(resource.BuildingType == Resources.Resource.ReplacedBuildingType.Coast && type == SlotType.Coast) ||
-				(resource.BuildingType == Resources.Resource.ReplacedBuildingType.Main && (type == SlotType.CityCenter || type == SlotType.TownCenter)) ||
-				(resource.BuildingType == Resources.Resource.ReplacedBuildingType.General && (type == SlotType.City || type == SlotType.Town))
+				(resource.BuildingType == Resources.SlotType.Coastal && type == SlotType.Coast) ||
+				(resource.BuildingType == Resources.SlotType.Main && (type == SlotType.CityCenter || type == SlotType.TownCenter)) ||
+				(resource.BuildingType == Resources.SlotType.General && (type == SlotType.City || type == SlotType.Town))
 				);
 			// Jeżeli zasób MUSI być wydobywany to nie można postawić innego budynku.
 			bool includeRegular = !(includeResource && resource.IsMandatory);

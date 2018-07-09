@@ -1,0 +1,67 @@
+[
+  {
+    "Name": "Iron",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Lead",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Gemstones",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Olive",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Fur",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Wine",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Silk",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Marble",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Salt",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Gold",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Dye",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Lumber",
+    "BuildingType": "General",
+    "IsMandatory": false
+  },
+  {
+    "Name": "Spice",
+    "BuildingType": "Coastal",
+    "IsMandatory": true
+  }
+]

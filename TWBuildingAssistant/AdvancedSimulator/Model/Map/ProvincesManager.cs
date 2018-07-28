@@ -25,7 +25,7 @@
 
         public event ProvinceChangedHandler ProvinceChanged;
 
-        private const string _sourceFile = "Map\\twa_map.xml";
+        private const string _sourceFile = "Model\\Map\\twa_map.xml";
 
         private const int _minimalFertilityDrop = 0;
 

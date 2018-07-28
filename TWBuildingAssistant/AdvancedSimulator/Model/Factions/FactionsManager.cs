@@ -19,7 +19,7 @@
             _resourcesParser = resourcesParser;
         }
 
-        private const string _fileName = "Factions\\twa_factions.xml";
+        private const string _fileName = "Model\\Factions\\twa_factions.xml";
 
         private readonly Map.IReligionParser _religionsParser;
 

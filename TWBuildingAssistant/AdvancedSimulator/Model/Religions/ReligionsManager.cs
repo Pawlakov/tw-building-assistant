@@ -81,7 +81,7 @@
             }
         }
 
-        private const string _sourceFile = "Religions\\twa_religions.xml";
+        private const string _sourceFile = "Model\\Religions\\twa_religions.xml";
 
         private readonly Religion[] _religions;
 

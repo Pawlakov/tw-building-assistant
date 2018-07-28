@@ -34,7 +34,7 @@
 
         public BuildingLibrary(string fileName, ITechnologyLevelAssigner technologyLevelAssigner, Map.IResourceParser resourceParser, Map.IReligionParser religionParser)
         {
-            XDocument sourceFile = XDocument.Load("Buildings\\" + fileName);
+            XDocument sourceFile = XDocument.Load("Model\\Buildings\\" + fileName);
             Dictionary<string, XElement> buildingCategories = (from XElement element in sourceFile.Root.Elements() select element).ToDictionary((XElement element) => (string)element.Attribute("n"));
             this.cityCenterBuilding = new BuildingBranch(buildingCategories["CenterCity"].Elements().First(), technologyLevelAssigner, religionParser);
             this.townCenterBuilding = new BuildingBranch(buildingCategories["CenterTown"].Elements().First(), technologyLevelAssigner, religionParser);

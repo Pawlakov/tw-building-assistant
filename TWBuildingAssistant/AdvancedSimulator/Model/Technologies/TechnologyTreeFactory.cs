@@ -6,7 +6,7 @@
     {
         public static ITechnologyTree MakeTechnologyTree(string sourceFilename)
         {
-            XDocument inputDocument = XDocument.Load("Technologies\\" + sourceFilename);
+            XDocument inputDocument = XDocument.Load("Model\\Technologies\\" + sourceFilename);
             XElement treeNode = inputDocument.Root;
             if ((string)treeNode.Attribute("t") == "expanded")
                 return new ExpandedTechnologyTree(treeNode);

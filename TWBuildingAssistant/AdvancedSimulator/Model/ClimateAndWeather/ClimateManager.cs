@@ -30,7 +30,7 @@
             WeatherManager.ChangeWorstCaseWeather(whichWeather);
         }
 
-        private const string _sourceFilename = "ClimateAndWeather\\twa_climates.xml";
+        private const string _sourceFilename = "Model\\ClimateAndWeather\\twa_climates.xml";
 
         private readonly Climate[] _climates;
 

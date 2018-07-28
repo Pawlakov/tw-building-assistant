@@ -53,10 +53,14 @@
             {
                 throw new ArgumentNullException(nameof(input));
             }
-            else
+
+            var result = this.resources.FirstOrDefault(element => input.Equals(element.Name, StringComparison.OrdinalIgnoreCase));
+            if (result == null)
             {
-                return this.resources.FirstOrDefault(element => input.Equals(element.Name, StringComparison.OrdinalIgnoreCase));
+                throw new ResourcesException("No matching resource found.");
             }
+
+            return result;
         }
     }
 }

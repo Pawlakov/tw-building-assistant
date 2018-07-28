@@ -62,7 +62,7 @@
         }
 
         /// <summary>
-        /// The to string.
+        /// Checks whether the value return by ToString method is correct.
         /// </summary>
         /// <param name="name">
         /// The value used to set <see cref="Resource.Name"/>.

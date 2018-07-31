@@ -48,50 +48,7 @@
             }
         }
 
-        public int PublicOrder
-        {
-            get { return Faction.PublicOrder; }
-        }
-
-        public int Food
-        {
-            get { return Faction.Food; }
-        }
-
-        public int Sanitation
-        {
-            get { return Faction.Sanitation; }
-        }
-
-        public int ReligiousOsmosis
-        {
-            get { return Faction.ReligiousOsmosis; }
-        }
-
-        public int ReligiousInfluence
-        {
-            get { return Faction.ReligiousInfluence; }
-        }
-
-        public int ResearchRate
-        {
-            get { return Faction.ResearchRate; }
-        }
-
-        public int Growth
-        {
-            get { return Faction.Growth; }
-        }
-
-        public int Fertility
-        {
-            get { return Faction.Fertility; }
-        }
-
-        public IEnumerable<Effects.WealthBonus> Bonuses
-        {
-            get { return Faction.Bonuses; }
-        }
+        public Effects.IProvincionalEffect Effect => Faction.Effect;
 
         public IEnumerable<KeyValuePair<int, string>> AllFactionsNames
         {

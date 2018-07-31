@@ -9,75 +9,77 @@
     {
         private ITechnologyTree ContainingTree { get; }
 
-        public int Sanitation { get; private set; }
-
-        public int Fertility { get; private set; }
-
-        public int Growth { get; private set; }
-
-        public int PublicOrder { get; private set; }
-
-        public int ReligiousInfluence { get; private set; }
-
-        public int Food { get; private set; }
-
-        public int ReligiousOsmosis { get; private set; }
-
-        public int ResearchRate { get; private set; }
-
-        public IEnumerable<Effects.WealthBonus> Bonuses { get; private set; }
+        public Effects.IProvincionalEffect Effect { get; private set; }
 
         public bool IsAvailable { get; private set; }
 
         public void Cumulate(TechnologyLevel added)
         {
             if (added == null)
-                throw new ArgumentNullException("added");
-            Sanitation += added.Sanitation;
-            Fertility += added.Fertility;
-            Growth += added.Growth;
-            PublicOrder += added.PublicOrder;
-            ReligiousInfluence += added.ReligiousInfluence;
-            Bonuses = Bonuses.Concat(added.Bonuses);
+            {
+                throw new ArgumentNullException(nameof(added));
+            }
+
+            this.Effect = this.Effect.Aggregate(added.Effect);
         }
 
         public TechnologyLevel(ITechnologyTree containingTree, XElement element)
         {
-            ContainingTree = containingTree;
+            this.ContainingTree = containingTree;
             containingTree.DesiredTechnologyChanged += (ITechnologyTree sender, EventArgs e) => { IsAvailable = containingTree.IsLevelReasearched(this); };
-            XAttribute temporary;
-            temporary = element.Attribute("s");
+
+            var sanitation = 0;
+            var fertility = 0;
+            var growth = 0;
+            var publicOrder = 0;
+            var religiousInfluence = 0;
+            var religiousOsmosis = 0;
+            var food = 0;
+            var researchRate = 0;
+            var temporary = element.Attribute("s");
             if (temporary != null)
-                Sanitation = (int)temporary;
+                sanitation = (int)temporary;
             temporary = element.Attribute("i");
             if (temporary != null)
-                Fertility = (int)temporary;
+                fertility = (int)temporary;
             temporary = element.Attribute("g");
             if (temporary != null)
-                Growth = (int)temporary;
+                growth = (int)temporary;
             temporary = element.Attribute("po");
             if (temporary != null)
-                PublicOrder = (int)temporary;
+                publicOrder = (int)temporary;
             temporary = element.Attribute("ri");
             if (temporary != null)
-                ReligiousInfluence = (int)temporary;
+                religiousInfluence = (int)temporary;
             temporary = element.Attribute("ro");
             if (temporary != null)
-                ReligiousOsmosis = (int)temporary;
+                religiousOsmosis = (int)temporary;
             temporary = element.Attribute("f");
             if (temporary != null)
-                Food = (int)temporary;
+                food = (int)temporary;
             temporary = element.Attribute("rr");
             if (temporary != null)
-                ResearchRate = (int)temporary;
-            Bonuses = from XElement bonusElement in element.Elements() select Effects.WealthBonusesFactory.MakeBonus(bonusElement);
+                researchRate = (int)temporary;
+            var bonuses = from XElement bonusElement in element.Elements() select Effects.BonusFactory.MakeBonus(bonusElement) as Effects.Bonus;
+            this.Effect = new Effects.ProvincionalEffect()
+                          {
+                          Bonuses = (from Effects.IBonus bonus in bonuses select bonus).ToList(),
+                          Fertility = fertility,
+                          Growth = growth,
+                          Influences = new List<Effects.IInfluence>() { new Effects.Influence() { Religion = null, Value = religiousInfluence } },
+                          ProvincionalSanitation = sanitation,
+                          PublicOrder = publicOrder,
+                          ReligiousOsmosis = religiousOsmosis,
+                          RegularFood = food,
+                          ResearchRate = researchRate
+                          };
         }
 
         public TechnologyLevel(ITechnologyTree containingTree)
         {
-            ContainingTree = containingTree;
-            containingTree.DesiredTechnologyChanged += (ITechnologyTree sender, EventArgs e) => { IsAvailable = containingTree.IsLevelReasearched(this); };
-            Bonuses = new Effects.WealthBonus[0];
+            this.ContainingTree = containingTree;
+            containingTree.DesiredTechnologyChanged += (sender, e) => { this.IsAvailable = containingTree.IsLevelReasearched(this); };
+            this.Effect = new Effects.ProvincionalEffect();
         }
     }
 }

@@ -6,9 +6,9 @@
 
     using EnumsNET;
 
-    public static class WealthBonusesFactory
+    public static class BonusFactory
     {
-        public static WealthBonus MakeBonus(XElement element)
+        public static IBonus MakeBonus(XElement element)
         {
             if (element == null)
                 throw new ArgumentNullException(nameof(element));
@@ -21,7 +21,7 @@
                 type = BonusType.FertilityDependent;
             else
                 type = BonusType.Simple;
-            return new WealthBonus((int)element, Enums.Parse<WealthCategory>((string)element.Attribute("c")), type);
+            return new Bonus() { Value = (int)element, Category = Enums.Parse<WealthCategory>((string)element.Attribute("c")), Type = type };
         }
 
         public static bool ValidateElement(XElement element, out string message)
@@ -56,19 +56,7 @@
                 return false;
             }
 
-            bool result;
-            string submessage;
-            if (element.Name == "multiplier")
-                result = WealthBonus.ValidateValues((int)element, Enums.Parse<WealthCategory>((string)element.Attribute("c")), BonusType.Percentage, out submessage);
-            else if (element.Name == "fertility_dependent")
-                result = WealthBonus.ValidateValues((int)element, Enums.Parse<WealthCategory>((string)element.Attribute("c")), BonusType.FertilityDependent, out submessage);
-            else
-                result = WealthBonus.ValidateValues((int)element, Enums.Parse<WealthCategory>((string)element.Attribute("c")), BonusType.Simple, out submessage);
-            if (!result)
-            {
-                message = "Values describing WealthBonus are mismatched : " + submessage;
-                return false;
-            }
+            // UWAGA: Tu zostało pominięta walidacja wewnątrz bonusu.
 
             message = "XML element is a valid representation of a wealth bonus.";
             return true;

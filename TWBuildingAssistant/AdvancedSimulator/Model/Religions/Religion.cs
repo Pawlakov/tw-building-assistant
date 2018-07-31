@@ -2,166 +2,88 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Xml.Linq;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
+    using TWBuildingAssistant.Model.Map;
+
+    [Table("Religions")]
     public class Religion : IReligion
     {
-        public Religion(XElement element, Map.IStateReligionTracker stateReligionTracker)
-        {
-            if (element == null)
-                throw new ArgumentNullException("element");
-            if (!ValidateElement(element, out string message))
-                throw new FormatException(message);
-            Name = (string)element.Attribute("n");
-            int? temporary = (int?)element.Attribute("po");
-            if (temporary.HasValue)
-                PublicOrder = temporary.Value;
-            temporary = (int?)element.Attribute("g");
-            if (temporary.HasValue)
-                Growth = temporary.Value;
-            temporary = (int?)element.Attribute("rr");
-            if (temporary.HasValue)
-                ResearchRate = temporary.Value;
-            temporary = (int?)element.Attribute("s");
-            if (temporary.HasValue)
-                Sanitation = temporary.Value;
-            temporary = (int?)element.Attribute("ri");
-            if (temporary.HasValue)
-                ReligiousInfluence = temporary.Value;
-            temporary = (int?)element.Attribute("ro");
-            if (temporary.HasValue)
-                ReligiousOsmosis = temporary.Value;
-            if (element.Elements().Count() > 0)
-                WealthBonus = Effects.WealthBonusesFactory.MakeBonus(element.Elements().First());
-            stateReligionTracker.StateReligionChanged += (Map.IStateReligionTracker sender, EventArgs e) => { _stateReligion = sender.StateReligion; };
-        }
+        private Map.IStateReligionTracker stateReligionTracker;
 
-        public string Name { get; }
+        private bool isState;
 
-        public int PublicOrder { get; }
+        private Effects.IProvincionalEffect effect;
 
-        public int Growth { get; }
+        [Key]
+        public int ReligionId { get; set; }
 
-        public int ResearchRate { get; }
+        [Column]
+        [Required]
+        public string Name { get; set; }
 
-        public int Sanitation { get; }
+        public ReligionEffect ActualEffect { get; set; }
 
-        public int ReligiousInfluence { get; }
-
-        public int ReligiousOsmosis { get; }
-
-        public int Food { get; }
-
-        public int Fertility { get; }
-
-        public IEnumerable<Effects.WealthBonus> Bonuses
+        [NotMapped]
+        public Effects.IProvincionalEffect Effect
         {
             get
             {
-                if (WealthBonus != null)
-                    return new Effects.WealthBonus[] { WealthBonus };
-                else
-                    return new Effects.WealthBonus[0];
+                if (this.effect == null)
+                {
+                    this.effect = this.ActualEffect != null ? this.ActualEffect.Simplify() : new Effects.ProvincionalEffect();
+                }
+
+                return this.effect;
             }
         }
 
+        public ICollection<ReligionInfluence> ReligionInfluences { get; set; }
+
+        public bool Validate(out string message)
+        {
+            if (this.Name == null)
+            {
+                message = "Name is null.";
+                return false;
+            }
+
+            if (this.Name.Equals(string.Empty))
+            {
+                message = "Name is empty.";
+                return false;
+            }
+
+            message = "Values are valid.";
+            return true;
+        }
+
+        [NotMapped]
         public bool IsState
         {
             get
             {
-                return this == _stateReligion;
+                if (this.stateReligionTracker == null)
+                {
+                    throw new ReligionsException("State religion not tracked.");
+                }
+
+                return this.isState;
             }
         }
 
-        private Religion _stateReligion;
-
-        private Effects.WealthBonus WealthBonus { get; }
-
-        public static bool ValidateElement(XElement element, out string message)
+        [NotMapped]
+        public IStateReligionTracker StateReligionTracker
         {
-            int dummy;
-            int attributeCount = element.Attributes().Count() - 1;
-            if (element.Attribute("n") == null)
+            set
             {
-                --attributeCount;
-                message = "XML element lacks 'n' attribute.";
-                return false;
+                this.stateReligionTracker = value;
+                this.stateReligionTracker.StateReligionChanged += (sender, e) =>
+                    {
+                        this.isState = ReferenceEquals(this, sender.StateReligion);
+                    };
             }
-            if (element.Attribute("po") != null)
-            {
-                --attributeCount;
-                if (!Int32.TryParse((string)element.Attribute("po"), out dummy))
-                {
-                    message = "XML element's 'po' attribute is not an integer value (name: " + (string)element.Attribute("n") + ").";
-                    return false;
-                }
-            }
-            if (element.Attribute("g") != null)
-            {
-                --attributeCount;
-                if (!Int32.TryParse((string)element.Attribute("g"), out dummy))
-                {
-                    message = "XML element's 'g' attribute is not an integer value (name: " + (string)element.Attribute("n") + ").";
-                    return false;
-                }
-            }
-            if (element.Attribute("rr") != null)
-            {
-                --attributeCount;
-                if (!Int32.TryParse((string)element.Attribute("rr"), out dummy))
-                {
-                    message = "XML element's 'rr' attribute is not an integer value (name: " + (string)element.Attribute("n") + ").";
-                    return false;
-                }
-            }
-            if (element.Attribute("s") != null)
-            {
-                --attributeCount;
-                if (!Int32.TryParse((string)element.Attribute("s"), out dummy))
-                {
-                    message = "XML element's 's' attribute is not an integer value (name: " + (string)element.Attribute("n") + ").";
-                    return false;
-                }
-            }
-            if (element.Attribute("ri") != null)
-            {
-                --attributeCount;
-                if (!Int32.TryParse((string)element.Attribute("ri"), out dummy))
-                {
-                    message = "XML element's 'ri' attribute is not an integer value (name: " + (string)element.Attribute("n") + ").";
-                    return false;
-                }
-            }
-            if (element.Attribute("ro") != null)
-            {
-                --attributeCount;
-                if (!Int32.TryParse((string)element.Attribute("ro"), out dummy))
-                {
-                    message = "XML element's 'ro' attribute is not an integer value (name: " + (string)element.Attribute("n") + ").";
-                    return false;
-                }
-            }
-            if (attributeCount != 0)
-            {
-                message = "XML element contains unrecognized attributes (name: " + (string)element.Attribute("n") + ").";
-                return false;
-            }
-            if (element.Elements().Count() > 0)
-            {
-                if (element.Elements().Count() > 1)
-                {
-                    message = "XML element has too many sub-elements (name: " + (string)element.Attribute("n") + ").";
-                    return false;
-                }
-                if (!Effects.WealthBonusesFactory.ValidateElement(element.Elements().First(), out string submessage))
-                {
-                    message = "XML element's sub-element is not a valid description of a wealth bonus (name: " + (string)element.Attribute("n") + "): " + submessage;
-                    return false;
-                }
-            }
-            message = "XML element is a valid representation of a religion.";
-            return true;
         }
     }
 }

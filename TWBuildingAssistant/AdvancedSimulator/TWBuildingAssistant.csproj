@@ -91,6 +91,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataModel.cs" />
+    <Compile Include="Model\Effects\Bonus.cs" />
+    <Compile Include="Model\Effects\IInfluence.cs" />
+    <Compile Include="Model\Effects\IProvincionalEffect.cs" />
+    <Compile Include="Model\Effects\IRegionalEffect.cs" />
+    <Compile Include="Model\Religions\ReligionBonus.cs" />
+    <Compile Include="Model\Religions\ReligionEffect.cs" />
+    <Compile Include="Model\Religions\ReligionInfluence.cs" />
     <Compile Include="Model\Buildings\BuildingBranch.cs" />
     <Compile Include="Model\Buildings\BuildingLevel.cs" />
     <Compile Include="Model\Buildings\BuildingsLibrary.cs" />
@@ -101,13 +108,14 @@
     <Compile Include="Model\ClimateAndWeather\WeatherManager.cs" />
     <Compile Include="Model\Combinations\BuildingSlot.cs" />
     <Compile Include="Model\Combinations\Combination.cs" />
-    <Compile Include="Model\Combinations\ProvinceReligion.cs" />
+    <Compile Include="Model\Effects\InfluenceCalculator.cs" />
     <Compile Include="Model\Effects\BonusType.cs" />
-    <Compile Include="Model\Effects\ProvincionalEffectsPackage.cs" />
-    <Compile Include="Model\Effects\RegionalEffectsPackage.cs" />
+    <Compile Include="Model\Effects\Influence.cs" />
+    <Compile Include="Model\Effects\ProvincionalEffect.cs" />
+    <Compile Include="Model\Effects\RegionalEffect.cs" />
     <Compile Include="Model\Effects\Wealth.cs" />
-    <Compile Include="Model\Effects\WealthBonus.cs" />
-    <Compile Include="Model\Effects\WealthBonusesFactory.cs" />
+    <Compile Include="Model\Effects\IBonus.cs" />
+    <Compile Include="Model\Effects\BonusFactory.cs" />
     <Compile Include="Model\Effects\WealthCategory.cs" />
     <Compile Include="Model\Effects\WealthRecord.cs" />
     <Compile Include="Model\Factions\Faction.cs" />
@@ -122,11 +130,13 @@
     <Compile Include="Model\Map\ProvinceTraditions.cs" />
     <Compile Include="Model\Map\RegionData.cs" />
     <Compile Include="Model\Religions\IReligion.cs" />
+    <Compile Include="Model\Religions\IReligionsSource.cs" />
     <Compile Include="Model\Religions\Religion.cs" />
+    <Compile Include="Model\Religions\ReligionsDataSource.cs" />
     <Compile Include="Model\Religions\ReligionsManager.cs" />
-    <Compile Include="Model\Religions\StateReligion.cs" />
     <Compile Include="Model\Resources\IResource.cs" />
     <Compile Include="Model\Resources\IResourcesSource.cs" />
+    <Compile Include="Model\Religions\ReligionsException.cs" />
     <Compile Include="Model\Resources\Resource.cs" />
     <Compile Include="Model\Resources\ResourcesDataSource.cs" />
     <Compile Include="Model\Resources\ResourcesException.cs" />
@@ -154,6 +164,9 @@
     <Folder Include="FutureViewModel\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\twa_database.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Model\Buildings\twa_buildings_wre.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -164,9 +177,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Model\Map\twa_map.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Model\Religions\twa_religions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Model\Technologies\twa_technologies_wre.xml">

@@ -63,10 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Effects\EffectsPackageTests.cs" />
-    <Compile Include="Model\Effects\WealthBonusFactoryTests.cs" />
-    <Compile Include="Model\Effects\WealthBonusTests.cs" />
-    <Compile Include="Model\Effects\WealthTests.cs" />
     <Compile Include="Model\Resources\ResourcesManagerTests.cs" />
     <Compile Include="Model\Resources\ResourceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

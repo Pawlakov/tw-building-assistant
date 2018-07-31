@@ -17,50 +17,7 @@
 
         public string Name { get; }
 
-        public int Sanitation
-        {
-            get { return TechLevels.CurrentLevel.Sanitation; }
-        }
-
-        public int Fertility
-        {
-            get { return TechLevels.CurrentLevel.Fertility; }
-        }
-
-        public int Growth
-        {
-            get { return TechLevels.CurrentLevel.Growth; }
-        }
-
-        public int PublicOrder
-        {
-            get { return TechLevels.CurrentLevel.PublicOrder; }
-        }
-
-        public int ReligiousInfluence
-        {
-            get { return TechLevels.CurrentLevel.ReligiousInfluence; }
-        }
-
-        public int Food
-        {
-            get { return TechLevels.CurrentLevel.Food; }
-        }
-
-        public int ReligiousOsmosis
-        {
-            get { return TechLevels.CurrentLevel.ReligiousOsmosis; }
-        }
-
-        public int ResearchRate
-        {
-            get { return TechLevels.CurrentLevel.ResearchRate; }
-        }
-
-        public IEnumerable<Effects.WealthBonus> Bonuses
-        {
-            get { return TechLevels.CurrentLevel.Bonuses; }
-        }
+        public Effects.IProvincionalEffect Effect => TechLevels.CurrentLevel.Effect;
 
         public void ChangeDesiredTechnologyLevel(int whichLevel, bool useLegacyTechnolgies)
         {

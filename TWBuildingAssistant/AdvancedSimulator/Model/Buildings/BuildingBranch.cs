@@ -47,7 +47,7 @@
                 // Czy spełniony jest warunek religii.
                 if (!IsReligiouslyExclusive)
                     return true;
-                if (Religion.IsState)
+                if (this.Religion == null || this.Religion.IsState)
                     return true;
                 return false;
             }

@@ -6,7 +6,7 @@
     {
         event StateReligionChangedHandler StateReligionChanged;
 
-        Religions.Religion StateReligion { get; }
+        Religions.IReligion StateReligion { get; }
     }
 
     public delegate void StateReligionChangedHandler(IStateReligionTracker sender, EventArgs e);

@@ -6,161 +6,91 @@
     using System.Linq;
     using System.Xml.Linq;
 
-    public class ReligionsManager : Map.IReligionParser, Map.IStateReligionTracker
+    public partial class ReligionsManager
     {
-        public ReligionsManager()
+        private readonly IEnumerable<IReligion> religions;
+
+        public ReligionsManager(IReligionsSource source)
         {
-            if (!Validate(out string message))
-                throw new FormatException("Cannot create information on religions: " + message);
-            XDocument sourceFile = XDocument.Load(_sourceFile);
-            _religions = (from XElement element in sourceFile.Root.Elements() select new Religion(element, this)).ToArray();
-            StateReligionProxy = new StateReligion(this);
+            this.religions = source.GetReligions();
+            var message = string.Empty;
+            if (this.religions.Any(resource => !resource.Validate(out message)))
+            {
+                throw new ReligionsException($"One of religions is not valid ({message}).");
+            }
+
+            foreach (var religion in this.religions)
+            {
+                religion.StateReligionTracker = this;
+            }
         }
 
-        public event Map.StateReligionChangedHandler StateReligionChanged;
-
-        public int ReligionTypesCount
-        {
-            get { return _religions.Length; }
-        }
-
-        public IReligion Parse(string input)
-        {
-            if (input == null)
-                return null;
-            // Zwrócenie obiektu zawsze będącego religią państwową.
-            if (input.Equals("State", StringComparison.OrdinalIgnoreCase))
-                return StateReligionProxy;
-            // Lub obiektu prawdziwej religii.
-            foreach (Religion religion in _religions)
-                if (input.Equals(religion.Name, StringComparison.OrdinalIgnoreCase))
-                    return religion;
-            return null;
-        }
-
-        public int GetIndex(IReligion religion)
-        {
-            if (religion == null)
-                throw new ArgumentNullException("religion");
-            if (religion == StateReligionProxy)
-                return StateReligionIndex;
-            for (int whichReligion = 0; whichReligion < ReligionTypesCount; ++whichReligion)
-                if (religion == _religions[whichReligion])
-                    return whichReligion;
-            throw new ArgumentException("Unknown religion (name: " + religion.Name + ").", "religion");
-        }
-
-        public Religion StateReligion
-        {
-            get { return _religions[StateReligionIndex]; }
-        }
-
-        public void ChangeStateReligion(int whichReligion)
-        {
-            if (whichReligion < 0 || whichReligion > (ReligionTypesCount - 1))
-                throw new ArgumentOutOfRangeException("whichReligion", whichReligion, "The index of new state religion is out of range.");
-            StateReligionIndex = whichReligion;
-            OnStateReligionChanged();
-        }
-
-        public bool IsStateReligion(IReligion subject)
-        {
-            if (subject == StateReligionProxy)
-                return true;
-            return subject == StateReligion;
-        }
+        public IEnumerable<IReligion> Religions => this.religions.ToArray();
 
         public IEnumerable<KeyValuePair<int, string>> AllReligionsNames
         {
             get
             {
-                List<KeyValuePair<int, string>> result = new List<KeyValuePair<int, string>>(ReligionTypesCount);
-                for (int whichReligion = 0; whichReligion < ReligionTypesCount; ++whichReligion)
-                    result.Add(new KeyValuePair<int, string>(whichReligion, _religions[whichReligion].Name));
+                var result = new List<KeyValuePair<int, string>>(this.religions.Count());
+                var whichReligion = 0;
+                foreach (var religion in this.religions)
+                {
+                    result.Add(new KeyValuePair<int, string>(whichReligion, religion.Name));
+                    ++whichReligion;
+                }
+
                 return result;
             }
         }
+    }
 
-        private const string _sourceFile = "Model\\Religions\\twa_religions.xml";
+    public partial class ReligionsManager : Map.IStateReligionTracker
+    {
+        public event Map.StateReligionChangedHandler StateReligionChanged;
 
-        private readonly Religion[] _religions;
+        public IReligion StateReligion { get; private set; }
 
-        private StateReligion StateReligionProxy { get; }
+        public void ChangeStateReligion(int whichReligion)
+        {
+            if (whichReligion < 0 || whichReligion > (this.religions.Count() - 1))
+            {
+                throw new ArgumentOutOfRangeException(
+                nameof(whichReligion),
+                whichReligion,
+                "The index of new state religion is out of range.");
+            }
 
-        private int StateReligionIndex { get; set; } = -1;
+            StateReligion = this.religions.ToArray()[whichReligion];
+            OnStateReligionChanged();
+        }
 
         private void OnStateReligionChanged()
         {
             StateReligionChanged?.Invoke(this, EventArgs.Empty);
         }
+    }
 
-        public static bool Validate(out string message)
+    public partial class ReligionsManager : Map.IReligionParser
+    {
+        public IReligion Parse(string input)
         {
-            XDocument document;
-            if (!File.Exists(_sourceFile))
+            if (input == null)
             {
-                message = "Corresponding file not found.";
-                return false;
+                throw new ArgumentNullException(nameof(input));
             }
-            document = XDocument.Load(_sourceFile);
-            if (document.Root == null || document.Root.Elements().Count() < 1)
+
+            if (input.Equals("State", StringComparison.OrdinalIgnoreCase))
             {
-                message = "Corresponding file is incomplete.";
-                return false;
+                return null;
             }
-            foreach (XElement element in document.Root.Elements())
-                if (!Religion.ValidateElement(element, out string elementMessage))
-                {
-                    message = "One of XML elements is invalid: " + elementMessage;
-                    return false;
-                }
-            message = "Information on religions is valid and complete.";
-            return true;
-        }
 
-        public int PublicOrder
-        {
-            get { return StateReligion.PublicOrder; }
-        }
+            var result = this.religions.FirstOrDefault(element => input.Equals(element.Name, StringComparison.OrdinalIgnoreCase));
+            if (result == null)
+            {
+                throw new ReligionsException("No matching religion found.");
+            }
 
-        public int Food
-        {
-            get { return StateReligion.Food; }
-        }
-
-        public int Sanitation
-        {
-            get { return StateReligion.Sanitation; }
-        }
-
-        public int ReligiousOsmosis
-        {
-            get { return StateReligion.ReligiousOsmosis; }
-        }
-
-        public int ReligiousInfluence
-        {
-            get { return StateReligion.ReligiousInfluence; }
-        }
-
-        public int ResearchRate
-        {
-            get { return StateReligion.ResearchRate; }
-        }
-
-        public int Growth
-        {
-            get { return StateReligion.Growth; }
-        }
-
-        public int Fertility
-        {
-            get { return StateReligion.Fertility; }
-        }
-
-        public IEnumerable<Effects.WealthBonus> Bonuses
-        {
-            get { return StateReligion.Bonuses; }
+            return result;
         }
     }
 }

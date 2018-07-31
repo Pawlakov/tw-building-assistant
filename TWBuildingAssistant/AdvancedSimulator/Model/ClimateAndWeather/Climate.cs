@@ -8,45 +8,30 @@
     {
         public string Name { get; }
 
-        public int Sanitation
-        {
-            get
-            {
-                return _sanitation[_currentWeatherIndex];
-            }
-        }
-
-        public int PublicOrder
-        {
-            get
-            {
-                return _publicOrder[_currentWeatherIndex];
-            }
-        }
-
-        public int Food
-        {
-            get
-            {
-                return _food[_currentWeatherIndex];
-            }
-        }
+        public Effects.IProvincionalEffect Effect => this.effects[_currentWeatherIndex];
 
         public Climate(XElement element, WeatherManager weatherManager)
         {
-            Name = (string)element.Attribute("n");
-            _publicOrder = (from XElement weatherElement in element.Elements() select (int)weatherElement.Attribute("po")).ToArray();
-            _food = (from XElement weatherElement in element.Elements() select (int)weatherElement.Attribute("f")).ToArray();
-            _sanitation = (from XElement weatherElement in element.Elements() select (int)weatherElement.Attribute("s")).ToArray();
+            this.Name = (string)element.Attribute("n");
+            var tuples = from XElement weatherElement in element.Elements()
+                         select ((int)weatherElement.Attribute("po"), (int)weatherElement.Attribute("f"),
+                                    (int)weatherElement.Attribute("s"));
+            this.effects = (from ValueTuple<int, int, int> item in tuples
+                            select new Effects.ProvincionalEffect()
+                                   {
+                                   PublicOrder = item.Item1,
+                                   RegularFood = item.Item2,
+                                   ProvincionalSanitation = item.Item3
+                                   } as Effects.IProvincionalEffect).ToArray();
+
             // Aktualizacja przez event.
-            weatherManager.WorstCaseWeatherChanged += (WeatherManager sender, EventArgs e) => { _currentWeatherIndex = (int)sender.WorstCaseWeather; };
+            weatherManager.WorstCaseWeatherChanged += (WeatherManager sender, EventArgs e) =>
+                {
+                    _currentWeatherIndex = (int)sender.WorstCaseWeather;
+                };
         }
 
-        private readonly int[] _publicOrder;
-
-        private readonly int[] _food;
-
-        private readonly int[] _sanitation;
+        private readonly Effects.IProvincionalEffect[] effects;
 
         private int _currentWeatherIndex = 2;
     }

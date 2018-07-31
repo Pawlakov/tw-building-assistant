@@ -13,7 +13,7 @@
 
         private const int _maximalDefaultFertility = 6;
 
-        public ProvinceData(XElement element, IFertilityDropTracker fertilityDropTracker, IReligionParser religionParser, IResourceParser resourceParser, IClimateParser climateParser, IStateReligionTracker stateReligionTracker)
+        public ProvinceData(XElement element, IFertilityDropTracker fertilityDropTracker, IReligionParser religionParser, IResourceParser resourceParser, IClimateParser climateParser)
         {
             if (element == null)
                 throw new ArgumentNullException("element");
@@ -32,7 +32,7 @@
             DefaultFertility = (int)element.Attribute("f");
             Climate = climateParser.Parse((string)element.Attribute("c"));
             //
-            Traditions = new ProvinceTraditions(element.Element("traditions"), religionParser, stateReligionTracker);
+            Traditions = new ProvinceTraditions(element.Element("traditions"), religionParser);
             IEnumerable<XElement> regionElements = from XElement regionElement in element.Elements() where regionElement.Name == "region" select regionElement;
             _regions = new RegionData[_regionsInProvinceCount];
             int whichRegion = 0;

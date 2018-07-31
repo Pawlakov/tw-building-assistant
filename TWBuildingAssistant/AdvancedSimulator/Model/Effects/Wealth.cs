@@ -3,22 +3,20 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using EnumsNET;
-
     public class Wealth
     {
-        private IEnumerable<WealthBonus> _bonuses;
+        private IEnumerable<IBonus> bonuses;
 
         public Wealth()
         {
-            _bonuses = new List<WealthBonus>();
+            this.bonuses = new List<IBonus>();
         }
 
         public double TotalWealth(int fertilityLevel)
         {
             var result = 0.0;
-            var records = new Dictionary<WealthCategory, WealthRecord>(CategoriesCount);
-            foreach (var bonus in _bonuses)
+            var records = new Dictionary<WealthCategory, WealthRecord>();
+            foreach (var bonus in this.bonuses)
                 bonus.Execute(records);
             if (records.ContainsKey(WealthCategory.All))
             {
@@ -32,18 +30,14 @@
             return result;
         }
 
-        public void AddBonus(WealthBonus bonus)
+        public void AddBonus(IBonus bonus)
         {
-            _bonuses = _bonuses.Append(bonus);
+            this.bonuses = this.bonuses.Append(bonus);
         }
 
-        public void AddBonuses(IEnumerable<WealthBonus> bonuses)
+        public void AddBonuses(IEnumerable<IBonus> bonuses)
         {
-            _bonuses = _bonuses.Concat(bonuses);
+            this.bonuses = this.bonuses.Concat(bonuses);
         }
-
-        public static int CategoriesCount { get; } = Enums.GetMemberCount<WealthCategory>();
-
-        public static IEnumerable<WealthCategory> Categories { get; } = Enums.GetValues<WealthCategory>();
     }
 }

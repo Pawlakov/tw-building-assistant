@@ -343,7 +343,7 @@
 				<bonus c ="Culture">1250</bonus>
 			</level>
 		</branch>
-		<religious_branch n="Arena" r="GraecoromanPagan" ire="false">
+		<religious_branch n="Arena" r="Graecoroman Pagan" ire="false">
 			<level n="Forum" l="1" t="0" po ="3">
 				<bonus c ="LocalCommerce">225</bonus>
 			</level>
@@ -454,7 +454,7 @@
 			</level>
 		</branch>
 		-->
-		<religious_branch n="Latin" r="LatinChristian" ire="true">
+		<religious_branch n="Latin" r="Latin Christian" ire="true">
 			<level n="LatinTemple" l="1" t="0" po ="3" ri="3">
 			</level>
 			<level n="LatinTemple" l="2" t="0" po ="4" ri="6" ro="1">
@@ -470,7 +470,7 @@
 			<level n="LatinMonastery" l="4" t="3" rs="15" ri="6" ro="3" il="false">
 			</level>
 		</religious_branch>
-		<religious_branch n="Pagan" r="GraecoromanPagan" ire="true">
+		<religious_branch n="Pagan" r="Graecoroman Pagan" ire="true">
 			<level n="PaganTemple" l="1" t="0" f="-30" po="3" ri="3">
 			</level>
 			<level n="PaganTemple" l="2" t="0" f="-60" po="5" ri="5">
@@ -602,7 +602,7 @@
 				<multiplier c ="Husbandry">15</multiplier>
 			</level>
 		</branch>
-		<religious_branch n="Latin" r="LatinChristian" ire="true">
+		<religious_branch n="Latin" r="Latin Christian" ire="true">
 			<level n="LatinTemple" l="1" t="0" po ="2" ri="1">
 			</level>
 			<level n="LatinTemple" l="2" t="0" po ="3" ri="2" ro="1">
@@ -622,7 +622,7 @@
 			<level n="Garrison" l="4" t="0" f="-80" po ="9">
 			</level>
 		</branch>
-		<religious_branch n="Pagan" r="GraecoromanPagan" ire="true">
+		<religious_branch n="Pagan" r="Graecoroman Pagan" ire="true">
 			<level n="PaganTemple" l="1" t="0" ri="1">
 			</level>
 			<level n="PaganTemple" l="2" t="0" ri="2">

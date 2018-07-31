@@ -1,5 +1,6 @@
 ﻿namespace TWBuildingAssistant.Model.Combinations
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     public class Combination
@@ -57,64 +58,45 @@
             }
         }
 
-        public void Calculate(Effects.ProvincionalEffectsPackage environment)
+        public void Calculate(Effects.IProvincionalEffect environment)
         {
-            // Żyznośc musi być wyliczona wczśnie ponieważ pozostałe obliczenia od niej zależą.
-            CalculateFertility(environment);
-            // Wpływ z zewnątrz.
-            Food = environment.Food;
-            PublicOrder = environment.PublicOrder;
-            for (int whichRegion = 0; whichRegion < _sanitation.Length; ++whichRegion)
-                _sanitation[whichRegion] = environment.ProvincionalSanitation;
-            ReligiousOsmosis = environment.ReligiousOsmosis;
-            ResearchRate = environment.ResearchRate;
-            Growth = environment.Growth;
-            // Tworzenie kalkulatorów pomocniczych.
-            Effects.Wealth wealthCalculator = new Effects.Wealth();
-            wealthCalculator.AddBonuses(environment.WealthBonuses);
-            ProvinceReligion religionCalculator = new ProvinceReligion(Province.Traditions);
-            religionCalculator.AddInfluence(environment.ReligiousInfluence);
-            // Uwzględnienie wpływu kombinacji.
-            for (int whichRegion = 0; whichRegion < 3; ++whichRegion)
-                for (int whichSlot = 0; whichSlot < _slots[whichRegion].Length; ++whichSlot)
+            var regionalEffects = new Effects.IRegionalEffect[3];
+            for (var whichRegion = 0; whichRegion < 3; ++whichRegion)
+            {
+                Effects.IRegionalEffect sum = new Effects.RegionalEffect();
+                foreach (var buildingSlot in this._slots[whichRegion])
                 {
-                    Buildings.BuildingLevel level = _slots[whichRegion][whichSlot].Level;
-                    //
-                    if (level != null)
+                    if (buildingSlot.Level != null)
                     {
-                        Food += level.Food(Fertility);
-                        PublicOrder += level.PublicOrder;
-                        for (int whichSanitation = 0; whichSanitation < _sanitation.Length; ++whichSanitation)
-                            _sanitation[whichSanitation] += level.ProvincionalSanitation;
-                        _sanitation[whichRegion] += level.RegionalSanitation;
-                        ReligiousOsmosis += level.ReligiousOsmosis;
-                        ResearchRate += level.ResearchRate;
-                        Growth += level.Growth;
-                        //
-                        Religions.IReligion potentialReligion = level.ContainingBranch.Religion;
-                        if (potentialReligion != null)
-                            religionCalculator.AddInfluence(level.ReligiousInfluence, potentialReligion);
-                        wealthCalculator.AddBonuses(level.Bonuses);
+                        sum = sum.Aggregate(buildingSlot.Level.Effect);
                     }
                 }
-            // Uwzględnienie wyników kalkulatorów.
-            PublicOrder += religionCalculator.PublicOrder;
-            Wealth = wealthCalculator.TotalWealth(Fertility);
-        }
 
-        private void CalculateFertility(Effects.ProvincionalEffectsPackage environment)
-        {
-            // Uwzględnienie wpływu z zewnątrz.
-            Fertility = environment.Fertility;
-            // Uwzględnienie wpływu kombinacji.
-            foreach (BuildingSlot[] slotsRegion in _slots)
-                foreach (BuildingSlot slot in slotsRegion)
-                    Fertility += (slot.Level != null ? slot.Level.Fertility : 0);
-            // Wartości graniczne.
-            if (Fertility > 6)
-                Fertility = 6;
-            if (Fertility < 0)
-                Fertility = 0;
+                regionalEffects[whichRegion] = sum;
+            }
+
+            var combinedEffect = environment.Aggregate(regionalEffects[0].Aggregate(regionalEffects[1].Aggregate(regionalEffects[2])));
+
+            this.Fertility = combinedEffect.Fertility ?? 0;
+            this.Food = combinedEffect.Food(this.Fertility);
+
+            this.PublicOrder = combinedEffect.PublicOrder ?? 0;
+            this.ReligiousOsmosis = combinedEffect.ReligiousOsmosis ?? 0;
+            this.ResearchRate = combinedEffect.ResearchRate ?? 0;
+            this.Growth = combinedEffect.Growth ?? 0;
+            for (var whichRegion = 0; whichRegion < this._sanitation.Length; ++whichRegion)
+            {
+                this._sanitation[whichRegion] = (combinedEffect.ProvincionalSanitation ?? 0)
+                                                + (regionalEffects[whichRegion].RegionalSanitation ?? 0);
+            }
+
+            var wealthCalculator = new Effects.Wealth();
+            wealthCalculator.AddBonuses(combinedEffect.Bonuses);
+            var religionCalculator = new Effects.InfluenceCalculator(Province.Traditions);
+            religionCalculator.AddInfluences(combinedEffect.Influences);
+
+            this.PublicOrder += religionCalculator.PublicOrder();
+            this.Wealth = wealthCalculator.TotalWealth(this.Fertility);
         }
 
         private Buildings.SlotType ConcludeSlotType(Map.RegionData region, int whichSlot)

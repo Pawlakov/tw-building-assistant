@@ -5,7 +5,7 @@
 
     public class SimulationKit
     {
-        private readonly Effects.ProvincionalEffectsPackage _enivronment;
+        private readonly Effects.IProvincionalEffect _enivronment;
 
         private readonly Combinations.Combination _combination;
 

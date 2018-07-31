@@ -7,57 +7,59 @@
 
     public class ProvinceTraditions
     {
-        private Religions.IReligion StateReligion { get; set; }
+        private readonly IEnumerable<Effects.IInfluence> influences;
 
-        private readonly Dictionary<Religions.IReligion, int> _traditions;
-
-        public ProvinceTraditions(XElement element, IReligionParser religionsManager, IStateReligionTracker stateReligionTracker)
+        public ProvinceTraditions(XElement element, IReligionParser religionParser)
         {
             if (element == null)
-                throw new ArgumentNullException("element");
-            if (religionsManager == null)
-                throw new ArgumentNullException("religionsManager");
-            if (!ValidateElement(element, religionsManager, out string message))
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            if (religionParser == null)
+            {
+                throw new ArgumentNullException(nameof(religionParser));
+            }
+
+            if (!ValidateElement(element, religionParser, out var message))
+            {
                 throw new FormatException(message);
-            _traditions = new Dictionary<Religions.IReligion, int>(element.Elements().Count());
-            foreach (XElement traditionElement in element.Elements())
-                _traditions[religionsManager.Parse((string)traditionElement.Attribute("r"))] = (int)traditionElement;
-            StateReligion = stateReligionTracker.StateReligion;
-            stateReligionTracker.StateReligionChanged += (IStateReligionTracker sender, EventArgs e) => { StateReligion = sender.StateReligion; };
+            }
+
+            this.influences = from XElement item in element.Elements()
+                              select new Effects.Influence()
+                                     {
+                                     Religion = religionParser.Parse(
+                                     (string)item.Attribute("r")),
+                                     Value = (int)item
+                                     };
         }
 
-        public int StateReligionTradition()
-        {
-            if (_traditions.ContainsKey(StateReligion))
-                return _traditions[StateReligion];
-            return 0;
-        }
+        public IEnumerable<Effects.IInfluence> Influences => this.influences.ToArray();
 
-        public int OtherReligionsTradition()
+        public static bool ValidateElement(XElement element, IReligionParser religionParser, out string message)
         {
-            return _traditions.Sum((KeyValuePair<Religions.IReligion, int> pair) => { return pair.Value; }) - StateReligionTradition();
-        }
-
-        public static bool ValidateElement(XElement element, IReligionParser religionsManager, out string message)
-        {
-            foreach (XElement subelement in element.Elements())
+            foreach (var subelement in element.Elements())
             {
                 if (subelement.Attribute("r") == null)
                 {
                     message = "XML element lacks 'r' attribute in one of sub-elements.";
                     return false;
                 }
-                if (religionsManager.Parse((string)subelement.Attribute("r")) == null)
+
+                if (religionParser.Parse((string)subelement.Attribute("r")) == null)
                 {
                     message = "Attribute 'r' of XML element's sub-element is not recognized as a religion's name.";
                     return false;
                 }
-                if (!Int32.TryParse((string)subelement, out int dummy))
+
+                if (!int.TryParse((string)subelement, out _))
                 {
                     message = "Content of XML element's sub-element is not recognized as an integer value.";
                     return false;
                 }
             }
+
             message = "XML element is a valid representation of a province's traditions.";
             return true;
         }

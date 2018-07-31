@@ -52,7 +52,7 @@
             get
             {
                 if (_provinces[ProvinceIndex] == null)
-                    _provinces[ProvinceIndex] = new ProvinceData(_elements[ProvinceIndex], this, ReligionParser, ResourceParser, ClimateManager, StateReligionTracker);
+                    _provinces[ProvinceIndex] = new ProvinceData(_elements[ProvinceIndex], this, ReligionParser, ResourceParser, ClimateManager);
                 return _provinces[ProvinceIndex];
             }
         }
@@ -94,77 +94,7 @@
             }
         }
 
-        public int PublicOrder
-        {
-            get
-            {
-                return Province.Climate.PublicOrder;
-            }
-        }
-
-        public int Food
-        {
-            get
-            {
-                return Province.Climate.Food;
-            }
-        }
-
-        public int Sanitation
-        {
-            get
-            {
-                return Province.Climate.Sanitation;
-            }
-        }
-
-        public int ReligiousOsmosis
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public int ReligiousInfluence
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public int ResearchRate
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public int Growth
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public int Fertility
-        {
-            get
-            {
-                return Province.Fertility;
-            }
-        }
-
-        public IEnumerable<Effects.WealthBonus> Bonuses
-        {
-            get
-            {
-                return new List<Effects.WealthBonus>();
-            }
-        }
+        public Effects.IProvincionalEffect Effect => Province.Climate.Effect;
 
         private void OnFertilityDropChanged()
         {

@@ -90,13 +90,11 @@
                                                 + (regionalEffects[whichRegion].RegionalSanitation ?? 0);
             }
 
-            var wealthCalculator = new Effects.Wealth();
-            wealthCalculator.AddBonuses(combinedEffect.Bonuses);
             var religionCalculator = new Effects.InfluenceCalculator(Province.Traditions);
             religionCalculator.AddInfluences(combinedEffect.Influences);
 
             this.PublicOrder += religionCalculator.PublicOrder();
-            this.Wealth = wealthCalculator.TotalWealth(this.Fertility);
+            this.Wealth = Effects.WealthCalculator.CalculateTotalWealth(combinedEffect.Bonuses, this.Fertility);
         }
 
         private Buildings.SlotType ConcludeSlotType(Map.RegionData region, int whichSlot)

@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Runtime.InteropServices.ComTypes;
 
     public class ProvincionalEffect : IProvincionalEffect
     {
@@ -75,6 +76,25 @@
                    Bonuses = this.Bonuses.Concat(other.Bonuses).ToList(),
                    Influences = this.Influences.Concat(other.Influences).ToList()
                    };
+        }
+
+        public bool Validate(out string message)
+        {
+            var submessage = string.Empty;
+            if (!this.Influences.All(influence => influence.Validate(out submessage)))
+            {
+                message = $"On of influences is invalid ({submessage}).";
+                return false;
+            }
+
+            if (!this.Bonuses.All(bonus => bonus.Validate(out submessage)))
+            {
+                message = $"On of bonuses is invalid ({submessage}).";
+                return false;
+            }
+
+            message = "Values are valid";
+            return true;
         }
     }
 }

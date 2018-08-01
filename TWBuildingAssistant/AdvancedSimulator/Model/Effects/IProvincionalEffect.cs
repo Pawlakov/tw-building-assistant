@@ -27,5 +27,7 @@
         IEnumerable<IInfluence> Influences { get; }
 
         IProvincionalEffect Aggregate(IProvincionalEffect other);
+
+        bool Validate(out string message);
     }
 }

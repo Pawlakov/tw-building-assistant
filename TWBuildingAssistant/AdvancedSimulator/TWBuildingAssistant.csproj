@@ -113,7 +113,7 @@
     <Compile Include="Model\Effects\Influence.cs" />
     <Compile Include="Model\Effects\ProvincionalEffect.cs" />
     <Compile Include="Model\Effects\RegionalEffect.cs" />
-    <Compile Include="Model\Effects\Wealth.cs" />
+    <Compile Include="Model\Effects\WealthCalculator.cs" />
     <Compile Include="Model\Effects\IBonus.cs" />
     <Compile Include="Model\Effects\BonusFactory.cs" />
     <Compile Include="Model\Effects\WealthCategory.cs" />

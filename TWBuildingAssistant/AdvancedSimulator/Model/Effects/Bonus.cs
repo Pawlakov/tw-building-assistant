@@ -5,20 +5,38 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    /// <summary>
+    /// Represents one of in-game income bonuses.
+    /// </summary>
     public class Bonus : IBonus
     {
+        /// <summary>
+        /// Gets or sets the value of this <see cref="Bonus"/>.
+        /// </summary>
         [Column]
         [Required]
         public int Value { get; set; }
 
+        /// <summary>
+        /// Gets or sets the category which this <see cref="Bonus"/> influence.
+        /// </summary>
         [Column]
         [Required]
         public WealthCategory Category { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type of this <see cref="Bonus"/>' mechanism.
+        /// </summary>
         [Column]
         [Required]
         public BonusType Type { get; set; }
 
+        /// <summary>
+        /// Executes this bonus on a given <see cref="Dictionary{WealthCategory,WealthRecord}"/> representing all wealth categories.
+        /// </summary>
+        /// <param name="records">
+        /// The <see cref="Dictionary{WealthCategory,WealthRecord}"/> representing all wealth categories.
+        /// </param>
         public void Execute(Dictionary<WealthCategory, WealthRecord> records)
         {
             if (records == null)
@@ -31,20 +49,33 @@
                 records.Add(this.Category, new WealthRecord());
             }
 
+            Action<WealthRecord> action = null;
+
             switch (this.Type)
             {
                 case BonusType.Simple:
-                    records[this.Category].AddToValue(this.Value);
+                    action = record => { record.BaseValue += this.Value; };
                     break;
                 case BonusType.Percentage:
-                    records[this.Category].AddToPercents(this.Value);
+                    action = record => { record.Percents += this.Value; };
                     break;
                 case BonusType.FertilityDependent:
-                    records[this.Category].AddToValuePerFertilityLevel(this.Value);
+                    action = record => { record.ValuePerFertilityLevel += this.Value; };
                     break;
             }
+
+            action?.Invoke(records[this.Category]);
         }
 
+        /// <summary>
+        /// Returns a value indicating whether the current combination of values is valid.
+        /// </summary>
+        /// <param name="message">
+        /// Optional message containing details of vaildation's result.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool" /> indicating result of validation.
+        /// </returns>
         public bool Validate(out string message)
         {
             switch (this.Type)
@@ -111,6 +142,18 @@
 
             message = "Values are correct.";
             return true;
+        }
+
+        /// <summary>
+        /// Returns this <see cref="Bonus"/>' <see cref="string"/> representaion.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/> representation.
+        /// </returns>
+        public override string ToString()
+        {
+            return
+            $"+{this.Value}{(this.Type == BonusType.Percentage ? "%" : string.Empty)} from {this.Category}{(this.Type == BonusType.FertilityDependent ? " for every fertility level" : string.Empty)}";
         }
     }
 }

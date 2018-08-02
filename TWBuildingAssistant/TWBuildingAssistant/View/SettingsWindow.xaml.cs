@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.FutureView
+﻿namespace TWBuildingAssistant.View
 {
     public partial class SettingsWindow
     {

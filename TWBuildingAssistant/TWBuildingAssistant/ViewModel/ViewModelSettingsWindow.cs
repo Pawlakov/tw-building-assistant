@@ -164,7 +164,7 @@
         private void Submit(object paramter)
         {
             var kit = world.AssembleSimulationKit(CollectSettings());
-            var simulationWindow = new FutureView.SimulationWindow(kit);
+            var simulationWindow = new View.SimulationWindow(kit);
             simulationWindow.Show();
             this.OnCloseWindow();
         }

@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.FutureView
+﻿namespace TWBuildingAssistant.View
 {
     using System.Collections.Generic;
     using System.Windows;

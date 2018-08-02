@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<weathers>
-	<weather n="Extreme"/>
-	<weather n="Bad"/>
-	<weather n="Normal"/>
-	<weather n="Good"/>
-</weathers>

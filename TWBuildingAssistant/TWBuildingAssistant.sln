@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant", "AdvancedSimulator\TWBuildingAssistant.csproj", "{AEC8E417-088B-4A6E-8E67-770E5B126AAC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant", "TWBuildingAssistant\TWBuildingAssistant.csproj", "{AEC8E417-088B-4A6E-8E67-770E5B126AAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8908E216-6EDF-4C27-AB85-74A145449198}"
 EndProject

@@ -1,0 +1,33 @@
+﻿<Window x:Class="TWBuildingAssistant.FutureView.SettingsWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             ResizeMode="CanMinimize" Title="Simulation settings" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Height="25" Width="100" Text="State religion:" HorizontalAlignment="Left"/>
+                <ComboBox Height="25" Width="100" ItemsSource="{Binding Religions}" SelectedItem="{Binding SelectedReligion}"/>
+                <TextBlock Height="25" Width="100" Text="Province:" HorizontalAlignment="Left"/>
+                <ComboBox Height="25" Width="100" ItemsSource="{Binding Provinces}" SelectedItem="{Binding SelectedProvince}"/>
+                <TextBlock Height="25" Width="100" Text="Faction:" HorizontalAlignment="Left"/>
+                <ComboBox Height="25" Width="100" ItemsSource="{Binding Factions}" SelectedItem="{Binding SelectedFaction}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Height="25" Width="100" Text="Fertility drop:" HorizontalAlignment="Left"/>
+                <ComboBox Height="25" Width="100" ItemsSource="{Binding FertilityDrops}" SelectedItem="{Binding SelectedFertilityDrop}"/>
+                <TextBlock Height="25" Width="100" Text="Worst case weather:" HorizontalAlignment="Left"/>
+                <ComboBox Height="25" Width="100" ItemsSource="{Binding Weathers}" SelectedItem="{Binding SelectedWeather}"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Height="25" Width="100" Text="Technology tier:" HorizontalAlignment="Left"/>
+                <ComboBox Height="25" Width="100" ItemsSource="{Binding TechnologyTiers}" SelectedItem="{Binding SelectedTechnologyTier}"/>
+                <TextBlock Height="25" Width="100" Text="Use legacy techs:" HorizontalAlignment="Left"/>
+                <CheckBox IsChecked="{Binding UseLegacy}"/>
+            </StackPanel>
+        </StackPanel>
+        <Button Width = "100" Height = "25" Content = "Submit settings" Command="{Binding SubmitCommand}"/>
+    </StackPanel>
+</Window>

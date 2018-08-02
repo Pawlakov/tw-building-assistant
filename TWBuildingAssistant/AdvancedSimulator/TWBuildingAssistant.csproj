@@ -91,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DataModel.cs" />
+    <Compile Include="FutureView\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Effects\Bonus.cs" />
     <Compile Include="Model\Effects\IInfluence.cs" />
     <Compile Include="Model\Effects\IProvincionalEffect.cs" />
@@ -150,9 +153,11 @@
     <Compile Include="Model\Technologies\TechnologyTreeFactory.cs" />
     <Compile Include="Model\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FutureView\SettingsWindow.cs" />
     <Compile Include="FutureView\Simulation.cs" />
     <Compile Include="FutureView\SimulationWindow.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\ViewModelSettingsWindow.cs" />
+    <Compile Include="ViewModel\ViewModelWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -161,7 +166,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FutureViewModel\" />
+    <Page Include="FutureView\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\twa_database.db">

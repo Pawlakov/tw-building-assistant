@@ -55,7 +55,7 @@
                 return false;
             }
 
-            if (this.Effect.Validate(out string submessage))
+            if (!this.Effect.Validate(out string submessage))
             {
                 message = $"Corresponding effect is in invalid ({submessage}).";
                 return false;

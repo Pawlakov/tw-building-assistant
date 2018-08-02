@@ -7,8 +7,6 @@
 
     public class Simulation : Application
     {
-        private static World world;
-
         [STAThread]
         public static void Main(string[] args)
         {
@@ -20,14 +18,7 @@
 
         private static void SimulationStartup(object sender, StartupEventArgs e)
         {
-            world = new World();
-            var settingsWindow = new SettingsWindow(world.Religions, world.Provinces, world.Factions);
-            settingsWindow.SubmittingSettings += (settings) =>
-                {
-                    var kit = world.AssembleSimulationKit(settings);
-                    var simulationWindow = new SimulationWindow(kit);
-                    simulationWindow.Show();
-                };
+            var settingsWindow = new SettingsWindow();
             settingsWindow.Show();
         }
 

@@ -8,7 +8,7 @@
 
     public class ViewModelSettingsWindow : ViewModelWindow
     {
-        private World world;
+        private readonly World world;
 
         private object selectedReligion;
 

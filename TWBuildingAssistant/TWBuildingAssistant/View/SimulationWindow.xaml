@@ -1,0 +1,33 @@
+﻿<Window x:Class="TWBuildingAssistant.View.SimulationWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             ResizeMode="CanMinimize" Title="Simulation" SizeToContent="WidthAndHeight">
+    <StackPanel Orientation="Vertical">
+        <Label Content="{Binding ProvinceName}" HorizontalAlignment="Center"/>
+        <ItemsControl ItemsSource="{Binding Regions}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="{Binding Name}" HorizontalAlignment="Center"/>
+                        <ItemsControl ItemsSource="{Binding Slots}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Text="{Binding Performance}" Foreground="{Binding PerformanceColor}"/>
+    </StackPanel>
+</Window>

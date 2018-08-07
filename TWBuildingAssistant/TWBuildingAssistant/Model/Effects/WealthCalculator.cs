@@ -36,7 +36,7 @@
                 where pair.Key != WealthCategory.All && pair.Key != WealthCategory.Maintenance
                 select pair.Value)
                 {
-                    record.Percents += records[WealthCategory.All].Percents;
+                    record[BonusType.Percentage] += records[WealthCategory.All][BonusType.Percentage];
                 }
             }
 

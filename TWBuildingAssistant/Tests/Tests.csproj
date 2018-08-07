@@ -63,6 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Effects\BonusTests.cs" />
+    <Compile Include="Model\Effects\WealthCalculatorTests.cs" />
+    <Compile Include="Model\Effects\WealthRecordTests.cs" />
+    <Compile Include="Model\Religions\ReligionTests.cs" />
     <Compile Include="Model\Resources\ResourcesManagerTests.cs" />
     <Compile Include="Model\Resources\ResourceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,7 +75,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AdvancedSimulator\TWBuildingAssistant.csproj">
+    <ProjectReference Include="..\TWBuildingAssistant\TWBuildingAssistant.csproj">
       <Project>{aec8e417-088b-4a6e-8e67-770e5b126aac}</Project>
       <Name>TWBuildingAssistant</Name>
     </ProjectReference>

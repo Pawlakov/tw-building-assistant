@@ -5,7 +5,7 @@
     using TWBuildingAssistant.Model.Resources;
 
     /// <summary>
-    /// Test fixture containing tests of the <see cref="Resource"/> class.
+    /// A test fixture containing tests of the <see cref="Resource"/> class.
     /// </summary>
     [TestFixture]
     public class ResourceTests
@@ -36,7 +36,7 @@
         }
 
         /// <summary>
-        /// Checks wheter validation of <see cref="Resource"/>'s values undergoes correctly.
+        /// Checks whether validation of <see cref="Resource"/>'s values undergoes correctly.
         /// </summary>
         /// <param name="name">
         /// The value used to set <see cref="Resource.Name"/>.

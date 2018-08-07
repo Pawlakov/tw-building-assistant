@@ -49,22 +49,7 @@
                 records.Add(this.Category, new WealthRecord());
             }
 
-            Action<WealthRecord> action = null;
-
-            switch (this.Type)
-            {
-                case BonusType.Simple:
-                    action = record => { record.BaseValue += this.Value; };
-                    break;
-                case BonusType.Percentage:
-                    action = record => { record.Percents += this.Value; };
-                    break;
-                case BonusType.FertilityDependent:
-                    action = record => { record.ValuePerFertilityLevel += this.Value; };
-                    break;
-            }
-
-            action?.Invoke(records[this.Category]);
+            records[this.Category][this.Type] += this.Value;
         }
 
         /// <summary>

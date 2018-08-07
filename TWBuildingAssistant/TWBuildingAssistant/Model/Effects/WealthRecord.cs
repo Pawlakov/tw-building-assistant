@@ -1,24 +1,29 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
     /// <summary>
-    /// Represents summed up bonuses from a single wealth category. Allows to calculate the total wealth from this category.
+    /// Represents cumulated bonuses from a single wealth category. Allows to calculate the total wealth from this category.
     /// </summary>
     public class WealthRecord
     {
         /// <summary>
-        /// Gets or sets the base value of income.
+        /// The cumulated values of wealth bonuses, of all types, within one wealth category.
         /// </summary>
-        public int BaseValue { get; set; }
+        private readonly int[] values = new int[3];
 
         /// <summary>
-        /// Gets or sets the ammount percents added to the base value and fertility depended value combined.
+        /// Gets or sets the total value of bonuses of a given type.
         /// </summary>
-        public int Percents { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value added for every fertility level.
-        /// </summary>
-        public int ValuePerFertilityLevel { get; set; }
+        /// <param name="index">
+        /// The <see cref="BonusType"/> for which the value is accessed.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/> being total value of bonuses of a given type.
+        /// </returns>
+        public int this[BonusType index]
+        {
+            get => this.values[(int)index];
+            set => this.values[(int)index] = value;
+        }
 
         /// <summary>
         /// Calculates the wealth from one category at the given fertility level.
@@ -31,7 +36,7 @@
         /// </returns>
         public double Calculate(int fertility)
         {
-            return (this.BaseValue + (this.ValuePerFertilityLevel * fertility)) * ((100 + this.Percents) * 0.01);
+            return (this[BonusType.Simple] + (this[BonusType.FertilityDependent] * fertility)) * ((100 + this[BonusType.Percentage]) * 0.01);
         }
     }
 }

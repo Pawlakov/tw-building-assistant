@@ -82,12 +82,12 @@
         }
 
         /// <summary>
-        /// Checks whether the calculation od province's total wealth undergoes correctly.
+        /// Checks whether the calculation of province's total wealth undergoes correctly.
         /// </summary>
         [Test]
         public void Calculation()
         {
-            Assert.AreEqual(ExpectedResult, WealthCalculator.CalculateTotalWealth(this.bonuses, Fertility), 0.1);
+            Assert.AreEqual(ExpectedResult, WealthCalculator.CalculateTotalWealth(this.bonuses, Fertility), 0.1, $"The {nameof(WealthCalculator.CalculateTotalWealth)} method returned an incorrect value.");
         }
     }
 }

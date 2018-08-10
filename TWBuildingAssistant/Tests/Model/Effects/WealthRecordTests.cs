@@ -40,7 +40,7 @@
             subject[BonusType.Simple] = baseValue;
             subject[BonusType.Percentage] = percents;
             subject[BonusType.FertilityDependent] = valuePerFertilityLevel;
-            Assert.AreEqual(expectedValue, subject.Calculate(fertility), 0.1);
+            Assert.AreEqual(expectedValue, subject.Calculate(fertility), 0.1, $"The {nameof(WealthRecord.Calculate)} method returned an unexpected value.");
         }
     }
 }

@@ -2,40 +2,26 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
-    using TWBuildingAssistant.Model.Religions;
-
-    public class InfluenceCalculator
+    /// <summary>
+    /// Represents the calculator of a change in public order caused by religions within a single province.
+    /// </summary>
+    public static class InfluenceCalculator
     {
-        private IEnumerable<IInfluence> influences;
-
-        public InfluenceCalculator(Map.ProvinceTraditions traditions)
-        {
-            this.influences = traditions.Influences;
-        }
-
-        public void AddInfluence(IInfluence influence)
-        {
-            this.influences = this.influences.Append(influence);
-        }
-
-        public void AddInfluences(IEnumerable<IInfluence> influences)
-        {
-            this.influences = this.influences.Concat(influences);
-        }
-
-        public int PublicOrder()
-        {
-            var percentage = this.StateReligionPercentage();
-            return (int)Math.Floor(-6 + (((percentage * 17) + 220) / 300));
-        }
-
-        public double StateReligionPercentage()
+        /// <summary>
+        /// Calculates the change in public order caused by the given set of <see cref="IInfluence"/>s.
+        /// </summary>
+        /// <param name="influences">
+        /// All religious <see cref="IInfluence"/>s within one province.
+        /// </param>
+        /// <returns>
+        /// The public order change resulting from religious influences.
+        /// </returns>
+        public static int PublicOrder(IEnumerable<IInfluence> influences)
         {
             var state = 0;
             var other = 0;
-            foreach (var influence in this.influences)
+            foreach (var influence in influences)
             {
                 if (influence.Religion == null || influence.Religion.IsState)
                 {
@@ -47,7 +33,8 @@
                 }
             }
 
-            return 100 * (state / (other + (double)state));
+            var percentage = 100 * (state / (other + (double)state));
+            return -(int)Math.Floor((percentage * -0.06993007) + 7.5);
         }
     }
 }

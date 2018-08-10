@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Effects\BonusTests.cs" />
+    <Compile Include="Model\Effects\InfluenceCalculatorTests.cs" />
+    <Compile Include="Model\Effects\InfluenceTests.cs" />
     <Compile Include="Model\Effects\WealthCalculatorTests.cs" />
     <Compile Include="Model\Effects\WealthRecordTests.cs" />
     <Compile Include="Model\Religions\ReligionTests.cs" />

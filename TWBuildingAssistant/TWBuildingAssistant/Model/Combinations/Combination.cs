@@ -90,10 +90,7 @@
                                                 + (regionalEffects[whichRegion].RegionalSanitation ?? 0);
             }
 
-            var religionCalculator = new Effects.InfluenceCalculator(Province.Traditions);
-            religionCalculator.AddInfluences(combinedEffect.Influences);
-
-            this.PublicOrder += religionCalculator.PublicOrder();
+            this.PublicOrder += Effects.InfluenceCalculator.PublicOrder(combinedEffect.Influences.Concat(this.Province.Traditions.Influences));
             this.Wealth = Effects.WealthCalculator.CalculateTotalWealth(combinedEffect.Bonuses, this.Fertility);
         }
 
@@ -105,6 +102,7 @@
                     return Buildings.SlotType.CityCenter;
                 return Buildings.SlotType.TownCenter;
             }
+
             if (region.IsCoastal && whichSlot == 1)
                 return Buildings.SlotType.Coast;
             if (region.IsCity)

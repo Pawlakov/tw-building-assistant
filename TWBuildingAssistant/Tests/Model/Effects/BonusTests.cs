@@ -41,7 +41,7 @@
         public void Validation(BonusType type, WealthCategory category, int value, bool expectedResult)
         {
             var subject = new Bonus { Category = category, Type = type, Value = value };
-            Assert.AreEqual(expectedResult, subject.Validate(out _));
+            Assert.AreEqual(expectedResult, subject.Validate(out _), $"The {nameof(Bonus.Validate)} method returned an incorrect value.");
         }
 
         /// <summary>
@@ -62,8 +62,8 @@
             var dictionary = new Dictionary<WealthCategory, WealthRecord>();
             var bonus = new Bonus { Category = category, Type = type, Value = Value };
             bonus.Execute(dictionary);
-            Assert.True(dictionary.ContainsKey(category));
-            Assert.AreEqual(Value, dictionary[category][type]);
+            Assert.True(dictionary.ContainsKey(category), $"The dictionary does not contain an element that should have been there.");
+            Assert.AreEqual(Value, dictionary[category][type], $"The value within the newly added record is incorrect.");
         }
 
         /// <summary>
@@ -85,8 +85,7 @@
             dictionary[category][type] = Value;
             var bonus = new Bonus { Category = category, Type = type, Value = Value };
             bonus.Execute(dictionary);
-            Assert.True(dictionary.ContainsKey(category));
-            Assert.AreEqual(Value + Value, dictionary[category][type]);
+            Assert.AreEqual(Value + Value, dictionary[category][type], $"The value within the corresponding record is incorrect.");
         }
     }
 }

@@ -6,45 +6,40 @@
 
     public class FactionsManager
     {
-        readonly XElement[] _elements;
+        private const string FileName = "Model\\Factions\\twa_factions.xml";
 
-        readonly Faction[] _factions;
+        private readonly Map.IReligionParser religionsParser;
+
+        private readonly Map.IResourceParser resourcesParser;
+
+        private readonly XElement[] elements;
+
+        private readonly Faction[] factions;
 
         public FactionsManager(Map.IReligionParser religionsParser, Map.IResourceParser resourcesParser)
         {
-            XDocument sourceFile = XDocument.Load(_fileName);
-            _elements = (from XElement element in sourceFile.Root.Elements() select element).ToArray();
-            _factions = new Faction[_elements.Length];
-            _religionsParser = religionsParser;
-            _resourcesParser = resourcesParser;
+            var sourceFile = XDocument.Load(FileName);
+            this.elements = (from XElement element in sourceFile.Root.Elements() select element).ToArray();
+            this.factions = new Faction[this.elements.Length];
+            this.religionsParser = religionsParser;
+            this.resourcesParser = resourcesParser;
         }
 
-        private const string _fileName = "Model\\Factions\\twa_factions.xml";
-
-        private readonly Map.IReligionParser _religionsParser;
-
-        private readonly Map.IResourceParser _resourcesParser;
-
-        private int FactionIndex { get; set; } = -1;
-
-        public int FactionsCount
-        {
-            get { return _elements.Length; }
-        }
-
-        public void ChangeFaction(int whichFaction)
-        {
-            FactionIndex = whichFaction;
-        }
+        public int FactionsCount => this.elements.Length;
 
         public Faction Faction
         {
             get
             {
-                // Jeżeli obiekt nie został póki co stworzony to teraz powstanie.
-                if (_factions[FactionIndex] == null)
-                    _factions[FactionIndex] = new Faction(_elements[FactionIndex], _resourcesParser, _religionsParser);
-                return _factions[FactionIndex];
+                if (this.factions[this.FactionIndex] == null)
+                {
+                    this.factions[this.FactionIndex] = new Faction(
+                    this.elements[this.FactionIndex],
+                    this.resourcesParser,
+                    this.religionsParser);
+                }
+
+                return this.factions[this.FactionIndex];
             }
         }
 
@@ -54,11 +49,22 @@
         {
             get
             {
-                List<KeyValuePair<int, string>> result = new List<KeyValuePair<int, string>>(FactionsCount);
-                for (int whichFaction = 0; whichFaction < FactionsCount; ++whichFaction)
-                    result.Add(new KeyValuePair<int, string>(whichFaction, (string)_elements[whichFaction].Attribute("n")));
+                var result = new List<KeyValuePair<int, string>>(this.FactionsCount);
+                for (var whichFaction = 0; whichFaction < this.FactionsCount; ++whichFaction)
+                {
+                    result.Add(
+                    new KeyValuePair<int, string>(whichFaction, (string)this.elements[whichFaction].Attribute("n")));
+                }
+
                 return result;
             }
+        }
+
+        private int FactionIndex { get; set; } = -1;
+
+        public void ChangeFaction(int whichFaction)
+        {
+            this.FactionIndex = whichFaction;
         }
     }
 }

@@ -6,31 +6,24 @@
 
     public class BuildingLevel
     {
-        public BuildingBranch ContainingBranch { get; }
-
-        public string Name { get; }
-
-        public int Level { get; }
-
-        public Effects.IRegionalEffect Effect { get; }
-
-        public override string ToString()
-        {
-            return Name + " " + Level.ToString();
-        }
-
-        private Technologies.TechnologyLevel LevelOfTechnology { get; }
+        private readonly Technologies.TechnologyLevel levelOfTechnology;
 
         public BuildingLevel(BuildingBranch branch, XElement element, ITechnologyLevelAssigner technologyLevelAssigner)
         {
-            ContainingBranch = branch;
-            Name = (string)element.Attribute("n");
-            Level = (int)element.Attribute("l");
+            this.ContainingBranch = branch;
+            this.Name = (string)element.Attribute("n");
+            this.Level = (int)element.Attribute("l");
             if (element.Attribute("il") != null)
-                LevelOfTechnology = technologyLevelAssigner.GetLevel((int)element.Attribute("t"), (bool)element.Attribute("il"));
+            {
+                this.levelOfTechnology = technologyLevelAssigner.GetLevel(
+                (int)element.Attribute("t"),
+                (bool)element.Attribute("il"));
+            }
             else
-                LevelOfTechnology = technologyLevelAssigner.GetLevel((int)element.Attribute("t"), null);
-            //
+            {
+                this.levelOfTechnology = technologyLevelAssigner.GetLevel((int)element.Attribute("t"), null);
+            }
+
             var regularFood = 0;
             var fertility = 0;
             var foodPerFertility = 0;
@@ -42,25 +35,55 @@
             var religiousInfluence = 0;
             var religiousOsmosis = 0;
             if (element.Attribute("f") != null)
+            {
                 regularFood = (int)element.Attribute("f");
+            }
+
             if (element.Attribute("i") != null)
+            {
                 fertility = (int)element.Attribute("i");
+            }
+
             if (element.Attribute("fpf") != null)
+            {
                 foodPerFertility = (int)element.Attribute("fpf");
+            }
+
             if (element.Attribute("po") != null)
+            {
                 publicOrder = (int)element.Attribute("po");
+            }
+
             if (element.Attribute("g") != null)
+            {
                 growth = (int)element.Attribute("g");
+            }
+
             if (element.Attribute("rr") != null)
+            {
                 researchRate = (int)element.Attribute("rr");
+            }
+
             if (element.Attribute("rs") != null)
+            {
                 regionalSanitation = (int)element.Attribute("rs");
+            }
+
             if (element.Attribute("ps") != null)
+            {
                 provincionalSanitation = (int)element.Attribute("ps");
+            }
+
             if (element.Attribute("ri") != null)
+            {
                 religiousInfluence = (int)element.Attribute("ri");
+            }
+
             if (element.Attribute("ro") != null)
+            {
                 religiousOsmosis = (int)element.Attribute("ro");
+            }
+
             var bonuses = from XElement subelement in element.Elements() select Effects.BonusFactory.MakeBonus(subelement) as Effects.Bonus;
             this.Effect = new Effects.RegionalEffect()
                           {
@@ -86,12 +109,19 @@
                           };
         }
 
-        public bool IsAvailable
+        public BuildingBranch ContainingBranch { get; }
+
+        public string Name { get; }
+
+        public int Level { get; }
+
+        public Effects.IRegionalEffect Effect { get; }
+
+        public bool IsAvailable => this.levelOfTechnology.IsAvailable;
+
+        public override string ToString()
         {
-            get
-            {
-                return LevelOfTechnology.IsAvailable;
-            }
+            return $"{this.Name} {this.Level}";
         }
     }
 }

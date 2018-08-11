@@ -1,35 +1,48 @@
 ﻿namespace TWBuildingAssistant.Model.Combinations
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     public class Combination
     {
+        private readonly BuildingSlot[][] slots;
+
+        private readonly int[] sanitation;
+
+        public Combination(Map.ProvinceData province)
+        {
+            this.Province = province;
+            this.slots = new BuildingSlot[3][];
+            this.sanitation = new int[3];
+            for (var whichRegion = 0; whichRegion < 3; ++whichRegion)
+            {
+                this.slots[whichRegion] = new BuildingSlot[this.Province[whichRegion].SlotsCount];
+                for (var whichSlot = 0; whichSlot < this.slots[whichRegion].Length; ++whichSlot)
+                {
+                    this.slots[whichRegion][whichSlot] =
+                    new BuildingSlot(this.ConcludeSlotType(this.Province[whichRegion], whichSlot));
+                }
+            }
+        }
+
         public Map.ProvinceData Province { get; }
-
-        private readonly BuildingSlot[][] _slots;
-
-        private readonly int[] _sanitation;
 
         public BuildingSlot[][] Slots
         {
             get
             {
-                var result = new BuildingSlot[_slots.Length][];
-                int whichSubarray = 0;
-                foreach (var subarray in _slots)
+                var result = new BuildingSlot[this.slots.Length][];
+                var whichSubarray = 0;
+                foreach (var subarray in this.slots)
                 {
                     result[whichSubarray] = subarray.ToArray();
                     ++whichSubarray;
                 }
+
                 return result;
             }
         }
 
-        public int[] Sanitation
-        {
-            get { return _sanitation.ToArray(); }
-        }
+        public int[] Sanitation => this.sanitation.ToArray();
 
         public int Food { get; private set; }
 
@@ -45,33 +58,13 @@
 
         public double Wealth { get; private set; }
 
-        public Combination(Map.ProvinceData province)
-        {
-            Province = province;
-            _slots = new BuildingSlot[3][];
-            _sanitation = new int[3];
-            for (int whichRegion = 0; whichRegion < 3; ++whichRegion)
-            {
-                _slots[whichRegion] = new BuildingSlot[Province[whichRegion].SlotsCount];
-                for (int whichSlot = 0; whichSlot < _slots[whichRegion].Length; ++whichSlot)
-                    _slots[whichRegion][whichSlot] = new BuildingSlot(ConcludeSlotType(Province[whichRegion], whichSlot));
-            }
-        }
-
         public void Calculate(Effects.IProvincionalEffect environment)
         {
             var regionalEffects = new Effects.IRegionalEffect[3];
             for (var whichRegion = 0; whichRegion < 3; ++whichRegion)
             {
                 Effects.IRegionalEffect sum = new Effects.RegionalEffect();
-                foreach (var buildingSlot in this._slots[whichRegion])
-                {
-                    if (buildingSlot.Level != null)
-                    {
-                        sum = sum.Aggregate(buildingSlot.Level.Effect);
-                    }
-                }
-
+                sum = this.slots[whichRegion].Where(buildingSlot => buildingSlot.Level != null).Aggregate(sum, (current, buildingSlot) => current.Aggregate(buildingSlot.Level.Effect));
                 regionalEffects[whichRegion] = sum;
             }
 
@@ -84,10 +77,10 @@
             this.ReligiousOsmosis = combinedEffect.ReligiousOsmosis ?? 0;
             this.ResearchRate = combinedEffect.ResearchRate ?? 0;
             this.Growth = combinedEffect.Growth ?? 0;
-            for (var whichRegion = 0; whichRegion < this._sanitation.Length; ++whichRegion)
+            for (var whichRegion = 0; whichRegion < this.sanitation.Length; ++whichRegion)
             {
-                this._sanitation[whichRegion] = (combinedEffect.ProvincionalSanitation ?? 0)
-                                                + (regionalEffects[whichRegion].RegionalSanitation ?? 0);
+                this.sanitation[whichRegion] = (combinedEffect.ProvincionalSanitation ?? 0)
+                                               + (regionalEffects[whichRegion].RegionalSanitation ?? 0);
             }
 
             this.PublicOrder += Effects.InfluenceCalculator.PublicOrder(combinedEffect.Influences.Concat(this.Province.Traditions.Influences));
@@ -98,16 +91,15 @@
         {
             if (whichSlot == 0)
             {
-                if (region.IsCity)
-                    return Buildings.SlotType.CityCenter;
-                return Buildings.SlotType.TownCenter;
+                return region.IsCity ? Buildings.SlotType.CityCenter : Buildings.SlotType.TownCenter;
             }
 
             if (region.IsCoastal && whichSlot == 1)
+            {
                 return Buildings.SlotType.Coast;
-            if (region.IsCity)
-                return Buildings.SlotType.City;
-            return Buildings.SlotType.Town;
+            }
+
+            return region.IsCity ? Buildings.SlotType.City : Buildings.SlotType.Town;
         }
     }
 }

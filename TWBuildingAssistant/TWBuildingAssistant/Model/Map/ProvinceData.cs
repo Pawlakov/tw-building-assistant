@@ -1,67 +1,82 @@
 ﻿namespace TWBuildingAssistant.Model.Map
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
 
     public class ProvinceData
     {
-        private const int _regionsInProvinceCount = 3;
+        private const int RegionsInProvinceCount = 3;
 
-        private const int _minimalDefaultFretility = 1;
+        private const int MinimalDefaultFretility = 1;
 
-        private const int _maximalDefaultFertility = 6;
+        private const int MaximalDefaultFertility = 6;
+
+        private readonly RegionData[] regions;
+
+        private int currentFertilityDrop;
 
         public ProvinceData(XElement element, IFertilityDropTracker fertilityDropTracker, IReligionParser religionParser, IResourceParser resourceParser, IClimateParser climateParser)
         {
             if (element == null)
-                throw new ArgumentNullException("element");
-            if (fertilityDropTracker == null)
-                throw new ArgumentNullException("owner");
-            if (religionParser == null)
-                throw new ArgumentNullException("religionParser");
-            if (resourceParser == null)
-                throw new ArgumentNullException("resourceParser");
-            if (climateParser == null)
-                throw new ArgumentNullException("climateParser");
-            if (!ValidateElement(element, climateParser, religionParser, resourceParser, out string message))
-                throw new FormatException(message);
-            //
-            Name = (string)element.Attribute("n");
-            DefaultFertility = (int)element.Attribute("f");
-            Climate = climateParser.Parse((string)element.Attribute("c"));
-            //
-            Traditions = new ProvinceTraditions(element.Element("traditions"), religionParser);
-            IEnumerable<XElement> regionElements = from XElement regionElement in element.Elements() where regionElement.Name == "region" select regionElement;
-            _regions = new RegionData[_regionsInProvinceCount];
-            int whichRegion = 0;
-            foreach (XElement regionElement in regionElements)
             {
-                _regions[whichRegion] = new RegionData(regionElement, !Convert.ToBoolean(whichRegion), resourceParser);
+                throw new ArgumentNullException(nameof(element));
+            }
+
+            if (fertilityDropTracker == null)
+            {
+                throw new ArgumentNullException(nameof(fertilityDropTracker));
+            }
+
+            if (religionParser == null)
+            {
+                throw new ArgumentNullException(nameof(religionParser));
+            }
+
+            if (resourceParser == null)
+            {
+                throw new ArgumentNullException(nameof(resourceParser));
+            }
+
+            if (climateParser == null)
+            {
+                throw new ArgumentNullException(nameof(climateParser));
+            }
+
+            if (!ValidateElement(element, climateParser, religionParser, resourceParser, out var message))
+            {
+                throw new FormatException(message);
+            }
+
+            this.Name = (string)element.Attribute("n");
+            this.DefaultFertility = (int)element.Attribute("f");
+            this.Climate = climateParser.Parse((string)element.Attribute("c"));
+            this.Traditions = new ProvinceTraditions(element.Element("traditions"), religionParser);
+            var regionElements = from XElement regionElement in element.Elements() where regionElement.Name == "region" select regionElement;
+            this.regions = new RegionData[RegionsInProvinceCount];
+            var whichRegion = 0;
+            foreach (var regionElement in regionElements)
+            {
+                this.regions[whichRegion] = new RegionData(regionElement, !Convert.ToBoolean(whichRegion), resourceParser);
                 ++whichRegion;
             }
-            _currentFertilityDrop = fertilityDropTracker.FertilityDrop;
-            fertilityDropTracker.FertilityDropChanged += (IFertilityDropTracker sender, EventArgs e) => { _currentFertilityDrop = sender.FertilityDrop; };
+
+            this.currentFertilityDrop = fertilityDropTracker.FertilityDrop;
+            fertilityDropTracker.FertilityDropChanged += (sender, e) => { this.currentFertilityDrop = sender.FertilityDrop; };
         }
 
-        public RegionData this[int whichRegion]
-        {
-            get { return _regions[whichRegion]; }
-        }
-
-        public int RegionsCount
-        {
-            get { return _regionsInProvinceCount; }
-        }
+        public int RegionsCount => RegionsInProvinceCount;
 
         public int Fertility
         {
             get
             {
-                if (DefaultFertility - _currentFertilityDrop < 0)
+                if (this.DefaultFertility - this.currentFertilityDrop < 0)
+                {
                     return 0;
-                return DefaultFertility - _currentFertilityDrop;
+                }
+
+                return this.DefaultFertility - this.currentFertilityDrop;
             }
         }
 
@@ -73,9 +88,7 @@
 
         public ProvinceTraditions Traditions { get; }
 
-        private readonly RegionData[] _regions;
-
-        private int _currentFertilityDrop;
+        public RegionData this[int whichRegion] => this.regions[whichRegion];
 
         public static bool ValidateElement(XElement element, IClimateParser climateParser, IReligionParser religionParser, IResourceParser resourceParser, out string message)
         {
@@ -84,49 +97,60 @@
                 message = "XML element lacks 'n' attribute.";
                 return false;
             }
+
             if (element.Attribute("f") == null)
             {
                 message = "XML element lacks 'f' attribute (name: " + (string)element.Attribute("n") + ").";
                 return false;
             }
+
             if (element.Attribute("c") == null)
             {
                 message = "XML element lacks 'c' attribute (name: " + (string)element.Attribute("n") + ").";
                 return false;
             }
-            if (!Int32.TryParse((string)element.Attribute("f"), out int irrelevant))
+
+            if (!int.TryParse((string)element.Attribute("f"), out var fertility))
             {
                 message = "XML element's 'f' attribute is not an integer value (name: " + (string)element.Attribute("n") + ").";
                 return false;
             }
-            if (irrelevant < _minimalDefaultFretility || irrelevant > _maximalDefaultFertility)
+
+            if (fertility < MinimalDefaultFretility || fertility > MaximalDefaultFertility)
             {
                 message = "XML element's 'f' attribute is out of range (name: " + (string)element.Attribute("n") + ").";
                 return false;
             }
+
             if (climateParser.Parse((string)element.Attribute("c")) == null)
             {
                 message = "XML element's 'c' attribute is not a climate name (name: " + (string)element.Attribute("n") + ").";
                 return false;
             }
-            if (element.Elements().Count() != _regionsInProvinceCount + 1)
+
+            if (element.Elements().Count() != RegionsInProvinceCount + 1)
             {
                 message = "XML element has incorrect sub-elements count (name: " + (string)element.Attribute("n") + ").";
                 return false;
             }
+
             if (!ProvinceTraditions.ValidateElement(element.Element("traditions"), religionParser, out string traditionsMessage))
             {
                 message = "XML element contains invalid traditions desription (name: " + (string)element.Attribute("n") + "): " + traditionsMessage;
                 return false;
             }
-            foreach (XElement subelement in from XElement regionElement in element.Elements() where regionElement.Name == "region" select regionElement)
+
+            foreach (var subelement in from XElement regionElement in element.Elements() where regionElement.Name == "region" select regionElement)
             {
-                if (!RegionData.ValidateElement(subelement, resourceParser, out string regionMessage))
+                if (RegionData.ValidateElement(subelement, resourceParser, out var regionMessage))
                 {
-                    message = "XML element contains invalid region desription(s) (name: " + (string)element.Attribute("n") + "): " + regionMessage;
-                    return false;
+                    continue;
                 }
+
+                message = "XML element contains invalid region desription(s) (name: " + (string)element.Attribute("n") + "): " + regionMessage;
+                return false;
             }
+
             message = "XML element is a valid representation of a province.";
             return true;
         }

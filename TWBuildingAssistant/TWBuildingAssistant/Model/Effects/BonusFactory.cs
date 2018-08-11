@@ -6,21 +6,35 @@
 
     using EnumsNET;
 
+    [Obsolete]
     public static class BonusFactory
     {
         public static IBonus MakeBonus(XElement element)
         {
             if (element == null)
+            {
                 throw new ArgumentNullException(nameof(element));
+            }
+
             if (!ValidateElement(element, out var message))
+            {
                 throw new FormatException(message);
+            }
+
             BonusType type;
             if (element.Name == "multiplier")
+            {
                 type = BonusType.Percentage;
+            }
             else if (element.Name == "fertility_dependent")
+            {
                 type = BonusType.FertilityDependent;
+            }
             else
+            {
                 type = BonusType.Simple;
+            }
+
             return new Bonus() { Value = (int)element, Category = Enums.Parse<WealthCategory>((string)element.Attribute("c")), Type = type };
         }
 
@@ -55,8 +69,6 @@
                 message = "XML element's content is not an integer value.";
                 return false;
             }
-
-            // UWAGA: Tu zostało pominięta walidacja wewnątrz bonusu.
 
             message = "XML element is a valid representation of a wealth bonus.";
             return true;

@@ -3,11 +3,26 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
+    /// <summary>
+    /// Represents a set of effects acting on a region.
+    /// </summary>
     public class RegionalEffect : ProvincionalEffect, IRegionalEffect
     {
+        /// <summary>
+        /// Gets or sets the change of sanitation in only one region.
+        /// </summary>
         [Column]
         public int? RegionalSanitation { get; set; }
 
+        /// <summary>
+        /// Adds this effect to another one.
+        /// </summary>
+        /// <param name="other">
+        /// The other component of addition.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IRegionalEffect"/> resulting from the addition.
+        /// </returns>
         public IRegionalEffect Aggregate(IRegionalEffect other)
         {
             if (other == null)

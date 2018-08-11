@@ -5,96 +5,100 @@
 
     public class SimulationKit
     {
-        private readonly Effects.IProvincionalEffect _enivronment;
+        private readonly Effects.IProvincionalEffect enivronment;
 
-        private readonly Combinations.Combination _combination;
+        private readonly Combinations.Combination combination;
 
-        private readonly List<Buildings.BuildingLevel>[][] _availableBuildings;
+        private readonly List<Buildings.BuildingLevel>[][] availableBuildings;
 
         public SimulationKit(World world, Buildings.BuildingLibrary library, Combinations.Combination combination)
         {
-            _enivronment = world.Environment;
-            _combination = combination;
-            _availableBuildings = new List<Buildings.BuildingLevel>[GetRegionsCount()][];
-            for (int whichRegion = 0; whichRegion < _availableBuildings.Length; ++whichRegion)
+            this.enivronment = world.Environment;
+            this.combination = combination;
+            this.availableBuildings = new List<Buildings.BuildingLevel>[this.GetRegionsCount()][];
+            for (var whichRegion = 0; whichRegion < this.availableBuildings.Length; ++whichRegion)
             {
-                Resources.IResource resource = _combination.Province[whichRegion].Resource;
-                _availableBuildings[whichRegion] = new List<Buildings.BuildingLevel>[GetSlotsCount(whichRegion)];
-                for (int whichSlot = 0; whichSlot < _availableBuildings[whichRegion].Length; ++whichSlot)
+                var resource = this.combination.Province[whichRegion].Resource;
+                this.availableBuildings[whichRegion] = new List<Buildings.BuildingLevel>[this.GetSlotsCount(whichRegion)];
+                for (var whichSlot = 0; whichSlot < this.availableBuildings[whichRegion].Length; ++whichSlot)
                 {
-                    Buildings.SlotType type = _combination.Slots[whichRegion][whichSlot].Type;
-                    _availableBuildings[whichRegion][whichSlot] = library.GetLevels(type, resource).ToList();
+                    var type = this.combination.Slots[whichRegion][whichSlot].Type;
+                    this.availableBuildings[whichRegion][whichSlot] = library.GetLevels(type, resource).ToList();
                 }
             }
         }
 
         public int GetRegionsCount()
         {
-            return _combination.Slots.Length;
+            return this.combination.Slots.Length;
         }
 
         public string ProvinceName()
         {
-            return _combination.Province.Name;
+            return this.combination.Province.Name;
         }
 
         public string RegionName(int whichRegion)
         {
-            return _combination.Province[whichRegion].Name;
+            return this.combination.Province[whichRegion].Name;
         }
 
         public int GetSlotsCount(int whichRegion)
         {
-            return _combination.Slots[whichRegion].Length;
+            return this.combination.Slots[whichRegion].Length;
         }
 
         public void SetBuildingAt(int whichRegion, int whichSlot, int whichBuilding)
         {
-            _combination.Slots[whichRegion][whichSlot].Level = _availableBuildings[whichRegion][whichSlot][whichBuilding];
+            this.combination.Slots[whichRegion][whichSlot].Level = this.availableBuildings[whichRegion][whichSlot][whichBuilding];
         }
 
         public IEnumerable<KeyValuePair<int, string>> GetAvailableBuildingsAt(int whichRegion, int whichSlot)
         {
-            Dictionary<int, string> result = new Dictionary<int, string>();
-            int whichBuilding = 0;
-            foreach (Buildings.BuildingLevel building in _availableBuildings[whichRegion][whichSlot])
+            var result = new Dictionary<int, string>();
+            var whichBuilding = 0;
+            foreach (var building in this.availableBuildings[whichRegion][whichSlot])
             {
-                if (building != null)
-                    result.Add(whichBuilding, building.ToString());
-                else
-                    result.Add(whichBuilding, "Empty");
+                result.Add(whichBuilding, building != null ? building.ToString() : "Empty");
                 ++whichBuilding;
             }
+
             return result;
         }
 
         public CombinationPerformance CurrentPerformance()
         {
-            // Sprawdzenie czy w kombinacji nie występują konflikty (w jednym regionie nie mogą być 2 lub więcej budynki z tej samej gałęzi).
-            _combination.Calculate(_enivronment);
-            bool isConflicted = false;
-            for (int whichRegion = 0; whichRegion < GetRegionsCount(); ++whichRegion)
-                for (int whichSlot = 0; whichSlot < GetSlotsCount(whichRegion); ++whichSlot)
-                    for (int i = whichSlot + 1; i < GetSlotsCount(whichRegion); ++i)
-                        if (
-                            _combination.Slots[whichRegion][whichSlot].Level != null &&
-                            _combination.Slots[whichRegion][i].Level != null &&
-                            _combination.Slots[whichRegion][whichSlot].Level.ContainingBranch == _combination.Slots[whichRegion][i].Level.ContainingBranch
-                            )
-                            isConflicted = true;
-            //
-            return new CombinationPerformance()
+            this.combination.Calculate(this.enivronment);
+            var isConflicted = false;
+            for (var whichRegion = 0; whichRegion < this.GetRegionsCount(); ++whichRegion)
             {
-                Sanitation = _combination.Sanitation.ToArray(),
-                Food = _combination.Food,
-                PublicOrder = _combination.PublicOrder,
-                ReligiousOsmosis = _combination.ReligiousOsmosis,
-                Fertility = _combination.Fertility,
-                ResearchRate = _combination.ResearchRate,
-                Growth = _combination.Growth,
-                Wealth = (int)_combination.Wealth,
-                Conflict = isConflicted
-            };
+                for (var whichSlot = 0; whichSlot < this.GetSlotsCount(whichRegion); ++whichSlot)
+                {
+                    for (var i = whichSlot + 1; i < this.GetSlotsCount(whichRegion); ++i)
+                    {
+                        if (this.combination.Slots[whichRegion][whichSlot].Level != null
+                            && this.combination.Slots[whichRegion][i].Level != null
+                            && this.combination.Slots[whichRegion][whichSlot].Level.ContainingBranch
+                            == this.combination.Slots[whichRegion][i].Level.ContainingBranch)
+                        {
+                            isConflicted = true;
+                        }
+                    }
+                }
+            }
+
+            return new CombinationPerformance
+                   {
+                   Sanitation = this.combination.Sanitation.ToArray(),
+                   Food = this.combination.Food,
+                   PublicOrder = this.combination.PublicOrder,
+                   ReligiousOsmosis = this.combination.ReligiousOsmosis,
+                   Fertility = this.combination.Fertility,
+                   ResearchRate = this.combination.ResearchRate,
+                   Growth = this.combination.Growth,
+                   Wealth = (int)this.combination.Wealth,
+                   Conflict = isConflicted
+                   };
         }
 
         public struct CombinationPerformance

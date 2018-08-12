@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using System.Xml.Linq;
 
     public partial class ReligionsManager
     {
@@ -61,7 +59,7 @@
             }
 
             this.StateReligion = this.religions.ToArray()[whichReligion];
-            this.OnStateReligionChanged(new StateReligionChangedArgs(this));
+            this.OnStateReligionChanged(new StateReligionChangedArgs(this, this.StateReligion));
         }
 
         private void OnStateReligionChanged(StateReligionChangedArgs e)

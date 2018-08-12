@@ -6,9 +6,12 @@
     {
         public IStateReligionTracker Tracker { get; }
 
-        public StateReligionChangedArgs(IStateReligionTracker tracker)
+        public IReligion NewStateReligion { get; }
+
+        public StateReligionChangedArgs(IStateReligionTracker tracker, IReligion newStateReligion)
         {
             this.Tracker = tracker;
+            this.NewStateReligion = newStateReligion;
         }
     }
 }

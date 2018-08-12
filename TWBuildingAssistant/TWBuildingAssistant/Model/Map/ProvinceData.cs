@@ -4,6 +4,8 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public class ProvinceData
     {
         private const int RegionsInProvinceCount = 3;

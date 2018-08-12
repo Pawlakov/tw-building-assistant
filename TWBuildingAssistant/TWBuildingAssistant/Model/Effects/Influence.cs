@@ -9,7 +9,7 @@
     public class Influence : IInfluence
     {
         /// <summary>
-        /// Gets or sets the religion of this influence.
+        /// Gets or sets the religion of this influence. Null value means always state religion.
         /// </summary>
         public virtual Religions.IReligion Religion { get; set; }
 

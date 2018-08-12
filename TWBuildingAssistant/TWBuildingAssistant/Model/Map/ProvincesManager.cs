@@ -6,6 +6,8 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public delegate void ProvinceChangedHandler(ProvincesManager sender, EventArgs e);
 
     public class ProvincesManager : IFertilityDropTracker

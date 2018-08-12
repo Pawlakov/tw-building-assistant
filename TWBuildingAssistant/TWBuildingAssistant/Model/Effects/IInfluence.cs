@@ -6,7 +6,7 @@
     public interface IInfluence
     {
         /// <summary>
-        /// Gets the religion of this influence.
+        /// Gets the religion of this influence. Null value means always state religion.
         /// </summary>
         Religions.IReligion Religion { get; }
 

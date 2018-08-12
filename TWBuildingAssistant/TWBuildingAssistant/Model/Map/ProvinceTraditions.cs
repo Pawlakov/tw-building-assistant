@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public class ProvinceTraditions
     {
         private readonly IEnumerable<Effects.IInfluence> influences;

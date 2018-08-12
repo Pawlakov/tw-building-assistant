@@ -4,9 +4,11 @@
     using System.Collections.Generic;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public class Faction
     {
-        public Faction(XElement element, Map.IResourceParser resourceParser, Map.IReligionParser religionParser)
+        public Faction(XElement element, Map.IResourceParser resourceParser, IReligionParser religionParser)
         {
             if (element == null)
                 throw new ArgumentNullException("element");

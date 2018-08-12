@@ -4,11 +4,13 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public class FactionsManager
     {
         private const string FileName = "Model\\Factions\\twa_factions.xml";
 
-        private readonly Map.IReligionParser religionsParser;
+        private readonly IReligionParser religionsParser;
 
         private readonly Map.IResourceParser resourcesParser;
 
@@ -16,7 +18,7 @@
 
         private readonly Faction[] factions;
 
-        public FactionsManager(Map.IReligionParser religionsParser, Map.IResourceParser resourcesParser)
+        public FactionsManager(IReligionParser religionsParser, Map.IResourceParser resourcesParser)
         {
             var sourceFile = XDocument.Load(FileName);
             this.elements = (from XElement element in sourceFile.Root.Elements() select element).ToArray();

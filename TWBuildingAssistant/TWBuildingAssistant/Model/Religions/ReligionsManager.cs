@@ -44,9 +44,9 @@
         }
     }
 
-    public partial class ReligionsManager : Map.IStateReligionTracker
+    public partial class ReligionsManager : IStateReligionTracker
     {
-        public event Map.StateReligionChangedHandler StateReligionChanged;
+        public event EventHandler<StateReligionChangedArgs> StateReligionChanged;
 
         public IReligion StateReligion { get; private set; }
 
@@ -60,17 +60,17 @@
                 "The index of new state religion is out of range.");
             }
 
-            StateReligion = this.religions.ToArray()[whichReligion];
-            OnStateReligionChanged();
+            this.StateReligion = this.religions.ToArray()[whichReligion];
+            this.OnStateReligionChanged(new StateReligionChangedArgs(this));
         }
 
-        private void OnStateReligionChanged()
+        private void OnStateReligionChanged(StateReligionChangedArgs e)
         {
-            StateReligionChanged?.Invoke(this, EventArgs.Empty);
+            this.StateReligionChanged?.Invoke(this, e);
         }
     }
 
-    public partial class ReligionsManager : Map.IReligionParser
+    public partial class ReligionsManager : IReligionParser
     {
         public IReligion Parse(string input)
         {

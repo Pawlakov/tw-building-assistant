@@ -70,7 +70,7 @@
 
             var combinedEffect = environment.Aggregate(regionalEffects[0].Aggregate(regionalEffects[1].Aggregate(regionalEffects[2])));
 
-            this.Fertility = combinedEffect.Fertility ?? 0;
+            this.Fertility = this.Province.Fertility + (combinedEffect.Fertility ?? 0);
             this.Food = combinedEffect.Food(this.Fertility);
 
             this.PublicOrder = combinedEffect.PublicOrder ?? 0;

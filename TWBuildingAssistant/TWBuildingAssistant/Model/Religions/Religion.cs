@@ -1,16 +1,13 @@
 ﻿namespace TWBuildingAssistant.Model.Religions
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    using TWBuildingAssistant.Model.Map;
-
     [Table("Religions")]
     public class Religion : IReligion
     {
-        private Map.IStateReligionTracker stateReligionTracker;
+        private IStateReligionTracker stateReligionTracker;
 
         private bool isState;
 
@@ -85,11 +82,13 @@
             set
             {
                 this.stateReligionTracker = value;
-                this.stateReligionTracker.StateReligionChanged += (sender, e) =>
-                    {
-                        this.isState = ReferenceEquals(this, sender.StateReligion);
-                    };
+                this.stateReligionTracker.StateReligionChanged += OnStateReligionChanged;
             }
+        }
+
+        private void OnStateReligionChanged(object sender, StateReligionChangedArgs e)
+        {
+            this.isState = ReferenceEquals(this, e.Tracker.StateReligion);
         }
     }
 }

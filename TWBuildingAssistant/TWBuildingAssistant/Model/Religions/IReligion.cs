@@ -12,6 +12,6 @@
 
         bool IsState { get; }
 
-        Map.IStateReligionTracker StateReligionTracker { set; }
+        IStateReligionTracker StateReligionTracker { set; }
     }
 }

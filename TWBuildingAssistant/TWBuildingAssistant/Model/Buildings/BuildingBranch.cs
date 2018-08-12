@@ -3,11 +3,13 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public class BuildingBranch
     {
         private readonly BuildingLevel[] levels;
 
-        public BuildingBranch(XElement element, ITechnologyLevelAssigner technologyLevelAssigner, Map.IReligionParser religionParser)
+        public BuildingBranch(XElement element, ITechnologyLevelAssigner technologyLevelAssigner, IReligionParser religionParser)
         {
             this.Name = (string)element.Attribute("n");
             this.levels = (from XElement subelement in element.Elements() select new BuildingLevel(this, subelement, technologyLevelAssigner)).ToArray();

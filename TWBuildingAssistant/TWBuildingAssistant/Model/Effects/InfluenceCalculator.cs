@@ -34,7 +34,10 @@
             }
 
             var percentage = 100 * (state / (other + (double)state));
-            return -(int)Math.Floor((percentage * -0.06993007) + 7.5);
+
+            // return -(int)Math.Floor((percentage * -0.06993007) + 7.5);
+            var intermediateValue = (750 - (percentage * 7)) * 0.01;
+            return -(int)Math.Floor(intermediateValue);
         }
     }
 }

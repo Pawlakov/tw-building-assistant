@@ -94,6 +94,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\DataModel.cs" />
+    <Compile Include="Model\Religions\IStateReligionTracker.cs" />
+    <Compile Include="Model\Religions\StateReligionChangedArgs.cs" />
     <Compile Include="ViewModel\Region.cs" />
     <Compile Include="ViewModel\Slot.cs" />
     <Compile Include="ViewModel\ViewModelSimulationWindow.cs" />
@@ -134,9 +136,8 @@
     <Compile Include="Model\Factions\FactionsManager.cs" />
     <Compile Include="Model\Map\IClimateParser.cs" />
     <Compile Include="Model\Map\IFertilityDropTracker.cs" />
-    <Compile Include="Model\Map\IReligionParser.cs" />
+    <Compile Include="Model\Religions\IReligionParser.cs" />
     <Compile Include="Model\Map\IResourceParser.cs" />
-    <Compile Include="Model\Map\IStateReligionTracker.cs" />
     <Compile Include="Model\Map\ProvinceData.cs" />
     <Compile Include="Model\Map\ProvincesManager.cs" />
     <Compile Include="Model\Map\ProvinceTraditions.cs" />

@@ -44,8 +44,8 @@
             return this.Aggregate(
             new Effects.ProvincionalEffect
             {
-            Bonuses = from Effects.IBonus bonus in this.BonusesNavigation select bonus,
-            Influences = from Effects.IInfluence influence in this.InfluencesNavigation select influence
+            Bonuses = this.BonusesNavigation != null ? from Effects.IBonus bonus in this.BonusesNavigation select bonus : new List<Effects.IBonus>(),
+            Influences = this.InfluencesNavigation != null ? from Effects.IInfluence influence in this.InfluencesNavigation select influence : new List<Effects.IInfluence>()
             });
         }
     }

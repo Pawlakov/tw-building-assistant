@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     /// <summary>
@@ -33,7 +34,11 @@
         /// </returns>
         public IEnumerable<IReligion> GetReligions()
         {
-            return (from Religion item in this.context.Religions select item).ToArray();
+            IEnumerable<IReligion> religions = (from Religion item in this.context.Religions select item).ToArray();
+            var effects = (from ReligionEffect item in this.context.ReligionEffects select item).ToArray();
+            var bonuses = (from ReligionBonus item in this.context.ReligionBonuses select item).ToArray();
+            var influences = (from ReligionInfluence item in this.context.ReligionInfluences select item).ToArray();
+            return religions;
         }
     }
 }

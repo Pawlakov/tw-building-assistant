@@ -16,7 +16,7 @@
         {
             using (var database = new Data.DataModel())
             {
-                this.resourcesManager = new Model.Resources.ResourcesManager(new Resources.ResourcesDataSource(database));
+                this.resourcesManager = new Model.Resources.ResourcesManager(new Resources.ResourcesJsonSource());
                 this.religionsManager = new Model.Religions.ReligionsManager(new Religions.ReligionsDataSource(database));
                 this.provincesManager = new Model.Map.ProvincesManager(this.religionsManager, this.resourcesManager, this.religionsManager);
                 this.factionsManager = new Model.Factions.FactionsManager(this.religionsManager, this.resourcesManager);

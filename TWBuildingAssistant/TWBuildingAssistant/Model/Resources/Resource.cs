@@ -1,50 +1,24 @@
 ﻿namespace TWBuildingAssistant.Model.Resources
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel;
 
-    /// <summary>
-    /// Represents one of in-game special resources.
-    /// </summary>
-    [Table("Resources")]
+    using Newtonsoft.Json;
+
     public class Resource : IResource
     {
-        /// <summary>
-        /// Gets or sets the primary key of this resource.
-        /// </summary>
-        [Key]
-        public int ResourceId { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        public int Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Resource"/>'s corresponding buildings are obligatory to build.
-        /// </summary>
-        [Column]
-        [Required]
-        public bool IsMandatory { get; set; }
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        public bool Obligatory { get; set; }
 
-        /// <summary>
-        /// Gets or sets this <see cref="Resource"/>'s <see cref="SlotType"/> of corresponding buildings.
-        /// </summary>
-        [Column]
-        [Required]
+        [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(SlotType.Regular)]
         public SlotType BuildingType { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of this <see cref="Resource"/>
-        /// </summary>
-        [Column]
-        [Required]
+        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
 
-        /// <summary>
-        /// Returns a value indicating whether the current combination of values is valid.
-        /// </summary>
-        /// <param name="message">
-        /// Optional message containing details of vaildation's result.
-        /// </param>
-        /// <returns>
-        /// The <see cref="T:System.Boolean" /> indicating result of validation.
-        /// </returns>
         public bool Validate(out string message)
         {
             if (this.Name == null)
@@ -59,7 +33,7 @@
                 return false;
             }
 
-            if (this.BuildingType == SlotType.Regular && this.IsMandatory)
+            if (this.BuildingType == SlotType.Regular && this.Obligatory)
             {
                 message = "Mandatory replacement of general building.";
                 return false;
@@ -69,12 +43,6 @@
             return true;
         }
 
-        /// <summary>
-        /// Returns this <see cref="Resource"/>'s <see cref="string"/> representaion (which is its name).
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/> representation.
-        /// </returns>
         public override string ToString()
         {
             return this.Name;

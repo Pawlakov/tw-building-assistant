@@ -33,7 +33,7 @@
 
         private readonly Dictionary<Resources.IResource, BuildingBranch> resourceBuildings;
 
-        public BuildingLibrary(string fileName, ITechnologyLevelAssigner technologyLevelAssigner, Map.IResourceParser resourceParser, IReligionParser religionParser)
+        public BuildingLibrary(string fileName, ITechnologyLevelAssigner technologyLevelAssigner, Resources.IResourceParser resourceParser, IReligionParser religionParser)
         {
             var sourceFile = XDocument.Load("Model\\Buildings\\" + fileName);
             var buildingCategories = (from XElement element in sourceFile.Root.Elements() select element).ToDictionary((XElement element) => (string)element.Attribute("n"));
@@ -62,7 +62,7 @@
                                           && (type == SlotType.City
                                               || type == SlotType.Town)));
 
-            var includeRegular = !(includeResource && resource.IsMandatory);
+            var includeRegular = !(includeResource && resource.Obligatory);
 
             IEnumerable<BuildingLevel> result = new BuildingLevel[0];
             if (includeRegular)

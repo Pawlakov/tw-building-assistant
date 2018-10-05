@@ -11,7 +11,7 @@
 
         private readonly int slotsCountOffset;
 
-        public RegionData(XElement element, bool isCity, IResourceParser resourceParser)
+        public RegionData(XElement element, bool isCity, Resources.IResourceParser resourceParser)
         {
             if (element == null)
             {
@@ -65,7 +65,7 @@
             }
         }
 
-        public static bool ValidateElement(XElement element, IResourceParser resourceParser, out string message)
+        public static bool ValidateElement(XElement element, Resources.IResourceParser resourceParser, out string message)
         {
             if (element.Attribute("n") == null)
             {

@@ -22,7 +22,7 @@
 
         private readonly XElement[] elements;
 
-        public ProvincesManager(IReligionParser religionParser, IResourceParser resourceParser, IStateReligionTracker stateReligionTracker)
+        public ProvincesManager(IReligionParser religionParser, Resources.IResourceParser resourceParser, IStateReligionTracker stateReligionTracker)
         {
             this.ClimateManager = new ClimateAndWeather.ClimateManager();
             if (!Validate(this.ClimateManager, religionParser, resourceParser, out var message))
@@ -87,13 +87,13 @@
 
         private IReligionParser ReligionParser { get; }
 
-        private IResourceParser ResourceParser { get; }
+        private Resources.IResourceParser ResourceParser { get; }
 
         private IStateReligionTracker StateReligionTracker { get; }
 
         private int ProvinceIndex { get; set; } = -1;
 
-        public static bool Validate(IClimateParser climateParser, IReligionParser religionParser, IResourceParser resourceParser, out string message)
+        public static bool Validate(IClimateParser climateParser, IReligionParser religionParser, Resources.IResourceParser resourceParser, out string message)
         {
             if (!File.Exists(SourceFile))
             {

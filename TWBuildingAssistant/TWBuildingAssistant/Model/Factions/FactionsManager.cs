@@ -12,13 +12,13 @@
 
         private readonly IReligionParser religionsParser;
 
-        private readonly Map.IResourceParser resourcesParser;
+        private readonly Resources.IResourceParser resourcesParser;
 
         private readonly XElement[] elements;
 
         private readonly Faction[] factions;
 
-        public FactionsManager(IReligionParser religionsParser, Map.IResourceParser resourcesParser)
+        public FactionsManager(IReligionParser religionsParser, Resources.IResourceParser resourcesParser)
         {
             var sourceFile = XDocument.Load(FileName);
             this.elements = (from XElement element in sourceFile.Root.Elements() select element).ToArray();

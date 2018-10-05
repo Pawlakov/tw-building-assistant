@@ -10,30 +10,15 @@
 
     using TWBuildingAssistant.Model.Resources;
 
-    /// <summary>
-    /// Test fixture containing tests of the <see cref="ResourcesManager"/> class.
-    /// </summary>
     [TestFixture]
     public class ResourcesManagerTests
     {
-        /// <summary>
-        /// Number of resource mocks used during tests.
-        /// </summary>
         private const int ResourcesCount = 3;
 
-        /// <summary>
-        /// The list of mocks substituting resources.
-        /// </summary>
         private List<Mock<IResource>> resources;
 
-        /// <summary>
-        /// The mock substituting a source of resources.
-        /// </summary>
         private Mock<IResourcesSource> source;
 
-        /// <summary>
-        /// The set up before each test.
-        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -51,20 +36,14 @@
             this.source.Setup(x => x.GetResources()).Returns(from Mock<IResource> item in this.resources select item.Object);
         }
 
-        /// <summary>
-        /// Checks whether the creation of <see cref="ResourcesManager"/> object undergoes correctly.
-        /// </summary>
         [Test]
         public void CorrectCreation()
         {
             ResourcesManager manager = null;
             Assert.DoesNotThrow(() => manager = new ResourcesManager(this.source.Object), "Exception was thrown despite the data being correct.");
-            Assert.AreEqual(ResourcesCount, manager.Resources.Count(), "The resources count is not matching");
+            Assert.DoesNotThrow(() => manager.Find(ResourcesCount - 1), "The resources count is not matching");
         }
 
-        /// <summary>
-        /// Checks whether the <see cref="ResourcesManager"/> object behaves correctly when parsing correct <see cref="string"/>s.
-        /// </summary>
         [Test]
         public void CorrectParse()
         {
@@ -78,9 +57,6 @@
             }
         }
 
-        /// <summary>
-        /// Checks whether the <see cref="ResourcesManager"/> object behaves correctly when parsing null <see cref="string"/>.
-        /// </summary>
         [Test]
         public void NullParse()
         {
@@ -88,9 +64,6 @@
             Assert.Throws<ArgumentNullException>(() => manager.Parse(null), "Attempt to parse null did not ended with exception.");
         }
 
-        /// <summary>
-        /// Checks whether the <see cref="ResourcesManager"/> object behaves correctly when parsing non-existent resource.
-        /// </summary>
         [Test]
         public void NonExistentParse()
         {
@@ -98,9 +71,6 @@
             Assert.Throws<ResourcesException>(() => manager.Parse(ResourcesCount.ToString()), "Attempt to parse non-existent resource name did not ended with exception.");
         }
 
-        /// <summary>
-        /// Checks whether the <see cref="ResourcesManager"/> object behaves correctly when one of <see cref="IResource"/> objects is invalid.
-        /// </summary>
         [Test]
         public void InvalidResource()
         {

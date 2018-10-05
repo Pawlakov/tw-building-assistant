@@ -15,11 +15,6 @@ namespace TWBuildingAssistant.Data
         {
         }
 
-        /// <summary>
-        /// Gets or sets the table containing resources.
-        /// </summary>
-        public virtual DbSet<Model.Resources.Resource> Resources { get; set; }
-
         public virtual DbSet<Model.Religions.Religion> Religions { get; set; }
 
         public virtual DbSet<Model.Religions.ReligionEffect> ReligionEffects { get; set; }

@@ -58,7 +58,7 @@
 
         public double Wealth { get; private set; }
 
-        public void Calculate(Effects.IProvincionalEffect environment)
+        public void Calculate(Effects.IProvincialEffect environment)
         {
             var regionalEffects = new Effects.IRegionalEffect[3];
             for (var whichRegion = 0; whichRegion < 3; ++whichRegion)
@@ -70,18 +70,18 @@
 
             var combinedEffect = environment.Aggregate(regionalEffects[0].Aggregate(regionalEffects[1].Aggregate(regionalEffects[2])));
 
-            this.Fertility = this.Province.Fertility + (combinedEffect.Fertility ?? 0);
+            this.Fertility = this.Province.Fertility + combinedEffect.Fertility;
             this.Fertility = this.Fertility > 6 ? 6 : this.Fertility;
             this.Food = combinedEffect.Food(this.Fertility);
 
-            this.PublicOrder = combinedEffect.PublicOrder ?? 0;
-            this.ReligiousOsmosis = combinedEffect.ReligiousOsmosis ?? 0;
-            this.ResearchRate = combinedEffect.ResearchRate ?? 0;
-            this.Growth = combinedEffect.Growth ?? 0;
+            this.PublicOrder = combinedEffect.PublicOrder;
+            this.ReligiousOsmosis = combinedEffect.ReligiousOsmosis;
+            this.ResearchRate = combinedEffect.ResearchRate;
+            this.Growth = combinedEffect.Growth;
             for (var whichRegion = 0; whichRegion < this.sanitation.Length; ++whichRegion)
             {
-                this.sanitation[whichRegion] = (combinedEffect.ProvincionalSanitation ?? 0)
-                                               + (regionalEffects[whichRegion].RegionalSanitation ?? 0);
+                this.sanitation[whichRegion] = combinedEffect.ProvincialSanitation
+                                               + regionalEffects[whichRegion].RegionalSanitation ;
             }
 
             this.PublicOrder += Effects.InfluenceCalculator.PublicOrder(combinedEffect.Influences.Concat(this.Province.Traditions.Influences));

@@ -31,8 +31,8 @@
             this.influences = from XElement item in element.Elements()
                               select new Effects.Influence()
                                      {
-                                     Religion = religionParser.Parse(
-                                     (string)item.Attribute("r")),
+                                     ReligionId = religionParser.Parse(
+                                     (string)item.Attribute("r")).Id,
                                      Value = (int)item
                                      };
         }

@@ -1,74 +1,26 @@
 ﻿namespace TWBuildingAssistant.Model.Religions
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using Newtonsoft.Json;
 
-    /// <summary>
-    /// Represents one of in-game religions.
-    /// </summary>
-    [Table("Religions")]
+    using TWBuildingAssistant.Model.Effects;
+
     public class Religion : IReligion
     {
-        /// <summary>
-        /// The state religion tracker that notifies notifies about changes of the state religion.
-        /// </summary>
         private IStateReligionTracker stateReligionTracker;
 
-        /// <summary>
-        /// Indicates whether this religion is the state religion. Updated using <see cref="IStateReligionTracker"/>.
-        /// </summary>
         private bool isState;
 
-        /// <summary>
-        /// The <see cref="Effects.IProvincionalEffect"/> taken into account when this <see cref="Religion"/> is the state religion.
-        /// </summary>
-        private Effects.IProvincionalEffect effect;
+        [JsonProperty(Required = Required.Always)]
+        public int Id { get; set; }
 
-        /// <summary>
-        /// Gets or sets the primary key of this <see cref="Religion"/> object.
-        /// </summary>
-        [Key]
-        public int ReligionId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of this <see cref="Religion"/>
-        /// </summary>
-        [Column]
-        [Required]
+        [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
 
-        /// <summary>
-        /// Gets or sets the <see cref="ReligionEffect"/> taken into account when this <see cref="Religion"/> is the state religion. This property is used in ORM navigation.
-        /// </summary>
-        public ReligionEffect ActualEffect { get; set; }
+        [JsonProperty(Required = Required.Always)]
+        [JsonConverter(typeof(JsonConcreteConverter<ProvincialEffect>))]
+        public IProvincialEffect Effect { get; set; }
 
-        /// <summary>
-        /// Gets the <see cref="Effects.IProvincionalEffect"/> taken into account when this <see cref="Religion"/> is the state religion.
-        /// </summary>
-        [NotMapped]
-        public Effects.IProvincionalEffect Effect
-        {
-            get
-            {
-                if (this.effect == null)
-                {
-                    this.effect = this.ActualEffect != null ? this.ActualEffect.Simplify() : new Effects.ProvincionalEffect();
-                }
-
-                return this.effect;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the collection of <see cref="ReligionInfluence"/> objects that benefit this <see cref="Religion"/>.
-        /// </summary>
-        public ICollection<ReligionInfluence> ReligionInfluences { get; set; }
-
-        /// <summary>
-        /// Gets a value indicating whether this <see cref="Religion"/> is currently the state religion.
-        /// </summary>
-        [NotMapped]
+        [JsonIgnore]
         public bool IsState
         {
             get
@@ -82,10 +34,7 @@
             }
         }
 
-        /// <summary>
-        /// Sets the <see cref="IStateReligionTracker"/> used by this <see cref="Religion"/> to update its state.
-        /// </summary>
-        [NotMapped]
+        [JsonIgnore]
         public IStateReligionTracker StateReligionTracker
         {
             set
@@ -95,15 +44,6 @@
             }
         }
 
-        /// <summary>
-        /// Returns a value indicating whether the current combination of values is valid.
-        /// </summary>
-        /// <param name="message">
-        /// Optional message containing details of vaildation's result.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool"/> indicating result of validation.
-        /// </returns>
         public bool Validate(out string message)
         {
             if (this.Name == null)
@@ -128,15 +68,11 @@
             return true;
         }
 
-        /// <summary>
-        /// Activities necessary to perform when the state religion changes.
-        /// </summary>
-        /// <param name="sender">
-        /// The sender of the event.
-        /// </param>
-        /// <param name="e">
-        /// The arguments of the event.
-        /// </param>
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
         private void OnStateReligionChanged(object sender, StateReligionChangedArgs e)
         {
             this.isState = ReferenceEquals(this, e.NewStateReligion);

@@ -10,7 +10,7 @@
 
         public ResourcesManager(IResourcesSource source)
         {
-            this.resources = source.GetResources();
+            this.resources = source.Resources.ToArray();
             var message = string.Empty;
             if (this.resources.Any(resource => !resource.Validate(out message)))
             {

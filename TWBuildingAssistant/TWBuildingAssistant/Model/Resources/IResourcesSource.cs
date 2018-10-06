@@ -4,6 +4,6 @@
 
     public interface IResourcesSource
     {
-        IEnumerable<IResource> GetResources();
+        IEnumerable<IResource> Resources { get; }
     }
 }

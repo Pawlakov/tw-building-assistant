@@ -33,7 +33,7 @@
             }
 
             this.source = new Mock<IResourcesSource>();
-            this.source.Setup(x => x.GetResources()).Returns(from Mock<IResource> item in this.resources select item.Object);
+            this.source.Setup(x => x.Resources).Returns(from Mock<IResource> item in this.resources select item.Object);
         }
 
         [Test]

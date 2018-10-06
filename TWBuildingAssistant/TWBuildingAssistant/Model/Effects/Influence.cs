@@ -1,34 +1,39 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
 
-    /// <summary>
-    /// Respresents an in-game religious influence.
-    /// </summary>
+    using Newtonsoft.Json;
+
+    using TWBuildingAssistant.Data;
+    using TWBuildingAssistant.Model.Religions;
+
     public class Influence : IInfluence
     {
-        /// <summary>
-        /// Gets or sets the religion of this influence. Null value means always state religion.
-        /// </summary>
-        public virtual Religions.IReligion Religion { get; set; }
+        private IReligion religion;
 
-        /// <summary>
-        /// Gets or sets the value of this religious influence.
-        /// </summary>
-        [Column]
-        [Required]
+        [JsonIgnore]
+        public IReligion Religion
+        {
+            get
+            {
+                if (!this.ReligionId.HasValue)
+                {
+                    return null;
+                }
+
+                if (this.religion == null)
+                {
+                    this.religion = JsonData.Data.Religions.FirstOrDefault(x => x.Id == this.ReligionId);
+                }
+
+                return this.religion;
+            }
+        }
+
+        public int? ReligionId { get; set; }
+
         public int Value { get; set; }
 
-        /// <summary>
-        /// Returns a value indicating whether the current combination of values is valid.
-        /// </summary>
-        /// <param name="message">
-        /// Optional message containing details of vaildation's result.
-        /// </param>
-        /// <returns>
-        /// The <see cref="bool" /> indicating result of validation.
-        /// </returns>
         public bool Validate(out string message)
         {
             if (this.Value < 1)
@@ -41,12 +46,6 @@
             return true;
         }
 
-        /// <summary>
-        /// Returns a <see cref="string"/> that represents this <see cref="Influence"/>.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="string"/> representing this <see cref="Influence"/>.
-        /// </returns>
         public override string ToString()
         {
             return $"+{this.Value} {this.Religion?.ToString() ?? "state religion"} religious influence";

@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using TWBuildingAssistant.Data;
+
     public class World
     {
         private readonly Model.Resources.ResourcesManager resourcesManager;
@@ -14,13 +16,10 @@
 
         public World()
         {
-            using (var database = new Data.DataModel())
-            {
-                this.resourcesManager = new Model.Resources.ResourcesManager(new Resources.ResourcesJsonSource());
-                this.religionsManager = new Model.Religions.ReligionsManager(new Religions.ReligionsDataSource(database));
-                this.provincesManager = new Model.Map.ProvincesManager(this.religionsManager, this.resourcesManager, this.religionsManager);
-                this.factionsManager = new Model.Factions.FactionsManager(this.religionsManager, this.resourcesManager);
-            }
+            this.resourcesManager = new Model.Resources.ResourcesManager(JsonData.Data);
+            this.religionsManager = new Model.Religions.ReligionsManager(JsonData.Data);
+            this.provincesManager = new Model.Map.ProvincesManager(this.religionsManager, this.resourcesManager, this.religionsManager);
+            this.factionsManager = new Model.Factions.FactionsManager(this.religionsManager, this.resourcesManager);
         }
 
         public SimulationKit AssembleSimulationKit(WorldSettings settings)
@@ -64,7 +63,7 @@
             }
         }
 
-        public Model.Effects.IProvincionalEffect Environment
+        public Model.Effects.IProvincialEffect Environment
         {
             get
             {

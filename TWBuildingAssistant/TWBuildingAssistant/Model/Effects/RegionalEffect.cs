@@ -1,28 +1,11 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    /// <summary>
-    /// Represents a set of effects acting on a region.
-    /// </summary>
-    public class RegionalEffect : ProvincionalEffect, IRegionalEffect
+    public class RegionalEffect : ProvincialEffect, IRegionalEffect
     {
-        /// <summary>
-        /// Gets or sets the change of sanitation in only one region.
-        /// </summary>
-        [Column]
-        public int? RegionalSanitation { get; set; }
+        public int RegionalSanitation { get; set; }
 
-        /// <summary>
-        /// Adds this effect to another one.
-        /// </summary>
-        /// <param name="other">
-        /// The other component of addition.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IRegionalEffect"/> resulting from the addition.
-        /// </returns>
         public IRegionalEffect Aggregate(IRegionalEffect other)
         {
             if (other == null)
@@ -32,15 +15,15 @@
 
             return new RegionalEffect()
                    {
-                   RegionalSanitation = (this.RegionalSanitation ?? 0) + (other.RegionalSanitation ?? 0),
-                   PublicOrder = (this.PublicOrder ?? 0) + (other.PublicOrder ?? 0),
-                   RegularFood = (this.RegularFood ?? 0) + (other.RegularFood ?? 0),
-                   FertilityDependentFood = (this.FertilityDependentFood ?? 0) + (other.FertilityDependentFood ?? 0),
-                   ProvincionalSanitation = (this.ProvincionalSanitation ?? 0) + (other.ProvincionalSanitation ?? 0),
-                   ResearchRate = (this.ResearchRate ?? 0) + (other.ResearchRate ?? 0),
-                   Growth = (this.Growth ?? 0) + (other.Growth ?? 0),
-                   Fertility = (this.Fertility ?? 0) + (other.Fertility ?? 0),
-                   ReligiousOsmosis = (this.ReligiousOsmosis ?? 0) + (other.ReligiousOsmosis ?? 0),
+                   RegionalSanitation = this.RegionalSanitation + other.RegionalSanitation,
+                   PublicOrder = this.PublicOrder + other.PublicOrder,
+                   RegularFood = this.RegularFood + other.RegularFood,
+                   FertilityDependentFood = this.FertilityDependentFood + other.FertilityDependentFood,
+                   ProvincialSanitation = this.ProvincialSanitation + other.ProvincialSanitation,
+                   ResearchRate = this.ResearchRate + other.ResearchRate,
+                   Growth = this.Growth + other.Growth,
+                   Fertility = this.Fertility + other.Fertility,
+                   ReligiousOsmosis = this.ReligiousOsmosis + other.ReligiousOsmosis,
                    Bonuses = this.Bonuses.Concat(other.Bonuses).ToList(),
                    Influences = this.Influences.Concat(other.Influences).ToList()
                    };

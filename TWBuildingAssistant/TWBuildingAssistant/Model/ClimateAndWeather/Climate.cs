@@ -8,7 +8,7 @@
     {
         public string Name { get; }
 
-        public Effects.IProvincionalEffect Effect => this.effects[_currentWeatherIndex];
+        public Effects.IProvincialEffect Effect => this.effects[_currentWeatherIndex];
 
         public Climate(XElement element, WeatherManager weatherManager)
         {
@@ -17,12 +17,12 @@
                          select ((int)weatherElement.Attribute("po"), (int)weatherElement.Attribute("f"),
                                     (int)weatherElement.Attribute("s"));
             this.effects = (from ValueTuple<int, int, int> item in tuples
-                            select new Effects.ProvincionalEffect()
+                            select new Effects.ProvincialEffect()
                                    {
                                    PublicOrder = item.Item1,
                                    RegularFood = item.Item2,
-                                   ProvincionalSanitation = item.Item3
-                                   } as Effects.IProvincionalEffect).ToArray();
+                                   ProvincialSanitation = item.Item3
+                                   } as Effects.IProvincialEffect).ToArray();
 
             // Aktualizacja przez event.
             weatherManager.WorstCaseWeatherChanged += (WeatherManager sender, EventArgs e) =>
@@ -31,7 +31,7 @@
                 };
         }
 
-        private readonly Effects.IProvincionalEffect[] effects;
+        private readonly Effects.IProvincialEffect[] effects;
 
         private int _currentWeatherIndex = 2;
     }

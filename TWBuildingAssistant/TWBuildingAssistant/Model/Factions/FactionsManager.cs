@@ -45,7 +45,7 @@
             }
         }
 
-        public Effects.IProvincionalEffect Effect => Faction.Effect;
+        public Effects.IProvincialEffect Effect => Faction.Effect;
 
         public IEnumerable<KeyValuePair<int, string>> AllFactionsNames
         {

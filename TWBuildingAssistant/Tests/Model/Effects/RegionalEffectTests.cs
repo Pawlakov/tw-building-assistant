@@ -46,7 +46,7 @@
             PublicOrder = 5,
             ResearchRate = 6,
             ReligiousOsmosis = 7,
-            ProvincionalSanitation = 8,
+            ProvincialSanitation = 8,
             RegionalSanitation = 9
             };
         }
@@ -71,7 +71,7 @@
             Assert.AreEqual(this.filledEffect.PublicOrder, effect.PublicOrder, $"The result's {nameof(RegionalEffect.PublicOrder)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.ResearchRate, effect.ResearchRate, $"The result's {nameof(RegionalEffect.ResearchRate)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.ReligiousOsmosis, effect.ReligiousOsmosis, $"The result's {nameof(RegionalEffect.ReligiousOsmosis)} contains an incorrect value.");
-            Assert.AreEqual(this.filledEffect.ProvincionalSanitation, effect.ProvincionalSanitation, $"The result's {nameof(RegionalEffect.ProvincionalSanitation)} contains an incorrect value.");
+            Assert.AreEqual(this.filledEffect.ProvincialSanitation, effect.ProvincialSanitation, $"The result's {nameof(RegionalEffect.ProvincialSanitation)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.RegionalSanitation, effect.RegionalSanitation, $"The result's {nameof(RegionalEffect.RegionalSanitation)} contains an incorrect value.");
         }
 
@@ -91,7 +91,7 @@
             Assert.AreEqual(this.filledEffect.PublicOrder, effect.PublicOrder, $"The result's {nameof(RegionalEffect.PublicOrder)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.ResearchRate, effect.ResearchRate, $"The result's {nameof(RegionalEffect.ResearchRate)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.ReligiousOsmosis, effect.ReligiousOsmosis, $"The result's {nameof(RegionalEffect.ReligiousOsmosis)} contains an incorrect value.");
-            Assert.AreEqual(this.filledEffect.ProvincionalSanitation, effect.ProvincionalSanitation, $"The result's {nameof(RegionalEffect.ProvincionalSanitation)} contains an incorrect value.");
+            Assert.AreEqual(this.filledEffect.ProvincialSanitation, effect.ProvincialSanitation, $"The result's {nameof(RegionalEffect.ProvincialSanitation)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.RegionalSanitation, effect.RegionalSanitation, $"The result's {nameof(RegionalEffect.RegionalSanitation)} contains an incorrect value.");
         }
 
@@ -111,7 +111,7 @@
             Assert.AreEqual(this.filledEffect.PublicOrder * 2, effect.PublicOrder, $"The result's {nameof(RegionalEffect.PublicOrder)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.ResearchRate * 2, effect.ResearchRate, $"The result's {nameof(RegionalEffect.ResearchRate)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.ReligiousOsmosis * 2, effect.ReligiousOsmosis, $"The result's {nameof(RegionalEffect.ReligiousOsmosis)} contains an incorrect value.");
-            Assert.AreEqual(this.filledEffect.ProvincionalSanitation * 2, effect.ProvincionalSanitation, $"The result's {nameof(RegionalEffect.ProvincionalSanitation)} contains an incorrect value.");
+            Assert.AreEqual(this.filledEffect.ProvincialSanitation * 2, effect.ProvincialSanitation, $"The result's {nameof(RegionalEffect.ProvincialSanitation)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.RegionalSanitation * 2, effect.RegionalSanitation, $"The result's {nameof(RegionalEffect.RegionalSanitation)} contains an incorrect value.");
         }
     }

@@ -81,7 +81,7 @@
             }
         }
 
-        public Effects.IProvincionalEffect Effect => this.Province.Climate.Effect;
+        public Effects.IProvincialEffect Effect => this.Province.Climate.Effect;
 
         private ClimateAndWeather.ClimateManager ClimateManager { get; }
 

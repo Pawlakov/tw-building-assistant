@@ -9,7 +9,7 @@
     {
         private ITechnologyTree ContainingTree { get; }
 
-        public Effects.IProvincionalEffect Effect { get; private set; }
+        public Effects.IProvincialEffect Effect { get; private set; }
 
         public bool IsAvailable { get; private set; }
 
@@ -61,13 +61,13 @@
             if (temporary != null)
                 researchRate = (int)temporary;
             var bonuses = from XElement bonusElement in element.Elements() select Effects.BonusFactory.MakeBonus(bonusElement) as Effects.Bonus;
-            this.Effect = new Effects.ProvincionalEffect()
+            this.Effect = new Effects.ProvincialEffect()
                           {
                           Bonuses = (from Effects.IBonus bonus in bonuses select bonus).ToList(),
                           Fertility = fertility,
                           Growth = growth,
-                          Influences = new List<Effects.IInfluence>() { new Effects.Influence() { Religion = null, Value = religiousInfluence } },
-                          ProvincionalSanitation = sanitation,
+                          Influences = new List<Effects.IInfluence>() { new Effects.Influence() { ReligionId = null, Value = religiousInfluence } },
+                          ProvincialSanitation = sanitation,
                           PublicOrder = publicOrder,
                           ReligiousOsmosis = religiousOsmosis,
                           RegularFood = food,
@@ -79,7 +79,7 @@
         {
             this.ContainingTree = containingTree;
             containingTree.DesiredTechnologyChanged += (sender, e) => { this.IsAvailable = containingTree.IsLevelReasearched(this); };
-            this.Effect = new Effects.ProvincionalEffect();
+            this.Effect = new Effects.ProvincialEffect();
         }
     }
 }

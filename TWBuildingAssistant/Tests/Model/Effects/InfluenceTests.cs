@@ -39,7 +39,7 @@
         public void Validation(int value, bool useReligion, bool expectedResult)
         {
             var religion = useReligion ? this.mockReligion : null;
-            var influence = new Influence { Religion = religion, Value = value };
+            var influence = new Influence { ReligionId = religion?.Id, Value = value };
             Assert.AreEqual(expectedResult, influence.Validate(out _), $"The {nameof(Influence.Validate)} method returned an incorrect value.");
         }
     }

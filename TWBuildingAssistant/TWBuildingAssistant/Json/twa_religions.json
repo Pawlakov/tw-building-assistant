@@ -1,0 +1,143 @@
+[
+  {
+    "Id": 1,
+    "Name": "Arian Christian",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": [
+        {
+          "ReligionId": null,
+          "Value": 1
+        }
+      ]
+    }
+  },
+  {
+    "Id": 2,
+    "Name": "Celtic Pagan",
+    "Effect": {
+      "Bonuses": [
+        {
+          "Value": 3,
+          "Category": 0,
+          "Type": 1
+        }
+      ],
+      "Influences": []
+    }
+  },
+  {
+    "Id": 3,
+    "Name": "East Christian",
+    "Effect": {
+      "Bonuses": [
+        {
+          "Value": 5,
+          "Category": 0,
+          "Type": 1
+        }
+      ],
+      "Influences": []
+    }
+  },
+  {
+    "Id": 4,
+    "Name": "Germanic Pagan",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": []
+    }
+  },
+  {
+    "Id": 5,
+    "Name": "Graecoroman Pagan",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": [],
+      "ProvincialSanitation": 2
+    }
+  },
+  {
+    "Id": 6,
+    "Name": "Greek Christian",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": [],
+      "ResearchRate": 5
+    }
+  },
+  {
+    "Id": 7,
+    "Name": "Judaistic",
+    "Effect": {
+      "Bonuses": [
+        {
+          "Value": 5,
+          "Category": 4,
+          "Type": 1
+        }
+      ],
+      "Influences": []
+    }
+  },
+  {
+    "Id": 8,
+    "Name": "Latin Christian",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": [],
+      "ReligiousOsmosis": 1
+    }
+  },
+  {
+    "Id": 9,
+    "Name": "Manicheic",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": [],
+      "PublicOrder": 1
+    }
+  },
+  {
+    "Id": 10,
+    "Name": "Minor",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": []
+    }
+  },
+  {
+    "Id": 11,
+    "Name": "Semitic Pagan",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": []
+    }
+  },
+  {
+    "Id": 12,
+    "Name": "Slavic Pagan",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": [],
+      "PublicOrder": 1
+    }
+  },
+  {
+    "Id": 13,
+    "Name": "Tengri",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": []
+    }
+  },
+  {
+    "Id": 14,
+    "Name": "Zoroastrian",
+    "Effect": {
+      "Bonuses": [],
+      "Influences": [],
+      "Growth": 1
+    }
+  }
+]

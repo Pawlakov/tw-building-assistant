@@ -19,7 +19,7 @@
 
         public string Name { get; }
 
-        public Effects.IProvincionalEffect Effect => TechLevels.CurrentLevel.Effect;
+        public Effects.IProvincialEffect Effect => TechLevels.CurrentLevel.Effect;
 
         public void ChangeDesiredTechnologyLevel(int whichLevel, bool useLegacyTechnolgies)
         {

@@ -10,7 +10,7 @@
 
         public ReligionsManager(IReligionsSource source)
         {
-            this.religions = source.GetReligions();
+            this.religions = source.Religions.ToArray();
             var message = string.Empty;
             if (this.religions.Any(resource => !resource.Validate(out message)))
             {
@@ -23,20 +23,11 @@
             }
         }
 
-        public IEnumerable<IReligion> Religions => this.religions.ToArray();
-
         public IEnumerable<KeyValuePair<int, string>> AllReligionsNames
         {
             get
             {
-                var result = new List<KeyValuePair<int, string>>(this.religions.Count());
-                var whichReligion = 0;
-                foreach (var religion in this.religions)
-                {
-                    result.Add(new KeyValuePair<int, string>(whichReligion, religion.Name));
-                    ++whichReligion;
-                }
-
+                var result = this.religions.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
                 return result;
             }
         }
@@ -50,15 +41,11 @@
 
         public void ChangeStateReligion(int whichReligion)
         {
-            if (whichReligion < 0 || whichReligion > (this.religions.Count() - 1))
-            {
-                throw new ArgumentOutOfRangeException(
-                nameof(whichReligion),
-                whichReligion,
-                "The index of new state religion is out of range.");
-            }
-
-            this.StateReligion = this.religions.ToArray()[whichReligion];
+            var newStateReligion = this.religions.FirstOrDefault(x => x.Id == whichReligion);
+            this.StateReligion = newStateReligion ?? throw new ArgumentOutOfRangeException(
+                                     nameof(whichReligion),
+                                     whichReligion,
+                                     "The index of new state religion is out of range.");
             this.OnStateReligionChanged(new StateReligionChangedArgs(this, this.StateReligion));
         }
 
@@ -83,6 +70,22 @@
             }
 
             var result = this.religions.FirstOrDefault(element => input.Equals(element.Name, StringComparison.OrdinalIgnoreCase));
+            if (result == null)
+            {
+                throw new ReligionsException("No matching religion found.");
+            }
+
+            return result;
+        }
+
+        public IReligion Find(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+
+            var result = this.religions.FirstOrDefault(x => x.Id == id);
             if (result == null)
             {
                 throw new ReligionsException("No matching religion found.");

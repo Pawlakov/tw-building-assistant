@@ -96,11 +96,11 @@
                           {
                           new Effects.Influence()
                           {
-                          Religion = this.ContainingBranch.Religion,
+                          ReligionId = this.ContainingBranch.Religion?.Id,
                           Value = religiousInfluence
                           }
                           },
-                          ProvincionalSanitation = provincionalSanitation,
+                          ProvincialSanitation = provincionalSanitation,
                           PublicOrder = publicOrder,
                           RegionalSanitation = regionalSanitation,
                           RegularFood = regularFood,

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ResourcesManager : IResourceParser
+    public class ResourcesManager : IParser<IResource>
     {
         private readonly IEnumerable<IResource> resources;
 
@@ -34,7 +34,7 @@
             return result;
         }
 
-        public IResource Find(int id)
+        public IResource Find(int? id)
         {
             var result = this.resources.FirstOrDefault(x => x.Id == id);
             if (result == null)

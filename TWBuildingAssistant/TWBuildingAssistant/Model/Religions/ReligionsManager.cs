@@ -11,6 +11,14 @@
         public ReligionsManager(IReligionsSource source)
         {
             this.religions = source.Religions.ToArray();
+            foreach (var religion in this.religions)
+            {
+                foreach (var influence in religion.Effect.Influences)
+                {
+                    influence.ReligionParser = this;
+                }
+            }
+
             var message = string.Empty;
             if (this.religions.Any(resource => !resource.Validate(out message)))
             {
@@ -45,7 +53,7 @@
             this.StateReligion = newStateReligion ?? throw new ArgumentOutOfRangeException(
                                      nameof(whichReligion),
                                      whichReligion,
-                                     "The index of new state religion is out of range.");
+                                     $"There is no religions with id={whichReligion}.");
             this.OnStateReligionChanged(new StateReligionChangedArgs(this, this.StateReligion));
         }
 
@@ -55,7 +63,7 @@
         }
     }
 
-    public partial class ReligionsManager : IReligionParser
+    public partial class ReligionsManager : IParser<IReligion>
     {
         public IReligion Parse(string input)
         {

@@ -29,5 +29,7 @@
         IProvincialEffect Aggregate(IProvincialEffect other);
 
         bool Validate(out string message);
+
+        IProvincialEffect TakeWorst(IProvincialEffect other);
     }
 }

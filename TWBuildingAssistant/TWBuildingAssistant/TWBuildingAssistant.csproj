@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>TWBuildingAssistant.App</StartupObject>
@@ -79,6 +81,20 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\JsonData.cs" />
+    <Compile Include="Model\Effects\EffectsException.cs" />
+    <Compile Include="Model\Extensions.cs" />
+    <Compile Include="Model\JsonEnumConverter.cs" />
+    <Compile Include="Model\Weather\WeatherException.cs" />
+    <Compile Include="Model\Weather\ConsideredWeatherChangedArgs.cs" />
+    <Compile Include="Model\Climate\IClimate.cs" />
+    <Compile Include="Model\Climate\IClimateSource.cs" />
+    <Compile Include="Model\Weather\IConsideredWeatherTracker.cs" />
+    <Compile Include="Model\Weather\IWeather.cs" />
+    <Compile Include="Model\Climate\IWeatherEffect.cs" />
+    <Compile Include="Model\Weather\IWeatherSource.cs" />
+    <Compile Include="Model\Climate\ClimateException.cs" />
+    <Compile Include="Model\Climate\WeatherEffect.cs" />
+    <Compile Include="Model\IParser.cs" />
     <Compile Include="Model\JsonConcreteConverter.cs" />
     <Compile Include="Model\Religions\IStateReligionTracker.cs" />
     <Compile Include="Model\Religions\StateReligionChangedArgs.cs" />
@@ -99,10 +115,10 @@
     <Compile Include="Model\Buildings\BuildingLevel.cs" />
     <Compile Include="Model\Buildings\BuildingsLibrary.cs" />
     <Compile Include="Model\Buildings\ITechnologyLevelAssigner.cs" />
-    <Compile Include="Model\ClimateAndWeather\Climate.cs" />
-    <Compile Include="Model\ClimateAndWeather\ClimateManager.cs" />
-    <Compile Include="Model\ClimateAndWeather\Weather.cs" />
-    <Compile Include="Model\ClimateAndWeather\WeatherManager.cs" />
+    <Compile Include="Model\Climate\Climate.cs" />
+    <Compile Include="Model\Climate\ClimateManager.cs" />
+    <Compile Include="Model\Weather\Weather.cs" />
+    <Compile Include="Model\Weather\WeatherManager.cs" />
     <Compile Include="Model\Combinations\BuildingSlot.cs" />
     <Compile Include="Model\Combinations\Combination.cs" />
     <Compile Include="Model\Effects\InfluenceCalculator.cs" />
@@ -112,15 +128,11 @@
     <Compile Include="Model\Effects\RegionalEffect.cs" />
     <Compile Include="Model\Effects\WealthCalculator.cs" />
     <Compile Include="Model\Effects\IBonus.cs" />
-    <Compile Include="Model\Effects\BonusFactory.cs" />
     <Compile Include="Model\Effects\WealthCategory.cs" />
     <Compile Include="Model\Effects\WealthRecord.cs" />
     <Compile Include="Model\Factions\Faction.cs" />
     <Compile Include="Model\Factions\FactionsManager.cs" />
-    <Compile Include="Model\Map\IClimateParser.cs" />
     <Compile Include="Model\Map\IFertilityDropTracker.cs" />
-    <Compile Include="Model\Religions\IReligionParser.cs" />
-    <Compile Include="Model\Resources\IResourceParser.cs" />
     <Compile Include="Model\Map\ProvinceData.cs" />
     <Compile Include="Model\Map\ProvincesManager.cs" />
     <Compile Include="Model\Map\ProvinceTraditions.cs" />
@@ -149,10 +161,7 @@
     <Compile Include="ViewModel\ViewModelWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Json\twa_religions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Json\twa_resources.json">
+    <None Include="Json\twa_data.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
@@ -173,9 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\Buildings\twa_buildings_wre.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Model\ClimateAndWeather\twa_climates.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Model\Factions\twa_factions.xml">

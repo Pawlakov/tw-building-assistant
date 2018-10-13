@@ -4,6 +4,8 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public class ExpandedTechnologyTree : ITechnologyTree
     {
         private const int TechnologyLevelsCount = 4;
@@ -20,7 +22,7 @@
 
         private int desiredTechnologyLevelIndex = -1;
 
-        public ExpandedTechnologyTree(XElement element)
+        public ExpandedTechnologyTree(XElement element, IParser<IReligion> religionParser)
         {
             this.rootLevel = new TechnologyLevel(this);
             var tierElements = (from tierElement in element.Elements() select tierElement).ToArray();
@@ -40,6 +42,14 @@
                 this.universalLevels[whichLevel].Cumulate(this.universalLevels[whichLevel - 1]);
                 this.antilegacyLevels[whichLevel].Cumulate(this.antilegacyLevels[whichLevel - 1]);
                 this.legacyLevels[whichLevel].Cumulate(this.legacyLevels[whichLevel - 1]);
+            }
+
+            foreach (var level in this.universalLevels.Concat(this.legacyLevels).Concat(this.antilegacyLevels).Append(this.rootLevel))
+            {
+                foreach (var influence in level.Effect.Influences)
+                {
+                    influence.ReligionParser = religionParser;
+                }
             }
         }
 

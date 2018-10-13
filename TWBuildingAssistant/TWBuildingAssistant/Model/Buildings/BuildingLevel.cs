@@ -4,6 +4,10 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using Newtonsoft.Json;
+
+    using TWBuildingAssistant.Model.Effects;
+
     public class BuildingLevel
     {
         private readonly Technologies.TechnologyLevel levelOfTechnology;
@@ -84,10 +88,12 @@
                 religiousOsmosis = (int)element.Attribute("ro");
             }
 
-            var bonuses = from XElement subelement in element.Elements() select Effects.BonusFactory.MakeBonus(subelement) as Effects.Bonus;
+            var bonuses = new IBonus[0];
+            if (!string.IsNullOrEmpty((string)element))
+                bonuses = JsonConvert.DeserializeObject<Bonus[]>((string)element, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error });
             this.Effect = new Effects.RegionalEffect()
                           {
-                          Bonuses = (from Effects.IBonus bonus in bonuses select bonus).ToList(),
+                          Bonuses = bonuses,
                           Fertility = fertility,
                           FertilityDependentFood = foodPerFertility,
                           Growth = growth,

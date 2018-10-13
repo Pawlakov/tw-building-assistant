@@ -1,19 +1,19 @@
 ﻿namespace TWBuildingAssistant.Model.Factions
 {
     using System;
-    using System.Collections.Generic;
     using System.Xml.Linq;
 
     using TWBuildingAssistant.Model.Religions;
+    using TWBuildingAssistant.Model.Resources;
 
     public class Faction
     {
-        public Faction(XElement element, Resources.IResourceParser resourceParser, IReligionParser religionParser)
+        public Faction(XElement element, IParser<IResource> resourceParser, IParser<IReligion> religionParser)
         {
             if (element == null)
                 throw new ArgumentNullException("element");
             Name = (string)element.Attribute("n");
-            TechLevels = Technologies.TechnologyTreeFactory.MakeTechnologyTree((string)element.Attribute("t"));
+            TechLevels = Technologies.TechnologyTreeFactory.MakeTechnologyTree((string)element.Attribute("t"), religionParser);
             Buildings = new Buildings.BuildingLibrary((string)element.Attribute("b"), TechLevels, resourceParser, religionParser);
         }
 

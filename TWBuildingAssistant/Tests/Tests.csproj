@@ -76,6 +76,8 @@
     <Compile Include="Model\Religions\ReligionTests.cs" />
     <Compile Include="Model\Resources\ResourcesManagerTests.cs" />
     <Compile Include="Model\Resources\ResourceTests.cs" />
+    <Compile Include="Model\Weather\WeatherManagerTests.cs" />
+    <Compile Include="Model\Weather\WeatherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +89,9 @@
       <Project>{aec8e417-088b-4a6e-8e67-770e5b126aac}</Project>
       <Name>TWBuildingAssistant</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Climate\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

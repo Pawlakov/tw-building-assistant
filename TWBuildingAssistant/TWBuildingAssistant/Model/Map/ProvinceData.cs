@@ -4,7 +4,9 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Climate;
     using TWBuildingAssistant.Model.Religions;
+    using TWBuildingAssistant.Model.Resources;
 
     public class ProvinceData
     {
@@ -18,7 +20,7 @@
 
         private int currentFertilityDrop;
 
-        public ProvinceData(XElement element, IFertilityDropTracker fertilityDropTracker, IReligionParser religionParser, Resources.IResourceParser resourceParser, IClimateParser climateParser)
+        public ProvinceData(XElement element, IFertilityDropTracker fertilityDropTracker, IParser<IReligion> religionParser, IParser<IResource> resourceParser, IParser<IClimate> climateParser)
         {
             if (element == null)
             {
@@ -86,13 +88,13 @@
 
         public int DefaultFertility { get; }
 
-        public ClimateAndWeather.Climate Climate { get; }
+        public IClimate Climate { get; }
 
         public ProvinceTraditions Traditions { get; }
 
         public RegionData this[int whichRegion] => this.regions[whichRegion];
 
-        public static bool ValidateElement(XElement element, IClimateParser climateParser, IReligionParser religionParser, Resources.IResourceParser resourceParser, out string message)
+        public static bool ValidateElement(XElement element, IParser<IClimate> climateParser, IParser<IReligion> religionParser, IParser<IResource> resourceParser, out string message)
         {
             if (element.Attribute("n") == null)
             {

@@ -1,11 +1,15 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
+    using TWBuildingAssistant.Model.Religions;
+
     public interface IInfluence
     {
-        Religions.IReligion Religion { get; }
+        IReligion GetReligion();
         
         int Value { get; }
-        
+
+        IParser<IReligion> ReligionParser { set; }
+
         bool Validate(out string message);
     }
 }

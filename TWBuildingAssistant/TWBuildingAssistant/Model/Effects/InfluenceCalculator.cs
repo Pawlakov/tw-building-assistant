@@ -23,7 +23,8 @@
             var other = 0;
             foreach (var influence in influences)
             {
-                if (influence.Religion == null || influence.Religion.IsState)
+                var religion = influence.GetReligion();
+                if (religion == null || religion.IsState)
                 {
                     state += influence.Value;
                 }

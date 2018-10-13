@@ -23,10 +23,11 @@
         public void SetUp()
         {
             this.resources = new List<Mock<IResource>>();
-            for (var i = 0; i < ResourcesCount; ++i)
+            for (var i = 1; i <= ResourcesCount; ++i)
             {
                 var next = new Mock<IResource>();
                 string message;
+                next.Setup(x => x.Id).Returns(i);
                 next.Setup(x => x.Name).Returns(i.ToString());
                 next.Setup(x => x.Validate(out message)).Returns(true);
                 this.resources.Add(next);
@@ -48,7 +49,7 @@
         public void CorrectParse()
         {
             var manager = new ResourcesManager(this.source.Object);
-            for (var i = 0; i < ResourcesCount; ++i)
+            for (var i = 1; i <= ResourcesCount; ++i)
             {
                 IResource item = null;
                 var name = i.ToString();
@@ -68,7 +69,7 @@
         public void NonExistentParse()
         {
             var manager = new ResourcesManager(this.source.Object);
-            Assert.Throws<ResourcesException>(() => manager.Parse(ResourcesCount.ToString()), "Attempt to parse non-existent resource name did not ended with exception.");
+            Assert.Throws<ResourcesException>(() => manager.Parse("0"), "Attempt to parse non-existent resource name did not ended with exception.");
         }
 
         [Test]

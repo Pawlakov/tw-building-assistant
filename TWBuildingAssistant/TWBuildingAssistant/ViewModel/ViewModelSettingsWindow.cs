@@ -3,8 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
 
     using TWBuildingAssistant.Model;
+    using TWBuildingAssistant.Model.Weather;
 
     public class ViewModelSettingsWindow : ViewModelWindow
     {
@@ -26,7 +28,7 @@
 
         public ViewModelSettingsWindow()
         {
-            this.world = new Model.World();
+            this.world = new World();
             this.Religions = new ObservableCollection<KeyValuePair<int, string>>(this.world.Religions);
             this.SelectedReligion = this.Religions[0];
             this.Provinces = new ObservableCollection<KeyValuePair<int, string>>(this.world.Provinces);
@@ -35,7 +37,7 @@
             this.SelectedFaction = this.Factions[0];
             this.FertilityDrops = new ObservableCollection<int> { 0, 1, 2, 3, 4 };
             this.SelectedFertilityDrop = this.FertilityDrops[0];
-            this.Weathers = new ObservableCollection<string> { "Good", "Normal", "Bad", "Extreme" };
+            this.Weathers = new ObservableCollection<KeyValuePair<int, string>>(this.world.Weathers);
             this.SelectedWeather = this.Weathers[2];
             this.TechnologyTiers = new ObservableCollection<int> { 0, 1, 2, 3, 4 };
             this.SelectedTechnologyTier = this.TechnologyTiers[0];
@@ -110,7 +112,7 @@
             }
         }
 
-        public ObservableCollection<string> Weathers { get; set; }
+        public ObservableCollection<KeyValuePair<int, string>> Weathers { get; set; }
 
         public object SelectedWeather
         {
@@ -169,18 +171,18 @@
             this.OnCloseWindow();
         }
 
-        private Model.WorldSettings CollectSettings()
+        private WorldSettings CollectSettings()
         {
-            return new Model.WorldSettings()
-                   {
-                   StateReligionIndex = ((KeyValuePair<int, string>)this.SelectedReligion).Key,
-                   ProvinceIndex = ((KeyValuePair<int, string>)this.SelectedProvince).Key,
-                   FactionIndex = ((KeyValuePair<int, string>)this.SelectedFaction).Key,
-                   FertilityDrop = (int)this.SelectedFertilityDrop,
-                   WorstCaseWeather = (Model.ClimateAndWeather.Weather)Enum.Parse(typeof(Model.ClimateAndWeather.Weather), (string)this.selectedWeather),
-                   DesiredTechnologyLevelIndex = (int)this.SelectedTechnologyTier,
-                   UseLegacyTechnologies = this.UseLegacy
-                   };
+            return new WorldSettings()
+            {
+                StateReligionIndex = ((KeyValuePair<int, string>)this.SelectedReligion).Key,
+                ProvinceIndex = ((KeyValuePair<int, string>)this.SelectedProvince).Key,
+                FactionIndex = ((KeyValuePair<int, string>)this.SelectedFaction).Key,
+                FertilityDrop = (int)this.SelectedFertilityDrop,
+                ConsideredWeathers = this.Weathers.Where(x => x.Key >= ((KeyValuePair<int, string>)this.SelectedWeather).Key).Select(x => x.Key),
+                DesiredTechnologyLevelIndex = (int)this.SelectedTechnologyTier,
+                UseLegacyTechnologies = this.UseLegacy
+            };
         }
     }
 }

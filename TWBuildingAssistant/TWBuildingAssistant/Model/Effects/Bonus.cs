@@ -2,15 +2,23 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel;
+
+    using Newtonsoft.Json;
 
     public class Bonus : IBonus
     {
+        [JsonProperty(Required = Required.Always)]
         public int Value { get; set; }
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(JsonEnumConverter<WealthCategory>))]
+        [DefaultValue(WealthCategory.All)]
         public WealthCategory Category { get; set; }
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonConverter(typeof(JsonEnumConverter<BonusType>))]
+        [DefaultValue(BonusType.Simple)]
         public BonusType Type { get; set; }
 
         public void Execute(Dictionary<WealthCategory, WealthRecord> records)
@@ -23,6 +31,10 @@
             if (!records.ContainsKey(this.Category))
             {
                 records.Add(this.Category, new WealthRecord());
+            }
+            else if (records[this.Category] == null)
+            {
+                throw new EffectsException($"For the category {this.Category} the corresponding {nameof(WealthRecord)} is missing.");
             }
 
             records[this.Category][this.Type] += this.Value;

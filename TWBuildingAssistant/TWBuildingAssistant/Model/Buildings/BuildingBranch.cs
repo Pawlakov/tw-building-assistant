@@ -9,10 +9,18 @@
     {
         private readonly BuildingLevel[] levels;
 
-        public BuildingBranch(XElement element, ITechnologyLevelAssigner technologyLevelAssigner, IReligionParser religionParser)
+        public BuildingBranch(XElement element, ITechnologyLevelAssigner technologyLevelAssigner, IParser<IReligion> religionParser)
         {
             this.Name = (string)element.Attribute("n");
             this.levels = (from XElement subelement in element.Elements() select new BuildingLevel(this, subelement, technologyLevelAssigner)).ToArray();
+            foreach (var level in this.levels)
+            {
+                foreach (var influence in level.Effect.Influences)
+                {
+                    influence.ReligionParser = religionParser;
+                }
+            }
+
             this.IsReligiouslyExclusive = false;
             if (element.Attribute("r") == null)
             {

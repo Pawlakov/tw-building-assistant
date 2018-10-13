@@ -5,13 +5,14 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Effects;
     using TWBuildingAssistant.Model.Religions;
 
     public class ProvinceTraditions
     {
-        private readonly IEnumerable<Effects.IInfluence> influences;
+        private readonly IEnumerable<IInfluence> influences;
 
-        public ProvinceTraditions(XElement element, IReligionParser religionParser)
+        public ProvinceTraditions(XElement element, IParser<IReligion> religionParser)
         {
             if (element == null)
             {
@@ -33,13 +34,14 @@
                                      {
                                      ReligionId = religionParser.Parse(
                                      (string)item.Attribute("r")).Id,
-                                     Value = (int)item
+                                     Value = (int)item,
+                                         ReligionParser = religionParser
                                      };
         }
 
-        public IEnumerable<Effects.IInfluence> Influences => this.influences.ToArray();
+        public IEnumerable<IInfluence> Influences => this.influences.ToArray();
 
-        public static bool ValidateElement(XElement element, IReligionParser religionParser, out string message)
+        public static bool ValidateElement(XElement element, IParser<IReligion> religionParser, out string message)
         {
             foreach (var subelement in element.Elements())
             {

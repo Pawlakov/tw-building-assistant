@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Religions;
+
     public class SimpleTechnologyTree : ITechnologyTree
     {
         private const int _technologyLevelsCount = 5;
@@ -13,7 +15,7 @@
 
         private readonly TechnologyLevel[] _levels;
 
-        public SimpleTechnologyTree(XElement element)
+        public SimpleTechnologyTree(XElement element, IParser<IReligion> religionParser)
         {
             IEnumerable<TechnologyLevel> temporary = from XElement levelElement in element.Elements() select new TechnologyLevel(this, levelElement);
             _levels = new TechnologyLevel[_technologyLevelsCount];
@@ -21,6 +23,13 @@
             temporary.ToArray().CopyTo(_levels, 1);
             for (int whichLevel = 1; whichLevel < _technologyLevelsCount; ++whichLevel)
                 _levels[whichLevel].Cumulate(_levels[whichLevel - 1]);
+            foreach (var level in this._levels)
+            {
+                foreach (var influence in level.Effect.Influences)
+                {
+                    influence.ReligionParser = religionParser;
+                }
+            }
         }
 
         private void OnDesiredTechnologyLevelChanged()

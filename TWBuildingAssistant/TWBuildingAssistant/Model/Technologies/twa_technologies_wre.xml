@@ -2,47 +2,139 @@
 <techtree t="expanded">
 	<techlevel>
 		<universal g="3">
-			<multiplier c="All">1</multiplier>
-			<multiplier c="Culture">3</multiplier>
-			<multiplier c="Agriculture">5</multiplier>
+        [
+        {
+        "Value": 1,
+        "Type": "Percentage"
+        },
+        {
+        "Value": 3,
+        "Category": "Culture",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 5,
+        "Category": "Agriculture",
+        "Type": "Percentage"
+        }
+        ]
 		</universal>
 		<antilegacy>
 		</antilegacy>
 	</techlevel>
 	<techlevel>
 		<universal>
-			<multiplier c="LocalCommerce">3</multiplier>
-			<multiplier c="MaritimeCommerce">3</multiplier>
-			<multiplier c="Husbandry">5</multiplier>
+		    [
+		    {
+		    "Value": 3,
+		    "Category": "LocalCommerce",
+		    "Type": "Percentage"
+		    },
+		    {
+		    "Value": 3,
+		    "Category": "MaritimeCommerce",
+		    "Type": "Percentage"
+		    },
+		    {
+		    "Value": 5,
+		    "Category": "Husbandry",
+		    "Type": "Percentage"
+		    }
+		    ]
 		</universal>
 		<antilegacy po="3" ri="1">
 		</antilegacy>
 	</techlevel>
 	<techlevel>
 		<universal>
-			<multiplier c="Industry">5</multiplier>
-			<multiplier c="Culture">5</multiplier>
-			<multiplier c="LocalCommerce">5</multiplier>
-			<multiplier c="MaritimeCommerce">5</multiplier>
-			<multiplier c="Agriculture">5</multiplier>
+        [
+        {
+        "Value": 5,
+        "Category": "Industry",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 5,
+        "Category": "Culture",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 5,
+        "Category": "LocalCommerce",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 5,
+        "Category": "MaritimeCommerce",
+        "Type": "Percentage"
+		    },
+		    {
+		    "Value": 5,
+		    "Category": "Agriculture",
+		    "Type": "Percentage"
+		    }
+        ]
 		</universal>
 		<antilegacy ri="2">
-			<multiplier c="All">5</multiplier>
-		</antilegacy>
+		  [
+		  {
+		  "Value": 5,
+		  "Type": "Percentage"
+		  }
+		  ]
+    </antilegacy>
 	</techlevel>
 	<techlevel>
 		<universal>
-			<multiplier c="Industry">10</multiplier>
-			<multiplier c="Culture">7</multiplier>
-			<multiplier c="LocalCommerce">7</multiplier>
-			<multiplier c="MaritimeCommerce">7</multiplier>
-			<multiplier c="Agriculture">10</multiplier>
-			<multiplier c="Subsistence">15</multiplier>
-			<multiplier c="Husbandry">5</multiplier>
-			<multiplier c="All">6</multiplier>
+        [
+        {
+        "Value": 6,
+        "Type": "Percentage"
+        },
+        {
+        "Value": 10,
+        "Category": "Agriculture",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 5,
+        "Category": "Husbandry",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 7,
+        "Category": "Culture",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 10,
+        "Category": "Industry",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 7,
+        "Category": "LocalCommerce",
+        "Type": "Percentage"
+        },
+        {
+        "Value": 7,
+        "Category": "MaritimeCommerce",
+        "Type": "Percentage"
+		    },
+		    {
+		    "Value": 15,
+		    "Category": "Subsistence",
+		    "Type": "Percentage"
+		    }
+        ]
 		</universal>
 		<antilegacy po="8">
-			<multiplier c="All">18</multiplier>
+      [
+		  {
+		  "Value": 18,
+		  "Type": "Percentage"
+		  }
+      ]
 		</antilegacy>
 	</techlevel>
 </techtree>

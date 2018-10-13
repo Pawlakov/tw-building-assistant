@@ -4,21 +4,23 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Effects;
     using TWBuildingAssistant.Model.Religions;
+    using TWBuildingAssistant.Model.Resources;
 
     public class FactionsManager
     {
         private const string FileName = "Model\\Factions\\twa_factions.xml";
 
-        private readonly IReligionParser religionsParser;
+        private readonly IParser<IReligion> religionsParser;
 
-        private readonly Resources.IResourceParser resourcesParser;
+        private readonly IParser<IResource> resourcesParser;
 
         private readonly XElement[] elements;
 
         private readonly Faction[] factions;
 
-        public FactionsManager(IReligionParser religionsParser, Resources.IResourceParser resourcesParser)
+        public FactionsManager(IParser<IReligion> religionsParser, IParser<IResource> resourcesParser)
         {
             var sourceFile = XDocument.Load(FileName);
             this.elements = (from XElement element in sourceFile.Root.Elements() select element).ToArray();
@@ -45,7 +47,7 @@
             }
         }
 
-        public Effects.IProvincialEffect Effect => Faction.Effect;
+        public IProvincialEffect Effect => Faction.Effect;
 
         public IEnumerable<KeyValuePair<int, string>> AllFactionsNames
         {

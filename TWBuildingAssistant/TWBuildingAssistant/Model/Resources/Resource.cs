@@ -14,6 +14,7 @@
 
         [JsonProperty(Required = Required.DisallowNull, DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue(SlotType.Regular)]
+        [JsonConverter(typeof(JsonEnumConverter<SlotType>))]
         public SlotType BuildingType { get; set; }
 
         [JsonProperty(Required = Required.Always)]

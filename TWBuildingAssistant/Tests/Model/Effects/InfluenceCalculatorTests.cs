@@ -63,9 +63,9 @@
             var state = new Mock<IInfluence>();
             var other = new Mock<IInfluence>();
             state.Setup(x => x.Value).Returns(stateInfluence);
-            state.Setup(x => x.Religion).Returns(this.stateReligion);
+            state.Setup(x => x.GetReligion()).Returns(this.stateReligion);
             other.Setup(x => x.Value).Returns(otherInfluence);
-            other.Setup(x => x.Religion).Returns(this.otherReligion);
+            other.Setup(x => x.GetReligion()).Returns(this.otherReligion);
             var influences = new List<IInfluence> { state.Object, other.Object };
             Assert.AreEqual(expectedPublicOrder, InfluenceCalculator.PublicOrder(influences), $"The {nameof(InfluenceCalculator.PublicOrder)} method returned an incorrect value.");
         }

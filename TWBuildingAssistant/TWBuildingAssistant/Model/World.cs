@@ -3,32 +3,46 @@
     using System.Collections.Generic;
 
     using TWBuildingAssistant.Data;
+    using TWBuildingAssistant.Model.Climate;
+    using TWBuildingAssistant.Model.Effects;
+    using TWBuildingAssistant.Model.Factions;
+    using TWBuildingAssistant.Model.Map;
+    using TWBuildingAssistant.Model.Religions;
+    using TWBuildingAssistant.Model.Resources;
+    using TWBuildingAssistant.Model.Weather;
 
     public class World
     {
-        private readonly Model.Resources.ResourcesManager resourcesManager;
+        private readonly WeatherManager weatherManager;
 
-        private readonly Model.Religions.ReligionsManager religionsManager;
+        private readonly ClimateManager climateManager;
 
-        private readonly Model.Map.ProvincesManager provincesManager;
+        private readonly ResourcesManager resourcesManager;
 
-        private readonly Model.Factions.FactionsManager factionsManager;
+        private readonly ReligionsManager religionsManager;
+
+        private readonly ProvincesManager provincesManager;
+
+        private readonly FactionsManager factionsManager;
 
         public World()
         {
-            this.resourcesManager = new Model.Resources.ResourcesManager(JsonData.Data);
-            this.religionsManager = new Model.Religions.ReligionsManager(JsonData.Data);
-            this.provincesManager = new Model.Map.ProvincesManager(this.religionsManager, this.resourcesManager, this.religionsManager);
-            this.factionsManager = new Model.Factions.FactionsManager(this.religionsManager, this.resourcesManager);
+            this.resourcesManager = new ResourcesManager(JsonData.GetData());
+            this.religionsManager = new ReligionsManager(JsonData.GetData());
+            this.weatherManager = new WeatherManager(JsonData.GetData());
+            this.climateManager = new ClimateManager(JsonData.GetData(), this.weatherManager, this.weatherManager, this.religionsManager);
+            this.provincesManager = new ProvincesManager(this.religionsManager, this.resourcesManager, this.climateManager);
+            this.factionsManager = new FactionsManager(this.religionsManager, this.resourcesManager);
         }
 
         public SimulationKit AssembleSimulationKit(WorldSettings settings)
         {
+            this.weatherManager.ChangeConsideredWeather(settings.ConsideredWeathers);
+            //
             this.religionsManager.ChangeStateReligion(settings.StateReligionIndex);
             //
             this.provincesManager.ChangeFertilityDrop(settings.FertilityDrop);
             this.provincesManager.ChangeProvince(settings.ProvinceIndex);
-            this.provincesManager.ChangeWorstCaseWeather(settings.WorstCaseWeather);
             //
             this.factionsManager.ChangeFaction(settings.FactionIndex);
             this.factionsManager.Faction.ChangeDesiredTechnologyLevel(settings.DesiredTechnologyLevelIndex, settings.UseLegacyTechnologies);
@@ -37,6 +51,14 @@
             Buildings.BuildingLibrary pool = this.factionsManager.Faction.Buildings;
             //
             return new SimulationKit(this, pool, combination);
+        }
+
+        public IEnumerable<KeyValuePair<int, string>> Weathers
+        {
+            get
+            {
+                return this.weatherManager.AllWeathersNames;
+            }
         }
 
         public IEnumerable<KeyValuePair<int, string>> Religions
@@ -63,7 +85,7 @@
             }
         }
 
-        public Model.Effects.IProvincialEffect Environment
+        public IProvincialEffect Environment
         {
             get
             {
@@ -78,7 +100,7 @@
 
         public int FertilityDrop { get; set; }
 
-        public Model.ClimateAndWeather.Weather WorstCaseWeather { get; set; }
+        public IEnumerable<int> ConsideredWeathers { get; set; }
 
         public int FactionIndex { get; set; }
 

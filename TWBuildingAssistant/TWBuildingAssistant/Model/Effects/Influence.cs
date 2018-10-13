@@ -1,44 +1,58 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
-    using System.Linq;
-
     using Newtonsoft.Json;
-
-    using TWBuildingAssistant.Data;
+    
     using TWBuildingAssistant.Model.Religions;
 
     public class Influence : IInfluence
     {
         private IReligion religion;
 
-        [JsonIgnore]
-        public IReligion Religion
+        private IParser<IReligion> religionParser;
+
+        public IReligion GetReligion()
         {
-            get
+            if (this.religionParser == null)
             {
-                if (!this.ReligionId.HasValue)
-                {
-                    return null;
-                }
+                throw new EffectsException("Religion has not been parsed.");
+            }
 
-                if (this.religion == null)
-                {
-                    this.religion = JsonData.Data.Religions.FirstOrDefault(x => x.Id == this.ReligionId);
-                }
+            return this.religion;
+        }
 
-                return this.religion;
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int? ReligionId { get; set; }
+
+        [JsonProperty(Required = Required.Always)]
+        public int Value { get; set; }
+
+        [JsonIgnore]
+        public IParser<IReligion> ReligionParser
+        {
+            set
+            {
+                this.religionParser = value;
+                this.religion = this.religionParser.Find(ReligionId);
             }
         }
 
-        public int? ReligionId { get; set; }
-
-        public int Value { get; set; }
-
         public bool Validate(out string message)
         {
+            if (this.ReligionId.HasValue && this.ReligionId.Value < 1)
+            {
+                message = "Religion id is out od range.";
+                return false;
+            }
+
+            if (this.religionParser == null)
+            {
+                message = "Religion parser is missing.";
+                return false;
+            }
+
             if (this.Value < 1)
             {
-                message = "Value is nonpositive.";
+                message = "Value is out od range.";
                 return false;
             }
 
@@ -48,7 +62,7 @@
 
         public override string ToString()
         {
-            return $"+{this.Value} {this.Religion?.ToString() ?? "state religion"} religious influence";
+            return $"+{this.Value} {this.GetReligion()?.ToString() ?? "state religion"} religious influence";
         }
     }
 }

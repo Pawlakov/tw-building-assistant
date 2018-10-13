@@ -5,6 +5,7 @@
     using System.Xml.Linq;
 
     using TWBuildingAssistant.Model.Religions;
+    using TWBuildingAssistant.Model.Resources;
 
     public enum SlotType
     {
@@ -33,7 +34,7 @@
 
         private readonly Dictionary<Resources.IResource, BuildingBranch> resourceBuildings;
 
-        public BuildingLibrary(string fileName, ITechnologyLevelAssigner technologyLevelAssigner, Resources.IResourceParser resourceParser, IReligionParser religionParser)
+        public BuildingLibrary(string fileName, ITechnologyLevelAssigner technologyLevelAssigner, IParser<IResource> resourceParser, IParser<IReligion> religionParser)
         {
             var sourceFile = XDocument.Load("Model\\Buildings\\" + fileName);
             var buildingCategories = (from XElement element in sourceFile.Root.Elements() select element).ToDictionary((XElement element) => (string)element.Attribute("n"));

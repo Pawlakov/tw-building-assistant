@@ -1,5 +1,6 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -31,11 +32,11 @@
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int ReligiousOsmosis { get; set; }
 
-        [JsonProperty(Required = Required.Always)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonConverter(typeof(JsonConcreteConverter<Bonus[]>))]
         public IEnumerable<IBonus> Bonuses { get; set; } = new IBonus[0];
 
-        [JsonProperty(Required = Required.Always)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonConverter(typeof(JsonConcreteConverter<Influence[]>))]
         public IEnumerable<IInfluence> Influences { get; set; } = new IInfluence[0];
 
@@ -83,6 +84,28 @@
 
             message = "Values are valid";
             return true;
+        }
+
+        public IProvincialEffect TakeWorst(IProvincialEffect other)
+        {
+            if (other == null)
+            {
+                other = new ProvincialEffect();
+            }
+
+            return new ProvincialEffect()
+                       {
+                           PublicOrder = Math.Min(this.PublicOrder, other.PublicOrder),
+                           RegularFood = Math.Min(this.RegularFood, other.RegularFood),
+                           FertilityDependentFood = Math.Min(this.FertilityDependentFood, other.FertilityDependentFood),
+                           ProvincialSanitation = Math.Min(this.ProvincialSanitation, other.ProvincialSanitation),
+                           ResearchRate = Math.Min(this.ResearchRate, other.ResearchRate),
+                           Growth = Math.Min(this.Growth, other.Growth),
+                           Fertility = Math.Min(this.Fertility, other.Fertility),
+                           ReligiousOsmosis = Math.Min(this.ReligiousOsmosis, other.ReligiousOsmosis),
+                           Bonuses = this.Bonuses.TakeWorst(other.Bonuses).ToList(),
+                           Influences = this.Influences.TakeWorst(other.Influences).ToList()
+                       };
         }
     }
 }

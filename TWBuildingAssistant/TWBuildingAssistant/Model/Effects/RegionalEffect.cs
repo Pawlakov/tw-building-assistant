@@ -2,8 +2,11 @@
 {
     using System.Linq;
 
+    using Newtonsoft.Json;
+
     public class RegionalEffect : ProvincialEffect, IRegionalEffect
     {
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int RegionalSanitation { get; set; }
 
         public IRegionalEffect Aggregate(IRegionalEffect other)

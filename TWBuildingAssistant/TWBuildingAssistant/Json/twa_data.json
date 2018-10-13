@@ -1,0 +1,310 @@
+{
+  "Resources": [
+    {
+      "Id": 1,
+      "Name": "Dye"
+    },
+    {
+      "Id": 2,
+      "Name": "Fur"
+    },
+    {
+      "Id": 3,
+      "Name": "Gemstones"
+    },
+    {
+      "Id": 4,
+      "Name": "Gold"
+    },
+    {
+      "Id": 5,
+      "Name": "Iron"
+    },
+    {
+      "Id": 6,
+      "Name": "Lead"
+    },
+    {
+      "Id": 7,
+      "Name": "Lumber"
+    },
+    {
+      "Id": 8,
+      "Name": "Marble"
+    },
+    {
+      "Id": 9,
+      "Name": "Olive"
+    },
+    {
+      "Id": 10,
+      "Name": "Salt"
+    },
+    {
+      "Id": 11,
+      "Name": "Silk"
+    },
+    {
+      "Id": 12,
+      "Obligatory": true,
+      "BuildingType": "Coastal",
+      "Name": "Spice"
+    },
+    {
+      "Id": 13,
+      "Name": "Wine"
+    }
+  ],
+  "Religions": [
+    {
+      "Id": 1,
+      "Name": "Arian Christian",
+      "Effect": {
+        "Influences": [
+          {
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 2,
+      "Name": "Celtic Pagan",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 3,
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 3,
+      "Name": "East Christian",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 4,
+      "Name": "Germanic Pagan"
+    },
+    {
+      "Id": 5,
+      "Name": "Graecoroman Pagan",
+      "Effect": {
+        "ProvincialSanitation": 2
+      }
+    },
+    {
+      "Id": 6,
+      "Name": "Greek Christian",
+      "Effect": {
+        "ResearchRate": 5
+      }
+    },
+    {
+      "Id": 7,
+      "Name": "Judaic",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 8,
+      "Name": "Latin Christian",
+      "Effect": {
+        "ReligiousOsmosis": 1
+      }
+    },
+    {
+      "Id": 9,
+      "Name": "Manichean",
+      "Effect": {
+        "PublicOrder": 1
+      }
+    },
+    {
+      "Id": 10,
+      "Name": "Minor"
+    },
+    {
+      "Id": 11,
+      "Name": "Semitic Pagan"
+    },
+    {
+      "Id": 12,
+      "Name": "Slavic Pagan",
+      "Effect": {
+        "PublicOrder": 1
+      }
+    },
+    {
+      "Id": 13,
+      "Name": "Tengri"
+    },
+    {
+      "Id": 14,
+      "Name": "Zoroastrian",
+      "Effect": {
+        "Growth": 1
+      }
+    }
+  ],
+  "Climates": [
+    {
+      "Id": 1,
+      "Name": "North",
+      "WeatherEffects": [
+        {
+          "WeatherId": 1,
+          "Effect": {
+            "PublicOrder": -4,
+            "ProvincialSanitation": 6,
+            "RegularFood": -8
+          }
+        },
+        {
+          "WeatherId": 2,
+          "Effect": {
+            "PublicOrder": -3,
+            "ProvincialSanitation": 5,
+            "RegularFood": -4
+          }
+        },
+        {
+          "WeatherId": 3,
+          "Effect": {
+            "RegularFood": -2
+          }
+        },
+        {
+          "WeatherId": 4,
+          "Effect": {
+            "ProvincialSanitation": -2
+          }
+        }
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "Medium",
+      "WeatherEffects": [
+        {
+          "WeatherId": 2,
+          "Effect": {
+            "PublicOrder": -5,
+            "ProvincialSanitation": 5,
+            "RegularFood": -3
+          }
+        },
+        {
+          "WeatherId": 3,
+          "Effect": {
+            "RegularFood": -1
+          }
+        },
+        {
+          "WeatherId": 4,
+          "Effect": {
+            "ProvincialSanitation": 2
+          }
+        }
+      ]
+    },
+    {
+      "Id": 3,
+      "Name": "East",
+      "WeatherEffects": [
+        {
+          "WeatherId": 1,
+          "Effect": {
+            "PublicOrder": -4
+          }
+        },
+        {
+          "WeatherId": 2,
+          "Effect": {
+            "PublicOrder": -5,
+            "ProvincialSanitation": 4,
+            "RegularFood": -3
+          }
+        },
+        {
+          "WeatherId": 3,
+          "Effect": {
+            "RegularFood": -1
+          }
+        },
+        {
+          "WeatherId": 4,
+          "Effect": {
+            "ProvincialSanitation": -2
+          }
+        }
+      ]
+    },
+    {
+      "Id": 4,
+      "Name": "South",
+      "WeatherEffects": [
+        {
+          "WeatherId": 1,
+          "Effect": {
+            "PublicOrder": -4
+          }
+        },
+        {
+          "WeatherId": 2,
+          "Effect": {
+            "PublicOrder": -3,
+            "ProvincialSanitation": 4,
+            "RegularFood": -3
+          }
+        },
+        {
+          "WeatherId": 3,
+          "Effect": {
+            "RegularFood": -1
+          }
+        },
+        {
+          "WeatherId": 4,
+          "Effect": {
+            "ProvincialSanitation": -2
+          }
+        }
+      ]
+    }
+  ],
+  "Weathers": [
+    {
+      "Id": 1,
+      "Name": "Extreme"
+    },
+    {
+      "Id": 2,
+      "Name": "Bad"
+    },
+    {
+      "Id": 3,
+      "Name": "Normal"
+    },
+    {
+      "Id": 4,
+      "Name": "Good"
+    }
+  ]
+}

@@ -16,9 +16,9 @@
         [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
 
-        [JsonProperty(Required = Required.Always)]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [JsonConverter(typeof(JsonConcreteConverter<ProvincialEffect>))]
-        public IProvincialEffect Effect { get; set; }
+        public IProvincialEffect Effect { get; set; } = new ProvincialEffect();
 
         [JsonIgnore]
         public bool IsState

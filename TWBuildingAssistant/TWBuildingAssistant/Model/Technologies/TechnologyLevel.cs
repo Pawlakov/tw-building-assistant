@@ -2,8 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Xml.Linq;
+
+    using Newtonsoft.Json;
+
+    using TWBuildingAssistant.Model.Effects;
 
     public class TechnologyLevel
     {
@@ -60,13 +63,19 @@
             temporary = element.Attribute("rr");
             if (temporary != null)
                 researchRate = (int)temporary;
-            var bonuses = from XElement bonusElement in element.Elements() select Effects.BonusFactory.MakeBonus(bonusElement) as Effects.Bonus;
-            this.Effect = new Effects.ProvincialEffect()
+            var bonuses = new IBonus[0];
+            if (!string.IsNullOrEmpty((string)element))
+                 bonuses = JsonConvert.DeserializeObject<Bonus[]>((string)element, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error });
+            var influences = new IInfluence[0];
+            if (religiousInfluence > 0)
+                influences = new IInfluence[] { new Influence { ReligionId = null, Value = religiousInfluence } };
+
+            this.Effect = new ProvincialEffect()
                           {
-                          Bonuses = (from Effects.IBonus bonus in bonuses select bonus).ToList(),
+                          Bonuses = bonuses,
                           Fertility = fertility,
                           Growth = growth,
-                          Influences = new List<Effects.IInfluence>() { new Effects.Influence() { ReligionId = null, Value = religiousInfluence } },
+                          Influences = influences,
                           ProvincialSanitation = sanitation,
                           PublicOrder = publicOrder,
                           ReligiousOsmosis = religiousOsmosis,

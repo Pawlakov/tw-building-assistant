@@ -3,6 +3,8 @@
     using System;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Resources;
+
     public class RegionData
     {
         private const int CityDefaultSlotsCount = 6;
@@ -11,7 +13,7 @@
 
         private readonly int slotsCountOffset;
 
-        public RegionData(XElement element, bool isCity, Resources.IResourceParser resourceParser)
+        public RegionData(XElement element, bool isCity, IParser<IResource> resourceParser)
         {
             if (element == null)
             {
@@ -65,7 +67,7 @@
             }
         }
 
-        public static bool ValidateElement(XElement element, Resources.IResourceParser resourceParser, out string message)
+        public static bool ValidateElement(XElement element, IParser<IResource> resourceParser, out string message)
         {
             if (element.Attribute("n") == null)
             {

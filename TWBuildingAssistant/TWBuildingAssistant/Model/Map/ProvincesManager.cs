@@ -6,13 +6,16 @@
     using System.Linq;
     using System.Xml.Linq;
 
+    using TWBuildingAssistant.Model.Climate;
+    using TWBuildingAssistant.Model.Effects;
     using TWBuildingAssistant.Model.Religions;
+    using TWBuildingAssistant.Model.Resources;
 
     public delegate void ProvinceChangedHandler(ProvincesManager sender, EventArgs e);
 
     public class ProvincesManager : IFertilityDropTracker
     {
-        private const string SourceFile = "Model\\Map\\twa_map.xml";
+        private const string SourceFile = @"Model\Map\twa_map.xml";
 
         private const int MinimalFertilityDrop = 0;
 
@@ -22,17 +25,16 @@
 
         private readonly XElement[] elements;
 
-        public ProvincesManager(IReligionParser religionParser, Resources.IResourceParser resourceParser, IStateReligionTracker stateReligionTracker)
+        public ProvincesManager(IParser<IReligion> religionParser, IParser<IResource> resourceParser, IParser<IClimate> climateParser)
         {
-            this.ClimateManager = new ClimateAndWeather.ClimateManager();
-            if (!Validate(this.ClimateManager, religionParser, resourceParser, out var message))
+            if (!Validate(climateParser, religionParser, resourceParser, out var message))
             {
                 throw new FormatException("Cannot create information on provinces: " + message);
             }
 
             this.ReligionParser = religionParser;
             this.ResourceParser = resourceParser;
-            this.StateReligionTracker = stateReligionTracker;
+            this.ClimateParser = climateParser;
             var sourceDocument = XDocument.Load(SourceFile);
             this.elements = (from XElement element in sourceDocument.Root.Elements() select element).ToArray();
             this.provinces = new ProvinceData[this.elements.Count()];
@@ -58,7 +60,7 @@
                 this,
                 this.ReligionParser,
                 this.ResourceParser,
-                this.ClimateManager);
+                this.ClimateParser);
 
                 return this.provinces[this.ProvinceIndex];
             }
@@ -81,19 +83,17 @@
             }
         }
 
-        public Effects.IProvincialEffect Effect => this.Province.Climate.Effect;
+        public IProvincialEffect Effect => this.Province.Climate.Effect;
 
-        private ClimateAndWeather.ClimateManager ClimateManager { get; }
+        private IParser<IReligion> ReligionParser { get; }
 
-        private IReligionParser ReligionParser { get; }
+        private IParser<IResource> ResourceParser { get; }
 
-        private Resources.IResourceParser ResourceParser { get; }
-
-        private IStateReligionTracker StateReligionTracker { get; }
+        private IParser<IClimate> ClimateParser { get; }
 
         private int ProvinceIndex { get; set; } = -1;
 
-        public static bool Validate(IClimateParser climateParser, IReligionParser religionParser, Resources.IResourceParser resourceParser, out string message)
+        public static bool Validate(IParser<IClimate> climateParser, IParser<IReligion> religionParser, IParser<IResource> resourceParser, out string message)
         {
             if (!File.Exists(SourceFile))
             {
@@ -149,11 +149,6 @@
 
             this.ProvinceIndex = whichProvince;
             this.OnProvinceChangedChanged();
-        }
-
-        public void ChangeWorstCaseWeather(ClimateAndWeather.Weather whichWeather)
-        {
-            this.ClimateManager.ChangeWorstCaseWeather(whichWeather);
         }
 
         private void OnFertilityDropChanged()

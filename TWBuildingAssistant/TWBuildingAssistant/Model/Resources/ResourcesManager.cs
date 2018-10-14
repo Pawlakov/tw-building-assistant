@@ -4,13 +4,15 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Unity;
+
     public class ResourcesManager : IParser<IResource>
     {
         private readonly IEnumerable<IResource> resources;
 
-        public ResourcesManager(IResourcesSource source)
+        public ResourcesManager(IUnityContainer resolver)
         {
-            this.resources = source.Resources.ToArray();
+            this.resources = resolver.Resolve<ISource>().Resources.ToArray();
             var message = string.Empty;
             if (this.resources.Any(resource => !resource.Validate(out message)))
             {

@@ -33,19 +33,20 @@
         private World()
         {
             this.resolver = new UnityContainer();
+            this.resolver.RegisterInstance<ISource>(new JsonData());
 
-            this.resourcesManager = new ResourcesManager(JsonData.GetData());
+            this.resourcesManager = new ResourcesManager(this.resolver);
             this.resolver.RegisterInstance<IParser<IResource>>(this.resourcesManager);
 
-            this.religionsManager = new ReligionsManager(JsonData.GetData());
+            this.religionsManager = new ReligionsManager(this.resolver);
             this.resolver.RegisterInstance<IParser<IReligion>>(this.religionsManager);
             this.resolver.RegisterInstance<IStateReligionTracker>(this.religionsManager);
 
-            this.weatherManager = new WeatherManager(JsonData.GetData());
+            this.weatherManager = new WeatherManager(this.resolver);
             this.resolver.RegisterInstance<IParser<IWeather>>(this.weatherManager);
             this.resolver.RegisterInstance<IConsideredWeatherTracker>(this.weatherManager);
 
-            this.climateManager = new ClimateManager(JsonData.GetData(), this.resolver);
+            this.climateManager = new ClimateManager(this.resolver);
             this.resolver.RegisterInstance<IParser<IClimate>>(this.climateManager);
 
             this.provincesManager = new ProvincesManager(this.resolver);

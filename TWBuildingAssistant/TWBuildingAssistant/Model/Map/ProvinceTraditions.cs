@@ -30,13 +30,16 @@
             }
 
             this.influences = from XElement item in element.Elements()
-                              select new Effects.Influence()
+                              select new Influence
                                      {
                                      ReligionId = religionParser.Parse(
                                      (string)item.Attribute("r")).Id,
-                                     Value = (int)item,
-                                         ReligionParser = religionParser
+                                     Value = (int)item
                                      };
+            foreach (var influence in this.influences)
+            {
+                influence.SetReligionParser(religionParser);
+            }
         }
 
         public IEnumerable<IInfluence> Influences => this.influences.ToArray();

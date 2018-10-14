@@ -1,5 +1,7 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
+    using System;
+
     using Newtonsoft.Json;
     
     using TWBuildingAssistant.Model.Religions;
@@ -17,6 +19,17 @@
                 throw new EffectsException("Religion has not been parsed.");
             }
 
+            if (this.religion != null || !this.ReligionId.HasValue)
+            {
+                return this.religion;
+            }
+
+            this.religion = this.religionParser.Find(this.ReligionId);
+            if (this.religion == null)
+            {
+                throw new EffectsException($"No religion with id = {this.ReligionId.Value}.");
+            }
+
             return this.religion;
         }
 
@@ -26,14 +39,10 @@
         [JsonProperty(Required = Required.Always)]
         public int Value { get; set; }
 
-        [JsonIgnore]
-        public IParser<IReligion> ReligionParser
+        public void SetReligionParser(IParser<IReligion> parser)
         {
-            set
-            {
-                this.religionParser = value;
-                this.religion = this.religionParser.Find(ReligionId);
-            }
+            this.religionParser = parser ?? throw new ArgumentNullException(nameof(parser));
+            this.religion = null;
         }
 
         public bool Validate(out string message)

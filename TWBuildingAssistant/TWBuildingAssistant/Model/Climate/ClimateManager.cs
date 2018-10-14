@@ -13,9 +13,9 @@
     {
         private readonly IEnumerable<IClimate> climates;
 
-        public ClimateManager(IClimateSource source, IUnityContainer resolver)
+        public ClimateManager(IUnityContainer resolver)
         {
-            this.climates = source.Climates.ToArray();
+            this.climates = resolver.Resolve<ISource>().Climates.ToArray();
 
             foreach (var climate in this.climates)
             {
@@ -24,7 +24,7 @@
                 {
                     foreach (var influence in weatherEffect.Effect.Influences)
                     {
-                        influence.ReligionParser = resolver.Resolve<IParser<IReligion>>();
+                        influence.SetReligionParser(resolver.Resolve<IParser<IReligion>>());
                     }
                 }
                 if (!climate.Validate(out string message))

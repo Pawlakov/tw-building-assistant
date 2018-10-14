@@ -42,6 +42,12 @@
         
         public bool Validate(out string message)
         {
+            if (this.Value == 0)
+            {
+                message = "Value is missing.";
+                return false;
+            }
+
             switch (this.Type)
             {
                 case BonusType.Simple:

@@ -4,20 +4,22 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Unity;
+
     public partial class WeatherManager
     {
         private readonly IEnumerable<IWeather> weathers;
 
-        public WeatherManager(IWeatherSource source)
+        public WeatherManager(IUnityContainer resolver)
         {
-            if (source == null)
+            if (resolver == null)
             {
-                throw new ArgumentNullException(nameof(source));
+                throw new ArgumentNullException(nameof(resolver));
             }
 
             try
             {
-                this.weathers = source.Weathers.ToArray();
+                this.weathers = resolver.Resolve<ISource>().Weathers.ToArray();
             }
             catch (Exception e)
             {

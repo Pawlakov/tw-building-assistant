@@ -8,7 +8,10 @@
 
     using NUnit.Framework;
 
+    using TWBuildingAssistant.Model;
     using TWBuildingAssistant.Model.Resources;
+
+    using Unity;
 
     [TestFixture]
     public class ResourcesManagerTests
@@ -17,7 +20,9 @@
 
         private List<Mock<IResource>> resources;
 
-        private Mock<IResourcesSource> source;
+        private Mock<ISource> source;
+
+        private IUnityContainer resolver;
 
         [SetUp]
         public void SetUp()
@@ -33,22 +38,25 @@
                 this.resources.Add(next);
             }
 
-            this.source = new Mock<IResourcesSource>();
+            this.source = new Mock<ISource>();
             this.source.Setup(x => x.Resources).Returns(from Mock<IResource> item in this.resources select item.Object);
+
+            this.resolver = new UnityContainer();
+            this.resolver.RegisterInstance<ISource>(this.source.Object);
         }
 
         [Test]
         public void CorrectCreation()
         {
             ResourcesManager manager = null;
-            Assert.DoesNotThrow(() => manager = new ResourcesManager(this.source.Object), "Exception was thrown despite the data being correct.");
+            Assert.DoesNotThrow(() => manager = new ResourcesManager(this.resolver), "Exception was thrown despite the data being correct.");
             Assert.DoesNotThrow(() => manager.Find(ResourcesCount - 1), "The resources count is not matching");
         }
 
         [Test]
         public void CorrectParse()
         {
-            var manager = new ResourcesManager(this.source.Object);
+            var manager = new ResourcesManager(this.resolver);
             for (var i = 1; i <= ResourcesCount; ++i)
             {
                 IResource item = null;
@@ -61,14 +69,14 @@
         [Test]
         public void NullParse()
         {
-            var manager = new ResourcesManager(this.source.Object);
+            var manager = new ResourcesManager(this.resolver);
             Assert.Throws<ArgumentNullException>(() => manager.Parse(null), "Attempt to parse null did not ended with exception.");
         }
 
         [Test]
         public void NonExistentParse()
         {
-            var manager = new ResourcesManager(this.source.Object);
+            var manager = new ResourcesManager(this.resolver);
             Assert.Throws<ResourcesException>(() => manager.Parse("0"), "Attempt to parse non-existent resource name did not ended with exception.");
         }
 
@@ -78,7 +86,7 @@
             string message;
             this.resources[ResourcesCount - 1].Setup(x => x.Validate(out message)).Returns(false);
             // ReSharper disable once ObjectCreationAsStatement
-            Assert.Throws<ResourcesException>(() => new ResourcesManager(this.source.Object), $"{nameof(ResourcesManager)}'s constructor did not react to an invalid resource.");
+            Assert.Throws<ResourcesException>(() => new ResourcesManager(this.resolver), $"{nameof(ResourcesManager)}'s constructor did not react to an invalid resource.");
         }
     }
 }

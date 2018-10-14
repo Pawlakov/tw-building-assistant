@@ -27,7 +27,7 @@
             {
                 foreach (var influence in level.Effect.Influences)
                 {
-                    influence.ReligionParser = religionParser;
+                    influence.SetReligionParser(religionParser);
                 }
             }
         }

@@ -8,7 +8,7 @@
         
         int Value { get; }
 
-        IParser<IReligion> ReligionParser { set; }
+        void SetReligionParser(IParser<IReligion> parser);
 
         bool Validate(out string message);
     }

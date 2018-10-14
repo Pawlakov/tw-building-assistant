@@ -4,18 +4,20 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using Unity;
+
     public partial class ReligionsManager
     {
         private readonly IEnumerable<IReligion> religions;
 
-        public ReligionsManager(IReligionsSource source)
+        public ReligionsManager(IUnityContainer resolver)
         {
-            this.religions = source.Religions.ToArray();
+            this.religions = resolver.Resolve<ISource>().Religions.ToArray();
             foreach (var religion in this.religions)
             {
                 foreach (var influence in religion.Effect.Influences)
                 {
-                    influence.ReligionParser = this;
+                    influence.SetReligionParser(this);
                 }
             }
 
@@ -78,11 +80,6 @@
             }
 
             var result = this.religions.FirstOrDefault(element => input.Equals(element.Name, StringComparison.OrdinalIgnoreCase));
-            if (result == null)
-            {
-                throw new ReligionsException("No matching religion found.");
-            }
-
             return result;
         }
 
@@ -94,11 +91,6 @@
             }
 
             var result = this.religions.FirstOrDefault(x => x.Id == id);
-            if (result == null)
-            {
-                throw new ReligionsException("No matching religion found.");
-            }
-
             return result;
         }
     }

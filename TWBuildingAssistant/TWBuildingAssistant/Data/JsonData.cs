@@ -1,11 +1,10 @@
 namespace TWBuildingAssistant.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
 
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
+    using Newtonsoft.Json.Linq;
 
     using TWBuildingAssistant.Model;
     using TWBuildingAssistant.Model.Climate;
@@ -13,56 +12,37 @@ namespace TWBuildingAssistant.Data
     using TWBuildingAssistant.Model.Resources;
     using TWBuildingAssistant.Model.Weather;
 
-    public partial class JsonData : IReligionsSource, IResourcesSource, IClimateSource, IWeatherSource
+    public class JsonData : ISource
     {
-        [JsonProperty(Required = Required.Always)]
-        [JsonConverter(typeof(JsonConcreteConverter<Religion[]>))]
-        public IEnumerable<IReligion> Religions { get; set; }
+        private const string JsonFileName = @"Json\twa_data.json";
 
-        [JsonProperty(Required = Required.Always)]
-        [JsonConverter(typeof(JsonConcreteConverter<Resource[]>))]
-        public IEnumerable<IResource> Resources { get; set; }
-
-        [JsonProperty(Required = Required.Always)]
-        [JsonConverter(typeof(JsonConcreteConverter<Climate[]>))]
-        public IEnumerable<IClimate> Climates { get; set; }
-
-        [JsonProperty(Required = Required.Always)]
-        [JsonConverter(typeof(JsonConcreteConverter<Weather[]>))]
-        public IEnumerable<IWeather> Weathers { get; set; }
-    }
-
-    public partial class JsonData
-    {
-        private static string jsonFileName = @"Json\twa_data.json";
-
-        private static JsonData jsonData;
-
-        private JsonData()
+        public JsonData()
         {
-        }
-
-        public static JsonData GetData()
-        {
-            return jsonData ?? (jsonData = CreateFromJson());
-        }
-
-        private static JsonData CreateFromJson()
-        {
-            var file = new FileInfo(jsonFileName);
+            var file = new FileInfo(JsonFileName);
             using (var reader = file.OpenText())
             {
                 using (var jsonReader = new JsonTextReader(reader))
                 {
+                    var root = JObject.Load(jsonReader);
                     var serializer = new JsonSerializer
                                          {
                                              MissingMemberHandling = MissingMemberHandling.Error
                                          };
-                    var result = serializer.Deserialize<JsonData>(jsonReader);
-                    return result;
+
+                    this.Climates = root.Property(nameof(this.Climates)).Value.ToObject<Climate[]>(serializer);
+                    this.Religions = root.Property(nameof(this.Religions)).Value.ToObject<Religion[]>(serializer);
+                    this.Resources = root.Property(nameof(this.Resources)).Value.ToObject<Resource[]>(serializer);
+                    this.Weathers = root.Property(nameof(this.Weathers)).Value.ToObject<Weather[]>(serializer);
                 }
             }
-
         }
+
+        public IEnumerable<IClimate> Climates { get; set; }
+
+        public IEnumerable<IReligion> Religions { get; set; }
+        
+        public IEnumerable<IResource> Resources { get; set; }
+        
+        public IEnumerable<IWeather> Weathers { get; set; }
     }
 }

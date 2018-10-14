@@ -8,6 +8,8 @@
     using TWBuildingAssistant.Model.Religions;
     using TWBuildingAssistant.Model.Resources;
 
+    using Unity;
+
     public class FactionsManager
     {
         private const string FileName = "Model\\Factions\\twa_factions.xml";
@@ -20,13 +22,13 @@
 
         private readonly Faction[] factions;
 
-        public FactionsManager(IParser<IReligion> religionsParser, IParser<IResource> resourcesParser)
+        public FactionsManager(IUnityContainer resolver)
         {
             var sourceFile = XDocument.Load(FileName);
             this.elements = (from XElement element in sourceFile.Root.Elements() select element).ToArray();
             this.factions = new Faction[this.elements.Length];
-            this.religionsParser = religionsParser;
-            this.resourcesParser = resourcesParser;
+            this.religionsParser = resolver.Resolve<IParser<IReligion>>();
+            this.resourcesParser = resolver.Resolve<IParser<IResource>>();
         }
 
         public int FactionsCount => this.elements.Length;

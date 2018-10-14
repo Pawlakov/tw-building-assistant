@@ -7,22 +7,24 @@
     using TWBuildingAssistant.Model.Religions;
     using TWBuildingAssistant.Model.Weather;
 
+    using Unity;
+
     public partial class ClimateManager
     {
         private readonly IEnumerable<IClimate> climates;
 
-        public ClimateManager(IClimateSource source, IParser<IWeather> weatherParser, IConsideredWeatherTracker consideredWeatherTracker, IParser<IReligion> religionParser)
+        public ClimateManager(IClimateSource source, IUnityContainer resolver)
         {
             this.climates = source.Climates.ToArray();
 
             foreach (var climate in this.climates)
             {
-                climate.WeatherParser = weatherParser;
+                climate.WeatherParser = resolver.Resolve<IParser<IWeather>>();
                 foreach (var weatherEffect in climate.WeatherEffects)
                 {
                     foreach (var influence in weatherEffect.Effect.Influences)
                     {
-                        influence.ReligionParser = religionParser;
+                        influence.ReligionParser = resolver.Resolve<IParser<IReligion>>();
                     }
                 }
                 if (!climate.Validate(out string message))
@@ -31,7 +33,7 @@
                 }
             }
 
-            consideredWeatherTracker.ConsideredWeatherChanged += this.OnConsideredWeatherChanged;
+            resolver.Resolve<IConsideredWeatherTracker>().ConsideredWeatherChanged += this.OnConsideredWeatherChanged;
         }
 
         private void OnConsideredWeatherChanged(object sender, ConsideredWeatherChangedArgs args)

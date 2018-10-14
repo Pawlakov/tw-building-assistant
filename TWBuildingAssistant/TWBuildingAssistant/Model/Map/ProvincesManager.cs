@@ -11,6 +11,8 @@
     using TWBuildingAssistant.Model.Religions;
     using TWBuildingAssistant.Model.Resources;
 
+    using Unity;
+
     public delegate void ProvinceChangedHandler(ProvincesManager sender, EventArgs e);
 
     public class ProvincesManager : IFertilityDropTracker
@@ -25,16 +27,17 @@
 
         private readonly XElement[] elements;
 
-        public ProvincesManager(IParser<IReligion> religionParser, IParser<IResource> resourceParser, IParser<IClimate> climateParser)
+        public ProvincesManager(IUnityContainer resolver)
         {
-            if (!Validate(climateParser, religionParser, resourceParser, out var message))
+            this.ReligionParser = resolver.Resolve<IParser<IReligion>>();
+            this.ResourceParser = resolver.Resolve<IParser<IResource>>();
+            this.ClimateParser = resolver.Resolve<IParser<IClimate>>();
+
+            if (!Validate(this.ClimateParser, this.ReligionParser, this.ResourceParser, out var message))
             {
                 throw new FormatException("Cannot create information on provinces: " + message);
             }
 
-            this.ReligionParser = religionParser;
-            this.ResourceParser = resourceParser;
-            this.ClimateParser = climateParser;
             var sourceDocument = XDocument.Load(SourceFile);
             this.elements = (from XElement element in sourceDocument.Root.Elements() select element).ToArray();
             this.provinces = new ProvinceData[this.elements.Count()];

@@ -56,8 +56,7 @@ namespace TWBuildingAssistant.Data
                 {
                     var serializer = new JsonSerializer
                                          {
-                                             MissingMemberHandling = MissingMemberHandling.Error,
-                                             Converters = { new StringEnumConverter { AllowIntegerValues = false } }
+                                             MissingMemberHandling = MissingMemberHandling.Error
                                          };
                     var result = serializer.Deserialize<JsonData>(jsonReader);
                     return result;

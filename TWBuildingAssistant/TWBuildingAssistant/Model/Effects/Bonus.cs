@@ -12,12 +12,12 @@
         public int Value { get; set; }
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEnumConverter<WealthCategory>))]
+        [JsonConverter(typeof(JsonEnumConverter))]
         [DefaultValue(WealthCategory.All)]
         public WealthCategory Category { get; set; }
 
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [JsonConverter(typeof(JsonEnumConverter<BonusType>))]
+        [JsonConverter(typeof(JsonEnumConverter))]
         [DefaultValue(BonusType.Simple)]
         public BonusType Type { get; set; }
 

@@ -11,8 +11,12 @@
     using TWBuildingAssistant.Model.Resources;
     using TWBuildingAssistant.Model.Weather;
 
+    using Unity;
+
     public class World
     {
+        private readonly IUnityContainer resolver;
+
         private readonly WeatherManager weatherManager;
 
         private readonly ClimateManager climateManager;
@@ -27,12 +31,24 @@
 
         public World()
         {
+            this.resolver = new UnityContainer();
+
             this.resourcesManager = new ResourcesManager(JsonData.GetData());
+            this.resolver.RegisterInstance<IParser<IResource>>(this.resourcesManager);
+
             this.religionsManager = new ReligionsManager(JsonData.GetData());
+            this.resolver.RegisterInstance<IParser<IReligion>>(this.religionsManager);
+            this.resolver.RegisterInstance<IStateReligionTracker>(this.religionsManager);
+
             this.weatherManager = new WeatherManager(JsonData.GetData());
-            this.climateManager = new ClimateManager(JsonData.GetData(), this.weatherManager, this.weatherManager, this.religionsManager);
-            this.provincesManager = new ProvincesManager(this.religionsManager, this.resourcesManager, this.climateManager);
-            this.factionsManager = new FactionsManager(this.religionsManager, this.resourcesManager);
+            this.resolver.RegisterInstance<IParser<IWeather>>(this.weatherManager);
+            this.resolver.RegisterInstance<IConsideredWeatherTracker>(this.weatherManager);
+
+            this.climateManager = new ClimateManager(JsonData.GetData(), this.resolver);
+            this.resolver.RegisterInstance<IParser<IClimate>>(this.climateManager);
+
+            this.provincesManager = new ProvincesManager(this.resolver);
+            this.factionsManager = new FactionsManager(this.resolver);
         }
 
         public SimulationKit AssembleSimulationKit(WorldSettings settings)

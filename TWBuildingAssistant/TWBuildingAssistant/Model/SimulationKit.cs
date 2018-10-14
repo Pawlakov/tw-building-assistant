@@ -11,9 +11,9 @@
 
         private readonly List<Buildings.BuildingLevel>[][] availableBuildings;
 
-        public SimulationKit(World world, Buildings.BuildingLibrary library, Combinations.Combination combination)
+        public SimulationKit(Buildings.BuildingLibrary library, Combinations.Combination combination)
         {
-            this.enivronment = world.Environment;
+            this.enivronment = World.GetWorld().Environment;
             this.combination = combination;
             this.availableBuildings = new List<Buildings.BuildingLevel>[this.GetRegionsCount()][];
             for (var whichRegion = 0; whichRegion < this.availableBuildings.Length; ++whichRegion)

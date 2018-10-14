@@ -1,17 +1,13 @@
 ﻿namespace TWBuildingAssistant.ViewModel
 {
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
 
     using TWBuildingAssistant.Model;
-    using TWBuildingAssistant.Model.Weather;
 
     public class ViewModelSettingsWindow : ViewModelWindow
     {
-        private readonly World world;
-
         private object selectedReligion;
 
         private object selectedProvince;
@@ -28,16 +24,16 @@
 
         public ViewModelSettingsWindow()
         {
-            this.world = new World();
-            this.Religions = new ObservableCollection<KeyValuePair<int, string>>(this.world.Religions);
+            var world = World.GetWorld();
+            this.Religions = new ObservableCollection<KeyValuePair<int, string>>(world.Religions);
             this.SelectedReligion = this.Religions[0];
-            this.Provinces = new ObservableCollection<KeyValuePair<int, string>>(this.world.Provinces);
+            this.Provinces = new ObservableCollection<KeyValuePair<int, string>>(world.Provinces);
             this.SelectedProvince = this.Provinces[0];
-            this.Factions = new ObservableCollection<KeyValuePair<int, string>>(this.world.Factions);
+            this.Factions = new ObservableCollection<KeyValuePair<int, string>>(world.Factions);
             this.SelectedFaction = this.Factions[0];
             this.FertilityDrops = new ObservableCollection<int> { 0, 1, 2, 3, 4 };
             this.SelectedFertilityDrop = this.FertilityDrops[0];
-            this.Weathers = new ObservableCollection<KeyValuePair<int, string>>(this.world.Weathers);
+            this.Weathers = new ObservableCollection<KeyValuePair<int, string>>(world.Weathers);
             this.SelectedWeather = this.Weathers[2];
             this.TechnologyTiers = new ObservableCollection<int> { 0, 1, 2, 3, 4 };
             this.SelectedTechnologyTier = this.TechnologyTiers[0];
@@ -165,7 +161,7 @@
 
         private void Submit(object paramter)
         {
-            var kit = world.AssembleSimulationKit(CollectSettings());
+            var kit = World.GetWorld().AssembleSimulationKit(this.CollectSettings());
             var simulationWindow = new View.SimulationWindow(kit);
             simulationWindow.Show();
             this.OnCloseWindow();

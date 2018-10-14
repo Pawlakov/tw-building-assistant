@@ -4,6 +4,7 @@
 
     using TWBuildingAssistant.Data;
     using TWBuildingAssistant.Model.Climate;
+    using TWBuildingAssistant.Model.Combinations;
     using TWBuildingAssistant.Model.Effects;
     using TWBuildingAssistant.Model.Factions;
     using TWBuildingAssistant.Model.Map;
@@ -13,7 +14,7 @@
 
     using Unity;
 
-    public class World
+    public partial class World
     {
         private readonly IUnityContainer resolver;
 
@@ -29,7 +30,7 @@
 
         private readonly FactionsManager factionsManager;
 
-        public World()
+        private World()
         {
             this.resolver = new UnityContainer();
 
@@ -63,67 +64,30 @@
             this.factionsManager.ChangeFaction(settings.FactionIndex);
             this.factionsManager.Faction.ChangeDesiredTechnologyLevel(settings.DesiredTechnologyLevelIndex, settings.UseLegacyTechnologies);
             //
-            Combinations.Combination combination = new Model.Combinations.Combination(this.provincesManager.Province);
-            Buildings.BuildingLibrary pool = this.factionsManager.Faction.Buildings;
+            var combination = new Combination(this.provincesManager.Province);
+            var pool = this.factionsManager.Faction.Buildings;
             //
-            return new SimulationKit(this, pool, combination);
+            return new SimulationKit(pool, combination);
         }
 
-        public IEnumerable<KeyValuePair<int, string>> Weathers
-        {
-            get
-            {
-                return this.weatherManager.AllWeathersNames;
-            }
-        }
+        public IEnumerable<KeyValuePair<int, string>> Weathers => this.weatherManager.AllWeathersNames;
 
-        public IEnumerable<KeyValuePair<int, string>> Religions
-        {
-            get
-            {
-                return this.religionsManager.AllReligionsNames;
-            }
-        }
+        public IEnumerable<KeyValuePair<int, string>> Religions => this.religionsManager.AllReligionsNames;
 
-        public IEnumerable<KeyValuePair<int, string>> Provinces
-        {
-            get
-            {
-                return this.provincesManager.AllProvincesNames;
-            }
-        }
+        public IEnumerable<KeyValuePair<int, string>> Provinces => this.provincesManager.AllProvincesNames;
 
-        public IEnumerable<KeyValuePair<int, string>> Factions
-        {
-            get
-            {
-                return this.factionsManager.AllFactionsNames;
-            }
-        }
+        public IEnumerable<KeyValuePair<int, string>> Factions => this.factionsManager.AllFactionsNames;
 
-        public IProvincialEffect Environment
-        {
-            get
-            {
-                return this.provincesManager.Effect.Aggregate(this.factionsManager.Effect.Aggregate(this.religionsManager.StateReligion.Effect));
-            }
-        }
+        public IProvincialEffect Environment => this.provincesManager.Effect.Aggregate(this.factionsManager.Effect.Aggregate(this.religionsManager.StateReligion.Effect));
     }
 
-    public class WorldSettings
+    public partial class World
     {
-        public int StateReligionIndex { get; set; }
+        private static World world;
 
-        public int FertilityDrop { get; set; }
-
-        public IEnumerable<int> ConsideredWeathers { get; set; }
-
-        public int FactionIndex { get; set; }
-
-        public int DesiredTechnologyLevelIndex { get; set; }
-
-        public bool UseLegacyTechnologies { get; set; }
-
-        public int ProvinceIndex { get; set; }
+        public static World GetWorld()
+        {
+            return world ?? (world = new World());
+        }
     }
 }

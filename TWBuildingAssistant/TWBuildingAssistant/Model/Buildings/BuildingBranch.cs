@@ -9,7 +9,7 @@
     {
         private readonly BuildingLevel[] levels;
 
-        public BuildingBranch(XElement element, ITechnologyLevelAssigner technologyLevelAssigner, IParser<IReligion> religionParser)
+        public BuildingBranch(XElement element, ITechnologyLevelAssigner technologyLevelAssigner, Parser<IReligion> religionParser)
         {
             this.Name = (string)element.Attribute("n");
             this.levels = (from XElement subelement in element.Elements() select new BuildingLevel(this, subelement, technologyLevelAssigner)).ToArray();

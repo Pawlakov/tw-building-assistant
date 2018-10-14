@@ -6,14 +6,12 @@
 
     using Unity;
 
-    public partial class ReligionsManager
+    public partial class ReligionsManager : Parser<IReligion>
     {
-        private readonly IEnumerable<IReligion> religions;
-
         public ReligionsManager(IUnityContainer resolver)
         {
-            this.religions = resolver.Resolve<ISource>().Religions.ToArray();
-            foreach (var religion in this.religions)
+            this.Content = resolver.Resolve<ISource>().Religions.ToArray();
+            foreach (var religion in this.Content)
             {
                 foreach (var influence in religion.Effect.Influences)
                 {
@@ -22,12 +20,12 @@
             }
 
             var message = string.Empty;
-            if (this.religions.Any(resource => !resource.Validate(out message)))
+            if (this.Content.Any(resource => !resource.Validate(out message)))
             {
                 throw new ReligionsException($"One of religions is not valid ({message}).");
             }
 
-            foreach (var religion in this.religions)
+            foreach (var religion in this.Content)
             {
                 religion.StateReligionTracker = this;
             }
@@ -37,7 +35,7 @@
         {
             get
             {
-                var result = this.religions.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+                var result = this.Content.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
                 return result;
             }
         }
@@ -51,7 +49,7 @@
 
         public void ChangeStateReligion(int whichReligion)
         {
-            var newStateReligion = this.religions.FirstOrDefault(x => x.Id == whichReligion);
+            var newStateReligion = this.Content.FirstOrDefault(x => x.Id == whichReligion);
             this.StateReligion = newStateReligion ?? throw new ArgumentOutOfRangeException(
                                      nameof(whichReligion),
                                      whichReligion,
@@ -62,36 +60,6 @@
         private void OnStateReligionChanged(StateReligionChangedArgs e)
         {
             this.StateReligionChanged?.Invoke(this, e);
-        }
-    }
-
-    public partial class ReligionsManager : IParser<IReligion>
-    {
-        public IReligion Parse(string input)
-        {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            if (input.Equals("State", StringComparison.OrdinalIgnoreCase))
-            {
-                return null;
-            }
-
-            var result = this.religions.FirstOrDefault(element => input.Equals(element.Name, StringComparison.OrdinalIgnoreCase));
-            return result;
-        }
-
-        public IReligion Find(int? id)
-        {
-            if (id == null)
-            {
-                return null;
-            }
-
-            var result = this.religions.FirstOrDefault(x => x.Id == id);
-            return result;
         }
     }
 }

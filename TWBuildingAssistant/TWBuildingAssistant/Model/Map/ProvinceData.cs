@@ -20,7 +20,7 @@
 
         private int currentFertilityDrop;
 
-        public ProvinceData(XElement element, IFertilityDropTracker fertilityDropTracker, IParser<IReligion> religionParser, IParser<IResource> resourceParser, IParser<IClimate> climateParser)
+        public ProvinceData(XElement element, IFertilityDropTracker fertilityDropTracker, Parser<IReligion> religionParser, Parser<IResource> resourceParser, Parser<IClimate> climateParser)
         {
             if (element == null)
             {
@@ -94,7 +94,7 @@
 
         public RegionData this[int whichRegion] => this.regions[whichRegion];
 
-        public static bool ValidateElement(XElement element, IParser<IClimate> climateParser, IParser<IReligion> religionParser, IParser<IResource> resourceParser, out string message)
+        public static bool ValidateElement(XElement element, Parser<IClimate> climateParser, Parser<IReligion> religionParser, Parser<IResource> resourceParser, out string message)
         {
             if (element.Attribute("n") == null)
             {

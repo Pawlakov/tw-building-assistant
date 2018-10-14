@@ -14,9 +14,9 @@
     {
         private const string FileName = "Model\\Factions\\twa_factions.xml";
 
-        private readonly IParser<IReligion> religionsParser;
+        private readonly Parser<IReligion> religionsParser;
 
-        private readonly IParser<IResource> resourcesParser;
+        private readonly Parser<IResource> resourcesParser;
 
         private readonly XElement[] elements;
 
@@ -27,8 +27,8 @@
             var sourceFile = XDocument.Load(FileName);
             this.elements = (from XElement element in sourceFile.Root.Elements() select element).ToArray();
             this.factions = new Faction[this.elements.Length];
-            this.religionsParser = resolver.Resolve<IParser<IReligion>>();
-            this.resourcesParser = resolver.Resolve<IParser<IResource>>();
+            this.religionsParser = resolver.Resolve<Parser<IReligion>>();
+            this.resourcesParser = resolver.Resolve<Parser<IResource>>();
         }
 
         public int FactionsCount => this.elements.Length;

@@ -125,6 +125,7 @@
     <Compile Include="Data\JsonData.cs" />
     <Compile Include="Model\Effects\EffectsException.cs" />
     <Compile Include="Model\Extensions.cs" />
+    <Compile Include="Model\IParsable.cs" />
     <Compile Include="Model\ISource.cs" />
     <Compile Include="Model\JsonEnumConverter.cs" />
     <Compile Include="Model\Weather\WeatherException.cs" />
@@ -135,7 +136,7 @@
     <Compile Include="Model\Climate\IWeatherEffect.cs" />
     <Compile Include="Model\Climate\ClimateException.cs" />
     <Compile Include="Model\Climate\WeatherEffect.cs" />
-    <Compile Include="Model\IParser.cs" />
+    <Compile Include="Model\Parser.cs" />
     <Compile Include="Model\JsonConcreteConverter.cs" />
     <Compile Include="Model\Religions\IStateReligionTracker.cs" />
     <Compile Include="Model\Religions\StateReligionChangedArgs.cs" />

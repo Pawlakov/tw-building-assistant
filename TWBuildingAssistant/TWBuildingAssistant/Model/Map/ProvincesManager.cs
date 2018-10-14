@@ -29,9 +29,9 @@
 
         public ProvincesManager(IUnityContainer resolver)
         {
-            this.ReligionParser = resolver.Resolve<IParser<IReligion>>();
-            this.ResourceParser = resolver.Resolve<IParser<IResource>>();
-            this.ClimateParser = resolver.Resolve<IParser<IClimate>>();
+            this.ReligionParser = resolver.Resolve<Parser<IReligion>>();
+            this.ResourceParser = resolver.Resolve<Parser<IResource>>();
+            this.ClimateParser = resolver.Resolve<Parser<IClimate>>();
 
             if (!Validate(this.ClimateParser, this.ReligionParser, this.ResourceParser, out var message))
             {
@@ -88,15 +88,15 @@
 
         public IProvincialEffect Effect => this.Province.Climate.Effect;
 
-        private IParser<IReligion> ReligionParser { get; }
+        private Parser<IReligion> ReligionParser { get; }
 
-        private IParser<IResource> ResourceParser { get; }
+        private Parser<IResource> ResourceParser { get; }
 
-        private IParser<IClimate> ClimateParser { get; }
+        private Parser<IClimate> ClimateParser { get; }
 
         private int ProvinceIndex { get; set; } = -1;
 
-        public static bool Validate(IParser<IClimate> climateParser, IParser<IReligion> religionParser, IParser<IResource> resourceParser, out string message)
+        public static bool Validate(Parser<IClimate> climateParser, Parser<IReligion> religionParser, Parser<IResource> resourceParser, out string message)
         {
             if (!File.Exists(SourceFile))
             {

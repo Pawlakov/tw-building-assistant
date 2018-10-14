@@ -13,7 +13,7 @@
     [TestFixture]
     public class InfluenceTests
     {
-        private Mock<IParser<IReligion>> parser;
+        private Mock<Parser<IReligion>> parser;
         private Mock<IReligion> religion;
 
         [OneTimeSetUp]
@@ -22,7 +22,7 @@
             this.religion = new Mock<IReligion>();
             this.religion.Setup(x => x.Name).Returns("1");
 
-            this.parser = new Mock<IParser<IReligion>>();
+            this.parser = new Mock<Parser<IReligion>>();
             this.parser.Setup(x => x.Find(It.IsAny<int?>())).Returns<int?>(
                 x =>
                     {

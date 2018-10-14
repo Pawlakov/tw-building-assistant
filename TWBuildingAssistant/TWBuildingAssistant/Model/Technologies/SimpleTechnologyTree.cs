@@ -15,7 +15,7 @@
 
         private readonly TechnologyLevel[] _levels;
 
-        public SimpleTechnologyTree(XElement element, IParser<IReligion> religionParser)
+        public SimpleTechnologyTree(XElement element, Parser<IReligion> religionParser)
         {
             IEnumerable<TechnologyLevel> temporary = from XElement levelElement in element.Elements() select new TechnologyLevel(this, levelElement);
             _levels = new TechnologyLevel[_technologyLevelsCount];

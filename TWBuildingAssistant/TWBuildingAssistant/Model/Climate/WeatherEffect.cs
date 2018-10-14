@@ -9,7 +9,7 @@
     {
         private IWeather weather;
 
-        private IParser<IWeather> weatherParser;
+        private Parser<IWeather> weatherParser;
 
         [JsonProperty(Required = Required.Always)]
         public int WeatherId { get; set; }
@@ -33,7 +33,7 @@
         public IProvincialEffect Effect { get; set; } = new ProvincialEffect();
 
         [JsonIgnore]
-        public IParser<IWeather> WeatherParser
+        public Parser<IWeather> WeatherParser
         {
             set
             {

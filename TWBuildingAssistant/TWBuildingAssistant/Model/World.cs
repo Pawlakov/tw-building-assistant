@@ -36,18 +36,18 @@
             this.resolver.RegisterInstance<ISource>(new JsonData());
 
             this.resourcesManager = new ResourcesManager(this.resolver);
-            this.resolver.RegisterInstance<IParser<IResource>>(this.resourcesManager);
+            this.resolver.RegisterInstance<Parser<IResource>>(this.resourcesManager);
 
             this.religionsManager = new ReligionsManager(this.resolver);
-            this.resolver.RegisterInstance<IParser<IReligion>>(this.religionsManager);
+            this.resolver.RegisterInstance<Parser<IReligion>>(this.religionsManager);
             this.resolver.RegisterInstance<IStateReligionTracker>(this.religionsManager);
 
             this.weatherManager = new WeatherManager(this.resolver);
-            this.resolver.RegisterInstance<IParser<IWeather>>(this.weatherManager);
+            this.resolver.RegisterInstance<Parser<IWeather>>(this.weatherManager);
             this.resolver.RegisterInstance<IConsideredWeatherTracker>(this.weatherManager);
 
             this.climateManager = new ClimateManager(this.resolver);
-            this.resolver.RegisterInstance<IParser<IClimate>>(this.climateManager);
+            this.resolver.RegisterInstance<Parser<IClimate>>(this.climateManager);
 
             this.provincesManager = new ProvincesManager(this.resolver);
             this.factionsManager = new FactionsManager(this.resolver);

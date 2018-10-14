@@ -37,7 +37,7 @@
         }
 
         [JsonIgnore]
-        public IParser<IWeather> WeatherParser
+        public Parser<IWeather> WeatherParser
         {
             set
             {

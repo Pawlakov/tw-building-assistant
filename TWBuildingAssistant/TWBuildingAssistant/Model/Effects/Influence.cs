@@ -10,7 +10,7 @@
     {
         private IReligion religion;
 
-        private IParser<IReligion> religionParser;
+        private Parser<IReligion> religionParser;
 
         public IReligion GetReligion()
         {
@@ -39,7 +39,7 @@
         [JsonProperty(Required = Required.Always)]
         public int Value { get; set; }
 
-        public void SetReligionParser(IParser<IReligion> parser)
+        public void SetReligionParser(Parser<IReligion> parser)
         {
             this.religionParser = parser ?? throw new ArgumentNullException(nameof(parser));
             this.religion = null;
@@ -71,7 +71,12 @@
 
         public override string ToString()
         {
-            return $"+{this.Value} {this.GetReligion()?.ToString() ?? "state religion"} religious influence";
+            if(this.religionParser != null)
+            {
+                return $"+{this.Value} {this.GetReligion()?.ToString() ?? "state religion"} religious influence";
+            }
+
+            return $"+{this.Value} (id = {this.ReligionId}) religious influence";
         }
     }
 }

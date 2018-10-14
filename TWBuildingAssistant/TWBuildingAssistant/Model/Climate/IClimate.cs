@@ -5,17 +5,13 @@
     using TWBuildingAssistant.Model.Effects;
     using TWBuildingAssistant.Model.Weather;
 
-    public interface IClimate
+    public interface IClimate : IParsable
     {
-        int Id { get; }
-
-        string Name { get; }
-
         IEnumerable<IWeatherEffect> WeatherEffects { get; }
 
         IProvincialEffect Effect { get; }
 
-        IParser<IWeather> WeatherParser { set; }
+        Parser<IWeather> WeatherParser { set; }
 
         bool Validate(out string message);
 

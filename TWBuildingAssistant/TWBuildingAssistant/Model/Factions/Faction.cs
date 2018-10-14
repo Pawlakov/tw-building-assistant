@@ -8,7 +8,7 @@
 
     public class Faction
     {
-        public Faction(XElement element, IParser<IResource> resourceParser, IParser<IReligion> religionParser)
+        public Faction(XElement element, Parser<IResource> resourceParser, Parser<IReligion> religionParser)
         {
             if (element == null)
                 throw new ArgumentNullException("element");

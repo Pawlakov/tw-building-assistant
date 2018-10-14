@@ -6,10 +6,8 @@
 
     using Unity;
 
-    public partial class WeatherManager
+    public partial class WeatherManager : Parser<IWeather>
     {
-        private readonly IEnumerable<IWeather> weathers;
-
         public WeatherManager(IUnityContainer resolver)
         {
             if (resolver == null)
@@ -19,7 +17,7 @@
 
             try
             {
-                this.weathers = resolver.Resolve<ISource>().Weathers.ToArray();
+                this.Content = resolver.Resolve<ISource>().Weathers.ToArray();
             }
             catch (Exception e)
             {
@@ -27,12 +25,12 @@
             }
             
             var message = string.Empty;
-            if (this.weathers.Any(x => !x.Validate(out message)))
+            if (this.Content.Any(x => !x.Validate(out message)))
             {
                 throw new WeatherException($"One of weathers is not valid ({message}).");
             }
 
-            foreach (var weather in this.weathers)
+            foreach (var weather in this.Content)
             {
                 weather.ConsideredWeatherTracker = this;
             }
@@ -42,7 +40,7 @@
         {
             get
             {
-                var result = this.weathers.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+                var result = this.Content.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
                 return result;
             }
         }
@@ -56,7 +54,7 @@
 
         public void ChangeConsideredWeather(IEnumerable<int> whichWeathers)
         {
-            var newConsideredWeathers = whichWeathers.Select(x => this.weathers.FirstOrDefault(y => y.Id == x)).ToArray();
+            var newConsideredWeathers = whichWeathers.Select(x => this.Content.FirstOrDefault(y => y.Id == x)).ToArray();
             if (newConsideredWeathers.Any(x => x == null))
             {
                 throw new ArgumentOutOfRangeException(nameof(whichWeathers), whichWeathers, $"There is no weather corresponding to one of given ids.");
@@ -69,41 +67,6 @@
         private void OnConsideredWeatherChanged(ConsideredWeatherChangedArgs e)
         {
             this.ConsideredWeatherChanged?.Invoke(this, e);
-        }
-    }
-
-    public partial class WeatherManager : IParser<IWeather>
-    {
-        public IWeather Parse(string input)
-        {
-            if (input == null)
-            {
-                return null;
-            }
-
-            var result = this.weathers.FirstOrDefault(element => input.Equals(element.Name, StringComparison.OrdinalIgnoreCase));
-            if (result == null)
-            {
-                throw new WeatherException("No matching weather found.");
-            }
-
-            return result;
-        }
-
-        public IWeather Find(int? id)
-        {
-            if (id == null)
-            {
-                return null;
-            }
-
-            var result = this.weathers.FirstOrDefault(x => x.Id == id);
-            if (result == null)
-            {
-                throw new WeatherException("No matching weather found.");
-            }
-
-            return result;
         }
     }
 }

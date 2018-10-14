@@ -2,12 +2,8 @@
 {
     using TWBuildingAssistant.Model.Effects;
 
-    public interface IReligion
+    public interface IReligion : IParsable
     {
-        int Id { get; set; }
-
-        string Name { get; }
-
         IProvincialEffect Effect { get; }
 
         bool IsState { get; }

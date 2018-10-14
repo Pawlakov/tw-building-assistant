@@ -88,24 +88,25 @@
                 religiousOsmosis = (int)element.Attribute("ro");
             }
 
+            var influences = new IInfluence[0];
             var bonuses = new IBonus[0];
             if (!string.IsNullOrEmpty((string)element))
                 bonuses = JsonConvert.DeserializeObject<Bonus[]>((string)element, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error });
-            this.Effect = new Effects.RegionalEffect()
+            if (religiousInfluence > 0)
+                influences = new[]
+                                 {
+                                     new Influence()
+                                         {
+                                             ReligionId = this.ContainingBranch.Religion?.Id, Value = religiousInfluence
+                                         }
+                                 };
+            this.Effect = new RegionalEffect()
                           {
                           Bonuses = bonuses,
                           Fertility = fertility,
                           FertilityDependentFood = foodPerFertility,
                           Growth = growth,
-                          Influences =
-                          new List<Effects.IInfluence>()
-                          {
-                          new Effects.Influence()
-                          {
-                          ReligionId = this.ContainingBranch.Religion?.Id,
-                          Value = religiousInfluence
-                          }
-                          },
+                          Influences = influences,
                           ProvincialSanitation = provincionalSanitation,
                           PublicOrder = publicOrder,
                           RegionalSanitation = regionalSanitation,

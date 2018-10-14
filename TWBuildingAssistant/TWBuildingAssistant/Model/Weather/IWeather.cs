@@ -1,11 +1,7 @@
 ﻿namespace TWBuildingAssistant.Model.Weather
 {
-    public interface IWeather
+    public interface IWeather : IParsable
     {
-        int Id { get; }
-
-        string Name { get; }
-
         IConsideredWeatherTracker ConsideredWeatherTracker { set; }
 
         bool IsConsidered();

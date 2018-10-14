@@ -12,7 +12,7 @@
     {
         private readonly IEnumerable<IInfluence> influences;
 
-        public ProvinceTraditions(XElement element, IParser<IReligion> religionParser)
+        public ProvinceTraditions(XElement element, Parser<IReligion> religionParser)
         {
             if (element == null)
             {
@@ -29,13 +29,7 @@
                 throw new FormatException(message);
             }
 
-            this.influences = from XElement item in element.Elements()
-                              select new Influence
-                                     {
-                                     ReligionId = religionParser.Parse(
-                                     (string)item.Attribute("r")).Id,
-                                     Value = (int)item
-                                     };
+            this.influences = element.Elements().Select(x => new Influence { ReligionId = religionParser.Parse((string)x.Attribute("r")).Id, Value = (int)x }).ToArray();
             foreach (var influence in this.influences)
             {
                 influence.SetReligionParser(religionParser);
@@ -44,7 +38,7 @@
 
         public IEnumerable<IInfluence> Influences => this.influences.ToArray();
 
-        public static bool ValidateElement(XElement element, IParser<IReligion> religionParser, out string message)
+        public static bool ValidateElement(XElement element, Parser<IReligion> religionParser, out string message)
         {
             foreach (var subelement in element.Elements())
             {

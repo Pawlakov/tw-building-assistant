@@ -1,11 +1,7 @@
 ﻿namespace TWBuildingAssistant.Model.Resources
 {
-    public interface IResource
+    public interface IResource : IParsable
     {
-        int Id { get; }
-
-        string Name { get; }
-
         SlotType BuildingType { get; }
 
         bool Obligatory { get; }

@@ -22,7 +22,7 @@
 
         private int desiredTechnologyLevelIndex = -1;
 
-        public ExpandedTechnologyTree(XElement element, IParser<IReligion> religionParser)
+        public ExpandedTechnologyTree(XElement element, Parser<IReligion> religionParser)
         {
             this.rootLevel = new TechnologyLevel(this);
             var tierElements = (from tierElement in element.Elements() select tierElement).ToArray();

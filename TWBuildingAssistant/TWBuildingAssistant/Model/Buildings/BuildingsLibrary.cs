@@ -34,7 +34,7 @@
 
         private readonly Dictionary<Resources.IResource, BuildingBranch> resourceBuildings;
 
-        public BuildingLibrary(string fileName, ITechnologyLevelAssigner technologyLevelAssigner, IParser<IResource> resourceParser, IParser<IReligion> religionParser)
+        public BuildingLibrary(string fileName, ITechnologyLevelAssigner technologyLevelAssigner, Parser<IResource> resourceParser, Parser<IReligion> religionParser)
         {
             var sourceFile = XDocument.Load("Model\\Buildings\\" + fileName);
             var buildingCategories = (from XElement element in sourceFile.Root.Elements() select element).ToDictionary((XElement element) => (string)element.Attribute("n"));

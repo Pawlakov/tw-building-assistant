@@ -11,7 +11,7 @@
 
         IProvincialEffect Effect { get; }
 
-        IParser<IWeather> WeatherParser { set; }
+        Parser<IWeather> WeatherParser { set; }
 
         bool Validate(out string message);
     }

@@ -6,7 +6,7 @@
 
     public static class TechnologyTreeFactory
     {
-        public static ITechnologyTree MakeTechnologyTree(string sourceFilename, IParser<IReligion> religionParser)
+        public static ITechnologyTree MakeTechnologyTree(string sourceFilename, Parser<IReligion> religionParser)
         {
             XDocument inputDocument = XDocument.Load("Model\\Technologies\\" + sourceFilename);
             XElement treeNode = inputDocument.Root;

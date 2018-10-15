@@ -19,6 +19,7 @@
             return new RegionalEffect()
                    {
                    RegionalSanitation = this.RegionalSanitation + other.RegionalSanitation,
+
                    PublicOrder = this.PublicOrder + other.PublicOrder,
                    RegularFood = this.RegularFood + other.RegularFood,
                    FertilityDependentFood = this.FertilityDependentFood + other.FertilityDependentFood,

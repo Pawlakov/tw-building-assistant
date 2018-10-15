@@ -9,40 +9,19 @@
 
     using TWBuildingAssistant.Model.Effects;
 
-    /// <summary>
-    /// A test fixture containing test of the <see cref="ProvincialEffect"/> class.
-    /// </summary>
     [TestFixture]
     public class ProvincionalEffectTests
     {
-        /// <summary>
-        /// An example <see cref="ProvincialEffect"/> object filled with some values.
-        /// </summary>
-        private IProvincialEffect filledEffect;
+        private ProvincialEffect filledEffect;
 
-        /// <summary>
-        /// A set of <see cref="IBonus"/> mocks. Not all of them are valid.
-        /// </summary>
         private IEnumerable<IBonus> invalidBonuses;
 
-        /// <summary>
-        /// A set of <see cref="IBonus"/> mocks. All of them are valid.
-        /// </summary>
         private IEnumerable<IBonus> validBonuses;
 
-        /// <summary>
-        /// A set of <see cref="IInfluence"/> mocks. Not all of them are valid.
-        /// </summary>
         private IEnumerable<IInfluence> invalidInfluences;
 
-        /// <summary>
-        /// A set of <see cref="IInfluence"/> mocks. All of them are valid.
-        /// </summary>
         private IEnumerable<IInfluence> validInfluences;
 
-        /// <summary>
-        /// The preparation required before any tests.
-        /// </summary>
         [OneTimeSetUp]
         public void Preparation()
         {
@@ -64,34 +43,19 @@
             this.filledEffect =
             new ProvincialEffect()
             {
-            Bonuses = this.validBonuses, 
-            Fertility = 1, 
-            FertilityDependentFood = 2, 
-            Growth = 3, 
-            Influences = this.validInfluences, 
-            RegularFood = 4, 
-            PublicOrder = 5, 
-            ResearchRate = 6, 
-            ReligiousOsmosis = 7, 
-            ProvincialSanitation = 8
+                Bonuses = this.validBonuses,
+                Fertility = 1,
+                FertilityDependentFood = 2,
+                Growth = 3,
+                Influences = this.validInfluences,
+                RegularFood = 4,
+                PublicOrder = 5,
+                ResearchRate = 6,
+                ReligiousOsmosis = 7,
+                ProvincialSanitation = 8
             };
         }
 
-        /// <summary>
-        /// Checks whether the calculation of total food effect undergoes correctly.
-        /// </summary>
-        /// <param name="regular">
-        /// The food effect independent from fertility.
-        /// </param>
-        /// <param name="fertilityDependent">
-        /// The food effect dependent on fertility.
-        /// </param>
-        /// <param name="fertility">
-        /// The fertility level.
-        /// </param>
-        /// <param name="expected">
-        /// The expected total food effect.
-        /// </param>
         [TestCase(0, 0, 0, 0)]
         [TestCase(0, 0, 6, 0)]
         [TestCase(10, 0, 3, 10)]
@@ -100,44 +64,25 @@
         [TestCase(0, 50, 1, 50)]
         public void FoodCalcultaion(int regular, int fertilityDependent, int fertility, int expected)
         {
-            IProvincialEffect effect = new ProvincialEffect { RegularFood = regular, FertilityDependentFood = fertilityDependent };
+            var effect = new ProvincialEffect { RegularFood = regular, FertilityDependentFood = fertilityDependent };
             Assert.AreEqual(expected, effect.Food(fertility), $"The {nameof(ProvincialEffect.Food)} method returned an incorrect value.");
         }
 
-        /// <summary>
-        /// Checks whether the validation of <see cref="ProvincialEffect"/> values undergoes correctly.
-        /// </summary>
-        /// <param name="useValidBonuses">
-        /// Indicates whether the bonuses contained by the <see cref="ProvincialEffect"/> should all be valid. Otherwise the bonuses will be invalid.
-        /// </param>
-        /// <param name="useValidInfluences">
-        /// Indicates whether the influences contained by the <see cref="ProvincialEffect"/> should all be valid. Otherwise the influences will be invalid.
-        /// </param>
-        [TestCase(true, true)]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        [TestCase(false, false)]
-        public void Validation(bool useValidBonuses, bool useValidInfluences)
+        [Test]
+        public void Validation([Values(true, false)]bool useValidBonuses, [Values(true, false)]bool useValidInfluences)
         {
-            IProvincialEffect effect = new ProvincialEffect
-                                         {
-                                         Bonuses = useValidBonuses ? this.validBonuses : this.invalidBonuses,
-                                         Influences = useValidInfluences ? this.validInfluences : this.invalidInfluences
-                                         };
+            var effect = new ProvincialEffect
+            {
+                Bonuses = useValidBonuses ? this.validBonuses : this.invalidBonuses,
+                Influences = useValidInfluences ? this.validInfluences : this.invalidInfluences
+            };
             Assert.AreEqual(useValidInfluences && useValidBonuses, effect.Validate(out _), $"The {nameof(ProvincialEffect.Validate)} method returned an incorrect value.");
         }
 
-        /// <summary>
-        /// Checks whether the aggregation of a filled <see cref="ProvincialEffect"/> with an empty one (or null) undergoes correctly.
-        /// </summary>
-        /// <param name="useEmpty">
-        /// Indicates whether an empty <see cref="ProvincialEffect"/> object will be used instead of null.
-        /// </param>
-        [TestCase(false)]
-        [TestCase(true)]
-        public void AggregationFilledWithEmpty(bool useEmpty)
+        [Test]
+        public void AggregationFilledWithEmpty([Values(true, false)]bool useEmpty)
         {
-            IProvincialEffect effect = this.filledEffect.Aggregate(useEmpty ? new ProvincialEffect() : null);
+            var effect = this.filledEffect.Aggregate(useEmpty ? new ProvincialEffect() : null);
             Assert.AreEqual(this.filledEffect.Bonuses.Count(), effect.Bonuses.Count(), $"The result's {nameof(ProvincialEffect.Bonuses)} contains an incorrect ammount of elements.");
             Assert.AreEqual(this.filledEffect.Fertility, effect.Fertility, $"The result's {nameof(ProvincialEffect.Fertility)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.FertilityDependentFood, effect.FertilityDependentFood, $"The result's {nameof(ProvincialEffect.FertilityDependentFood)} contains an incorrect value.");
@@ -150,13 +95,10 @@
             Assert.AreEqual(this.filledEffect.ProvincialSanitation, effect.ProvincialSanitation, $"The result's {nameof(ProvincialEffect.ProvincialSanitation)} contains an incorrect value.");
         }
 
-        /// <summary>
-        /// Checks whether the aggregation of an empty <see cref="ProvincialEffect"/> with a filled one undergoes correctly.
-        /// </summary>
         [Test]
         public void AggregationEmptyWithFilled()
         {
-            IProvincialEffect effect = new ProvincialEffect().Aggregate(this.filledEffect);
+            var effect = new ProvincialEffect().Aggregate(this.filledEffect);
             Assert.AreEqual(this.filledEffect.Bonuses.Count(), effect.Bonuses.Count(), $"The result's {nameof(ProvincialEffect.Bonuses)} contains an incorrect ammount of elements.");
             Assert.AreEqual(this.filledEffect.Fertility, effect.Fertility, $"The result's {nameof(ProvincialEffect.Fertility)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.FertilityDependentFood, effect.FertilityDependentFood, $"The result's {nameof(ProvincialEffect.FertilityDependentFood)} contains an incorrect value.");
@@ -169,13 +111,10 @@
             Assert.AreEqual(this.filledEffect.ProvincialSanitation, effect.ProvincialSanitation, $"The result's {nameof(ProvincialEffect.ProvincialSanitation)} contains an incorrect value.");
         }
 
-        /// <summary>
-        /// Checks whether the aggregation of a filled <see cref="ProvincialEffect"/> with another filled one undergoes correctly.
-        /// </summary>
         [Test]
         public void AggregationFilledWithFilled()
         {
-            IProvincialEffect effect = this.filledEffect.Aggregate(this.filledEffect);
+            var effect = this.filledEffect.Aggregate(this.filledEffect);
             Assert.AreEqual(this.filledEffect.Bonuses.Count() * 2, effect.Bonuses.Count(), $"The result's {nameof(ProvincialEffect.Bonuses)} contains an incorrect ammount of elements.");
             Assert.AreEqual(this.filledEffect.Fertility * 2, effect.Fertility, $"The result's {nameof(ProvincialEffect.Fertility)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.FertilityDependentFood * 2, effect.FertilityDependentFood, $"The result's {nameof(ProvincialEffect.FertilityDependentFood)} contains an incorrect value.");

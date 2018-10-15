@@ -37,8 +37,6 @@
         [Test]
         public void IsConsideredTest()
         {
-            // Todo: W zbiorze nowych dany obiekt: jest sam, nie ma nic, jest z innym, jest tylko inny. Reakcja na zmiany w trackere.
-            
             var considered = new Weather { Id = 1, Name = "1" };
             var other = new Weather { Id = 2, Name = "2" };
 

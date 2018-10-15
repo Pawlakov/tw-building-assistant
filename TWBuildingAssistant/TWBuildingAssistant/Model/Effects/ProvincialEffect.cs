@@ -40,9 +40,9 @@
         [JsonConverter(typeof(JsonConcreteConverter<Influence[]>))]
         public IEnumerable<IInfluence> Influences { get; set; } = new IInfluence[0];
 
-        public int Food(int fertility)
+        public int Food(int fertilityLevel)
         {
-            return this.RegularFood + (this.FertilityDependentFood * fertility);
+            return this.RegularFood + (this.FertilityDependentFood * fertilityLevel);
         }
 
         public IProvincialEffect Aggregate(IProvincialEffect other)
@@ -69,16 +69,28 @@
 
         public bool Validate(out string message)
         {
-            var submessage = string.Empty;
-            if (!this.Influences.All(influence => influence.Validate(out submessage)))
+            if (this.Influences == null)
             {
-                message = $"On of influences is invalid ({submessage}).";
+                message = $"Influences are missing.";
                 return false;
             }
 
-            if (!this.Bonuses.All(bonus => bonus.Validate(out submessage)))
+            if (this.Bonuses == null)
             {
-                message = $"On of bonuses is invalid ({submessage}).";
+                message = $"Bonuses are missing.";
+                return false;
+            }
+
+            var subMessage = string.Empty;
+            if (!this.Influences.All(influence => influence.Validate(out subMessage)))
+            {
+                message = $"On of influences is invalid ({subMessage}).";
+                return false;
+            }
+
+            if (!this.Bonuses.All(bonus => bonus.Validate(out subMessage)))
+            {
+                message = $"On of bonuses is invalid ({subMessage}).";
                 return false;
             }
 

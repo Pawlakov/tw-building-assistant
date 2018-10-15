@@ -8,20 +8,11 @@
     using NUnit.Framework;
 
     using TWBuildingAssistant.Model.Effects;
-
-    /// <summary>
-    /// A test fixture containing test of the <see cref="RegionalEffect"/> class.
-    /// </summary>
+    
     public class RegionalEffectTests
     {
-        /// <summary>
-        /// An example <see cref="RegionalEffect"/> object filled with some values.
-        /// </summary>
-        private IRegionalEffect filledEffect;
-
-        /// <summary>
-        /// The preparation required before any tests.
-        /// </summary>
+        private RegionalEffect filledEffect;
+        
         [OneTimeSetUp]
         public void Preparation()
         {
@@ -50,18 +41,11 @@
             RegionalSanitation = 9
             };
         }
-
-        /// <summary>
-        /// Checks whether the aggregation of a filled <see cref="RegionalEffect"/> with an empty one (or null) undergoes correctly.
-        /// </summary>
-        /// <param name="useEmpty">
-        /// Indicates whether an empty <see cref="RegionalEffect"/> object will be used instead of null.
-        /// </param>
-        [TestCase(false)]
-        [TestCase(true)]
-        public void AggregationFilledWithEmpty(bool useEmpty)
+        
+        [Test]
+        public void AggregationFilledWithEmpty([Values(true, false)]bool useEmpty)
         {
-            IRegionalEffect effect = this.filledEffect.Aggregate(useEmpty ? new RegionalEffect() : null);
+            var effect = this.filledEffect.Aggregate(useEmpty ? new RegionalEffect() : null);
             Assert.AreEqual(this.filledEffect.Bonuses.Count(), effect.Bonuses.Count(), $"The result's {nameof(RegionalEffect.Bonuses)} contains an incorrect ammount of elements.");
             Assert.AreEqual(this.filledEffect.Fertility, effect.Fertility, $"The result's {nameof(RegionalEffect.Fertility)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.FertilityDependentFood, effect.FertilityDependentFood, $"The result's {nameof(RegionalEffect.FertilityDependentFood)} contains an incorrect value.");
@@ -74,14 +58,11 @@
             Assert.AreEqual(this.filledEffect.ProvincialSanitation, effect.ProvincialSanitation, $"The result's {nameof(RegionalEffect.ProvincialSanitation)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.RegionalSanitation, effect.RegionalSanitation, $"The result's {nameof(RegionalEffect.RegionalSanitation)} contains an incorrect value.");
         }
-
-        /// <summary>
-        /// Checks whether the aggregation of an empty <see cref="RegionalEffect"/> with a filled one undergoes correctly.
-        /// </summary>
+        
         [Test]
         public void AggregationEmptyWithFilled()
         {
-            IRegionalEffect effect = new RegionalEffect().Aggregate(this.filledEffect);
+            var effect = new RegionalEffect().Aggregate(this.filledEffect);
             Assert.AreEqual(this.filledEffect.Bonuses.Count(), effect.Bonuses.Count(), $"The result's {nameof(RegionalEffect.Bonuses)} contains an incorrect ammount of elements.");
             Assert.AreEqual(this.filledEffect.Fertility, effect.Fertility, $"The result's {nameof(RegionalEffect.Fertility)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.FertilityDependentFood, effect.FertilityDependentFood, $"The result's {nameof(RegionalEffect.FertilityDependentFood)} contains an incorrect value.");
@@ -94,14 +75,11 @@
             Assert.AreEqual(this.filledEffect.ProvincialSanitation, effect.ProvincialSanitation, $"The result's {nameof(RegionalEffect.ProvincialSanitation)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.RegionalSanitation, effect.RegionalSanitation, $"The result's {nameof(RegionalEffect.RegionalSanitation)} contains an incorrect value.");
         }
-
-        /// <summary>
-        /// Checks whether the aggregation of a filled <see cref="RegionalEffect"/> with another filled one undergoes correctly.
-        /// </summary>
+        
         [Test]
         public void AggregationFilledWithFilled()
         {
-            IRegionalEffect effect = this.filledEffect.Aggregate(this.filledEffect);
+            var effect = this.filledEffect.Aggregate(this.filledEffect);
             Assert.AreEqual(this.filledEffect.Bonuses.Count() * 2, effect.Bonuses.Count(), $"The result's {nameof(RegionalEffect.Bonuses)} contains an incorrect ammount of elements.");
             Assert.AreEqual(this.filledEffect.Fertility * 2, effect.Fertility, $"The result's {nameof(RegionalEffect.Fertility)} contains an incorrect value.");
             Assert.AreEqual(this.filledEffect.FertilityDependentFood * 2, effect.FertilityDependentFood, $"The result's {nameof(RegionalEffect.FertilityDependentFood)} contains an incorrect value.");

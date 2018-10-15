@@ -1,5 +1,6 @@
 ﻿namespace Tests.Model.Effects
 {
+    using System;
     using System.Collections.Generic;
 
     using Moq;
@@ -8,66 +9,94 @@
 
     using TWBuildingAssistant.Model.Effects;
     using TWBuildingAssistant.Model.Religions;
-
-    /// <summary>
-    /// A text fixture containing tests of the <see cref="InfluenceCalculator"/> class.
-    /// </summary>
+    
     [TestFixture]
     public class InfluenceCalculatorTests
     {
-        /// <summary>
-        /// A mock of a state religion.
-        /// </summary>
-        private IReligion stateReligion;
+        private Mock<IInfluence> state;
+        
+        private Mock<IInfluence> other;
 
-        /// <summary>
-        /// A mock of a non-state religion.
-        /// </summary>
-        private IReligion otherReligion;
+        private Mock<IInfluence> broken;
 
-        /// <summary>
-        /// The set up before all tests.
-        /// </summary>
         [OneTimeSetUp]
         public void Preparation()
         {
-            var tempState = new Mock<IReligion>();
-            tempState.Setup(x => x.IsState).Returns(true);
-            this.stateReligion = tempState.Object;
-            var tempOther = new Mock<IReligion>();
-            tempOther.Setup(x => x.IsState).Returns(false);
-            this.otherReligion = tempOther.Object;
+            this.state = new Mock<IInfluence>();
+            this.other = new Mock<IInfluence>();
+            this.broken = new Mock<IInfluence>();
+
+            var stateReligion = new Mock<IReligion>();
+            var otherReligion = new Mock<IReligion>();
+
+            stateReligion.Setup(x => x.IsState).Returns(true);
+            otherReligion.Setup(x => x.IsState).Returns(false);
+            
+            this.state.Setup(x => x.Value).Returns(1);
+            this.other.Setup(x => x.Value).Returns(1);
+            this.broken.Setup(x => x.Value).Returns(1);
+            this.state.Setup(x => x.GetReligion()).Returns(stateReligion.Object);
+            this.other.Setup(x => x.GetReligion()).Returns(otherReligion.Object);
+            this.broken.Setup(x => x.GetReligion()).Throws(new Exception("Literally anything."));
         }
 
-        /// <summary>
-        /// Checks whether the calculation of public order change caused by religions undergoes correctly.
-        /// </summary>
-        /// <param name="expectedPublicOrder">
-        /// The expected Public Order.
-        /// </param>
-        /// <param name="stateInfluence">
-        /// The state Influence.
-        /// </param>
-        /// <param name="otherInfluence">
-        /// The other Influence.
-        /// </param>
-        [TestCase(-6, 1, 4)]
-        [TestCase(-5, 7, 13)]
-        [TestCase(-4, 2, 3)]
-        [TestCase(-4, 1, 1)]
-        [TestCase(-3, 3, 2)]
-        [TestCase(-2, 3, 1)]
-        [TestCase(-1, 4, 1)]
-        public void Calculation(int expectedPublicOrder, int stateInfluence, int otherInfluence)
+        [TestCase(-6, 20.0)]
+        [TestCase(-5, 35.0)]
+        [TestCase(-4, 40.0)]
+        [TestCase(-4, 50.0)]
+        [TestCase(-3, 60.0)]
+        [TestCase(-2, 75.0)]
+        [TestCase(-1, 80.0)]
+        [TestCase(0, 100.0)]
+        public void PublicOrderCorrectTest(int expectedPublicOrder, double percentage)
         {
-            var state = new Mock<IInfluence>();
-            var other = new Mock<IInfluence>();
-            state.Setup(x => x.Value).Returns(stateInfluence);
-            state.Setup(x => x.GetReligion()).Returns(this.stateReligion);
-            other.Setup(x => x.Value).Returns(otherInfluence);
-            other.Setup(x => x.GetReligion()).Returns(this.otherReligion);
-            var influences = new List<IInfluence> { state.Object, other.Object };
-            Assert.AreEqual(expectedPublicOrder, InfluenceCalculator.PublicOrder(influences), $"The {nameof(InfluenceCalculator.PublicOrder)} method returned an incorrect value.");
+            Assert.AreEqual(expectedPublicOrder, InfluenceCalculator.PublicOrder(percentage), $"The {nameof(InfluenceCalculator.PublicOrder)} method returned an incorrect value.");
+        }
+        
+        [Test]
+        public void PublicOrderConsistencyTest([Values(0, 1, 3, 6, 8, 12)]int stateInfluence, [Values(0, 1, 2, 5, 9, 10)]int otherInfluence)
+        {
+            this.state.Setup(x => x.Value).Returns(stateInfluence);
+            this.other.Setup(x => x.Value).Returns(otherInfluence);
+            var influences = new List<IInfluence> { this.state.Object, this.other.Object };
+            var percentage = InfluenceCalculator.Percentage(influences);
+            Assert.AreEqual(InfluenceCalculator.PublicOrder(influences), InfluenceCalculator.PublicOrder(percentage), $"The {nameof(InfluenceCalculator.PublicOrder)} method returned an incorrect value.");
+        }
+
+        [TestCase(-5.0)]
+        [TestCase(200.0)]
+        public void PublicOrderCorrectTest(double percentage)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => InfluenceCalculator.PublicOrder(percentage), $"The {nameof(InfluenceCalculator.PublicOrder)} method returned an incorrect value.");
+        }
+
+        [TestCase(20.0, 1, 4)]
+        [TestCase(35.0, 7, 13)]
+        [TestCase(40.0, 2, 3)]
+        [TestCase(50.0, 1, 1)]
+        [TestCase(60.0, 3, 2)]
+        [TestCase(75.0, 3, 1)]
+        [TestCase(80.0, 4, 1)]
+        [TestCase(100.0, 0, 0)]
+        public void PercentageTest(double expectedPercentage, int stateInfluence, int otherInfluence)
+        {
+            this.state.Setup(x => x.Value).Returns(stateInfluence);
+            this.other.Setup(x => x.Value).Returns(otherInfluence);
+            var influences = new List<IInfluence> { this.state.Object, this.other.Object };
+            Assert.AreEqual(expectedPercentage, InfluenceCalculator.Percentage(influences), 0.1, $"The {nameof(InfluenceCalculator.PublicOrder)} method returned an incorrect value.");
+        }
+
+        [Test]
+        public void PercentageBrokenTest()
+        {
+            var influences = new List<IInfluence> { this.state.Object, this.other.Object, this.broken.Object };
+            Assert.Throws<EffectsException>(() => InfluenceCalculator.Percentage(influences), $"The {nameof(InfluenceCalculator.PublicOrder)} method didn't throw {nameof(EffectsException)}.");
+        }
+
+        [Test]
+        public void PercentageNullTest()
+        {
+            Assert.Throws<ArgumentNullException>(() => InfluenceCalculator.Percentage(null), $"The {nameof(InfluenceCalculator.PublicOrder)} method didn't throw {nameof(ArgumentNullException)}.");
         }
     }
 }

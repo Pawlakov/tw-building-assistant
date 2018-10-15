@@ -1,7 +1,5 @@
 ﻿namespace TWBuildingAssistant.Model.Effects
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
 
     using Newtonsoft.Json;
@@ -21,25 +19,6 @@
         [DefaultValue(BonusType.Simple)]
         public BonusType Type { get; set; }
 
-        public void Execute(Dictionary<WealthCategory, WealthRecord> records)
-        {
-            if (records == null)
-            {
-                throw new ArgumentNullException(nameof(records));
-            }
-
-            if (!records.ContainsKey(this.Category))
-            {
-                records.Add(this.Category, new WealthRecord());
-            }
-            else if (records[this.Category] == null)
-            {
-                throw new EffectsException($"For the category {this.Category} the corresponding {nameof(WealthRecord)} is missing.");
-            }
-
-            records[this.Category][this.Type] += this.Value;
-        }
-        
         public bool Validate(out string message)
         {
             if (this.Value == 0)

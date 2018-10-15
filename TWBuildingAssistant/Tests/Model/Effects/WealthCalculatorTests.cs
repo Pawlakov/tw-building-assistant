@@ -5,31 +5,16 @@
     using NUnit.Framework;
 
     using TWBuildingAssistant.Model.Effects;
-
-    /// <summary>
-    /// A text fixture containing tests of the <see cref="WealthCalculator"/> class.
-    /// </summary>
+    
     [TestFixture]
     public class WealthCalculatorTests
     {
-        /// <summary>
-        /// The expected result of wealth calculation.
-        /// </summary>
         private const double ExpectedResult = 1000.0;
-
-        /// <summary>
-        /// The fertility required for the wealth calculation.
-        /// </summary>
+        
         private const int Fertility = 2;
-
-        /// <summary>
-        /// A prepared set of bonuses for the test.
-        /// </summary>
+        
         private IEnumerable<IBonus> bonuses;
-
-        /// <summary>
-        /// The preparation required before the test.
-        /// </summary>
+        
         [OneTimeSetUp]
         public void Preparation()
         {
@@ -53,8 +38,7 @@
             {
             Category =
             WealthCategory.Husbandry,
-            Type = BonusType
-            .FertilityDependent,
+            Type = BonusType.FertilityDependent,
             Value = 50
             },
             new Bonus
@@ -80,10 +64,7 @@
             }
             };
         }
-
-        /// <summary>
-        /// Checks whether the calculation of province's total wealth undergoes correctly.
-        /// </summary>
+        
         [Test]
         public void Calculation()
         {

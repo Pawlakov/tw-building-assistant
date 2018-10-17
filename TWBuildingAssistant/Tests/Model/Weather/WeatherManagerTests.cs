@@ -59,38 +59,38 @@ namespace Tests.Model.Weather
         }
 
         [Test]
-        public void ValidConstructionTest()
+        public void ConstructorValidTest()
         {
             this.resolver.RegisterInstance(this.validSource);
             Assert.DoesNotThrow(
                 () => new WeatherManager(this.resolver),
-                $"Construction of a {nameof(WeatherManager)} object using a valid {nameof(ISource)} failed.");
+                $"Constructor failed.");
         }
 
         [Test]
-        public void InvalidConstructionTest()
+        public void ConstructorInvalidTest()
         {
             this.resolver.RegisterInstance(this.invalidSource);
             Assert.Throws<WeatherException>(
                 () => new WeatherManager(this.resolver),
-                $"Construction of a {nameof(WeatherManager)} object using an invalid {nameof(ISource)} didn't fail.");
+                $"Constructor didn't throw {nameof(WeatherException)}.");
         }
 
         [Test]
-        public void BrokenConstructionTest()
+        public void ConstructorBrokenTest()
         {
             this.resolver.RegisterInstance(this.brokenSource);
             Assert.Throws<WeatherException>(
                 () => new WeatherManager(this.resolver),
-                $"Construction of a {nameof(WeatherManager)} object using a broken {nameof(ISource)} didn't fail.");
+                $"Constructor didn't throw {nameof(WeatherException)}.");
         }
 
         [Test]
-        public void NullConstructionTest()
+        public void ConstructorNullTest()
         {
             Assert.Throws<ArgumentNullException>(
                 () => new WeatherManager(null),
-                $"Construction of a {nameof(WeatherManager)} object using no {nameof(ISource)} didn't fail.");
+                $"Constructor didn't throw {nameof(ArgumentNullException)}.");
         }
 
         [Test]
@@ -99,12 +99,12 @@ namespace Tests.Model.Weather
             this.resolver.RegisterInstance(this.threeWeathersSource);
             var manager = new WeatherManager(this.resolver);
             var names = manager.AllWeathersNames.ToArray();
-            Assert.AreEqual(3, names.Length, $"The {nameof(WeatherManager.AllWeathersNames)} property returned wrong amount of elements.");
+            Assert.AreEqual(3, names.Length, $"The property returned wrong amount of elements.");
             for (var index = 1; index <= 3; index++)
             {
                 var pair = names.FirstOrDefault(x => x.Key == index);
-                Assert.IsNotNull(pair, $"The {nameof(WeatherManager.AllWeathersNames)} property didn't return an element with an expected id.");
-                Assert.AreEqual(index.ToString(), pair.Value, $"The {nameof(WeatherManager.AllWeathersNames)} property didn't return an element with an expected name.");
+                Assert.IsNotNull(pair, $"The property didn't return an element with an expected id.");
+                Assert.AreEqual(index.ToString(), pair.Value, $"The property didn't return an element with an expected name.");
             }
         }
 
@@ -116,8 +116,8 @@ namespace Tests.Model.Weather
             for (var index = 1; index <= 3; index++)
             {
                 IWeather parsed = null;
-                Assert.DoesNotThrow(() => parsed = manager.Parse(index.ToString()), $"The {nameof(WeatherManager.Parse)} method failed.");
-                Assert.IsNotNull(parsed, $"The {nameof(WeatherManager.Parse)} method returned null.");
+                Assert.DoesNotThrow(() => parsed = manager.Parse(index.ToString()), $"The method failed.");
+                Assert.IsNotNull(parsed, $"The method returned null.");
             }
         }
 
@@ -126,7 +126,9 @@ namespace Tests.Model.Weather
         {
             this.resolver.RegisterInstance(this.threeWeathersSource);
             var manager = new WeatherManager(this.resolver);
-            Assert.Throws<WeatherException>(() => manager.Parse("0"), $"The {nameof(WeatherManager.Parse)} method didn't throw.");
+            IWeather parsed = null;
+            Assert.DoesNotThrow(() => parsed = manager.Parse("0"), $"The  method failed.");
+            Assert.IsNull(parsed, $"The method didn't return null.");
         }
 
         [Test]
@@ -134,9 +136,7 @@ namespace Tests.Model.Weather
         {
             this.resolver.RegisterInstance(this.threeWeathersSource);
             var manager = new WeatherManager(this.resolver);
-            IWeather parsed = null;
-            Assert.DoesNotThrow(() => parsed = manager.Parse(null), $"The {nameof(WeatherManager.Parse)} method failed.");
-            Assert.IsNull(parsed, $"The {nameof(WeatherManager.Parse)} method didn't return null.");
+            Assert.Throws<ArgumentNullException>(() => manager.Parse(null), $"The method didn't throw {nameof(ArgumentNullException)}.");
         }
 
         [Test]
@@ -157,7 +157,9 @@ namespace Tests.Model.Weather
         {
             this.resolver.RegisterInstance(this.threeWeathersSource);
             var manager = new WeatherManager(this.resolver);
-            Assert.Throws<WeatherException>(() => manager.Find(0), $"The {nameof(WeatherManager.Find)} method didn't throw.");
+            IWeather found = null;
+            Assert.DoesNotThrow(() => found = manager.Find(0), $"The {nameof(WeatherManager.Find)} method failed.");
+            Assert.IsNull(found, $"The method didn't return null.");
         }
 
         [Test]

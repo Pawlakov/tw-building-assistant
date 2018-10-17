@@ -54,13 +54,19 @@
 
         public void ChangeConsideredWeather(IEnumerable<int> whichWeathers)
         {
-            var newConsideredWeathers = whichWeathers.Select(x => this.Content.FirstOrDefault(y => y.Id == x)).ToArray();
-            if (newConsideredWeathers.Any(x => x == null))
-            {
-                throw new ArgumentOutOfRangeException(nameof(whichWeathers), whichWeathers, $"There is no weather corresponding to one of given ids.");
-            }
+            var newConsideredWeathers = whichWeathers.Select(
+                x =>
+                    {
+                        var y = this.Find(x);
+                        if (y == null)
+                        {
+                            throw new ArgumentOutOfRangeException(nameof(whichWeathers), whichWeathers, $"There is no weather with id = {x}.");
+                        }
 
-            this.ConsideredWeathers = newConsideredWeathers;
+                        return y;
+                    });
+
+            this.ConsideredWeathers = newConsideredWeathers.ToArray();
             this.OnConsideredWeatherChanged(new ConsideredWeatherChangedArgs(this, this.ConsideredWeathers));
         }
 

@@ -27,15 +27,7 @@
         }
 
         [Test]
-        public void ToStringTest()
-        {
-            const string Name = "TheName";
-            IWeather created = new Weather { Id = 1, Name = Name };
-            Assert.IsTrue(created.ToString().Equals(Name), $"The {nameof(Weather.ToString)} method returned unexpected value.");
-        }
-
-        [Test]
-        public void IsConsideredTest()
+        public void IsConsideredCorrectTest()
         {
             var considered = new Weather { Id = 1, Name = "1" };
             var other = new Weather { Id = 2, Name = "2" };

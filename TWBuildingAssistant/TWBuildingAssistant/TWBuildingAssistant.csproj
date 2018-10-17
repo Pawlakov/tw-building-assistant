@@ -125,7 +125,7 @@
     <Compile Include="Data\JsonData.cs" />
     <Compile Include="Model\Effects\EffectsException.cs" />
     <Compile Include="Model\Extensions.cs" />
-    <Compile Include="Model\IParsable.cs" />
+    <Compile Include="Model\IParseable.cs" />
     <Compile Include="Model\ISource.cs" />
     <Compile Include="Model\JsonEnumConverter.cs" />
     <Compile Include="Model\Weather\WeatherException.cs" />
@@ -186,8 +186,8 @@
     <Compile Include="Model\Resources\IResource.cs" />
     <Compile Include="Model\Religions\ReligionsException.cs" />
     <Compile Include="Model\Resources\Resource.cs" />
-    <Compile Include="Model\Resources\ResourcesException.cs" />
-    <Compile Include="Model\Resources\ResourcesManager.cs" />
+    <Compile Include="Model\Resources\ResourceException.cs" />
+    <Compile Include="Model\Resources\ResourceManager.cs" />
     <Compile Include="Model\Resources\SlotType.cs" />
     <Compile Include="Model\SimulationKit.cs" />
     <Compile Include="Model\Technologies\ExpandedTechnologyTree.cs" />

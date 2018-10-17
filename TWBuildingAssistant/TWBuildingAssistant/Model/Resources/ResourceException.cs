@@ -2,19 +2,19 @@
 {
     using System;
 
-    public class ResourcesException : Exception
+    public class ResourceException : Exception
     {
-        public ResourcesException() 
+        public ResourceException() 
         : base("Failure concerning resources.")
         {
         }
 
-        public ResourcesException(string message) 
+        public ResourceException(string message) 
         : base(message)
         {
         }
 
-        public ResourcesException(string message, Exception innerException) 
+        public ResourceException(string message, Exception innerException) 
         : base(message, innerException)
         {
         }

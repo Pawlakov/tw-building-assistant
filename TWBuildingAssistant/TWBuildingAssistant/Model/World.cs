@@ -22,7 +22,7 @@
 
         private readonly ClimateManager climateManager;
 
-        private readonly ResourcesManager resourcesManager;
+        private readonly ResourceManager resourcesManager;
 
         private readonly ReligionsManager religionsManager;
 
@@ -35,7 +35,7 @@
             this.resolver = new UnityContainer();
             this.resolver.RegisterInstance<ISource>(new JsonData());
 
-            this.resourcesManager = new ResourcesManager(this.resolver);
+            this.resourcesManager = new ResourceManager(this.resolver);
             this.resolver.RegisterInstance<Parser<IResource>>(this.resourcesManager);
 
             this.religionsManager = new ReligionsManager(this.resolver);

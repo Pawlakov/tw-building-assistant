@@ -22,15 +22,9 @@
 
         public bool Validate(out string message)
         {
-            if (this.Name == null)
+            if (string.IsNullOrEmpty(this.Name))
             {
-                message = "Name is null.";
-                return false;
-            }
-
-            if (this.Name.Equals(string.Empty))
-            {
-                message = "Name is empty.";
+                message = "Name is null or empty.";
                 return false;
             }
 

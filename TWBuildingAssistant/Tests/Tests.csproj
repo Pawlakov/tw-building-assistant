@@ -115,7 +115,7 @@
     <Compile Include="Model\Effects\WealthCalculatorTests.cs" />
     <Compile Include="Model\Effects\WealthRecordTests.cs" />
     <Compile Include="Model\Religions\ReligionTests.cs" />
-    <Compile Include="Model\Resources\ResourcesManagerTests.cs" />
+    <Compile Include="Model\Resources\ResourceManagerTests.cs" />
     <Compile Include="Model\Resources\ResourceTests.cs" />
     <Compile Include="Model\Weather\WeatherManagerTests.cs" />
     <Compile Include="Model\Weather\WeatherTests.cs" />

@@ -7,11 +7,11 @@
     {
         int WeatherId { get; }
 
-        IWeather Weather { get; }
-
         IProvincialEffect Effect { get; }
 
-        Parser<IWeather> WeatherParser { set; }
+        IWeather GetWeather();
+
+        void SetWeatherParser(Parser<IWeather> parser);
 
         bool Validate(out string message);
     }

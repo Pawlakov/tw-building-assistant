@@ -3,7 +3,7 @@
     using System;
 
     using Newtonsoft.Json;
-    
+
     using TWBuildingAssistant.Model.Religions;
 
     public class Influence : IInfluence
@@ -11,6 +11,12 @@
         private IReligion religion;
 
         private Parser<IReligion> religionParser;
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public int? ReligionId { get; set; }
+
+        [JsonProperty(Required = Required.Always)]
+        public int Value { get; set; }
 
         public IReligion GetReligion()
         {
@@ -25,19 +31,13 @@
             }
 
             this.religion = this.religionParser.Find(this.ReligionId);
-            if (this.religion == null)
+            if (this.religion == null && this.ReligionId.HasValue)
             {
                 throw new EffectsException($"No religion with id = {this.ReligionId.Value}.");
             }
 
             return this.religion;
         }
-
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public int? ReligionId { get; set; }
-
-        [JsonProperty(Required = Required.Always)]
-        public int Value { get; set; }
 
         public void SetReligionParser(Parser<IReligion> parser)
         {
@@ -71,7 +71,7 @@
 
         public override string ToString()
         {
-            if(this.religionParser != null)
+            if (this.religionParser != null)
             {
                 return $"+{this.Value} {this.GetReligion()?.ToString() ?? "state religion"} religious influence";
             }

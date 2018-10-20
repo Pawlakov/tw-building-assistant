@@ -86,7 +86,7 @@
             }
         }
 
-        public IProvincialEffect Effect => this.Province.Climate.Effect;
+        public IProvincialEffect Effect => this.Province.Climate.GetEffect();
 
         private Parser<IReligion> ReligionParser { get; }
 

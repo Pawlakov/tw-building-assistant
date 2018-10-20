@@ -22,30 +22,31 @@
         [JsonConverter(typeof(JsonConcreteConverter<WeatherEffect[]>))]
         public IEnumerable<IWeatherEffect> WeatherEffects { get; set; }
 
-        [JsonIgnore]
-        public IProvincialEffect Effect
+        public IProvincialEffect GetEffect()
         {
-            get
+            if (this.effect == null)
             {
-                if (this.effect == null)
-                {
-                    throw new ClimateException("Considered weathers not tracked.");
-                }
+                throw new ClimateException("Considered weathers not tracked.");
+            }
 
-                return this.effect;
+            return this.effect;
+        }
+
+        public void SetWeatherParser(Parser<IWeather> parser)
+        {
+            foreach (var weatherEffect in this.WeatherEffects)
+            {
+                weatherEffect.SetWeatherParser(parser);
             }
         }
 
-        [JsonIgnore]
-        public Parser<IWeather> WeatherParser
+        public void RefreshEffect()
         {
-            set
-            {
-                foreach (var weatherEffect in this.WeatherEffects)
-                {
-                    weatherEffect.WeatherParser = value;
-                }
-            }
+            var effects = this.WeatherEffects
+                .Where(x => x.GetWeather().IsConsidered())
+                .Select(x => x.Effect)
+                .ToArray();
+            this.effect = effects.Any() ? effects.Aggregate((x, y) => x.Aggregate(y)) : new ProvincialEffect();
         }
 
         public bool Validate(out string message)
@@ -67,9 +68,9 @@
 
             foreach (var weatherEffect in this.WeatherEffects)
             {
-                if (weatherEffect.Validate(out string submessage))
+                if (!weatherEffect.Validate(out string submessage))
                 {
-                    message = $"Corresponding effect for weather id = {weatherEffect.WeatherId} is in invalid ({submessage}).";
+                    message = $"Corresponding effect for weather id = {weatherEffect.WeatherId} is invalid ({submessage}).";
                     return false;
                 }
             }
@@ -81,15 +82,6 @@
         public override string ToString()
         {
             return this.Name;
-        }
-
-        public void RefreshEffect()
-        {
-            var effects = this.WeatherEffects
-                .Where(x => x.Weather.IsConsidered())
-                .Select(x => x.Effect)
-                .ToArray();
-            this.effect = effects.Any() ? effects.Aggregate((x, y) => x.Aggregate(y)) : new ProvincialEffect();
         }
     }
 }

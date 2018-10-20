@@ -9,9 +9,9 @@
     {
         IEnumerable<IWeatherEffect> WeatherEffects { get; }
 
-        IProvincialEffect Effect { get; }
+        IProvincialEffect GetEffect();
 
-        Parser<IWeather> WeatherParser { set; }
+        void SetWeatherParser(Parser<IWeather> parser);
 
         bool Validate(out string message);
 

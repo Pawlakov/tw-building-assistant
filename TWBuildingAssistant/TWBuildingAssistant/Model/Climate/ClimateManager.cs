@@ -16,7 +16,7 @@
 
             foreach (var climate in this.Content)
             {
-                climate.WeatherParser = resolver.Resolve<Parser<IWeather>>();
+                climate.SetWeatherParser(resolver.Resolve<Parser<IWeather>>());
                 foreach (var weatherEffect in climate.WeatherEffects)
                 {
                     foreach (var influence in weatherEffect.Effect.Influences)

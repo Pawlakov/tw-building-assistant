@@ -107,6 +107,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Climate\ClimateManagerTests.cs" />
+    <Compile Include="Model\Climate\ClimateTests.cs" />
+    <Compile Include="Model\Climate\WeatherEffectTests.cs" />
     <Compile Include="Model\Effects\BonusTests.cs" />
     <Compile Include="Model\Effects\InfluenceCalculatorTests.cs" />
     <Compile Include="Model\Effects\InfluenceTests.cs" />
@@ -131,9 +134,7 @@
       <Name>TWBuildingAssistant</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\Climate\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

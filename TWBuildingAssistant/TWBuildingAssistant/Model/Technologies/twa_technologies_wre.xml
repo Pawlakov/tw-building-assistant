@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <techtree t="expanded">
-	<techlevel>
+  <techlevel>
+    <universal>
+    </universal>
+    <antilegacy>
+    </antilegacy>
+  </techlevel>
+  <techlevel>
 		<universal g="3">
         [
         {

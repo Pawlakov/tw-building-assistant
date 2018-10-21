@@ -1,16 +1,17 @@
 ﻿namespace TWBuildingAssistant.Model.Buildings
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Xml.Linq;
 
     using Newtonsoft.Json;
 
     using TWBuildingAssistant.Model.Effects;
+    using TWBuildingAssistant.Model.Technologies;
 
     public class BuildingLevel
     {
-        private readonly Technologies.TechnologyLevel levelOfTechnology;
+        private readonly TechnologyLevel unlockingLevel;
+
+        private readonly TechnologyLevel lockingLevel;
 
         public BuildingLevel(BuildingBranch branch, XElement element, ITechnologyLevelAssigner technologyLevelAssigner)
         {
@@ -19,13 +20,22 @@
             this.Level = (int)element.Attribute("l");
             if (element.Attribute("il") != null)
             {
-                this.levelOfTechnology = technologyLevelAssigner.GetLevel(
-                (int)element.Attribute("t"),
-                (bool)element.Attribute("il"));
+                if ((bool)element.Attribute("il"))
+                {
+                    this.lockingLevel = technologyLevelAssigner.GetLevel(
+                        (int)element.Attribute("t"),
+                        (bool)element.Attribute("il"));
+                }
+                else
+                {
+                    this.unlockingLevel = technologyLevelAssigner.GetLevel(
+                        (int)element.Attribute("t"),
+                        (bool)element.Attribute("il"));
+                }
             }
             else
             {
-                this.levelOfTechnology = technologyLevelAssigner.GetLevel((int)element.Attribute("t"), null);
+                this.unlockingLevel = technologyLevelAssigner.GetLevel((int)element.Attribute("t"), null);
             }
 
             var regularFood = 0;
@@ -35,7 +45,7 @@
             var growth = 0;
             var researchRate = 0;
             var regionalSanitation = 0;
-            var provincionalSanitation = 0;
+            var provincialSanitation = 0;
             var religiousInfluence = 0;
             var religiousOsmosis = 0;
             if (element.Attribute("f") != null)
@@ -75,7 +85,7 @@
 
             if (element.Attribute("ps") != null)
             {
-                provincionalSanitation = (int)element.Attribute("ps");
+                provincialSanitation = (int)element.Attribute("ps");
             }
 
             if (element.Attribute("ri") != null)
@@ -91,15 +101,23 @@
             var influences = new IInfluence[0];
             var bonuses = new IBonus[0];
             if (!string.IsNullOrEmpty((string)element))
-                bonuses = JsonConvert.DeserializeObject<Bonus[]>((string)element, new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error });
+            {
+                bonuses = JsonConvert.DeserializeObject<Bonus[]>(
+                    (string)element,
+                    new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Error });
+            }
+
             if (religiousInfluence > 0)
-                influences = new[]
+            {
+                influences = new IInfluence[]
                                  {
                                      new Influence()
                                          {
                                              ReligionId = this.ContainingBranch.Religion?.Id, Value = religiousInfluence
                                          }
                                  };
+            }
+
             this.Effect = new RegionalEffect()
                           {
                           Bonuses = bonuses,
@@ -107,7 +125,7 @@
                           FertilityDependentFood = foodPerFertility,
                           Growth = growth,
                           Influences = influences,
-                          ProvincialSanitation = provincionalSanitation,
+                          ProvincialSanitation = provincialSanitation,
                           PublicOrder = publicOrder,
                           RegionalSanitation = regionalSanitation,
                           RegularFood = regularFood,
@@ -122,9 +140,25 @@
 
         public int Level { get; }
 
-        public Effects.IRegionalEffect Effect { get; }
+        public IRegionalEffect Effect { get; }
 
-        public bool IsAvailable => this.levelOfTechnology.IsAvailable;
+        public bool IsAvailable
+        {
+            get
+            {
+                if (this.lockingLevel != null)
+                {
+                    return !this.lockingLevel.IsAvailable;
+                }
+
+                if (this.unlockingLevel != null)
+                {
+                    return this.unlockingLevel.IsAvailable;
+                }
+
+                return true;
+            }
+        }
 
         public override string ToString()
         {

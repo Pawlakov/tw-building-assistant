@@ -18,7 +18,7 @@
             this.availableBuildings = new List<Buildings.BuildingLevel>[this.GetRegionsCount()][];
             for (var whichRegion = 0; whichRegion < this.availableBuildings.Length; ++whichRegion)
             {
-                var resource = this.combination.Province[whichRegion].Resource;
+                var resource = this.combination.Province.Regions.ElementAt(whichRegion).GetResource();
                 this.availableBuildings[whichRegion] = new List<Buildings.BuildingLevel>[this.GetSlotsCount(whichRegion)];
                 for (var whichSlot = 0; whichSlot < this.availableBuildings[whichRegion].Length; ++whichSlot)
                 {
@@ -40,7 +40,7 @@
 
         public string RegionName(int whichRegion)
         {
-            return this.combination.Province[whichRegion].Name;
+            return this.combination.Province.Regions.ElementAt(whichRegion).Name;
         }
 
         public int GetSlotsCount(int whichRegion)

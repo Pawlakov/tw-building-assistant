@@ -306,5 +306,2319 @@
       "Id": 4,
       "Name": "Good"
     }
+  ],
+  "Provinces": [
+    {
+      "Id": 1,
+      "Name": "Aegyptus",
+      "Fertility": 6,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Alexandria",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Berenice",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Oxyrhynchus",
+          "ResourceId": 4
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 1
+          },
+          {
+            "ReligionId": 1,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 2,
+      "Name": "Aethiopia",
+      "Fertility": 4,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Aksum",
+          "IsCity": true,
+          "ResourceId": 2
+        },
+        {
+          "Name": "Adulis",
+          "ResourceId": 12,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Pachoras"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 1
+          },
+          {
+            "ReligionId": 3,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 3,
+      "Name": "Africa",
+      "Fertility": 6,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Carthago",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Constantina",
+          "ResourceId": 8
+        },
+        {
+          "Name": "Hadrumentum",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 4,
+      "Name": "Aquitania",
+      "Fertility": 6,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Burdigala",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Avaricum",
+          "ResourceId": 4
+        },
+        {
+          "Name": "Elusa"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 5,
+      "Name": "Arabia Felix",
+      "Fertility": 1,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Zafar",
+          "IsCity": true,
+          "ResourceId": 6
+        },
+        {
+          "Name": "Eudaemon",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Omana",
+          "ResourceId": 12,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 2
+          },
+          {
+            "ReligionId": 7,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 6,
+      "Name": "Arabia Magna",
+      "Fertility": 1,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Yathrib",
+          "IsCity": true,
+          "ResourceId": 5
+        },
+        {
+          "Name": "Damatha"
+        },
+        {
+          "Name": "Hira"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 3
+          },
+          {
+            "ReligionId": 14,
+            "Value": 2
+          },
+          {
+            "ReligionId": 7,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 7,
+      "Name": "Armenia",
+      "Fertility": 4,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Duin",
+          "IsCity": true
+        },
+        {
+          "Name": "Payttakaran"
+        },
+        {
+          "Name": "Tosp",
+          "ResourceId": 7
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 8,
+      "Name": "Asia",
+      "Fertility": 4,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Ephesus",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Cyzicus",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Synnada",
+          "ResourceId": 8
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 9,
+      "Name": "Asorastan",
+      "Fertility": 6,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Ctesiphon",
+          "IsCity": true
+        },
+        {
+          "Name": "Arbela",
+          "ResourceId": 8
+        },
+        {
+          "Name": "Meshan",
+          "ResourceId": 12,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 4
+          },
+          {
+            "ReligionId": 9,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 10,
+      "Name": "Baetica",
+      "Fertility": 5,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Corduba",
+          "IsCity": true
+        },
+        {
+          "Name": "Hispalis"
+        },
+        {
+          "Name": "Malaca",
+          "ResourceId": 13,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 11,
+      "Name": "Belgica",
+      "Fertility": 5,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "AugustaTreverorum",
+          "IsCity": true,
+          "ResourceId": 7
+        },
+        {
+          "Name": "ColoniaAgrippina"
+        },
+        {
+          "Name": "Durocortorum"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 1
+          },
+          {
+            "ReligionId": 9,
+            "Value": 2
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 12,
+      "Name": "Bithynia",
+      "Fertility": 5,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Ancyra",
+          "IsCity": true,
+          "ResourceId": 11,
+          "SlotsCountOffset": -1
+        },
+        {
+          "Name": "Nicomedia",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Sinope"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 13,
+      "Name": "Britannia Inferior",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Eburacum",
+          "IsCity": true
+        },
+        {
+          "Name": "Lindum"
+        },
+        {
+          "Name": "Segontium",
+          "ResourceId": 6,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 2
+          },
+          {
+            "ReligionId": 5,
+            "Value": 2
+          },
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 14,
+      "Name": "Britannia Superior",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Londinium",
+          "IsCity": true,
+          "ResourceId": 5
+        },
+        {
+          "Name": "Camulodunum",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Corinium"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 15,
+      "Name": "Caledonia Et Hibernia",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Tuesis",
+          "IsCity": true
+        },
+        {
+          "Name": "Eblana",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Eildon",
+          "ResourceId": 7
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 16,
+      "Name": "Cappadocia",
+      "Fertility": 4,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "CaesareaEusebia",
+          "IsCity": true,
+          "SlotsCountOffset": -1
+        },
+        {
+          "Name": "Melitene",
+          "ResourceId": 6
+        },
+        {
+          "Name": "Trapezus",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 17,
+      "Name": "Carthaginensis",
+      "Fertility": 4,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "CarthagoNova",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Segobriga",
+          "ResourceId": 9
+        },
+        {
+          "Name": "Toletum"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 2
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 18,
+      "Name": "Caucasia",
+      "Fertility": 3,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Mtskheta",
+          "IsCity": true
+        },
+        {
+          "Name": "Gabala"
+        },
+        {
+          "Name": "Kotais",
+          "ResourceId": 11
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 10,
+            "Value": 2
+          },
+          {
+            "ReligionId": 5,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 19,
+      "Name": "Cilicia",
+      "Fertility": 4,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Tarsus",
+          "IsCity": true,
+          "ResourceId": 9,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Iconium"
+        },
+        {
+          "Name": "Myra",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 20,
+      "Name": "Dacia",
+      "Fertility": 5,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Apulum",
+          "IsCity": true,
+          "ResourceId": 10
+        },
+        {
+          "Name": "Petrodava"
+        },
+        {
+          "Name": "Romula",
+          "ResourceId": 5
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 4,
+            "Value": 3
+          },
+          {
+            "ReligionId": 10,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 21,
+      "Name": "Dalmatia",
+      "Fertility": 5,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Salona",
+          "IsCity": true,
+          "ResourceId": 13,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Domavia"
+        },
+        {
+          "Name": "Siscia"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 22,
+      "Name": "Dardania",
+      "Fertility": 5,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Serdica",
+          "IsCity": true
+        },
+        {
+          "Name": "Scupi",
+          "ResourceId": 6
+        },
+        {
+          "Name": "Viminacium"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 23,
+      "Name": "Frisia",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Tulifurdum",
+          "IsCity": true,
+          "ResourceId": 2
+        },
+        {
+          "Name": "Angulus"
+        },
+        {
+          "Name": "Flevum",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 1
+          },
+          {
+            "ReligionId": 4,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 24,
+      "Name": "Gallaecia",
+      "Fertility": 6,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Bracara",
+          "IsCity": true,
+          "ResourceId": 4
+        },
+        {
+          "Name": "Asturica"
+        },
+        {
+          "Name": "Brigantium",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 25,
+      "Name": "Germania",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Uburzis",
+          "IsCity": true,
+          "ResourceId": 3
+        },
+        {
+          "Name": "Aregelia"
+        },
+        {
+          "Name": "Lupfurdum"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 1
+          },
+          {
+            "ReligionId": 1,
+            "Value": 1
+          },
+          {
+            "ReligionId": 4,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 26,
+      "Name": "Germanosarmatia",
+      "Fertility": 2,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Palteskja",
+          "IsCity": true
+        },
+        {
+          "Name": "Duna",
+          "ResourceId": 3,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Oium"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 3
+          },
+          {
+            "ReligionId": 12,
+            "Value": 2
+          },
+          {
+            "ReligionId": 4,
+            "Value": 2
+          },
+          {
+            "ReligionId": 13,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 27,
+      "Name": "Gothiscandza",
+      "Fertility": 3,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Gothiscandza",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Ascaucalis",
+          "ResourceId": 10
+        },
+        {
+          "Name": "Rugion",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 28,
+      "Name": "Hercynia",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Casurgis",
+          "IsCity": true
+        },
+        {
+          "Name": "Budorgis",
+          "ResourceId": 6
+        },
+        {
+          "Name": "Nitrahwa"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 1
+          },
+          {
+            "ReligionId": 1,
+            "Value": 2
+          },
+          {
+            "ReligionId": 4,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 29,
+      "Name": "Hyperborea",
+      "Fertility": 3,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Kariskos",
+          "IsCity": true,
+          "ResourceId": 2
+        },
+        {
+          "Name": "Moramar"
+        },
+        {
+          "Name": "Sylis"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 3
+          },
+          {
+            "ReligionId": 12,
+            "Value": 1
+          },
+          {
+            "ReligionId": 13,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 30,
+      "Name": "Insulae Occidentalis",
+      "Fertility": 6,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Caralis",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Ajax",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Palma",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 31,
+      "Name": "Insulae Orientalis",
+      "Fertility": 6,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Gortyna",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Constantia",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Rhodes",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 32,
+      "Name": "Italia",
+      "Fertility": 6,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Roma",
+          "IsCity": true
+        },
+        {
+          "Name": "Fiorentia"
+        },
+        {
+          "Name": "Neapolis",
+          "ResourceId": 10,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 4
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 13
+          },
+          {
+            "ReligionId": 9,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 33,
+      "Name": "Khwarasan",
+      "Fertility": 3,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Abarshahr",
+          "IsCity": true
+        },
+        {
+          "Name": "Harev"
+        },
+        {
+          "Name": "Merv",
+          "ResourceId": 11
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 4
+          },
+          {
+            "ReligionId": 10,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 34,
+      "Name": "Liguria",
+      "Fertility": 6,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Mediolanum",
+          "IsCity": true
+        },
+        {
+          "Name": "Genua",
+          "ResourceId": 8,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Segusio"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 35,
+      "Name": "Lugdunensis",
+      "Fertility": 5,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Lugdunum",
+          "IsCity": true
+        },
+        {
+          "Name": "Rotomagus",
+          "ResourceId": 10,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Turonum"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 36,
+      "Name": "Lusitania",
+      "Fertility": 6,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "EmeritaAugusta",
+          "IsCity": true
+        },
+        {
+          "Name": "Olispo",
+          "IsCoastal": true
+        },
+        {
+          "Name": "PaxAugusta",
+          "ResourceId": 5
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 1
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 37,
+      "Name": "Lybia",
+      "Fertility": 3,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Ptolemais",
+          "IsCity": true,
+          "ResourceId": 9,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Augila"
+        },
+        {
+          "Name": "Paraetonium",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 38,
+      "Name": "Macedonia",
+      "Fertility": 4,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Thessalonica",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Corinthus",
+          "ResourceId": 8,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Dyrrachium",
+          "ResourceId": 9,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 13
+          },
+          {
+            "ReligionId": 1,
+            "Value": 2
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 39,
+      "Name": "Magna Graecia",
+      "Fertility": 5,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Tarentum",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Rhegium",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Syracusae",
+          "ResourceId": 13,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 13
+          }
+        ]
+      }
+    },
+    {
+      "Id": 40,
+      "Name": "Makran",
+      "Fertility": 3,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Pura",
+          "IsCity": true
+        },
+        {
+          "Name": "Harmosia",
+          "ResourceId": 12,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Phra",
+          "ResourceId": 10
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          },
+          {
+            "ReligionId": 10,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 41,
+      "Name": "Mauretania",
+      "Fertility": 6,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Caesarea",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Tamousiga",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Tingis",
+          "ResourceId": 7,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 42,
+      "Name": "Maxima Sequanorum",
+      "Fertility": 5,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Vesontio",
+          "IsCity": true
+        },
+        {
+          "Name": "Argentoratum",
+          "SlotsCountOffset": -1
+        },
+        {
+          "Name": "Octodurum",
+          "ResourceId": 5
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 43,
+      "Name": "Media Atropatene",
+      "Fertility": 4,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Ecbatana",
+          "IsCity": true,
+          "ResourceId": 11
+        },
+        {
+          "Name": "Ganzaga"
+        },
+        {
+          "Name": "Rhaga"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 44,
+      "Name": "Narbonensis",
+      "Fertility": 6,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "AquaeSextiae",
+          "IsCity": true,
+          "ResourceId": 13
+        },
+        {
+          "Name": "Narbo",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Vienna"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 2
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 1
+          },
+          {
+            "ReligionId": 2,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 45,
+      "Name": "Osroene",
+      "Fertility": 6,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Edessa",
+          "IsCity": true,
+          "ResourceId": 13
+        },
+        {
+          "Name": "Amida"
+        },
+        {
+          "Name": "Nisibis"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          },
+          {
+            "ReligionId": 6,
+            "Value": 2
+          },
+          {
+            "ReligionId": 5,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 46,
+      "Name": "Palaestinea",
+      "Fertility": 3,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "NovaTrajanaBostra",
+          "IsCity": true,
+          "SlotsCountOffset": -1
+        },
+        {
+          "Name": "AeliaCapitolina"
+        },
+        {
+          "Name": "Aila",
+          "ResourceId": 3,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 1
+          },
+          {
+            "ReligionId": 8,
+            "Value": 1
+          },
+          {
+            "ReligionId": 7,
+            "Value": 2
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 47,
+      "Name": "Pannonia",
+      "Fertility": 6,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Sirmium",
+          "IsCity": true
+        },
+        {
+          "Name": "Savaria",
+          "ResourceId": 2
+        },
+        {
+          "Name": "Sopianae"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 48,
+      "Name": "Persis",
+      "Fertility": 3,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Stakhr",
+          "IsCity": true
+        },
+        {
+          "Name": "Behdesir"
+        },
+        {
+          "Name": "Straf",
+          "ResourceId": 1
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 49,
+      "Name": "Raetia Et Noricum",
+      "Fertility": 5,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "AugustaVindelicorum",
+          "IsCity": true
+        },
+        {
+          "Name": "Iuvavum",
+          "ResourceId": 7
+        },
+        {
+          "Name": "Virunum"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 50,
+      "Name": "Sahara",
+      "Fertility": 1,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "Garama",
+          "IsCity": true
+        },
+        {
+          "Name": "Cydamus"
+        },
+        {
+          "Name": "Dimmidi",
+          "ResourceId": 3
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 2
+          },
+          {
+            "ReligionId": 8,
+            "Value": 2
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 1
+          },
+          {
+            "ReligionId": 10,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 51,
+      "Name": "Sarmatia Asiatica",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Anacopia",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Samandar"
+        },
+        {
+          "Name": "Tanais",
+          "ResourceId": 4,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 3
+          },
+          {
+            "ReligionId": 14,
+            "Value": 1
+          },
+          {
+            "ReligionId": 13,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 52,
+      "Name": "Sarmatia Europaea",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Chersonessus",
+          "IsCity": true,
+          "ResourceId": 13,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Gelonus"
+        },
+        {
+          "Name": "Olbia",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 2
+          },
+          {
+            "ReligionId": 12,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 1
+          },
+          {
+            "ReligionId": 5,
+            "Value": 1
+          },
+          {
+            "ReligionId": 13,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 53,
+      "Name": "Scandza",
+      "Fertility": 3,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Hrefnesholt",
+          "IsCity": true,
+          "ResourceId": 7,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Alabu",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Hafn",
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 54,
+      "Name": "Scythia",
+      "Fertility": 2,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Sarai",
+          "IsCity": true
+        },
+        {
+          "Name": "Bolghar"
+        },
+        {
+          "Name": "Raha",
+          "ResourceId": 7
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 3
+          },
+          {
+            "ReligionId": 13,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 55,
+      "Name": "Spahan",
+      "Fertility": 3,
+      "ClimateId": 3,
+      "Regions": [
+        {
+          "Name": "Spahan",
+          "IsCity": true,
+          "ResourceId": 4
+        },
+        {
+          "Name": "Issatis"
+        },
+        {
+          "Name": "Susa"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 56,
+      "Name": "Syria",
+      "Fertility": 4,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Antiochia",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Emesa"
+        },
+        {
+          "Name": "Tyrus",
+          "ResourceId": 1,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 14,
+            "Value": 1
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 57,
+      "Name": "Tarraconensis",
+      "Fertility": 4,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Tarraco",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Caesaraugsta"
+        },
+        {
+          "Name": "Pompaelo",
+          "ResourceId": 8
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 1
+          },
+          {
+            "ReligionId": 1,
+            "Value": 2
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 2,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 58,
+      "Name": "Thracia",
+      "Fertility": 5,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Constantinopolis",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Marcianopolis"
+        },
+        {
+          "Name": "Trimontium",
+          "ResourceId": 4
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 6,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 59,
+      "Name": "Transcarpathia",
+      "Fertility": 6,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Arheimar",
+          "IsCity": true
+        },
+        {
+          "Name": "Belz"
+        },
+        {
+          "Name": "Leopolis",
+          "ResourceId": 1
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 10,
+            "Value": 3
+          },
+          {
+            "ReligionId": 12,
+            "Value": 2
+          },
+          {
+            "ReligionId": 4,
+            "Value": 2
+          },
+          {
+            "ReligionId": 13,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 60,
+      "Name": "Transcaspia",
+      "Fertility": 4,
+      "ClimateId": 1,
+      "Regions": [
+        {
+          "Name": "Kath",
+          "IsCity": true,
+          "ResourceId": 5
+        },
+        {
+          "Name": "Dahistan"
+        },
+        {
+          "Name": "Siahkuh"
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          },
+          {
+            "ReligionId": 10,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 61,
+      "Name": "Tripolitana",
+      "Fertility": 4,
+      "ClimateId": 4,
+      "Regions": [
+        {
+          "Name": "LeptisMagna",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Macomades",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Sabrata",
+          "ResourceId": 1,
+          "IsCoastal": true
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 62,
+      "Name": "Venetia",
+      "Fertility": 6,
+      "ClimateId": 2,
+      "Regions": [
+        {
+          "Name": "Ravenna",
+          "IsCity": true,
+          "IsCoastal": true
+        },
+        {
+          "Name": "Aquileia",
+          "IsCoastal": true
+        },
+        {
+          "Name": "Verona",
+          "ResourceId": 9
+        }
+      ],
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 3
+          },
+          {
+            "ReligionId": 5,
+            "Value": 3
+          },
+          {
+            "ReligionId": 8,
+            "Value": 3
+          },
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    }
   ]
 }

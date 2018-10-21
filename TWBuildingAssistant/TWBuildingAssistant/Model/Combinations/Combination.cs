@@ -2,29 +2,32 @@
 {
     using System.Linq;
 
+    using TWBuildingAssistant.Model.Map;
+
     public class Combination
     {
         private readonly BuildingSlot[][] slots;
 
         private readonly int[] sanitation;
 
-        public Combination(Map.ProvinceData province)
+        public Combination(IProvince province)
         {
             this.Province = province;
-            this.slots = new BuildingSlot[3][];
-            this.sanitation = new int[3];
-            for (var whichRegion = 0; whichRegion < 3; ++whichRegion)
-            {
-                this.slots[whichRegion] = new BuildingSlot[this.Province[whichRegion].SlotsCount];
-                for (var whichSlot = 0; whichSlot < this.slots[whichRegion].Length; ++whichSlot)
-                {
-                    this.slots[whichRegion][whichSlot] =
-                    new BuildingSlot(this.ConcludeSlotType(this.Province[whichRegion], whichSlot));
-                }
-            }
+            this.sanitation = new int[province.Regions.Count()];
+            this.slots = province.Regions.Select(
+                x =>
+                    {
+                        var region = new BuildingSlot[x.GetSlotsCount()];
+                        for (var whichSlot = 0; whichSlot < x.GetSlotsCount(); ++whichSlot)
+                        {
+                            region[whichSlot] = new BuildingSlot(this.ConcludeSlotType(x, whichSlot));
+                        }
+
+                        return region;
+                    }).ToArray();
         }
 
-        public Map.ProvinceData Province { get; }
+        public IProvince Province { get; }
 
         public BuildingSlot[][] Slots
         {
@@ -68,7 +71,7 @@
                 regionalEffects[whichRegion] = sum;
             }
 
-            var combinedEffect = environment.Aggregate(regionalEffects[0].Aggregate(regionalEffects[1].Aggregate(regionalEffects[2])));
+            var combinedEffect = environment.Aggregate(this.Province.Effect.Aggregate(regionalEffects[0].Aggregate(regionalEffects[1].Aggregate(regionalEffects[2]))));
 
             this.Fertility = this.Province.Fertility + combinedEffect.Fertility;
             this.Fertility = this.Fertility > 6 ? 6 : this.Fertility;
@@ -81,14 +84,14 @@
             for (var whichRegion = 0; whichRegion < this.sanitation.Length; ++whichRegion)
             {
                 this.sanitation[whichRegion] = combinedEffect.ProvincialSanitation
-                                               + regionalEffects[whichRegion].RegionalSanitation ;
+                                               + regionalEffects[whichRegion].RegionalSanitation;
             }
 
-            this.PublicOrder += Effects.InfluenceCalculator.PublicOrder(combinedEffect.Influences.Concat(this.Province.Traditions.Influences));
+            this.PublicOrder += Effects.InfluenceCalculator.PublicOrder(combinedEffect.Influences);
             this.Wealth = Effects.WealthCalculator.CalculateTotalWealth(combinedEffect.Bonuses, this.Fertility);
         }
 
-        private Buildings.SlotType ConcludeSlotType(Map.RegionData region, int whichSlot)
+        private Buildings.SlotType ConcludeSlotType(IRegion region, int whichSlot)
         {
             if (whichSlot == 0)
             {

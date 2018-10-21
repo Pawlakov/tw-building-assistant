@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using TWBuildingAssistant.Model.Climate;
+    using TWBuildingAssistant.Model.Map;
     using TWBuildingAssistant.Model.Religions;
     using TWBuildingAssistant.Model.Resources;
     using TWBuildingAssistant.Model.Weather;
@@ -16,5 +17,7 @@
         IEnumerable<IClimate> Climates { get; }
 
         IEnumerable<IWeather> Weathers { get; }
+
+        IEnumerable<IProvince> Provinces { get; }
     }
 }

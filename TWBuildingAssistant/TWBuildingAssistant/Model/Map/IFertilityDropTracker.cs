@@ -4,10 +4,8 @@
 
     public interface IFertilityDropTracker
     {
-        event FertilityDropChangedEventHandler FertilityDropChanged;
+        event EventHandler<FertilityDropChangedEventArgs> FertilityDropChanged;
 
         int FertilityDrop { get; }
     }
-
-    public delegate void FertilityDropChangedEventHandler(IFertilityDropTracker sender, EventArgs e);
 }

@@ -1,6 +1,5 @@
 ﻿namespace TWBuildingAssistant.Model.Climate
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     using TWBuildingAssistant.Model.Religions;

@@ -60,12 +60,11 @@
             this.religionsManager.ChangeStateReligion(settings.StateReligionIndex);
             //
             this.provincesManager.ChangeFertilityDrop(settings.FertilityDrop);
-            this.provincesManager.ChangeProvince(settings.ProvinceIndex);
             //
             this.factionsManager.ChangeFaction(settings.FactionIndex);
             this.factionsManager.Faction.ChangeDesiredTechnologyLevel(settings.DesiredTechnologyLevelIndex, settings.UseLegacyTechnologies);
             //
-            var combination = new Combination(this.provincesManager.Province);
+            var combination = new Combination(this.provincesManager.Find(settings.ProvinceIndex));
             var pool = this.factionsManager.Faction.Buildings;
             //
             return new SimulationKit(pool, combination);
@@ -79,7 +78,7 @@
 
         public IEnumerable<KeyValuePair<int, string>> Factions => this.factionsManager.AllFactionsNames;
 
-        public IProvincialEffect Environment => this.provincesManager.Effect.Aggregate(this.factionsManager.Effect.Aggregate(this.religionsManager.StateReligion.Effect));
+        public IProvincialEffect Environment => this.factionsManager.Effect.Aggregate(this.religionsManager.StateReligion.Effect);
     }
 
     public partial class World

@@ -13,6 +13,7 @@
             this.Content = resolver.Resolve<ISource>().Religions.ToArray();
             foreach (var religion in this.Content)
             {
+                religion.StateReligionTracker = this;
                 foreach (var influence in religion.Effect.Influences)
                 {
                     influence.SetReligionParser(this);
@@ -20,14 +21,9 @@
             }
 
             var message = string.Empty;
-            if (this.Content.Any(resource => !resource.Validate(out message)))
+            if (this.Content.Any(religion => !religion.Validate(out message)))
             {
                 throw new ReligionsException($"One of religions is not valid ({message}).");
-            }
-
-            foreach (var religion in this.Content)
-            {
-                religion.StateReligionTracker = this;
             }
         }
 

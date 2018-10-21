@@ -8,6 +8,7 @@ namespace TWBuildingAssistant.Data
 
     using TWBuildingAssistant.Model;
     using TWBuildingAssistant.Model.Climate;
+    using TWBuildingAssistant.Model.Map;
     using TWBuildingAssistant.Model.Religions;
     using TWBuildingAssistant.Model.Resources;
     using TWBuildingAssistant.Model.Weather;
@@ -33,6 +34,7 @@ namespace TWBuildingAssistant.Data
                     this.Religions = root.Property(nameof(this.Religions)).Value.ToObject<Religion[]>(serializer);
                     this.Resources = root.Property(nameof(this.Resources)).Value.ToObject<Resource[]>(serializer);
                     this.Weathers = root.Property(nameof(this.Weathers)).Value.ToObject<Weather[]>(serializer);
+                    this.Provinces = root.Property(nameof(this.Provinces)).Value.ToObject<Province[]>(serializer);
                 }
             }
         }
@@ -44,5 +46,7 @@ namespace TWBuildingAssistant.Data
         public IEnumerable<IResource> Resources { get; set; }
         
         public IEnumerable<IWeather> Weathers { get; set; }
+
+        public IEnumerable<IProvince> Provinces { get; set; }
     }
 }

@@ -13,7 +13,7 @@
             if (element == null)
                 throw new ArgumentNullException("element");
             Name = (string)element.Attribute("n");
-            TechLevels = Technologies.TechnologyTreeFactory.MakeTechnologyTree((string)element.Attribute("t"), religionParser);
+            TechLevels = Technologies.TechnologyTreeFactory.MakeTechnologyTree(element.Element("techtree"), religionParser);
             Buildings = new Buildings.BuildingLibrary((string)element.Attribute("b"), TechLevels, resourceParser, religionParser);
         }
 

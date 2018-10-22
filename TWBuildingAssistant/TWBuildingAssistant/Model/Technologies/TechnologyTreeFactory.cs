@@ -6,15 +6,13 @@
 
     public static class TechnologyTreeFactory
     {
-        public static ITechnologyTree MakeTechnologyTree(string sourceFilename, Parser<IReligion> religionParser)
+        public static ITechnologyTree MakeTechnologyTree(XElement element, Parser<IReligion> religionParser)
         {
-            XDocument inputDocument = XDocument.Load("Model\\Technologies\\" + sourceFilename);
-            XElement treeNode = inputDocument.Root;
             ITechnologyTree result;
-            if ((string)treeNode.Attribute("t") == "expanded")
-                result = new ExpandedTechnologyTree(treeNode, religionParser);
+            if ((string)element.Attribute("t") == "expanded")
+                result = new ExpandedTechnologyTree(element, religionParser);
             else
-                result = new SimpleTechnologyTree(treeNode, religionParser);
+                result = new SimpleTechnologyTree(element, religionParser);
             return result;
         }
     }

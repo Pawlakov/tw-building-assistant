@@ -70,7 +70,7 @@
             return new SimulationKit(pool, combination);
         }
 
-        public IEnumerable<KeyValuePair<int, string>> Weathers => this.weatherManager.AllWeathersNames;
+        public IEnumerable<IWeather> Weathers => this.weatherManager.Content;
 
         public IEnumerable<KeyValuePair<int, string>> Religions => this.religionsManager.AllReligionsNames;
 

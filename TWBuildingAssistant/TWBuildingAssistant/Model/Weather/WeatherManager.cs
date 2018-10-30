@@ -35,15 +35,6 @@
                 weather.ConsideredWeatherTracker = this;
             }
         }
-
-        public IEnumerable<KeyValuePair<int, string>> AllWeathersNames
-        {
-            get
-            {
-                var result = this.Content.Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
-                return result;
-            }
-        }
     }
 
     public partial class WeatherManager : IConsideredWeatherTracker

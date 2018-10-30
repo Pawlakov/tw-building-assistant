@@ -296,15 +296,18 @@
     },
     {
       "Id": 2,
-      "Name": "Bad"
+      "Name": "Bad",
+      "IsConsideredByDefault": true
     },
     {
       "Id": 3,
-      "Name": "Normal"
+      "Name": "Normal",
+      "IsConsideredByDefault": true
     },
     {
       "Id": 4,
-      "Name": "Good"
+      "Name": "Good",
+      "IsConsideredByDefault": true
     }
   ],
   "Provinces": [

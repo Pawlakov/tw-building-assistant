@@ -6,7 +6,7 @@
 
     public abstract class Parser<TParseable> where TParseable : class, IParsable
     {
-        protected IEnumerable<TParseable> Content { get; set; }
+        public IEnumerable<TParseable> Content { get; set; }
 
         public virtual TParseable Parse(string input)
         {

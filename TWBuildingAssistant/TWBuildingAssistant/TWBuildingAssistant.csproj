@@ -147,6 +147,7 @@
     <Compile Include="Model\Religions\IStateReligionTracker.cs" />
     <Compile Include="Model\Religions\StateReligionChangedArgs.cs" />
     <Compile Include="Model\WorldSettings.cs" />
+    <Compile Include="ViewModel\CheckedListItem.cs" />
     <Compile Include="ViewModel\Region.cs" />
     <Compile Include="ViewModel\Slot.cs" />
     <Compile Include="ViewModel\ViewModelSimulationWindow.cs" />

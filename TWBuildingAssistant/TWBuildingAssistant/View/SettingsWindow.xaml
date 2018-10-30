@@ -18,8 +18,23 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock Height="25" Width="100" Text="Fertility drop:" HorizontalAlignment="Left"/>
                 <ComboBox Height="25" Width="100" ItemsSource="{Binding FertilityDrops}" SelectedItem="{Binding SelectedFertilityDrop}"/>
-                <TextBlock Height="25" Width="100" Text="Worst case weather:" HorizontalAlignment="Left"/>
-                <ComboBox Height="25" Width="100" ItemsSource="{Binding Weathers}" SelectedItem="{Binding SelectedWeather}"/>
+                <TextBlock Height="25" Width="100" Text="Considered weather:" HorizontalAlignment="Left"/>
+                <Expander Width="100" Header="Weathers">
+                    <ItemsControl ItemsSource="{Binding Weathers}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ListBoxItem IsSelected="{Binding IsChecked}">
+                                    <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=Item}" />
+                                </ListBoxItem>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Expander>
             </StackPanel>
             <StackPanel Orientation="Vertical">
                 <TextBlock Height="25" Width="100" Text="Technology tier:" HorizontalAlignment="Left"/>

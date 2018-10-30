@@ -16,6 +16,9 @@
         [JsonProperty(Required = Required.Always)]
         public string Name { get; set; }
 
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool IsConsideredByDefault { get; set; }
+
         [JsonIgnore]
         public IConsideredWeatherTracker ConsideredWeatherTracker
         {

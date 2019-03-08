@@ -1,150 +1,179 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <factions>
-  <faction n="Western Roman Empire" b="twa_buildings_wre.xml">
+  <faction n="Western Roman Empire">
     <techtree t="expanded">
-  <techlevel>
-    <universal>
-    </universal>
-    <antilegacy>
-    </antilegacy>
-  </techlevel>
-  <techlevel>
-		<universal g="3">
-        [
-        {
-        "Value": 1,
-        "Type": "Percentage"
-        },
-        {
-        "Value": 3,
-        "Category": "Culture",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 5,
-        "Category": "Agriculture",
-        "Type": "Percentage"
-        }
-        ]
-		</universal>
-		<antilegacy>
-		</antilegacy>
-	</techlevel>
-	<techlevel>
-		<universal>
-		    [
-		    {
-		    "Value": 3,
-		    "Category": "LocalCommerce",
-		    "Type": "Percentage"
-		    },
-		    {
-		    "Value": 3,
-		    "Category": "MaritimeCommerce",
-		    "Type": "Percentage"
-		    },
-		    {
-		    "Value": 5,
-		    "Category": "Husbandry",
-		    "Type": "Percentage"
-		    }
-		    ]
-		</universal>
-		<antilegacy po="3" ri="1">
-		</antilegacy>
-	</techlevel>
-	<techlevel>
-		<universal>
-        [
-        {
-        "Value": 5,
-        "Category": "Industry",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 5,
-        "Category": "Culture",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 5,
-        "Category": "LocalCommerce",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 5,
-        "Category": "MaritimeCommerce",
-        "Type": "Percentage"
-		    },
-		    {
-		    "Value": 5,
-		    "Category": "Agriculture",
-		    "Type": "Percentage"
-		    }
-        ]
-		</universal>
-		<antilegacy ri="2">
-		  [
-		  {
-		  "Value": 5,
-		  "Type": "Percentage"
-		  }
-		  ]
-    </antilegacy>
-	</techlevel>
-	<techlevel>
-		<universal>
-        [
-        {
-        "Value": 6,
-        "Type": "Percentage"
-        },
-        {
-        "Value": 10,
-        "Category": "Agriculture",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 5,
-        "Category": "Husbandry",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 7,
-        "Category": "Culture",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 10,
-        "Category": "Industry",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 7,
-        "Category": "LocalCommerce",
-        "Type": "Percentage"
-        },
-        {
-        "Value": 7,
-        "Category": "MaritimeCommerce",
-        "Type": "Percentage"
-		    },
-		    {
-		    "Value": 15,
-		    "Category": "Subsistence",
-		    "Type": "Percentage"
-		    }
-        ]
-		</universal>
-		<antilegacy po="8">
-      [
-		  {
-		  "Value": 18,
-		  "Type": "Percentage"
-		  }
-      ]
-		</antilegacy>
-	</techlevel>
-</techtree>
+
+      <techlevel>
+	      <universal g="3">
+	        <bonuses>
+	          [
+	          {
+	          "Value": 1,
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 3,
+	          "Category": "Culture",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 5,
+	          "Category": "Agriculture",
+	          "Type": "Percentage"
+	          }
+	          ]
+	        </bonuses>
+	        <unlocks>4 12 14 64 112 114 135 147 153 178 182</unlocks>
+	        <locks></locks>
+	      </universal>
+	      <antilegacy>
+	        <bonuses></bonuses>
+	        <unlocks></unlocks>
+	        <locks>92</locks>
+	      </antilegacy>
+      </techlevel>
+
+      <techlevel>
+	      <universal>
+          <bonuses>
+            [
+            {
+            "Value": 3,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+            },
+            {
+            "Value": 3,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+            },
+            {
+            "Value": 5,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+            }
+            ]
+          </bonuses>
+          <unlocks>9 15 21 22 31 33 65 106 109 148 154 164 170 183</unlocks>
+          <locks></locks>
+        </universal>
+        <antilegacy po="3" ri="1">
+          <bonuses></bonuses>
+          <unlocks></unlocks>
+          <locks>91 167 168</locks>
+	      </antilegacy>
+      </techlevel>
+
+      <techlevel>
+	      <universal>
+	        <bonuses>
+	          [
+	          {
+	          "Value": 5,
+	          "Category": "Industry",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 5,
+	          "Category": "Culture",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 5,
+	          "Category": "LocalCommerce",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 5,
+	          "Category": "MaritimeCommerce",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 5,
+	          "Category": "Agriculture",
+	          "Type": "Percentage"
+	          }
+	          ]
+	        </bonuses>
+	        <unlocks>5 10 13 16 34 66 107 113 115 118 156 165 179 185</unlocks>
+	        <locks></locks>
+	      </universal>
+	      <antilegacy ri="2">
+	        <bonuses>
+	          [
+	          {
+	          "Value": 5,
+	          "Type": "Percentage"
+	          }
+	          ]
+	        </bonuses>
+	        <unlocks>76 77 83 84 85 190 191 193 194 220 221 223 224 254 284</unlocks>
+	        <locks>2 3 39 145 177</locks>
+        </antilegacy>
+      </techlevel>
+
+      <techlevel>
+	      <universal>
+	        <bonuses>
+	          [
+	          {
+	          "Value": 6,
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 10,
+	          "Category": "Agriculture",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 5,
+	          "Category": "Husbandry",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 7,
+	          "Category": "Culture",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 10,
+	          "Category": "Industry",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 7,
+	          "Category": "LocalCommerce",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 7,
+	          "Category": "MaritimeCommerce",
+	          "Type": "Percentage"
+	          },
+	          {
+	          "Value": 15,
+	          "Category": "Subsistence",
+	          "Type": "Percentage"
+	          }
+	          ]
+	        </bonuses>
+	        <unlocks>6 23 24 28 32 43 51 55 58 70 73 89 96 100 103 110 116 119 123 126 136 141 152 155 157 162 171 174 180 186</unlocks>
+	        <locks></locks>
+	      </universal>
+	      <antilegacy po="8">
+	        <bonuses>
+	          [
+	          {
+	          "Value": 18,
+	          "Type": "Percentage"
+	          }
+	          ]
+	        </bonuses>
+	        <unlocks></unlocks>
+	        <locks>38 144 176</locks>
+	      </antilegacy>
+      </techlevel>
+
+    </techtree>
   </faction>
 </factions>

@@ -9,17 +9,17 @@
 
         private readonly Combinations.Combination combination;
 
-        private readonly List<Buildings.BuildingLevel>[][] availableBuildings;
+        private readonly List<Buildings.Building>[][] availableBuildings;
 
         public SimulationKit(Buildings.BuildingLibrary library, Combinations.Combination combination)
         {
             this.enivronment = World.GetWorld().Environment;
             this.combination = combination;
-            this.availableBuildings = new List<Buildings.BuildingLevel>[this.GetRegionsCount()][];
+            this.availableBuildings = new List<Buildings.Building>[this.GetRegionsCount()][];
             for (var whichRegion = 0; whichRegion < this.availableBuildings.Length; ++whichRegion)
             {
                 var resource = this.combination.Province.Regions.ElementAt(whichRegion).GetResource();
-                this.availableBuildings[whichRegion] = new List<Buildings.BuildingLevel>[this.GetSlotsCount(whichRegion)];
+                this.availableBuildings[whichRegion] = new List<Buildings.Building>[this.GetSlotsCount(whichRegion)];
                 for (var whichSlot = 0; whichSlot < this.availableBuildings[whichRegion].Length; ++whichSlot)
                 {
                     var type = this.combination.Slots[whichRegion][whichSlot].Type;
@@ -78,8 +78,8 @@
                     {
                         if (this.combination.Slots[whichRegion][whichSlot].Level != null
                             && this.combination.Slots[whichRegion][i].Level != null
-                            && this.combination.Slots[whichRegion][whichSlot].Level.ContainingBranch
-                            == this.combination.Slots[whichRegion][i].Level.ContainingBranch)
+                            && this.combination.Slots[whichRegion][whichSlot].Level.GetContainingBranch()
+                            == this.combination.Slots[whichRegion][i].Level.GetContainingBranch())
                         {
                             isConflicted = true;
                         }

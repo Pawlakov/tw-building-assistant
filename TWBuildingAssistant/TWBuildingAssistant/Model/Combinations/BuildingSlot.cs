@@ -19,6 +19,6 @@
 
         public Buildings.SlotType Type { get; }
 
-        public Buildings.BuildingLevel Level { get; set; }
+        public Buildings.Building Level { get; set; }
     }
 }

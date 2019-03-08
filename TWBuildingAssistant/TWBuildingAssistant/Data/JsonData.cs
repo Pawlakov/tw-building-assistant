@@ -7,6 +7,7 @@ namespace TWBuildingAssistant.Data
     using Newtonsoft.Json.Linq;
 
     using TWBuildingAssistant.Model;
+    using TWBuildingAssistant.Model.Buildings;
     using TWBuildingAssistant.Model.Climate;
     using TWBuildingAssistant.Model.Map;
     using TWBuildingAssistant.Model.Religions;
@@ -35,6 +36,8 @@ namespace TWBuildingAssistant.Data
                     this.Resources = root.Property(nameof(this.Resources)).Value.ToObject<Resource[]>(serializer);
                     this.Weathers = root.Property(nameof(this.Weathers)).Value.ToObject<Weather[]>(serializer);
                     this.Provinces = root.Property(nameof(this.Provinces)).Value.ToObject<Province[]>(serializer);
+                    this.Buildings = root.Property(nameof(this.Buildings)).Value.ToObject<Building[]>(serializer);
+                    this.Branches = root.Property(nameof(this.Branches)).Value.ToObject<Branch[]>(serializer);
                 }
             }
         }
@@ -48,5 +51,9 @@ namespace TWBuildingAssistant.Data
         public IEnumerable<IWeather> Weathers { get; set; }
 
         public IEnumerable<IProvince> Provinces { get; set; }
+
+        public IEnumerable<IBuilding> Buildings { get; set; }
+
+        public IEnumerable<IBranch> Branches { get; set; }
     }
 }

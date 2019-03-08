@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
 
+    using TWBuildingAssistant.Model.Buildings;
     using TWBuildingAssistant.Model.Climate;
     using TWBuildingAssistant.Model.Map;
     using TWBuildingAssistant.Model.Religions;
@@ -19,5 +20,9 @@
         IEnumerable<IWeather> Weathers { get; }
 
         IEnumerable<IProvince> Provinces { get; }
+
+        IEnumerable<IBuilding> Buildings { get; }
+
+        IEnumerable<IBranch> Branches { get; }
     }
 }

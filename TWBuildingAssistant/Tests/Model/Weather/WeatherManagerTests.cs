@@ -94,21 +94,6 @@ namespace Tests.Model.Weather
         }
 
         [Test]
-        public void AllWeatherNamesTest()
-        {
-            this.resolver.RegisterInstance(this.threeWeathersSource);
-            var manager = new WeatherManager(this.resolver);
-            var names = manager.AllWeathersNames.ToArray();
-            Assert.AreEqual(3, names.Length, $"The property returned wrong amount of elements.");
-            for (var index = 1; index <= 3; index++)
-            {
-                var pair = names.FirstOrDefault(x => x.Key == index);
-                Assert.IsNotNull(pair, $"The property didn't return an element with an expected id.");
-                Assert.AreEqual(index.ToString(), pair.Value, $"The property didn't return an element with an expected name.");
-            }
-        }
-
-        [Test]
         public void ParseValidTest()
         {
             this.resolver.RegisterInstance(this.threeWeathersSource);

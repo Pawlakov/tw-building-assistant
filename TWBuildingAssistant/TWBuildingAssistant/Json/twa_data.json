@@ -47,7 +47,6 @@
     {
       "Id": 12,
       "Obligatory": true,
-      "BuildingType": "Coastal",
       "Name": "Spice"
     },
     {
@@ -2622,6 +2621,5018 @@
           }
         ]
       }
+    }
+  ],
+  "Buildings": [
+    {
+      "Id": 1,
+      "Name": "Administration 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -10,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 2,
+      "Name": "Arena 3",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": 15,
+        "RegularFood": -50,
+        "Bonuses": [
+          {
+            "Value": 500,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 3,
+      "Name": "Arena 4",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": 21,
+        "RegularFood": -100,
+        "Bonuses": [
+          {
+            "Value": 825,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 4,
+      "Name": "Armour Workshop 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2
+      }
+    },
+    {
+      "Id": 5,
+      "Name": "Armour Workshop 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4
+      }
+    },
+    {
+      "Id": 6,
+      "Name": "Armour Workshop 4",
+      "Effect": {
+        "RegionalSanitation": -8,
+        "PublicOrder": -8
+      }
+    },
+    {
+      "Id": 7,
+      "Name": "Barracks 1"
+    },
+    {
+      "Id": 8,
+      "Name": "Brickyard 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 450,
+            "Category": "Industry"
+          },
+          {
+            "Value": 450,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 9,
+      "Name": "Brickyard 3",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "PublicOrder": -5,
+        "Bonuses": [
+          {
+            "Value": 750,
+            "Category": "Industry"
+          },
+          {
+            "Value": 750,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 10,
+      "Name": "Brickyard 4",
+      "Effect": {
+        "RegionalSanitation": -10,
+        "PublicOrder": -10,
+        "Bonuses": [
+          {
+            "Value": 1250,
+            "Category": "Industry"
+          },
+          {
+            "Value": 1250,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 11,
+      "Name": "Cattle Farm 2",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": -1,
+        "RegularFood": 40,
+        "FertilityDependentFood": 10,
+        "Bonuses": [
+          {
+            "Value": 200,
+            "Category": "Husbandry"
+          },
+          {
+            "Value": 50,
+            "Category": "Husbandry",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 12,
+      "Name": "Cattle Farm 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -3,
+        "RegularFood": 55,
+        "FertilityDependentFood": 15,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "Husbandry"
+          },
+          {
+            "Value": 100,
+            "Category": "Husbandry",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 13,
+      "Name": "Cattle Farm 4",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "PublicOrder": -5,
+        "RegularFood": 70,
+        "FertilityDependentFood": 20,
+        "Bonuses": [
+          {
+            "Value": 500,
+            "Category": "Husbandry"
+          },
+          {
+            "Value": 150,
+            "Category": "Husbandry",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 14,
+      "Name": "Cavalry Barracks 2",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -200,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 15,
+      "Name": "Cavalry Barracks 3",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -600,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 16,
+      "Name": "Cavalry Barracks 4",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -1000,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 17,
+      "Name": "Town 1",
+      "Effect": {
+        "RegularFood": -10,
+        "Bonuses": [
+          {
+            "Value": 150,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 18,
+      "Name": "City 1",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": 2,
+        "RegularFood": -30,
+        "Growth": 2,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 19,
+      "Name": "Town 2",
+      "Effect": {
+        "PublicOrder": 1,
+        "RegularFood": -20,
+        "Growth": 1,
+        "Bonuses": [
+          {
+            "Value": 200,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 20,
+      "Name": "City 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": 3,
+        "RegularFood": -60,
+        "Growth": 4,
+        "Bonuses": [
+          {
+            "Value": 400,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 21,
+      "Name": "Town 3",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": 2,
+        "RegularFood": -40,
+        "Growth": 2,
+        "Bonuses": [
+          {
+            "Value": 250,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 22,
+      "Name": "City 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": 4,
+        "RegularFood": -100,
+        "Growth": 6,
+        "Bonuses": [
+          {
+            "Value": 500,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 23,
+      "Name": "Town 4",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": 3,
+        "RegularFood": -80,
+        "Growth": 3,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 24,
+      "Name": "City 4",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": 5,
+        "RegularFood": -140,
+        "Growth": 8,
+        "Bonuses": [
+          {
+            "Value": 600,
+            "Category": "Subsistence"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 25,
+      "Name": "Dye 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 2,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 2,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 2,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 26,
+      "Name": "Dye 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "Bonuses": [
+          {
+            "Value": 4,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 4,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 4,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 27,
+      "Name": "Dye 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "Bonuses": [
+          {
+            "Value": 6,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 6,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 6,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 28,
+      "Name": "Dye 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "Bonuses": [
+          {
+            "Value": 8,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 8,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 8,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 29,
+      "Name": "Farm 1",
+      "Effect": {
+        "RegularFood": 10,
+        "FertilityDependentFood": 8,
+        "Bonuses": [
+          {
+            "Value": 30,
+            "Category": "Agriculture"
+          },
+          {
+            "Value": 30,
+            "Category": "Agriculture",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 30,
+      "Name": "Fishing Port 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "RegularFood": 50,
+        "Bonuses": [
+          {
+            "Value": 450,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 31,
+      "Name": "Fishing Port 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4,
+        "RegularFood": 70,
+        "Bonuses": [
+          {
+            "Value": 750,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 32,
+      "Name": "Fishing Port 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -6,
+        "RegularFood": 90,
+        "Bonuses": [
+          {
+            "Value": 1250,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 33,
+      "Name": "Food Market 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -2,
+        "RegularFood": 70,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 10,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 250,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 34,
+      "Name": "Food Market 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "RegularFood": 90,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 15,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 400,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 35,
+      "Name": "Forum 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "Bonuses": [
+          {
+            "Value": 225,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 36,
+      "Name": "Fountain 1",
+      "Effect": {
+        "RegionalSanitation": 2,
+        "PublicOrder": 1,
+        "RegularFood": -10,
+        "ProvincialSanitation": 2,
+        "Bonuses": [
+          {
+            "Value": 150,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 37,
+      "Name": "Fountain 2",
+      "Effect": {
+        "RegionalSanitation": 3,
+        "PublicOrder": 2,
+        "RegularFood": -20,
+        "ProvincialSanitation": 4,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 38,
+      "Name": "Fountain 3",
+      "Effect": {
+        "RegionalSanitation": 5,
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "ProvincialSanitation": 5,
+        "Bonuses": [
+          {
+            "Value": 500,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 39,
+      "Name": "Fountain 4",
+      "Effect": {
+        "RegionalSanitation": 6,
+        "PublicOrder": 4,
+        "RegularFood": -40,
+        "ProvincialSanitation": 7,
+        "Bonuses": [
+          {
+            "Value": 825,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 40,
+      "Name": "Fur 1",
+      "Effect": {
+        "RegularFood": 30,
+        "Bonuses": [
+          {
+            "Value": 100,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 41,
+      "Name": "Fur 2",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "RegularFood": 50,
+        "Bonuses": [
+          {
+            "Value": 200,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 42,
+      "Name": "Fur 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "RegularFood": 70,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 43,
+      "Name": "Fur 4",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "RegularFood": 90,
+        "Bonuses": [
+          {
+            "Value": 500,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 44,
+      "Name": "Garrison 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -10
+      }
+    },
+    {
+      "Id": 45,
+      "Name": "Garrison 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -20
+      }
+    },
+    {
+      "Id": 46,
+      "Name": "Garrison 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "RegularFood": -40
+      }
+    },
+    {
+      "Id": 47,
+      "Name": "Garrison 4",
+      "Effect": {
+        "PublicOrder": 9,
+        "RegularFood": -80
+      }
+    },
+    {
+      "Id": 48,
+      "Name": "Gemstones 1"
+    },
+    {
+      "Id": 49,
+      "Name": "Gemstones 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1
+      }
+    },
+    {
+      "Id": 50,
+      "Name": "Gemstones 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -2
+      }
+    },
+    {
+      "Id": 51,
+      "Name": "Gemstones 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4
+      }
+    },
+    {
+      "Id": 52,
+      "Name": "Gold 1",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 600,
+            "Category": "Industry"
+          },
+          {
+            "Value": 10,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 10,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 53,
+      "Name": "Gold Jeweler 2",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -5,
+        "Bonuses": [
+          {
+            "Value": 1200,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 54,
+      "Name": "Gold Jeweler 3",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -10,
+        "Bonuses": [
+          {
+            "Value": 2000,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 55,
+      "Name": "Gold Jeweler 4",
+      "Effect": {
+        "RegionalSanitation": -10,
+        "PublicOrder": -15,
+        "Bonuses": [
+          {
+            "Value": 3000,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 56,
+      "Name": "Gold Mine 2",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -5,
+        "Bonuses": [
+          {
+            "Value": 1200,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 57,
+      "Name": "Gold Mine 3",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -10,
+        "Bonuses": [
+          {
+            "Value": 1500,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 58,
+      "Name": "Gold Mine 4",
+      "Effect": {
+        "RegionalSanitation": -10,
+        "PublicOrder": -15,
+        "Bonuses": [
+          {
+            "Value": 2500,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 59,
+      "Name": "Temple of Hermes 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "RegularFood": -125,
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 20,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 60,
+      "Name": "Hygiene 1",
+      "Effect": {
+        "RegionalSanitation": 3,
+        "PublicOrder": 1,
+        "ProvincialSanitation": 2,
+        "Bonuses": [
+          {
+            "Value": -25,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 61,
+      "Name": "Imperial Temple 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "RegularFood": -125,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 8
+          }
+        ]
+      }
+    },
+    {
+      "Id": 62,
+      "Name": "Town Industry 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 375,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 63,
+      "Name": "City Industry 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 375,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 64,
+      "Name": "Infantry Barracks 2",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -200,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 65,
+      "Name": "Infantry Barracks 3",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -600,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 66,
+      "Name": "Infantry Barracks 4",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -1000,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 67,
+      "Name": "Iron 1"
+    },
+    {
+      "Id": 68,
+      "Name": "Iron Tools 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1,
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 5,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 69,
+      "Name": "Iron Tools 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 10,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 70,
+      "Name": "Iron Tools 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 15,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 71,
+      "Name": "Iron Weapons 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1
+      }
+    },
+    {
+      "Id": 72,
+      "Name": "Iron Weapons 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -2
+      }
+    },
+    {
+      "Id": 73,
+      "Name": "Iron Weapons 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4
+      }
+    },
+    {
+      "Id": 74,
+      "Name": "Temple of Isis 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "RegularFood": -125,
+        "Growth": 4,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 75,
+      "Name": "Latin Monastery 2",
+      "Effect": {
+        "RegionalSanitation": 6,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 76,
+      "Name": "Latin Monastery 3",
+      "Effect": {
+        "RegionalSanitation": 10,
+        "ReligiousOsmosis": 2,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 77,
+      "Name": "Latin Monastery 4",
+      "Effect": {
+        "RegionalSanitation": 15,
+        "ReligiousOsmosis": 3,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": 78,
+      "Name": "Town Latin Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 79,
+      "Name": "City Latin Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 80,
+      "Name": "Town Latin Temple 2",
+      "Effect": {
+        "PublicOrder": 3,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [],
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 81,
+      "Name": "City Latin Temple 2",
+      "Effect": {
+        "PublicOrder": 4,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": 82,
+      "Name": "Town Latin Temple 3",
+      "Effect": {
+        "PublicOrder": 4,
+        "ReligiousOsmosis": 2,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 83,
+      "Name": "City Latin Temple 3",
+      "Effect": {
+        "PublicOrder": 6,
+        "ReligiousOsmosis": 2,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 9
+          }
+        ]
+      }
+    },
+    {
+      "Id": 84,
+      "Name": "Town Latin Temple 4",
+      "Effect": {
+        "PublicOrder": 5,
+        "ReligiousOsmosis": 3,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 85,
+      "Name": "City Latin Temple 4",
+      "Effect": {
+        "PublicOrder": 8,
+        "ReligiousOsmosis": 3,
+        "Influences": [
+          {
+            "ReligionId": 8,
+            "Value": 12
+          }
+        ]
+      }
+    },
+    {
+      "Id": 86,
+      "Name": "Lead 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 87,
+      "Name": "Lead 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 88,
+      "Name": "Lead 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 89,
+      "Name": "Lead 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 90,
+      "Name": "Library 2",
+      "Effect": {
+        "RegularFood": -20,
+        "ResearchRate": 5,
+        "Bonuses": [
+          {
+            "Value": 450,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 91,
+      "Name": "Library 3",
+      "Effect": {
+        "RegularFood": -40,
+        "ResearchRate": 10,
+        "Bonuses": [
+          {
+            "Value": 750,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 92,
+      "Name": "Library 4",
+      "Effect": {
+        "RegularFood": -80,
+        "ResearchRate": 20,
+        "Bonuses": [
+          {
+            "Value": 1250,
+            "Category": "Culture"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 93,
+      "Name": "Lumber 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 94,
+      "Name": "Lumber 2",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 95,
+      "Name": "Lumber 3",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 96,
+      "Name": "Lumber 4",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 97,
+      "Name": "Marble 1"
+    },
+    {
+      "Id": 98,
+      "Name": "Marble Quarry 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 600,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 99,
+      "Name": "Marble Quarry 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 1000,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 100,
+      "Name": "Marble Quarry 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -8,
+        "Bonuses": [
+          {
+            "Value": 1650,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 101,
+      "Name": "Marble Sculptor 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1,
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "Culture",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 102,
+      "Name": "Marble Sculptor 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Culture",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 103,
+      "Name": "Marble Sculptor 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Culture",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 104,
+      "Name": "Market 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1,
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Type": "Percentage"
+          },
+          {
+            "Value": 750,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 105,
+      "Name": "Metalworks 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 900,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 106,
+      "Name": "Metalworks 3",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "PublicOrder": -5,
+        "Bonuses": [
+          {
+            "Value": 1500,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 107,
+      "Name": "Metalworks 4",
+      "Effect": {
+        "RegionalSanitation": -10,
+        "PublicOrder": -10,
+        "Bonuses": [
+          {
+            "Value": 2500,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 108,
+      "Name": "Military Port 2",
+      "Effect": {
+        "RegionalSanitation": -2
+      }
+    },
+    {
+      "Id": 109,
+      "Name": "Military Port 3",
+      "Effect": {
+        "RegionalSanitation": -4
+      }
+    },
+    {
+      "Id": 110,
+      "Name": "Military Port 4",
+      "Effect": {
+        "RegionalSanitation": -6
+      }
+    },
+    {
+      "Id": 111,
+      "Name": "Mine 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 600,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 112,
+      "Name": "Mine 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 1000,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 113,
+      "Name": "Mine 4",
+      "Effect": {
+        "RegionalSanitation": -10,
+        "PublicOrder": -10,
+        "Bonuses": [
+          {
+            "Value": 1650,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 114,
+      "Name": "Missile Workshop 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2
+      }
+    },
+    {
+      "Id": 115,
+      "Name": "Missile Workshop 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4
+      }
+    },
+    {
+      "Id": 116,
+      "Name": "Missile Workshop 4",
+      "Effect": {
+        "RegionalSanitation": -8,
+        "PublicOrder": -8
+      }
+    },
+    {
+      "Id": 117,
+      "Name": "Monument 2",
+      "Effect": {
+        "PublicOrder": 5
+      }
+    },
+    {
+      "Id": 118,
+      "Name": "Monument 3",
+      "Effect": {
+        "PublicOrder": 7
+      }
+    },
+    {
+      "Id": 119,
+      "Name": "Monument 4",
+      "Effect": {
+        "PublicOrder": 9
+      }
+    },
+    {
+      "Id": 120,
+      "Name": "Olive 1",
+      "Effect": {
+        "RegularFood": 50,
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 5,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 121,
+      "Name": "Olive 2",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "RegularFood": 90,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 10,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 122,
+      "Name": "Olive 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "RegularFood": 130,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 15,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 123,
+      "Name": "Olive 4",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "RegularFood": 170,
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 20,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 124,
+      "Name": "Orchard 2",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": 3,
+        "RegularFood": 90
+      }
+    },
+    {
+      "Id": 125,
+      "Name": "Orchard 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": 4,
+        "RegularFood": 139
+      }
+    },
+    {
+      "Id": 126,
+      "Name": "Orchard 4",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "PublicOrder": 5,
+        "RegularFood": 170
+      }
+    },
+    {
+      "Id": 127,
+      "Name": "Town Pagan Temple 1",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 128,
+      "Name": "City Pagan Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "Bonuses": [],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 129,
+      "Name": "Town Pagan Temple 2",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 130,
+      "Name": "City Pagan Temple 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -60,
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 131,
+      "Name": "Town Pagan Temple 3",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 132,
+      "Name": "City Pagan Temple 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "RegularFood": -90,
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 133,
+      "Name": "Town Pagan Temple 4",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 134,
+      "Name": "Palace 2",
+      "Effect": {
+        "PublicOrder": 9,
+        "RegularFood": -20,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "Culture"
+          },
+          {
+            "Value": 5,
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 135,
+      "Name": "Palace 3",
+      "Effect": {
+        "PublicOrder": 13,
+        "RegularFood": -50,
+        "Bonuses": [
+          {
+            "Value": 500,
+            "Category": "Culture"
+          },
+          {
+            "Value": 7,
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 136,
+      "Name": "Palace 4",
+      "Effect": {
+        "PublicOrder": 17,
+        "RegularFood": -100,
+        "Bonuses": [
+          {
+            "Value": 900,
+            "Category": "Culture"
+          },
+          {
+            "Value": 10,
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 137,
+      "Name": "Port 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 225,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 138,
+      "Name": "Salt 1",
+      "Effect": {
+        "RegularFood": 30,
+        "Bonuses": [
+          {
+            "Value": 120,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 139,
+      "Name": "Salt 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1,
+        "RegularFood": 50,
+        "Bonuses": [
+          {
+            "Value": 240,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 140,
+      "Name": "Salt 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -2,
+        "RegularFood": 70,
+        "Bonuses": [
+          {
+            "Value": 450,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 141,
+      "Name": "Salt 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "RegularFood": 90,
+        "Bonuses": [
+          {
+            "Value": 900,
+            "Category": "Industry"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 142,
+      "Name": "Temple of Serapis 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "RegularFood": -125,
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "Industry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 143,
+      "Name": "Sewers 2",
+      "Effect": {
+        "RegionalSanitation": 6,
+        "ProvincialSanitation": 4,
+        "Growth": 7,
+        "Fertility": 1,
+        "Bonuses": [
+          {
+            "Value": -50,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 144,
+      "Name": "Sewers 3",
+      "Effect": {
+        "RegionalSanitation": 9,
+        "ProvincialSanitation": 5,
+        "Growth": 10,
+        "Fertility": 2,
+        "Bonuses": [
+          {
+            "Value": -100,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 145,
+      "Name": "Sewers 4",
+      "Effect": {
+        "RegionalSanitation": 12,
+        "ProvincialSanitation": 6,
+        "Growth": 13,
+        "Fertility": 3,
+        "Bonuses": [
+          {
+            "Value": -200,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 146,
+      "Name": "Sheep Farm 2",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": -1,
+        "RegularFood": 30,
+        "FertilityDependentFood": 5,
+        "Bonuses": [
+          {
+            "Value": 450,
+            "Category": "Husbandry"
+          },
+          {
+            "Value": 60,
+            "Category": "Husbandry",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 147,
+      "Name": "Sheep Farm 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -3,
+        "RegularFood": 40,
+        "FertilityDependentFood": 6,
+        "Bonuses": [
+          {
+            "Value": 780,
+            "Category": "Husbandry"
+          },
+          {
+            "Value": 105,
+            "Category": "Husbandry",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 148,
+      "Name": "Sheep Farm 4",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "PublicOrder": -5,
+        "RegularFood": 50,
+        "FertilityDependentFood": 7,
+        "Bonuses": [
+          {
+            "Value": 1250,
+            "Category": "Husbandry"
+          },
+          {
+            "Value": 165,
+            "Category": "Husbandry",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 149,
+      "Name": "Silk 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 5,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 150,
+      "Name": "Silk 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -1,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 10,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 151,
+      "Name": "Silk 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 15,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 152,
+      "Name": "Silk 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "LocalCommerce",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 20,
+            "Category": "MaritimeCommerce",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 153,
+      "Name": "Missile Barracks 2",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -200,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 154,
+      "Name": "Missile Barracks 3",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -400,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 155,
+      "Name": "Missile Barracks 4",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": -800,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 156,
+      "Name": "Slave Market 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 875,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 157,
+      "Name": "Slave Market 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Industry",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 1450,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 158,
+      "Name": "Temple of Sol 4",
+      "Effect": {
+        "PublicOrder": 8,
+        "RegularFood": -125,
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 159,
+      "Name": "Spice Port 1",
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 150,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 160,
+      "Name": "Spice Port 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 161,
+      "Name": "Spice Port 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 500,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 162,
+      "Name": "Spice Port 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -6,
+        "Bonuses": [
+          {
+            "Value": 825,
+            "Category": "MaritimeCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 163,
+      "Name": "Tannery 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 600,
+            "Category": "Industry"
+          },
+          {
+            "Value": 5,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 164,
+      "Name": "Tannery 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 1000,
+            "Category": "Industry"
+          },
+          {
+            "Value": 10,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 165,
+      "Name": "Tannery 4",
+      "Effect": {
+        "RegionalSanitation": -10,
+        "PublicOrder": -10,
+        "Bonuses": [
+          {
+            "Value": 1650,
+            "Category": "Industry"
+          },
+          {
+            "Value": 15,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 166,
+      "Name": "Entertainment 2",
+      "Effect": {
+        "PublicOrder": 7,
+        "RegularFood": -30,
+        "Bonuses": [
+          {
+            "Value": 300,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 167,
+      "Name": "Theater 3",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": 10,
+        "RegularFood": -50,
+        "Bonuses": [
+          {
+            "Value": 1000,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 168,
+      "Name": "Theater 4",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": 13,
+        "RegularFood": -100,
+        "Bonuses": [
+          {
+            "Value": 1650,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 5,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 169,
+      "Name": "Trade Port 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 450,
+            "Category": "MaritimeCommerce"
+          },
+          {
+            "Value": 450,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 170,
+      "Name": "Trade Port 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 750,
+            "Category": "MaritimeCommerce"
+          },
+          {
+            "Value": 750,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 171,
+      "Name": "Trade Port 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -6,
+        "Bonuses": [
+          {
+            "Value": 1250,
+            "Category": "MaritimeCommerce"
+          },
+          {
+            "Value": 1250,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 172,
+      "Name": "Vineyard 2",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": 5,
+        "RegularFood": 50
+      }
+    },
+    {
+      "Id": 173,
+      "Name": "Vineyard 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": 7,
+        "RegularFood": 70
+      }
+    },
+    {
+      "Id": 174,
+      "Name": "Vineyard 4",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "PublicOrder": 9,
+        "RegularFood": 90
+      }
+    },
+    {
+      "Id": 175,
+      "Name": "Waterworks 2",
+      "Effect": {
+        "PublicOrder": 2,
+        "ProvincialSanitation": 8,
+        "Fertility": 1,
+        "Bonuses": [
+          {
+            "Value": -50,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 176,
+      "Name": "Waterworks 3",
+      "Effect": {
+        "PublicOrder": 3,
+        "ProvincialSanitation": 12,
+        "Fertility": 2,
+        "Bonuses": [
+          {
+            "Value": -100,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 177,
+      "Name": "Waterworks 4",
+      "Effect": {
+        "PublicOrder": 4,
+        "ProvincialSanitation": 16,
+        "Fertility": 3,
+        "Bonuses": [
+          {
+            "Value": -200,
+            "Category": "Maintenance"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 178,
+      "Name": "Weapon Workshop 2",
+      "Effect": {
+        "RegionalSanitation": -2,
+        "PublicOrder": -2
+      }
+    },
+    {
+      "Id": 179,
+      "Name": "Weapon Workshop 3",
+      "Effect": {
+        "RegionalSanitation": -4,
+        "PublicOrder": -4
+      }
+    },
+    {
+      "Id": 180,
+      "Name": "Weapon Workshop 4",
+      "Effect": {
+        "RegionalSanitation": -8,
+        "PublicOrder": -8
+      }
+    },
+    {
+      "Id": 181,
+      "Name": "Wheat Farm 2",
+      "Effect": {
+        "RegionalSanitation": -1,
+        "PublicOrder": -1,
+        "RegularFood": 20,
+        "FertilityDependentFood": 18,
+        "Bonuses": [
+          {
+            "Value": 30,
+            "Category": "Agriculture"
+          },
+          {
+            "Value": 30,
+            "Category": "Agriculture",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 182,
+      "Name": "Wheat Farm 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -3,
+        "RegularFood": 30,
+        "FertilityDependentFood": 26,
+        "Bonuses": [
+          {
+            "Value": 50,
+            "Category": "Agriculture"
+          },
+          {
+            "Value": 50,
+            "Category": "Agriculture",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 183,
+      "Name": "Wheat Farm 4",
+      "Effect": {
+        "RegionalSanitation": -5,
+        "PublicOrder": -5,
+        "RegularFood": 40,
+        "FertilityDependentFood": 34,
+        "Bonuses": [
+          {
+            "Value": 80,
+            "Category": "Agriculture"
+          },
+          {
+            "Value": 80,
+            "Category": "Agriculture",
+            "Type": "FertilityDependent"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 184,
+      "Name": "Wine 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": 50
+      }
+    },
+    {
+      "Id": 185,
+      "Name": "Wine Market 3",
+      "Effect": {
+        "RegionalSanitation": -3,
+        "PublicOrder": -2,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Culture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 1200,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 186,
+      "Name": "Wine Market 4",
+      "Effect": {
+        "RegionalSanitation": -6,
+        "PublicOrder": -4,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Culture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 2000,
+            "Category": "LocalCommerce"
+          }
+        ]
+      }
+    },
+    {
+      "Id": 187,
+      "Name": "Workshop 1"
+    },
+    {
+      "Id": 188,
+      "Name": "City Greek Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 189,
+      "Name": "City Greek Temple 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 190,
+      "Name": "City Greek Temple 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 191,
+      "Name": "City Greek Temple 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 192,
+      "Name": "Greek Monastery 2",
+      "Effect": {
+        "ResearchRate": 4,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 193,
+      "Name": "Greek Monastery 3",
+      "Effect": {
+        "ResearchRate": 15,
+        "ReligiousOsmosis": 2,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 194,
+      "Name": "Greek Monastery 4",
+      "Effect": {
+        "ResearchRate": 25,
+        "ReligiousOsmosis": 3,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": 195,
+      "Name": "City Manichean Temple 1",
+      "Effect": {
+        "RegularFood": -30,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 196,
+      "Name": "City Manichean Temple 2",
+      "Effect": {
+        "RegularFood": -60,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 197,
+      "Name": "City Manichean Temple 3",
+      "Effect": {
+        "RegularFood": -90,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 198,
+      "Name": "City Manichean Temple 4",
+      "Effect": {
+        "RegularFood": -125,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 199,
+      "Name": "Manichean Monastery 2",
+      "Effect": {
+        "RegularFood": -60,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "Culture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 300,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 200,
+      "Name": "Manichean Monastery 3",
+      "Effect": {
+        "RegularFood": -90,
+        "ReligiousOsmosis": 2,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Culture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 500,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 201,
+      "Name": "Manichean Monastery 4",
+      "Effect": {
+        "RegularFood": -125,
+        "ReligiousOsmosis": 3,
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "Culture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 750,
+            "Category": "Culture"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": 202,
+      "Name": "City Celtic Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": -20,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 203,
+      "Name": "City Celtic Temple 2",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -40,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 204,
+      "Name": "City Celtic Temple 3",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": -60,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 205,
+      "Name": "City Celtic Temple 4",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -80,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 206,
+      "Name": "City Tengri Temple 1",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 207,
+      "Name": "City Tengri Temple 2",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 208,
+      "Name": "City Tengri Temple 3",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 209,
+      "Name": "City Tengri Temple 4",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 210,
+      "Name": "City Germanic Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": -20,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 211,
+      "Name": "City Germanic Temple 2",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -40,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 212,
+      "Name": "City Germanic Temple 3",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": -60,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 213,
+      "Name": "City Germanic Temple 4",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -80,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 214,
+      "Name": "City Zoroastrian Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 215,
+      "Name": "City Zoroastrian Temple 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -60,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 216,
+      "Name": "City Zoroastrian Temple 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "RegularFood": -90,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 217,
+      "Name": "City Zoroastrian Temple 4",
+      "Effect": {
+        "PublicOrder": 12,
+        "RegularFood": -125,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 218,
+      "Name": "City Arian Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 219,
+      "Name": "City Arian Temple 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 220,
+      "Name": "City Arian Temple 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 221,
+      "Name": "City Arian Temple 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 222,
+      "Name": "Arian Monastery 2",
+      "Effect": {
+        "RegularFood": 30,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 5,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 223,
+      "Name": "Arian Monastery 3",
+      "Effect": {
+        "RegularFood": 40,
+        "ReligiousOsmosis": 2,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 10,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 224,
+      "Name": "Arian Monastery 4",
+      "Effect": {
+        "RegularFood": 50,
+        "ReligiousOsmosis": 3,
+        "Bonuses": [
+          {
+            "Value": 15,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 15,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": 225,
+      "Name": "City Slavic Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": -20,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 226,
+      "Name": "City Slavic Temple 2",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -40,
+        "ReligiousOsmosis": 2,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 227,
+      "Name": "City Slavic Temple 3",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": -60,
+        "ReligiousOsmosis": 3,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 228,
+      "Name": "City Slavic Temple 4",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -80,
+        "ReligiousOsmosis": 4,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 229,
+      "Name": "City Semitic Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 10,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 230,
+      "Name": "City Semitic Temple 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -60,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 20,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 20,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 231,
+      "Name": "City Semitic Temple 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "RegularFood": -90,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 30,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 30,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 232,
+      "Name": "City Semitic Temple 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "RegularFood": -125,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 40,
+            "Category": "Agriculture",
+            "Type": "Percentage"
+          },
+          {
+            "Value": 40,
+            "Category": "Husbandry",
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 233,
+      "Name": "City Judaic Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "ReligiousOsmosis": 1,
+        "ResearchRate": 5,
+        "Influences": [
+          {
+            "ReligionId": 7,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 234,
+      "Name": "City Judaic Temple 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -60,
+        "ReligiousOsmosis": 1,
+        "ResearchRate": 10,
+        "Influences": [
+          {
+            "ReligionId": 7,
+            "Value": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": 235,
+      "Name": "City Judaic Temple 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "RegularFood": -90,
+        "ReligiousOsmosis": 1,
+        "ResearchRate": 15,
+        "Influences": [
+          {
+            "ReligionId": 7,
+            "Value": 8
+          }
+        ]
+      }
+    },
+    {
+      "Id": 236,
+      "Name": "City Judaic Temple 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "RegularFood": -125,
+        "ReligiousOsmosis": 1,
+        "ResearchRate": 20,
+        "Influences": [
+          {
+            "ReligionId": 7,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 237,
+      "Name": "City East Temple 1",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 1,
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 238,
+      "Name": "City East Temple 2",
+      "Effect": {
+        "PublicOrder": 5,
+        "RegularFood": -60,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 2,
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": 239,
+      "Name": "City East Temple 3",
+      "Effect": {
+        "PublicOrder": 7,
+        "RegularFood": -90,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 3,
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 8
+          }
+        ]
+      }
+    },
+    {
+      "Id": 240,
+      "Name": "City East Temple 4",
+      "Effect": {
+        "PublicOrder": 10,
+        "RegularFood": -125,
+        "ReligiousOsmosis": 1,
+        "Bonuses": [
+          {
+            "Value": 4,
+            "Type": "Percentage"
+          }
+        ],
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 10
+          }
+        ]
+      }
+    },
+    {
+      "Id": 241,
+      "Name": "Zoroastrian Burial 1",
+      "Effect": {
+        "RegionalSanitation": 2,
+        "ProvincialSanitation": 1,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 242,
+      "Name": "Zoroastrian Burial 2",
+      "Effect": {
+        "RegionalSanitation": 3,
+        "ProvincialSanitation": 2,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 243,
+      "Name": "Zoroastrian Burial 3",
+      "Effect": {
+        "RegionalSanitation": 4,
+        "ProvincialSanitation": 3,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 244,
+      "Name": "Zoroastrian Burial 4",
+      "Effect": {
+        "RegionalSanitation": 5,
+        "ProvincialSanitation": 4,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 245,
+      "Name": "Town Semitic Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": 10,
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 246,
+      "Name": "Town Semitic Temple 2",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": 20,
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 247,
+      "Name": "Town Semitic Temple 3",
+      "Effect": {
+        "PublicOrder": 6,
+        "RegularFood": 30,
+        "Influences": [
+          {
+            "ReligionId": 11,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 248,
+      "Name": "Town Judaic Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": -10,
+        "ProvincialSanitation": 2,
+        "Influences": [
+          {
+            "ReligionId": 7,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 249,
+      "Name": "Town Judaic Temple 2",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": -30,
+        "ProvincialSanitation": 4,
+        "Influences": [
+          {
+            "ReligionId": 7,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 250,
+      "Name": "Town Judaic Temple 3",
+      "Effect": {
+        "PublicOrder": 6,
+        "RegularFood": -50,
+        "ProvincialSanitation": 6,
+        "Influences": [
+          {
+            "ReligionId": 7,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 251,
+      "Name": "Town Arian Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 252,
+      "Name": "Town Arian Temple 2",
+      "Effect": {
+        "PublicOrder": 3,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 253,
+      "Name": "Town Arian Temple 3",
+      "Effect": {
+        "PublicOrder": 4,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 254,
+      "Name": "Town Arian Temple 4",
+      "Effect": {
+        "PublicOrder": 5,
+        "Influences": [
+          {
+            "ReligionId": 1,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 255,
+      "Name": "Town East Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": -10,
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 256,
+      "Name": "Town East Temple 2",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": -30,
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": 257,
+      "Name": "Town East Temple 3",
+      "Effect": {
+        "PublicOrder": 6,
+        "RegularFood": -50,
+        "Influences": [
+          {
+            "ReligionId": 3,
+            "Value": 7
+          }
+        ]
+      }
+    },
+    {
+      "Id": 258,
+      "Name": "Town Celtic Temple 1",
+      "Effect": {
+        "PublicOrder": 1,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 259,
+      "Name": "Town Celtic Burial 2",
+      "Effect": {
+        "ProvincialSanitation": 1,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 260,
+      "Name": "Town Celtic Burial 3",
+      "Effect": {
+        "ProvincialSanitation": 2,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 261,
+      "Name": "Town Celtic Burial 4",
+      "Effect": {
+        "ProvincialSanitation": 3,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 262,
+      "Name": "Town Celtic Well 2",
+      "Effect": {
+        "PublicOrder": 2,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 263,
+      "Name": "Town Celtic Well 3",
+      "Effect": {
+        "PublicOrder": 3,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 264,
+      "Name": "Town Celtic Well 4",
+      "Effect": {
+        "PublicOrder": 3,
+        "Influences": [
+          {
+            "ReligionId": 2,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 265,
+      "Name": "Town Manichean Temple 1",
+      "Effect": {
+        "RegularFood": -10,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 266,
+      "Name": "Town Manichean Temple 2",
+      "Effect": {
+        "RegularFood": -20,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 267,
+      "Name": "Town Manichean Temple 3",
+      "Effect": {
+        "RegularFood": -30,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 268,
+      "Name": "Town Manichean Temple 4",
+      "Effect": {
+        "RegularFood": -40,
+        "Influences": [
+          {
+            "ReligionId": 9,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 269,
+      "Name": "Town Tengri Temple 1",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 270,
+      "Name": "Town Tengri Temple 2",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 271,
+      "Name": "Town Tengri Temple 3",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 272,
+      "Name": "Town Tengri Temple 4",
+      "Effect": {
+        "Influences": [
+          {
+            "ReligionId": 13,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 273,
+      "Name": "Town Germanic Temple 1",
+      "Effect": {
+        "PublicOrder": 1,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 274,
+      "Name": "Town Germanic Temple 2",
+      "Effect": {
+        "ProvincialSanitation": 1,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 275,
+      "Name": "Town Germanic Temple 3",
+      "Effect": {
+        "ProvincialSanitation": 2,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 276,
+      "Name": "Town Germanic Temple 4",
+      "Effect": {
+        "ProvincialSanitation": 3,
+        "ReligiousOsmosis": 1,
+        "Influences": [
+          {
+            "ReligionId": 4,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 277,
+      "Name": "Town Zoroastrian Temple 1",
+      "Effect": {
+        "PublicOrder": 1,
+        "RegularFood": -10,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 278,
+      "Name": "Town Zoroastrian Temple 2",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": -20,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 279,
+      "Name": "Town Zoroastrian Temple 3",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 280,
+      "Name": "Town Zoroastrian Temple 4",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": -50,
+        "Influences": [
+          {
+            "ReligionId": 14,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 281,
+      "Name": "Town Greek Temple 1",
+      "Effect": {
+        "PublicOrder": 2,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 282,
+      "Name": "Town Greek Temple 2",
+      "Effect": {
+        "PublicOrder": 3,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 283,
+      "Name": "Town Greek Temple 3",
+      "Effect": {
+        "PublicOrder": 4,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 284,
+      "Name": "Town Greek Temple 4",
+      "Effect": {
+        "PublicOrder": 5,
+        "Influences": [
+          {
+            "ReligionId": 6,
+            "Value": 4
+          }
+        ]
+      }
+    },
+    {
+      "Id": 285,
+      "Name": "Town Slavic Temple 1",
+      "Effect": {
+        "PublicOrder": 1,
+        "RegularFood": -10,
+        "Growth": 1,
+        "Fertility": 1,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 1
+          }
+        ]
+      }
+    },
+    {
+      "Id": 286,
+      "Name": "Town Slavic Temple 2",
+      "Effect": {
+        "PublicOrder": 2,
+        "RegularFood": -20,
+        "Growth": 1,
+        "Fertility": 1,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 2
+          }
+        ]
+      }
+    },
+    {
+      "Id": 287,
+      "Name": "Town Slavic Temple 3",
+      "Effect": {
+        "PublicOrder": 3,
+        "RegularFood": -30,
+        "Growth": 2,
+        "Fertility": 2,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": 288,
+      "Name": "Town Slavic Temple 4",
+      "Effect": {
+        "PublicOrder": 4,
+        "RegularFood": -50,
+        "Growth": 3,
+        "Fertility": 3,
+        "Influences": [
+          {
+            "ReligionId": 12,
+            "Value": 4
+          }
+        ]
+      }
+    }
+  ],
+  "Branches": [
+    {
+      "Id": 1,
+      "Name": "City",
+      "SlotType": "Main",
+      "RegionType": "City",
+      "Levels": [
+        18,
+        20,
+        22,
+        24
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "Town",
+      "SlotType": "Main",
+      "RegionType": "Town",
+      "Levels": [
+        17,
+        19,
+        21,
+        23
+      ]
+    },
+    {
+      "Id": 3,
+      "Name": "Port",
+      "SlotType": "Coastal",
+      "Levels": [
+        30,
+        31,
+        32,
+        108,
+        109,
+        110,
+        137,
+        169,
+        170,
+        171
+      ]
+    },
+    {
+      "Id": 4,
+      "Name": "Infantry Barracks",
+      "Levels": [
+        7,
+        64,
+        65,
+        66
+      ]
+    },
+    {
+      "Id": 5,
+      "Name": "Missile Barracks",
+      "Levels": [
+        7,
+        153,
+        154,
+        155
+      ]
+    },
+    {
+      "Id": 6,
+      "Name": "Cavalry Barracks",
+      "Levels": [
+        7,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "Id": 7,
+      "Name": "Wheat Farm",
+      "RegionType": "Town",
+      "Levels": [
+        29,
+        181,
+        182,
+        183
+      ]
+    },
+    {
+      "Id": 8,
+      "Name": "Cattle Farm",
+      "RegionType": "Town",
+      "Levels": [
+        29,
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "Id": 9,
+      "Name": "Sheep Farm",
+      "RegionType": "Town",
+      "Levels": [
+        29,
+        146,
+        147,
+        148
+      ]
+    },
+    {
+      "Id": 10,
+      "Name": "Mine",
+      "RegionType": "Town",
+      "Levels": [
+        62,
+        111,
+        112,
+        113
+      ]
+    },
+    {
+      "Id": 11,
+      "Name": "Tannery",
+      "RegionType": "Town",
+      "Levels": [
+        62,
+        163,
+        164,
+        165
+      ]
+    },
+    {
+      "Id": 12,
+      "Name": "Fountain",
+      "RegionType": "Town",
+      "Levels": [
+        36,
+        37,
+        38,
+        39
+      ]
+    },
+    {
+      "Id": 13,
+      "Name": "Garrison",
+      "RegionType": "Town",
+      "Levels": [
+        44,
+        45,
+        46,
+        47
+      ]
+    },
+    {
+      "Id": 14,
+      "Name": "Town Latin Temple",
+      "RegionType": "Town",
+      "Levels": [
+        78,
+        80,
+        82,
+        84
+      ]
+    },
+    {
+      "Id": 15,
+      "Name": "Town Pagan Temple",
+      "RegionType": "Town",
+      "Levels": [
+        127,
+        129,
+        131,
+        133
+      ]
+    },
+    {
+      "Id": 16,
+      "Name": "Weapon Workshop",
+      "RegionType": "City",
+      "Levels": [
+        187,
+        178,
+        179,
+        180
+      ]
+    },
+    {
+      "Id": 17,
+      "Name": "Armour Workshop",
+      "RegionType": "City",
+      "Levels": [
+        187,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "Id": 18,
+      "Name": "Missile Workshop",
+      "RegionType": "City",
+      "Levels": [
+        187,
+        114,
+        115,
+        116
+      ]
+    },
+    {
+      "Id": 19,
+      "Name": "Monument",
+      "RegionType": "City",
+      "Levels": [
+        1,
+        117,
+        118,
+        119
+      ]
+    },
+    {
+      "Id": 20,
+      "Name": "Palace",
+      "RegionType": "City",
+      "Levels": [
+        1,
+        134,
+        135,
+        136
+      ]
+    },
+    {
+      "Id": 21,
+      "Name": "Brickyard",
+      "RegionType": "City",
+      "Levels": [
+        63,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "Id": 22,
+      "Name": "Metalworks",
+      "RegionType": "City",
+      "Levels": [
+        63,
+        105,
+        106,
+        107
+      ]
+    },
+    {
+      "Id": 23,
+      "Name": "Hygiene",
+      "RegionType": "City",
+      "Levels": [
+        60,
+        143,
+        144,
+        145,
+        175,
+        176,
+        177
+      ]
+    },
+    {
+      "Id": 24,
+      "Name": "Market",
+      "RegionType": "City",
+      "Levels": [
+        35,
+        104,
+        33,
+        34,
+        156,
+        157,
+        185,
+        186
+      ]
+    },
+    {
+      "Id": 25,
+      "Name": "Library",
+      "RegionType": "City",
+      "Levels": [
+        35,
+        90,
+        91,
+        92
+      ]
+    },
+    {
+      "Id": 26,
+      "Name": "Entertainment",
+      "RegionType": "City",
+      "Levels": [
+        35,
+        166,
+        167,
+        168,
+        2,
+        3
+      ]
+    },
+    {
+      "Id": 27,
+      "Name": "City Latin Temple",
+      "RegionType": "City",
+      "Levels": [
+        79,
+        81,
+        83,
+        85,
+        75,
+        76,
+        77
+      ]
+    },
+    {
+      "Id": 28,
+      "Name": "City Pagan Temple",
+      "RegionType": "City",
+      "Levels": [
+        128,
+        130,
+        132,
+        59,
+        61,
+        74,
+        142,
+        158
+      ]
+    },
+    {
+      "Id": 29,
+      "Name": "Dye",
+      "Levels": [
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    {
+      "Id": 30,
+      "Name": "Fur",
+      "Levels": [
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    {
+      "Id": 31,
+      "Name": "Gemstones",
+      "Levels": [
+        48,
+        49,
+        50,
+        51
+      ]
+    },
+    {
+      "Id": 32,
+      "Name": "Gold",
+      "Levels": [
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58
+      ]
+    },
+    {
+      "Id": 33,
+      "Name": "Iron",
+      "Levels": [
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73
+      ]
+    },
+    {
+      "Id": 34,
+      "Name": "Lead",
+      "Levels": [
+        86,
+        87,
+        88,
+        89
+      ]
+    },
+    {
+      "Id": 35,
+      "Name": "Lumber",
+      "Levels": [
+        93,
+        94,
+        95,
+        96
+      ]
+    },
+    {
+      "Id": 36,
+      "Name": "Marble",
+      "Levels": [
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103
+      ]
+    },
+    {
+      "Id": 37,
+      "Name": "Olive",
+      "Levels": [
+        120,
+        121,
+        122,
+        123
+      ]
+    },
+    {
+      "Id": 38,
+      "Name": "Salt",
+      "Levels": [
+        138,
+        139,
+        140,
+        141
+      ]
+    },
+    {
+      "Id": 39,
+      "Name": "Silk",
+      "Levels": [
+        149,
+        150,
+        151,
+        152
+      ]
+    },
+    {
+      "Id": 40,
+      "Name": "Spice",
+      "SlotType": "Coastal",
+      "Levels": [
+        159,
+        160,
+        161,
+        162
+      ]
+    },
+    {
+      "Id": 41,
+      "Name": "Wine",
+      "Levels": [
+        184,
+        124,
+        125,
+        126,
+        172,
+        173,
+        174
+      ]
+    },
+    {
+      "Id": 42,
+      "Name": "City Greek Temple",
+      "RegionType": "City",
+      "Levels": [
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194
+      ]
+    },
+    {
+      "Id": 43,
+      "Name": "City Manichean Temple",
+      "RegionType": "City",
+      "Levels": [
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201
+      ]
+    },
+    {
+      "Id": 44,
+      "Name": "City Celtic Temple",
+      "RegionType": "City",
+      "Levels": [
+        202,
+        203,
+        204,
+        205
+      ]
+    },
+    {
+      "Id": 45,
+      "Name": "City Tengri Temple",
+      "RegionType": "City",
+      "Levels": [
+        206,
+        207,
+        208,
+        209
+      ]
+    },
+    {
+      "Id": 46,
+      "Name": "City Germanic Temple",
+      "RegionType": "City",
+      "Levels": [
+        210,
+        211,
+        212,
+        213
+      ]
+    },
+    {
+      "Id": 47,
+      "Name": "City Zoroastrian Temple",
+      "RegionType": "City",
+      "Levels": [
+        214,
+        215,
+        216,
+        217
+      ]
+    },
+    {
+      "Id": 48,
+      "Name": "City Arian Temple",
+      "RegionType": "City",
+      "Levels": [
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224
+      ]
+    },
+    {
+      "Id": 49,
+      "Name": "City Slavic Temple",
+      "RegionType": "City",
+      "Levels": [
+        225,
+        226,
+        227,
+        228
+      ]
+    },
+    {
+      "Id": 50,
+      "Name": "City Semitic Temple",
+      "RegionType": "City",
+      "Levels": [
+        229,
+        230,
+        231,
+        232
+      ]
+    },
+    {
+      "Id": 51,
+      "Name": "City Judaic Temple",
+      "RegionType": "City",
+      "Levels": [
+        233,
+        234,
+        235,
+        236
+      ]
+    },
+    {
+      "Id": 52,
+      "Name": "City East Temple",
+      "RegionType": "City",
+      "Levels": [
+        237,
+        238,
+        239,
+        240
+      ]
+    },
+    {
+      "Id": 53,
+      "Name": "Zoroastrian Burial",
+      "RegionType": "City",
+      "Levels": [
+        241,
+        242,
+        243,
+        244
+      ]
+    },
+    {
+      "Id": 54,
+      "Name": "Town Semitic Temple",
+      "RegionType": "Town",
+      "Levels": [
+        245,
+        246,
+        247
+      ]
+    },
+    {
+      "Id": 55,
+      "Name": "Town Judaic Temple",
+      "RegionType": "Town",
+      "Levels": [
+        248,
+        249,
+        250
+      ]
+    },
+    {
+      "Id": 56,
+      "Name": "Town Arian Temple",
+      "RegionType": "Town",
+      "Levels": [
+        251,
+        252,
+        253,
+        254
+      ]
+    },
+    {
+      "Id": 57,
+      "Name": "Town East Temple",
+      "RegionType": "Town",
+      "Levels": [
+        255,
+        256,
+        257
+      ]
+    },
+    {
+      "Id": 58,
+      "Name": "Town Celtic Temple",
+      "RegionType": "Town",
+      "Levels": [
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264
+      ]
+    },
+    {
+      "Id": 59,
+      "Name": "Town Manichean Temple",
+      "RegionType": "Town",
+      "Levels": [
+        265,
+        266,
+        267,
+        268
+      ]
+    },
+    {
+      "Id": 60,
+      "Name": "Town Tengri Temple",
+      "RegionType": "Town",
+      "Levels": [
+        269,
+        270,
+        271,
+        272
+      ]
+    },
+    {
+      "Id": 61,
+      "Name": "Town Germanic Temple",
+      "RegionType": "Town",
+      "Levels": [
+        273,
+        274,
+        275,
+        276
+      ]
+    },
+    {
+      "Id": 62,
+      "Name": "Town Zoroastrian Temple",
+      "RegionType": "Town",
+      "Levels": [
+        277,
+        278,
+        279,
+        280
+      ]
+    },
+    {
+      "Id": 63,
+      "Name": "Town Greek Temple",
+      "RegionType": "Town",
+      "Levels": [
+        281,
+        282,
+        283,
+        284
+      ]
+    },
+    {
+      "Id": 64,
+      "Name": "Town Slavic Temple",
+      "RegionType": "Town",
+      "Levels": [
+        285,
+        286,
+        287,
+        288
+      ]
     }
   ]
 }

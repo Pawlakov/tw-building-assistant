@@ -123,6 +123,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\JsonData.cs" />
+    <Compile Include="Model\Buildings\BuildingsException.cs" />
+    <Compile Include="Model\Buildings\BuildingManager.cs" />
+    <Compile Include="Model\Buildings\IBranch.cs" />
+    <Compile Include="Model\Buildings\IBuilding.cs" />
+    <Compile Include="Model\Buildings\RegionType.cs" />
+    <Compile Include="Model\Buildings\SlotType.cs" />
     <Compile Include="Model\Effects\EffectsException.cs" />
     <Compile Include="Model\Extensions.cs" />
     <Compile Include="Model\IParseable.cs" />
@@ -161,10 +167,9 @@
     <Compile Include="Model\Effects\IInfluence.cs" />
     <Compile Include="Model\Effects\IProvincialEffect.cs" />
     <Compile Include="Model\Effects\IRegionalEffect.cs" />
-    <Compile Include="Model\Buildings\BuildingBranch.cs" />
-    <Compile Include="Model\Buildings\BuildingLevel.cs" />
+    <Compile Include="Model\Buildings\Branch.cs" />
+    <Compile Include="Model\Buildings\Building.cs" />
     <Compile Include="Model\Buildings\BuildingsLibrary.cs" />
-    <Compile Include="Model\Buildings\ITechnologyLevelAssigner.cs" />
     <Compile Include="Model\Climate\Climate.cs" />
     <Compile Include="Model\Climate\ClimateManager.cs" />
     <Compile Include="Model\Weather\Weather.cs" />
@@ -226,11 +231,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\Buildings\twa_buildings_wre.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Model\Factions\twa_factions.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

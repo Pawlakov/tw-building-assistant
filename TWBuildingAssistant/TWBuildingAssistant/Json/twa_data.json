@@ -7634,5 +7634,293 @@
         288
       ]
     }
+  ],
+  "Factions": [
+    {
+      "Name": "Western Roman Empire",
+      "TechTiers": [
+        {
+          "Universal": {
+            "Effect": {
+              "Growth": 3,
+              "Bonuses": [
+                {
+                  "Value": 1,
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 3,
+                  "Category": "Culture",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 5,
+                  "Category": "Agriculture",
+                  "Type": "Percentage"
+                }
+              ]
+            },
+            "Unlocks": [
+              4,
+              12,
+              14,
+              64,
+              112,
+              114,
+              135,
+              147,
+              153,
+              178,
+              182
+            ]
+          },
+          "Antilegacy": {
+            "Effect": {
+
+            },
+            "Locks": [
+              92
+            ]
+          }
+        },
+        {
+          "Universal": {
+            "Effect": {
+              "Bonuses": [
+                {
+                  "Value": 3,
+                  "Category": "LocalCommerce",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 3,
+                  "Category": "MaritimeCommerce",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 5,
+                  "Category": "Husbandry",
+                  "Type": "Percentage"
+                }
+              ]
+            },
+            "Unlocks": [
+              9,
+              15,
+              21,
+              22,
+              31,
+              33,
+              65,
+              106,
+              109,
+              148,
+              154,
+              164,
+              170,
+              183
+            ]
+          },
+          "Antilegacy": {
+            "Effect": {
+              "PublicOrder": 3,
+              "Influences": [
+                {
+                  "Value": 1
+                }
+              ]
+            },
+            "Locks": [
+              91,
+              167,
+              168
+            ]
+          }
+        },
+        {
+          "Universal": {
+            "Effect": {
+              "Bonuses": [
+                {
+                  "Value": 5,
+                  "Category": "Industry",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 5,
+                  "Category": "Culture",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 5,
+                  "Category": "LocalCommerce",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 5,
+                  "Category": "MaritimeCommerce",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 5,
+                  "Category": "Agriculture",
+                  "Type": "Percentage"
+                }
+              ]
+            },
+            "Unlocks": [
+              5,
+              10,
+              13,
+              16,
+              34,
+              66,
+              107,
+              113,
+              115,
+              118,
+              156,
+              165,
+              179,
+              185
+            ]
+          },
+          "Antilegacy": {
+            "Effect": {
+              "Bonuses": [
+                {
+                  "Value": 5,
+                  "Type": "Percentage"
+                }
+              ],
+              "Influences": [
+                {
+                  "Value": 2
+                }
+              ]
+            },
+            "Unlocks": [
+              76,
+              77,
+              83,
+              84,
+              85,
+              190,
+              191,
+              193,
+              194,
+              220,
+              221,
+              223,
+              224,
+              254,
+              284
+            ],
+            "Locks": [
+              2,
+              3,
+              39,
+              145,
+              177
+            ]
+          }
+        },
+        {
+          "Universal": {
+            "Effect": {
+              "Bonuses": [
+                {
+                  "Value": 6,
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 10,
+                  "Category": "Agriculture",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 5,
+                  "Category": "Husbandry",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 7,
+                  "Category": "Culture",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 10,
+                  "Category": "Industry",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 7,
+                  "Category": "LocalCommerce",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 7,
+                  "Category": "MaritimeCommerce",
+                  "Type": "Percentage"
+                },
+                {
+                  "Value": 15,
+                  "Category": "Subsistence",
+                  "Type": "Percentage"
+                }
+              ]
+            },
+            "Unlocks": [
+              6,
+              23,
+              24,
+              28,
+              32,
+              43,
+              51,
+              55,
+              58,
+              70,
+              73,
+              89,
+              96,
+              100,
+              103,
+              110,
+              116,
+              119,
+              123,
+              126,
+              136,
+              141,
+              152,
+              155,
+              157,
+              162,
+              171,
+              174,
+              180,
+              186
+            ]
+          },
+          "Antilegacy": {
+            "Effect": {
+              "PublicOrder": 8,
+              "Bonuses": [
+                {
+                  "Value": 18,
+                  "Type": "Percentage"
+                }
+              ]
+            },
+            "Locks": [
+              38,
+              144,
+              176
+            ]
+          }
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,68 @@
+[
+  {
+    "Id": 1,
+    "Name": "Arian Christian",
+    "ProvincialEffectId": 1
+  },
+  {
+    "Id": 2,
+    "Name": "Celtic Pagan",
+    "ProvincialEffectId": 2
+  },
+  {
+    "Id": 3,
+    "Name": "East Christian",
+    "ProvincialEffectId": 3
+  },
+  {
+    "Id": 4,
+    "Name": "Germanic Pagan"
+  },
+  {
+    "Id": 5,
+    "Name": "Graecoroman Pagan",
+    "ProvincialEffectId": 4
+  },
+  {
+    "Id": 6,
+    "Name": "Greek Christian",
+    "ProvincialEffectId": 5
+  },
+  {
+    "Id": 7,
+    "Name": "Judaic",
+    "ProvincialEffectId": 6
+  },
+  {
+    "Id": 8,
+    "Name": "Latin Christian",
+    "ProvincialEffectId": 7
+  },
+  {
+    "Id": 9,
+    "Name": "Manichean",
+    "ProvincialEffectId": 8
+  },
+  {
+    "Id": 10,
+    "Name": "Minor"
+  },
+  {
+    "Id": 11,
+    "Name": "Semitic Pagan"
+  },
+  {
+    "Id": 12,
+    "Name": "Slavic Pagan",
+    "ProvincialEffectId": 9
+  },
+  {
+    "Id": 13,
+    "Name": "Tengri"
+  },
+  {
+    "Id": 14,
+    "Name": "Zoroastrian",
+    "ProvincialEffectId": 10
+  }
+]

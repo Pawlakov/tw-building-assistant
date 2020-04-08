@@ -1,56 +1,42 @@
 ﻿namespace TWBuildingAssistant.Model
 {
+    using SimpleInjector;
     using System.Collections.Generic;
-
+    using System.Linq;
     using TWBuildingAssistant.Data;
-    using TWBuildingAssistant.Model.Climate;
+    using TWBuildingAssistant.Data.Json;
+    using TWBuildingAssistant.Data.Model;
     using TWBuildingAssistant.Model.Combinations;
-    using TWBuildingAssistant.Model.Effects;
-    using TWBuildingAssistant.Model.Factions;
-    using TWBuildingAssistant.Model.Map;
-    using TWBuildingAssistant.Model.Religions;
-    using TWBuildingAssistant.Model.Resources;
-    using TWBuildingAssistant.Model.Weather;
-
-    using Unity;
 
     public partial class World
     {
-        private readonly IUnityContainer resolver;
-
-        private readonly WeatherManager weatherManager;
-
-        private readonly ClimateManager climateManager;
-
-        private readonly ResourceManager resourcesManager;
-
-        private readonly ReligionsManager religionsManager;
-
-        private readonly ProvincesManager provincesManager;
-
-        private readonly FactionsManager factionsManager;
+        private readonly Container resolver;
 
         private World()
         {
-            this.resolver = new UnityContainer();
-            this.resolver.RegisterInstance<ISource>(new JsonData());
+            this.resolver = new Container();
+            this.resolver.RegisterInstance<IRepository<IBonus>>(new BonusRepository());
+            this.resolver.RegisterInstance<IRepository<IBuildingBranch>>(new BuildingBranchRepository());
+            this.resolver.RegisterInstance<IRepository<IBuildingBranchUse>>(new BuildingBranchUseRepository());
+            this.resolver.RegisterInstance<IRepository<IBuildingLevel>>(new BuildingLevelRepository());
+            this.resolver.RegisterInstance<IRepository<IBuildingLevelLock>>(new BuildingLevelLockRepository());
+            this.resolver.RegisterInstance<IRepository<IClimate>>(new ClimateRepository());
+            this.resolver.RegisterInstance<IRepository<IFaction>>(new FactionRepository());
+            this.resolver.RegisterInstance<IRepository<IInfluence>>(new InfluenceRepository());
+            this.resolver.RegisterInstance<IRepository<IProvince>>(new ProvinceRepository());
+            this.resolver.RegisterInstance<IRepository<IProvincialEffect>>(new ProvincialEffectRepository());
+            this.resolver.RegisterInstance<IRepository<IRegion>>(new RegionRepository());
+            this.resolver.RegisterInstance<IRepository<IRegionalEffect>>(new RegionalEffectRepository());
+            this.resolver.RegisterInstance<IRepository<IReligion>>(new ReligionRepository());
+            this.resolver.RegisterInstance<IRepository<IResource>>(new ResourceRepository());
+            this.resolver.RegisterInstance<IRepository<ITechnologyLevel>>(new TechnologyLevelRepository());
+            this.resolver.RegisterInstance<IRepository<IWeather>>(new WeatherRepository());
+            this.resolver.RegisterInstance<IRepository<IWeatherEffect>>(new WeatherEffectRepository());
 
-            this.resourcesManager = new ResourceManager(this.resolver);
-            this.resolver.RegisterInstance<Parser<IResource>>(this.resourcesManager);
-
-            this.religionsManager = new ReligionsManager(this.resolver);
-            this.resolver.RegisterInstance<Parser<IReligion>>(this.religionsManager);
-            this.resolver.RegisterInstance<IStateReligionTracker>(this.religionsManager);
-
-            this.weatherManager = new WeatherManager(this.resolver);
-            this.resolver.RegisterInstance<Parser<IWeather>>(this.weatherManager);
-            this.resolver.RegisterInstance<IConsideredWeatherTracker>(this.weatherManager);
-
-            this.climateManager = new ClimateManager(this.resolver);
-            this.resolver.RegisterInstance<Parser<IClimate>>(this.climateManager);
-
-            this.provincesManager = new ProvincesManager(this.resolver);
-            this.factionsManager = new FactionsManager(this.resolver);
+            Weathers = resolver.GetInstance<IRepository<IWeather>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+            Religions = resolver.GetInstance<IRepository<IReligion>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+            Provinces = resolver.GetInstance<IRepository<IProvince>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
+            Factions = resolver.GetInstance<IRepository<IFaction>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
         }
 
         public SimulationKit AssembleSimulationKit(WorldSettings settings)
@@ -70,13 +56,13 @@
             return new SimulationKit(pool, combination);
         }
 
-        public IEnumerable<IWeather> Weathers => this.weatherManager.Content;
+        public IEnumerable<KeyValuePair<int, string>> Weathers { get; }
 
-        public IEnumerable<KeyValuePair<int, string>> Religions => this.religionsManager.AllReligionsNames;
+        public IEnumerable<KeyValuePair<int, string>> Religions { get; }
 
-        public IEnumerable<KeyValuePair<int, string>> Provinces => this.provincesManager.AllProvincesNames;
+        public IEnumerable<KeyValuePair<int, string>> Provinces { get; }
 
-        public IEnumerable<KeyValuePair<int, string>> Factions => this.factionsManager.AllFactionsNames;
+        public IEnumerable<KeyValuePair<int, string>> Factions { get; }
 
         public IProvincialEffect Environment => this.factionsManager.Effect.Aggregate(this.religionsManager.StateReligion.Effect);
     }

@@ -5,7 +5,6 @@
     using System.Linq;
 
     using TWBuildingAssistant.Model;
-    using TWBuildingAssistant.Model.Weather;
 
     public class ViewModelSettingsWindow : ViewModelWindow
     {
@@ -32,7 +31,7 @@
             this.SelectedFaction = this.Factions[0];
             this.FertilityDrops = new ObservableCollection<int> { 0, 1, 2, 3, 4 };
             this.SelectedFertilityDrop = this.FertilityDrops[0];
-            this.Weathers = new ObservableCollection<CheckedListItem<IWeather>>(world.Weathers.Select(x => new CheckedListItem<IWeather>(x, x.IsConsideredByDefault)));
+            this.Weathers = new ObservableCollection<CheckedListItem<KeyValuePair<int, string>>>(world.Weathers.Select(x => new CheckedListItem<KeyValuePair<int, string>>(x, true)));
             this.TechnologyTiers = new ObservableCollection<int> { 0, 1, 2, 3, 4 };
             this.SelectedTechnologyTier = this.TechnologyTiers[0];
             this.SubmitCommand = new RelayCommand(this.Submit);
@@ -106,7 +105,7 @@
             }
         }
 
-        public ObservableCollection<CheckedListItem<IWeather>> Weathers { get; set; }
+        public ObservableCollection<CheckedListItem<KeyValuePair<int, string>>> Weathers { get; set; }
 
         public ObservableCollection<int> TechnologyTiers { get; set; }
 
@@ -158,7 +157,7 @@
                 ProvinceIndex = ((KeyValuePair<int, string>)this.SelectedProvince).Key,
                 FactionIndex = ((KeyValuePair<int, string>)this.SelectedFaction).Key,
                 FertilityDrop = (int)this.SelectedFertilityDrop,
-                ConsideredWeathers = this.Weathers.Where(x => x.IsChecked).Select(x => x.Item.Id),
+                ConsideredWeathers = this.Weathers.Where(x => x.IsChecked).Select(x => x.Item.Key),
                 DesiredTechnologyLevelIndex = (int)this.SelectedTechnologyTier,
                 UseLegacyTechnologies = this.UseLegacy
             };

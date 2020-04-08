@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{110AD339-59D8-4CF7-BDB9-C8E40E2D9200}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TWBuildingAssistant.Data</RootNamespace>
+    <AssemblyName>TWBuildingAssistant.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=5.11.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.5\lib\net47\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.6.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.5\lib\net47\Unity.Container.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Json\BonusRepository.cs" />
+    <Compile Include="Json\BuildingBranchRepository.cs" />
+    <Compile Include="Json\BuildingBranchUseRepository.cs" />
+    <Compile Include="Json\BuildingLevelLockRepository.cs" />
+    <Compile Include="Json\BuildingLevelRepository.cs" />
+    <Compile Include="Json\ClimateRepository.cs" />
+    <Compile Include="Json\FactionRepository.cs" />
+    <Compile Include="Json\InfluenceRepository.cs" />
+    <Compile Include="Json\JsonSource.cs" />
+    <Compile Include="Json\Model\BuildingBranch.cs" />
+    <Compile Include="Json\Model\BuildingBranchUse.cs" />
+    <Compile Include="Json\Model\BuildingLevel.cs" />
+    <Compile Include="Json\Model\BuildingLevelLock.cs" />
+    <Compile Include="Json\ProvinceRepository.cs" />
+    <Compile Include="Json\ProvincialEffectRepository.cs" />
+    <Compile Include="Json\RegionalEffectRepository.cs" />
+    <Compile Include="Json\RegionRepository.cs" />
+    <Compile Include="Json\ReligionRepository.cs" />
+    <Compile Include="Json\ResourceRepository.cs" />
+    <Compile Include="Json\TechnologyLevelRepository.cs" />
+    <Compile Include="Json\WeatherEffectRepository.cs" />
+    <Compile Include="Json\WeatherRepository.cs" />
+    <Compile Include="Model\IBuildingBranch.cs" />
+    <Compile Include="Model\IBuildingBranchUse.cs" />
+    <Compile Include="Model\IBuildingLevel.cs" />
+    <Compile Include="Model\IBuildingLevelLock.cs" />
+    <Compile Include="Model\RegionType.cs" />
+    <Compile Include="Model\SlotType.cs" />
+    <Compile Include="Json\Model\Climate.cs" />
+    <Compile Include="Model\IClimate.cs" />
+    <Compile Include="Model\IWeatherEffect.cs" />
+    <Compile Include="Json\Model\WeatherEffect.cs" />
+    <Compile Include="Json\Model\Bonus.cs" />
+    <Compile Include="Model\BonusType.cs" />
+    <Compile Include="Model\IBonus.cs" />
+    <Compile Include="Model\IInfluence.cs" />
+    <Compile Include="Json\Model\Influence.cs" />
+    <Compile Include="Model\IProvincialEffect.cs" />
+    <Compile Include="Model\IRegionalEffect.cs" />
+    <Compile Include="Json\Model\ProvincialEffect.cs" />
+    <Compile Include="Json\Model\RegionalEffect.cs" />
+    <Compile Include="Model\IncomeCategory.cs" />
+    <Compile Include="Json\Model\Faction.cs" />
+    <Compile Include="Model\IFaction.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="Json\JsonConcreteConverter.cs" />
+    <Compile Include="Json\JsonEnumConverter.cs" />
+    <Compile Include="Model\IProvince.cs" />
+    <Compile Include="Model\IRegion.cs" />
+    <Compile Include="Json\Model\Province.cs" />
+    <Compile Include="Json\Model\Region.cs" />
+    <Compile Include="Model\IReligion.cs" />
+    <Compile Include="Json\Model\Religion.cs" />
+    <Compile Include="Model\IResource.cs" />
+    <Compile Include="Json\Model\Resource.cs" />
+    <Compile Include="Model\ITechnologyLevel.cs" />
+    <Compile Include="Json\Model\TechnologyLevel.cs" />
+    <Compile Include="Model\IWeather.cs" />
+    <Compile Include="Json\Model\Weather.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Json\twa_data_technology_levels.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_building_level_locks.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_building_branch_uses.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_factions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_building_branches.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_building_levels.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_weather_effects.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_climates.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_provinces.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_religions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_regional_effects.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_provincial_effects.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_influences.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_bonuses.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_regions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_weathers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Json\twa_data_resources.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

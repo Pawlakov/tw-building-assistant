@@ -1,8 +1,6 @@
 ﻿namespace TWBuildingAssistant.ViewModel
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.Linq;
     using System.Text;
     using System.Windows.Media;
 

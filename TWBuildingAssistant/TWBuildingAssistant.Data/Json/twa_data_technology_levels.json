@@ -1,0 +1,29 @@
+[
+  {
+    "Id": 1,
+    "FactionId": 1,
+    "Order": 1,
+    "UniversalProvincialEffectId": 88
+  },
+  {
+    "Id": 2,
+    "FactionId": 1,
+    "Order": 2,
+    "UniversalProvincialEffectId": 89,
+    "AntilegacyProvincialEffectId": 90
+  },
+  {
+    "Id": 3,
+    "FactionId": 1,
+    "Order": 3,
+    "UniversalProvincialEffectId": 91,
+    "AntilegacyProvincialEffectId": 92
+  },
+  {
+    "Id": 4,
+    "FactionId": 1,
+    "Order": 4,
+    "UniversalProvincialEffectId": 93,
+    "AntilegacyProvincialEffectId": 94
+  }
+]

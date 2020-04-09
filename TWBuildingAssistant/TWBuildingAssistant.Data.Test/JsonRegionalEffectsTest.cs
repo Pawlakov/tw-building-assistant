@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new RegionalEffectRepository();
+                var source = new JsonRepository<IRegionalEffect>();
             });
         }
 
         [Test]
         public void Any()
         {
-            RegionalEffectRepository source = null;
+            JsonRepository<IRegionalEffect> source = null;
             try
             {
-                source = new RegionalEffectRepository();
+                source = new JsonRepository<IRegionalEffect>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

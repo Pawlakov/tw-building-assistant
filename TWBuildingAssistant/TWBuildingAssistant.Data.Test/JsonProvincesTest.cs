@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new ProvinceRepository();
+                var source = new JsonRepository<IProvince>();
             });
         }
 
         [Test]
         public void Any()
         {
-            ProvinceRepository source = null;
+            JsonRepository<IProvince> source = null;
             try
             {
-                source = new ProvinceRepository();
+                source = new JsonRepository<IProvince>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

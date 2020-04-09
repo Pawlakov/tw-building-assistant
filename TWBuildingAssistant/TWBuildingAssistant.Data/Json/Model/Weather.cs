@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Data.JsonModel
+﻿namespace TWBuildingAssistant.Data.Json.Model
 {
     using Newtonsoft.Json;
     using TWBuildingAssistant.Data.Model;

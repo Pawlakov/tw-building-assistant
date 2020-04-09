@@ -1,7 +1,9 @@
 ﻿namespace TWBuildingAssistant.Data.Test
 {
     using NUnit.Framework;
+    using System.Linq;
     using TWBuildingAssistant.Data.Json;
+    using TWBuildingAssistant.Data.Model;
 
     [TestFixture]
     public class JsonBuildingLevelLocksTest : JsonRepositoryTestBase
@@ -11,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new BuildingLevelLockRepository();
+                var source = new JsonRepository<IBuildingLevelLock>();
             });
         }
 
         [Test]
         public void Any()
         {
-            BuildingLevelLockRepository source = null;
+            JsonRepository<IBuildingLevelLock> source = null;
             try
             {
-                source = new BuildingLevelLockRepository();
+                source = new JsonRepository<IBuildingLevelLock>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
     }
 }

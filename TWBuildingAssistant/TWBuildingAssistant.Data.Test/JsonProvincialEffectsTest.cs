@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new ProvincialEffectRepository();
+                var source = new JsonRepository<IProvincialEffect>();
             });
         }
 
         [Test]
         public void Any()
         {
-            ProvincialEffectRepository source = null;
+            JsonRepository<IProvincialEffect> source = null;
             try
             {
-                source = new ProvincialEffectRepository();
+                source = new JsonRepository<IProvincialEffect>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

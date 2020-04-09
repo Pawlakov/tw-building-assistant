@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new WeatherEffectRepository();
+                var source = new JsonRepository<IWeatherEffect>();
             });
         }
 
         [Test]
         public void Any()
         {
-            WeatherEffectRepository source = null;
+            JsonRepository<IWeatherEffect> source = null;
             try
             {
-                source = new WeatherEffectRepository();
+                source = new JsonRepository<IWeatherEffect>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

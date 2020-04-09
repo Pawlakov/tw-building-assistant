@@ -4,6 +4,6 @@
 
     public interface IRepository<T>
     {
-        IList<T> DataSet { get; }
+        IEnumerable<T> DataSet { get; }
     }
 }

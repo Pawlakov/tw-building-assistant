@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new ReligionRepository();
+                var source = new JsonRepository<IReligion>();
             });
         }
 
         [Test]
         public void Any()
         {
-            ReligionRepository source = null;
+            JsonRepository<IReligion> source = null;
             try
             {
-                source = new ReligionRepository();
+                source = new JsonRepository<IReligion>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

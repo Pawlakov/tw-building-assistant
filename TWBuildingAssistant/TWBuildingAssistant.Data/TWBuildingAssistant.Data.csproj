@@ -57,28 +57,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Json\BonusRepository.cs" />
-    <Compile Include="Json\BuildingBranchRepository.cs" />
-    <Compile Include="Json\BuildingBranchUseRepository.cs" />
-    <Compile Include="Json\BuildingLevelLockRepository.cs" />
-    <Compile Include="Json\BuildingLevelRepository.cs" />
-    <Compile Include="Json\ClimateRepository.cs" />
-    <Compile Include="Json\FactionRepository.cs" />
-    <Compile Include="Json\InfluenceRepository.cs" />
-    <Compile Include="Json\JsonSource.cs" />
+    <Compile Include="Json\JsonRepository.cs" />
     <Compile Include="Json\Model\BuildingBranch.cs" />
     <Compile Include="Json\Model\BuildingBranchUse.cs" />
     <Compile Include="Json\Model\BuildingLevel.cs" />
     <Compile Include="Json\Model\BuildingLevelLock.cs" />
-    <Compile Include="Json\ProvinceRepository.cs" />
-    <Compile Include="Json\ProvincialEffectRepository.cs" />
-    <Compile Include="Json\RegionalEffectRepository.cs" />
-    <Compile Include="Json\RegionRepository.cs" />
-    <Compile Include="Json\ReligionRepository.cs" />
-    <Compile Include="Json\ResourceRepository.cs" />
-    <Compile Include="Json\TechnologyLevelRepository.cs" />
-    <Compile Include="Json\WeatherEffectRepository.cs" />
-    <Compile Include="Json\WeatherRepository.cs" />
     <Compile Include="Model\IBuildingBranch.cs" />
     <Compile Include="Model\IBuildingBranchUse.cs" />
     <Compile Include="Model\IBuildingLevel.cs" />
@@ -102,7 +85,6 @@
     <Compile Include="Json\Model\Faction.cs" />
     <Compile Include="Model\IFaction.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="Json\JsonConcreteConverter.cs" />
     <Compile Include="Json\JsonEnumConverter.cs" />
     <Compile Include="Model\IProvince.cs" />
     <Compile Include="Model\IRegion.cs" />
@@ -120,55 +102,55 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Json\twa_data_technology_levels.json">
+    <None Include="Json\twa_data_TechnologyLevel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_building_level_locks.json">
+    <None Include="Json\twa_data_BuildingLevelLock.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_building_branch_uses.json">
+    <None Include="Json\twa_data_BuildingBranchUse.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_factions.json">
+    <None Include="Json\twa_data_Faction.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_building_branches.json">
+    <None Include="Json\twa_data_BuildingBranch.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_building_levels.json">
+    <None Include="Json\twa_data_BuildingLevel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_weather_effects.json">
+    <None Include="Json\twa_data_WeatherEffect.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_climates.json">
+    <None Include="Json\twa_data_Climate.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_provinces.json">
+    <None Include="Json\twa_data_Province.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_religions.json">
+    <None Include="Json\twa_data_Religion.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_regional_effects.json">
+    <None Include="Json\twa_data_RegionalEffect.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_provincial_effects.json">
+    <None Include="Json\twa_data_ProvincialEffect.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_influences.json">
+    <None Include="Json\twa_data_Influence.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_bonuses.json">
+    <None Include="Json\twa_data_Bonus.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_regions.json">
+    <None Include="Json\twa_data_Region.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_weathers.json">
+    <None Include="Json\twa_data_Weather.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Json\twa_data_resources.json">
+    <None Include="Json\twa_data_Resource.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

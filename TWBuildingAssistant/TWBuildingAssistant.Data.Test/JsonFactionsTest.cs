@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new FactionRepository();
+                var source = new JsonRepository<IFaction>();
             });
         }
 
         [Test]
         public void Any()
         {
-            FactionRepository source = null;
+            JsonRepository<IFaction> source = null;
             try
             {
-                source = new FactionRepository();
+                source = new JsonRepository<IFaction>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

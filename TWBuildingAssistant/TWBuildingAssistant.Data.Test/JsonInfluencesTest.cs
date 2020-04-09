@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new InfluenceRepository();
+                var source = new JsonRepository<IInfluence>();
             });
         }
 
         [Test]
         public void Any()
         {
-            InfluenceRepository source = null;
+            JsonRepository<IInfluence> source = null;
             try
             {
-                source = new InfluenceRepository();
+                source = new JsonRepository<IInfluence>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

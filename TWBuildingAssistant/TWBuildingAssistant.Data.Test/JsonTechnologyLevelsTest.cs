@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new TechnologyLevelRepository();
+                var source = new JsonRepository<ITechnologyLevel>();
             });
         }
 
         [Test]
         public void Any()
         {
-            TechnologyLevelRepository source = null;
+            JsonRepository<ITechnologyLevel> source = null;
             try
             {
-                source = new TechnologyLevelRepository();
+                source = new JsonRepository<ITechnologyLevel>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

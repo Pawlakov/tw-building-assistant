@@ -13,24 +13,24 @@
         {
             Assert.DoesNotThrow(() =>
             {
-                var source = new BuildingLevelRepository();
+                var source = new JsonRepository<IBuildingLevel>();
             });
         }
 
         [Test]
         public void Any()
         {
-            BuildingLevelRepository source = null;
+            JsonRepository<IBuildingLevel> source = null;
             try
             {
-                source = new BuildingLevelRepository();
+                source = new JsonRepository<IBuildingLevel>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            Assert.NotZero(source.DataSet.Count);
+            Assert.NotZero(source.DataSet.Count());
         }
 
         [Test]

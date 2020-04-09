@@ -1,23 +1,24 @@
 ﻿namespace TWBuildingAssistant.Data.Test
 {
+    using System.Linq;
     using NUnit.Framework;
-    using TWBuildingAssistant.Data.Test.Utils;
+    using TWBuildingAssistant.Data.Json;
 
     public abstract class JsonRepositoryTestBase
     {
-        protected IRepository<T> GetRepository<T>()
+        protected IRepository<TModel> GetRepository<TModel>()
         {
-            IRepository<T> source = null;
+            IRepository<TModel> source = null;
             try
             {
-                source = JsonRepositoryResolver.Instance.Resolve<T>();
+                source = new JsonRepository<TModel>();
             }
             catch
             {
                 Assert.Inconclusive();
             }
 
-            if (source.DataSet.Count == 0)
+            if (source.DataSet.Count() == 0)
             {
                 Assert.Inconclusive();
             }

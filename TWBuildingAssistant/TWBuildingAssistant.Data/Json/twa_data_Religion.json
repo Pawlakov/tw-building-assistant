@@ -20,12 +20,12 @@
   },
   {
     "Id": 5,
-    "Name": "Graecoroman Pagan",
+    "Name": "Grecoroman Pagan",
     "ProvincialEffectId": 4
   },
   {
     "Id": 6,
-    "Name": "Greek Christian",
+    "Name": "Orthodox Christian",
     "ProvincialEffectId": 5
   },
   {
@@ -35,12 +35,12 @@
   },
   {
     "Id": 8,
-    "Name": "Latin Christian",
+    "Name": "Catholic Christian",
     "ProvincialEffectId": 7
   },
   {
     "Id": 9,
-    "Name": "Manichean",
+    "Name": "Manichaeist",
     "ProvincialEffectId": 8
   },
   {

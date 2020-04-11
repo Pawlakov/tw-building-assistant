@@ -59,7 +59,7 @@
         public void EmptyNames()
         {
             var source = this.GetRepository<IRegion>();
-            var invalid= source.DataSet
+            var invalid = source.DataSet
                 .Where(x => x.Name == string.Empty)
                 .ToList();
 

@@ -1,7 +1,7 @@
 ﻿namespace TWBuildingAssistant.Data.Test
 {
-    using NUnit.Framework;
     using System.Linq;
+    using NUnit.Framework;
     using TWBuildingAssistant.Data.Json;
     using TWBuildingAssistant.Data.Model;
 

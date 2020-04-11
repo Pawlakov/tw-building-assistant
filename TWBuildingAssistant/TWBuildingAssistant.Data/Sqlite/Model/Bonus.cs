@@ -2,21 +2,8 @@
 {
     using TWBuildingAssistant.Data.Model;
 
-    internal class Bonus : IBonus
+    public class Bonus
     {
-        public Bonus()
-        {
-        }
-
-        public Bonus(IBonus source)
-        {
-            this.Value = source.Value;
-            this.Category = source.Category;
-            this.Type = source.Type;
-            this.RegionalEffectId = source.RegionalEffectId;
-            this.ProvincialEffectId = source.ProvincialEffectId;
-        }
-
         public int Id { get; set; }
 
         public int Value { get; set; }

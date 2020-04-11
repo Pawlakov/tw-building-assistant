@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using TWBuildingAssistant.Data.Sqlite.Model;
 
-    internal class DatabaseContext : DbContext
+    public class DatabaseContext : DbContext
     {
         private const string File = @"Data Source=Sqlite\twa_data.db";
 

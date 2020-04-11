@@ -2,24 +2,8 @@
 {
     using TWBuildingAssistant.Data.Model;
 
-    internal class BuildingBranch : IBuildingBranch
+    public class BuildingBranch
     {
-        public BuildingBranch()
-        {
-        }
-
-        public BuildingBranch(IBuildingBranch source)
-        {
-            this.Id = source.Id;
-            this.Name = source.Name;
-            this.SlotType = source.SlotType;
-            this.RegionType = source.RegionType;
-            this.AllowParallel = source.AllowParallel;
-            this.RootBuildingLevelId = source.RootBuildingLevelId;
-            this.ReligionId = source.ReligionId;
-            this.ResourceId = source.ResourceId;
-        }
-
         public int Id { get; set; }
 
         public string Name { get; set; }

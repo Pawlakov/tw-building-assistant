@@ -2,28 +2,13 @@
 {
     using TWBuildingAssistant.Data.Model;
 
-    internal class Region : IRegion
+    public class Region
     {
-        public Region()
-        {
-        }
-
-        public Region(IRegion source)
-        {
-            this.Id = source.Id;
-            this.Name = source.Name;
-            this.IsCity = source.IsCity;
-            this.ResourceId = source.ResourceId;
-            this.IsCoastal = source.IsCoastal;
-            this.SlotsCountOffset = source.SlotsCountOffset;
-            this.ProvinceId = source.ProvinceId;
-        }
-
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public bool IsCity { get; set; }
+        public RegionType RegionType { get; set; }
 
         public int? ResourceId { get; set; }
 

@@ -10,6 +10,16 @@
         public static void Main()
         {
             var context = new DatabaseContext();
+
+            DisplayBranches(context);
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Press any key to quit");
+            Console.ReadKey();
+        }
+
+        private static void DisplayBranches(DatabaseContext context)
+        {
             var branches = context.BuildingBranches.OrderBy(x => x.Name).ToList();
             foreach (var branch in branches)
             {
@@ -24,10 +34,6 @@
                 var root = context.BuildingLevels.Find(branch.RootBuildingLevelId);
                 DisplayLevel(context, root, 1);
             }
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("Press any key to quit");
-            Console.ReadKey();
         }
 
         private static void DisplayLevel(DatabaseContext context, BuildingLevel level, int depth)

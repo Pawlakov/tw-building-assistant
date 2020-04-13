@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public int? ProvincialEffectId { get; set; }
+        public int? EffectId { get; set; }
     }
 }

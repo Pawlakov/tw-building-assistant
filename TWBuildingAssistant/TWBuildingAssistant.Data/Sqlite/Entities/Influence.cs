@@ -8,8 +8,6 @@
 
         public int Value { get; set; }
 
-        public int? RegionalEffectId { get; set; }
-
-        public int? ProvincialEffectId { get; set; }
+        public int? EffectId { get; set; }
     }
 }

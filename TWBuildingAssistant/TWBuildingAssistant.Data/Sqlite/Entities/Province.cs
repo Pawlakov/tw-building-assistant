@@ -6,10 +6,8 @@
 
         public string Name { get; set; }
 
-        public int Fertility { get; set; }
-
         public int ClimateId { get; set; }
 
-        public int? ProvincialEffectId { get; set; }
+        public int? EffectId { get; set; }
     }
 }

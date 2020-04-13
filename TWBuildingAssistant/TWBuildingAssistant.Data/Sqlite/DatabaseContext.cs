@@ -26,11 +26,9 @@
 
         public DbSet<Province> Provinces { get; set; }
 
-        public DbSet<ProvincialEffect> ProvincialEffects { get; set; }
-
         public DbSet<Region> Regions { get; set; }
 
-        public DbSet<RegionalEffect> RegionalEffects { get; set; }
+        public DbSet<Effect> Effects { get; set; }
 
         public DbSet<Religion> Religions { get; set; }
 
@@ -52,13 +50,9 @@
             modelBuilder.Entity<Bonus>()
                 .HasKey(x => x.Id);
             modelBuilder.Entity<Bonus>()
-                .HasOne<ProvincialEffect>()
+                .HasOne<Effect>()
                 .WithMany()
-                .HasForeignKey(x => x.ProvincialEffectId);
-            modelBuilder.Entity<Bonus>()
-                .HasOne<RegionalEffect>()
-                .WithMany()
-                .HasForeignKey(x => x.RegionalEffectId);
+                .HasForeignKey(x => x.EffectId);
 
             modelBuilder.Entity<BuildingBranch>()
                 .HasKey(x => x.Id);
@@ -99,9 +93,9 @@
                 .WithMany()
                 .HasForeignKey(x => x.ParentBuildingLevelId);
             modelBuilder.Entity<BuildingLevel>()
-                .HasOne<RegionalEffect>()
+                .HasOne<Effect>()
                 .WithOne()
-                .HasForeignKey<BuildingLevel>(x => x.RegionalEffectId);
+                .HasForeignKey<BuildingLevel>(x => x.EffectId);
 
             modelBuilder.Entity<BuildingLevelLock>()
                 .HasKey(x => new { x.TechnologyLevelId, x.BuildingLevelId });
@@ -133,13 +127,9 @@
                 .WithMany()
                 .HasForeignKey(x => x.ReligionId);
             modelBuilder.Entity<Influence>()
-                .HasOne<ProvincialEffect>()
+                .HasOne<Effect>()
                 .WithMany()
-                .HasForeignKey(x => x.ProvincialEffectId);
-            modelBuilder.Entity<Influence>()
-                .HasOne<RegionalEffect>()
-                .WithMany()
-                .HasForeignKey(x => x.RegionalEffectId);
+                .HasForeignKey(x => x.EffectId);
 
             modelBuilder.Entity<Province>()
                 .HasKey(x => x.Id);
@@ -151,12 +141,9 @@
                 .WithMany()
                 .HasForeignKey(x => x.ClimateId);
             modelBuilder.Entity<Province>()
-                .HasOne<ProvincialEffect>()
+                .HasOne<Effect>()
                 .WithOne()
-                .HasForeignKey<Province>(x => x.ProvincialEffectId);
-
-            modelBuilder.Entity<ProvincialEffect>()
-                .HasKey(x => x.Id);
+                .HasForeignKey<Province>(x => x.EffectId);
 
             modelBuilder.Entity<Region>()
                 .HasKey(x => x.Id);
@@ -172,9 +159,9 @@
                 .WithMany()
                 .HasForeignKey(x => x.ResourceId);
 
-            modelBuilder.Entity<RegionalEffect>()
+            modelBuilder.Entity<Effect>()
                 .HasBaseType((Type)null);
-            modelBuilder.Entity<RegionalEffect>()
+            modelBuilder.Entity<Effect>()
                 .HasKey(x => x.Id);
 
             modelBuilder.Entity<Religion>()
@@ -183,9 +170,9 @@
                 .Property(x => x.Name)
                 .IsRequired();
             modelBuilder.Entity<Religion>()
-                .HasOne<ProvincialEffect>()
+                .HasOne<Effect>()
                 .WithOne()
-                .HasForeignKey<Religion>(x => x.ProvincialEffectId);
+                .HasForeignKey<Religion>(x => x.EffectId);
 
             modelBuilder.Entity<Resource>()
                 .HasKey(x => x.Id);
@@ -200,13 +187,13 @@
                 .WithMany()
                 .HasForeignKey(x => x.FactionId);
             modelBuilder.Entity<TechnologyLevel>()
-                .HasOne<ProvincialEffect>()
+                .HasOne<Effect>()
                 .WithOne()
-                .HasForeignKey<TechnologyLevel>(x => x.AntilegacyProvincialEffectId);
+                .HasForeignKey<TechnologyLevel>(x => x.AntilegacyEffectId);
             modelBuilder.Entity<TechnologyLevel>()
-                .HasOne<ProvincialEffect>()
+                .HasOne<Effect>()
                 .WithOne()
-                .HasForeignKey<TechnologyLevel>(x => x.UniversalProvincialEffectId);
+                .HasForeignKey<TechnologyLevel>(x => x.UniversalEffectId);
 
             modelBuilder.Entity<Weather>()
                 .HasKey(x => x.Id);
@@ -225,9 +212,9 @@
                 .WithMany()
                 .HasForeignKey(x => x.WeatherId);
             modelBuilder.Entity<WeatherEffect>()
-                .HasOne<ProvincialEffect>()
+                .HasOne<Effect>()
                 .WithOne()
-                .HasForeignKey<WeatherEffect>(x => x.ProvincialEffectId);
+                .HasForeignKey<WeatherEffect>(x => x.EffectId);
         }
     }
 }

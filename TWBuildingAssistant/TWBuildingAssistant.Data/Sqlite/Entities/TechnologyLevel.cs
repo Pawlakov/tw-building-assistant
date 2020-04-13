@@ -8,8 +8,8 @@
 
         public int Order { get; set; }
 
-        public int? UniversalProvincialEffectId { get; set; }
+        public int? UniversalEffectId { get; set; }
 
-        public int? AntilegacyProvincialEffectId { get; set; }
+        public int? AntilegacyEffectId { get; set; }
     }
 }

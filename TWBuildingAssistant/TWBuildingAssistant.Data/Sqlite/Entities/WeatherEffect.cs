@@ -6,6 +6,6 @@
 
         public int WeatherId { get; set; }
 
-        public int ProvincialEffectId { get; set; }
+        public int EffectId { get; set; }
     }
 }

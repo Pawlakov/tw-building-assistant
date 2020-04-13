@@ -1,6 +1,6 @@
-﻿namespace TWBuildingAssistant.Data.Sqlite.Model
+﻿namespace TWBuildingAssistant.Data.Sqlite.Entities
 {
-    public class Climate
+    public class Weather
     {
         public int Id { get; set; }
 

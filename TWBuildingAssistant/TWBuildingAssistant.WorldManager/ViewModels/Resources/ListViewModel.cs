@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using TWBuildingAssistant.Data.Sqlite.Model;
+    using TWBuildingAssistant.Data.Sqlite.Entities;
 
     public class ListViewModel : ViewModelBase
     {

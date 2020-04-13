@@ -2,7 +2,7 @@
 {
     using System;
     using Microsoft.EntityFrameworkCore;
-    using TWBuildingAssistant.Data.Sqlite.Model;
+    using TWBuildingAssistant.Data.Sqlite.Entities;
 
     public class DatabaseContext : DbContext
     {

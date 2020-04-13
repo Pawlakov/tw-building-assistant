@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using TWBuildingAssistant.Data.Sqlite;
-    using TWBuildingAssistant.Data.Sqlite.Model;
+    using TWBuildingAssistant.Data.Sqlite.Entities;
 
     public class Program
     {

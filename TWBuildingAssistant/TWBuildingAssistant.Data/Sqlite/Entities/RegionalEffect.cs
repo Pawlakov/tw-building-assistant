@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Data.Sqlite.Model
+﻿namespace TWBuildingAssistant.Data.Sqlite.Entities
 {
     public class RegionalEffect : ProvincialEffect
     {

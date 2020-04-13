@@ -2,7 +2,7 @@
 {
     using System.Reactive;
     using ReactiveUI;
-    using TWBuildingAssistant.Data.Sqlite.Model;
+    using TWBuildingAssistant.Data.Sqlite.Entities;
 
     public class AddViewModel : ViewModelBase
     {

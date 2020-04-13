@@ -105,8 +105,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Extensions.cs" />
-    <Compile Include="Model\WorldSettings.cs" />
     <Compile Include="ViewModel\CheckedListItem.cs" />
     <Compile Include="ViewModel\Region.cs" />
     <Compile Include="ViewModel\Slot.cs" />
@@ -117,13 +115,6 @@
     <Compile Include="View\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Model\Combinations\BuildingSlot.cs" />
-    <Compile Include="Model\Combinations\Combination.cs" />
-    <Compile Include="Model\Effects\InfluenceCalculator.cs" />
-    <Compile Include="Model\Effects\WealthCalculator.cs" />
-    <Compile Include="Model\Effects\WealthRecord.cs" />
-    <Compile Include="Model\SimulationKit.cs" />
-    <Compile Include="Model\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Compile Include="ViewModel\ViewModelSettingsWindow.cs" />
@@ -160,9 +151,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TWBuildingAssistant.Data\TWBuildingAssistant.Data.csproj">
-      <Project>{110ad339-59d8-4cf7-bdb9-c8e40e2d9200}</Project>
-      <Name>TWBuildingAssistant.Data</Name>
+    <ProjectReference Include="..\TWBuildingAssistant.Model\TWBuildingAssistant.Model.csproj">
+      <Project>{208e013b-4b7e-4b79-aa59-0c7f0c6edf1b}</Project>
+      <Name>TWBuildingAssistant.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

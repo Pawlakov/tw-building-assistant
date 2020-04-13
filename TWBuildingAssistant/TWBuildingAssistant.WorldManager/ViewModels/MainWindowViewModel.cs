@@ -4,7 +4,7 @@
     using System.Reactive.Linq;
     using ReactiveUI;
     using TWBuildingAssistant.Data.Sqlite;
-    using TWBuildingAssistant.Data.Sqlite.Model;
+    using TWBuildingAssistant.Data.Sqlite.Entities;
     using TWBuildingAssistant.WorldManager.ViewModels.Resources;
 
     public class MainWindowViewModel : ViewModelBase

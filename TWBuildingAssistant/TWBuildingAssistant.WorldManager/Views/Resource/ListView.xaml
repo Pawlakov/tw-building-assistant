@@ -1,0 +1,33 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="TWBuildingAssistant.WorldManager.Views.Resources.ListView">
+  <Grid Width="200" Height="300">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Border Grid.Column="0" Grid.Row="0" Padding="5,5,5,5" VerticalAlignment="Center">
+      <TextBlock FontWeight="Bold" Text="Resources" />
+    </Border>
+    <Border Grid.Column="1" Grid.Row="0" Padding="5,5,5,5" HorizontalAlignment="Right">
+      <Button DockPanel.Dock="Bottom" Command="{Binding $parent[Window].DataContext.AddItem}" Content="Add" />
+    </Border>
+    <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Padding="5,5,5,5">
+      <ScrollViewer>
+        <ItemsControl Items="{Binding Items}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Name}"/>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Border>
+  </Grid>
+</UserControl>

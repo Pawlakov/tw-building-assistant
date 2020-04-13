@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Remove="Views\AddView.xaml" />
+    <AvaloniaResource Remove="Views\ListView.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\AddView.xaml" />
+    <None Remove="Views\ListView.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.9.7" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.7" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.7" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Resource\ListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Resource\AddView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TWBuildingAssistant.Data\TWBuildingAssistant.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Resource\AddView.xaml.cs">
+      <DependentUpon>AddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Resource\ListView.xaml.cs">
+      <DependentUpon>ListView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

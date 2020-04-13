@@ -1,0 +1,10 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="TWBuildingAssistant.WorldManager.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="World Manager"
+        CanResize="False"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
+        Content="{Binding Content}">
+</Window>

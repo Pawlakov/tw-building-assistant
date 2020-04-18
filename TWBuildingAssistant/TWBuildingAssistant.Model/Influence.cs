@@ -6,51 +6,63 @@
 
     public struct Influence : IEquatable<Influence>
     {
-        private readonly IDictionary<object, int> records;
+        private readonly IDictionary<Religion, int> records;
 
-        public Influence(IEnumerable<object> religions, object religion, int value)
+        public Influence(Religion religion, int value)
         {
-            this.records = new Dictionary<object, int>();
-            foreach (var member in religions)
+            if (value <= 0)
             {
-                if (member == religion)
-                {
-                    this.records.Add(member, value);
-                }
-                else
-                {
-                    this.records.Add(member, 0);
-                }
+                throw new DomainRuleViolationException("Nonpositive influence.");
             }
+
+            this.records = new Dictionary<Religion, int>
+            {
+                { religion, value },
+            };
         }
 
-        private Influence(IDictionary<object, int> records)
+        private Influence(IDictionary<Religion, int> records)
         {
             this.records = records.ToDictionary(x => x.Key, x => x.Value);
         }
 
         public static Influence operator +(Influence left, Influence right)
         {
-            var records = new Dictionary<object, int>();
-            foreach (var member in left.records.Keys)
+            var records = left.records.ToDictionary(x => x.Key, x => x.Value);
+            foreach (var record in right.records)
             {
-                records.Add(member, left.records[member] + right.records[member]);
+                if (records.ContainsKey(record.Key))
+                {
+                    records[record.Key] = records[record.Key] + record.Value;
+                }
+                else
+                {
+                    records.Add(record.Key, record.Value);
+                }
             }
 
             return new Influence(records);
         }
 
-        public int PublicOrder(object stateReligion)
+        public int PublicOrder(Religion stateReligion)
         {
             var percentage = this.Percentage(stateReligion);
             var result = -(int)Math.Floor((750 - (percentage * 7)) * 0.01);
             return result;
         }
 
-        public double Percentage(object stateReligion)
+        public double Percentage(Religion stateReligion)
         {
-            var state = this.records[stateReligion];
-            var all = this.records.Sum(x => x.Value);
+            var state = 0;
+            var all = 0;
+            foreach (var record in this.records)
+            {
+                all += record.Value;
+                if (record.Key == stateReligion || record.Key == null)
+                {
+                    state += record.Value;
+                }
+            }
 
             if (all == 0)
             {
@@ -63,9 +75,14 @@
 
         public bool Equals(Influence other)
         {
-            foreach (var member in this.records.Keys)
+            if (this.records.Count != other.records.Count)
             {
-                if (!this.records[member].Equals(other.records[member]))
+                return false;
+            }
+
+            foreach (var record in this.records)
+            {
+                if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
                 {
                     return false;
                 }

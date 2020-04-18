@@ -12,18 +12,40 @@
 
         public Income(int value, IncomeCategory category, BonusType type)
         {
-            this.records = new Dictionary<IncomeCategory, IncomeRecord>();
-            foreach (var member in Enums.GetMembers<IncomeCategory>())
+            if (value == 0)
             {
-                if (member.Value == category)
-                {
-                    this.records.Add(member.Value, new IncomeRecord(value, type));
-                }
-                else
-                {
-                    this.records.Add(member.Value, new IncomeRecord(0, 0, 0));
-                }
+                throw new DomainRuleViolationException("'0' income.");
             }
+
+            if (value < 0 && category != IncomeCategory.Maintenance)
+            {
+                throw new DomainRuleViolationException("Negative income.");
+            }
+
+            if (value > 0 && category == IncomeCategory.Maintenance)
+            {
+                throw new DomainRuleViolationException("Positive 'Maintenance' income.");
+            }
+
+            if (category == IncomeCategory.Maintenance && type != BonusType.Simple)
+            {
+                throw new DomainRuleViolationException("Invalid 'Maintenance' income.");
+            }
+
+            if (category == IncomeCategory.All && type != BonusType.Percentage)
+            {
+                throw new DomainRuleViolationException("Invalid 'All' income.");
+            }
+
+            if (type == BonusType.FertilityDependent && category != IncomeCategory.Husbandry && category != IncomeCategory.Agriculture)
+            {
+                throw new DomainRuleViolationException("Invalid fertility-based income.");
+            }
+
+            this.records = new Dictionary<IncomeCategory, IncomeRecord>
+            {
+                { category, new IncomeRecord(value, type) },
+            };
         }
 
         private Income(IDictionary<IncomeCategory, IncomeRecord> records)
@@ -33,10 +55,17 @@
 
         public static Income operator +(Income left, Income right)
         {
-            var records = new Dictionary<IncomeCategory, IncomeRecord>();
-            foreach (var member in Enums.GetMembers<IncomeCategory>())
+            var records = left.records.ToDictionary(x => x.Key, x => x.Value);
+            foreach (var record in right.records)
             {
-                records.Add(member.Value, left.records[member.Value] + right.records[member.Value]);
+                if (records.ContainsKey(record.Key))
+                {
+                    records[record.Key] = records[record.Key] + record.Value;
+                }
+                else
+                {
+                    records.Add(record.Key, record.Value);
+                }
             }
 
             return new Income(records);
@@ -44,10 +73,12 @@
 
         public double GetIncome(int fertilityLevel)
         {
-            var categoriesAffectedByAll = Enums.GetMembers<IncomeCategory>().Select(x => x.Value).Where(x => x != IncomeCategory.All && x != IncomeCategory.Maintenance);
-            foreach (var member in categoriesAffectedByAll)
+            if (this.records.ContainsKey(IncomeCategory.All))
             {
-                this.records[member] = this.records[member] + this.records[IncomeCategory.All];
+                foreach (var key in this.records.Keys.Where(x => x != IncomeCategory.All && x != IncomeCategory.Maintenance))
+                {
+                    this.records[key] = this.records[key] + this.records[IncomeCategory.All];
+                }
             }
 
             var result = this.records.Sum(x => x.Value.GetIncome(fertilityLevel));
@@ -56,9 +87,14 @@
 
         public bool Equals(Income other)
         {
-            foreach (var member in Enums.GetMembers<IncomeCategory>())
+            if (this.records.Count != other.records.Count)
             {
-                if (!this.records[member.Value].Equals(other.records[member.Value]))
+                return false;
+            }
+
+            foreach (var record in this.records)
+            {
+                if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
                 {
                     return false;
                 }

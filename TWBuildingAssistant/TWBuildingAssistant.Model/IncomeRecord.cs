@@ -23,7 +23,7 @@
 
         public int this[BonusType type] => this.values[(int)type];
 
-        public static IncomeRecord operator + (IncomeRecord left, IncomeRecord right)
+        public static IncomeRecord operator +(IncomeRecord left, IncomeRecord right)
         {
             return new IncomeRecord(
                 left.values[(int)BonusType.Simple] + right.values[(int)BonusType.Simple],

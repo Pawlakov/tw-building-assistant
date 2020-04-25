@@ -1,25 +1,48 @@
 ﻿namespace TWBuildingAssistant.Data.Sqlite.Entities
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Effect
     {
-        public int Id { get; }
+        [Key]
+        public int Id { get; set; }
 
-        public int PublicOrder { get; }
+        public int PublicOrder { get; set; }
 
-        public int RegularFood { get; }
+        public int RegularFood { get; set; }
 
-        public int FertilityDependentFood { get; }
+        public int FertilityDependentFood { get; set; }
 
-        public int ProvincialSanitation { get; }
+        public int ProvincialSanitation { get; set; }
 
-        public int ResearchRate { get; }
+        public int ResearchRate { get; set; }
 
-        public int Growth { get; }
+        public int Growth { get; set; }
 
-        public int Fertility { get; }
+        public int Fertility { get; set; }
 
-        public int ReligiousOsmosis { get; }
+        public int ReligiousOsmosis { get; set; }
 
         public int RegionalSanitation { get; set; }
+
+        public BuildingLevel BuildingLevel { get; set; }
+
+        public Province Province { get; set; }
+
+        public Religion Religion { get; set; }
+
+        [InverseProperty(nameof(TechnologyLevel.UniversalEffect))]
+        public TechnologyLevel UniversalTechnologyLevel { get; set; }
+
+        [InverseProperty(nameof(TechnologyLevel.AntilegacyEffect))]
+        public TechnologyLevel AntilegacyTechnologyLevel { get; set; }
+
+        public WeatherEffect WeatherEffect { get; set; }
+
+        public ICollection<Bonus> Bonuses { get; set; }
+
+        public ICollection<Influence> Influences { get; set; }
     }
 }

@@ -1,24 +1,17 @@
-﻿namespace TWBuildingAssistant.Model.Combinations
+﻿namespace TWBuildingAssistant.Model
 {
-    //public class BuildingSlot
-    //{
-    //    public BuildingSlot(Buildings.SlotType type)
-    //    {
-    //        Type = type;
-    //    }
+    using TWBuildingAssistant.Data.Model;
 
-    //    public override string ToString()
-    //    {
-    //        return string.Format
-    //            (
-    //                "Type: {0} Building: {1}",
-    //                Type,
-    //                Level != null ? Level.ToString() : "???"
-    //            );
-    //    }
+    public class BuildingSlot
+    {
+        public BuildingSlot(SlotType slotType, RegionType regionType)
+        {
+            this.SlotType = slotType;
+            this.RegionType = regionType;
+        }
 
-    //    public Buildings.SlotType Type { get; }
+        public SlotType SlotType { get; }
 
-    //    public Buildings.Building Level { get; set; }
-    //}
+        public RegionType RegionType { get; }
+    }
 }

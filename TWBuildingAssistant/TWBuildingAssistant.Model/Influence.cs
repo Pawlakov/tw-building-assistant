@@ -8,6 +8,8 @@
     {
         private readonly IDictionary<Religion, int> records;
 
+        private readonly int state;
+
         public Influence(Religion religion, int value)
         {
             if (value <= 0)
@@ -15,33 +17,57 @@
                 throw new DomainRuleViolationException("Nonpositive influence.");
             }
 
-            this.records = new Dictionary<Religion, int>
+            this.records = new Dictionary<Religion, int>();
+            this.state = 0;
+
+            if (religion != null)
             {
-                { religion, value },
-            };
+                this.records.Add( religion, value );
+            }
+            else
+            {
+                this.state = value;
+            }
         }
 
-        private Influence(IDictionary<Religion, int> records)
+        private Influence(IDictionary<Religion, int> records, int state)
         {
-            this.records = records.ToDictionary(x => x.Key, x => x.Value);
+            this.state = state;
+            if (records != null)
+            {
+                this.records = records.ToDictionary(x => x.Key, x => x.Value);
+            }
+            else
+            {
+                this.records = new Dictionary<Religion, int>();
+            }
         }
 
         public static Influence operator +(Influence left, Influence right)
         {
-            var records = left.records.ToDictionary(x => x.Key, x => x.Value);
-            foreach (var record in right.records)
+            var records = new Dictionary<Religion, int>();
+            if (left.records != null)
             {
-                if (records.ContainsKey(record.Key))
+                records = left.records.ToDictionary(x => x.Key, x => x.Value);
+            }
+
+            if (right.records != null)
+            {
+                foreach (var record in right.records)
                 {
-                    records[record.Key] = records[record.Key] + record.Value;
-                }
-                else
-                {
-                    records.Add(record.Key, record.Value);
+                    if (records.ContainsKey(record.Key))
+                    {
+                        records[record.Key] = records[record.Key] + record.Value;
+                    }
+                    else
+                    {
+                        records.Add(record.Key, record.Value);
+                    }
                 }
             }
 
-            return new Influence(records);
+            var state = left.state + right.state;
+            return new Influence(records, state);
         }
 
         public int PublicOrder(Religion stateReligion)
@@ -53,14 +79,17 @@
 
         public double Percentage(Religion stateReligion)
         {
-            var state = 0;
-            var all = 0;
-            foreach (var record in this.records)
+            var state = this.state;
+            var all = this.state;
+            if (this.records != null)
             {
-                all += record.Value;
-                if (record.Key == stateReligion || record.Key == null)
+                foreach (var record in this.records)
                 {
-                    state += record.Value;
+                    all += record.Value;
+                    if (record.Key == stateReligion || record.Key == null)
+                    {
+                        state += record.Value;
+                    }
                 }
             }
 
@@ -75,16 +104,24 @@
 
         public bool Equals(Influence other)
         {
-            if (this.records.Count != other.records.Count)
+            if (this.state != other.state)
             {
                 return false;
             }
 
-            foreach (var record in this.records)
+            if (this.records?.Count != other.records?.Count)
             {
-                if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
+                return false;
+            }
+
+            if (this.records != null)
+            {
+                foreach (var record in this.records)
                 {
-                    return false;
+                    if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
+                    {
+                        return false;
+                    }
                 }
             }
 

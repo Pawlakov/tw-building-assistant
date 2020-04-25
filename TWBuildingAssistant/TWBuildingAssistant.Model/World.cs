@@ -1,79 +1,86 @@
 ﻿namespace TWBuildingAssistant.Model
 {
-    //using SimpleInjector;
-    //using System.Collections.Generic;
-    //using System.Linq;
-    //using TWBuildingAssistant.Data;
-    //using TWBuildingAssistant.Data.Json;
-    //using TWBuildingAssistant.Data.Model;
-    //using TWBuildingAssistant.Model.Combinations;
+    using System.Collections.Generic;
+    using System.Linq;
+    using TWBuildingAssistant.Data.Sqlite;
 
-    //public partial class World
-    //{
-    //    private readonly Container resolver;
+    public class World
+    {
+        public World()
+        {
+            using (var context = new DatabaseContext())
+            {
+                var resources = new List<KeyValuePair<int, Resource>>();
+                foreach (var resourceEntity in context.Resources.ToList())
+                {
+                    resources.Add(new KeyValuePair<int, Resource>(resourceEntity.Id, new Resource(resourceEntity.Name)));
+                }
 
-    //    private World()
-    //    {
-    //        this.resolver = new Container();
-    //        this.resolver.RegisterInstance<IRepository<IBonus>>(new BonusRepository());
-    //        this.resolver.RegisterInstance<IRepository<IBuildingBranch>>(new BuildingBranchRepository());
-    //        this.resolver.RegisterInstance<IRepository<IBuildingBranchUse>>(new BuildingBranchUseRepository());
-    //        this.resolver.RegisterInstance<IRepository<IBuildingLevel>>(new BuildingLevelRepository());
-    //        this.resolver.RegisterInstance<IRepository<IBuildingLevelLock>>(new BuildingLevelLockRepository());
-    //        this.resolver.RegisterInstance<IRepository<IClimate>>(new ClimateRepository());
-    //        this.resolver.RegisterInstance<IRepository<IFaction>>(new FactionRepository());
-    //        this.resolver.RegisterInstance<IRepository<IInfluence>>(new InfluenceRepository());
-    //        this.resolver.RegisterInstance<IRepository<IProvince>>(new ProvinceRepository());
-    //        this.resolver.RegisterInstance<IRepository<IProvincialEffect>>(new ProvincialEffectRepository());
-    //        this.resolver.RegisterInstance<IRepository<IRegion>>(new RegionRepository());
-    //        this.resolver.RegisterInstance<IRepository<IRegionalEffect>>(new RegionalEffectRepository());
-    //        this.resolver.RegisterInstance<IRepository<IReligion>>(new ReligionRepository());
-    //        this.resolver.RegisterInstance<IRepository<IResource>>(new ResourceRepository());
-    //        this.resolver.RegisterInstance<IRepository<ITechnologyLevel>>(new TechnologyLevelRepository());
-    //        this.resolver.RegisterInstance<IRepository<IWeather>>(new WeatherRepository());
-    //        this.resolver.RegisterInstance<IRepository<IWeatherEffect>>(new WeatherEffectRepository());
+                var religions = new List<KeyValuePair<int, Religion>>();
+                foreach (var religionEntity in context.Religions.ToList())
+                {
+                    Effect effect = default;
+                    if (religionEntity.EffectId.HasValue)
+                    {
+                        var effectEntity = context.Effects.Find(religionEntity.EffectId.Value);
+                        var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
+                        var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
+                        if (influenceEntities.Any(x => x.ReligionId.HasValue))
+                        {
+                            throw new DomainRuleViolationException("Influence of a religion with a set religion id.");
+                        }
 
-    //        Weathers = resolver.GetInstance<IRepository<IWeather>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
-    //        Religions = resolver.GetInstance<IRepository<IReligion>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
-    //        Provinces = resolver.GetInstance<IRepository<IProvince>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
-    //        Factions = resolver.GetInstance<IRepository<IFaction>>().DataSet.OrderBy(x => x.Id).Select(x => new KeyValuePair<int, string>(x.Id, x.Name));
-    //    }
+                        var influence = influenceEntities.Select(x => new Influence(null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
+                        var bonus = bonusEntities.Select(x => new Income(x.Value, x.Category, x.Type)).Aggregate(default(Income), (x, y) => x + y);
+                        effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, bonus, influence);
+                    }
 
-    //    public SimulationKit AssembleSimulationKit(WorldSettings settings)
-    //    {
-    //        this.weatherManager.ChangeConsideredWeather(settings.ConsideredWeathers);
-    //        //
-    //        this.religionsManager.ChangeStateReligion(settings.StateReligionIndex);
-    //        //
-    //        this.provincesManager.ChangeFertilityDrop(settings.FertilityDrop);
-    //        //
-    //        this.factionsManager.ChangeFaction(settings.FactionIndex);
-    //        this.factionsManager.Faction.ChangeDesiredTechnologyLevel(settings.DesiredTechnologyLevelIndex, settings.UseLegacyTechnologies);
-    //        //
-    //        var combination = new Combination(this.provincesManager.Find(settings.ProvinceIndex));
-    //        var pool = this.factionsManager.Faction.Buildings;
-    //        //
-    //        return new SimulationKit(pool, combination);
-    //    }
+                    religions.Add(new KeyValuePair<int, Religion>(religionEntity.Id, new Religion(religionEntity.Name, effect)));
+                }
 
-    //    public IEnumerable<KeyValuePair<int, string>> Weathers { get; }
+                var provinces = new List<KeyValuePair<int, Province>>();
+                foreach (var provinceEntity in context.Provinces.ToList())
+                {
+                    Effect effect = default;
+                    if (provinceEntity.EffectId.HasValue)
+                    {
+                        var effectEntity = context.Effects.Find(provinceEntity.EffectId);
+                        var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
+                        var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
 
-    //    public IEnumerable<KeyValuePair<int, string>> Religions { get; }
+                        var influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
+                        var bonus = bonusEntities.Select(x => new Income(x.Value, x.Category, x.Type)).Aggregate(default(Income), (x, y) => x + y);
+                        effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, bonus, influence);
+                    }
 
-    //    public IEnumerable<KeyValuePair<int, string>> Provinces { get; }
+                    var regions = new List<Region>();
+                    foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
+                    {
+                        regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : null, regionEntity.SlotsCountOffset == -1));
+                    }
 
-    //    public IEnumerable<KeyValuePair<int, string>> Factions { get; }
+                    provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, effect)));
+                }
 
-    //    public IProvincialEffect Environment => this.factionsManager.Effect.Aggregate(this.religionsManager.StateReligion.Effect);
-    //}
+                var factions = new List<KeyValuePair<int, Faction>>();
+                foreach (var factionEntity in context.Factions.ToList())
+                {
+                    factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name)));
+                }
 
-    //public partial class World
-    //{
-    //    private static World world;
+                this.Resources = resources.Select(x => x.Value);
+                this.Religions = religions.Select(x => x.Value);
+                this.Provinces = provinces.Select(x => x.Value);
+                this.Factions = factions.Select(x => x.Value);
+            }
+        }
 
-    //    public static World GetWorld()
-    //    {
-    //        return world ?? (world = new World());
-    //    }
-    //}
+        public IEnumerable<Resource> Resources { get; }
+
+        public IEnumerable<Religion> Religions { get; }
+
+        public IEnumerable<Province> Provinces { get; }
+
+        public IEnumerable<Faction> Factions { get; }
+    }
 }

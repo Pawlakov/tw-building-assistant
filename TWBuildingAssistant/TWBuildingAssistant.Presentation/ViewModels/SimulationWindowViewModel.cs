@@ -1,19 +1,18 @@
-﻿namespace TWBuildingAssistant.ViewModel
+﻿namespace TWBuildingAssistant.Presentation.ViewModels
 {
     using System.Collections.ObjectModel;
-    using System.Text;
-    using System.Windows.Media;
+    using Avalonia.Media;
     using TWBuildingAssistant.Model;
 
-    public class ViewModelSimulationWindow : ViewModelWindow
+    public class SimulationWindowViewModel : WindowViewModel
     {
         private readonly Province province;
 
-        private string performance = string.Empty;
+        //private string performance = string.Empty;
 
         private SolidColorBrush performanceColor;
 
-        public ViewModelSimulationWindow(Province province)
+        public SimulationWindowViewModel(Province province)
         {
             this.province = province;
             this.ProvinceName = province.Name;

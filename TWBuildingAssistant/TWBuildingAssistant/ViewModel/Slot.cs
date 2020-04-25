@@ -8,18 +8,10 @@
     {
         private object selectedBuilding;
 
-        private readonly int whichRegion;
-
-        private readonly int whichSlot;
-
-        private readonly Model.SimulationKit kit;
-
-        public Slot(int whichRegion, int whichSlot, Model.SimulationKit kit)
+        public Slot(Model.BuildingSlot slot)
         {
-            this.kit = kit;
-            this.whichRegion = whichRegion;
-            this.whichSlot = whichSlot;
-            this.Buildings = new ObservableCollection<KeyValuePair<int, string>>(this.kit.GetAvailableBuildingsAt(whichRegion, whichSlot));
+            this.Buildings = new ObservableCollection<KeyValuePair<int, string>>();
+            this.Buildings.Add(new KeyValuePair<int, string>(0, "null"));
             this.SelectedBuilding = this.Buildings[0];
         }
 
@@ -38,7 +30,6 @@
                 }
 
                 this.selectedBuilding = value;
-                this.kit.SetBuildingAt(this.whichRegion, this.whichSlot, this.Buildings.IndexOf((KeyValuePair<int, string>)value));
                 this.OnPropertyChanged(nameof(this.SelectedBuilding));
             }
         }

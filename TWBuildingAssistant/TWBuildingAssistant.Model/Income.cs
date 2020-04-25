@@ -50,21 +50,36 @@
 
         private Income(IDictionary<IncomeCategory, IncomeRecord> records)
         {
-            this.records = records.ToDictionary(x => x.Key, x => x.Value);
+            if (records != null)
+            {
+                this.records = records.ToDictionary(x => x.Key, x => x.Value);
+            }
+            else
+            {
+                this.records = new Dictionary<IncomeCategory, IncomeRecord>();
+            }
         }
 
         public static Income operator +(Income left, Income right)
         {
-            var records = left.records.ToDictionary(x => x.Key, x => x.Value);
-            foreach (var record in right.records)
+            var records = new Dictionary<IncomeCategory, IncomeRecord>();
+            if (left.records != null)
             {
-                if (records.ContainsKey(record.Key))
+                records = left.records.ToDictionary(x => x.Key, x => x.Value);
+            }
+
+            if (right.records != null)
+            {
+                foreach (var record in right.records)
                 {
-                    records[record.Key] = records[record.Key] + record.Value;
-                }
-                else
-                {
-                    records.Add(record.Key, record.Value);
+                    if (records.ContainsKey(record.Key))
+                    {
+                        records[record.Key] = records[record.Key] + record.Value;
+                    }
+                    else
+                    {
+                        records.Add(record.Key, record.Value);
+                    }
                 }
             }
 
@@ -73,6 +88,11 @@
 
         public double GetIncome(int fertilityLevel)
         {
+            if (this.records == null)
+            {
+                return 0d;
+            }
+
             if (this.records.ContainsKey(IncomeCategory.All))
             {
                 foreach (var key in this.records.Keys.Where(x => x != IncomeCategory.All && x != IncomeCategory.Maintenance))
@@ -87,16 +107,19 @@
 
         public bool Equals(Income other)
         {
-            if (this.records.Count != other.records.Count)
+            if (this.records?.Count != other.records?.Count)
             {
                 return false;
             }
 
-            foreach (var record in this.records)
+            if (this.records != null)
             {
-                if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
+                foreach (var record in this.records)
                 {
-                    return false;
+                    if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
+                    {
+                        return false;
+                    }
                 }
             }
 

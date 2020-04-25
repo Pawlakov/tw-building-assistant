@@ -5,10 +5,10 @@
     /// </summary>
     public partial class SimulationWindow
     {
-        public SimulationWindow(Model.SimulationKit kit)
+        public SimulationWindow(Model.Province province)
         {
             this.InitializeComponent();
-            var viewModel = new ViewModel.ViewModelSimulationWindow(kit);
+            var viewModel = new ViewModel.ViewModelSimulationWindow(province);
             this.DataContext = viewModel;
             viewModel.CloseWindow += (sender, e) => { this.Close(); };
         }

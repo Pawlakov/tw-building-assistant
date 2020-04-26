@@ -16,10 +16,10 @@
         {
             this.province = province;
             this.ProvinceName = province.Name;
-            this.Regions = new ObservableCollection<Region>();
+            this.Regions = new ObservableCollection<RegionViewModel>();
             foreach (var region in province.Regions)
             {
-                var newRegion = new Region(region);
+                var newRegion = new RegionViewModel(region);
                 foreach (var slot in newRegion.Slots)
                 {
                     //slot.PropertyChanged += (sender, args) => this.SetPerformanceDisplay(this.simulation.CurrentPerformance());
@@ -33,7 +33,7 @@
 
         public string ProvinceName { get; }
 
-        public ObservableCollection<Region> Regions { get; }
+        public ObservableCollection<RegionViewModel> Regions { get; }
 
         //public string Performance
         //{

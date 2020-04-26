@@ -5,11 +5,11 @@
     using ReactiveUI;
     using TWBuildingAssistant.Model;
 
-    public class Slot : ViewModel
+    public class SlotViewModel : ViewModel
     {
         private object selectedBuilding;
 
-        public Slot(BuildingSlot slot)
+        public SlotViewModel(BuildingSlot slot)
         {
             this.Buildings = new ObservableCollection<KeyValuePair<int, string>>();
             this.Buildings.Add(new KeyValuePair<int, string>(0, "null"));

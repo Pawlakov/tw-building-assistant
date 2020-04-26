@@ -2,22 +2,23 @@
 {
     using System.Collections.ObjectModel;
     using System.Linq;
+    using TWBuildingAssistant.Model;
 
-    public class Region : ViewModel
+    public class RegionViewModel : ViewModel
     {
-        public Region(Model.Region region)
+        public RegionViewModel(Region region)
         {
             var count = region.Slots.Count();
-            this.Slots = new ObservableCollection<Slot>();
+            this.Slots = new ObservableCollection<SlotViewModel>();
             foreach (var slot in region.Slots)
             {
-                this.Slots.Add(new Slot(slot));
+                this.Slots.Add(new SlotViewModel(slot));
             }
 
             this.Name = region.Name;
         }
 
-        public ObservableCollection<Slot> Slots { get; }
+        public ObservableCollection<SlotViewModel> Slots { get; }
 
         public string Name { get; }
     }

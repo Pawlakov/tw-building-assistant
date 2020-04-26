@@ -4,74 +4,74 @@
 
     public struct Effect : IEquatable<Effect>
     {
-        private readonly int publicOrder;
-
-        private readonly int regularFood;
-
-        private readonly int fertilityDependentFood;
-
-        private readonly int provincialSanitation;
-
-        private readonly int researchRate;
-
-        private readonly int growth;
-
-        private readonly int fertility;
-
-        private readonly int religiousOsmosis;
-
-        private readonly int regionalSanitation;
-
-        private readonly Income income;
-
-        private readonly Influence influence;
-
         public Effect(int publicOrder = 0, int regularFood = 0, int fertilityDependentFood = 0, int provincialSanitation = 0, int researchRate = 0, int growth = 0, int fertility = 0, int religiousOsmosis = 0, int regionalSanitation = 0, Income income = default, Influence influence = default)
         {
-            this.publicOrder = publicOrder;
-            this.regularFood = regularFood;
-            this.fertilityDependentFood = fertilityDependentFood;
-            this.provincialSanitation = provincialSanitation;
-            this.researchRate = researchRate;
-            this.growth = growth;
-            this.fertility = fertility;
-            this.religiousOsmosis = religiousOsmosis;
-            this.regionalSanitation = regionalSanitation;
-            this.income = income;
-            this.influence = influence;
+            this.PublicOrder = publicOrder;
+            this.RegularFood = regularFood;
+            this.FertilityDependentFood = fertilityDependentFood;
+            this.ProvincialSanitation = provincialSanitation;
+            this.ResearchRate = researchRate;
+            this.Growth = growth;
+            this.Fertility = fertility;
+            this.ReligiousOsmosis = religiousOsmosis;
+            this.RegionalSanitation = regionalSanitation;
+            this.Income = income;
+            this.Influence = influence;
         }
+
+        public int PublicOrder { get; }
+
+        public int RegularFood { get; }
+
+        public int FertilityDependentFood { get; }
+
+        public int ProvincialSanitation { get; }
+
+        public int ResearchRate { get; }
+
+        public int Growth { get; }
+
+        public int Fertility { get; }
+
+        public int ReligiousOsmosis { get; }
+
+        public int RegionalSanitation { get; }
+
+        public Income Income { get; }
+
+        public Influence Influence { get; }
 
         public static Effect operator +(Effect left, Effect right)
         {
             var result = new Effect(
-                left.publicOrder + right.publicOrder,
-                left.regularFood + right.regularFood,
-                left.fertilityDependentFood + right.fertilityDependentFood,
-                left.provincialSanitation + right.provincialSanitation,
-                left.researchRate + right.researchRate,
-                left.growth + right.growth,
-                left.fertility + right.fertility,
-                left.religiousOsmosis + right.religiousOsmosis,
-                left.regionalSanitation + right.regionalSanitation,
-                left.income + right.income,
-                left.influence + right.influence);
+                left.PublicOrder + right.PublicOrder,
+                left.RegularFood + right.RegularFood,
+                left.FertilityDependentFood + right.FertilityDependentFood,
+                left.ProvincialSanitation + right.ProvincialSanitation,
+                left.ResearchRate + right.ResearchRate,
+                left.Growth + right.Growth,
+                left.Fertility + right.Fertility,
+                left.ReligiousOsmosis + right.ReligiousOsmosis,
+                left.RegionalSanitation + right.RegionalSanitation,
+                left.Income + right.Income,
+                left.Influence + right.Influence);
 
             return result;
         }
 
         public bool Equals(Effect other)
         {
-            return this.publicOrder == other.publicOrder &&
-                this.regularFood == other.regularFood &&
-                this.fertilityDependentFood == other.fertilityDependentFood &&
-                this.provincialSanitation == other.provincialSanitation &&
-                this.researchRate == other.researchRate &&
-                this.growth == other.growth &&
-                this.fertility == other.fertility &&
-                this.religiousOsmosis == other.religiousOsmosis &&
-                this.regionalSanitation == other.regionalSanitation &&
-                this.income.Equals(other.income) &&
-                this.influence.Equals(other.influence);
+            return this.PublicOrder == other.PublicOrder &&
+                this.RegularFood == other.RegularFood &&
+                this.FertilityDependentFood == other.FertilityDependentFood &&
+                this.ProvincialSanitation == other.ProvincialSanitation &&
+                this.ResearchRate == other.ResearchRate &&
+                this.Growth == other.Growth &&
+                this.Fertility == other.Fertility &&
+                this.ReligiousOsmosis == other.ReligiousOsmosis &&
+                this.RegionalSanitation == other.RegionalSanitation &&
+                this.Income.Equals(other.Income) &&
+                this.Influence.Equals(other.Influence);
         }
     }
 }

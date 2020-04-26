@@ -41,6 +41,8 @@
 
         public WeatherEffect WeatherEffect { get; set; }
 
+        public Faction Faction { get; set; }
+
         public ICollection<Bonus> Bonuses { get; set; }
 
         public ICollection<Influence> Influences { get; set; }

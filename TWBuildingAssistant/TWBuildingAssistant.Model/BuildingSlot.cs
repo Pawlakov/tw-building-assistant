@@ -13,5 +13,7 @@
         public SlotType SlotType { get; }
 
         public RegionType RegionType { get; }
+
+        public Effect Effect => default;
     }
 }

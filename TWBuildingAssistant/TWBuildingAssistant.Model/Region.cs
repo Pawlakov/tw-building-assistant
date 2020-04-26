@@ -1,7 +1,7 @@
 ﻿namespace TWBuildingAssistant.Model
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using TWBuildingAssistant.Data.Model;
 
     public class Region
@@ -38,6 +38,12 @@
 
         public IEnumerable<BuildingSlot> Slots { get; }
 
-        public int Sanitation => throw new NotImplementedException();
+        public Effect Effect
+        {
+            get
+            {
+                return this.Slots.Select(x => x.Effect).Aggregate(default(Effect), (x, y) => x + y);
+            }
+        }
     }
 }

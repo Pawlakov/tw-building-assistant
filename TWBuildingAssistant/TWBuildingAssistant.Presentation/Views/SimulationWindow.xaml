@@ -15,6 +15,6 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-      <!--<TextBlock Text="{Binding Performance}" Foreground="{Binding PerformanceColor}"/>-->
+      <TextBlock Text="{Binding Performance}"/>
     </StackPanel>
 </Window>

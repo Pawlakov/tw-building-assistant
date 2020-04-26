@@ -36,16 +36,20 @@
 
         public Faction Owner { get; set; }
 
-        public int Food => throw new NotImplementedException();
+        public ProvinceState State
+        {
+            get
+            {
+                var regionalEffects = this.Regions.Select(x => x.Effect);
+                var effect = regionalEffects.Aggregate(this.baseEffect + this.Owner.EmpirewideEffect + this.Owner.StateReligion.EffectWhenState, (x, y) => x + y);
 
-        public int PublicOrder => throw new NotImplementedException();
+                var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
+                var food = effect.RegularFood + (effect.Fertility * effect.FertilityDependentFood);
+                var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);
+                var income = effect.Income.GetIncome(effect.Fertility);
 
-        public int ReligiousOsmosis => throw new NotImplementedException();
-
-        public int ResearchRate => throw new NotImplementedException();
-
-        public int Growth => throw new NotImplementedException();
-
-        public double Wealth => throw new NotImplementedException();
+                return new ProvinceState(sanitation, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
+            }
+        }
     }
 }

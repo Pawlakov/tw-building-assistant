@@ -1,16 +1,17 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels
 {
     using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
     using Avalonia.Media;
+    using ReactiveUI;
     using TWBuildingAssistant.Model;
 
     public class SimulationWindowViewModel : WindowViewModel
     {
         private readonly Province province;
 
-        //private string performance = string.Empty;
-
-        private SolidColorBrush performanceColor;
+        private string performance;
 
         public SimulationWindowViewModel(Province province)
         {
@@ -22,69 +23,37 @@
                 var newRegion = new RegionViewModel(region);
                 foreach (var slot in newRegion.Slots)
                 {
-                    //slot.PropertyChanged += (sender, args) => this.SetPerformanceDisplay(this.simulation.CurrentPerformance());
+                    slot.PropertyChanged += (sender, args) => this.SetPerformanceDisplay();
                 }
-                
+
                 this.Regions.Add(newRegion);
             }
 
-            //this.SetPerformanceDisplay(this.simulation.CurrentPerformance());
+            this.SetPerformanceDisplay();
         }
 
         public string ProvinceName { get; }
 
         public ObservableCollection<RegionViewModel> Regions { get; }
 
-        //public string Performance
-        //{
-        //    get => this.performance;
-        //    set
-        //    {
-        //        if (this.performance.Equals(value))
-        //        {
-        //            return;
-        //        }
+        public string Performance
+        {
+            get => this.performance;
+            set => this.RaiseAndSetIfChanged(ref this.performance, value);
+        }
 
-        //        this.performance = value;
-        //        this.OnPropertyChanged(nameof(this.Performance));
-        //    }
-        //}
-
-        //public SolidColorBrush PerformanceColor
-        //{
-        //    get => this.performanceColor;
-        //    set
-        //    {
-        //        if (Equals(this.performanceColor, value))
-        //        {
-        //            return;
-        //        }
-
-        //        this.performanceColor = value;
-        //        this.OnPropertyChanged(nameof(this.PerformanceColor));
-        //    }
-        //}
-
-        //private void SetPerformanceDisplay(Model.SimulationKit.ProvinceState currentPerformance)
-        //{
-        //    var sanitationString = currentPerformance.Sanitation[0].ToString();
-        //    for (var whichRegion = 1; whichRegion < currentPerformance.Sanitation.Length; whichRegion++)
-        //    {
-        //        sanitationString = $"{sanitationString}/{currentPerformance.Sanitation[whichRegion]}";
-        //    }
-
-        //    var builder = new StringBuilder();
-        //    builder.AppendLine($"Sanitation: {sanitationString}");
-        //    builder.AppendLine($"Food: {currentPerformance.Food}");
-        //    builder.AppendLine($"Public Order: {currentPerformance.PublicOrder}");
-        //    builder.AppendLine($"Relgious Osmosis: {currentPerformance.ReligiousOsmosis}");
-        //    builder.AppendLine($"Fertility: {currentPerformance.Fertility}");
-        //    builder.AppendLine($"Research Rate: +{currentPerformance.ResearchRate}%");
-        //    builder.AppendLine($"Growth: {currentPerformance.Growth}");
-        //    builder.AppendLine($"Wealth: {currentPerformance.Wealth}");
-        //    this.Performance = builder.ToString();
-
-        //    this.PerformanceColor = currentPerformance.Conflict ? Brushes.Red : Brushes.Black;
-        //}
+        private void SetPerformanceDisplay()
+        {
+            var state = this.province.State;
+            var builder = new StringBuilder();
+            builder.AppendLine($"Sanitation: {string.Join("/", state.Sanitation.Select(x => x.ToString()))}");
+            builder.AppendLine($"Food: {state.Food}");
+            builder.AppendLine($"Public Order: {state.PublicOrder}");
+            builder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");
+            builder.AppendLine($"Research Rate: +{state.ResearchRate}%");
+            builder.AppendLine($"Growth: {state.Growth}");
+            builder.AppendLine($"Wealth: {state.Wealth}");
+            this.Performance = builder.ToString();
+        }
     }
 }

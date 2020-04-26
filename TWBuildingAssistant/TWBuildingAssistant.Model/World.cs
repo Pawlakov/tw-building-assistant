@@ -65,7 +65,19 @@
                 var factions = new List<KeyValuePair<int, Faction>>();
                 foreach (var factionEntity in context.Factions.ToList())
                 {
-                    factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name)));
+                    Effect effect = default;
+                    if (factionEntity.EffectId.HasValue)
+                    {
+                        var effectEntity = context.Effects.Find(factionEntity.EffectId);
+                        var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
+                        var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
+
+                        var influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
+                        var bonus = bonusEntities.Select(x => new Income(x.Value, x.Category, x.Type)).Aggregate(default(Income), (x, y) => x + y);
+                        effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, bonus, influence);
+                    }
+
+                    factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, effect)));
                 }
 
                 this.Resources = resources.Select(x => x.Value);

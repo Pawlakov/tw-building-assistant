@@ -1,0 +1,38 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:TWBuildingAssistant.Presentation.ViewModels;assembly=TWBuildingAssistant.Presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="TWBuildingAssistant.Presentation.Views.MainWindow"
+        CanResize="False" Title="TWA:BA" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
+  <StackPanel Orientation="Horizontal">
+    <StackPanel Orientation="Vertical">
+      <TextBlock Height="25" Width="100" Text="Province:" HorizontalAlignment="Left"/>
+      <ComboBox Height="25" Width="100" Items="{Binding Provinces}" SelectedItem="{Binding SelectedProvince}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+      <TextBlock Height="25" Width="100" Text="State religion:" HorizontalAlignment="Left"/>
+      <ComboBox Height="25" Width="100" Items="{Binding Religions}" SelectedItem="{Binding SelectedReligion}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+      <TextBlock Height="25" Width="100" Text="Faction:" HorizontalAlignment="Left"/>
+      <ComboBox Height="25" Width="100" Items="{Binding Factions}" SelectedItem="{Binding SelectedFaction}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+    </StackPanel>
+    <ContentControl Content="{Binding Province}"/>
+  </StackPanel>
+</Window>

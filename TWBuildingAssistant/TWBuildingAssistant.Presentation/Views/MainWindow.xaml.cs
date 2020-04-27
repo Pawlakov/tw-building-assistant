@@ -4,9 +4,9 @@
     using Avalonia.Controls;
     using Avalonia.Markup.Xaml;
 
-    public class SimulationWindow : Window
+    public class MainWindow : Window
     {
-        public SimulationWindow()
+        public MainWindow()
         {
             this.InitializeComponent();
         }

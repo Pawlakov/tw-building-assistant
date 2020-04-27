@@ -3,11 +3,10 @@
     using Avalonia;
     using Avalonia.Controls;
     using Avalonia.Markup.Xaml;
-    using TWBuildingAssistant.Presentation.ViewModels;
 
-    public class SettingsWindow : Window
+    public class ProvinceView : UserControl
     {
-        public SettingsWindow()
+        public ProvinceView()
         {
             this.InitializeComponent();
         }

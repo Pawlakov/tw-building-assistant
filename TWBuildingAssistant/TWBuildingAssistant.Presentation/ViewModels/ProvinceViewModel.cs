@@ -3,17 +3,16 @@
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
-    using Avalonia.Media;
     using ReactiveUI;
     using TWBuildingAssistant.Model;
 
-    public class SimulationWindowViewModel : WindowViewModel
+    public class ProvinceViewModel : ViewModel
     {
         private readonly Province province;
 
         private string performance;
 
-        public SimulationWindowViewModel(Province province)
+        public ProvinceViewModel(Province province)
         {
             this.province = province;
             this.ProvinceName = province.Name;

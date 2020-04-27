@@ -17,8 +17,8 @@
         {
             if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new SettingsWindow();
-                var viewModel = new SettingsWindowViewModel();
+                desktop.MainWindow = new MainWindow();
+                var viewModel = new MainWindowViewModel();
                 desktop.MainWindow.DataContext = viewModel;
                 viewModel.CloseWindow += (sender, e) => { desktop.MainWindow.Close(); };
             }

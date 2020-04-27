@@ -13,14 +13,16 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
+    <AvaloniaResource Remove="Views\MainWindow.xaml" />
+    <AvaloniaResource Remove="Views\ProvinceView.xaml" />
     <AvaloniaResource Remove="Views\RegionView.xaml" />
-    <AvaloniaResource Remove="Views\SettingsWindow.xaml" />
     <AvaloniaResource Remove="Views\SimulationWindow.xaml" />
     <AvaloniaResource Remove="Views\SlotView.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Views\MainWindow.xaml" />
+    <None Remove="Views\ProvinceView.xaml" />
     <None Remove="Views\RegionView.xaml" />
-    <None Remove="Views\SettingsWindow.xaml" />
     <None Remove="Views\SimulationWindow.xaml" />
     <None Remove="Views\SlotView.xaml" />
   </ItemGroup>
@@ -34,12 +36,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Views\SettingsWindow.xaml">
+    <EmbeddedResource Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\SimulationWindow.xaml">
+    <EmbeddedResource Include="Views\ProvinceView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -57,11 +57,14 @@
     <ProjectReference Include="..\TWBuildingAssistant.Model\TWBuildingAssistant.Model.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\ProvinceView.xaml.cs">
+      <DependentUpon>ProvinceView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\RegionView.xaml.cs">
       <DependentUpon>RegionView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    <Compile Update="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\SimulationWindow.xaml.cs">
       <DependentUpon>SimulationWindow.xaml</DependentUpon>

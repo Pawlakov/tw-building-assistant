@@ -2,9 +2,7 @@
 {
     public enum IncomeCategory
     {
-        All,
-
-        Agriculture,
+        Agriculture = 1,
 
         Husbandry,
 

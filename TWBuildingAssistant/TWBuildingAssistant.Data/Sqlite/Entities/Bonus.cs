@@ -11,7 +11,7 @@
 
         public int Value { get; set; }
 
-        public IncomeCategory Category { get; set; }
+        public IncomeCategory? Category { get; set; }
 
         public BonusType Type { get; set; }
 

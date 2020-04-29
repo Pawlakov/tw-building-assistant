@@ -8,30 +8,56 @@
         CanResize="False" Title="TWA:BA" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight">
   <StackPanel Orientation="Horizontal">
     <StackPanel Orientation="Vertical">
-      <TextBlock Height="25" Width="100" Text="Province:" HorizontalAlignment="Left"/>
-      <ComboBox Height="25" Width="100" Items="{Binding Provinces}" SelectedItem="{Binding SelectedProvince}">
-        <ComboBox.ItemTemplate>
-          <DataTemplate>
-            <TextBlock Text="{Binding Name}" />
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
-      <TextBlock Height="25" Width="100" Text="State religion:" HorizontalAlignment="Left"/>
-      <ComboBox Height="25" Width="100" Items="{Binding Religions}" SelectedItem="{Binding SelectedReligion}">
-        <ComboBox.ItemTemplate>
-          <DataTemplate>
-            <TextBlock Text="{Binding Name}" />
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
-      <TextBlock Height="25" Width="100" Text="Faction:" HorizontalAlignment="Left"/>
-      <ComboBox Height="25" Width="100" Items="{Binding Factions}" SelectedItem="{Binding SelectedFaction}">
-        <ComboBox.ItemTemplate>
-          <DataTemplate>
-            <TextBlock Text="{Binding Name}" />
-          </DataTemplate>
-        </ComboBox.ItemTemplate>
-      </ComboBox>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Width="200" Text="Province:" HorizontalAlignment="Left"/>
+          <ComboBox Width="200" Items="{Binding Provinces}" SelectedItem="{Binding SelectedProvince}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Name}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+      </Border>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Width="200" Text="State religion:" HorizontalAlignment="Left"/>
+          <ComboBox Width="200" Items="{Binding Religions}" SelectedItem="{Binding SelectedReligion}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Name}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+      </Border>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Width="200" Text="Faction:" HorizontalAlignment="Left"/>
+          <ComboBox Width="200" Items="{Binding Factions}" SelectedItem="{Binding SelectedFaction}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Name}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+        </StackPanel>
+      </Border>
+      <StackPanel Orientation="Horizontal">
+        <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+          <StackPanel Orientation="Vertical">
+            <TextBlock Width="95" Text="Technology tier:" HorizontalAlignment="Left"/>
+            <ComboBox Width="95" Items="{Binding TechnologyTiers}" SelectedItem="{Binding SelectedTechnologyTier}"/>
+          </StackPanel>
+        </Border>
+        <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+          <StackPanel Orientation="Vertical">
+            <TextBlock Width="95" Text="Antilegacy:" HorizontalAlignment="Left"/>
+            <CheckBox IsChecked="{Binding UseAntilegacyTechnologies}" />
+          </StackPanel>
+        </Border>
+      </StackPanel>
     </StackPanel>
     <ContentControl Content="{Binding Province}"/>
   </StackPanel>

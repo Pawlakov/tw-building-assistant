@@ -14,6 +14,10 @@
 
         private Faction selectedFaction;
 
+        private int selectedTechnologyTier;
+
+        private bool useAntilegacyTechnologies;
+
         private ProvinceViewModel provinceViewModel;
 
         public MainWindowViewModel()
@@ -25,6 +29,9 @@
             this.selectedProvince = this.Provinces[0];
             this.Factions = new ObservableCollection<Faction>(this.world.Factions);
             this.selectedFaction = this.Factions[0];
+            this.TechnologyTiers = new ObservableCollection<int>(new int[] { 1, 2, 3, 4 });
+            this.selectedTechnologyTier = this.TechnologyTiers[0];
+            this.useAntilegacyTechnologies = false;
 
             this.UpdateProvince();
         }
@@ -65,6 +72,28 @@
             }
         }
 
+        public ObservableCollection<int> TechnologyTiers { get; set; }
+
+        public int SelectedTechnologyTier
+        {
+            get => this.selectedTechnologyTier;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref this.selectedTechnologyTier, value);
+                this.UpdateProvince();
+            }
+        }
+
+        public bool UseAntilegacyTechnologies
+        {
+            get => this.useAntilegacyTechnologies;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref this.useAntilegacyTechnologies, value);
+                this.UpdateProvince();
+            }
+        }
+
         public ProvinceViewModel Province
         {
             get => this.provinceViewModel;
@@ -73,6 +102,8 @@
 
         private void UpdateProvince()
         {
+            this.selectedFaction.TechnologyTier = this.selectedTechnologyTier;
+            this.selectedFaction.UseAntilegacyTechnologies = this.useAntilegacyTechnologies;
             this.selectedFaction.StateReligion = this.selectedReligion;
             this.selectedProvince.Owner = this.selectedFaction;
             var viewModel = new ProvinceViewModel(this.selectedProvince);

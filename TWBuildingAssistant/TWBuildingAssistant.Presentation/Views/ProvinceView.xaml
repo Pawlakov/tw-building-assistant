@@ -4,15 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TWBuildingAssistant.Presentation.Views.ProvinceView">
-    <StackPanel Orientation="Vertical">
-        <TextBlock Text="{Binding ProvinceName}" HorizontalAlignment="Center"/>
-        <ItemsControl Items="{Binding Regions}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+  <StackPanel Orientation="Vertical">
+    <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+      <TextBlock Text="{Binding ProvinceName}" FontWeight="Bold" HorizontalAlignment="Center"/>
+    </Border>
+    <ItemsControl Items="{Binding Regions}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+    </ItemsControl>
+    <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
       <TextBlock Text="{Binding Performance}"/>
-    </StackPanel>
+    </Border>
+  </StackPanel>
 </UserControl>

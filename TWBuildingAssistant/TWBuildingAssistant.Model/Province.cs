@@ -41,7 +41,7 @@
             get
             {
                 var regionalEffects = this.Regions.Select(x => x.Effect);
-                var effect = regionalEffects.Aggregate(this.baseEffect + this.Owner.EmpirewideEffect + this.Owner.StateReligion.EffectWhenState, (x, y) => x + y);
+                var effect = regionalEffects.Aggregate(this.baseEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
 
                 var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
                 var food = effect.RegularFood + (effect.Fertility * effect.FertilityDependentFood);

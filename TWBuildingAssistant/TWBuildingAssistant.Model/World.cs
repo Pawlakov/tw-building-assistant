@@ -41,18 +41,7 @@
                 var provinces = new List<KeyValuePair<int, Province>>();
                 foreach (var provinceEntity in context.Provinces.ToList())
                 {
-                    Effect effect = default;
-                    if (provinceEntity.EffectId.HasValue)
-                    {
-                        var effectEntity = context.Effects.Find(provinceEntity.EffectId);
-                        var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
-                        var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
-
-                        var influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
-                        var bonus = bonusEntities.Select(x => new Income(x.Value, x.Category, x.Type)).Aggregate(default(Income), (x, y) => x + y);
-                        effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, bonus, influence);
-                    }
-
+                    var effect = MakeEffect(context, religions, provinceEntity.EffectId);
                     var regions = new List<Region>();
                     foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
                     {
@@ -65,19 +54,18 @@
                 var factions = new List<KeyValuePair<int, Faction>>();
                 foreach (var factionEntity in context.Factions.ToList())
                 {
-                    Effect effect = default;
-                    if (factionEntity.EffectId.HasValue)
+                    var effect = MakeEffect(context, religions, factionEntity.EffectId);
+                    var techs = new List<TechnologyTier>();
+                    var universalEffect = default(Effect);
+                    var antilegacyEffect = default(Effect);
+                    foreach (var techEntity in context.TechnologyLevels.Where(x => x.FactionId == factionEntity.Id).OrderBy(x => x.Order).ToList())
                     {
-                        var effectEntity = context.Effects.Find(factionEntity.EffectId);
-                        var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
-                        var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
-
-                        var influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
-                        var bonus = bonusEntities.Select(x => new Income(x.Value, x.Category, x.Type)).Aggregate(default(Income), (x, y) => x + y);
-                        effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, bonus, influence);
+                        universalEffect += MakeEffect(context, religions, techEntity.UniversalEffectId);
+                        antilegacyEffect += MakeEffect(context, religions, techEntity.AntilegacyEffectId);
+                        techs.Add(new TechnologyTier(universalEffect, antilegacyEffect));
                     }
 
-                    factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, effect)));
+                    factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, effect)));
                 }
 
                 this.Resources = resources.Select(x => x.Value);
@@ -94,5 +82,22 @@
         public IEnumerable<Province> Provinces { get; }
 
         public IEnumerable<Faction> Factions { get; }
+
+        private static Effect MakeEffect(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
+        {
+            Effect effect = default;
+            if (id.HasValue)
+            {
+                var effectEntity = context.Effects.Find(id);
+                var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
+                var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
+
+                var influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
+                var bonus = bonusEntities.Select(x => new Income(x.Value, x.Category, x.Type)).Aggregate(default(Income), (x, y) => x + y);
+                effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, bonus, influence);
+            }
+
+            return effect;
+        }
     }
 }

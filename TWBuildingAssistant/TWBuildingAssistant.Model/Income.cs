@@ -10,7 +10,9 @@
     {
         private readonly IDictionary<IncomeCategory, IncomeRecord> records;
 
-        public Income(int value, IncomeCategory category, BonusType type)
+        private readonly int allBonus;
+
+        public Income(int value, IncomeCategory? category, BonusType type)
         {
             if (value == 0)
             {
@@ -32,7 +34,7 @@
                 throw new DomainRuleViolationException("Invalid 'Maintenance' income.");
             }
 
-            if (category == IncomeCategory.All && type != BonusType.Percentage)
+            if (category == null && type != BonusType.Percentage)
             {
                 throw new DomainRuleViolationException("Invalid 'All' income.");
             }
@@ -42,14 +44,21 @@
                 throw new DomainRuleViolationException("Invalid fertility-based income.");
             }
 
-            this.records = new Dictionary<IncomeCategory, IncomeRecord>
+            this.records = new Dictionary<IncomeCategory, IncomeRecord>();
+            this.allBonus = 0;
+            if (category != null)
             {
-                { category, new IncomeRecord(value, type) },
-            };
+                this.records.Add(category.Value, new IncomeRecord(value, type));
+            }
+            else
+            {
+                this.allBonus = value;
+            }
         }
 
-        private Income(IDictionary<IncomeCategory, IncomeRecord> records)
+        private Income(IDictionary<IncomeCategory, IncomeRecord> records, int allBonus)
         {
+            this.allBonus = allBonus;
             if (records != null)
             {
                 this.records = records.ToDictionary(x => x.Key, x => x.Value);
@@ -83,7 +92,8 @@
                 }
             }
 
-            return new Income(records);
+            var allBonus = left.allBonus + right.allBonus;
+            return new Income(records, allBonus);
         }
 
         public double GetIncome(int fertilityLevel)
@@ -93,20 +103,31 @@
                 return 0d;
             }
 
-            if (this.records.ContainsKey(IncomeCategory.All))
+            var maintenance = 0d;
+            var income = 0d;
+            foreach (var key in this.records.Keys)
             {
-                foreach (var key in this.records.Keys.Where(x => x != IncomeCategory.All && x != IncomeCategory.Maintenance))
+                if (key == IncomeCategory.Maintenance)
                 {
-                    this.records[key] = this.records[key] + this.records[IncomeCategory.All];
+                    maintenance += this.records[key].GetIncome(fertilityLevel);
+                }
+                else
+                {
+                    income += this.records[key].GetIncome(fertilityLevel);
                 }
             }
 
-            var result = this.records.Sum(x => x.Value.GetIncome(fertilityLevel));
+            var result = maintenance + (income * (1 + this.allBonus));
             return result;
         }
 
         public bool Equals(Income other)
         {
+            if (this.allBonus != other.allBonus)
+            {
+                return false;
+            }
+
             if (this.records?.Count != other.records?.Count)
             {
                 return false;

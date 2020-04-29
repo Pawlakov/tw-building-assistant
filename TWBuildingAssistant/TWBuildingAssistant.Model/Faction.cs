@@ -1,23 +1,47 @@
 ﻿namespace TWBuildingAssistant.Model
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class Faction
     {
+        private readonly Effect baseFactionwideEffect;
+
+        private readonly TechnologyTier[] technologyTiers;
+
         private Religion stateReligion;
 
-        public Faction(string name, Effect empirewideEffect = default)
+        private int technologyTier;
+
+        public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, Effect baseFactionwideEffect = default)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new DomainRuleViolationException("Faction without name.");
             }
 
+            if (technologyTiers == null)
+            {
+                throw new DomainRuleViolationException("Missing tech tiers.");
+            }
+
+            if (technologyTiers.Count() != 4)
+            {
+                throw new DomainRuleViolationException("Invalid tech tiers count.");
+            }
+
             this.Name = name;
-            this.EmpirewideEffect = empirewideEffect;
+            this.baseFactionwideEffect = baseFactionwideEffect;
+            this.technologyTiers = technologyTiers.ToArray();
         }
 
         public string Name { get; }
 
-        public Effect EmpirewideEffect { get; }
+        public Effect FactionwideEffect =>
+            this.baseFactionwideEffect +
+            this.stateReligion.EffectWhenState +
+            this.technologyTiers[this.technologyTier - 1].UniversalEffect +
+            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier - 1].AntilegacyEffect : default);
 
         public Religion StateReligion
         {
@@ -32,5 +56,21 @@
                 this.stateReligion = value;
             }
         }
+
+        public int TechnologyTier
+        {
+            get => this.technologyTier;
+            set
+            {
+                if (value < 1 || value > 4)
+                {
+                    throw new DomainRuleViolationException("Tech tier out of range.");
+                }
+
+                this.technologyTier = value;
+            }
+        }
+
+        public bool UseAntilegacyTechnologies { get; set; }
     }
 }

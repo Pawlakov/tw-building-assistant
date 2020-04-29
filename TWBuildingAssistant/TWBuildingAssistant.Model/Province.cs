@@ -43,10 +43,11 @@
                 var regionalEffects = this.Regions.Select(x => x.Effect);
                 var effect = regionalEffects.Aggregate(this.baseEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
 
+                var fertility = effect.Fertility < 0 ? 0 : (effect.Fertility > 6 ? 6 : effect.Fertility);
                 var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
-                var food = effect.RegularFood + (effect.Fertility * effect.FertilityDependentFood);
+                var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
                 var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);
-                var income = effect.Income.GetIncome(effect.Fertility);
+                var income = effect.Income.GetIncome(fertility);
 
                 return new ProvinceState(sanitation, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
             }

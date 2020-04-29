@@ -41,7 +41,8 @@
             this.baseFactionwideEffect +
             this.stateReligion.EffectWhenState +
             this.technologyTiers[this.technologyTier - 1].UniversalEffect +
-            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier - 1].AntilegacyEffect : default);
+            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier - 1].AntilegacyEffect : default) +
+            new Effect(0, 0, 0, 0, 0, 0, this.FertilityDrop);
 
         public Religion StateReligion
         {
@@ -72,5 +73,7 @@
         }
 
         public bool UseAntilegacyTechnologies { get; set; }
+
+        public int FertilityDrop { get; set; }
     }
 }

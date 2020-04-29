@@ -58,6 +58,12 @@
           </StackPanel>
         </Border>
       </StackPanel>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Width="200" Text="Fertility drop:" HorizontalAlignment="Left"/>
+          <ComboBox Width="200" Items="{Binding FertilityDrops}" SelectedItem="{Binding SelectedFertilityDrop}"/>
+        </StackPanel>
+      </Border>
     </StackPanel>
     <ContentControl Content="{Binding Province}"/>
   </StackPanel>

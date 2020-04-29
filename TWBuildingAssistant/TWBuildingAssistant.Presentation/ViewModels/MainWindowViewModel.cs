@@ -18,6 +18,8 @@
 
         private bool useAntilegacyTechnologies;
 
+        private int selectedFertilityDrop;
+
         private ProvinceViewModel provinceViewModel;
 
         public MainWindowViewModel()
@@ -32,6 +34,8 @@
             this.TechnologyTiers = new ObservableCollection<int>(new int[] { 1, 2, 3, 4 });
             this.selectedTechnologyTier = this.TechnologyTiers[0];
             this.useAntilegacyTechnologies = false;
+            this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
+            this.selectedFertilityDrop = this.FertilityDrops[0];
 
             this.UpdateProvince();
         }
@@ -90,6 +94,18 @@
             set
             {
                 this.RaiseAndSetIfChanged(ref this.useAntilegacyTechnologies, value);
+                this.UpdateProvince();
+            }
+        }
+
+        public ObservableCollection<int> FertilityDrops { get; set; }
+
+        public int SelectedFertilityDrop
+        {
+            get => this.selectedFertilityDrop;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref this.selectedFertilityDrop, value);
                 this.UpdateProvince();
             }
         }

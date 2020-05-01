@@ -15,8 +15,10 @@
         </ItemsPanelTemplate>
       </ItemsControl.ItemsPanel>
     </ItemsControl>
-    <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-      <TextBlock Text="{Binding Performance}"/>
-    </Border>
+    <StackPanel Orientation="Horizontal">
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <TextBlock Width="200" Text="{Binding Performance}"/>
+      </Border>
+    </StackPanel>
   </StackPanel>
 </UserControl>

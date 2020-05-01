@@ -59,6 +59,24 @@
             return result;
         }
 
+        public static Effect TakeWorse(Effect left, Effect right)
+        {
+            var result = new Effect(
+                Math.Min(left.PublicOrder, right.PublicOrder),
+                Math.Min(left.RegularFood, right.RegularFood),
+                Math.Min(left.FertilityDependentFood, right.FertilityDependentFood),
+                Math.Min(left.ProvincialSanitation, right.ProvincialSanitation),
+                Math.Min(left.ResearchRate, right.ResearchRate),
+                Math.Min(left.Growth, right.Growth),
+                Math.Min(left.Fertility, right.Fertility),
+                Math.Min(left.ReligiousOsmosis, right.ReligiousOsmosis),
+                Math.Min(left.RegionalSanitation, right.RegionalSanitation),
+                Income.TakeWorse(left.Income, right.Income),
+                Influence.TakeWorse(left.Influence, right.Influence));
+
+            return result;
+        }
+
         public bool Equals(Effect other)
         {
             return this.PublicOrder == other.PublicOrder &&

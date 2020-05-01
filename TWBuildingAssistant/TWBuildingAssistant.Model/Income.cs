@@ -96,6 +96,30 @@
             return new Income(records, allBonus);
         }
 
+        public static Income TakeWorse(Income left, Income right)
+        {
+            var oldRecords = (left.records?.ToList() ?? new List<KeyValuePair<IncomeCategory, IncomeRecord>>())
+                .Concat(right.records?.ToList() ?? new List<KeyValuePair<IncomeCategory, IncomeRecord>>())
+                .GroupBy(x => x.Key)
+                .ToDictionary(x => x.Key, x => x.Select(y => y.Value).ToList());
+
+            var records = new Dictionary<IncomeCategory, IncomeRecord>();
+            foreach (var record in oldRecords)
+            {
+                if (record.Value.Count == 2)
+                {
+                    records.Add(record.Key, IncomeRecord.TakeWorse(record.Value[0], record.Value[1]));
+                }
+                else
+                {
+                    records.Add(record.Key, IncomeRecord.TakeWorse(record.Value[0], default));
+                }
+            }
+
+            var allBonus = Math.Min(left.allBonus, right.allBonus);
+            return new Income(records, allBonus);
+        }
+
         public double GetIncome(int fertilityLevel)
         {
             if (this.records == null)

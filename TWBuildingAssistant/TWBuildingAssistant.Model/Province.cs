@@ -1,6 +1,5 @@
 ﻿namespace TWBuildingAssistant.Model
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -8,7 +7,9 @@
     {
         private readonly Effect baseEffect;
 
-        public Province(string name, IEnumerable<Region> regions, Effect baseEffect = default)
+        private readonly Climate climate;
+
+        public Province(string name, IEnumerable<Region> regions, Climate climate, Effect baseEffect = default)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -25,9 +26,15 @@
                 throw new DomainRuleViolationException("Invalid region count.");
             }
 
+            if (climate == null)
+            {
+                throw new DomainRuleViolationException("Province without climate.");
+            }
+
             this.Name = name;
             this.baseEffect = baseEffect;
             this.Regions = regions.ToList();
+            this.climate = climate;
         }
 
         public string Name { get; }
@@ -36,12 +43,15 @@
 
         public Faction Owner { get; set; }
 
+        public Weather WorstCaseWeather { get; set; }
+
         public ProvinceState State
         {
             get
             {
+                var climateEffect = this.climate.GetEffectForWorstCaseWeather(this.WorstCaseWeather);
                 var regionalEffects = this.Regions.Select(x => x.Effect);
-                var effect = regionalEffects.Aggregate(this.baseEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
+                var effect = regionalEffects.Aggregate(this.baseEffect + climateEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
 
                 var fertility = effect.Fertility < 0 ? 0 : (effect.Fertility > 6 ? 6 : effect.Fertility);
                 var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);

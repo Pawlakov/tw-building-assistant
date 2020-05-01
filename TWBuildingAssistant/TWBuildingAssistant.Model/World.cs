@@ -16,6 +16,12 @@
                     resources.Add(new KeyValuePair<int, Resource>(resourceEntity.Id, new Resource(resourceEntity.Name)));
                 }
 
+                var weathers = new List<KeyValuePair<int, Weather>>();
+                foreach (var weatherEntity in context.Weathers.OrderBy(x => x.Order).ToList())
+                {
+                    weathers.Add(new KeyValuePair<int, Weather>(weatherEntity.Id, new Weather(weatherEntity.Name)));
+                }
+
                 var religions = new List<KeyValuePair<int, Religion>>();
                 foreach (var religionEntity in context.Religions.ToList())
                 {
@@ -38,6 +44,20 @@
                     religions.Add(new KeyValuePair<int, Religion>(religionEntity.Id, new Religion(religionEntity.Name, effect)));
                 }
 
+                var climates = new List<KeyValuePair<int, Climate>>();
+                foreach (var climateEntity in context.Climates.ToList())
+                {
+                    var weatherEffect = new Dictionary<Weather, Effect>();
+                    foreach (var weather in weathers)
+                    {
+                        var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.ClimateId == climateEntity.Id && x.WeatherId == weather.Key);
+                        var effect = MakeEffect(context, religions, weatherEffectEntity?.EffectId);
+                        weatherEffect.Add(weather.Value, effect);
+                    }
+
+                    climates.Add(new KeyValuePair<int, Climate>(climateEntity.Id, new Climate(weatherEffect)));
+                }
+
                 var provinces = new List<KeyValuePair<int, Province>>();
                 foreach (var provinceEntity in context.Provinces.ToList())
                 {
@@ -48,7 +68,7 @@
                         regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : null, regionEntity.SlotsCountOffset == -1));
                     }
 
-                    provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, effect)));
+                    provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect)));
                 }
 
                 var factions = new List<KeyValuePair<int, Faction>>();
@@ -68,20 +88,20 @@
                     factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, effect)));
                 }
 
-                this.Resources = resources.Select(x => x.Value);
                 this.Religions = religions.Select(x => x.Value);
                 this.Provinces = provinces.Select(x => x.Value);
                 this.Factions = factions.Select(x => x.Value);
+                this.Weathers = weathers.Select(x => x.Value);
             }
         }
-
-        public IEnumerable<Resource> Resources { get; }
 
         public IEnumerable<Religion> Religions { get; }
 
         public IEnumerable<Province> Provinces { get; }
 
         public IEnumerable<Faction> Factions { get; }
+
+        public IEnumerable<Weather> Weathers { get; }
 
         private static Effect MakeEffect(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
         {

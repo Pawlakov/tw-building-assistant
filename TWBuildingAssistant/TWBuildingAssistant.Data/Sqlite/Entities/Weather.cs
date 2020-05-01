@@ -11,6 +11,8 @@
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
 
+        public int Order { get; set; }
+
         public ICollection<WeatherEffect> Effects { get; set; }
     }
 }

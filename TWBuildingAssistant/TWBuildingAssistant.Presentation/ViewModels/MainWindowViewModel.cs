@@ -20,6 +20,8 @@
 
         private int selectedFertilityDrop;
 
+        private Weather selectedWeather;
+
         private ProvinceViewModel provinceViewModel;
 
         public MainWindowViewModel()
@@ -36,6 +38,8 @@
             this.useAntilegacyTechnologies = false;
             this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
             this.selectedFertilityDrop = this.FertilityDrops[0];
+            this.Weathers = new ObservableCollection<Weather>(this.world.Weathers);
+            this.selectedWeather = this.Weathers[0];
 
             this.UpdateProvince();
         }
@@ -110,6 +114,18 @@
             }
         }
 
+        public ObservableCollection<Weather> Weathers { get; set; }
+
+        public Weather SelectedWeather
+        {
+            get => this.selectedWeather;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref this.selectedWeather, value);
+                this.UpdateProvince();
+            }
+        }
+
         public ProvinceViewModel Province
         {
             get => this.provinceViewModel;
@@ -122,6 +138,7 @@
             this.selectedFaction.UseAntilegacyTechnologies = this.useAntilegacyTechnologies;
             this.selectedFaction.StateReligion = this.selectedReligion;
             this.selectedProvince.Owner = this.selectedFaction;
+            this.selectedProvince.WorstCaseWeather = this.selectedWeather;
             var viewModel = new ProvinceViewModel(this.selectedProvince);
             this.Province = viewModel;
         }

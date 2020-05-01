@@ -31,6 +31,14 @@
                 left.values[(int)BonusType.FertilityDependent] + right.values[(int)BonusType.FertilityDependent]);
         }
 
+        public static IncomeRecord TakeWorse(IncomeRecord left, IncomeRecord right)
+        {
+            return new IncomeRecord(
+                Math.Min(left.values[(int)BonusType.Simple], right.values[(int)BonusType.Simple]),
+                Math.Min(left.values[(int)BonusType.Percentage], right.values[(int)BonusType.Percentage]),
+                Math.Min(left.values[(int)BonusType.FertilityDependent], right.values[(int)BonusType.FertilityDependent]));
+        }
+
         public double GetIncome(int fertility)
         {
             return (this.values[(int)BonusType.Simple] + (this.values[(int)BonusType.FertilityDependent] * fertility)) * ((100 + this.values[(int)BonusType.Percentage]) * 0.01);

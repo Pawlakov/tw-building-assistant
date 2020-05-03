@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using TWBuildingAssistant.Data.Model;
 
     public class Faction
     {
@@ -82,10 +83,21 @@
 
         public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(Province province, Region region, BuildingSlot slot)
         {
-            var result = new List<BuildingLevel>() { BuildingLevel.Empty };
+            var result = new List<BuildingLevel>();
+            if (slot.SlotType == SlotType.General)
+            {
+                result.Add(BuildingLevel.Empty);
+            }
+
+            var used = region.Slots.Where(x => x != slot).Select(x => x.Building);
+
             foreach (var branch in this.buildingBranches)
             {
-                if (branch.SlotType == slot.SlotType && (branch.RegionType == null || branch.RegionType == slot.RegionType) && (branch.Religion == null || branch.Religion == province.Owner.StateReligion) && (branch.Resource == null || branch.Resource == region.Resource))
+                if (branch.SlotType == slot.SlotType &&
+                    (branch.RegionType == null || branch.RegionType == slot.RegionType) &&
+                    (branch.Religion == null || branch.Religion == province.Owner.StateReligion) &&
+                    (branch.Resource == null || branch.Resource == region.Resource) &&
+                    !branch.Levels.Any(x => used.Contains(x)))
                 {
                     foreach (var level in branch.Levels.Where(x => !result.Contains(x)))
                     {

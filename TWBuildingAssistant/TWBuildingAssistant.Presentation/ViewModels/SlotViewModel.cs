@@ -1,6 +1,8 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels
 {
+    using System;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using ReactiveUI;
     using TWBuildingAssistant.Model;
 
@@ -8,16 +10,22 @@
     {
         private readonly BuildingSlot slot;
 
+        private readonly Region region;
+
+        private readonly Province province;
+
         private BuildingLevel selectedBuilding;
 
         public SlotViewModel(Province province, Region region, BuildingSlot slot)
         {
             this.slot = slot;
-            var buildings = province.Owner.GetBuildingLevelsForSlot(province, region, slot);
-            this.Buildings = new ObservableCollection<BuildingLevel>(buildings);
-            this.selectedBuilding = slot.Building ?? this.Buildings[0];
-            slot.Building = this.selectedBuilding;
+            this.region = region;
+            this.province = province;
+            this.Buildings = new ObservableCollection<BuildingLevel>();
+            this.selectedBuilding = slot.Building;
         }
+
+        public event EventHandler BuildingChanged;
 
         public ObservableCollection<BuildingLevel> Buildings { get; }
 
@@ -28,7 +36,35 @@
             {
                 this.slot.Building = value;
                 this.RaiseAndSetIfChanged(ref this.selectedBuilding, value);
+                this.BuildingChanged?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void UpdateBuildings()
+        {
+            var buildings = this.province.Owner.GetBuildingLevelsForSlot(this.province, this.region, this.slot);
+            foreach (var building in this.Buildings.ToList())
+            {
+                if (building != this.selectedBuilding)
+                {
+                    this.Buildings.Remove(building);
+                }
+            }
+
+            foreach (var building in buildings)
+            {
+                if (!this.Buildings.Contains(building))
+                {
+                    this.Buildings.Add(building);
+                }
+            }
+
+            if (this.selectedBuilding == null)
+            {
+                this.selectedBuilding = this.Buildings.First();
+            }
+
+            this.slot.Building = this.selectedBuilding;
         }
     }
 }

@@ -8,11 +8,16 @@
     {
         public RegionViewModel(Province province, Region region)
         {
-            var count = region.Slots.Count();
             this.Slots = new ObservableCollection<SlotViewModel>();
             foreach (var slot in region.Slots)
             {
                 this.Slots.Add(new SlotViewModel(province, region, slot));
+            }
+
+            foreach (var slotViewModel in this.Slots)
+            {
+                slotViewModel.BuildingChanged += (sender, args) => this.Slots.ToList().ForEach(x => x.UpdateBuildings());
+                slotViewModel.UpdateBuildings();
             }
 
             this.Name = region.Name;

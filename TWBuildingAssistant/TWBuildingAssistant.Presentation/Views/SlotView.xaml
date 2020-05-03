@@ -7,7 +7,7 @@
   <ComboBox Width="200" Items="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}">
     <ComboBox.ItemTemplate>
       <DataTemplate>
-        <TextBlock Text="{Binding Value}" />
+        <TextBlock Text="{Binding Name}" />
       </DataTemplate>
     </ComboBox.ItemTemplate>
   </ComboBox>

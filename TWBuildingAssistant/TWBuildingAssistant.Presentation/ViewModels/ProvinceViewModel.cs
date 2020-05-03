@@ -19,7 +19,7 @@
             this.Regions = new ObservableCollection<RegionViewModel>();
             foreach (var region in province.Regions)
             {
-                var newRegion = new RegionViewModel(region);
+                var newRegion = new RegionViewModel(province, region);
                 foreach (var slot in newRegion.Slots)
                 {
                     slot.PropertyChanged += (sender, args) => this.SetPerformanceDisplay();

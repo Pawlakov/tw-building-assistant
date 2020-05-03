@@ -1,27 +1,34 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels
 {
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using ReactiveUI;
     using TWBuildingAssistant.Model;
 
     public class SlotViewModel : ViewModel
     {
-        private object selectedBuilding;
+        private readonly BuildingSlot slot;
 
-        public SlotViewModel(BuildingSlot slot)
+        private BuildingLevel selectedBuilding;
+
+        public SlotViewModel(Province province, Region region, BuildingSlot slot)
         {
-            this.Buildings = new ObservableCollection<KeyValuePair<int, string>>();
-            this.Buildings.Add(new KeyValuePair<int, string>(0, "null"));
-            this.SelectedBuilding = this.Buildings[0];
+            this.slot = slot;
+            var buildings = province.Owner.GetBuildingLevelsForSlot(province, region, slot);
+            this.Buildings = new ObservableCollection<BuildingLevel>(buildings);
+            this.selectedBuilding = slot.Building ?? this.Buildings[0];
+            slot.Building = this.selectedBuilding;
         }
 
-        public ObservableCollection<KeyValuePair<int, string>> Buildings { get; }
+        public ObservableCollection<BuildingLevel> Buildings { get; }
 
-        public object SelectedBuilding
+        public BuildingLevel SelectedBuilding
         {
             get => this.selectedBuilding;
-            set => this.RaiseAndSetIfChanged(ref this.selectedBuilding, value);
+            set
+            {
+                this.slot.Building = value;
+                this.RaiseAndSetIfChanged(ref this.selectedBuilding, value);
+            }
         }
     }
 }

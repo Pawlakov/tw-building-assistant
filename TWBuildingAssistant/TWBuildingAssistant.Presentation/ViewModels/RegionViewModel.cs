@@ -6,13 +6,13 @@
 
     public class RegionViewModel : ViewModel
     {
-        public RegionViewModel(Region region)
+        public RegionViewModel(Province province, Region region)
         {
             var count = region.Slots.Count();
             this.Slots = new ObservableCollection<SlotViewModel>();
             foreach (var slot in region.Slots)
             {
-                this.Slots.Add(new SlotViewModel(slot));
+                this.Slots.Add(new SlotViewModel(province, region, slot));
             }
 
             this.Name = region.Name;

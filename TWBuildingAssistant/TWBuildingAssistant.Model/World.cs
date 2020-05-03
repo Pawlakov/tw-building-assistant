@@ -1,5 +1,6 @@
 ﻿namespace TWBuildingAssistant.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using TWBuildingAssistant.Data.Sqlite;
@@ -71,6 +72,36 @@
                     provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect)));
                 }
 
+                var buildings = new List<KeyValuePair<int, Tuple<BuildingLevel, int?>>>();
+                foreach (var buildingLevelEntity in context.BuildingLevels)
+                {
+                    var effect = MakeEffect(context, religions, buildingLevelEntity.EffectId);
+                    buildings.Add(new KeyValuePair<int, Tuple<BuildingLevel, int?>>(buildingLevelEntity.Id, Tuple.Create(new BuildingLevel(buildingLevelEntity.Name, effect), buildingLevelEntity.ParentBuildingLevelId)));
+                }
+
+                var branches = new List<KeyValuePair<int, BuildingBranch>>();
+                foreach (var branchEntity in context.BuildingBranches)
+                {
+                    void RecursiveBranchTraversing(IEnumerable<BuildingLevel> ancestors, KeyValuePair<int, Tuple<BuildingLevel, int?>> current)
+                    {
+                        var branchLevels = ancestors.Append(current.Value.Item1);
+                        var children = buildings.Where(x => x.Value.Item2 == current.Key);
+                        if (children.Any())
+                        {
+                            foreach (var child in children)
+                            {
+                                RecursiveBranchTraversing(branchLevels, child);
+                            }
+                        }
+                        else
+                        {
+                            branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, resources.SingleOrDefault(x => x.Key == branchEntity.ResourceId).Value, religions.SingleOrDefault(x => x.Key == branchEntity.ReligionId).Value, branchLevels)));
+                        }
+                    }
+
+                    RecursiveBranchTraversing(new List<BuildingLevel>(), buildings.Single(x => x.Key == branchEntity.RootBuildingLevelId));
+                }
+
                 var factions = new List<KeyValuePair<int, Faction>>();
                 foreach (var factionEntity in context.Factions.ToList())
                 {
@@ -85,7 +116,14 @@
                         techs.Add(new TechnologyTier(universalEffect, antilegacyEffect));
                     }
 
-                    factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, effect)));
+                    var factionBranches = new List<BuildingBranch>();
+                    foreach (var useEntity in context.BuildingBranchUses.Where(x => x.FactionId == factionEntity.Id))
+                    {
+                        var usedBranches = branches.Where(x => useEntity.BuildingBranchId == x.Key);
+                        factionBranches.AddRange(usedBranches.Select(x => x.Value));
+                    }
+
+                    factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect)));
                 }
 
                 this.Religions = religions.Select(x => x.Value);
@@ -114,7 +152,7 @@
 
                 var influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
                 var bonus = bonusEntities.Select(x => new Income(x.Value, x.Category, x.Type)).Aggregate(default(Income), (x, y) => x + y);
-                effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, bonus, influence);
+                effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation, bonus, influence);
             }
 
             return effect;

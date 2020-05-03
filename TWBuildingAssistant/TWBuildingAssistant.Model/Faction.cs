@@ -1,5 +1,6 @@
 ﻿namespace TWBuildingAssistant.Model
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -9,11 +10,13 @@
 
         private readonly TechnologyTier[] technologyTiers;
 
+        private readonly BuildingBranch[] buildingBranches;
+
         private Religion stateReligion;
 
         private int technologyTier;
 
-        public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, Effect baseFactionwideEffect = default)
+        public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect = default)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -33,6 +36,7 @@
             this.Name = name;
             this.baseFactionwideEffect = baseFactionwideEffect;
             this.technologyTiers = technologyTiers.ToArray();
+            this.buildingBranches = buildingBranches.ToArray();
         }
 
         public string Name { get; }
@@ -75,5 +79,23 @@
         public bool UseAntilegacyTechnologies { get; set; }
 
         public int FertilityDrop { get; set; }
+
+        public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(Province province, Region region, BuildingSlot slot)
+        {
+            var result = new List<BuildingLevel>() { BuildingLevel.Empty };
+            foreach (var branch in this.buildingBranches)
+            {
+                if (branch.SlotType == slot.SlotType && (branch.RegionType == null || branch.RegionType == slot.RegionType) && (branch.Religion == null || branch.Religion == province.Owner.StateReligion) && (branch.Resource == null || branch.Resource == region.Resource))
+                {
+                    foreach (var level in branch.Levels.Where(x => !result.Contains(x)))
+                    {
+                        // TODO: Tech check.
+                        result.Add(level);
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -4,6 +4,8 @@
 
     public class BuildingSlot
     {
+        private BuildingLevel buildingLevel;
+
         public BuildingSlot(SlotType slotType, RegionType regionType)
         {
             this.SlotType = slotType;
@@ -14,6 +16,20 @@
 
         public RegionType RegionType { get; }
 
-        public Effect Effect => default;
+        public BuildingLevel Building
+        {
+            get => this.buildingLevel;
+            set
+            {
+                if (value == null)
+                {
+                    throw new DomainRuleViolationException("Null building level.");
+                }
+
+                this.buildingLevel = value;
+            }
+        }
+
+        public Effect Effect => this.buildingLevel.Effect;
     }
 }

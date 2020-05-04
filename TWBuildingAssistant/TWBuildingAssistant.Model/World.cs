@@ -82,6 +82,7 @@
                 var branches = new List<KeyValuePair<int, BuildingBranch>>();
                 foreach (var branchEntity in context.BuildingBranches)
                 {
+                    var strains = new List<IEnumerable<BuildingLevel>>();
                     void RecursiveBranchTraversing(IEnumerable<BuildingLevel> ancestors, KeyValuePair<int, Tuple<BuildingLevel, int?>> current)
                     {
                         var branchLevels = ancestors.Append(current.Value.Item1);
@@ -95,11 +96,23 @@
                         }
                         else
                         {
-                            branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, resources.SingleOrDefault(x => x.Key == branchEntity.ResourceId).Value, religions.SingleOrDefault(x => x.Key == branchEntity.ReligionId).Value, branchLevels)));
+                            strains.Add(branchLevels);
                         }
                     }
 
                     RecursiveBranchTraversing(new List<BuildingLevel>(), buildings.Single(x => x.Key == branchEntity.RootBuildingLevelId));
+                    if (branchEntity.AllowParallel)
+                    {
+                        foreach (var branchLevels in strains)
+                        {
+                            branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, resources.SingleOrDefault(x => x.Key == branchEntity.ResourceId).Value, religions.SingleOrDefault(x => x.Key == branchEntity.ReligionId).Value, branchLevels)));
+                        }
+                    }
+                    else
+                    {
+                        var branchLevels = strains.SelectMany(x => x).Distinct();
+                        branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, resources.SingleOrDefault(x => x.Key == branchEntity.ResourceId).Value, religions.SingleOrDefault(x => x.Key == branchEntity.ReligionId).Value, branchLevels)));
+                    }
                 }
 
                 var factions = new List<KeyValuePair<int, Faction>>();

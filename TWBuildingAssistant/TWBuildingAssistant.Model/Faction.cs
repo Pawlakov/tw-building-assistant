@@ -89,21 +89,28 @@
                 result.Add(BuildingLevel.Empty);
             }
 
-            var used = region.Slots.Where(x => x != slot).Select(x => x.Building);
-
-            foreach (var branch in this.buildingBranches)
-            {
-                if (branch.SlotType == slot.SlotType &&
+            // TODO: Correct a case sucha as: Quarry + Local Industry + Local Industry
+            var used = region.Slots.Where(x => x != slot).Select(x => x.Building).Where(x => x != null).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
+            var levels = this.buildingBranches.SelectMany(x => x.Levels).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
+            var branches = this.buildingBranches.Where(branch =>
+                    branch.SlotType == slot.SlotType &&
                     (branch.RegionType == null || branch.RegionType == slot.RegionType) &&
                     (branch.Religion == null || branch.Religion == province.Owner.StateReligion) &&
-                    (branch.Resource == null || branch.Resource == region.Resource) &&
-                    !branch.Levels.Any(x => used.Contains(x)))
+                    (branch.Resource == null || branch.Resource == region.Resource));
+            foreach (var entry in used)
+            {
+                if (levels.ContainsKey(entry.Key) && levels[entry.Key] <= entry.Value)
                 {
-                    foreach (var level in branch.Levels.Where(x => !result.Contains(x)))
-                    {
-                        // TODO: Tech check.
-                        result.Add(level);
-                    }
+                    branches = branches.Where(x => !x.Levels.Contains(entry.Key));
+                }
+            }
+
+            foreach (var branch in branches)
+            {
+                foreach (var level in branch.Levels.Where(x => !result.Contains(x)))
+                {
+                    // TODO: Tech check.
+                    result.Add(level);
                 }
             }
 

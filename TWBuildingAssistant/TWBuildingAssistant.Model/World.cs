@@ -122,11 +122,23 @@
                     var techs = new List<TechnologyTier>();
                     var universalEffect = default(Effect);
                     var antilegacyEffect = default(Effect);
+                    var universalLocks = new List<BuildingLevel>();
+                    var universalUnlocks = new List<BuildingLevel>();
+                    var antilegacyLocks = new List<BuildingLevel>();
+                    var antilegacyUnlocks = new List<BuildingLevel>();
                     foreach (var techEntity in context.TechnologyLevels.Where(x => x.FactionId == factionEntity.Id).OrderBy(x => x.Order).ToList())
                     {
                         universalEffect += MakeEffect(context, religions, techEntity.UniversalEffectId);
                         antilegacyEffect += MakeEffect(context, religions, techEntity.AntilegacyEffectId);
-                        techs.Add(new TechnologyTier(universalEffect, antilegacyEffect));
+                        var universalLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
+                        var universalUnlocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && !y.Lock).Select(x => x.BuildingLevelId).ToList();
+                        var antilegacyLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
+                        var antilegacyUnlocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && y.Antilegacy && !y.Lock).Select(x => x.BuildingLevelId).ToList();
+                        universalLocks.AddRange(buildings.Where(x => universalLocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
+                        universalUnlocks.AddRange(buildings.Where(x => universalUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
+                        antilegacyLocks.AddRange(buildings.Where(x => antilegacyLocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
+                        antilegacyUnlocks.AddRange(buildings.Where(x => antilegacyUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
+                        techs.Add(new TechnologyTier(universalEffect, antilegacyEffect, universalLocks, universalUnlocks, antilegacyLocks, antilegacyUnlocks));
                     }
 
                     var factionBranches = new List<BuildingBranch>();

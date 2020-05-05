@@ -33,7 +33,7 @@
             this.selectedProvince = this.Provinces[0];
             this.Factions = new ObservableCollection<Faction>(this.world.Factions);
             this.selectedFaction = this.Factions[0];
-            this.TechnologyTiers = new ObservableCollection<int>(new int[] { 1, 2, 3, 4 });
+            this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
             this.selectedTechnologyTier = this.TechnologyTiers[0];
             this.useAntilegacyTechnologies = false;
             this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });

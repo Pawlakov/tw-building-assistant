@@ -29,7 +29,7 @@
                 throw new DomainRuleViolationException("Missing tech tiers.");
             }
 
-            if (technologyTiers.Count() != 4)
+            if (technologyTiers.Count() != 5)
             {
                 throw new DomainRuleViolationException("Invalid tech tiers count.");
             }
@@ -45,8 +45,8 @@
         public Effect FactionwideEffect =>
             this.baseFactionwideEffect +
             this.stateReligion.EffectWhenState +
-            this.technologyTiers[this.technologyTier - 1].UniversalEffect +
-            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier - 1].AntilegacyEffect : default) +
+            this.technologyTiers[this.technologyTier].UniversalEffect +
+            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffect : default) +
             new Effect(0, 0, 0, 0, 0, 0, this.FertilityDrop);
 
         public Religion StateReligion
@@ -68,7 +68,7 @@
             get => this.technologyTier;
             set
             {
-                if (value < 1 || value > 4)
+                if (value < 0 || value > 4)
                 {
                     throw new DomainRuleViolationException("Tech tier out of range.");
                 }
@@ -89,7 +89,13 @@
                 result.Add(BuildingLevel.Empty);
             }
 
-            // TODO: Correct a case sucha as: Quarry + Local Industry + Local Industry
+            var unlockedLevels = this.technologyTiers[this.technologyTier].UniversalUnlocks.Except(this.technologyTiers[this.technologyTier].UniversalLocks);
+            if (this.UseAntilegacyTechnologies)
+            {
+                unlockedLevels = unlockedLevels.Concat(this.technologyTiers[this.technologyTier].AntilegacyUnlocks).Except(this.technologyTiers[this.technologyTier].AntilegacyLocks);
+            }
+
+            // TODO: Correct a case such as: Quarry + Local Industry + Local Industry
             var used = region.Slots.Where(x => x != slot).Select(x => x.Building).Where(x => x != null).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
             var levels = this.buildingBranches.SelectMany(x => x.Levels).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
             var branches = this.buildingBranches.Where(branch =>
@@ -109,8 +115,10 @@
             {
                 foreach (var level in branch.Levels.Where(x => !result.Contains(x)))
                 {
-                    // TODO: Tech check.
-                    result.Add(level);
+                    if (unlockedLevels.Contains(level))
+                    {
+                        result.Add(level);
+                    }
                 }
             }
 

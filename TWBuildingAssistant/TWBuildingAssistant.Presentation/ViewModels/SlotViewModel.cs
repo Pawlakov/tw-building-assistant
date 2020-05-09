@@ -16,6 +16,8 @@
 
         private BuildingLevel selectedBuilding;
 
+        private bool seek;
+
         public SlotViewModel(Province province, Region region, BuildingSlot slot)
         {
             this.slot = slot;
@@ -23,6 +25,7 @@
             this.province = province;
             this.Buildings = new ObservableCollection<BuildingLevel>();
             this.selectedBuilding = slot.Building;
+            this.seek = false;
         }
 
         public event EventHandler BuildingChanged;
@@ -37,6 +40,15 @@
                 this.slot.Building = value;
                 this.RaiseAndSetIfChanged(ref this.selectedBuilding, value);
                 this.BuildingChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public bool Seek
+        {
+            get => this.seek;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref this.seek, value);
             }
         }
 

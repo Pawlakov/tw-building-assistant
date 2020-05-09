@@ -1,0 +1,26 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="TWBuildingAssistant.Presentation.Views.SeekerView">
+  <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Horizontal">
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Width="95" Text="Minimal Public Order:" HorizontalAlignment="Left"/>
+          <TextBox Width="95" Text="{Binding MinimalPublicOrder}"/>
+        </StackPanel>
+      </Border>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Width="95" Text="Require Santitation:" HorizontalAlignment="Left"/>
+          <CheckBox IsChecked="{Binding RequireSantitation}" />
+        </StackPanel>
+      </Border>
+    </StackPanel>
+    <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+      <Button Width="200" Content="Seek perfection" Command="{Binding Seek}"/>
+    </Border>
+  </StackPanel>
+</UserControl>

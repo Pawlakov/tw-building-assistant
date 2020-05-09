@@ -41,6 +41,8 @@
             set => this.RaiseAndSetIfChanged(ref this.performance, value);
         }
 
+        public ProvinceState CurrentState => this.province.State;
+
         private void SetPerformanceDisplay()
         {
             var state = this.province.State;

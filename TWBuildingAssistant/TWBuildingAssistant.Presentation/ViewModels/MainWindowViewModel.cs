@@ -24,6 +24,8 @@
 
         private ProvinceViewModel provinceViewModel;
 
+        private SeekerViewModel seekerViewModel;
+
         public MainWindowViewModel()
         {
             this.world = new World();
@@ -132,6 +134,12 @@
             set => this.RaiseAndSetIfChanged(ref this.provinceViewModel, value);
         }
 
+        public SeekerViewModel Seeker
+        {
+            get => this.seekerViewModel;
+            set => this.RaiseAndSetIfChanged(ref this.seekerViewModel, value);
+        }
+
         private void UpdateProvince()
         {
             this.selectedFaction.TechnologyTier = this.selectedTechnologyTier;
@@ -141,6 +149,7 @@
             this.selectedProvince.WorstCaseWeather = this.selectedWeather;
             var viewModel = new ProvinceViewModel(this.selectedProvince);
             this.Province = viewModel;
+            this.Seeker = new SeekerViewModel(viewModel);
         }
     }
 }

@@ -4,11 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TWBuildingAssistant.Presentation.Views.SlotView">
-  <ComboBox Width="200" Items="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}">
-    <ComboBox.ItemTemplate>
-      <DataTemplate>
-        <TextBlock Text="{Binding Name}" />
-      </DataTemplate>
-    </ComboBox.ItemTemplate>
-  </ComboBox>
+  <StackPanel Orientation="Horizontal">
+    <CheckBox IsChecked="{Binding Seek}"/>
+    <ComboBox Width="200" Items="{Binding Buildings}" SelectedItem="{Binding SelectedBuilding}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+  </StackPanel>
 </UserControl>

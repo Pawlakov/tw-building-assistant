@@ -15,6 +15,7 @@
     <AvaloniaResource Remove="Views\MainWindow.xaml" />
     <AvaloniaResource Remove="Views\ProvinceView.xaml" />
     <AvaloniaResource Remove="Views\RegionView.xaml" />
+    <AvaloniaResource Remove="Views\SeekerWindow.xaml" />
     <AvaloniaResource Remove="Views\SimulationWindow.xaml" />
     <AvaloniaResource Remove="Views\SlotView.xaml" />
   </ItemGroup>
@@ -22,6 +23,7 @@
     <None Remove="Views\MainWindow.xaml" />
     <None Remove="Views\ProvinceView.xaml" />
     <None Remove="Views\RegionView.xaml" />
+    <None Remove="Views\SeekerWindow.xaml" />
     <None Remove="Views\SimulationWindow.xaml" />
     <None Remove="Views\SlotView.xaml" />
   </ItemGroup>

@@ -78,5 +78,6 @@
       </Border>
     </StackPanel>
     <ContentControl Content="{Binding Province}"/>
+    <ContentControl Content="{Binding Seeker}"/>
   </StackPanel>
 </Window>

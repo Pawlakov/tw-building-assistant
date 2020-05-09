@@ -1,25 +1,20 @@
 ﻿namespace TWBuildingAssistant.Model
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class Climate
     {
-        private readonly IDictionary<Weather, Effect> weatherEffects;
+        private readonly IDictionary<Season, IDictionary<Weather, Effect>> effects;
 
-        public Climate(IDictionary<Weather, Effect> weatherEffects)
+        public Climate(IDictionary<Season, IDictionary<Weather, Effect>> effects)
         {
-            this.weatherEffects = new Dictionary<Weather, Effect>();
-            var worst = (Effect?)null;
-            foreach (var weatherEffect in weatherEffects)
-            {
-                worst = worst == null ? weatherEffect.Value : Effect.TakeWorse(worst.Value, weatherEffect.Value);
-                this.weatherEffects.Add(weatherEffect.Key, worst.Value);
-            }
+            this.effects = effects.ToDictionary(x => x.Key, x => (IDictionary<Weather, Effect>)x.Value.ToDictionary(y => y.Key, y => y.Value));
         }
 
-        public Effect GetEffectForWorstCaseWeather(Weather worstCaseWeather)
+        public Effect GetEffect(Season season, Weather weather)
         {
-            return this.weatherEffects[worstCaseWeather];
+            return this.effects[season][weather];
         }
     }
 }

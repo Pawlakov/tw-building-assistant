@@ -19,11 +19,6 @@
                 throw new DomainRuleViolationException("'0' income.");
             }
 
-            if (value < 0 && category != IncomeCategory.Maintenance)
-            {
-                throw new DomainRuleViolationException("Negative income.");
-            }
-
             if (value > 0 && category == IncomeCategory.Maintenance)
             {
                 throw new DomainRuleViolationException("Positive 'Maintenance' income.");

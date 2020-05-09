@@ -23,6 +23,12 @@
                     weathers.Add(new KeyValuePair<int, Weather>(weatherEntity.Id, new Weather(weatherEntity.Name)));
                 }
 
+                var seasons = new List<KeyValuePair<int, Season>>();
+                foreach (var seasonEntity in context.Seasons.OrderBy(x => x.Order).ToList())
+                {
+                    seasons.Add(new KeyValuePair<int, Season>(seasonEntity.Id, new Season(seasonEntity.Name)));
+                }
+
                 var religions = new List<KeyValuePair<int, Religion>>();
                 foreach (var religionEntity in context.Religions.ToList())
                 {
@@ -48,15 +54,21 @@
                 var climates = new List<KeyValuePair<int, Climate>>();
                 foreach (var climateEntity in context.Climates.ToList())
                 {
-                    var weatherEffect = new Dictionary<Weather, Effect>();
-                    foreach (var weather in weathers)
+                    var weatherEffects = new Dictionary<Season, IDictionary<Weather, Effect>>();
+                    foreach (var season in seasons)
                     {
-                        var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.ClimateId == climateEntity.Id && x.WeatherId == weather.Key);
-                        var effect = MakeEffect(context, religions, weatherEffectEntity?.EffectId);
-                        weatherEffect.Add(weather.Value, effect);
+                        var entry = new Dictionary<Weather, Effect>();
+                        foreach (var weather in weathers)
+                        {
+                            var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == season.Key && x.ClimateId == climateEntity.Id && x.WeatherId == weather.Key);
+                            var effect = MakeEffect(context, religions, weatherEffectEntity?.EffectId);
+                            entry.Add(weather.Value, effect);
+                        }
+
+                        weatherEffects.Add(season.Value, entry);
                     }
 
-                    climates.Add(new KeyValuePair<int, Climate>(climateEntity.Id, new Climate(weatherEffect)));
+                    climates.Add(new KeyValuePair<int, Climate>(climateEntity.Id, new Climate(weatherEffects)));
                 }
 
                 var provinces = new List<KeyValuePair<int, Province>>();
@@ -155,6 +167,7 @@
                 this.Provinces = provinces.Select(x => x.Value);
                 this.Factions = factions.Select(x => x.Value);
                 this.Weathers = weathers.Select(x => x.Value);
+                this.Seasons = seasons.Select(x => x.Value);
             }
         }
 
@@ -165,6 +178,8 @@
         public IEnumerable<Faction> Factions { get; }
 
         public IEnumerable<Weather> Weathers { get; }
+
+        public IEnumerable<Season> Seasons { get; }
 
         private static Effect MakeEffect(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
         {

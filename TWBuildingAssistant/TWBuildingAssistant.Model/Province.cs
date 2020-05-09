@@ -43,17 +43,19 @@
 
         public Faction Owner { get; set; }
 
-        public Weather WorstCaseWeather { get; set; }
+        public Weather Weather { get; set; }
+
+        public Season Season { get; set; }
 
         public ProvinceState State
         {
             get
             {
-                var climateEffect = this.climate.GetEffectForWorstCaseWeather(this.WorstCaseWeather);
+                var climateEffect = this.climate.GetEffect(this.Season, this.Weather);
                 var regionalEffects = this.Regions.Select(x => x.Effect);
                 var effect = regionalEffects.Aggregate(this.baseEffect + climateEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
 
-                var fertility = effect.Fertility < 0 ? 0 : (effect.Fertility > 6 ? 6 : effect.Fertility);
+                var fertility = effect.Fertility < 0 ? 0 : (effect.Fertility > 5 ? 5 : effect.Fertility);
                 var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
                 var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
                 var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);

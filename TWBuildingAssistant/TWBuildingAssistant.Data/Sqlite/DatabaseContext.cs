@@ -28,6 +28,8 @@
 
         public DbSet<Region> Regions { get; set; }
 
+        public DbSet<Season> Seasons { get; set; }
+
         public DbSet<Effect> Effects { get; set; }
 
         public DbSet<Religion> Religions { get; set; }
@@ -54,7 +56,7 @@
                 .HasKey(x => new { x.TechnologyLevelId, x.BuildingLevelId });
 
             modelBuilder.Entity<WeatherEffect>()
-                .HasKey(x => new { x.ClimateId, x.WeatherId });
+                .HasKey(x => new { x.SeasonId, x.ClimateId, x.WeatherId });
         }
     }
 }

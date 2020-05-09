@@ -64,18 +64,32 @@
           <ComboBox Width="200" Items="{Binding FertilityDrops}" SelectedItem="{Binding SelectedFertilityDrop}"/>
         </StackPanel>
       </Border>
-      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-        <StackPanel Orientation="Vertical">
-          <TextBlock Width="200" Text="Worst case weather:" HorizontalAlignment="Left"/>
-          <ComboBox Width="200" Items="{Binding Weathers}" SelectedItem="{Binding SelectedWeather}">
-            <ComboBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock Text="{Binding Name}" />
-              </DataTemplate>
-            </ComboBox.ItemTemplate>
-          </ComboBox>
-        </StackPanel>
-      </Border>
+      <StackPanel Orientation="Horizontal">
+        <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+          <StackPanel Orientation="Vertical">
+            <TextBlock Width="95" Text="Season:" HorizontalAlignment="Left"/>
+            <ComboBox Width="95" Items="{Binding Seasons}" SelectedItem="{Binding SelectedSeason}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+        </Border>
+        <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+          <StackPanel Orientation="Vertical">
+            <TextBlock Width="95" Text="Weather:" HorizontalAlignment="Left"/>
+            <ComboBox Width="95" Items="{Binding Weathers}" SelectedItem="{Binding SelectedWeather}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+        </Border>
+      </StackPanel>
     </StackPanel>
     <ContentControl Content="{Binding Province}"/>
     <ContentControl Content="{Binding Seeker}"/>

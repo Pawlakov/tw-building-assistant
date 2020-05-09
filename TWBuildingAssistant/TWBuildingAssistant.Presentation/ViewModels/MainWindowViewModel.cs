@@ -22,6 +22,8 @@
 
         private Weather selectedWeather;
 
+        private Season selectedSeason;
+
         private ProvinceViewModel provinceViewModel;
 
         private SeekerViewModel seekerViewModel;
@@ -42,6 +44,8 @@
             this.selectedFertilityDrop = this.FertilityDrops[0];
             this.Weathers = new ObservableCollection<Weather>(this.world.Weathers);
             this.selectedWeather = this.Weathers[0];
+            this.Seasons = new ObservableCollection<Season>(this.world.Seasons);
+            this.selectedSeason = this.Seasons[0];
 
             this.UpdateProvince();
         }
@@ -128,6 +132,18 @@
             }
         }
 
+        public ObservableCollection<Season> Seasons { get; set; }
+
+        public Season SelectedSeason
+        {
+            get => this.selectedSeason;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref this.selectedSeason, value);
+                this.UpdateProvince();
+            }
+        }
+
         public ProvinceViewModel Province
         {
             get => this.provinceViewModel;
@@ -146,7 +162,8 @@
             this.selectedFaction.UseAntilegacyTechnologies = this.useAntilegacyTechnologies;
             this.selectedFaction.StateReligion = this.selectedReligion;
             this.selectedProvince.Owner = this.selectedFaction;
-            this.selectedProvince.WorstCaseWeather = this.selectedWeather;
+            this.selectedProvince.Weather = this.selectedWeather;
+            this.selectedProvince.Season = this.selectedSeason;
             var viewModel = new ProvinceViewModel(this.selectedProvince);
             this.Province = viewModel;
             this.Seeker = new SeekerViewModel(viewModel);

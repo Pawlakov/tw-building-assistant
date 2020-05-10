@@ -136,7 +136,7 @@
                 }
             }
 
-            var result = maintenance + (income * (1 + this.allBonus));
+            var result = maintenance + (income * ((100 + this.allBonus) * 0.01));
             return result;
         }
 

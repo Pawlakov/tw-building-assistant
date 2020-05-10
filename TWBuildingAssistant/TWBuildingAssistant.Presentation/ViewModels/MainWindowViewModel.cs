@@ -24,6 +24,8 @@
 
         private Season selectedSeason;
 
+        private int corruptionRate;
+
         private ProvinceViewModel provinceViewModel;
 
         private SeekerViewModel seekerViewModel;
@@ -46,7 +48,9 @@
             this.selectedWeather = this.Weathers[0];
             this.Seasons = new ObservableCollection<Season>(this.world.Seasons);
             this.selectedSeason = this.Seasons[0];
+            this.corruptionRate = 1;
 
+            this.seekerViewModel = new SeekerViewModel(this);
             this.UpdateProvince();
         }
 
@@ -144,6 +148,25 @@
             }
         }
 
+        public int CorruptionRate
+        {
+            get => this.corruptionRate;
+            set
+            {
+                if (value > 99)
+                {
+                    value = 99;
+                }
+                else if (value < 1)
+                {
+                    value = 1;
+                }
+
+                this.RaiseAndSetIfChanged(ref this.corruptionRate, value);
+                this.UpdateProvince();
+            }
+        }
+
         public ProvinceViewModel Province
         {
             get => this.provinceViewModel;
@@ -164,9 +187,9 @@
             this.selectedProvince.Owner = this.selectedFaction;
             this.selectedProvince.Weather = this.selectedWeather;
             this.selectedProvince.Season = this.selectedSeason;
+            this.selectedProvince.CorruptionRate = this.corruptionRate;
             var viewModel = new ProvinceViewModel(this.selectedProvince);
             this.Province = viewModel;
-            this.Seeker = new SeekerViewModel(viewModel);
         }
     }
 }

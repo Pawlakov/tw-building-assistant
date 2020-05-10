@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using TWBuildingAssistant.Data.Model;
 
     public class Province
     {
@@ -47,13 +48,17 @@
 
         public Season Season { get; set; }
 
+        public int CorruptionRate { get; set; }
+
         public ProvinceState State
         {
             get
             {
+                var corruptionEffect = new Effect(0, 0, 0, 0, 0, 0, 0, 0, 0, new Income(-this.CorruptionRate, null, BonusType.Percentage), default);
+
                 var climateEffect = this.climate.GetEffect(this.Season, this.Weather);
                 var regionalEffects = this.Regions.Select(x => x.Effect);
-                var effect = regionalEffects.Aggregate(this.baseEffect + climateEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
+                var effect = regionalEffects.Aggregate(this.baseEffect + corruptionEffect + climateEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
 
                 var fertility = effect.Fertility < 0 ? 0 : (effect.Fertility > 5 ? 5 : effect.Fertility);
                 var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);

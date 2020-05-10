@@ -12,13 +12,13 @@
 
         private int minimalPublicOrder;
 
-        private ProvinceViewModel province;
+        private MainWindowViewModel window;
 
-        public SeekerViewModel(ProvinceViewModel province)
+        public SeekerViewModel(MainWindowViewModel window)
         {
             this.requireSantitation = true;
             this.minimalPublicOrder = 1;
-            this.province = province;
+            this.window = window;
         }
 
         public bool RequireSantitation
@@ -41,9 +41,12 @@
 
         public void Seek()
         {
-            var slots = this.province.Regions.SelectMany(x => x.Slots.Where(y => y.Seek)).ToList();
+            var province = this.window.Province;
+            var slots = province.Regions.SelectMany(x => x.Slots.Where(y => y.Seek)).ToList();
             if (slots.Any())
             {
+                this.window.Province = null;
+
                 var lastSlot = slots.Last();
                 var original = slots.Select(x => x.SelectedBuilding).ToList().AsEnumerable();
                 var bestCombination = original.ToList().AsEnumerable();
@@ -60,7 +63,7 @@
                         var currentCombination = combination.Append(option);
                         if (slot == lastSlot)
                         {
-                            var state = this.province.CurrentState;
+                            var state = province.CurrentState;
                             if (this.MinimalCondition(state) && state.Wealth > bestWealth)
                             {
                                 bestWealth = state.Wealth;
@@ -81,6 +84,8 @@
                     enumerator.MoveNext();
                     slot.SelectedBuilding = enumerator.Current;
                 }
+
+                this.window.Province = province;
             }
         }
 

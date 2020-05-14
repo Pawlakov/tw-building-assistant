@@ -8,19 +8,24 @@
     <StackPanel Orientation="Horizontal">
       <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
         <StackPanel Orientation="Vertical">
-          <TextBlock Width="95" Text="Minimal Public Order:" HorizontalAlignment="Left"/>
-          <TextBox Width="95" Text="{Binding MinimalPublicOrder}"/>
+          <TextBlock Width="200" Text="Minimal Public Order:" HorizontalAlignment="Left"/>
+          <TextBox Width="200" Text="{Binding MinimalPublicOrder}"/>
         </StackPanel>
       </Border>
       <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
         <StackPanel Orientation="Vertical">
-          <TextBlock Width="95" Text="Require Santitation:" HorizontalAlignment="Left"/>
+          <TextBlock Width="200" Text="Require Santitation:" HorizontalAlignment="Left"/>
           <CheckBox IsChecked="{Binding RequireSantitation}" />
         </StackPanel>
       </Border>
     </StackPanel>
-    <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-      <Button Width="200" Content="Seek perfection" Command="{Binding Seek}"/>
-    </Border>
+    <StackPanel Orientation="Horizontal">
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <Button Width="200" Content="Previous" Command="{Binding Previous}"/>
+      </Border>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <Button Width="200" Content="Seek" Command="{Binding Seek}"/>
+      </Border>
+    </StackPanel>
   </StackPanel>
 </UserControl>

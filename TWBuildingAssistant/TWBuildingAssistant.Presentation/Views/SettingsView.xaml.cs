@@ -5,9 +5,9 @@
     using ReactiveUI;
     using TWBuildingAssistant.Presentation.ViewModels;
 
-    public class ProvinceView : ReactiveUserControl<ProvinceViewModel>
+    public class SettingsView : ReactiveUserControl<SettingsViewModel>
     {
-        public ProvinceView()
+        public SettingsView()
         {
             this.InitializeComponent();
         }

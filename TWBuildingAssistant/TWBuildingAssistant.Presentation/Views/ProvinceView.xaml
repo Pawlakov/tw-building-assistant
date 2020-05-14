@@ -17,7 +17,13 @@
     </ItemsControl>
     <StackPanel Orientation="Horizontal">
       <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <Button Width="200" Command="{Binding Previous}">Previous</Button>
+      </Border>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
         <TextBlock Width="200" Text="{Binding Performance}"/>
+      </Border>
+      <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <Button Width="200" Command="{Binding Next}">Next</Button>
       </Border>
     </StackPanel>
   </StackPanel>

@@ -30,6 +30,8 @@
 
         public event EventHandler BuildingChanged;
 
+        public BuildingSlot Slot => this.slot;
+
         public ObservableCollection<BuildingLevel> Buildings { get; }
 
         public BuildingLevel SelectedBuilding

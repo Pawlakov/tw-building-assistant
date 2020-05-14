@@ -1,10 +1,11 @@
 ﻿namespace TWBuildingAssistant.Presentation.Views
 {
-    using Avalonia;
-    using Avalonia.Controls;
     using Avalonia.Markup.Xaml;
+    using Avalonia.ReactiveUI;
+    using ReactiveUI;
+    using TWBuildingAssistant.Presentation.ViewModels;
 
-    public class MainWindow : Window
+    public class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         public MainWindow()
         {
@@ -13,6 +14,7 @@
 
         private void InitializeComponent()
         {
+            this.WhenActivated(disposables => { /* Handle view activation etc. */ });
             AvaloniaXamlLoader.Load(this);
         }
     }

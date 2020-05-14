@@ -1,5 +1,7 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Text;
@@ -15,11 +17,11 @@
         public ProvinceViewModel(Province province)
         {
             this.province = province;
-            this.ProvinceName = province.Name;
+            this.ProvinceName = this.province.Name;
             this.Regions = new ObservableCollection<RegionViewModel>();
-            foreach (var region in province.Regions)
+            foreach (var region in this.province.Regions)
             {
-                var newRegion = new RegionViewModel(province, region);
+                var newRegion = new RegionViewModel(this.province, region);
                 foreach (var slot in newRegion.Slots)
                 {
                     slot.PropertyChanged += (sender, args) => this.SetPerformanceDisplay();
@@ -30,6 +32,10 @@
 
             this.SetPerformanceDisplay();
         }
+
+        public event EventHandler<EventArgs> PreviousTransition;
+
+        public event EventHandler<NextTransitionEventArgs> NextTransition;
 
         public string ProvinceName { get; }
 
@@ -43,6 +49,17 @@
 
         public ProvinceState CurrentState => this.province.State;
 
+        public void Previous()
+        {
+            this.PreviousTransition?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void Next()
+        {
+            var slots = this.Regions.SelectMany(x => x.Slots.Where(y => y.Seek)).Select(y => y.Slot).ToList();
+            this.NextTransition?.Invoke(this, new NextTransitionEventArgs(this.province, slots));
+        }
+
         private void SetPerformanceDisplay()
         {
             var state = this.province.State;
@@ -55,6 +72,19 @@
             builder.AppendLine($"Growth: {state.Growth}");
             builder.AppendLine($"Wealth: {state.Wealth}");
             this.Performance = builder.ToString();
+        }
+
+        public class NextTransitionEventArgs : EventArgs
+        {
+            public NextTransitionEventArgs(Province province, IEnumerable<BuildingSlot> slots)
+            {
+                this.Province = province;
+                this.Slots = slots.ToList();
+            }
+
+            public Province Province { get; }
+
+            public IEnumerable<BuildingSlot> Slots { get; }
         }
     }
 }

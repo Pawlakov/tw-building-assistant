@@ -8,7 +8,9 @@
 
     public struct Income : IEquatable<Income>
     {
-        private readonly IDictionary<IncomeCategory, IncomeRecord> records;
+        private readonly IEnumerable<KeyValuePair<IncomeCategory, IncomeRecord>> records;
+
+        private readonly int maintenance;
 
         private readonly int allBonus;
 
@@ -39,21 +41,30 @@
                 throw new DomainRuleViolationException("Invalid fertility-based income.");
             }
 
-            this.records = new Dictionary<IncomeCategory, IncomeRecord>();
-            this.allBonus = 0;
-            if (category != null)
+            if (category == null)
             {
-                this.records.Add(category.Value, new IncomeRecord(value, type));
+                this.records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
+                this.allBonus = value;
+                this.maintenance = 0;
+            }
+            else if (category == IncomeCategory.Maintenance)
+            {
+                this.records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
+                this.allBonus = 0;
+                this.maintenance = value;
             }
             else
             {
-                this.allBonus = value;
+                this.records = new List<KeyValuePair<IncomeCategory, IncomeRecord>> { new KeyValuePair<IncomeCategory, IncomeRecord>(category.Value, new IncomeRecord(value, type)) };
+                this.allBonus = 0;
+                this.maintenance = 0;
             }
         }
 
-        private Income(IDictionary<IncomeCategory, IncomeRecord> records, int allBonus)
+        private Income(IList<KeyValuePair<IncomeCategory, IncomeRecord>> records, int allBonus, int maintenance)
         {
             this.allBonus = allBonus;
+            this.maintenance = maintenance;
             if (records != null)
             {
                 this.records = records.ToDictionary(x => x.Key, x => x.Value);
@@ -66,29 +77,31 @@
 
         public static Income operator +(Income left, Income right)
         {
-            var records = new Dictionary<IncomeCategory, IncomeRecord>();
+            var records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
             if (left.records != null)
             {
-                records = left.records.ToDictionary(x => x.Key, x => x.Value);
+                records.AddRange(left.records);
             }
 
             if (right.records != null)
             {
                 foreach (var record in right.records)
                 {
-                    if (records.ContainsKey(record.Key))
+                    var presentRecordIndex = records.FindIndex(x => x.Key == record.Key);
+                    if (presentRecordIndex > -1)
                     {
-                        records[record.Key] = records[record.Key] + record.Value;
+                        records[presentRecordIndex] = new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, records[presentRecordIndex].Value + record.Value);
                     }
                     else
                     {
-                        records.Add(record.Key, record.Value);
+                        records.Add(new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, record.Value));
                     }
                 }
             }
 
             var allBonus = left.allBonus + right.allBonus;
-            return new Income(records, allBonus);
+            var maintenance = left.maintenance + right.maintenance;
+            return new Income(records, allBonus, maintenance);
         }
 
         public static Income TakeWorse(Income left, Income right)
@@ -98,21 +111,22 @@
                 .GroupBy(x => x.Key)
                 .ToDictionary(x => x.Key, x => x.Select(y => y.Value).ToList());
 
-            var records = new Dictionary<IncomeCategory, IncomeRecord>();
+            var records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
             foreach (var record in oldRecords)
             {
                 if (record.Value.Count == 2)
                 {
-                    records.Add(record.Key, IncomeRecord.TakeWorse(record.Value[0], record.Value[1]));
+                    records.Add(new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, IncomeRecord.TakeWorse(record.Value[0], record.Value[1])));
                 }
                 else
                 {
-                    records.Add(record.Key, IncomeRecord.TakeWorse(record.Value[0], default));
+                    records.Add(new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, IncomeRecord.TakeWorse(record.Value[0], default)));
                 }
             }
 
             var allBonus = Math.Min(left.allBonus, right.allBonus);
-            return new Income(records, allBonus);
+            var maintenance = Math.Min(left.maintenance, right.maintenance);
+            return new Income(records, allBonus, maintenance);
         }
 
         public double GetIncome(int fertilityLevel)
@@ -122,21 +136,13 @@
                 return 0d;
             }
 
-            var maintenance = 0d;
             var income = 0d;
-            foreach (var key in this.records.Keys)
+            foreach (var record in this.records)
             {
-                if (key == IncomeCategory.Maintenance)
-                {
-                    maintenance += this.records[key].GetIncome(fertilityLevel);
-                }
-                else
-                {
-                    income += this.records[key].GetIncome(fertilityLevel);
-                }
+                income += (record.Value + new IncomeRecord(0, this.allBonus, 0)).GetIncome(fertilityLevel);
             }
 
-            var result = maintenance + (income * ((100 + this.allBonus) * 0.01));
+            var result = this.maintenance + income;
             return result;
         }
 
@@ -147,7 +153,7 @@
                 return false;
             }
 
-            if (this.records?.Count != other.records?.Count)
+            if (this.records?.Count() != other.records?.Count())
             {
                 return false;
             }
@@ -156,7 +162,7 @@
             {
                 foreach (var record in this.records)
                 {
-                    if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
+                    if (!record.Value.Equals(other.records.SingleOrDefault(x => x.Key == record.Key).Value))
                     {
                         return false;
                     }

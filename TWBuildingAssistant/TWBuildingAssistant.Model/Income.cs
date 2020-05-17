@@ -61,13 +61,13 @@
             }
         }
 
-        private Income(IList<KeyValuePair<IncomeCategory, IncomeRecord>> records, int allBonus, int maintenance)
+        private Income(IEnumerable<KeyValuePair<IncomeCategory, IncomeRecord>> records, int allBonus, int maintenance)
         {
             this.allBonus = allBonus;
             this.maintenance = maintenance;
             if (records != null)
             {
-                this.records = records.ToDictionary(x => x.Key, x => x.Value);
+                this.records = records.ToList();
             }
             else
             {
@@ -149,6 +149,11 @@
         public bool Equals(Income other)
         {
             if (this.allBonus != other.allBonus)
+            {
+                return false;
+            }
+
+            if (this.maintenance != other.maintenance)
             {
                 return false;
             }

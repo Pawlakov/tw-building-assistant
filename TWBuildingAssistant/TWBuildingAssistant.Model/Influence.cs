@@ -6,7 +6,7 @@
 
     public struct Influence : IEquatable<Influence>
     {
-        private readonly IDictionary<Religion, int> records;
+        private readonly IEnumerable<KeyValuePair<Religion, int>> records;
 
         private readonly int state;
 
@@ -17,25 +17,24 @@
                 throw new DomainRuleViolationException("Nonpositive influence.");
             }
 
-            this.records = new Dictionary<Religion, int>();
-            this.state = 0;
-
             if (religion != null)
             {
-                this.records.Add( religion, value );
+                this.records = new List<KeyValuePair<Religion, int>> { new KeyValuePair<Religion, int>(religion, value) };
+                this.state = 0;
             }
             else
             {
+                this.records = new List<KeyValuePair<Religion, int>>();
                 this.state = value;
             }
         }
 
-        private Influence(IDictionary<Religion, int> records, int state)
+        private Influence(IEnumerable<KeyValuePair<Religion, int>> records, int state)
         {
             this.state = state;
             if (records != null)
             {
-                this.records = records.ToDictionary(x => x.Key, x => x.Value);
+                this.records = records.ToList();
             }
             else
             {
@@ -45,23 +44,24 @@
 
         public static Influence operator +(Influence left, Influence right)
         {
-            var records = new Dictionary<Religion, int>();
+            var records = new List<KeyValuePair<Religion, int>>();
             if (left.records != null)
             {
-                records = left.records.ToDictionary(x => x.Key, x => x.Value);
+                records.AddRange(left.records);
             }
 
             if (right.records != null)
             {
                 foreach (var record in right.records)
                 {
-                    if (records.ContainsKey(record.Key))
+                    var presentRecordIndex = records.FindIndex(x => x.Key == record.Key);
+                    if (presentRecordIndex > -1)
                     {
-                        records[record.Key] = records[record.Key] + record.Value;
+                        records[presentRecordIndex] = new KeyValuePair<Religion, int>(record.Key, records[presentRecordIndex].Value + record.Value);
                     }
                     else
                     {
-                        records.Add(record.Key, record.Value);
+                        records.Add(new KeyValuePair<Religion, int>(record.Key, record.Value));
                     }
                 }
             }
@@ -133,7 +133,7 @@
                 return false;
             }
 
-            if (this.records?.Count != other.records?.Count)
+            if (this.records?.Count() != other.records?.Count())
             {
                 return false;
             }
@@ -142,7 +142,7 @@
             {
                 foreach (var record in this.records)
                 {
-                    if (!other.records.ContainsKey(record.Key) || !record.Value.Equals(other.records[record.Key]))
+                    if (!record.Value.Equals(other.records.SingleOrDefault(x => x.Key == record.Key).Value))
                     {
                         return false;
                     }

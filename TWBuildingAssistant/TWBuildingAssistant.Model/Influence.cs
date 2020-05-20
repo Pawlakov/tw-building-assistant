@@ -34,7 +34,7 @@
             this.state = state;
             if (records != null)
             {
-                this.records = records.ToList();
+                this.records = records;
             }
             else
             {

@@ -67,7 +67,7 @@
             this.maintenance = maintenance;
             if (records != null)
             {
-                this.records = records.ToList();
+                this.records = records;
             }
             else
             {

@@ -156,6 +156,7 @@
 
         public void Next()
         {
+            this.SelectedFaction.FertilityDrop = this.SelectedFertilityDrop;
             this.SelectedFaction.TechnologyTier = this.SelectedTechnologyTier;
             this.SelectedFaction.UseAntilegacyTechnologies = this.UseAntilegacyTechnologies;
             this.SelectedFaction.StateReligion = this.SelectedReligion;

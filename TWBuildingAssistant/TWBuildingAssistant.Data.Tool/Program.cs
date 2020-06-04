@@ -11,11 +11,29 @@
         {
             var context = new DatabaseContext();
 
-            DisplayBranches(context);
+            DisplayTechs(context);
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Press any key to quit");
             Console.ReadKey();
+        }
+
+        private static void DisplayTechs(DatabaseContext context)
+        {
+            var techs = context.TechnologyLevels.OrderBy(x => x.Order).ToList();
+            foreach (var tech in techs)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("{0}", tech.Order);
+
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(" (Id: {0})", tech.Id);
+
+                Console.WriteLine();
+
+                // var root = context.BuildingLevels.Find(branch.RootBuildingLevelId);
+                // DisplayLevel(context, root, 1);
+            }
         }
 
         private static void DisplayBranches(DatabaseContext context)

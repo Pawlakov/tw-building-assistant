@@ -1,12 +1,13 @@
 ﻿namespace TWBuildingAssistant.Data.Sqlite
 {
     using System;
+    using System.IO;
     using Microsoft.EntityFrameworkCore;
     using TWBuildingAssistant.Data.Sqlite.Entities;
 
     public class DatabaseContext : DbContext
     {
-        private const string File = @"Data Source=Sqlite\twa_data.db";
+        private readonly string File = $@"Data Source={Path.Combine("Sqlite", "twa_data.db")}";
 
         public DbSet<Bonus> Bonuses { get; set; }
 
@@ -44,7 +45,7 @@
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite(File);
+            options.UseSqlite(this.File);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

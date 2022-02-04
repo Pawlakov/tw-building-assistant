@@ -1,7 +1,6 @@
 ﻿namespace TWBuildingAssistant.WorldManager
 {
     using Avalonia;
-    using Avalonia.Logging.Serilog;
     using Avalonia.ReactiveUI;
 
     public class Program

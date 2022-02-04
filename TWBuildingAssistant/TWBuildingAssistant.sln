@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29926.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Data", "TWBuildingAssistant.Data\TWBuildingAssistant.Data.csproj", "{110AD339-59D8-4CF7-BDB9-C8E40E2D9200}"
 EndProject
@@ -11,13 +11,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Data.To
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.WorldManager", "TWBuildingAssistant.WorldManager\TWBuildingAssistant.WorldManager.csproj", "{827BE872-9DEA-450E-916E-D514A3C63463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant", "TWBuildingAssistant\TWBuildingAssistant.csproj", "{AEC8E417-088B-4A6E-8E67-770E5B126AAC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Model", "TWBuildingAssistant.Model\TWBuildingAssistant.Model.csproj", "{208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Model.Test", "TWBuildingAssistant.Model.Test\TWBuildingAssistant.Model.Test.csproj", "{93FB3087-B557-4E84-8222-4C4D7477621D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.Presentation", "TWBuildingAssistant.Presentation\TWBuildingAssistant.Presentation.csproj", "{91C92F46-8CB4-463D-A828-BAD13A84E2AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Presentation", "TWBuildingAssistant.Presentation\TWBuildingAssistant.Presentation.csproj", "{91C92F46-8CB4-463D-A828-BAD13A84E2AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.Old", "TWBuildingAssistant.Old\TWBuildingAssistant.Old.csproj", "{4A070503-2363-4B8A-A8E1-0F024973391B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B} = {208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +44,6 @@ Global
 		{827BE872-9DEA-450E-916E-D514A3C63463}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{827BE872-9DEA-450E-916E-D514A3C63463}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{827BE872-9DEA-450E-916E-D514A3C63463}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AEC8E417-088B-4A6E-8E67-770E5B126AAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AEC8E417-088B-4A6E-8E67-770E5B126AAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AEC8E417-088B-4A6E-8E67-770E5B126AAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AEC8E417-088B-4A6E-8E67-770E5B126AAC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +56,10 @@ Global
 		{91C92F46-8CB4-463D-A828-BAD13A84E2AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91C92F46-8CB4-463D-A828-BAD13A84E2AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91C92F46-8CB4-463D-A828-BAD13A84E2AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A070503-2363-4B8A-A8E1-0F024973391B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A070503-2363-4B8A-A8E1-0F024973391B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A070503-2363-4B8A-A8E1-0F024973391B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A070503-2363-4B8A-A8E1-0F024973391B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

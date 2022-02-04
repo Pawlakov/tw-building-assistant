@@ -1,15 +1,14 @@
-﻿namespace TWBuildingAssistant.ViewModel
+﻿namespace TWBuildingAssistant.Old.ViewModel
 {
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Linq;
-    using TWBuildingAssistant.Model;
 
     public class Region : INotifyPropertyChanged
     {
         private string name = string.Empty;
 
-        public Region(Model.Region region)
+        public Region(TWBuildingAssistant.Model.Region region)
         {
             var count = region.Slots.Count();
             this.Slots = new ObservableCollection<Slot>();

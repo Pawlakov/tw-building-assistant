@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.ViewModel
+﻿namespace TWBuildingAssistant.Old.ViewModel
 {
     using System.ComponentModel;
 

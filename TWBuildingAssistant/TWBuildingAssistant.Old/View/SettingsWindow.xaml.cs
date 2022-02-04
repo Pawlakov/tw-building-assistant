@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.View
+﻿namespace TWBuildingAssistant.Old.View
 {
     public partial class SettingsWindow
     {

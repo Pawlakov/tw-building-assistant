@@ -1,21 +1,20 @@
-﻿namespace TWBuildingAssistant.Presentation.Views
+﻿namespace TWBuildingAssistant.Presentation.Views;
+
+using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using ReactiveUI;
+using TWBuildingAssistant.Presentation.ViewModels;
+
+public class SeekerView : ReactiveUserControl<SeekerViewModel>
 {
-    using Avalonia.Markup.Xaml;
-    using Avalonia.ReactiveUI;
-    using ReactiveUI;
-    using TWBuildingAssistant.Presentation.ViewModels;
-
-    public class SeekerView : ReactiveUserControl<SeekerViewModel>
+    public SeekerView()
     {
-        public SeekerView()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
+    }
 
-        private void InitializeComponent()
-        {
-            this.WhenActivated(disposables => { /* Handle view activation etc. */ });
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        this.WhenActivated(disposables => { /* Handle view activation etc. */ });
+        AvaloniaXamlLoader.Load(this);
     }
 }

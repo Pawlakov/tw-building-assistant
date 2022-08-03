@@ -1,18 +1,16 @@
-﻿namespace TWBuildingAssistant.Model
+﻿namespace TWBuildingAssistant.Model;
+
+public class Season
 {
-
-    public class Season
+    public Season(string name)
     {
-        public Season(string name)
+        if (string.IsNullOrWhiteSpace(name))
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new DomainRuleViolationException("Season without name.");
-            }
-
-            this.Name = name;
+            throw new DomainRuleViolationException("Season without name.");
         }
 
-        public string Name { get; }
+        this.Name = name;
     }
+
+    public string Name { get; }
 }

@@ -1,18 +1,17 @@
-﻿namespace TWBuildingAssistant.WorldManager.Views.Resources
+﻿namespace TWBuildingAssistant.WorldManager.Views.Resources;
+
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+
+public class ListView : UserControl
 {
-    using Avalonia.Controls;
-    using Avalonia.Markup.Xaml;
-
-    public class ListView : UserControl
+    public ListView()
     {
-        public ListView()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
+    }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }

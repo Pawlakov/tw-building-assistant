@@ -1,50 +1,49 @@
-﻿namespace TWBuildingAssistant.Data.Sqlite.Entities
+﻿namespace TWBuildingAssistant.Data.Sqlite.Entities;
+
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public class Effect
 {
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
+    [Key]
+    public int Id { get; set; }
 
-    public class Effect
-    {
-        [Key]
-        public int Id { get; set; }
+    public int PublicOrder { get; set; }
 
-        public int PublicOrder { get; set; }
+    public int RegularFood { get; set; }
 
-        public int RegularFood { get; set; }
+    public int FertilityDependentFood { get; set; }
 
-        public int FertilityDependentFood { get; set; }
+    public int ProvincialSanitation { get; set; }
 
-        public int ProvincialSanitation { get; set; }
+    public int ResearchRate { get; set; }
 
-        public int ResearchRate { get; set; }
+    public int Growth { get; set; }
 
-        public int Growth { get; set; }
+    public int Fertility { get; set; }
 
-        public int Fertility { get; set; }
+    public int ReligiousOsmosis { get; set; }
 
-        public int ReligiousOsmosis { get; set; }
+    public int RegionalSanitation { get; set; }
 
-        public int RegionalSanitation { get; set; }
+    public BuildingLevel BuildingLevel { get; set; }
 
-        public BuildingLevel BuildingLevel { get; set; }
+    public Province Province { get; set; }
 
-        public Province Province { get; set; }
+    public Religion Religion { get; set; }
 
-        public Religion Religion { get; set; }
+    [InverseProperty(nameof(TechnologyLevel.UniversalEffect))]
+    public TechnologyLevel UniversalTechnologyLevel { get; set; }
 
-        [InverseProperty(nameof(TechnologyLevel.UniversalEffect))]
-        public TechnologyLevel UniversalTechnologyLevel { get; set; }
+    [InverseProperty(nameof(TechnologyLevel.AntilegacyEffect))]
+    public TechnologyLevel AntilegacyTechnologyLevel { get; set; }
 
-        [InverseProperty(nameof(TechnologyLevel.AntilegacyEffect))]
-        public TechnologyLevel AntilegacyTechnologyLevel { get; set; }
+    public WeatherEffect WeatherEffect { get; set; }
 
-        public WeatherEffect WeatherEffect { get; set; }
+    public Faction Faction { get; set; }
 
-        public Faction Faction { get; set; }
+    public ICollection<Bonus> Bonuses { get; set; }
 
-        public ICollection<Bonus> Bonuses { get; set; }
-
-        public ICollection<Influence> Influences { get; set; }
-    }
+    public ICollection<Influence> Influences { get; set; }
 }

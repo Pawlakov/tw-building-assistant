@@ -1,14 +1,13 @@
-﻿namespace TWBuildingAssistant.Presentation.ViewModels
+﻿namespace TWBuildingAssistant.Presentation.ViewModels;
+
+using ReactiveUI;
+
+public class ViewModel : ReactiveObject, IActivatableViewModel
 {
-    using ReactiveUI;
-
-    public class ViewModel : ReactiveObject, IActivatableViewModel
+    public ViewModel()
     {
-        public ViewModel()
-        {
-            this.Activator = new ViewModelActivator();
-        }
-
-        public ViewModelActivator Activator { get; }
+        this.Activator = new ViewModelActivator();
     }
+
+    public ViewModelActivator Activator { get; }
 }

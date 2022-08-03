@@ -1,8 +1,7 @@
-﻿namespace TWBuildingAssistant.WorldManager.ViewModels
-{
-    using ReactiveUI;
+﻿namespace TWBuildingAssistant.WorldManager.ViewModels;
 
-    public class ViewModelBase : ReactiveObject
-    {
-    }
+using ReactiveUI;
+
+public class ViewModelBase : ReactiveObject
+{
 }

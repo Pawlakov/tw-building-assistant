@@ -1,80 +1,79 @@
-﻿namespace TWBuildingAssistant.Presentation.ViewModels
+﻿namespace TWBuildingAssistant.Presentation.ViewModels;
+
+using ReactiveUI;
+using System;
+using TWBuildingAssistant.Model;
+
+public class MainWindowViewModel : WindowViewModel
 {
-    using ReactiveUI;
-    using System;
-    using TWBuildingAssistant.Model;
+    private readonly World world;
 
-    public class MainWindowViewModel : WindowViewModel
+    private SettingsViewModel settingsViewModel;
+
+    private ProvinceViewModel provinceViewModel;
+
+    private SeekerViewModel seekerViewModel;
+
+    private ViewModel content;
+
+    public MainWindowViewModel()
     {
-        private readonly World world;
+        this.world = new World();
 
-        private SettingsViewModel settingsViewModel;
+        this.settingsViewModel = new SettingsViewModel(this.world);
+        this.settingsViewModel.NextTransition += this.TransitionFromSettingsToProvince;
+        this.content = this.settingsViewModel;
+    }
 
-        private ProvinceViewModel provinceViewModel;
+    public SettingsViewModel Settings
+    {
+        get => this.settingsViewModel;
+        set => this.RaiseAndSetIfChanged(ref this.settingsViewModel, value);
+    }
 
-        private SeekerViewModel seekerViewModel;
+    public ProvinceViewModel Province
+    {
+        get => this.provinceViewModel;
+        set => this.RaiseAndSetIfChanged(ref this.provinceViewModel, value);
+    }
 
-        private ViewModel content;
+    public SeekerViewModel Seeker
+    {
+        get => this.seekerViewModel;
+        set => this.RaiseAndSetIfChanged(ref this.seekerViewModel, value);
+    }
 
-        public MainWindowViewModel()
-        {
-            this.world = new World();
+    public ViewModel Content
+    {
+        get => this.content;
+        set => this.RaiseAndSetIfChanged(ref this.content, value);
+    }
 
-            this.settingsViewModel = new SettingsViewModel(this.world);
-            this.settingsViewModel.NextTransition += this.TransitionFromSettingsToProvince;
-            this.content = this.settingsViewModel;
-        }
+    private void TransitionFromSettingsToProvince(object sender, SettingsViewModel.NextTransitionEventArgs args)
+    {
+        this.Province = new ProvinceViewModel(args.Province);
+        this.Province.NextTransition += this.TransitionFromProvinceToSeeker;
+        this.Province.PreviousTransition += this.TransitionFromProvinceToSettings;
+        this.Content = this.provinceViewModel;
+    }
 
-        public SettingsViewModel Settings
-        {
-            get => this.settingsViewModel;
-            set => this.RaiseAndSetIfChanged(ref this.settingsViewModel, value);
-        }
+    private void TransitionFromProvinceToSeeker(object sender, ProvinceViewModel.NextTransitionEventArgs args)
+    {
+        this.Seeker = new SeekerViewModel(args.Province, args.Slots);
+        this.Seeker.PreviousTransition += this.TransitionFromSeekerToProvince;
+        this.Content = this.Seeker;
+    }
 
-        public ProvinceViewModel Province
-        {
-            get => this.provinceViewModel;
-            set => this.RaiseAndSetIfChanged(ref this.provinceViewModel, value);
-        }
+    private void TransitionFromProvinceToSettings(object sender, EventArgs args)
+    {
+        this.Content = this.Settings;
+    }
 
-        public SeekerViewModel Seeker
-        {
-            get => this.seekerViewModel;
-            set => this.RaiseAndSetIfChanged(ref this.seekerViewModel, value);
-        }
-
-        public ViewModel Content
-        {
-            get => this.content;
-            set => this.RaiseAndSetIfChanged(ref this.content, value);
-        }
-
-        private void TransitionFromSettingsToProvince(object sender, SettingsViewModel.NextTransitionEventArgs args)
-        {
-            this.Province = new ProvinceViewModel(args.Province);
-            this.Province.NextTransition += this.TransitionFromProvinceToSeeker;
-            this.Province.PreviousTransition += this.TransitionFromProvinceToSettings;
-            this.Content = this.provinceViewModel;
-        }
-
-        private void TransitionFromProvinceToSeeker(object sender, ProvinceViewModel.NextTransitionEventArgs args)
-        {
-            this.Seeker = new SeekerViewModel(args.Province, args.Slots);
-            this.Seeker.PreviousTransition += this.TransitionFromSeekerToProvince;
-            this.Content = this.Seeker;
-        }
-
-        private void TransitionFromProvinceToSettings(object sender, EventArgs args)
-        {
-            this.Content = this.Settings;
-        }
-
-        private void TransitionFromSeekerToProvince(object sender, SeekerViewModel.PreviousTransitionEventArgs args)
-        {
-            this.Province = new ProvinceViewModel(args.Province);
-            this.Province.NextTransition += this.TransitionFromProvinceToSeeker;
-            this.Province.PreviousTransition += this.TransitionFromProvinceToSettings;
-            this.Content = this.Province;
-        }
+    private void TransitionFromSeekerToProvince(object sender, SeekerViewModel.PreviousTransitionEventArgs args)
+    {
+        this.Province = new ProvinceViewModel(args.Province);
+        this.Province.NextTransition += this.TransitionFromProvinceToSeeker;
+        this.Province.PreviousTransition += this.TransitionFromProvinceToSettings;
+        this.Content = this.Province;
     }
 }

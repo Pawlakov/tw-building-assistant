@@ -1,14 +1,13 @@
-﻿namespace TWBuildingAssistant.Presentation.ViewModels
+﻿namespace TWBuildingAssistant.Presentation.ViewModels;
+
+using System;
+
+public class WindowViewModel : ViewModel
 {
-    using System;
+    public event EventHandler CloseWindow;
 
-    public class WindowViewModel : ViewModel
+    protected void OnCloseWindow()
     {
-        public event EventHandler CloseWindow;
-
-        protected void OnCloseWindow()
-        {
-            this.CloseWindow?.Invoke(this, EventArgs.Empty);
-        }
+        this.CloseWindow?.Invoke(this, EventArgs.Empty);
     }
 }

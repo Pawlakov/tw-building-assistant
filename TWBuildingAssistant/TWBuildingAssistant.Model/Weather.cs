@@ -1,17 +1,16 @@
-﻿namespace TWBuildingAssistant.Model
-{
-    public class Weather
-    {
-        public Weather(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new DomainRuleViolationException("Weather without name.");
-            }
+﻿namespace TWBuildingAssistant.Model;
 
-            this.Name = name;
+public class Weather
+{
+    public Weather(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new DomainRuleViolationException("Weather without name.");
         }
 
-        public string Name { get; }
+        this.Name = name;
     }
+
+    public string Name { get; }
 }

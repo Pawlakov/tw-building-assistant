@@ -1,42 +1,41 @@
-﻿namespace TWBuildingAssistant.Old.ViewModel
+﻿namespace TWBuildingAssistant.Old.ViewModel;
+
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+
+public class Slot : INotifyPropertyChanged
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.ComponentModel;
+    private object selectedBuilding;
 
-    public class Slot : INotifyPropertyChanged
+    public Slot(Model.BuildingSlot slot)
     {
-        private object selectedBuilding;
+        this.Buildings = new ObservableCollection<KeyValuePair<int, string>>();
+        this.Buildings.Add(new KeyValuePair<int, string>(0, "null"));
+        this.SelectedBuilding = this.Buildings[0];
+    }
 
-        public Slot(Model.BuildingSlot slot)
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public ObservableCollection<KeyValuePair<int, string>> Buildings { get; }
+
+    public object SelectedBuilding
+    {
+        get => this.selectedBuilding;
+        set
         {
-            this.Buildings = new ObservableCollection<KeyValuePair<int, string>>();
-            this.Buildings.Add(new KeyValuePair<int, string>(0, "null"));
-            this.SelectedBuilding = this.Buildings[0];
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public ObservableCollection<KeyValuePair<int, string>> Buildings { get; }
-
-        public object SelectedBuilding
-        {
-            get => this.selectedBuilding;
-            set
+            if (this.selectedBuilding == value)
             {
-                if (this.selectedBuilding == value)
-                {
-                    return;
-                }
-
-                this.selectedBuilding = value;
-                this.OnPropertyChanged(nameof(this.SelectedBuilding));
+                return;
             }
-        }
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            this.selectedBuilding = value;
+            this.OnPropertyChanged(nameof(this.SelectedBuilding));
         }
+    }
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

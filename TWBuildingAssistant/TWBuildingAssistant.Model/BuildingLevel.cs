@@ -1,26 +1,25 @@
-﻿namespace TWBuildingAssistant.Model
+﻿namespace TWBuildingAssistant.Model;
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+public class BuildingLevel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
-    public class BuildingLevel
+    public BuildingLevel(string name, Effect effect)
     {
-        public BuildingLevel(string name, Effect effect)
+        if (string.IsNullOrWhiteSpace(name))
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new DomainRuleViolationException("Building level without name.");
-            }
-
-            this.Name = name;
-            this.Effect = effect;
+            throw new DomainRuleViolationException("Building level without name.");
         }
 
-        public string Name { get; }
-
-        public Effect Effect { get; set; }
-
-        public static BuildingLevel Empty { get; } = new BuildingLevel("Empty", default);
+        this.Name = name;
+        this.Effect = effect;
     }
+
+    public string Name { get; }
+
+    public Effect Effect { get; set; }
+
+    public static BuildingLevel Empty { get; } = new BuildingLevel("Empty", default);
 }

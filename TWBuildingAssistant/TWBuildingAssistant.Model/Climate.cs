@@ -1,20 +1,19 @@
-﻿namespace TWBuildingAssistant.Model
+﻿namespace TWBuildingAssistant.Model;
+
+using System.Collections.Generic;
+using System.Linq;
+
+public class Climate
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    private readonly IDictionary<Season, IDictionary<Weather, Effect>> effects;
 
-    public class Climate
+    public Climate(IDictionary<Season, IDictionary<Weather, Effect>> effects)
     {
-        private readonly IDictionary<Season, IDictionary<Weather, Effect>> effects;
+        this.effects = effects.ToDictionary(x => x.Key, x => (IDictionary<Weather, Effect>)x.Value.ToDictionary(y => y.Key, y => y.Value));
+    }
 
-        public Climate(IDictionary<Season, IDictionary<Weather, Effect>> effects)
-        {
-            this.effects = effects.ToDictionary(x => x.Key, x => (IDictionary<Weather, Effect>)x.Value.ToDictionary(y => y.Key, y => y.Value));
-        }
-
-        public Effect GetEffect(Season season, Weather weather)
-        {
-            return this.effects[season][weather];
-        }
+    public Effect GetEffect(Season season, Weather weather)
+    {
+        return this.effects[season][weather];
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace TWBuildingAssistant.Data.Model
-{
-    public enum RegionType
-    {
-        City,
+﻿namespace TWBuildingAssistant.Data.Model;
 
-        Town,
-    }
+public enum RegionType
+{
+    City,
+
+    Town,
 }

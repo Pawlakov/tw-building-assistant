@@ -1,17 +1,16 @@
-﻿namespace TWBuildingAssistant.Model
-{
-    public class Resource
-    {
-        public Resource(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new DomainRuleViolationException("Resource without name.");
-            }
+﻿namespace TWBuildingAssistant.Model;
 
-            this.Name = name;
+public class Resource
+{
+    public Resource(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new DomainRuleViolationException("Resource without name.");
         }
 
-        public string Name { get; }
+        this.Name = name;
     }
+
+    public string Name { get; }
 }

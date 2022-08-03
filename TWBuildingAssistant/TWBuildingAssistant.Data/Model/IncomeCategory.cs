@@ -1,21 +1,20 @@
-﻿namespace TWBuildingAssistant.Data.Model
+﻿namespace TWBuildingAssistant.Data.Model;
+
+public enum IncomeCategory
 {
-    public enum IncomeCategory
-    {
-        Agriculture = 1,
+    Agriculture = 1,
 
-        Husbandry,
+    Husbandry,
 
-        Culture,
+    Culture,
 
-        Industry,
+    Industry,
 
-        LocalCommerce,
+    LocalCommerce,
 
-        MaritimeCommerce,
+    MaritimeCommerce,
 
-        Subsistence,
+    Subsistence,
 
-        Maintenance,
-    }
+    Maintenance,
 }

@@ -1,19 +1,18 @@
-﻿namespace TWBuildingAssistant.WorldManager.Views
+﻿namespace TWBuildingAssistant.WorldManager.Views;
+
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+
+public class MainWindow : Window
 {
-    using Avalonia;
-    using Avalonia.Controls;
-    using Avalonia.Markup.Xaml;
-
-    public class MainWindow : Window
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
+    }
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }

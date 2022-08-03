@@ -1,11 +1,10 @@
-﻿namespace TWBuildingAssistant.Data.Model
+﻿namespace TWBuildingAssistant.Data.Model;
+
+public enum BonusType
 {
-    public enum BonusType
-    {
-        Simple,
+    Simple,
 
-        Percentage,
+    Percentage,
 
-        FertilityDependent,
-    }
+    FertilityDependent,
 }

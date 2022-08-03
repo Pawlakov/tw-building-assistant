@@ -1,21 +1,20 @@
-﻿namespace TWBuildingAssistant.Presentation.Views
+﻿namespace TWBuildingAssistant.Presentation.Views;
+
+using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using ReactiveUI;
+using TWBuildingAssistant.Presentation.ViewModels;
+
+public class SettingsView : ReactiveUserControl<SettingsViewModel>
 {
-    using Avalonia.Markup.Xaml;
-    using Avalonia.ReactiveUI;
-    using ReactiveUI;
-    using TWBuildingAssistant.Presentation.ViewModels;
-
-    public class SettingsView : ReactiveUserControl<SettingsViewModel>
+    public SettingsView()
     {
-        public SettingsView()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
+    }
 
-        private void InitializeComponent()
-        {
-            this.WhenActivated(disposables => { /* Handle view activation etc. */ });
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        this.WhenActivated(disposables => { /* Handle view activation etc. */ });
+        AvaloniaXamlLoader.Load(this);
     }
 }

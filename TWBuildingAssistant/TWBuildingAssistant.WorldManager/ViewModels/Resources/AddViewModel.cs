@@ -1,33 +1,32 @@
-﻿namespace TWBuildingAssistant.WorldManager.ViewModels.Resources
+﻿namespace TWBuildingAssistant.WorldManager.ViewModels.Resources;
+
+using System.Reactive;
+using ReactiveUI;
+using TWBuildingAssistant.Data.Sqlite.Entities;
+
+public class AddViewModel : ViewModelBase
 {
-    using System.Reactive;
-    using ReactiveUI;
-    using TWBuildingAssistant.Data.Sqlite.Entities;
+    private string description;
 
-    public class AddViewModel : ViewModelBase
+    public AddViewModel()
     {
-        private string description;
+        var okEnabled = this.WhenAnyValue(
+            x => x.Description,
+            x => !string.IsNullOrWhiteSpace(x));
 
-        public AddViewModel()
-        {
-            var okEnabled = this.WhenAnyValue(
-                x => x.Description,
-                x => !string.IsNullOrWhiteSpace(x));
-
-            this.Ok = ReactiveCommand.Create(
-                () => new Resource { Name = this.Description },
-                okEnabled);
-            this.Cancel = ReactiveCommand.Create(() => { });
-        }
-
-        public string Description
-        {
-            get => this.description;
-            set => this.RaiseAndSetIfChanged(ref this.description, value);
-        }
-
-        public ReactiveCommand<Unit, Resource> Ok { get; }
-
-        public ReactiveCommand<Unit, Unit> Cancel { get; }
+        this.Ok = ReactiveCommand.Create(
+            () => new Resource { Name = this.Description },
+            okEnabled);
+        this.Cancel = ReactiveCommand.Create(() => { });
     }
+
+    public string Description
+    {
+        get => this.description;
+        set => this.RaiseAndSetIfChanged(ref this.description, value);
+    }
+
+    public ReactiveCommand<Unit, Resource> Ok { get; }
+
+    public ReactiveCommand<Unit, Unit> Cancel { get; }
 }

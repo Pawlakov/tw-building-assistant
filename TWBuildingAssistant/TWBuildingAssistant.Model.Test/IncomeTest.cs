@@ -1,19 +1,18 @@
-﻿namespace TWBuildingAssistant.Model.Test
+﻿namespace TWBuildingAssistant.Model.Test;
+
+using NUnit.Framework;
+using TWBuildingAssistant.Data.Model;
+
+[TestFixture]
+public class IncomeTest
 {
-    using NUnit.Framework;
-    using TWBuildingAssistant.Data.Model;
-
-    [TestFixture]
-    public class IncomeTest
+    [Test]
+    public void SimpleBonus()
     {
-        [Test]
-        public void SimpleBonus()
-        {
-            var bonus = new Income(50, IncomeCategory.Industry, BonusType.Simple);
+        var bonus = new Income(50, IncomeCategory.Industry, BonusType.Simple);
 
-            var income = bonus.GetIncome(3);
+        var income = bonus.GetIncome(3);
 
-            Assert.AreEqual(50, income);
-        }
+        Assert.AreEqual(50, income);
     }
 }

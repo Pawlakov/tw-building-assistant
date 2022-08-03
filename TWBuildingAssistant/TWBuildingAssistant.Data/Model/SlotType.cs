@@ -1,11 +1,10 @@
-﻿namespace TWBuildingAssistant.Data.Model
+﻿namespace TWBuildingAssistant.Data.Model;
+
+public enum SlotType
 {
-    public enum SlotType
-    {
-        Main,
+    Main,
 
-        Coastal,
+    Coastal,
 
-        General,
-    }
+    General,
 }

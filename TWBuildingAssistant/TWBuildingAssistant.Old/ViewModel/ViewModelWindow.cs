@@ -1,22 +1,21 @@
-﻿namespace TWBuildingAssistant.Old.ViewModel
+﻿namespace TWBuildingAssistant.Old.ViewModel;
+
+using System;
+using System.ComponentModel;
+
+public class ViewModelWindow : INotifyPropertyChanged
 {
-    using System;
-    using System.ComponentModel;
+    public event EventHandler CloseWindow;
 
-    public class ViewModelWindow : INotifyPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnCloseWindow()
     {
-        public event EventHandler CloseWindow;
+        this.CloseWindow?.Invoke(this, EventArgs.Empty);
+    }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnCloseWindow()
-        {
-            this.CloseWindow?.Invoke(this, EventArgs.Empty);
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    protected void OnPropertyChanged(string propertyName)
+    {
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

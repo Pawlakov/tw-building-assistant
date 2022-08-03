@@ -1,21 +1,20 @@
-﻿namespace TWBuildingAssistant.Presentation.Views
+﻿namespace TWBuildingAssistant.Presentation.Views;
+
+using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using ReactiveUI;
+using TWBuildingAssistant.Presentation.ViewModels;
+
+public class SlotView : ReactiveUserControl<SlotViewModel>
 {
-    using Avalonia.Markup.Xaml;
-    using Avalonia.ReactiveUI;
-    using ReactiveUI;
-    using TWBuildingAssistant.Presentation.ViewModels;
-
-    public class SlotView : ReactiveUserControl<SlotViewModel>
+    public SlotView()
     {
-        public SlotView()
-        {
-            this.InitializeComponent();
-        }
+        this.InitializeComponent();
+    }
 
-        private void InitializeComponent()
-        {
-            this.WhenActivated(disposables => { /* Handle view activation etc. */ });
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        this.WhenActivated(disposables => { /* Handle view activation etc. */ });
+        AvaloniaXamlLoader.Load(this);
     }
 }

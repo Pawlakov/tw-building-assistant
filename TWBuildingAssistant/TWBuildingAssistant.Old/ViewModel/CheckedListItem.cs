@@ -1,45 +1,44 @@
-﻿namespace TWBuildingAssistant.Old.ViewModel
+﻿namespace TWBuildingAssistant.Old.ViewModel;
+
+using System.ComponentModel;
+
+public class CheckedListItem<T> : INotifyPropertyChanged
 {
-    using System.ComponentModel;
+    private bool isChecked;
 
-    public class CheckedListItem<T> : INotifyPropertyChanged
+    private T item;
+
+    public CheckedListItem()
     {
-        private bool isChecked;
+        this.item = default(T);
+        this.isChecked = false;
+    }
 
-        private T item;
+    public CheckedListItem(T item, bool isChecked = false)
+    {
+        this.item = item;
+        this.isChecked = isChecked;
+    }
 
-        public CheckedListItem()
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public T Item
+    {
+        get => this.item;
+        set
         {
-            this.item = default(T);
-            this.isChecked = false;
+            this.item = value;
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item"));
         }
+    }
 
-        public CheckedListItem(T item, bool isChecked = false)
+    public bool IsChecked
+    {
+        get => this.isChecked;
+        set
         {
-            this.item = item;
-            this.isChecked = isChecked;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public T Item
-        {
-            get => this.item;
-            set
-            {
-                this.item = value;
-                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Item"));
-            }
-        }
-
-        public bool IsChecked
-        {
-            get => this.isChecked;
-            set
-            {
-                this.isChecked = value;
-                this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsChecked"));
-            }
+            this.isChecked = value;
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsChecked"));
         }
     }
 }

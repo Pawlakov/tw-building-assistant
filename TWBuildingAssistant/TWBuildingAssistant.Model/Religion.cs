@@ -1,20 +1,19 @@
-﻿namespace TWBuildingAssistant.Model
-{
-    public class Religion
-    {
-        public Religion(string name, Effect effectWhenState = default)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new DomainRuleViolationException("Religion without name.");
-            }
+﻿namespace TWBuildingAssistant.Model;
 
-            this.Name = name;
-            this.EffectWhenState = effectWhenState;
+public class Religion
+{
+    public Religion(string name, Effect effectWhenState = default)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new DomainRuleViolationException("Religion without name.");
         }
 
-        public string Name { get; }
-
-        public Effect EffectWhenState { get; }
+        this.Name = name;
+        this.EffectWhenState = effectWhenState;
     }
+
+    public string Name { get; }
+
+    public Effect EffectWhenState { get; }
 }

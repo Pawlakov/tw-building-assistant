@@ -18,9 +18,9 @@ public class BuildingLevel
     [ForeignKey(nameof(Effect))]
     public int? EffectId { get; set; }
 
-    public BuildingLevel Parent { get; set; }
+    public BuildingLevel? Parent { get; set; }
 
-    public Effect Effect { get; set; }
+    public Effect? Effect { get; set; }
 
     public BuildingBranch BuildingBranch { get; set; }
 

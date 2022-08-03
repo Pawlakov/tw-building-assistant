@@ -30,9 +30,9 @@ public class BuildingBranch
 
     public BuildingLevel RootBuildingLevel { get; set; }
 
-    public Religion Religion { get; set; }
+    public Religion? Religion { get; set; }
 
-    public Resource Resource { get; set; }
+    public Resource? Resource { get; set; }
 
     public ICollection<BuildingBranchUse> Uses { get; set; }
 }

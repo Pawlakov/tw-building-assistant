@@ -24,7 +24,7 @@ public class Region
     [ForeignKey(nameof(Province))]
     public int ProvinceId { get; set; }
 
-    public Resource Resource { get; set; }
+    public Resource? Resource { get; set; }
 
-    public Province Province { get; set; }
+    public Province? Province { get; set; }
 }

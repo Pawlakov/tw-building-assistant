@@ -15,7 +15,7 @@ public class Religion
     [ForeignKey(nameof(Effect))]
     public int? EffectId { get; set; }
 
-    public Effect Effect { get; set; }
+    public Effect? Effect { get; set; }
 
     public ICollection<BuildingBranch> BuildingBranches { get; set; }
 

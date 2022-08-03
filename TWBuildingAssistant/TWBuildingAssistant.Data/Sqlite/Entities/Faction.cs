@@ -15,7 +15,7 @@ public class Faction
     [ForeignKey(nameof(Effect))]
     public int? EffectId { get; set; }
 
-    public Effect Effect { get; set; }
+    public Effect? Effect { get; set; }
 
     public ICollection<BuildingBranchUse> BuildingBranchesUsed { get; set; }
 

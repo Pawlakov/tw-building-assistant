@@ -22,9 +22,9 @@ public class TechnologyLevel
 
     public Faction Faction { get; set; }
 
-    public Effect UniversalEffect { get; set; }
+    public Effect? UniversalEffect { get; set; }
 
-    public Effect AntilegacyEffect { get; set; }
+    public Effect? AntilegacyEffect { get; set; }
 
     public ICollection<BuildingLevelLock> BuildingLevelLocks { get; set; }
 }

@@ -16,7 +16,7 @@ public class Influence
     [ForeignKey(nameof(Effect))]
     public int? EffectId { get; set; }
 
-    public Religion Religion { get; set; }
+    public Religion? Religion { get; set; }
 
-    public Effect Effect { get; set; }
+    public Effect? Effect { get; set; }
 }

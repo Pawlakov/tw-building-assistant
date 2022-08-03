@@ -11,7 +11,7 @@ public class Resource
     [Required(AllowEmptyStrings = false)]
     public string Name { get; set; }
 
-    public byte[] Icon { get; set; }
+    public byte[]? Icon { get; set; }
 
     public ICollection<BuildingBranch> BuildingBranches { get; set; }
 

@@ -1,20 +1,14 @@
 ﻿namespace TWBuildingAssistant.Presentation.Views;
 
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using ReactiveUI;
+using System.Windows;
 using TWBuildingAssistant.Presentation.ViewModels;
 
-public class MainWindow : ReactiveWindow<MainWindowViewModel>
+public partial class MainWindow 
+    : Window
 {
-    public MainWindow()
+    public MainWindow(object dataContex)
     {
         this.InitializeComponent();
-    }
-
-    private void InitializeComponent()
-    {
-        this.WhenActivated(disposables => { /* Handle view activation etc. */ });
-        AvaloniaXamlLoader.Load(this);
+        this.DataContext = dataContex;
     }
 }

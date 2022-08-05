@@ -1,14 +1,15 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using ReactiveUI;
 using TWBuildingAssistant.Model;
 
-public class ProvinceViewModel : ViewModel
+public class ProvinceViewModel 
+    : ViewModel
 {
     private readonly Province province;
 
@@ -30,6 +31,9 @@ public class ProvinceViewModel : ViewModel
             this.Regions.Add(newRegion);
         }
 
+        this.PreviousCommand = new RelayCommand(this.Previous);
+        this.NextCommand = new RelayCommand(this.Next);
+
         this.SetPerformanceDisplay();
     }
 
@@ -44,10 +48,21 @@ public class ProvinceViewModel : ViewModel
     public string Performance
     {
         get => this.performance;
-        set => this.RaiseAndSetIfChanged(ref this.performance, value);
+        set
+        {
+            if (this.performance != value)
+            {
+                this.performance = value;
+                this.OnPropertyChanged(nameof(this.Performance));
+            }
+        }
     }
 
     public ProvinceState CurrentState => this.province.State;
+
+    public RelayCommand PreviousCommand { get; init; }
+
+    public RelayCommand NextCommand { get; init; }
 
     public void Previous()
     {

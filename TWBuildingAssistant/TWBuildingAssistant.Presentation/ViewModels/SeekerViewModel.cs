@@ -1,12 +1,13 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ReactiveUI;
 using TWBuildingAssistant.Model;
 
-public class SeekerViewModel : ViewModel
+public class SeekerViewModel 
+    : ViewModel
 {
     private readonly Province province;
 
@@ -22,6 +23,9 @@ public class SeekerViewModel : ViewModel
         this.minimalPublicOrder = 1;
         this.province = province;
         this.slots = slots.ToList();
+
+        this.SeekCommand = new RelayCommand(this.Seek);
+        this.PreviousCommand = new RelayCommand(this.Previous);
     }
 
     public event EventHandler<PreviousTransitionEventArgs> PreviousTransition;
@@ -31,7 +35,11 @@ public class SeekerViewModel : ViewModel
         get => this.requireSantitation;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.requireSantitation, value);
+            if (this.requireSantitation != value)
+            {
+                this.requireSantitation = value;
+                this.OnPropertyChanged(nameof(this.RequireSantitation));
+            }
         }
     }
 
@@ -40,9 +48,17 @@ public class SeekerViewModel : ViewModel
         get => this.minimalPublicOrder;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.minimalPublicOrder, value);
+            if (this.minimalPublicOrder != value)
+            {
+                this.minimalPublicOrder = value;
+                this.OnPropertyChanged(nameof(this.MinimalPublicOrder));
+            }
         }
     }
+
+    public RelayCommand SeekCommand { get; init; }
+
+    public RelayCommand PreviousCommand { get; init; }
 
     public void Seek()
     {

@@ -1,13 +1,18 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using ReactiveUI;
+using System.ComponentModel;
 
-public class ViewModel : ReactiveObject, IActivatableViewModel
+public class ViewModel 
+    : INotifyPropertyChanged
 {
-    public ViewModel()
-    {
-        this.Activator = new ViewModelActivator();
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    public virtual void Dispose() 
+    { 
     }
 
-    public ViewModelActivator Activator { get; }
+    protected void OnPropertyChanged(string propertyName)
+    {
+        this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }

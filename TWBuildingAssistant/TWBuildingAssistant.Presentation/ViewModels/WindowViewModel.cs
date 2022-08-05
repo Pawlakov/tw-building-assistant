@@ -2,7 +2,8 @@
 
 using System;
 
-public class WindowViewModel : ViewModel
+public class WindowViewModel 
+    : ViewModel
 {
     public event EventHandler CloseWindow;
 

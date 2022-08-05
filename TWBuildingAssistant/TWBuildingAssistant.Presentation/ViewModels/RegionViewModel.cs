@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using TWBuildingAssistant.Model;
 
-public class RegionViewModel : ViewModel
+public class RegionViewModel 
+    : ViewModel
 {
     public RegionViewModel(Province province, Region region)
     {

@@ -3,10 +3,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using ReactiveUI;
 using TWBuildingAssistant.Model;
 
-public class SlotViewModel : ViewModel
+public class SlotViewModel
+    : ViewModel
 {
     private readonly BuildingSlot slot;
 
@@ -40,7 +40,12 @@ public class SlotViewModel : ViewModel
         set
         {
             this.slot.Building = value;
-            this.RaiseAndSetIfChanged(ref this.selectedBuilding, value);
+            if (this.selectedBuilding != value)
+            {
+                this.selectedBuilding = value;
+                this.OnPropertyChanged(nameof(this.SelectedBuilding));
+            }
+
             this.BuildingChanged?.Invoke(this, EventArgs.Empty);
         }
     }
@@ -50,7 +55,11 @@ public class SlotViewModel : ViewModel
         get => this.seek;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.seek, value);
+            if (this.seek != value)
+            {
+                this.seek = value;
+                this.OnPropertyChanged(nameof(this.Seek));
+            }
         }
     }
 

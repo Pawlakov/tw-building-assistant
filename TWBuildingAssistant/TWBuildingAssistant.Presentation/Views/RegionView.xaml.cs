@@ -1,20 +1,13 @@
 ﻿namespace TWBuildingAssistant.Presentation.Views;
 
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using ReactiveUI;
+using System.Windows.Controls;
 using TWBuildingAssistant.Presentation.ViewModels;
 
-public class RegionView : ReactiveUserControl<RegionViewModel>
+public partial class RegionView 
+    : UserControl
 {
     public RegionView()
     {
         this.InitializeComponent();
-    }
-
-    private void InitializeComponent()
-    {
-        this.WhenActivated(disposables => { /* Handle view activation etc. */ });
-        AvaloniaXamlLoader.Load(this);
     }
 }

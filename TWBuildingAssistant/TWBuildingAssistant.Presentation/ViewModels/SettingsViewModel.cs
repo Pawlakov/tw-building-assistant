@@ -1,11 +1,12 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
-using ReactiveUI;
 using TWBuildingAssistant.Model;
 
-public class SettingsViewModel : ViewModel
+public class SettingsViewModel 
+    : ViewModel
 {
     private readonly World world;
 
@@ -46,6 +47,8 @@ public class SettingsViewModel : ViewModel
         this.Seasons = new ObservableCollection<Season>(this.world.Seasons);
         this.selectedSeason = this.Seasons[0];
         this.corruptionRate = 1;
+
+        this.NextCommand = new RelayCommand(this.Next);
     }
 
     public event EventHandler<NextTransitionEventArgs> NextTransition;
@@ -57,7 +60,11 @@ public class SettingsViewModel : ViewModel
         get => this.selectedReligion;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.selectedReligion, value);
+            if (this.selectedReligion != value)
+            {
+                this.selectedReligion = value;
+                this.OnPropertyChanged(nameof(this.SelectedReligion));
+            }
         }
     }
 
@@ -68,7 +75,11 @@ public class SettingsViewModel : ViewModel
         get => this.selectedProvince;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.selectedProvince, value);
+            if (this.selectedProvince != value)
+            {
+                this.selectedProvince = value;
+                this.OnPropertyChanged(nameof(this.SelectedProvince));
+            }
         }
     }
 
@@ -79,7 +90,11 @@ public class SettingsViewModel : ViewModel
         get => this.selectedFaction;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.selectedFaction, value);
+            if (this.selectedFaction != value)
+            {
+                this.selectedFaction = value;
+                this.OnPropertyChanged(nameof(this.SelectedFaction));
+            }
         }
     }
 
@@ -90,7 +105,11 @@ public class SettingsViewModel : ViewModel
         get => this.selectedTechnologyTier;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.selectedTechnologyTier, value);
+            if (this.selectedTechnologyTier != value)
+            {
+                this.selectedTechnologyTier = value;
+                this.OnPropertyChanged(nameof(this.SelectedTechnologyTier));
+            }
         }
     }
 
@@ -99,7 +118,11 @@ public class SettingsViewModel : ViewModel
         get => this.useAntilegacyTechnologies;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.useAntilegacyTechnologies, value);
+            if (this.useAntilegacyTechnologies != value)
+            {
+                this.useAntilegacyTechnologies = value;
+                this.OnPropertyChanged(nameof(this.UseAntilegacyTechnologies));
+            }
         }
     }
 
@@ -110,7 +133,11 @@ public class SettingsViewModel : ViewModel
         get => this.selectedFertilityDrop;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.selectedFertilityDrop, value);
+            if (this.selectedFertilityDrop != value)
+            {
+                this.selectedFertilityDrop = value;
+                this.OnPropertyChanged(nameof(this.SelectedFertilityDrop));
+            }
         }
     }
 
@@ -121,7 +148,11 @@ public class SettingsViewModel : ViewModel
         get => this.selectedWeather;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.selectedWeather, value);
+            if (this.selectedWeather != value)
+            {
+                this.selectedWeather = value;
+                this.OnPropertyChanged(nameof(this.SelectedWeather));
+            }
         }
     }
 
@@ -132,7 +163,11 @@ public class SettingsViewModel : ViewModel
         get => this.selectedSeason;
         set
         {
-            this.RaiseAndSetIfChanged(ref this.selectedSeason, value);
+            if (this.selectedSeason != value)
+            {
+                this.selectedSeason = value;
+                this.OnPropertyChanged(nameof(this.SelectedSeason));
+            }
         }
     }
 
@@ -150,9 +185,15 @@ public class SettingsViewModel : ViewModel
                 value = 1;
             }
 
-            this.RaiseAndSetIfChanged(ref this.corruptionRate, value);
+            if (this.corruptionRate != value)
+            {
+                this.corruptionRate = value;
+                this.OnPropertyChanged(nameof(this.CorruptionRate));
+            }
         }
     }
+
+    public RelayCommand NextCommand { get; init; }
 
     public void Next()
     {

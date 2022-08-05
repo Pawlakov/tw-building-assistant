@@ -1,10 +1,10 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using ReactiveUI;
 using System;
 using TWBuildingAssistant.Model;
 
-public class MainWindowViewModel : WindowViewModel
+public class MainWindowViewModel 
+    : WindowViewModel
 {
     private readonly World world;
 
@@ -28,25 +28,53 @@ public class MainWindowViewModel : WindowViewModel
     public SettingsViewModel Settings
     {
         get => this.settingsViewModel;
-        set => this.RaiseAndSetIfChanged(ref this.settingsViewModel, value);
+        set
+        {
+            if (this.settingsViewModel != value)
+            {
+                this.settingsViewModel = value;
+                this.OnPropertyChanged(nameof(this.Settings));
+            }
+        }
     }
 
     public ProvinceViewModel Province
     {
         get => this.provinceViewModel;
-        set => this.RaiseAndSetIfChanged(ref this.provinceViewModel, value);
+        set
+        {
+            if (this.provinceViewModel != value)
+            {
+                this.provinceViewModel = value;
+                this.OnPropertyChanged(nameof(this.Province));
+            }
+        }
     }
 
     public SeekerViewModel Seeker
     {
         get => this.seekerViewModel;
-        set => this.RaiseAndSetIfChanged(ref this.seekerViewModel, value);
+        set
+        {
+            if (this.seekerViewModel != value)
+            {
+                this.seekerViewModel = value;
+                this.OnPropertyChanged(nameof(this.Seeker));
+            }
+        }
     }
 
     public ViewModel Content
     {
         get => this.content;
-        set => this.RaiseAndSetIfChanged(ref this.content, value);
+        set
+        {
+            if (this.content != value)
+            {
+                this.content = value;
+                this.OnPropertyChanged(nameof(this.Content));
+            }
+        }
     }
 
     private void TransitionFromSettingsToProvince(object sender, SettingsViewModel.NextTransitionEventArgs args)

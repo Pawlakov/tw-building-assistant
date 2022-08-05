@@ -4,11 +4,12 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using TWBuildingAssistant.Model;
+using TWBuildingAssistant.Model.Services;
 
 public class SettingsViewModel 
     : ViewModel
 {
-    private readonly World world;
+    private readonly IWorld world;
 
     private Religion selectedReligion;
 
@@ -28,7 +29,7 @@ public class SettingsViewModel
 
     private int corruptionRate;
 
-    public SettingsViewModel(World world)
+    public SettingsViewModel(IWorld world)
     {
         this.world = world;
         this.Religions = new ObservableCollection<Religion>(this.world.Religions);

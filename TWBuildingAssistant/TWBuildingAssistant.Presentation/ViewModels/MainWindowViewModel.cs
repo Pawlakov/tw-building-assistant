@@ -1,12 +1,12 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
 using System;
-using TWBuildingAssistant.Model;
+using TWBuildingAssistant.Model.Services;
 
 public class MainWindowViewModel 
     : WindowViewModel
 {
-    private readonly World world;
+    private readonly IWorld world;
 
     private SettingsViewModel settingsViewModel;
 
@@ -16,9 +16,9 @@ public class MainWindowViewModel
 
     private ViewModel content;
 
-    public MainWindowViewModel()
+    public MainWindowViewModel(IWorld world)
     {
-        this.world = new World();
+        this.world = world;
 
         this.settingsViewModel = new SettingsViewModel(this.world);
         this.settingsViewModel.NextTransition += this.TransitionFromSettingsToProvince;

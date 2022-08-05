@@ -21,9 +21,9 @@ public partial class App
     {
         return Host.CreateDefaultBuilder(args)
             .AddConfiguration()
-            /*.AddDbContext()
+            .AddDbContext()
             .AddServices()
-            .AddStores()*/
+            /*.AddStores()*/
             .AddViewModels()
             .AddViews();
     }
@@ -31,12 +31,6 @@ public partial class App
     protected override void OnStartup(StartupEventArgs e)
     {
         this.host.Start();
-
-        /*var contextFactory = this.host.Services.GetRequiredService<DbContextFactory>();
-        using (var context = contextFactory.CreateDbContext())
-        {
-            context.Database.Migrate();
-        }*/
 
         var window = this.host.Services.GetRequiredService<MainWindow>();
         window.Show();

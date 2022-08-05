@@ -2,6 +2,7 @@
 
 using System.Collections.ObjectModel;
 using TWBuildingAssistant.Model;
+using TWBuildingAssistant.Model.Services;
 
 public class ViewModelSettingsWindow : ViewModelWindow
 {

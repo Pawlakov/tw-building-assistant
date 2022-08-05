@@ -18,7 +18,8 @@
         {
             if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                var context = new DatabaseContext();
+                var contextFactory = new DatabaseContextFactory();
+                var context = contextFactory.CreateDbContext();
 
                 desktop.MainWindow = new MainWindow
                 {

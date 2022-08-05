@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Model;
+﻿namespace TWBuildingAssistant.Model.Services;
 
 using System;
 using System.Collections.Generic;
@@ -6,10 +6,14 @@ using System.Linq;
 using TWBuildingAssistant.Data.Sqlite;
 
 public class World
+    : IWorld
 {
-    public World()
+    private readonly DatabaseContextFactory contextFactory;
+
+    public World(DatabaseContextFactory contextFactory)
     {
-        using (var context = new DatabaseContext())
+        this.contextFactory = contextFactory;
+        using (var context = this.contextFactory.CreateDbContext())
         {
             var resources = new List<KeyValuePair<int, Resource>>();
             foreach (var resourceEntity in context.Resources.ToList())
@@ -163,23 +167,23 @@ public class World
                 factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect)));
             }
 
-            this.Religions = religions.Select(x => x.Value);
-            this.Provinces = provinces.Select(x => x.Value);
-            this.Factions = factions.Select(x => x.Value);
-            this.Weathers = weathers.Select(x => x.Value);
-            this.Seasons = seasons.Select(x => x.Value);
+            Religions = religions.Select(x => x.Value);
+            Provinces = provinces.Select(x => x.Value);
+            Factions = factions.Select(x => x.Value);
+            Weathers = weathers.Select(x => x.Value);
+            Seasons = seasons.Select(x => x.Value);
         }
     }
 
-    public IEnumerable<Religion> Religions { get; }
+    public IEnumerable<Religion> Religions { get; init; }
 
-    public IEnumerable<Province> Provinces { get; }
+    public IEnumerable<Province> Provinces { get; init; }
 
-    public IEnumerable<Faction> Factions { get; }
+    public IEnumerable<Faction> Factions { get; init; }
 
-    public IEnumerable<Weather> Weathers { get; }
+    public IEnumerable<Weather> Weathers { get; init; }
 
-    public IEnumerable<Season> Seasons { get; }
+    public IEnumerable<Season> Seasons { get; init; }
 
     private static Effect MakeEffect(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
     {

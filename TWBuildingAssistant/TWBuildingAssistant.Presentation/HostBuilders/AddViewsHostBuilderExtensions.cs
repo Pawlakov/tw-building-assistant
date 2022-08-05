@@ -1,5 +1,4 @@
 ﻿namespace TWBuildingAssistant.Presentation.HostBuilders;
-
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TWBuildingAssistant.Presentation.ViewModels;

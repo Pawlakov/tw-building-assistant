@@ -5,10 +5,13 @@ using System.IO;
 using Microsoft.EntityFrameworkCore;
 using TWBuildingAssistant.Data.Sqlite.Entities;
 
-public class DatabaseContext 
+public class DatabaseContext
     : DbContext
 {
-    private readonly string File = $@"Data Source={Path.Combine("Sqlite", "twa_data.db")}";
+    public DatabaseContext(DbContextOptions options)
+        : base(options)
+    {
+    }
 
     public DbSet<Bonus> Bonuses { get; set; }
 
@@ -43,11 +46,6 @@ public class DatabaseContext
     public DbSet<Weather> Weathers { get; set; }
 
     public DbSet<WeatherEffect> WeatherEffects { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        options.UseSqlite(this.File);
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

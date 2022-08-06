@@ -65,7 +65,7 @@ public class Province
             var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
             var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
             var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);
-            var income = IncomeOperations.GetIncome(IncomeOperations.Collect(effect.Incomes), fertility);
+            var income = IncomeOperations.Collect(effect.Incomes, fertility);
 
             return new ProvinceState(sanitation, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
         }

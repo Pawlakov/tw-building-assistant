@@ -1,9 +1,7 @@
 ﻿namespace TWBuildingAssistant.Domain.Models;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using EnumsNET;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Domain.Exceptions;
 using static TWBuildingAssistant.Domain.Models.Income;
@@ -29,7 +27,7 @@ public static class IncomeOperations
             (_, IncomeCategory.Maintenance, _) =>
                 new Income(null, 0, value),
             (_, _, _) =>
-                new Income(new List<KeyValuePair<IncomeCategory, Record>> { new KeyValuePair<IncomeCategory, Income.Record>(category.Value, Create(value, type)) }, 0, 0),
+                new Income(new List<KeyValuePair<IncomeCategory, Record>> { new KeyValuePair<IncomeCategory, Record>(category.Value, Create(value, type)) }, 0, 0),
         };
     }
 
@@ -48,7 +46,7 @@ public static class IncomeOperations
         };
     }
 
-    public static Income Collect(IEnumerable<Income> incomes)
+    public static double Collect(IEnumerable<Income> incomes, int fertilityLevel)
     {
         var records = new List<KeyValuePair<IncomeCategory, Record>>();
         var allBonus = 0;
@@ -72,7 +70,22 @@ public static class IncomeOperations
             maintenance += income.Maintenance;
         }
 
-        return new Income(records, allBonus, maintenance);
+        var combined = new Income(records, allBonus, maintenance);
+        if (combined.Records == null)
+        {
+            return 0d;
+        }
+
+        var value = 0d;
+        foreach (var recordPair in combined.Records)
+        {
+            var record = recordPair.Value;
+            var percentage = (100 + combined.AllBonus + record.Percentage) * 0.01;
+            value += (record.Simple + (record.FertilityDependent * fertilityLevel)) * percentage;
+        }
+
+        var result = combined.Maintenance + value;
+        return result;
     }
 
     public static Record Collect(IEnumerable<Record> records)
@@ -81,28 +94,6 @@ public static class IncomeOperations
                 records.Sum(x => x.Simple),
                 records.Sum(x => x.Percentage),
                 records.Sum(x => x.FertilityDependent));
-    }
-
-    public static double GetIncome(Income income, int fertilityLevel)
-    {
-        if (income.Records == null)
-        {
-            return 0d;
-        }
-
-        var value = 0d;
-        foreach (var record in income.Records)
-        {
-            value += GetIncome(Collect(new[] { record.Value, new Record(0, income.AllBonus, 0), }), fertilityLevel);
-        }
-
-        var result = income.Maintenance + value;
-        return result;
-    }
-
-    public static double GetIncome(Record record, int fertility)
-    {
-        return (record.Simple + (record.FertilityDependent * fertility)) * ((100 + record.Percentage) * 0.01);
     }
 
     public static Income TakeWorst(IEnumerable<Income> incomes)

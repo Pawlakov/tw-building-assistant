@@ -12,7 +12,7 @@ public class IncomeTest
     {
         var bonus = IncomeOperations.Create(50, IncomeCategory.Industry, BonusType.Simple);
 
-        var income = IncomeOperations.GetIncome(bonus, 3);
+        var income = IncomeOperations.Collect(new[] { bonus }, 3);
 
         Assert.AreEqual(50, income);
     }

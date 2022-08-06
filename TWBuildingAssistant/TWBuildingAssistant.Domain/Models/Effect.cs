@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public struct Effect : IEquatable<Effect>
+public struct Effect
 {
     private IEnumerable<Income>? incomes;
 
@@ -61,39 +61,5 @@ public struct Effect : IEquatable<Effect>
             left.Influence + right.Influence);
 
         return result;
-    }
-
-    public static Effect TakeWorse(Effect left, Effect right)
-    {
-        var result = new Effect(
-            Math.Min(left.PublicOrder, right.PublicOrder),
-            Math.Min(left.RegularFood, right.RegularFood),
-            Math.Min(left.FertilityDependentFood, right.FertilityDependentFood),
-            Math.Min(left.ProvincialSanitation, right.ProvincialSanitation),
-            Math.Min(left.ResearchRate, right.ResearchRate),
-            Math.Min(left.Growth, right.Growth),
-            Math.Min(left.Fertility, right.Fertility),
-            Math.Min(left.ReligiousOsmosis, right.ReligiousOsmosis),
-            Math.Min(left.RegionalSanitation, right.RegionalSanitation),
-            new[] { IncomeOperations.TakeWorst(left.Incomes.Concat(right.Incomes)), },
-            Influence.TakeWorse(left.Influence, right.Influence));
-
-        return result;
-    }
-
-    public bool Equals(Effect other)
-    {
-        throw new NotImplementedException("When is this thing even used?");
-        /*return this.PublicOrder == other.PublicOrder &&
-            this.RegularFood == other.RegularFood &&
-            this.FertilityDependentFood == other.FertilityDependentFood &&
-            this.ProvincialSanitation == other.ProvincialSanitation &&
-            this.ResearchRate == other.ResearchRate &&
-            this.Growth == other.Growth &&
-            this.Fertility == other.Fertility &&
-            this.ReligiousOsmosis == other.ReligiousOsmosis &&
-            this.RegionalSanitation == other.RegionalSanitation &&
-            this.Income.Equals(other.Income) &&
-            this.Influence.Equals(other.Influence);*/
     }
 }

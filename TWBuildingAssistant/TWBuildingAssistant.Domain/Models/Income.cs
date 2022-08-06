@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Domain.Exceptions;
-using static TWBuildingAssistant.Domain.Models.Income;
 
 public static class IncomeOperations
 {
@@ -23,11 +22,11 @@ public static class IncomeOperations
             (_, not IncomeCategory.Husbandry and not IncomeCategory.Agriculture, BonusType.FertilityDependent) =>
                 throw new DomainRuleViolationException("Invalid fertility-based income."),
             (_, null, _) =>
-                new Income(null, value, 0),
+                new Income(new KeyValuePair<IncomeCategory, Record>[0], value, 0),
             (_, IncomeCategory.Maintenance, _) =>
-                new Income(null, 0, value),
+                new Income(new KeyValuePair<IncomeCategory, Record>[0], 0, value),
             (_, _, _) =>
-                new Income(new List<KeyValuePair<IncomeCategory, Record>> { new KeyValuePair<IncomeCategory, Record>(category.Value, Create(value, type)) }, 0, 0),
+                new Income(new [] { new KeyValuePair<IncomeCategory, Record>(category.Value, Create(value, type)) }, 0, 0),
         };
     }
 
@@ -70,7 +69,7 @@ public static class IncomeOperations
             maintenance += income.Maintenance;
         }
 
-        var combined = new Income(records, allBonus, maintenance);
+        var combined = new Income(records.ToArray(), allBonus, maintenance);
         if (combined.Records == null)
         {
             return 0d;
@@ -118,7 +117,7 @@ public static class IncomeOperations
 
         var allBonus = incomes.Min(x => x.AllBonus);
         var maintenance = incomes.Min(x => x.Maintenance);
-        return new Income(records, allBonus, maintenance);
+        return new Income(records.ToArray(), allBonus, maintenance);
     }
 
     public static Record TakeWorst(IEnumerable<Record> records)
@@ -130,41 +129,6 @@ public static class IncomeOperations
     }
 }
 
-public struct Income
-{
-    internal Income(IEnumerable<KeyValuePair<IncomeCategory, Record>>? records, int allBonus, int maintenance)
-    {
-        this.AllBonus = allBonus;
-        this.Maintenance = maintenance;
-        if (records != null)
-        {
-            this.Records = records.ToArray();
-        }
-        else
-        {
-            this.Records = new KeyValuePair<IncomeCategory, Record>[0];
-        }
-    }
+public readonly record struct Income(KeyValuePair<IncomeCategory, Record>[] Records, int Maintenance, int AllBonus);
 
-    public KeyValuePair<IncomeCategory, Record>[] Records { get; init; }
-
-    public int Maintenance { get; init; }
-
-    public int AllBonus { get; init; }
-
-    public struct Record
-    {
-        public Record(int simple = 0, int percentage = 0, int fertilityDependent = 0)
-        {
-            this.Simple = simple;
-            this.Percentage = percentage;
-            this.FertilityDependent = fertilityDependent;
-        }
-
-        public int Simple { get; init; }
-
-        public int Percentage { get; init; }
-
-        public int FertilityDependent { get; init; }
-    }
-}
+public readonly record struct Record(int Simple, int Percentage, int FertilityDependent);

@@ -19,6 +19,9 @@
                 </StackPanel>
             </Border>
         </StackPanel>
+        <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+            <ProgressBar Height="20" Width="420"/>
+        </Border>
         <StackPanel Orientation="Horizontal">
             <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
                 <Button Width="200" Content="Previous" Command="{Binding PreviousCommand}"/>

@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 public interface ISeekService
 {
-    Task Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition);
+    void Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition);
 }

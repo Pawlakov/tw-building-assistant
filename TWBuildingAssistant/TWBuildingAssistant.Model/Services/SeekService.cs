@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 public class SeekService
     : ISeekService
 {
-    public async Task Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition)
+    public void Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition)
     {
         var lastSlot = slots.Last();
         var original = slots.Select(x => x.Building).ToList().AsEnumerable();
         var bestCombination = original.ToList().AsEnumerable();
         var bestWealth = 0d;
 
-        async Task RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
+        void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
         {
             var slot = slots[slotIndex];
             var options = province.Owner.GetBuildingLevelsForSlot(province, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
@@ -34,12 +34,12 @@ public class SeekService
                 }
                 else
                 {
-                    await RecursiveSeek(slotIndex + 1, currentCombination);
+                    RecursiveSeek(slotIndex + 1, currentCombination);
                 }
             }
         }
 
-        await RecursiveSeek(0, new List<BuildingLevel>());
+        RecursiveSeek(0, new List<BuildingLevel>());
         var enumerator = bestCombination.GetEnumerator();
         foreach (var slot in slots)
         {

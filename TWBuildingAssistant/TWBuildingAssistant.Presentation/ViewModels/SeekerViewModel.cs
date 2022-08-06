@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 using TWBuildingAssistant.Model;
 using TWBuildingAssistant.Model.Services;
 
-public class SeekerViewModel 
+public class SeekerViewModel
     : ViewModel
 {
     private readonly ISeekService seekService;
 
     private readonly Province province;
-
     private readonly IEnumerable<BuildingSlot> slots;
 
     private bool requireSantitation;
-
     private int minimalPublicOrder;
+    private bool locked;
 
     public SeekerViewModel(ISeekService seekService, Province province, IEnumerable<BuildingSlot> slots)
     {
@@ -27,11 +26,12 @@ public class SeekerViewModel
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
+        this.locked = false;
         this.province = province;
         this.slots = slots.ToList();
 
-        this.SeekCommand = new AsyncRelayCommand(this.Seek);
-        this.PreviousCommand = new RelayCommand(this.Previous);
+        this.SeekCommand = new AsyncRelayCommand(this.Seek, this.SeekEnabled);
+        this.PreviousCommand = new RelayCommand(this.Previous, this.PreviousEnabled);
     }
 
     public event EventHandler<PreviousTransitionEventArgs> PreviousTransition;
@@ -66,19 +66,35 @@ public class SeekerViewModel
 
     public RelayCommand PreviousCommand { get; init; }
 
-    public async Task Seek()
+    private async Task Seek()
     {
-        if (this.slots.Any())
+        await Task.Run(() =>
         {
-            await this.seekService.Seek(this.province, this.slots.ToList(), this.MinimalCondition);
-        }
+            this.locked = true;
+            if (this.slots.Any())
+            {
+                this.seekService.Seek(this.province, this.slots.ToList(), this.MinimalCondition);
+            }
+
+            this.locked = false;
+        });
 
         this.Previous();
     }
 
-    public void Previous()
+    private void Previous()
     {
         this.PreviousTransition?.Invoke(this, new PreviousTransitionEventArgs(this.province));
+    }
+
+    private bool SeekEnabled()
+    {
+        return !this.locked;
+    }
+
+    private bool PreviousEnabled()
+    {
+        return !this.locked;
     }
 
     private bool MinimalCondition(ProvinceState state)

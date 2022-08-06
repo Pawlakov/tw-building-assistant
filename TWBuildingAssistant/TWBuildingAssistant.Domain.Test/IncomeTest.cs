@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 using TWBuildingAssistant.Data.Model;
-using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.Models;
 
 [TestFixture]
 public class IncomeTest
@@ -10,9 +10,9 @@ public class IncomeTest
     [Test]
     public void SimpleBonus()
     {
-        var bonus = new Income(50, IncomeCategory.Industry, BonusType.Simple);
+        var bonus = IncomeOperations.Create(50, IncomeCategory.Industry, BonusType.Simple);
 
-        var income = bonus.GetIncome(3);
+        var income = IncomeOperations.GetIncome(bonus, 3);
 
         Assert.AreEqual(50, income);
     }

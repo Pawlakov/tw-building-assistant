@@ -55,7 +55,7 @@ public class Province
     {
         get
         {
-            var corruptionEffect = new Effect(0, 0, 0, 0, 0, 0, 0, 0, 0, new Income(-this.CorruptionRate, null, BonusType.Percentage), default);
+            var corruptionEffect = new Effect(0, 0, 0, 0, 0, 0, 0, 0, 0, new[] { IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage), }, default);
 
             var climateEffect = this.climate.GetEffect(this.Season, this.Weather);
             var regionalEffects = this.Regions.Select(x => x.Effect);
@@ -63,9 +63,9 @@ public class Province
 
             var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
             var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
-            var food = effect.RegularFood + fertility * effect.FertilityDependentFood;
+            var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
             var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);
-            var income = effect.Income.GetIncome(fertility);
+            var income = IncomeOperations.GetIncome(IncomeOperations.Collect(effect.Incomes), fertility);
 
             return new ProvinceState(sanitation, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
         }

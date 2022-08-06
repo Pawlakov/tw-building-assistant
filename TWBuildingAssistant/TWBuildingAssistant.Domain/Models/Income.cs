@@ -6,175 +6,174 @@ using System.Linq;
 using EnumsNET;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Domain.Exceptions;
+using static TWBuildingAssistant.Domain.Models.Income;
 
-public struct Income : IEquatable<Income>
+public static class IncomeOperations
 {
-    private readonly IEnumerable<KeyValuePair<IncomeCategory, IncomeRecord>> records;
-
-    private readonly int maintenance;
-
-    private readonly int allBonus;
-
-    public Income(int value, IncomeCategory? category, BonusType type)
+    public static Income Create(int value, IncomeCategory? category, BonusType type)
     {
-        if (value == 0)
+        return (value, category, type) switch
         {
-            throw new DomainRuleViolationException("'0' income.");
-        }
-
-        if (value > 0 && category == IncomeCategory.Maintenance)
-        {
-            throw new DomainRuleViolationException("Positive 'Maintenance' income.");
-        }
-
-        if (category == IncomeCategory.Maintenance && type != BonusType.Simple)
-        {
-            throw new DomainRuleViolationException("Invalid 'Maintenance' income.");
-        }
-
-        if (category == null && type != BonusType.Percentage)
-        {
-            throw new DomainRuleViolationException("Invalid 'All' income.");
-        }
-
-        if (type == BonusType.FertilityDependent && category != IncomeCategory.Husbandry && category != IncomeCategory.Agriculture)
-        {
-            throw new DomainRuleViolationException("Invalid fertility-based income.");
-        }
-
-        if (category == null)
-        {
-            this.records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
-            this.allBonus = value;
-            this.maintenance = 0;
-        }
-        else if (category == IncomeCategory.Maintenance)
-        {
-            this.records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
-            this.allBonus = 0;
-            this.maintenance = value;
-        }
-        else
-        {
-            this.records = new List<KeyValuePair<IncomeCategory, IncomeRecord>> { new KeyValuePair<IncomeCategory, IncomeRecord>(category.Value, new IncomeRecord(value, type)) };
-            this.allBonus = 0;
-            this.maintenance = 0;
-        }
+            (0, _, _) =>
+                throw new DomainRuleViolationException("'0' income."),
+            ( > 0, IncomeCategory.Maintenance, _) =>
+                throw new DomainRuleViolationException("Positive 'Maintenance' income."),
+            (_, IncomeCategory.Maintenance, not BonusType.Simple) =>
+                throw new DomainRuleViolationException("Invalid 'Maintenance' income."),
+            (_, null, not BonusType.Percentage) =>
+                throw new DomainRuleViolationException("Invalid 'All' income."),
+            (_, not IncomeCategory.Husbandry and not IncomeCategory.Agriculture, BonusType.FertilityDependent) =>
+                throw new DomainRuleViolationException("Invalid fertility-based income."),
+            (_, null, _) =>
+                new Income(null, value, 0),
+            (_, IncomeCategory.Maintenance, _) =>
+                new Income(null, 0, value),
+            (_, _, _) =>
+                new Income(new List<KeyValuePair<IncomeCategory, Record>> { new KeyValuePair<IncomeCategory, Income.Record>(category.Value, Create(value, type)) }, 0, 0),
+        };
     }
 
-    private Income(IEnumerable<KeyValuePair<IncomeCategory, IncomeRecord>> records, int allBonus, int maintenance)
+    public static Record Create(int value, BonusType type)
     {
-        this.allBonus = allBonus;
-        this.maintenance = maintenance;
-        if (records != null)
+        return type switch
         {
-            this.records = records;
-        }
-        else
-        {
-            this.records = new Dictionary<IncomeCategory, IncomeRecord>();
-        }
+            BonusType.Simple =>
+                new Record(value, 0, 0),
+            BonusType.Percentage =>
+                new Record(0, value, 0),
+            BonusType.FertilityDependent =>
+                new Record(0, 0, value),
+            _ =>
+                throw new DomainRuleViolationException("Unknown bonus type."),
+        };
     }
 
-    public static Income operator +(Income left, Income right)
+    public static Income Collect(IEnumerable<Income> incomes)
     {
-        var records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
-        if (left.records != null)
+        var records = new List<KeyValuePair<IncomeCategory, Record>>();
+        var allBonus = 0;
+        var maintenance = 0;
+        foreach (var income in incomes)
         {
-            records.AddRange(left.records);
-        }
-
-        if (right.records != null)
-        {
-            foreach (var record in right.records)
+            foreach (var record in income.Records)
             {
                 var presentRecordIndex = records.FindIndex(x => x.Key == record.Key);
                 if (presentRecordIndex > -1)
                 {
-                    records[presentRecordIndex] = new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, records[presentRecordIndex].Value + record.Value);
+                    records[presentRecordIndex] = new KeyValuePair<IncomeCategory, Record>(record.Key, Collect(new[] { records[presentRecordIndex].Value, record.Value, }));
                 }
                 else
                 {
-                    records.Add(new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, record.Value));
+                    records.Add(new KeyValuePair<IncomeCategory, Record>(record.Key, record.Value));
                 }
             }
+
+            allBonus += income.AllBonus;
+            maintenance += income.Maintenance;
         }
 
-        var allBonus = left.allBonus + right.allBonus;
-        var maintenance = left.maintenance + right.maintenance;
         return new Income(records, allBonus, maintenance);
     }
 
-    public static Income TakeWorse(Income left, Income right)
+    public static Record Collect(IEnumerable<Record> records)
     {
-        var oldRecords = (left.records?.ToList() ?? new List<KeyValuePair<IncomeCategory, IncomeRecord>>())
-            .Concat(right.records?.ToList() ?? new List<KeyValuePair<IncomeCategory, IncomeRecord>>())
-            .GroupBy(x => x.Key)
-            .ToDictionary(x => x.Key, x => x.Select(y => y.Value).ToList());
-
-        var records = new List<KeyValuePair<IncomeCategory, IncomeRecord>>();
-        foreach (var record in oldRecords)
-        {
-            if (record.Value.Count == 2)
-            {
-                records.Add(new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, IncomeRecord.TakeWorse(record.Value[0], record.Value[1])));
-            }
-            else
-            {
-                records.Add(new KeyValuePair<IncomeCategory, IncomeRecord>(record.Key, IncomeRecord.TakeWorse(record.Value[0], default)));
-            }
-        }
-
-        var allBonus = Math.Min(left.allBonus, right.allBonus);
-        var maintenance = Math.Min(left.maintenance, right.maintenance);
-        return new Income(records, allBonus, maintenance);
+        return new Record(
+                records.Sum(x => x.Simple),
+                records.Sum(x => x.Percentage),
+                records.Sum(x => x.FertilityDependent));
     }
 
-    public double GetIncome(int fertilityLevel)
+    public static double GetIncome(Income income, int fertilityLevel)
     {
-        if (this.records == null)
+        if (income.Records == null)
         {
             return 0d;
         }
 
-        var income = 0d;
-        foreach (var record in this.records)
+        var value = 0d;
+        foreach (var record in income.Records)
         {
-            income += (record.Value + new IncomeRecord(0, this.allBonus, 0)).GetIncome(fertilityLevel);
+            value += GetIncome(Collect(new[] { record.Value, new Record(0, income.AllBonus, 0), }), fertilityLevel);
         }
 
-        var result = this.maintenance + income;
+        var result = income.Maintenance + value;
         return result;
     }
 
-    public bool Equals(Income other)
+    public static double GetIncome(Record record, int fertility)
     {
-        if (this.allBonus != other.allBonus)
-        {
-            return false;
-        }
+        return (record.Simple + (record.FertilityDependent * fertility)) * ((100 + record.Percentage) * 0.01);
+    }
 
-        if (this.maintenance != other.maintenance)
-        {
-            return false;
-        }
+    public static Income TakeWorst(IEnumerable<Income> incomes)
+    {
+        var oldRecords = incomes
+            .SelectMany(x => x.Records)
+            .GroupBy(x => x.Key)
+            .ToDictionary(x => x.Key, x => x.Select(y => y.Value).ToList());
 
-        if (this.records?.Count() != other.records?.Count())
+        var records = new List<KeyValuePair<IncomeCategory, Record>>();
+        foreach (var record in oldRecords)
         {
-            return false;
-        }
-
-        if (this.records != null)
-        {
-            foreach (var record in this.records)
+            if (record.Value.Count == 2)
             {
-                if (!record.Value.Equals(other.records.SingleOrDefault(x => x.Key == record.Key).Value))
-                {
-                    return false;
-                }
+                records.Add(new KeyValuePair<IncomeCategory, Record>(record.Key, TakeWorst(new[] { record.Value[0], record.Value[1] })));
+            }
+            else
+            {
+                records.Add(new KeyValuePair<IncomeCategory, Record>(record.Key, TakeWorst(new[] { record.Value[0], default })));
             }
         }
 
-        return true;
+        var allBonus = incomes.Min(x => x.AllBonus);
+        var maintenance = incomes.Min(x => x.Maintenance);
+        return new Income(records, allBonus, maintenance);
+    }
+
+    public static Record TakeWorst(IEnumerable<Record> records)
+    {
+        return new Record(
+            records.Min(x => x.Simple),
+            records.Min(x => x.Percentage),
+            records.Min(x => x.FertilityDependent));
+    }
+}
+
+public struct Income
+{
+    internal Income(IEnumerable<KeyValuePair<IncomeCategory, Record>>? records, int allBonus, int maintenance)
+    {
+        this.AllBonus = allBonus;
+        this.Maintenance = maintenance;
+        if (records != null)
+        {
+            this.Records = records.ToArray();
+        }
+        else
+        {
+            this.Records = new KeyValuePair<IncomeCategory, Record>[0];
+        }
+    }
+
+    public KeyValuePair<IncomeCategory, Record>[] Records { get; init; }
+
+    public int Maintenance { get; init; }
+
+    public int AllBonus { get; init; }
+
+    public struct Record
+    {
+        public Record(int simple = 0, int percentage = 0, int fertilityDependent = 0)
+        {
+            this.Simple = simple;
+            this.Percentage = percentage;
+            this.FertilityDependent = fertilityDependent;
+        }
+
+        public int Simple { get; init; }
+
+        public int Percentage { get; init; }
+
+        public int FertilityDependent { get; init; }
     }
 }

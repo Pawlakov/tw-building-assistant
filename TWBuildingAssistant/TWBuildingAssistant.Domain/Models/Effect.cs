@@ -1,10 +1,14 @@
 ﻿namespace TWBuildingAssistant.Domain.Models;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public struct Effect : IEquatable<Effect>
 {
-    public Effect(int publicOrder = 0, int regularFood = 0, int fertilityDependentFood = 0, int provincialSanitation = 0, int researchRate = 0, int growth = 0, int fertility = 0, int religiousOsmosis = 0, int regionalSanitation = 0, Income income = default, Influence influence = default)
+    private IEnumerable<Income>? incomes;
+
+    public Effect(int publicOrder = 0, int regularFood = 0, int fertilityDependentFood = 0, int provincialSanitation = 0, int researchRate = 0, int growth = 0, int fertility = 0, int religiousOsmosis = 0, int regionalSanitation = 0, IEnumerable<Income>? incomes = default, Influence influence = default)
     {
         this.PublicOrder = publicOrder;
         this.RegularFood = regularFood;
@@ -15,7 +19,7 @@ public struct Effect : IEquatable<Effect>
         this.Fertility = fertility;
         this.ReligiousOsmosis = religiousOsmosis;
         this.RegionalSanitation = regionalSanitation;
-        this.Income = income;
+        this.incomes = incomes;
         this.Influence = influence;
     }
 
@@ -37,7 +41,7 @@ public struct Effect : IEquatable<Effect>
 
     public int RegionalSanitation { get; }
 
-    public Income Income { get; }
+    public IEnumerable<Income> Incomes => this.incomes ?? new Income[0];
 
     public Influence Influence { get; }
 
@@ -53,7 +57,7 @@ public struct Effect : IEquatable<Effect>
             left.Fertility + right.Fertility,
             left.ReligiousOsmosis + right.ReligiousOsmosis,
             left.RegionalSanitation + right.RegionalSanitation,
-            left.Income + right.Income,
+            left.Incomes.Concat(right.Incomes),
             left.Influence + right.Influence);
 
         return result;
@@ -71,7 +75,7 @@ public struct Effect : IEquatable<Effect>
             Math.Min(left.Fertility, right.Fertility),
             Math.Min(left.ReligiousOsmosis, right.ReligiousOsmosis),
             Math.Min(left.RegionalSanitation, right.RegionalSanitation),
-            Income.TakeWorse(left.Income, right.Income),
+            new[] { IncomeOperations.TakeWorst(left.Incomes.Concat(right.Incomes)), },
             Influence.TakeWorse(left.Influence, right.Influence));
 
         return result;
@@ -79,7 +83,8 @@ public struct Effect : IEquatable<Effect>
 
     public bool Equals(Effect other)
     {
-        return this.PublicOrder == other.PublicOrder &&
+        throw new NotImplementedException("When is this thing even used?");
+        /*return this.PublicOrder == other.PublicOrder &&
             this.RegularFood == other.RegularFood &&
             this.FertilityDependentFood == other.FertilityDependentFood &&
             this.ProvincialSanitation == other.ProvincialSanitation &&
@@ -89,6 +94,6 @@ public struct Effect : IEquatable<Effect>
             this.ReligiousOsmosis == other.ReligiousOsmosis &&
             this.RegionalSanitation == other.RegionalSanitation &&
             this.Income.Equals(other.Income) &&
-            this.Influence.Equals(other.Influence);
+            this.Influence.Equals(other.Influence);*/
     }
 }

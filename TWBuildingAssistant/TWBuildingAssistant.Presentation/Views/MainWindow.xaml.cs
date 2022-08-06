@@ -1,7 +1,6 @@
 ﻿namespace TWBuildingAssistant.Presentation.Views;
 
 using System.Windows;
-using TWBuildingAssistant.Presentation.ViewModels;
 
 public partial class MainWindow 
     : Window

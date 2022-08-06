@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using TWBuildingAssistant.Data.Sqlite.Entities;
 
-public class ListViewModel : ViewModelBase
+public class ListViewModel : ViewModel
 {
     public ListViewModel(IEnumerable<Resource> items)
     {

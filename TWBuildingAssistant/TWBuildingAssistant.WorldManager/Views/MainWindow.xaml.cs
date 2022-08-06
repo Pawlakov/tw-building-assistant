@@ -1,18 +1,13 @@
 ﻿namespace TWBuildingAssistant.WorldManager.Views;
 
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using System.Windows;
 
-public class MainWindow : Window
+public partial class MainWindow 
+    : Window
 {
-    public MainWindow()
+    public MainWindow(object dataContex)
     {
         this.InitializeComponent();
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
+        this.DataContext = dataContex;
     }
 }

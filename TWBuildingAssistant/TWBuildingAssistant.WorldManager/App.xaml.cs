@@ -1,33 +1,49 @@
-﻿namespace TWBuildingAssistant.WorldManager
+﻿namespace TWBuildingAssistant.WorldManager;
+
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Windows;
+using TWBuildingAssistant.Data.HostBuilders;
+using TWBuildingAssistant.WorldManager.HostBuilders;
+using TWBuildingAssistant.WorldManager.ViewModels;
+using TWBuildingAssistant.WorldManager.Views;
+
+public partial class App 
+    : Application
 {
-    using Avalonia;
-    using Avalonia.Controls.ApplicationLifetimes;
-    using Avalonia.Markup.Xaml;
-    using TWBuildingAssistant.Data.Sqlite;
-    using TWBuildingAssistant.WorldManager.ViewModels;
-    using TWBuildingAssistant.WorldManager.Views;
+    private readonly IHost host;
 
-    public class App : Application
+    public App()
     {
-        public override void Initialize()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+        this.host = CreateHostBuilder().Build();
+    }
 
-        public override void OnFrameworkInitializationCompleted()
-        {
-            if (this.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                var contextFactory = new DatabaseContextFactory();
-                var context = contextFactory.CreateDbContext();
+    public static IHostBuilder CreateHostBuilder(string[] args = null)
+    {
+        return Host.CreateDefaultBuilder(args)
+            .AddConfiguration()
+            .AddDbContext()
+            /*.AddServices()
+            .AddStores()*/
+            .AddViewModels()
+            .AddViews();
+    }
 
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainWindowViewModel(context),
-                };
-            }
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        this.host.Start();
 
-            base.OnFrameworkInitializationCompleted();
-        }
+        var window = this.host.Services.GetRequiredService<MainWindow>();
+        window.Show();
+
+        base.OnStartup(e);
+    }
+
+    protected override async void OnExit(ExitEventArgs e)
+    {
+        await this.host.StopAsync();
+        this.host.Dispose();
+
+        base.OnExit(e);
     }
 }

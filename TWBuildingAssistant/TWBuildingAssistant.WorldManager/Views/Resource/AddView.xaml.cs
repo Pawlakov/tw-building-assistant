@@ -1,17 +1,12 @@
 ﻿namespace TWBuildingAssistant.WorldManager.Views.Resources;
 
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using System.Windows.Controls;
 
-public class AddView : UserControl
+public partial class AddView 
+    : UserControl
 {
     public AddView()
     {
         this.InitializeComponent();
-    }
-
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
     }
 }

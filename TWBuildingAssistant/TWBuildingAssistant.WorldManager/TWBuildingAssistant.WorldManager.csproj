@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net7.0-windows</TargetFramework>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
+    <UseWPF>True</UseWPF>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
@@ -12,7 +13,6 @@
     <AvaloniaResource Include="**\*.xaml">
       <SubType>Designer</SubType>
     </AvaloniaResource>
-    <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Remove="Views\AddView.xaml" />
@@ -23,9 +23,8 @@
     <None Remove="Views\ListView.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.10.17" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.10.17" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.17" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

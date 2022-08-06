@@ -1,17 +1,14 @@
-﻿namespace TWBuildingAssistant.Old.ViewModel;
+﻿namespace TWBuildingAssistant.WorldManager.ViewModels;
 
-using System;
 using System.ComponentModel;
 
-public class ViewModelWindow : INotifyPropertyChanged
+public class ViewModel
+    : INotifyPropertyChanged
 {
-    public event EventHandler CloseWindow;
-
     public event PropertyChangedEventHandler PropertyChanged;
 
-    protected void OnCloseWindow()
+    public virtual void Dispose()
     {
-        this.CloseWindow?.Invoke(this, EventArgs.Empty);
     }
 
     protected void OnPropertyChanged(string propertyName)

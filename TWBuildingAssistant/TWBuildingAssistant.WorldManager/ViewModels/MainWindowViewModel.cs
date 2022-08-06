@@ -1,25 +1,30 @@
 ﻿namespace TWBuildingAssistant.WorldManager.ViewModels;
 
-using System;
-using System.Reactive.Linq;
-using ReactiveUI;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Data.Sqlite.Entities;
 using TWBuildingAssistant.WorldManager.ViewModels.Resources;
 
-public class MainWindowViewModel : ViewModelBase
+public class MainWindowViewModel 
+    : ViewModel
 {
-    private ViewModelBase content;
+    private ViewModel content;
 
     public MainWindowViewModel(DatabaseContext context)
     {
         this.Content = this.List = new ListViewModel(context.Resources);
     }
 
-    public ViewModelBase Content
+    public ViewModel Content
     {
         get => this.content;
-        private set => this.RaiseAndSetIfChanged(ref this.content, value);
+        private set
+        {
+            if (this.content != value)
+            {
+                this.content = value;
+                this.OnPropertyChanged(nameof(this.Content));
+            }
+        }
     }
 
     public ListViewModel List { get; }
@@ -28,7 +33,7 @@ public class MainWindowViewModel : ViewModelBase
     {
         var vm = new AddViewModel();
 
-        Observable.Merge(
+        /*Observable.Merge(
             vm.Ok,
             vm.Cancel.Select(_ => (Resource)null))
             .Take(1)
@@ -40,7 +45,7 @@ public class MainWindowViewModel : ViewModelBase
                 }
 
                 this.Content = this.List;
-            });
+            });*/
 
         this.Content = vm;
     }

@@ -1,13 +1,12 @@
-﻿<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              x:Class="TWBuildingAssistant.WorldManager.Views.Resources.AddView">
   <DockPanel>
-    <Button DockPanel.Dock="Bottom" Command="{Binding Cancel}">Cancel</Button>
-    <Button DockPanel.Dock="Bottom" Command="{Binding Ok}">OK</Button>
+    <Button DockPanel.Dock="Bottom" Command="{Binding CancelCommand}">Cancel</Button>
+    <Button DockPanel.Dock="Bottom" Command="{Binding OkCommand}">OK</Button>
     <TextBox AcceptsReturn="False"
-             Text="{Binding Description}"
-             Watermark="Enter name"/>
+             Text="{Binding Description}" />
   </DockPanel>
 </UserControl>

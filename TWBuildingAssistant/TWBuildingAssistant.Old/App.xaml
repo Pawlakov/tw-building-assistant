@@ -1,9 +1,0 @@
-﻿<Application x:Class="TWBuildingAssistant.Old.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TWBuildingAssistant.Old"
-             StartupUri="View/SettingsWindow.xaml">
-    <Application.Resources>
-         
-    </Application.Resources>
-</Application>

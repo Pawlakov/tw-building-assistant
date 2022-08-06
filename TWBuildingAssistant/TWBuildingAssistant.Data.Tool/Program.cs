@@ -1,21 +1,35 @@
 ﻿namespace TWBuildingAssistant.Data.Tool;
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using TWBuildingAssistant.Data.HostBuilders;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Data.Sqlite.Entities;
+using TWBuildingAssistant.Data.Tool.HostBuilders;
 
 public class Program
 {
-    public static void Main()
+    public static async Task Main(string[] args)
     {
-        var context = new DatabaseContext();
+        using (var host = Host.CreateDefaultBuilder(args).AddConfiguration().AddDbContext().Build())
+        {
+            host.Start();
 
-        DisplayTechs(context);
+            var contextFactory = host.Services.GetRequiredService<DatabaseContextFactory>();
+            using (var context = contextFactory.CreateDbContext())
+            {
+                DisplayTechs(context);
+            }
 
-        Console.ForegroundColor = ConsoleColor.White;
-        Console.Write("Press any key to quit");
-        Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Press any key to quit");
+            Console.ReadKey();
+
+            await host.StopAsync();
+        }
     }
 
     private static void DisplayTechs(DatabaseContext context)

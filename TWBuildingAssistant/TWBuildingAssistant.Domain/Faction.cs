@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Model;
+﻿namespace TWBuildingAssistant.Domain;
 
 using System;
 using System.Collections.Generic;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using EnumsNET;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain.Exceptions;
 
 public class Faction
 {

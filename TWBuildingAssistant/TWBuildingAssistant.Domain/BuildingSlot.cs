@@ -1,6 +1,7 @@
-﻿namespace TWBuildingAssistant.Model;
+﻿namespace TWBuildingAssistant.Domain;
 
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain.Exceptions;
 
 public class BuildingSlot
 {

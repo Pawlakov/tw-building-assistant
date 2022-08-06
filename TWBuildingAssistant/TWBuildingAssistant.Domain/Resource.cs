@@ -1,4 +1,6 @@
-﻿namespace TWBuildingAssistant.Model;
+﻿namespace TWBuildingAssistant.Domain;
+
+using TWBuildingAssistant.Domain.Exceptions;
 
 public class Resource
 {

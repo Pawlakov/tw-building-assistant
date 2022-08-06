@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Model.Services;
+﻿namespace TWBuildingAssistant.Domain.Services;
 
 using System.Collections.Generic;
 

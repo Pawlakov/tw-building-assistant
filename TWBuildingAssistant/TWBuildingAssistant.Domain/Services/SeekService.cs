@@ -1,19 +1,30 @@
-﻿namespace TWBuildingAssistant.Model.Services;
+﻿namespace TWBuildingAssistant.Domain.Services;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 public class SeekService
     : ISeekService
 {
-    public void Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition)
+    public void Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition, Action<int> updateProgressMax, Action<int> updateProgressValue)
     {
         var lastSlot = slots.Last();
         var original = slots.Select(x => x.Building).ToList().AsEnumerable();
         var bestCombination = original.ToList().AsEnumerable();
         var bestWealth = 0d;
+
+        updateProgressMax(100);
+        updateProgressValue(0);
+        RecursiveSeek(0, new List<BuildingLevel>());
+        var enumerator = bestCombination.GetEnumerator();
+        foreach (var slot in slots)
+        {
+            enumerator.MoveNext();
+            slot.Building = enumerator.Current;
+        }
+
+        updateProgressValue(100);
 
         void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
         {
@@ -37,14 +48,6 @@ public class SeekService
                     RecursiveSeek(slotIndex + 1, currentCombination);
                 }
             }
-        }
-
-        RecursiveSeek(0, new List<BuildingLevel>());
-        var enumerator = bestCombination.GetEnumerator();
-        foreach (var slot in slots)
-        {
-            enumerator.MoveNext();
-            slot.Building = enumerator.Current;
         }
     }
 }

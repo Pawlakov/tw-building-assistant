@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Model;
+﻿namespace TWBuildingAssistant.Domain;
 
 using System.Collections.Generic;
 using TWBuildingAssistant.Data.Model;

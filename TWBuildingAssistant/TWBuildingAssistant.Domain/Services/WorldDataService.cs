@@ -1,9 +1,10 @@
-﻿namespace TWBuildingAssistant.Model.Services;
+﻿namespace TWBuildingAssistant.Domain.Services;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Data.Sqlite;
+using TWBuildingAssistant.Domain.Exceptions;
 
 public class WorldDataService
     : IWorldDataService

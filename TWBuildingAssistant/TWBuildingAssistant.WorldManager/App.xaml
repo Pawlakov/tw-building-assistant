@@ -1,16 +1,16 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:TWBuildingAssistant.WorldManager"
-             xmlns:viewmodels="clr-namespace:TWBuildingAssistant.WorldManager.ViewModels"
-             xmlns:views="clr-namespace:TWBuildingAssistant.WorldManager.Views"
+             xmlns:viewmodels_resources="clr-namespace:TWBuildingAssistant.WorldManager.ViewModels.Resources"
+             xmlns:views_resources="clr-namespace:TWBuildingAssistant.WorldManager.Views.Resources"
              x:Class="TWBuildingAssistant.WorldManager.App">
     <Application.Resources>
         <ResourceDictionary>
-            <DataTemplate DataType="{x:Type viewmodels:Resources.AddViewModel}">
-                <views:Resources.AddView/>
+            <DataTemplate DataType="{x:Type viewmodels_resources:AddViewModel}">
+                <views_resources:AddView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:Resources.ListViewModel}">
-                <views:Resources.ListView/>
+            <DataTemplate DataType="{x:Type viewmodels_resources:ListViewModel}">
+                <views_resources:ListView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,7 +1,8 @@
-﻿namespace TWBuildingAssistant.Model.Test;
+﻿namespace TWBuildingAssistant.Domain.Test;
 
 using NUnit.Framework;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain;
 
 [TestFixture]
 public class IncomeTest

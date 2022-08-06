@@ -2,7 +2,7 @@
 
 using System.Collections.ObjectModel;
 using System.Linq;
-using TWBuildingAssistant.Model;
+using TWBuildingAssistant.Domain;
 
 public class RegionViewModel 
     : ViewModel

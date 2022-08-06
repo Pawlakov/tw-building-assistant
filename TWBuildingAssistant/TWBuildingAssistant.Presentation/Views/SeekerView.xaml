@@ -20,7 +20,10 @@
             </Border>
         </StackPanel>
         <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-            <ProgressBar Height="20" Width="420"/>
+            <Grid>
+                <ProgressBar Minimum="0" Maximum="{Binding ProgressBarMax, Mode=OneWay}" Value="{Binding ProgressBarValue, Mode=OneWay}" Height="20" Width="420"/>
+                <TextBlock Text="{Binding ProgressBarText, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
         </Border>
         <StackPanel Orientation="Horizontal">
             <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">

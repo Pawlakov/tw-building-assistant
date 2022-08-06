@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Data.To
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.WorldManager", "TWBuildingAssistant.WorldManager\TWBuildingAssistant.WorldManager.csproj", "{827BE872-9DEA-450E-916E-D514A3C63463}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Model", "TWBuildingAssistant.Model\TWBuildingAssistant.Model.csproj", "{208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Domain", "TWBuildingAssistant.Domain\TWBuildingAssistant.Domain.csproj", "{208E013B-4B7E-4B79-AA59-0C7F0C6EDF1B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Model.Test", "TWBuildingAssistant.Model.Test\TWBuildingAssistant.Model.Test.csproj", "{93FB3087-B557-4E84-8222-4C4D7477621D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Domain.Test", "TWBuildingAssistant.Domain.Test\TWBuildingAssistant.Domain.Test.csproj", "{93FB3087-B557-4E84-8222-4C4D7477621D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Presentation", "TWBuildingAssistant.Presentation\TWBuildingAssistant.Presentation.csproj", "{91C92F46-8CB4-463D-A828-BAD13A84E2AC}"
 EndProject

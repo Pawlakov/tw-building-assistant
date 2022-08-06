@@ -1,8 +1,9 @@
-﻿namespace TWBuildingAssistant.Model;
+﻿namespace TWBuildingAssistant.Domain;
 
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TWBuildingAssistant.Domain.Exceptions;
 
 public class BuildingLevel
 {

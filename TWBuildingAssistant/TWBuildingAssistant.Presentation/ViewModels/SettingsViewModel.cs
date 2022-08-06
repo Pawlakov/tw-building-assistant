@@ -3,8 +3,8 @@
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
-using TWBuildingAssistant.Model;
-using TWBuildingAssistant.Model.Services;
+using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.Services;
 
 public class SettingsViewModel 
     : ViewModel

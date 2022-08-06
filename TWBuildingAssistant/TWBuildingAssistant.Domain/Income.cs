@@ -1,10 +1,11 @@
-﻿namespace TWBuildingAssistant.Model;
+﻿namespace TWBuildingAssistant.Domain;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using EnumsNET;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain.Exceptions;
 
 public struct Income : IEquatable<Income>
 {

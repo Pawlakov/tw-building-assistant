@@ -1,9 +1,8 @@
-﻿namespace TWBuildingAssistant.Presentation.HostBuilders;
+﻿namespace TWBuildingAssistant.Domain.HostBuilders;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using TWBuildingAssistant.Model.Services;
+using TWBuildingAssistant.Domain.Services;
 
 public static class AddServicesHostBuilderExtensions
 {

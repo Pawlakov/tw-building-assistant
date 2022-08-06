@@ -1,7 +1,7 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
 using System;
-using TWBuildingAssistant.Model.Services;
+using TWBuildingAssistant.Domain.Services;
 
 public class MainWindowViewModel 
     : WindowViewModel

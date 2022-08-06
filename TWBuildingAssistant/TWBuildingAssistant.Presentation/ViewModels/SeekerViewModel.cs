@@ -5,8 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TWBuildingAssistant.Model;
-using TWBuildingAssistant.Model.Services;
+using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.Services;
 
 public class SeekerViewModel
     : ViewModel
@@ -18,7 +18,9 @@ public class SeekerViewModel
 
     private bool requireSantitation;
     private int minimalPublicOrder;
-    private bool locked;
+    private bool processing;
+    private int progressBarMax;
+    private int progressBarValue;
 
     public SeekerViewModel(ISeekService seekService, Province province, IEnumerable<BuildingSlot> slots)
     {
@@ -26,7 +28,7 @@ public class SeekerViewModel
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
-        this.locked = false;
+        this.processing = false;
         this.province = province;
         this.slots = slots.ToList();
 
@@ -62,6 +64,36 @@ public class SeekerViewModel
         }
     }
 
+    public int ProgressBarMax
+    {
+        get => this.processing switch { true => this.progressBarMax, false => 0 };
+        set
+        {
+            if (this.progressBarMax != value)
+            {
+                this.progressBarMax = value;
+                this.OnPropertyChanged(nameof(this.ProgressBarMax));
+                this.OnPropertyChanged(nameof(this.ProgressBarText));
+            }
+        }
+    }
+
+    public int ProgressBarValue
+    {
+        get => this.processing switch { true => this.progressBarValue, false => 0 };
+        set
+        {
+            if (this.progressBarValue != value)
+            {
+                this.progressBarValue = value;
+                this.OnPropertyChanged(nameof(this.ProgressBarValue));
+                this.OnPropertyChanged(nameof(this.ProgressBarText));
+            }
+        }
+    }
+
+    public string ProgressBarText => this.processing switch { true => $"{this.ProgressBarValue}/{this.ProgressBarMax}", false => string.Empty };
+
     public AsyncRelayCommand SeekCommand { get; init; }
 
     public RelayCommand PreviousCommand { get; init; }
@@ -70,13 +102,19 @@ public class SeekerViewModel
     {
         await Task.Run(() =>
         {
-            this.locked = true;
+            this.processing = true;
+            this.OnPropertyChanged(nameof(this.ProgressBarMax));
+            this.OnPropertyChanged(nameof(this.ProgressBarValue));
+            this.OnPropertyChanged(nameof(this.ProgressBarText));
             if (this.slots.Any())
             {
-                this.seekService.Seek(this.province, this.slots.ToList(), this.MinimalCondition);
+                this.seekService.Seek(this.province, this.slots.ToList(), this.MinimalCondition, x => this.ProgressBarMax = x, x => this.progressBarValue = x);
             }
 
-            this.locked = false;
+            this.processing = false;
+            this.OnPropertyChanged(nameof(this.ProgressBarMax));
+            this.OnPropertyChanged(nameof(this.ProgressBarValue));
+            this.OnPropertyChanged(nameof(this.ProgressBarText));
         });
 
         this.Previous();
@@ -89,12 +127,12 @@ public class SeekerViewModel
 
     private bool SeekEnabled()
     {
-        return !this.locked;
+        return !this.processing;
     }
 
     private bool PreviousEnabled()
     {
-        return !this.locked;
+        return !this.processing;
     }
 
     private bool MinimalCondition(ProvinceState state)

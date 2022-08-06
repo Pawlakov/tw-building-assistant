@@ -63,7 +63,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TWBuildingAssistant.Model\TWBuildingAssistant.Model.csproj" />
+    <ProjectReference Include="..\TWBuildingAssistant.Domain\TWBuildingAssistant.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\ProvinceView.xaml.cs">

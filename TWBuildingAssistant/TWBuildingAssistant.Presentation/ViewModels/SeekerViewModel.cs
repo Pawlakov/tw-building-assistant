@@ -4,11 +4,15 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TWBuildingAssistant.Model;
+using TWBuildingAssistant.Model.Services;
 
 public class SeekerViewModel 
     : ViewModel
 {
+    private readonly ISeekService seekService;
+
     private readonly Province province;
 
     private readonly IEnumerable<BuildingSlot> slots;
@@ -17,14 +21,16 @@ public class SeekerViewModel
 
     private int minimalPublicOrder;
 
-    public SeekerViewModel(Province province, IEnumerable<BuildingSlot> slots)
+    public SeekerViewModel(ISeekService seekService, Province province, IEnumerable<BuildingSlot> slots)
     {
+        this.seekService = seekService;
+
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
         this.province = province;
         this.slots = slots.ToList();
 
-        this.SeekCommand = new RelayCommand(this.Seek);
+        this.SeekCommand = new AsyncRelayCommand(this.Seek);
         this.PreviousCommand = new RelayCommand(this.Previous);
     }
 
@@ -56,51 +62,15 @@ public class SeekerViewModel
         }
     }
 
-    public RelayCommand SeekCommand { get; init; }
+    public AsyncRelayCommand SeekCommand { get; init; }
 
     public RelayCommand PreviousCommand { get; init; }
 
-    public void Seek()
+    public async Task Seek()
     {
-        var slots = this.slots.ToList();
         if (this.slots.Any())
         {
-            var lastSlot = slots.Last();
-            var original = slots.Select(x => x.Building).ToList().AsEnumerable();
-            var bestCombination = original.ToList().AsEnumerable();
-            var bestWealth = 0d;
-
-            void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
-            {
-                var slot = slots[slotIndex];
-                var options = this.province.Owner.GetBuildingLevelsForSlot(this.province, this.province.Regions.Single(x => x.Slots.Contains(slot)), slot);
-                foreach (var option in options)
-                {
-                    slot.Building = option;
-                    var currentCombination = combination.Append(option);
-                    if (slot == lastSlot)
-                    {
-                        var state = this.province.State;
-                        if (this.MinimalCondition(state) && state.Wealth > bestWealth)
-                        {
-                            bestWealth = state.Wealth;
-                            bestCombination = currentCombination;
-                        }
-                    }
-                    else
-                    {
-                        RecursiveSeek(slotIndex + 1, currentCombination);
-                    }
-                }
-            }
-
-            RecursiveSeek(0, new List<BuildingLevel>());
-            var enumerator = bestCombination.GetEnumerator();
-            foreach (var slot in slots)
-            {
-                enumerator.MoveNext();
-                slot.Building = enumerator.Current;
-            }
+            await this.seekService.Seek(this.province, this.slots.ToList(), this.MinimalCondition);
         }
 
         this.Previous();

@@ -1,17 +1,18 @@
 ﻿namespace TWBuildingAssistant.Presentation.HostBuilders;
+
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using TWBuildingAssistant.Model.Services;
 
 public static class AddServicesHostBuilderExtensions
 {
     public static IHostBuilder AddServices(this IHostBuilder host)
     {
-        host.ConfigureServices(services =>
+        return host.ConfigureServices((HostBuilderContext context, IServiceCollection collection) =>
         {
-            services.AddSingleton<IWorld, World>();
+            collection.AddSingleton<IWorld, World>();
+            collection.AddTransient<ISeekService, SeekService>();
         });
-
-        return host;
     }
 }

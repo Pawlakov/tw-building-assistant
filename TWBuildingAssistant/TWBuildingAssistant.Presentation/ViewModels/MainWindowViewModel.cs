@@ -7,18 +7,18 @@ public class MainWindowViewModel
     : WindowViewModel
 {
     private readonly IWorld world;
+    private readonly ISeekService seekService;
 
     private SettingsViewModel settingsViewModel;
-
     private ProvinceViewModel provinceViewModel;
-
     private SeekerViewModel seekerViewModel;
 
     private ViewModel content;
 
-    public MainWindowViewModel(IWorld world)
+    public MainWindowViewModel(IWorld world, ISeekService seekService)
     {
         this.world = world;
+        this.seekService = seekService;
 
         this.settingsViewModel = new SettingsViewModel(this.world);
         this.settingsViewModel.NextTransition += this.TransitionFromSettingsToProvince;
@@ -87,7 +87,7 @@ public class MainWindowViewModel
 
     private void TransitionFromProvinceToSeeker(object sender, ProvinceViewModel.NextTransitionEventArgs args)
     {
-        this.Seeker = new SeekerViewModel(args.Province, args.Slots);
+        this.Seeker = new SeekerViewModel(this.seekService, args.Province, args.Slots);
         this.Seeker.PreviousTransition += this.TransitionFromSeekerToProvince;
         this.Content = this.Seeker;
     }

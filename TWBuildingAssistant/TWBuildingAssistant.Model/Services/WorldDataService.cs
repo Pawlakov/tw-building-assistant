@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Data.Sqlite;
 
-public class World
-    : IWorld
+public class WorldDataService
+    : IWorldDataService
 {
     private readonly DatabaseContextFactory contextFactory;
 
-    public World(DatabaseContextFactory contextFactory)
+    public WorldDataService(DatabaseContextFactory contextFactory)
     {
         this.contextFactory = contextFactory;
         using (var context = this.contextFactory.CreateDbContext())

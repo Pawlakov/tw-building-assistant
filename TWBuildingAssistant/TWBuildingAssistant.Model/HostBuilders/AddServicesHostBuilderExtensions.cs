@@ -11,7 +11,7 @@ public static class AddServicesHostBuilderExtensions
     {
         return host.ConfigureServices((HostBuilderContext context, IServiceCollection collection) =>
         {
-            collection.AddSingleton<IWorld, World>();
+            collection.AddSingleton<IWorldDataService, WorldDataService>();
             collection.AddTransient<ISeekService, SeekService>();
         });
     }

@@ -9,7 +9,7 @@ using TWBuildingAssistant.Model.Services;
 public class SettingsViewModel 
     : ViewModel
 {
-    private readonly IWorld world;
+    private readonly IWorldDataService worldDataService;
 
     private Religion selectedReligion;
 
@@ -29,23 +29,23 @@ public class SettingsViewModel
 
     private int corruptionRate;
 
-    public SettingsViewModel(IWorld world)
+    public SettingsViewModel(IWorldDataService worldDataService)
     {
-        this.world = world;
-        this.Religions = new ObservableCollection<Religion>(this.world.Religions);
+        this.worldDataService = worldDataService;
+        this.Religions = new ObservableCollection<Religion>(this.worldDataService.Religions);
         this.selectedReligion = this.Religions[0];
-        this.Provinces = new ObservableCollection<Province>(this.world.Provinces);
+        this.Provinces = new ObservableCollection<Province>(this.worldDataService.Provinces);
         this.selectedProvince = this.Provinces[0];
-        this.Factions = new ObservableCollection<Faction>(this.world.Factions);
+        this.Factions = new ObservableCollection<Faction>(this.worldDataService.Factions);
         this.selectedFaction = this.Factions[0];
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.selectedTechnologyTier = this.TechnologyTiers[0];
         this.useAntilegacyTechnologies = false;
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
         this.selectedFertilityDrop = this.FertilityDrops[0];
-        this.Weathers = new ObservableCollection<Weather>(this.world.Weathers);
+        this.Weathers = new ObservableCollection<Weather>(this.worldDataService.Weathers);
         this.selectedWeather = this.Weathers[0];
-        this.Seasons = new ObservableCollection<Season>(this.world.Seasons);
+        this.Seasons = new ObservableCollection<Season>(this.worldDataService.Seasons);
         this.selectedSeason = this.Seasons[0];
         this.corruptionRate = 1;
 

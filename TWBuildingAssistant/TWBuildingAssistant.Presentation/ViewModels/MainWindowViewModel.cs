@@ -6,7 +6,7 @@ using TWBuildingAssistant.Model.Services;
 public class MainWindowViewModel 
     : WindowViewModel
 {
-    private readonly IWorld world;
+    private readonly IWorldDataService worldDataService;
     private readonly ISeekService seekService;
 
     private SettingsViewModel settingsViewModel;
@@ -15,12 +15,12 @@ public class MainWindowViewModel
 
     private ViewModel content;
 
-    public MainWindowViewModel(IWorld world, ISeekService seekService)
+    public MainWindowViewModel(IWorldDataService worldDataService, ISeekService seekService)
     {
-        this.world = world;
+        this.worldDataService = worldDataService;
         this.seekService = seekService;
 
-        this.settingsViewModel = new SettingsViewModel(this.world);
+        this.settingsViewModel = new SettingsViewModel(this.worldDataService);
         this.settingsViewModel.NextTransition += this.TransitionFromSettingsToProvince;
         this.content = this.settingsViewModel;
     }

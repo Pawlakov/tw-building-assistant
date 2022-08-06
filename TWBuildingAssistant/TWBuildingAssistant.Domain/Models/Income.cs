@@ -5,6 +5,8 @@ using System.Linq;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Domain.Exceptions;
 
+public readonly record struct Income(IncomeCategory? Category, int Simple, int Percentage, int FertilityDependent);
+
 public static class IncomeOperations
 {
     public static Income Create(in int value, IncomeCategory? category, in BonusType type)
@@ -13,7 +15,7 @@ public static class IncomeOperations
         {
             (0, _, _) =>
                 throw new DomainRuleViolationException("'0' income."),
-            ( > 0, IncomeCategory.Maintenance, _) =>
+            (> 0, IncomeCategory.Maintenance, _) =>
                 throw new DomainRuleViolationException("Positive 'Maintenance' income."),
             (_, IncomeCategory.Maintenance, not BonusType.Simple) =>
                 throw new DomainRuleViolationException("Invalid 'Maintenance' income."),
@@ -21,25 +23,31 @@ public static class IncomeOperations
                 throw new DomainRuleViolationException("Invalid 'All' income."),
             (_, not IncomeCategory.Husbandry and not IncomeCategory.Agriculture, BonusType.FertilityDependent) =>
                 throw new DomainRuleViolationException("Invalid fertility-based income."),
-            (_, not null, _) =>
-                new Income(Create(category.Value, value, type), 0),
-            (_, null, _) =>
-                new Income(null, value),
+            (_, _, BonusType.Simple) =>
+                new Income(category, value, 0, 0),
+            (_, _, BonusType.Percentage) =>
+                new Income(category, 0, value, 0),
+            (_, _, BonusType.FertilityDependent) =>
+                new Income(category, 0, 0, value),
+            _ =>
+                throw new DomainRuleViolationException("Unknown bonus type."),
         };
     }
 
     public static double Collect(IEnumerable<Income> incomes, in int fertilityLevel)
     {
-        var records = new List<Record>();
+        var records = new List<Income>();
         var allBonus = 0;
         foreach (var income in incomes)
         {
-            if (income.Record is not null)
+            if (income.Category is not null)
             {
-                records.Add(income.Record.Value);
+                records.Add(income);
             }
-
-            allBonus += income.AllBonus;
+            else
+            {
+                allBonus += income.Percentage;
+            }
         }
 
         var value = 0d;
@@ -57,23 +65,4 @@ public static class IncomeOperations
         var result = value;
         return result;
     }
-
-    private static Record Create(IncomeCategory category, in int value, in BonusType type)
-    {
-        return (category, type) switch
-        {
-            (_, BonusType.Simple) =>
-                new Record(category, value, 0, 0),
-            (_, BonusType.Percentage) =>
-                new Record(category, 0, value, 0),
-            (_, BonusType.FertilityDependent) =>
-                new Record(category, 0, 0, value),
-            _ =>
-                throw new DomainRuleViolationException("Unknown bonus type."),
-        };
-    }
 }
-
-public readonly record struct Income(Record? Record, int AllBonus);
-
-public readonly record struct Record(IncomeCategory Category, int Simple, int Percentage, int FertilityDependent);

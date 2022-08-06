@@ -21,7 +21,7 @@ public class AddViewModel : ViewModel
             if (this.description != value)
             {
                 this.description = value;
-                this.OnPropertyChanged(nameof(Description));
+                this.OnPropertyChanged(nameof(this.Description));
             }
         }
     }

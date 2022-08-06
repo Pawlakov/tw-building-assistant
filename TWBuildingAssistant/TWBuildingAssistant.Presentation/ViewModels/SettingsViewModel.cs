@@ -3,7 +3,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
-using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.Models;
 using TWBuildingAssistant.Domain.Services;
 
 public class SettingsViewModel 

@@ -1,6 +1,7 @@
 ﻿namespace TWBuildingAssistant.Domain.Services;
 
 using System.Collections.Generic;
+using TWBuildingAssistant.Domain.Models;
 
 public interface IWorldDataService
 {

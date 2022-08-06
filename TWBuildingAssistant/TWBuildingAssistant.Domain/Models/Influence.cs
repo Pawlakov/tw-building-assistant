@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Domain;
+﻿namespace TWBuildingAssistant.Domain.Models;
 
 using System;
 using System.Collections.Generic;
@@ -98,7 +98,7 @@ public struct Influence : IEquatable<Influence>
     public int PublicOrder(Religion stateReligion)
     {
         var percentage = this.Percentage(stateReligion);
-        var result = -(int)Math.Floor((750 - (percentage * 7)) * 0.01);
+        var result = -(int)Math.Floor((750 - percentage * 7) * 0.01);
         return result;
     }
 

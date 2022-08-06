@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Domain;
+﻿namespace TWBuildingAssistant.Domain.Models;
 
 using System.Collections.Generic;
 using System.Linq;
@@ -61,9 +61,9 @@ public class Province
             var regionalEffects = this.Regions.Select(x => x.Effect);
             var effect = regionalEffects.Aggregate(this.baseEffect + corruptionEffect + climateEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
 
-            var fertility = effect.Fertility < 0 ? 0 : (effect.Fertility > 5 ? 5 : effect.Fertility);
+            var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
             var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
-            var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
+            var food = effect.RegularFood + fertility * effect.FertilityDependentFood;
             var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);
             var income = effect.Income.GetIncome(fertility);
 

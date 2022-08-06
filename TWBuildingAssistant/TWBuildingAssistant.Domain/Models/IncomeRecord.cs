@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Domain;
+﻿namespace TWBuildingAssistant.Domain.Models;
 
 using System;
 using TWBuildingAssistant.Data.Model;
@@ -41,7 +41,7 @@ internal struct IncomeRecord : IEquatable<IncomeRecord>
 
     public double GetIncome(int fertility)
     {
-        return (this.values[(int)BonusType.Simple] + (this.values[(int)BonusType.FertilityDependent] * fertility)) * ((100 + this.values[(int)BonusType.Percentage]) * 0.01);
+        return (this.values[(int)BonusType.Simple] + this.values[(int)BonusType.FertilityDependent] * fertility) * ((100 + this.values[(int)BonusType.Percentage]) * 0.01);
     }
 
     public bool Equals(IncomeRecord other)

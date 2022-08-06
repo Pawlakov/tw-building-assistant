@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
-using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.Models;
 
 public class ProvinceViewModel 
     : ViewModel

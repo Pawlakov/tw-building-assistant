@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain.Exceptions;
+using TWBuildingAssistant.Domain.Models;
 
 public class WorldDataService
     : IWorldDataService
@@ -168,11 +169,11 @@ public class WorldDataService
                 factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect)));
             }
 
-            Religions = religions.Select(x => x.Value);
-            Provinces = provinces.Select(x => x.Value);
-            Factions = factions.Select(x => x.Value);
-            Weathers = weathers.Select(x => x.Value);
-            Seasons = seasons.Select(x => x.Value);
+            this.Religions = religions.Select(x => x.Value);
+            this.Provinces = provinces.Select(x => x.Value);
+            this.Factions = factions.Select(x => x.Value);
+            this.Weathers = weathers.Select(x => x.Value);
+            this.Seasons = seasons.Select(x => x.Value);
         }
     }
 

@@ -1,14 +1,14 @@
-﻿namespace TWBuildingAssistant.Domain;
+﻿namespace TWBuildingAssistant.Domain.Models;
 
 using TWBuildingAssistant.Domain.Exceptions;
 
-public class Season
+public class Resource
 {
-    public Season(string name)
+    public Resource(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new DomainRuleViolationException("Season without name.");
+            throw new DomainRuleViolationException("Resource without name.");
         }
 
         this.Name = name;

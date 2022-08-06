@@ -1,14 +1,14 @@
-﻿namespace TWBuildingAssistant.Domain;
+﻿namespace TWBuildingAssistant.Domain.Models;
 
 using TWBuildingAssistant.Domain.Exceptions;
 
-public class Weather
+public class Season
 {
-    public Weather(string name)
+    public Season(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new DomainRuleViolationException("Weather without name.");
+            throw new DomainRuleViolationException("Season without name.");
         }
 
         this.Name = name;

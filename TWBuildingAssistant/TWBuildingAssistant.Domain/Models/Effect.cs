@@ -9,7 +9,7 @@ public struct Effect
 {
     private IEnumerable<Income>? incomes;
 
-    public Effect(int publicOrder = 0, int regularFood = 0, int fertilityDependentFood = 0, int provincialSanitation = 0, int researchRate = 0, int growth = 0, int fertility = 0, int religiousOsmosis = 0, int regionalSanitation = 0, IEnumerable<Income>? incomes = default, Influence influence = default)
+    public Effect(int publicOrder = 0, int regularFood = 0, int fertilityDependentFood = 0, int provincialSanitation = 0, int researchRate = 0, int growth = 0, int fertility = 0, int religiousOsmosis = 0, int regionalSanitation = 0, IEnumerable<Income>? incomes = default)
     {
         this.PublicOrder = publicOrder;
         this.RegularFood = regularFood;
@@ -21,7 +21,6 @@ public struct Effect
         this.ReligiousOsmosis = religiousOsmosis;
         this.RegionalSanitation = regionalSanitation;
         this.incomes = incomes;
-        this.Influence = influence;
     }
 
     public int PublicOrder { get; }
@@ -44,8 +43,6 @@ public struct Effect
 
     public IEnumerable<Income> Incomes => this.incomes ?? new Income[0];
 
-    public Influence Influence { get; }
-
     public static Effect operator +(Effect left, Effect right)
     {
         var result = new Effect(
@@ -58,8 +55,7 @@ public struct Effect
             left.Fertility + right.Fertility,
             left.ReligiousOsmosis + right.ReligiousOsmosis,
             left.RegionalSanitation + right.RegionalSanitation,
-            left.Incomes.Concat(right.Incomes),
-            left.Influence + right.Influence);
+            left.Incomes.Concat(right.Incomes));
 
         return result;
     }

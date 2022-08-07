@@ -5,10 +5,12 @@ using System.Linq;
 
 public class TechnologyTier
 {
-    public TechnologyTier(Effect universalEffect, Effect antilegacyEffect, IEnumerable<BuildingLevel> universalLocks, IEnumerable<BuildingLevel> universalUnlocks, IEnumerable<BuildingLevel> antilegacyLocks, IEnumerable<BuildingLevel> antilegacyUnlocks)
+    public TechnologyTier(Effect universalEffect, Effect antilegacyEffect, Influence universalInfluence, Influence antilegacyInfluence, IEnumerable<BuildingLevel> universalLocks, IEnumerable<BuildingLevel> universalUnlocks, IEnumerable<BuildingLevel> antilegacyLocks, IEnumerable<BuildingLevel> antilegacyUnlocks)
     {
         this.UniversalEffect = universalEffect;
         this.AntilegacyEffect = antilegacyEffect;
+        this.UniversalInfluence = universalInfluence;
+        this.AntilegacyInfluence = antilegacyInfluence;
         this.UniversalLocks = universalLocks.ToList();
         this.UniversalUnlocks = universalUnlocks.ToList();
         this.AntilegacyLocks = antilegacyLocks.ToList();
@@ -18,6 +20,10 @@ public class TechnologyTier
     public Effect UniversalEffect { get; }
 
     public Effect AntilegacyEffect { get; }
+
+    public Influence UniversalInfluence { get; }
+
+    public Influence AntilegacyInfluence { get; }
 
     public IEnumerable<BuildingLevel> UniversalLocks { get; set; }
 

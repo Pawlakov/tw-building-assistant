@@ -1,10 +1,10 @@
 ﻿namespace TWBuildingAssistant.Domain.Services;
 
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
@@ -42,6 +42,7 @@ public class WorldDataService
             foreach (var religionEntity in context.Religions.ToList())
             {
                 Effect effect = default;
+                Influence influence = default;
                 if (religionEntity.EffectId.HasValue)
                 {
                     var effectEntity = context.Effects.Find(religionEntity.EffectId.Value);
@@ -52,12 +53,12 @@ public class WorldDataService
                         throw new DomainRuleViolationException("Influence of a religion with a set religion id.");
                     }
 
-                    var influence = influenceEntities.Select(x => new Influence(null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
                     var incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type)).ToArray();
-                    effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, incomes, influence);
+                    effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, incomes);
+                    influence = influenceEntities.Select(x => new Influence(null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
                 }
 
-                religions.Add(new KeyValuePair<int, Religion>(religionEntity.Id, new Religion(religionEntity.Name, effect)));
+                religions.Add(new KeyValuePair<int, Religion>(religionEntity.Id, new Religion(religionEntity.Name, effect, influence)));
             }
 
             var climates = new List<KeyValuePair<int, Climate>>();
@@ -70,7 +71,7 @@ public class WorldDataService
                     foreach (var weather in weathers)
                     {
                         var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == season.Key && x.ClimateId == climateEntity.Id && x.WeatherId == weather.Key);
-                        var effect = MakeEffect(context, religions, weatherEffectEntity?.EffectId);
+                        var effect = MakeEffect(context, weatherEffectEntity?.EffectId);
                         entry.Add(weather.Value, effect);
                     }
 
@@ -83,21 +84,23 @@ public class WorldDataService
             var provinces = new List<KeyValuePair<int, Province>>();
             foreach (var provinceEntity in context.Provinces.ToList())
             {
-                var effect = MakeEffect(context, religions, provinceEntity.EffectId);
+                var effect = MakeEffect(context, provinceEntity.EffectId);
+                var influence = MakeInfluence(context, religions, provinceEntity.EffectId);
                 var regions = new List<Region>();
                 foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
                 {
                     regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : default, regionEntity.SlotsCountOffset == -1));
                 }
 
-                provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect)));
+                provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect, influence)));
             }
 
             var buildings = new List<KeyValuePair<int, Tuple<BuildingLevel, int?>>>();
             foreach (var buildingLevelEntity in context.BuildingLevels)
             {
-                var effect = MakeEffect(context, religions, buildingLevelEntity.EffectId);
-                buildings.Add(new KeyValuePair<int, Tuple<BuildingLevel, int?>>(buildingLevelEntity.Id, Tuple.Create(new BuildingLevel(buildingLevelEntity.Name, effect), buildingLevelEntity.ParentBuildingLevelId)));
+                var effect = MakeEffect(context, buildingLevelEntity.EffectId);
+                var influence = MakeInfluence(context, religions, buildingLevelEntity.EffectId);
+                buildings.Add(new KeyValuePair<int, Tuple<BuildingLevel, int?>>(buildingLevelEntity.Id, Tuple.Create(new BuildingLevel(buildingLevelEntity.Name, effect, influence), buildingLevelEntity.ParentBuildingLevelId)));
             }
 
             var branches = new List<KeyValuePair<int, BuildingBranch>>();
@@ -139,18 +142,23 @@ public class WorldDataService
             var factions = new List<KeyValuePair<int, Faction>>();
             foreach (var factionEntity in context.Factions.ToList())
             {
-                var effect = MakeEffect(context, religions, factionEntity.EffectId);
+                var effect = MakeEffect(context, factionEntity.EffectId);
+                var influence = MakeInfluence(context, religions, factionEntity.EffectId);
                 var techs = new List<TechnologyTier>();
                 var universalEffect = default(Effect);
                 var antilegacyEffect = default(Effect);
+                var universalInfluence = default(Influence);
+                var antilegacyInfluence = default(Influence);
                 var universalLocks = new List<BuildingLevel>();
                 var universalUnlocks = new List<BuildingLevel>();
                 var antilegacyLocks = new List<BuildingLevel>();
                 var antilegacyUnlocks = new List<BuildingLevel>();
                 foreach (var techEntity in context.TechnologyLevels.Where(x => x.FactionId == factionEntity.Id).OrderBy(x => x.Order).ToList())
                 {
-                    universalEffect += MakeEffect(context, religions, techEntity.UniversalEffectId);
-                    antilegacyEffect += MakeEffect(context, religions, techEntity.AntilegacyEffectId);
+                    universalEffect += MakeEffect(context, techEntity.UniversalEffectId);
+                    antilegacyEffect += MakeEffect(context, techEntity.AntilegacyEffectId);
+                    universalInfluence += MakeInfluence(context, religions, techEntity.UniversalEffectId);
+                    antilegacyInfluence += MakeInfluence(context, religions, techEntity.AntilegacyEffectId);
                     var universalLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
                     var universalUnlocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && !y.Lock).Select(x => x.BuildingLevelId).ToList();
                     var antilegacyLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
@@ -159,7 +167,7 @@ public class WorldDataService
                     universalUnlocks.AddRange(buildings.Where(x => universalUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
                     antilegacyLocks.AddRange(buildings.Where(x => antilegacyLocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
                     antilegacyUnlocks.AddRange(buildings.Where(x => antilegacyUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
-                    techs.Add(new TechnologyTier(universalEffect, antilegacyEffect, universalLocks, universalUnlocks, antilegacyLocks, antilegacyUnlocks));
+                    techs.Add(new TechnologyTier(universalEffect, antilegacyEffect, universalInfluence, antilegacyInfluence, universalLocks, universalUnlocks, antilegacyLocks, antilegacyUnlocks));
                 }
 
                 var factionBranches = new List<BuildingBranch>();
@@ -169,7 +177,7 @@ public class WorldDataService
                     factionBranches.AddRange(usedBranches.Select(x => x.Value));
                 }
 
-                factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect)));
+                factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect, influence)));
             }
 
             this.Religions = religions.Select(x => x.Value);
@@ -220,20 +228,31 @@ public class WorldDataService
         }
     }
 
-    private static Effect MakeEffect(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
+    private static Effect MakeEffect(DatabaseContext context, int? id)
     {
         Effect effect = default;
         if (id.HasValue)
         {
             var effectEntity = context.Effects.Find(id);
             var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
-            var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
 
-            var influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
             var incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type)).ToArray();
-            effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation, incomes, influence);
+            effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation, incomes);
         }
 
         return effect;
+    }
+
+    private static Influence MakeInfluence(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
+    {
+        Influence influence = default;
+        if (id.HasValue)
+        {
+            var influenceEntities = context.Influences.Where(x => x.EffectId == id).ToList();
+
+            influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
+        }
+
+        return influence;
     }
 }

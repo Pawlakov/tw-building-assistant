@@ -12,6 +12,7 @@ using TWBuildingAssistant.Domain.Exceptions;
 public class Faction
 {
     private readonly Effect baseFactionwideEffect;
+    private readonly Influence baseFactionwideInfluence;
 
     private readonly TechnologyTier[] technologyTiers;
 
@@ -23,7 +24,7 @@ public class Faction
 
     private int technologyTier;
 
-    public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect = default)
+    public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect = default, Influence baseFactionwideInfluence = default)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -42,6 +43,7 @@ public class Faction
 
         this.Name = name;
         this.baseFactionwideEffect = baseFactionwideEffect;
+        this.baseFactionwideInfluence = baseFactionwideInfluence;
         this.technologyTiers = technologyTiers.ToArray();
         this.buildingBranches = buildingBranches.ToArray();
     }
@@ -54,6 +56,12 @@ public class Faction
         this.technologyTiers[this.technologyTier].UniversalEffect +
         (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffect : default) +
         new Effect(0, 0, 0, 0, 0, 0, this.FertilityDrop);
+
+    public Influence FactionwideInfluence =>
+        this.baseFactionwideInfluence +
+        this.stateReligion.InfluenceWhenState +
+        this.technologyTiers[this.technologyTier].UniversalInfluence +
+        (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyInfluence : default);
 
     public Religion StateReligion
     {

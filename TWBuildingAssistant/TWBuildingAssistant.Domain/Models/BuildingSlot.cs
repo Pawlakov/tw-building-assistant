@@ -32,4 +32,6 @@ public class BuildingSlot
     }
 
     public Effect Effect => this.buildingLevel.Effect;
+
+    public Influence Influence => this.buildingLevel.Influence;
 }

@@ -1,13 +1,10 @@
 ﻿namespace TWBuildingAssistant.Domain.Models;
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TWBuildingAssistant.Domain.Exceptions;
 
 public class BuildingLevel
 {
-    public BuildingLevel(string name, Effect effect)
+    public BuildingLevel(string name, Effect effect, Influence influence)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -16,11 +13,14 @@ public class BuildingLevel
 
         this.Name = name;
         this.Effect = effect;
+        this.Influence = influence;
     }
 
     public string Name { get; }
 
-    public Effect Effect { get; set; }
+    public Effect Effect { get; }
 
-    public static BuildingLevel Empty { get; } = new BuildingLevel("Empty", default);
+    public Influence Influence { get; }
+
+    public static BuildingLevel Empty { get; } = new BuildingLevel("Empty", default, default);
 }

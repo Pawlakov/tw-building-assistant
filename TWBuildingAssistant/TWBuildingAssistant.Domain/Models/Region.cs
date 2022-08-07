@@ -47,4 +47,12 @@ public class Region
             return this.Slots.Select(x => x.Effect).Aggregate(default(Effect), (x, y) => x + y);
         }
     }
+
+    public Influence Influence
+    {
+        get
+        {
+            return this.Slots.Select(x => x.Influence).Aggregate(default(Influence), (x, y) => x + y);
+        }
+    }
 }

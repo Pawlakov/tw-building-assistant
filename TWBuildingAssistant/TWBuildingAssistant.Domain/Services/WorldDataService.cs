@@ -42,8 +42,8 @@ public class WorldDataService
             foreach (var religionEntity in context.Religions.ToList())
             {
                 Effect effect = default;
-                IEnumerable<Income> incomes = Enumerable.Empty<Income>();
-                Influence influence = default;
+                var incomes = Enumerable.Empty<Income>();
+                var influence = 0;
                 if (religionEntity.EffectId.HasValue)
                 {
                     var effectEntity = context.Effects.Find(religionEntity.EffectId.Value);
@@ -56,7 +56,7 @@ public class WorldDataService
 
                     effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0);
                     incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type));
-                    influence = influenceEntities.Select(x => new Influence(null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
+                    influence = influenceEntities.Sum(x => x.Value);
                 }
 
                 religions.Add(new KeyValuePair<int, Religion>(religionEntity.Id, new Religion(religionEntity.Name, effect, incomes, influence)));

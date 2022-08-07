@@ -6,7 +6,7 @@ using TWBuildingAssistant.Domain.Exceptions;
 
 public class Religion
 {
-    public Religion(string name, Effect effectWhenState, IEnumerable<Income> incomesWhenState, Influence influenceWhenState)
+    public Religion(string name, Effect effectWhenState, IEnumerable<Income> incomesWhenState, int stateInfluenceWhenState)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -16,7 +16,7 @@ public class Religion
         this.Name = name;
         this.EffectWhenState = effectWhenState;
         this.IncomesWhenState = incomesWhenState;
-        this.InfluenceWhenState = influenceWhenState;
+        this.StateInfluenceWhenState = stateInfluenceWhenState;
     }
 
     public string Name { get; }
@@ -25,5 +25,5 @@ public class Religion
 
     public IEnumerable<Income> IncomesWhenState { get; }
 
-    public Influence InfluenceWhenState { get; }
+    public int StateInfluenceWhenState { get; }
 }

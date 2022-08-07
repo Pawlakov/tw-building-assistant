@@ -70,7 +70,7 @@ public class Faction
 
     public Influence FactionwideInfluence =>
         this.baseFactionwideInfluence +
-        this.stateReligion.InfluenceWhenState +
+        new Influence(null, this.stateReligion.StateInfluenceWhenState) +
         this.technologyTiers[this.technologyTier].UniversalInfluence +
         (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyInfluence : default);
 

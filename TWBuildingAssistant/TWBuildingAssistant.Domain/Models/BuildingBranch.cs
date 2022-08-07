@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain;
 
 public class BuildingBranch
 {

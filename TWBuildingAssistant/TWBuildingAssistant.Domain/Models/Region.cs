@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
 
 public class Region
@@ -11,7 +12,7 @@ public class Region
 
     private const int TownSlotCount = 4;
 
-    public Region(string name, RegionType type, bool isCoastal, Resource resource = null, bool missingSlot = false)
+    public Region(string name, RegionType type, bool isCoastal, Resource resource = default, bool missingSlot = false)
     {
         if (string.IsNullOrWhiteSpace(name))
         {

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Data.Sqlite;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
 using TWBuildingAssistant.Domain.Models;
 
@@ -20,7 +21,7 @@ public class WorldDataService
             var resources = new List<KeyValuePair<int, Resource>>();
             foreach (var resourceEntity in context.Resources.ToList())
             {
-                resources.Add(new KeyValuePair<int, Resource>(resourceEntity.Id, new Resource(resourceEntity.Name)));
+                resources.Add(new KeyValuePair<int, Resource>(resourceEntity.Id, ResourceOperations.Create(resourceEntity.Name)));
             }
 
             var weathers = new List<KeyValuePair<int, Weather>>();
@@ -84,7 +85,7 @@ public class WorldDataService
                 var regions = new List<Region>();
                 foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
                 {
-                    regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : null, regionEntity.SlotsCountOffset == -1));
+                    regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : default, regionEntity.SlotsCountOffset == -1));
                 }
 
                 provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect)));

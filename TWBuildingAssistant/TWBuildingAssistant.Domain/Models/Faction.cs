@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using EnumsNET;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
 
 public class Faction
@@ -16,7 +17,7 @@ public class Faction
 
     private readonly BuildingBranch[] buildingBranches;
 
-    private Dictionary<SlotType, Dictionary<RegionType, List<KeyValuePair<Resource, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>>> buildings;
+    private Dictionary<SlotType, Dictionary<RegionType, Dictionary<Resource, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>> buildings;
 
     private Religion stateReligion;
 
@@ -125,14 +126,14 @@ public class Faction
         {
             return regionTypes.ToDictionary(x => x, regionType =>
             {
-                return resources.Select(resource =>
+                return resources.ToDictionary(x => x, resource =>
                 {
                     var levels = this.buildingBranches.SelectMany(x => x.Levels).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
                     var branches = this.buildingBranches.Where(branch =>
                             branch.SlotType == slotType &&
                             (branch.RegionType == null || branch.RegionType == regionType) &&
                             (branch.Religion == null || branch.Religion == this.StateReligion) &&
-                    (branch.Resource == null || branch.Resource == resource));
+                            (branch.Resource == default || branch.Resource == resource));
 
                     var unlockedLevels = this.technologyTiers[this.technologyTier].UniversalUnlocks.Except(this.technologyTiers[this.technologyTier].UniversalLocks);
                     if (this.UseAntilegacyTechnologies)
@@ -152,8 +153,8 @@ public class Faction
                         }
                     }
 
-                    return new KeyValuePair<Resource, List<KeyValuePair<BuildingBranch, BuildingLevel>>>(resource, result);
-                }).ToList();
+                    return result;
+                });
             });
         });
     }

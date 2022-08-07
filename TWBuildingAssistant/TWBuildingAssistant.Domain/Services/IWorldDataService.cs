@@ -7,8 +7,6 @@ using TWBuildingAssistant.Domain.Models;
 
 public interface IWorldDataService
 {
-    IEnumerable<Religion> Religions { get; }
-
     IEnumerable<Province> Provinces { get; }
 
     IEnumerable<Faction> Factions { get; }
@@ -16,4 +14,6 @@ public interface IWorldDataService
     IEnumerable<Weather> GetWeathers();
 
     IEnumerable<Season> GetSeasons();
+
+    IEnumerable<Religion> GetReligions();
 }

@@ -1,23 +1,27 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.State;
 
 public class ProvinceViewModel 
     : ViewModel
 {
+    private readonly IWorldStore worldStore;
+
     private readonly Province province;
 
     private string performance;
 
-    public ProvinceViewModel(Province province)
+    public ProvinceViewModel(IWorldStore worldStore, Province province)
     {
+        this.worldStore = worldStore;
         this.province = province;
         this.ProvinceName = this.province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
@@ -59,8 +63,6 @@ public class ProvinceViewModel
         }
     }
 
-    public ProvinceState CurrentState => this.province.State;
-
     public RelayCommand PreviousCommand { get; init; }
 
     public RelayCommand NextCommand { get; init; }
@@ -78,7 +80,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = this.province.State;
+        var state = this.province.GetState(this.worldStore.GetReligions().Result);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

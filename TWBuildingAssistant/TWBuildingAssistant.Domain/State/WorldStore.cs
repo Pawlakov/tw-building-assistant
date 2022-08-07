@@ -1,9 +1,10 @@
-﻿namespace TWBuildingAssistant.Presentation.State;
+﻿namespace TWBuildingAssistant.Domain.State;
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.Models;
 using TWBuildingAssistant.Domain.Services;
 
 internal class WorldStore
@@ -13,6 +14,7 @@ internal class WorldStore
 
     private ImmutableArray<Season>? seasons;
     private ImmutableArray<Weather>? weathers;
+    private ImmutableArray<Religion>? religions;
 
     public WorldStore(IWorldDataService worldDataService)
     {
@@ -37,5 +39,15 @@ internal class WorldStore
         }
 
         return this.seasons.Value;
+    }
+
+    public async Task<ImmutableArray<Religion>> GetReligions()
+    {
+        if (this.religions == null)
+        {
+            this.religions = this.worldDataService.GetReligions().ToImmutableArray();
+        }
+
+        return this.religions.Value;
     }
 }

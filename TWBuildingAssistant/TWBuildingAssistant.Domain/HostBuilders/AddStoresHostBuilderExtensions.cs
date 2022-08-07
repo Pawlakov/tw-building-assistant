@@ -1,8 +1,8 @@
-﻿namespace TWBuildingAssistant.Presentation.HostBuilders;
+﻿namespace TWBuildingAssistant.Domain.HostBuilders;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TWBuildingAssistant.Presentation.State;
+using TWBuildingAssistant.Domain.State;
 
 public static class AddStoresHostBuilderExtensions
 {

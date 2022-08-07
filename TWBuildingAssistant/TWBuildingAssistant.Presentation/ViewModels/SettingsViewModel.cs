@@ -1,12 +1,12 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
 using TWBuildingAssistant.Domain.Services;
-using TWBuildingAssistant.Presentation.State;
+using TWBuildingAssistant.Domain.State;
 
 public class SettingsViewModel 
     : ViewModel
@@ -36,7 +36,7 @@ public class SettingsViewModel
     {
         this.worldDataService = worldDataService;
         this.worldStore = worldStore;
-        this.Religions = new ObservableCollection<Religion>(this.worldDataService.Religions);
+        this.Religions = new ObservableCollection<Religion>(this.worldStore.GetReligions().Result);
         this.selectedReligion = this.Religions[0];
         this.Provinces = new ObservableCollection<Province>(this.worldDataService.Provinces);
         this.selectedProvince = this.Provinces[0];
@@ -205,7 +205,7 @@ public class SettingsViewModel
         this.SelectedFaction.FertilityDrop = this.SelectedFertilityDrop;
         this.SelectedFaction.TechnologyTier = this.SelectedTechnologyTier;
         this.SelectedFaction.UseAntilegacyTechnologies = this.UseAntilegacyTechnologies;
-        this.SelectedFaction.StateReligion = this.SelectedReligion;
+        this.SelectedFaction.StateReligionId = this.SelectedReligion.Id;
         this.SelectedProvince.Owner = this.SelectedFaction;
         this.SelectedProvince.Weather = this.SelectedWeather;
         this.SelectedProvince.Season = this.SelectedSeason;

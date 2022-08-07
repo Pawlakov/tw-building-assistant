@@ -5,10 +5,18 @@ using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.State;
 
 public class SeekService
     : ISeekService
 {
+    private readonly IWorldStore worldStore;
+
+    public SeekService(IWorldStore worldStore)
+    {
+        this.worldStore = worldStore;
+    }
+
     public void Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition, Action<int> updateProgressMax, Action<int> updateProgressValue)
     {
         var lastSlot = slots.Last();
@@ -38,7 +46,7 @@ public class SeekService
                 var currentCombination = combination.Append(option);
                 if (slot == lastSlot)
                 {
-                    var state = province.State;
+                    var state = province.GetState(this.worldStore.GetReligions().Result);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;

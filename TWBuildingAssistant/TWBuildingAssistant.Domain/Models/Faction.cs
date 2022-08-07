@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using EnumsNET;
@@ -21,7 +22,7 @@ public class Faction
 
     private Dictionary<SlotType, Dictionary<RegionType, Dictionary<Resource, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>> buildings;
 
-    private Religion stateReligion;
+    private int? stateReligionId;
 
     private int technologyTier;
 
@@ -52,31 +53,40 @@ public class Faction
 
     public string Name { get; }
 
-    public IEnumerable<Effect> FactionwideEffects =>
-        this.technologyTiers[this.technologyTier].UniversalEffects
-        .Concat(this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffects : Enumerable.Empty<Effect>())
-        .Append(this.baseFactionwideEffect)
-        .Append(this.stateReligion.EffectWhenState)
-        .Append(EffectOperations.Create(fertility: this.FertilityDrop));
-
-    public IEnumerable<Income> FactionwideIncomes =>
-        new[]
-        {
-            this.baseFactionwideIncomes,
-            this.stateReligion.IncomesWhenState,
-            this.technologyTiers[this.technologyTier].UniversalIncomes,
-            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyIncomes : Enumerable.Empty<Income>()),
-        }.SelectMany(x => x);
-
-    public Influence FactionwideInfluence =>
-        this.baseFactionwideInfluence +
-        new Influence(null, this.stateReligion.StateInfluenceWhenState) +
-        this.technologyTiers[this.technologyTier].UniversalInfluence +
-        (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyInfluence : default);
-
-    public Religion StateReligion
+    public IEnumerable<Effect> GetFactionwideEffects(ImmutableArray<Religion> religions)
     {
-        get => this.stateReligion;
+        return
+            this.technologyTiers[this.technologyTier].UniversalEffects
+            .Concat(this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffects : Enumerable.Empty<Effect>())
+            .Append(this.baseFactionwideEffect)
+            .Append(religions.Single(x => x.Id == this.stateReligionId).EffectWhenState)
+            .Append(EffectOperations.Create(fertility: this.FertilityDrop));
+    }
+
+    public IEnumerable<Income> GetFactionwideIncomes(ImmutableArray<Religion> religions)
+    {
+        return
+            new[]
+            {
+                this.baseFactionwideIncomes,
+                religions.Single(x => x.Id == this.stateReligionId).IncomesWhenState,
+                this.technologyTiers[this.technologyTier].UniversalIncomes,
+                (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyIncomes : Enumerable.Empty<Income>()),
+            }.SelectMany(x => x);
+    }
+
+    public Influence GetFactionwideInfluence(ImmutableArray<Religion> religions)
+    {
+        return
+            this.baseFactionwideInfluence +
+            new Influence(null, religions.Single(x => x.Id == this.stateReligionId).StateInfluenceWhenState) +
+            this.technologyTiers[this.technologyTier].UniversalInfluence +
+            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyInfluence : default);
+    }
+
+    public int? StateReligionId
+    {
+        get => this.stateReligionId;
         set
         {
             if (value == null)
@@ -84,7 +94,7 @@ public class Faction
                 throw new DomainRuleViolationException("Missing state religion.");
             }
 
-            this.stateReligion = value;
+            this.stateReligionId = value;
             this.PrepareBuildingLevels();
         }
     }
@@ -151,7 +161,7 @@ public class Faction
                     var branches = this.buildingBranches.Where(branch =>
                             branch.SlotType == slotType &&
                             (branch.RegionType == null || branch.RegionType == regionType) &&
-                            (branch.Religion == null || branch.Religion == this.StateReligion) &&
+                            (branch.ReligionId == null || branch.ReligionId == this.StateReligionId) &&
                             (branch.Resource == default || branch.Resource == resource));
 
                     var unlockedLevels = this.technologyTiers[this.technologyTier].UniversalUnlocks.Except(this.technologyTiers[this.technologyTier].UniversalLocks);

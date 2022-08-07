@@ -57,30 +57,27 @@ public class Province
 
     public int CorruptionRate { get; set; }
 
-    public ProvinceState State
+    public ProvinceState GetState(ImmutableArray<Religion> religions)
     {
-        get
-        {
-            var corruptionIncome = IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage);
+        var corruptionIncome = IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage);
 
-            var climateEffect = this.climate.GetEffect(this.Season, this.Weather);
-            var climateIncomes = this.climate.GetIncomes(this.Season, this.Weather);
-            var regionalEffects = this.Regions.Select(x => x.Effects);
-            var regionalIncomes = this.Regions.Select(x => x.Incomes);
-            var regionalInfluences = this.Regions.Select(x => x.Influence);
-            var effect = EffectOperations.Collect(regionalEffects.SelectMany(x => x).Append(this.baseEffect).Append(climateEffect).Concat(this.Owner.FactionwideEffects));
-            var incomes = regionalIncomes.SelectMany(x => x).Concat(this.baseIncomes).Append(corruptionIncome).Concat(climateIncomes).Concat(this.Owner.FactionwideIncomes);
-            var influence = regionalInfluences.Aggregate(this.baseInfluence + this.Owner.FactionwideInfluence, (x, y) => x + y);
+        var climateEffect = this.climate.GetEffect(this.Season, this.Weather);
+        var climateIncomes = this.climate.GetIncomes(this.Season, this.Weather);
+        var regionalEffects = this.Regions.Select(x => x.Effects);
+        var regionalIncomes = this.Regions.Select(x => x.Incomes);
+        var regionalInfluences = this.Regions.Select(x => x.Influence);
+        var effect = EffectOperations.Collect(regionalEffects.SelectMany(x => x).Append(this.baseEffect).Append(climateEffect).Concat(this.Owner.GetFactionwideEffects(religions)));
+        var incomes = regionalIncomes.SelectMany(x => x).Concat(this.baseIncomes).Append(corruptionIncome).Concat(climateIncomes).Concat(this.Owner.GetFactionwideIncomes(religions));
+        var influence = regionalInfluences.Aggregate(this.baseInfluence + this.Owner.GetFactionwideInfluence(religions), (x, y) => x + y);
 
-            var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
-            var sanitation = regionalEffects.Select(x => x.Sum(y => y.RegionalSanitation) + effect.ProvincialSanitation);
-            var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
-            var publicOrder = effect.PublicOrder + influence.PublicOrder(this.Owner.StateReligion);
-            var income = IncomeOperations.Collect(incomes, fertility);
+        var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
+        var sanitation = regionalEffects.Select(x => x.Sum(y => y.RegionalSanitation) + effect.ProvincialSanitation);
+        var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
+        var publicOrder = effect.PublicOrder + influence.PublicOrder(this.Owner.StateReligionId.Value);
+        var income = IncomeOperations.Collect(incomes, fertility);
 
-            var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();
-            var provinceState = new ProvinceState(regionStates, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
-            return provinceState;
-        }
+        var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();
+        var provinceState = new ProvinceState(regionStates, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
+        return provinceState;
     }
 }

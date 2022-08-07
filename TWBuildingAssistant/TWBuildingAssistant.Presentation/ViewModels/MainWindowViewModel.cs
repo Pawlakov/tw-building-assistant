@@ -2,7 +2,7 @@
 
 using System;
 using TWBuildingAssistant.Domain.Services;
-using TWBuildingAssistant.Presentation.State;
+using TWBuildingAssistant.Domain.State;
 
 public class MainWindowViewModel 
     : WindowViewModel
@@ -82,7 +82,7 @@ public class MainWindowViewModel
 
     private void TransitionFromSettingsToProvince(object sender, SettingsViewModel.NextTransitionEventArgs args)
     {
-        this.Province = new ProvinceViewModel(args.Province);
+        this.Province = new ProvinceViewModel(this.worldStore, args.Province);
         this.Province.NextTransition += this.TransitionFromProvinceToSeeker;
         this.Province.PreviousTransition += this.TransitionFromProvinceToSettings;
         this.Content = this.provinceViewModel;
@@ -102,7 +102,7 @@ public class MainWindowViewModel
 
     private void TransitionFromSeekerToProvince(object sender, SeekerViewModel.PreviousTransitionEventArgs args)
     {
-        this.Province = new ProvinceViewModel(args.Province);
+        this.Province = new ProvinceViewModel(this.worldStore, args.Province);
         this.Province.NextTransition += this.TransitionFromProvinceToSeeker;
         this.Province.PreviousTransition += this.TransitionFromProvinceToSettings;
         this.Content = this.Province;

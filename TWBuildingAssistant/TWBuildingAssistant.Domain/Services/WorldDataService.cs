@@ -42,6 +42,7 @@ public class WorldDataService
             foreach (var religionEntity in context.Religions.ToList())
             {
                 Effect effect = default;
+                IEnumerable<Income> incomes = Enumerable.Empty<Income>();
                 Influence influence = default;
                 if (religionEntity.EffectId.HasValue)
                 {
@@ -53,38 +54,44 @@ public class WorldDataService
                         throw new DomainRuleViolationException("Influence of a religion with a set religion id.");
                     }
 
-                    var incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type)).ToArray();
-                    effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, incomes);
+                    effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0);
+                    incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type));
                     influence = influenceEntities.Select(x => new Influence(null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
                 }
 
-                religions.Add(new KeyValuePair<int, Religion>(religionEntity.Id, new Religion(religionEntity.Name, effect, influence)));
+                religions.Add(new KeyValuePair<int, Religion>(religionEntity.Id, new Religion(religionEntity.Name, effect, incomes, influence)));
             }
 
             var climates = new List<KeyValuePair<int, Climate>>();
             foreach (var climateEntity in context.Climates.ToList())
             {
                 var weatherEffects = new Dictionary<Season, IDictionary<Weather, Effect>>();
+                var weatherIncomes = new Dictionary<Season, IDictionary<Weather, IEnumerable<Income>>>();
                 foreach (var season in seasons)
                 {
-                    var entry = new Dictionary<Weather, Effect>();
+                    var weatherEntry = new Dictionary<Weather, Effect>();
+                    var incomesEntry = new Dictionary<Weather, IEnumerable<Income>>();
                     foreach (var weather in weathers)
                     {
                         var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == season.Key && x.ClimateId == climateEntity.Id && x.WeatherId == weather.Key);
                         var effect = MakeEffect(context, weatherEffectEntity?.EffectId);
-                        entry.Add(weather.Value, effect);
+                        var incomes = MakeIncomes(context, weatherEffectEntity?.EffectId);
+                        weatherEntry.Add(weather.Value, effect);
+                        incomesEntry.Add(weather.Value, incomes);
                     }
 
-                    weatherEffects.Add(season.Value, entry);
+                    weatherEffects.Add(season.Value, weatherEntry);
+                    weatherIncomes.Add(season.Value, incomesEntry);
                 }
 
-                climates.Add(new KeyValuePair<int, Climate>(climateEntity.Id, new Climate(weatherEffects)));
+                climates.Add(new KeyValuePair<int, Climate>(climateEntity.Id, new Climate(weatherEffects, weatherIncomes)));
             }
 
             var provinces = new List<KeyValuePair<int, Province>>();
             foreach (var provinceEntity in context.Provinces.ToList())
             {
                 var effect = MakeEffect(context, provinceEntity.EffectId);
+                var incomes = MakeIncomes(context, provinceEntity.EffectId);
                 var influence = MakeInfluence(context, religions, provinceEntity.EffectId);
                 var regions = new List<Region>();
                 foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
@@ -92,15 +99,16 @@ public class WorldDataService
                     regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : default, regionEntity.SlotsCountOffset == -1));
                 }
 
-                provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect, influence)));
+                provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect, incomes, influence)));
             }
 
             var buildings = new List<KeyValuePair<int, Tuple<BuildingLevel, int?>>>();
             foreach (var buildingLevelEntity in context.BuildingLevels)
             {
                 var effect = MakeEffect(context, buildingLevelEntity.EffectId);
+                var incomes = MakeIncomes(context, buildingLevelEntity.EffectId);
                 var influence = MakeInfluence(context, religions, buildingLevelEntity.EffectId);
-                buildings.Add(new KeyValuePair<int, Tuple<BuildingLevel, int?>>(buildingLevelEntity.Id, Tuple.Create(new BuildingLevel(buildingLevelEntity.Name, effect, influence), buildingLevelEntity.ParentBuildingLevelId)));
+                buildings.Add(new KeyValuePair<int, Tuple<BuildingLevel, int?>>(buildingLevelEntity.Id, Tuple.Create(new BuildingLevel(buildingLevelEntity.Name, effect, incomes, influence), buildingLevelEntity.ParentBuildingLevelId)));
             }
 
             var branches = new List<KeyValuePair<int, BuildingBranch>>();
@@ -143,10 +151,13 @@ public class WorldDataService
             foreach (var factionEntity in context.Factions.ToList())
             {
                 var effect = MakeEffect(context, factionEntity.EffectId);
+                var incomes = MakeIncomes(context, factionEntity.EffectId);
                 var influence = MakeInfluence(context, religions, factionEntity.EffectId);
                 var techs = new List<TechnologyTier>();
-                var universalEffect = default(Effect);
-                var antilegacyEffect = default(Effect);
+                var universalEffects = new List<Effect>();
+                var antilegacyEffects = new List<Effect>();
+                var universalIncomes = new List<Income>();
+                var antilegacyIncomes = new List<Income>();
                 var universalInfluence = default(Influence);
                 var antilegacyInfluence = default(Influence);
                 var universalLocks = new List<BuildingLevel>();
@@ -155,8 +166,10 @@ public class WorldDataService
                 var antilegacyUnlocks = new List<BuildingLevel>();
                 foreach (var techEntity in context.TechnologyLevels.Where(x => x.FactionId == factionEntity.Id).OrderBy(x => x.Order).ToList())
                 {
-                    universalEffect = EffectOperations.Collect(new[] { universalEffect, MakeEffect(context, techEntity.UniversalEffectId) });
-                    antilegacyEffect = EffectOperations.Collect(new[] { antilegacyEffect, MakeEffect(context, techEntity.AntilegacyEffectId) });
+                    universalEffects.Add(MakeEffect(context, techEntity.UniversalEffectId));
+                    antilegacyEffects.Add(MakeEffect(context, techEntity.AntilegacyEffectId));
+                    universalIncomes.AddRange(MakeIncomes(context, techEntity.UniversalEffectId));
+                    antilegacyIncomes.AddRange(MakeIncomes(context, techEntity.AntilegacyEffectId));
                     universalInfluence += MakeInfluence(context, religions, techEntity.UniversalEffectId);
                     antilegacyInfluence += MakeInfluence(context, religions, techEntity.AntilegacyEffectId);
                     var universalLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
@@ -167,7 +180,7 @@ public class WorldDataService
                     universalUnlocks.AddRange(buildings.Where(x => universalUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
                     antilegacyLocks.AddRange(buildings.Where(x => antilegacyLocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
                     antilegacyUnlocks.AddRange(buildings.Where(x => antilegacyUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
-                    techs.Add(new TechnologyTier(universalEffect, antilegacyEffect, universalInfluence, antilegacyInfluence, universalLocks, universalUnlocks, antilegacyLocks, antilegacyUnlocks));
+                    techs.Add(new TechnologyTier(universalEffects, antilegacyEffects, universalIncomes, antilegacyIncomes, universalInfluence, antilegacyInfluence, universalLocks, universalUnlocks, antilegacyLocks, antilegacyUnlocks));
                 }
 
                 var factionBranches = new List<BuildingBranch>();
@@ -177,7 +190,7 @@ public class WorldDataService
                     factionBranches.AddRange(usedBranches.Select(x => x.Value));
                 }
 
-                factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect, influence)));
+                factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect, incomes, influence)));
             }
 
             this.Religions = religions.Select(x => x.Value);
@@ -234,13 +247,22 @@ public class WorldDataService
         if (id.HasValue)
         {
             var effectEntity = context.Effects.Find(id);
-            var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
-
-            var incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type)).ToArray();
-            effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation, incomes);
+            effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation);
         }
 
         return effect;
+    }
+
+    private static IEnumerable<Income> MakeIncomes(DatabaseContext context, int? id)
+    {
+        IEnumerable<Income> incomes = Enumerable.Empty<Income>();
+        if (id.HasValue)
+        {
+            var bonusEntities = context.Bonuses.Where(x => x.EffectId == id).ToList();
+            incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type)).ToArray();
+        }
+
+        return incomes;
     }
 
     private static Influence MakeInfluence(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
@@ -249,7 +271,6 @@ public class WorldDataService
         if (id.HasValue)
         {
             var influenceEntities = context.Influences.Where(x => x.EffectId == id).ToList();
-
             influence = influenceEntities.Select(x => new Influence(x.ReligionId.HasValue ? religions.Single(y => y.Key == x.ReligionId).Value : null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
         }
 

@@ -1,6 +1,8 @@
 ﻿namespace TWBuildingAssistant.Domain.Models;
 
+using System.Collections.Generic;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
 
 public class BuildingSlot
@@ -32,6 +34,8 @@ public class BuildingSlot
     }
 
     public Effect Effect => this.buildingLevel.Effect;
+
+    public IEnumerable<Income> Incomes => this.buildingLevel.Incomes;
 
     public Influence Influence => this.buildingLevel.Influence;
 }

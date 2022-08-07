@@ -12,6 +12,7 @@ using TWBuildingAssistant.Domain.Exceptions;
 public class Faction
 {
     private readonly Effect baseFactionwideEffect;
+    private readonly Income[] baseFactionwideIncomes;
     private readonly Influence baseFactionwideInfluence;
 
     private readonly TechnologyTier[] technologyTiers;
@@ -24,7 +25,7 @@ public class Faction
 
     private int technologyTier;
 
-    public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect = default, Influence baseFactionwideInfluence = default)
+    public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect, IEnumerable<Income> baseFactionwideIncomes, Influence baseFactionwideInfluence)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -43,6 +44,7 @@ public class Faction
 
         this.Name = name;
         this.baseFactionwideEffect = baseFactionwideEffect;
+        this.baseFactionwideIncomes = baseFactionwideIncomes.ToArray();
         this.baseFactionwideInfluence = baseFactionwideInfluence;
         this.technologyTiers = technologyTiers.ToArray();
         this.buildingBranches = buildingBranches.ToArray();
@@ -51,14 +53,20 @@ public class Faction
     public string Name { get; }
 
     public IEnumerable<Effect> FactionwideEffects =>
+        this.technologyTiers[this.technologyTier].UniversalEffects
+        .Concat(this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffects : Enumerable.Empty<Effect>())
+        .Append(this.baseFactionwideEffect)
+        .Append(this.stateReligion.EffectWhenState)
+        .Append(EffectOperations.Create(fertility: this.FertilityDrop));
+
+    public IEnumerable<Income> FactionwideIncomes =>
         new[]
         {
-            this.baseFactionwideEffect,
-            this.stateReligion.EffectWhenState,
-            this.technologyTiers[this.technologyTier].UniversalEffect,
-            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffect : default),
-            EffectOperations.Create(0, 0, 0, 0, 0, 0, this.FertilityDrop),
-        };
+            this.baseFactionwideIncomes,
+            this.stateReligion.IncomesWhenState,
+            this.technologyTiers[this.technologyTier].UniversalIncomes,
+            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyIncomes : Enumerable.Empty<Income>()),
+        }.SelectMany(x => x);
 
     public Influence FactionwideInfluence =>
         this.baseFactionwideInfluence +

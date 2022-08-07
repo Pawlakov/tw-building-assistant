@@ -48,6 +48,14 @@ public class Region
         }
     }
 
+    public IEnumerable<Income> Incomes
+    {
+        get
+        {
+            return this.Slots.SelectMany(x => x.Incomes);
+        }
+    }
+
     public Influence Influence
     {
         get

@@ -13,7 +13,7 @@
             {
                 (0, _, _) =>
                     throw new DomainRuleViolationException("'0' income."),
-                ( > 0, IncomeCategory.Maintenance, _) =>
+                (> 0, IncomeCategory.Maintenance, _) =>
                     throw new DomainRuleViolationException("Positive 'Maintenance' income."),
                 (_, IncomeCategory.Maintenance, not BonusType.Simple) =>
                     throw new DomainRuleViolationException("Invalid 'Maintenance' income."),

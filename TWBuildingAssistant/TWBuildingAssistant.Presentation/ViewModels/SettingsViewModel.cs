@@ -3,13 +3,16 @@
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
 using TWBuildingAssistant.Domain.Services;
+using TWBuildingAssistant.Presentation.State;
 
 public class SettingsViewModel 
     : ViewModel
 {
     private readonly IWorldDataService worldDataService;
+    private readonly IWorldStore worldStore;
 
     private Religion selectedReligion;
 
@@ -29,9 +32,10 @@ public class SettingsViewModel
 
     private int corruptionRate;
 
-    public SettingsViewModel(IWorldDataService worldDataService)
+    public SettingsViewModel(IWorldDataService worldDataService, IWorldStore worldStore)
     {
         this.worldDataService = worldDataService;
+        this.worldStore = worldStore;
         this.Religions = new ObservableCollection<Religion>(this.worldDataService.Religions);
         this.selectedReligion = this.Religions[0];
         this.Provinces = new ObservableCollection<Province>(this.worldDataService.Provinces);
@@ -43,9 +47,9 @@ public class SettingsViewModel
         this.useAntilegacyTechnologies = false;
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
         this.selectedFertilityDrop = this.FertilityDrops[0];
-        this.Weathers = new ObservableCollection<Weather>(this.worldDataService.Weathers);
+        this.Weathers = new ObservableCollection<Weather>(this.worldStore.GetWeathers().Result);
         this.selectedWeather = this.Weathers[0];
-        this.Seasons = new ObservableCollection<Season>(this.worldDataService.Seasons);
+        this.Seasons = new ObservableCollection<Season>(this.worldStore.GetSeasons().Result);
         this.selectedSeason = this.Seasons[0];
         this.corruptionRate = 1;
 

@@ -1,6 +1,7 @@
 ﻿namespace TWBuildingAssistant.Domain.Models;
 
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Domain;
@@ -68,7 +69,7 @@ public class Province
             var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);
             var income = IncomeOperations.Collect(effect.Incomes, fertility);
 
-            var regionStates = sanitation.Select(x => new RegionState(x)).ToArray();
+            var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();
             var provinceState = new ProvinceState(regionStates, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
             return provinceState;
         }

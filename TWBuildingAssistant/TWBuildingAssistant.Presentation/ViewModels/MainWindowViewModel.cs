@@ -2,12 +2,14 @@
 
 using System;
 using TWBuildingAssistant.Domain.Services;
+using TWBuildingAssistant.Presentation.State;
 
 public class MainWindowViewModel 
     : WindowViewModel
 {
     private readonly IWorldDataService worldDataService;
     private readonly ISeekService seekService;
+    private readonly IWorldStore worldStore;
 
     private SettingsViewModel settingsViewModel;
     private ProvinceViewModel provinceViewModel;
@@ -15,12 +17,13 @@ public class MainWindowViewModel
 
     private ViewModel content;
 
-    public MainWindowViewModel(IWorldDataService worldDataService, ISeekService seekService)
+    public MainWindowViewModel(IWorldDataService worldDataService, ISeekService seekService, IWorldStore worldStore)
     {
         this.worldDataService = worldDataService;
         this.seekService = seekService;
+        this.worldStore = worldStore;
 
-        this.settingsViewModel = new SettingsViewModel(this.worldDataService);
+        this.settingsViewModel = new SettingsViewModel(this.worldDataService, this.worldStore);
         this.settingsViewModel.NextTransition += this.TransitionFromSettingsToProvince;
         this.content = this.settingsViewModel;
     }

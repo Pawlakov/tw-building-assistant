@@ -1,8 +1,10 @@
 ﻿namespace TWBuildingAssistant.Domain.Services;
 
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
@@ -27,13 +29,13 @@ public class WorldDataService
             var weathers = new List<KeyValuePair<int, Weather>>();
             foreach (var weatherEntity in context.Weathers.OrderBy(x => x.Order).ToList())
             {
-                weathers.Add(new KeyValuePair<int, Weather>(weatherEntity.Id, new Weather(weatherEntity.Name)));
+                weathers.Add(new KeyValuePair<int, Weather>(weatherEntity.Id, WeatherOperations.Create(weatherEntity.Name)));
             }
 
             var seasons = new List<KeyValuePair<int, Season>>();
             foreach (var seasonEntity in context.Seasons.OrderBy(x => x.Order).ToList())
             {
-                seasons.Add(new KeyValuePair<int, Season>(seasonEntity.Id, new Season(seasonEntity.Name)));
+                seasons.Add(new KeyValuePair<int, Season>(seasonEntity.Id, SeasonOperations.Create(seasonEntity.Name)));
             }
 
             var religions = new List<KeyValuePair<int, Religion>>();
@@ -173,8 +175,6 @@ public class WorldDataService
             this.Religions = religions.Select(x => x.Value);
             this.Provinces = provinces.Select(x => x.Value);
             this.Factions = factions.Select(x => x.Value);
-            this.Weathers = weathers.Select(x => x.Value);
-            this.Seasons = seasons.Select(x => x.Value);
         }
     }
 
@@ -184,9 +184,41 @@ public class WorldDataService
 
     public IEnumerable<Faction> Factions { get; init; }
 
-    public IEnumerable<Weather> Weathers { get; init; }
+    public IEnumerable<Weather> GetWeathers()
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            var entities = context.Weathers
+                .OrderBy(x => x.Order)
+                .ToList();
 
-    public IEnumerable<Season> Seasons { get; init; }
+            var models = new List<Weather>();
+            foreach (var entity in entities)
+            {
+                models.Add(WeatherOperations.Create(entity.Name));
+            }
+
+            return models;
+        }
+    }
+
+    public IEnumerable<Season> GetSeasons()
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            var entities = context.Seasons
+                .OrderBy(x => x.Order)
+                .ToList();
+
+            var models = new List<Season>();
+            foreach (var entity in entities)
+            {
+                models.Add(SeasonOperations.Create(entity.Name));
+            }
+
+            return models;
+        }
+    }
 
     private static Effect MakeEffect(DatabaseContext context, List<KeyValuePair<int, Religion>> religions, int? id)
     {

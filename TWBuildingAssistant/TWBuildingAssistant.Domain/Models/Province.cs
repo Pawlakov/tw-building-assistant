@@ -59,16 +59,16 @@ public class Province
     {
         get
         {
-            var corruptionEffect = new Effect(0, 0, 0, 0, 0, 0, 0, 0, 0, new[] { IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage), });
+            var corruptionEffect = EffectOperations.Create(0, 0, 0, 0, 0, 0, 0, 0, 0, new[] { IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage), });
 
             var climateEffect = this.climate.GetEffect(this.Season, this.Weather);
-            var regionalEffects = this.Regions.Select(x => x.Effect);
+            var regionalEffects = this.Regions.Select(x => x.Effects);
             var regionalInfluences = this.Regions.Select(x => x.Influence);
-            var effect = regionalEffects.Aggregate(this.baseEffect + corruptionEffect + climateEffect + this.Owner.FactionwideEffect, (x, y) => x + y);
+            var effect = EffectOperations.Collect(regionalEffects.SelectMany(x => x).Append(this.baseEffect).Append(corruptionEffect).Append(climateEffect).Concat(this.Owner.FactionwideEffects));
             var influence = regionalInfluences.Aggregate(this.baseInfluence + this.Owner.FactionwideInfluence, (x, y) => x + y);
 
             var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
-            var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
+            var sanitation = regionalEffects.Select(x => x.Sum(y => y.RegionalSanitation) + effect.ProvincialSanitation);
             var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
             var publicOrder = effect.PublicOrder + influence.PublicOrder(this.Owner.StateReligion);
             var income = IncomeOperations.Collect(effect.Incomes, fertility);

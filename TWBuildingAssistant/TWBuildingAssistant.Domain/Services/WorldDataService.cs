@@ -54,7 +54,7 @@ public class WorldDataService
                     }
 
                     var incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type)).ToArray();
-                    effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, incomes);
+                    effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0, incomes);
                     influence = influenceEntities.Select(x => new Influence(null, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
                 }
 
@@ -155,8 +155,8 @@ public class WorldDataService
                 var antilegacyUnlocks = new List<BuildingLevel>();
                 foreach (var techEntity in context.TechnologyLevels.Where(x => x.FactionId == factionEntity.Id).OrderBy(x => x.Order).ToList())
                 {
-                    universalEffect += MakeEffect(context, techEntity.UniversalEffectId);
-                    antilegacyEffect += MakeEffect(context, techEntity.AntilegacyEffectId);
+                    universalEffect = EffectOperations.Collect(new[] { universalEffect, MakeEffect(context, techEntity.UniversalEffectId) });
+                    antilegacyEffect = EffectOperations.Collect(new[] { antilegacyEffect, MakeEffect(context, techEntity.AntilegacyEffectId) });
                     universalInfluence += MakeInfluence(context, religions, techEntity.UniversalEffectId);
                     antilegacyInfluence += MakeInfluence(context, religions, techEntity.AntilegacyEffectId);
                     var universalLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
@@ -237,7 +237,7 @@ public class WorldDataService
             var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
 
             var incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type)).ToArray();
-            effect = new Effect(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation, incomes);
+            effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation, incomes);
         }
 
         return effect;

@@ -40,11 +40,11 @@ public class Region
 
     public IEnumerable<BuildingSlot> Slots { get; }
 
-    public Effect Effect
+    public IEnumerable<Effect> Effects
     {
         get
         {
-            return this.Slots.Select(x => x.Effect).Aggregate(default(Effect), (x, y) => x + y);
+            return this.Slots.Select(x => x.Effect);
         }
     }
 

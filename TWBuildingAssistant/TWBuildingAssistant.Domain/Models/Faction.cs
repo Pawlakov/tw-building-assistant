@@ -50,12 +50,15 @@ public class Faction
 
     public string Name { get; }
 
-    public Effect FactionwideEffect =>
-        this.baseFactionwideEffect +
-        this.stateReligion.EffectWhenState +
-        this.technologyTiers[this.technologyTier].UniversalEffect +
-        (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffect : default) +
-        new Effect(0, 0, 0, 0, 0, 0, this.FertilityDrop);
+    public IEnumerable<Effect> FactionwideEffects =>
+        new[]
+        {
+            this.baseFactionwideEffect,
+            this.stateReligion.EffectWhenState,
+            this.technologyTiers[this.technologyTier].UniversalEffect,
+            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffect : default),
+            EffectOperations.Create(0, 0, 0, 0, 0, 0, this.FertilityDrop),
+        };
 
     public Influence FactionwideInfluence =>
         this.baseFactionwideInfluence +

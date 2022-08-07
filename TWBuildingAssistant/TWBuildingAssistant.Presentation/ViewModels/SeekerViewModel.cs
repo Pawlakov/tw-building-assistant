@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
 using TWBuildingAssistant.Domain.Services;
 
@@ -142,7 +143,7 @@ public class SeekerViewModel
             return false;
         }
 
-        if (this.requireSantitation && state.Sanitation.Any(x => x < 0))
+        if (this.requireSantitation && state.Regions.Any(x => x.Sanitation < 0))
         {
             return false;
         }

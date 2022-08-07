@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
 
 public class ProvinceViewModel 
@@ -79,7 +80,7 @@ public class ProvinceViewModel
     {
         var state = this.province.State;
         var builder = new StringBuilder();
-        builder.AppendLine($"Sanitation: {string.Join("/", state.Sanitation.Select(x => x.ToString()))}");
+        builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");
         builder.AppendLine($"Public Order: {state.PublicOrder}");
         builder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");

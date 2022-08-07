@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
 
 public class SeekService

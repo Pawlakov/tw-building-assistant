@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
 
 public class Province
@@ -67,7 +68,9 @@ public class Province
             var publicOrder = effect.PublicOrder + effect.Influence.PublicOrder(this.Owner.StateReligion);
             var income = IncomeOperations.Collect(effect.Incomes, fertility);
 
-            return new ProvinceState(sanitation, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
+            var regionStates = sanitation.Select(x => new RegionState(x)).ToArray();
+            var provinceState = new ProvinceState(regionStates, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
+            return provinceState;
         }
     }
 }

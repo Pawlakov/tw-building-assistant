@@ -31,7 +31,7 @@ public class WorldDataService
             {
                 var effect = MakeEffect(context, provinceEntity.EffectId);
                 var incomes = MakeIncomes(context, provinceEntity.EffectId);
-                var influence = MakeInfluence(context, provinceEntity.EffectId);
+                var influence = MakeInfluences(context, provinceEntity.EffectId);
                 var regions = new List<Region>();
                 foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
                 {
@@ -46,7 +46,7 @@ public class WorldDataService
             {
                 var effect = MakeEffect(context, buildingLevelEntity.EffectId);
                 var incomes = MakeIncomes(context, buildingLevelEntity.EffectId);
-                var influence = MakeInfluence(context, buildingLevelEntity.EffectId);
+                var influence = MakeInfluences(context, buildingLevelEntity.EffectId);
                 buildings.Add(new KeyValuePair<int, Tuple<BuildingLevel, int?>>(buildingLevelEntity.Id, Tuple.Create(new BuildingLevel(buildingLevelEntity.Name, effect, incomes, influence), buildingLevelEntity.ParentBuildingLevelId)));
             }
 
@@ -91,14 +91,14 @@ public class WorldDataService
             {
                 var effect = MakeEffect(context, factionEntity.EffectId);
                 var incomes = MakeIncomes(context, factionEntity.EffectId);
-                var influence = MakeInfluence(context, factionEntity.EffectId);
+                var influences = MakeInfluences(context, factionEntity.EffectId);
                 var techs = new List<TechnologyTier>();
                 var universalEffects = new List<Effect>();
                 var antilegacyEffects = new List<Effect>();
                 var universalIncomes = new List<Income>();
                 var antilegacyIncomes = new List<Income>();
-                var universalInfluence = default(Influence);
-                var antilegacyInfluence = default(Influence);
+                var universalInfluences = new List<Influence>();
+                var antilegacyInfluences = new List<Influence>();
                 var universalLocks = new List<BuildingLevel>();
                 var universalUnlocks = new List<BuildingLevel>();
                 var antilegacyLocks = new List<BuildingLevel>();
@@ -109,8 +109,8 @@ public class WorldDataService
                     antilegacyEffects.Add(MakeEffect(context, techEntity.AntilegacyEffectId));
                     universalIncomes.AddRange(MakeIncomes(context, techEntity.UniversalEffectId));
                     antilegacyIncomes.AddRange(MakeIncomes(context, techEntity.AntilegacyEffectId));
-                    universalInfluence += MakeInfluence(context, techEntity.UniversalEffectId);
-                    antilegacyInfluence += MakeInfluence(context, techEntity.AntilegacyEffectId);
+                    universalInfluences.AddRange(MakeInfluences(context, techEntity.UniversalEffectId));
+                    antilegacyInfluences.AddRange(MakeInfluences(context, techEntity.AntilegacyEffectId));
                     var universalLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
                     var universalUnlocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && !y.Antilegacy && !y.Lock).Select(x => x.BuildingLevelId).ToList();
                     var antilegacyLocksIds = context.BuildingLevelLocks.Where(y => y.TechnologyLevelId == techEntity.Id && y.Antilegacy && y.Lock).Select(x => x.BuildingLevelId).ToList();
@@ -119,7 +119,7 @@ public class WorldDataService
                     universalUnlocks.AddRange(buildings.Where(x => universalUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
                     antilegacyLocks.AddRange(buildings.Where(x => antilegacyLocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
                     antilegacyUnlocks.AddRange(buildings.Where(x => antilegacyUnlocksIds.Contains(x.Key)).Select(x => x.Value.Item1));
-                    techs.Add(new TechnologyTier(universalEffects, antilegacyEffects, universalIncomes, antilegacyIncomes, universalInfluence, antilegacyInfluence, universalLocks, universalUnlocks, antilegacyLocks, antilegacyUnlocks));
+                    techs.Add(new TechnologyTier(universalEffects, antilegacyEffects, universalIncomes, antilegacyIncomes, universalInfluences, antilegacyInfluences, universalLocks, universalUnlocks, antilegacyLocks, antilegacyUnlocks));
                 }
 
                 var factionBranches = new List<BuildingBranch>();
@@ -129,7 +129,7 @@ public class WorldDataService
                     factionBranches.AddRange(usedBranches.Select(x => x.Value));
                 }
 
-                factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect, incomes, influence)));
+                factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect, incomes, influences)));
             }
 
             this.Provinces = provinces.Select(x => x.Value);
@@ -270,15 +270,15 @@ public class WorldDataService
         return incomes;
     }
 
-    private static Influence MakeInfluence(DatabaseContext context, int? id)
+    private static IEnumerable<Influence> MakeInfluences(DatabaseContext context, int? id)
     {
-        Influence influence = default;
+        IEnumerable<Influence> influences = Enumerable.Empty<Influence>();
         if (id.HasValue)
         {
             var influenceEntities = context.Influences.Where(x => x.EffectId == id).ToList();
-            influence = influenceEntities.Select(x => new Influence(x.ReligionId, x.Value)).Aggregate(default(Influence), (x, y) => x + y);
+            influences = influenceEntities.Select(x => InfluenceOperations.Create(x.ReligionId, x.Value)).ToArray();
         }
 
-        return influence;
+        return influences;
     }
 }

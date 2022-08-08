@@ -37,5 +37,5 @@ public class BuildingSlot
 
     public IEnumerable<Income> Incomes => this.buildingLevel.Incomes;
 
-    public Influence Influence => this.buildingLevel.Influence;
+    public IEnumerable<Influence> Influences => this.buildingLevel.Influences;
 }

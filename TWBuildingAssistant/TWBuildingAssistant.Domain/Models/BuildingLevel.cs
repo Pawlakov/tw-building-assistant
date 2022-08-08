@@ -7,7 +7,7 @@ using TWBuildingAssistant.Domain.Exceptions;
 
 public class BuildingLevel
 {
-    public BuildingLevel(string name, Effect effect, IEnumerable<Income> incomes, Influence influence)
+    public BuildingLevel(string name, Effect effect, IEnumerable<Income> incomes, IEnumerable<Influence> influences)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -17,7 +17,7 @@ public class BuildingLevel
         this.Name = name;
         this.Effect = effect;
         this.Incomes = incomes.ToList();
-        this.Influence = influence;
+        this.Influences = influences.ToList();
     }
 
     public string Name { get; }
@@ -26,7 +26,7 @@ public class BuildingLevel
 
     public IEnumerable<Income> Incomes { get; }
 
-    public Influence Influence { get; }
+    public IEnumerable<Influence> Influences { get; }
 
-    public static BuildingLevel Empty { get; } = new BuildingLevel("Empty", default, Enumerable.Empty<Income>(), default);
+    public static BuildingLevel Empty { get; } = new BuildingLevel("Empty", default, Enumerable.Empty<Income>(), Enumerable.Empty<Influence>());
 }

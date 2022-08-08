@@ -11,11 +11,11 @@ public class Province
 {
     private readonly Effect baseEffect;
     private readonly ImmutableArray<Income> baseIncomes;
-    private readonly Influence baseInfluence;
+    private readonly ImmutableArray<Influence> baseInfluences;
 
     private readonly int climateId;
 
-    public Province(string name, IEnumerable<Region> regions, int climateId, Effect baseEffect, IEnumerable<Income> baseIncomes, Influence baseInfluence)
+    public Province(string name, IEnumerable<Region> regions, int climateId, Effect baseEffect, IEnumerable<Income> baseIncomes, IEnumerable<Influence> baseInfluences)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -35,7 +35,7 @@ public class Province
         this.Name = name;
         this.baseEffect = baseEffect;
         this.baseIncomes = baseIncomes.ToImmutableArray();
-        this.baseInfluence = baseInfluence;
+        this.baseInfluences = baseInfluences.ToImmutableArray();
         this.Regions = regions.ToList();
         this.climateId = climateId;
     }
@@ -60,15 +60,15 @@ public class Province
         (var climateEffect, var climateIncomes) = ClimateOperations.GetEffects(climate, this.SeasonId, this.WeatherId);
         var regionalEffects = this.Regions.Select(x => x.Effects);
         var regionalIncomes = this.Regions.Select(x => x.Incomes);
-        var regionalInfluences = this.Regions.Select(x => x.Influence);
+        var regionalInfluences = this.Regions.Select(x => x.Influences);
         var effect = EffectOperations.Collect(regionalEffects.SelectMany(x => x).Append(this.baseEffect).Append(climateEffect).Concat(this.Owner.GetFactionwideEffects(religions)));
         var incomes = regionalIncomes.SelectMany(x => x).Concat(this.baseIncomes).Append(corruptionIncome).Concat(climateIncomes).Concat(this.Owner.GetFactionwideIncomes(religions));
-        var influence = regionalInfluences.Aggregate(this.baseInfluence + this.Owner.GetFactionwideInfluence(religions), (x, y) => x + y);
+        var influences = regionalInfluences.SelectMany(x => x).Concat(this.baseInfluences).Concat(this.Owner.GetFactionwideInfluence(religions));
 
         var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
         var sanitation = regionalEffects.Select(x => x.Sum(y => y.RegionalSanitation) + effect.ProvincialSanitation);
         var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
-        var publicOrder = effect.PublicOrder + influence.PublicOrder(this.Owner.StateReligionId.Value);
+        var publicOrder = effect.PublicOrder + InfluenceOperations.Collect(influences, this.Owner.StateReligionId.Value);
         var income = IncomeOperations.Collect(incomes, fertility);
 
         var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();

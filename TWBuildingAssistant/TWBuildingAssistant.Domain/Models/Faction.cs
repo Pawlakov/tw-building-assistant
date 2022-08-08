@@ -14,7 +14,7 @@ public class Faction
 {
     private readonly Effect baseFactionwideEffect;
     private readonly Income[] baseFactionwideIncomes;
-    private readonly Influence baseFactionwideInfluence;
+    private readonly Influence[] baseFactionwideInfluences;
 
     private readonly TechnologyTier[] technologyTiers;
 
@@ -26,7 +26,7 @@ public class Faction
 
     private int technologyTier;
 
-    public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect, IEnumerable<Income> baseFactionwideIncomes, Influence baseFactionwideInfluence)
+    public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect, IEnumerable<Income> baseFactionwideIncomes, IEnumerable<Influence> baseFactionwideInfluences)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -46,7 +46,7 @@ public class Faction
         this.Name = name;
         this.baseFactionwideEffect = baseFactionwideEffect;
         this.baseFactionwideIncomes = baseFactionwideIncomes.ToArray();
-        this.baseFactionwideInfluence = baseFactionwideInfluence;
+        this.baseFactionwideInfluences = baseFactionwideInfluences.ToArray();
         this.technologyTiers = technologyTiers.ToArray();
         this.buildingBranches = buildingBranches.ToArray();
     }
@@ -75,13 +75,16 @@ public class Faction
             }.SelectMany(x => x);
     }
 
-    public Influence GetFactionwideInfluence(ImmutableArray<Religion> religions)
+    public IEnumerable<Influence> GetFactionwideInfluence(ImmutableArray<Religion> religions)
     {
         return
-            this.baseFactionwideInfluence +
-            new Influence(null, religions.Single(x => x.Id == this.stateReligionId).StateInfluenceWhenState) +
-            this.technologyTiers[this.technologyTier].UniversalInfluence +
-            (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyInfluence : default);
+            new[]
+            {
+                this.baseFactionwideInfluences,
+                this.technologyTiers[this.technologyTier].UniversalInfluences,
+                (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyInfluences : Enumerable.Empty<Influence>()),
+            }.SelectMany(x => x)
+            .Append(InfluenceOperations.Create(null, religions.Single(x => x.Id == this.stateReligionId).StateInfluenceWhenState));
     }
 
     public int? StateReligionId

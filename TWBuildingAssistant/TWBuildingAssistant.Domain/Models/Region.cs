@@ -56,11 +56,11 @@ public class Region
         }
     }
 
-    public Influence Influence
+    public IEnumerable<Influence> Influences
     {
         get
         {
-            return this.Slots.Select(x => x.Influence).Aggregate(default(Influence), (x, y) => x + y);
+            return this.Slots.SelectMany(x => x.Influences);
         }
     }
 }

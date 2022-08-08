@@ -7,14 +7,14 @@ using TWBuildingAssistant.Domain;
 
 public class TechnologyTier
 {
-    public TechnologyTier(IEnumerable<Effect> universalEffects, IEnumerable<Effect> antilegacyEffects, IEnumerable<Income> universalIncomes, IEnumerable<Income> antilegacyIncomes, Influence universalInfluence, Influence antilegacyInfluence, IEnumerable<BuildingLevel> universalLocks, IEnumerable<BuildingLevel> universalUnlocks, IEnumerable<BuildingLevel> antilegacyLocks, IEnumerable<BuildingLevel> antilegacyUnlocks)
+    public TechnologyTier(IEnumerable<Effect> universalEffects, IEnumerable<Effect> antilegacyEffects, IEnumerable<Income> universalIncomes, IEnumerable<Income> antilegacyIncomes, IEnumerable<Influence> universalInfluences, IEnumerable<Influence> antilegacyInfluences, IEnumerable<BuildingLevel> universalLocks, IEnumerable<BuildingLevel> universalUnlocks, IEnumerable<BuildingLevel> antilegacyLocks, IEnumerable<BuildingLevel> antilegacyUnlocks)
     {
         this.UniversalEffects = universalEffects.ToImmutableArray();
         this.AntilegacyEffects = antilegacyEffects.ToImmutableArray();
         this.UniversalIncomes = universalIncomes.ToImmutableArray();
         this.AntilegacyIncomes = antilegacyIncomes.ToImmutableArray();
-        this.UniversalInfluence = universalInfluence;
-        this.AntilegacyInfluence = antilegacyInfluence;
+        this.UniversalInfluences = universalInfluences.ToImmutableArray();
+        this.AntilegacyInfluences = antilegacyInfluences.ToImmutableArray();
         this.UniversalLocks = universalLocks.ToImmutableArray();
         this.UniversalUnlocks = universalUnlocks.ToImmutableArray();
         this.AntilegacyLocks = antilegacyLocks.ToImmutableArray();
@@ -29,9 +29,9 @@ public class TechnologyTier
 
     public ImmutableArray<Income> AntilegacyIncomes { get; }
 
-    public Influence UniversalInfluence { get; }
+    public ImmutableArray<Influence> UniversalInfluences { get; }
 
-    public Influence AntilegacyInfluence { get; }
+    public ImmutableArray<Influence> AntilegacyInfluences { get; }
 
     public ImmutableArray<BuildingLevel> UniversalLocks { get; set; }
 

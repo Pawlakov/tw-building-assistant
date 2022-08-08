@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Domain.Models;
+﻿namespace TWBuildingAssistant.Domain.OldModels;
 
 using System;
 using System.Collections.Generic;

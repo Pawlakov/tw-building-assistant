@@ -4,7 +4,7 @@ using System;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.State;
 

@@ -3,7 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.OldModels;
 
 public class SlotViewModel
     : ViewModel

@@ -1,12 +1,12 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
 
 public class SeekerViewModel

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.State;
 
 public class SeekService

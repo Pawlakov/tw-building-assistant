@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.State;
 
 public class ProvinceViewModel 

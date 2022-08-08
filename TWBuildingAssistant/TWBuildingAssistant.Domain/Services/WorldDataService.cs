@@ -6,7 +6,7 @@ using System.Linq;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
-using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.OldModels;
 
 public class WorldDataService
     : IWorldDataService

@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.Models;
+using TWBuildingAssistant.Domain.OldModels;
 
 public interface IWorldDataService
 {

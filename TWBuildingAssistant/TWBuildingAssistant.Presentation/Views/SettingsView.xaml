@@ -98,7 +98,7 @@
             </Border>
         </StackPanel>
         <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-            <Button Command="{Binding NextCommand}">Next</Button>
+            <Button Command="{Binding NextCommand}" Width="420">Next</Button>
         </Border>
     </StackPanel>
 </UserControl>

@@ -2,65 +2,92 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
-using TWBuildingAssistant.Domain.State;
+using TWBuildingAssistant.Domain.StateModels;
+using TWBuildingAssistant.Presentation.State;
+using TWBuildingAssistant.Presentation.ViewModels.Factories;
 
 public class SettingsViewModel 
     : ViewModel
 {
-    private readonly IWorldDataService worldDataService;
-    private readonly IWorldStore worldStore;
+    private readonly IViewModelFactory viewModelFactory;
+    private readonly INavigator navigator;
+    private readonly ISettingsService settingsService;
+    private readonly ISettingsStore settingsStore;
 
-    private Religion selectedReligion;
-
-    private Province selectedProvince;
-
-    private Faction selectedFaction;
-
+    private NamedId selectedReligion;
+    private NamedId selectedProvince;
+    private NamedId selectedFaction;
     private int selectedTechnologyTier;
-
     private bool useAntilegacyTechnologies;
-
     private int selectedFertilityDrop;
-
-    private Weather selectedWeather;
-
-    private Season selectedSeason;
-
+    private NamedId selectedWeather;
+    private NamedId selectedSeason;
     private int corruptionRate;
 
-    public SettingsViewModel(IWorldDataService worldDataService, IWorldStore worldStore)
+    public SettingsViewModel(IViewModelFactory viewModelFactory, INavigator navigator, ISettingsService settingsService, ISettingsStore settingsStore)
     {
-        this.worldDataService = worldDataService;
-        this.worldStore = worldStore;
-        this.Religions = new ObservableCollection<Religion>(this.worldStore.GetReligions().Result);
-        this.selectedReligion = this.Religions[0];
-        this.Provinces = new ObservableCollection<Province>(this.worldDataService.Provinces);
-        this.selectedProvince = this.Provinces[0];
-        this.Factions = new ObservableCollection<Faction>(this.worldDataService.Factions);
-        this.selectedFaction = this.Factions[0];
+        this.viewModelFactory = viewModelFactory;
+        this.navigator = navigator;
+        this.settingsService = settingsService;
+        this.settingsStore = settingsStore;
+
+        this.Religions = new ObservableCollection<NamedId>(this.settingsService.GetReligionOptions().Result);
+        this.Provinces = new ObservableCollection<NamedId>(this.settingsService.GetProvinceOptions().Result);
+        this.Factions = new ObservableCollection<NamedId>(this.settingsService.GetFactionOptions().Result);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
-        this.selectedTechnologyTier = this.TechnologyTiers[0];
-        this.useAntilegacyTechnologies = false;
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.selectedFertilityDrop = this.FertilityDrops[0];
-        this.Weathers = new ObservableCollection<Weather>(this.worldStore.GetWeathers().Result);
-        this.selectedWeather = this.Weathers[0];
-        this.Seasons = new ObservableCollection<Season>(this.worldStore.GetSeasons().Result);
-        this.selectedSeason = this.Seasons[0];
-        this.corruptionRate = 1;
+        this.Weathers = new ObservableCollection<NamedId>(this.settingsService.GetWeatherOptions().Result);
+        this.Seasons = new ObservableCollection<NamedId>(this.settingsService.GetSeasonOptions().Result);
+
+        if (this.settingsStore.CurrentFactionSettings == default)
+        {
+            this.selectedFertilityDrop = this.FertilityDrops[0];
+            this.selectedTechnologyTier = this.TechnologyTiers[0];
+            this.useAntilegacyTechnologies = false;
+            this.selectedReligion = this.Religions[0];
+        }
+        else
+        {
+            this.selectedFertilityDrop = this.settingsStore.CurrentFactionSettings.FertilityDrop;
+            this.selectedTechnologyTier = this.settingsStore.CurrentFactionSettings.TechnologyTier;
+            this.useAntilegacyTechnologies = this.settingsStore.CurrentFactionSettings.UseAntilegacyTechnologies;
+            this.selectedReligion = this.Religions.Single(x => x.Id == this.settingsStore.CurrentFactionSettings.ReligionId);
+        }
+
+        if (this.settingsStore.CurrentProvinceSettings == default)
+        {
+            this.selectedFaction = this.Factions[0];
+            this.selectedWeather = this.Weathers[0];
+            this.selectedSeason = this.Seasons[0];
+            this.corruptionRate = 1;
+        }
+        else
+        {
+            this.selectedFaction = this.Factions.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.FactionId);
+            this.selectedWeather = this.Weathers.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.WeatherId);
+            this.selectedSeason = this.Seasons.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.SeasonId);
+            this.corruptionRate = this.settingsStore.CurrentProvinceSettings.CorruptionRate;
+        }
+
+        if (this.settingsStore.ProvinceId == default)
+        {
+            this.selectedProvince = this.Provinces[0];
+        }
+        else
+        {
+            this.selectedProvince = this.Provinces.Single(x => x.Id == this.settingsStore.ProvinceId);
+        }
 
         this.NextCommand = new RelayCommand(this.Next);
     }
 
-    public event EventHandler<NextTransitionEventArgs> NextTransition;
+    public ObservableCollection<NamedId> Religions { get; set; }
 
-    public ObservableCollection<Religion> Religions { get; set; }
-
-    public Religion SelectedReligion
+    public NamedId SelectedReligion
     {
         get => this.selectedReligion;
         set
@@ -73,9 +100,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Province> Provinces { get; set; }
+    public ObservableCollection<NamedId> Provinces { get; set; }
 
-    public Province SelectedProvince
+    public NamedId SelectedProvince
     {
         get => this.selectedProvince;
         set
@@ -88,9 +115,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Faction> Factions { get; set; }
+    public ObservableCollection<NamedId> Factions { get; set; }
 
-    public Faction SelectedFaction
+    public NamedId SelectedFaction
     {
         get => this.selectedFaction;
         set
@@ -146,9 +173,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Weather> Weathers { get; set; }
+    public ObservableCollection<NamedId> Weathers { get; set; }
 
-    public Weather SelectedWeather
+    public NamedId SelectedWeather
     {
         get => this.selectedWeather;
         set
@@ -161,9 +188,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Season> Seasons { get; set; }
+    public ObservableCollection<NamedId> Seasons { get; set; }
 
-    public Season SelectedSeason
+    public NamedId SelectedSeason
     {
         get => this.selectedSeason;
         set
@@ -202,25 +229,10 @@ public class SettingsViewModel
 
     public void Next()
     {
-        this.SelectedFaction.FertilityDrop = this.SelectedFertilityDrop;
-        this.SelectedFaction.TechnologyTier = this.SelectedTechnologyTier;
-        this.SelectedFaction.UseAntilegacyTechnologies = this.UseAntilegacyTechnologies;
-        this.SelectedFaction.StateReligionId = this.SelectedReligion.Id;
-        this.SelectedProvince.Owner = this.SelectedFaction;
-        this.SelectedProvince.WeatherId = this.SelectedWeather.Id;
-        this.SelectedProvince.SeasonId = this.SelectedSeason.Id;
-        this.SelectedProvince.CorruptionRate = this.CorruptionRate;
+        this.settingsStore.CurrentFactionSettings = new FactionSettings(this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id);
+        this.settingsStore.CurrentProvinceSettings = new ProvinceSettings(this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
+        this.settingsStore.ProvinceId = this.selectedProvince.Id;
 
-        this.NextTransition?.Invoke(this, new NextTransitionEventArgs(this.selectedProvince));
-    }
-
-    public class NextTransitionEventArgs : EventArgs
-    {
-        public NextTransitionEventArgs(Province province)
-        {
-            this.Province = province;
-        }
-
-        public Province Province { get; }
+        this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }
 }

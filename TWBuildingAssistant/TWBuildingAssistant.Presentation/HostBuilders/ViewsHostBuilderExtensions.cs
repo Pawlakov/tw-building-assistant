@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using TWBuildingAssistant.Presentation.ViewModels;
 using TWBuildingAssistant.Presentation.Views;
 
-public static class AddViewsHostBuilderExtensions
+public static class ViewsHostBuilderExtensions
 {
     public static IHostBuilder AddViews(this IHostBuilder host)
     {

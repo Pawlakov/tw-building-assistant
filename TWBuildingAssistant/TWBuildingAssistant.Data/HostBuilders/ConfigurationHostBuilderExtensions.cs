@@ -3,7 +3,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
-public static class AddConfigurationHostBuilderExtensions
+public static class ConfigurationHostBuilderExtensions
 {
     public static IHostBuilder AddConfiguration(this IHostBuilder host)
     {

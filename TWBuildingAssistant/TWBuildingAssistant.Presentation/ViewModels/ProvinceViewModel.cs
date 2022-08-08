@@ -6,23 +6,25 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
-using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.OldModels;
-using TWBuildingAssistant.Domain.State;
+using TWBuildingAssistant.Presentation.State;
 
 public class ProvinceViewModel 
     : ViewModel
 {
     private readonly IWorldStore worldStore;
+    private readonly ISettingsStore settingsStore;
 
     private readonly Province province;
 
     private string performance;
 
-    public ProvinceViewModel(IWorldStore worldStore, Province province)
+    public ProvinceViewModel(IWorldStore worldStore, ISettingsStore settingsStore)
     {
         this.worldStore = worldStore;
-        this.province = province;
+        this.settingsStore = settingsStore;
+
+        this.province = this.worldStore.GetProvinces();
         this.ProvinceName = this.province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in this.province.Regions)

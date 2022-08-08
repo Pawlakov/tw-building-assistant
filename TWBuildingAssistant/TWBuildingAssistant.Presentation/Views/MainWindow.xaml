@@ -9,5 +9,5 @@
         Title="TWA:BA" 
         WindowStartupLocation="CenterScreen" 
         SizeToContent="WidthAndHeight">
-    <ContentControl Content="{Binding Content}"/>
+    <ContentControl Content="{Binding CurrentViewModel}"/>
 </Window>

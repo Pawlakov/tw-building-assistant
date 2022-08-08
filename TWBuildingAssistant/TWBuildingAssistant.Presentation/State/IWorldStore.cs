@@ -1,8 +1,9 @@
-﻿namespace TWBuildingAssistant.Domain.State;
+﻿namespace TWBuildingAssistant.Presentation.State;
 
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.OldModels;
 
 public interface IWorldStore
 {

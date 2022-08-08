@@ -1,9 +1,10 @@
-﻿namespace TWBuildingAssistant.Domain.State;
+﻿namespace TWBuildingAssistant.Presentation.State;
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
 
 internal class WorldStore
@@ -15,6 +16,8 @@ internal class WorldStore
     private ImmutableArray<Weather>? weathers;
     private ImmutableArray<Climate>? climates;
     private ImmutableArray<Religion>? religions;
+    private ImmutableArray<Province>? provinces;
+    private ImmutableArray<Faction>? factions;
 
     public WorldStore(IWorldDataService worldDataService)
     {

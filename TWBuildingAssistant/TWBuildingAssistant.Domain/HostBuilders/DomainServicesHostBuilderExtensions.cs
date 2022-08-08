@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TWBuildingAssistant.Domain.Services;
 
-public static class AddServicesHostBuilderExtensions
+public static class DomainServicesHostBuilderExtensions
 {
     public static IHostBuilder AddServices(this IHostBuilder host)
     {
@@ -12,6 +12,7 @@ public static class AddServicesHostBuilderExtensions
         {
             collection.AddTransient<IWorldDataService, WorldDataService>();
             collection.AddTransient<ISeekService, SeekService>();
+            collection.AddTransient<ISettingsService, SettingsService>();
         });
     }
 }

@@ -8,7 +8,7 @@ using System;
 using System.Security.Principal;
 using TWBuildingAssistant.Data.Sqlite;
 
-public static class AddDbContextHostBuilderExtensions
+public static class DbContextHostBuilderExtensions
 {
     public static IHostBuilder AddDbContext(this IHostBuilder host)
     {

@@ -8,10 +8,12 @@ using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
+using TWBuildingAssistant.Presentation.State;
 
 public class SeekerViewModel
     : ViewModel
 {
+    private readonly IWorldStore worldStore;
     private readonly ISeekService seekService;
 
     private readonly Province province;
@@ -23,8 +25,9 @@ public class SeekerViewModel
     private int progressBarMax;
     private int progressBarValue;
 
-    public SeekerViewModel(ISeekService seekService, Province province, IEnumerable<BuildingSlot> slots)
+    public SeekerViewModel(IWorldStore worldStore, ISeekService seekService, Province province, IEnumerable<BuildingSlot> slots)
     {
+        this.worldStore = worldStore;
         this.seekService = seekService;
 
         this.requireSantitation = true;
@@ -101,22 +104,24 @@ public class SeekerViewModel
 
     private async Task Seek()
     {
-        await Task.Run(() =>
+        this.processing = true;
+        this.OnPropertyChanged(nameof(this.ProgressBarMax));
+        this.OnPropertyChanged(nameof(this.ProgressBarValue));
+        this.OnPropertyChanged(nameof(this.ProgressBarText));
+        if (this.slots.Any())
         {
-            this.processing = true;
-            this.OnPropertyChanged(nameof(this.ProgressBarMax));
-            this.OnPropertyChanged(nameof(this.ProgressBarValue));
-            this.OnPropertyChanged(nameof(this.ProgressBarText));
-            if (this.slots.Any())
+            var climates = await this.worldStore.GetClimates();
+            var religions = await this.worldStore.GetReligions();
+            await Task.Run(() =>
             {
-                this.seekService.Seek(this.province, this.slots.ToList(), this.MinimalCondition, x => this.ProgressBarMax = x, x => this.progressBarValue = x);
-            }
+                this.seekService.Seek(climates, religions, this.province, this.slots.ToList(), this.MinimalCondition, x => this.ProgressBarMax = x, x => this.progressBarValue = x);
+            });
+        }
 
-            this.processing = false;
-            this.OnPropertyChanged(nameof(this.ProgressBarMax));
-            this.OnPropertyChanged(nameof(this.ProgressBarValue));
-            this.OnPropertyChanged(nameof(this.ProgressBarText));
-        });
+        this.processing = false;
+        this.OnPropertyChanged(nameof(this.ProgressBarMax));
+        this.OnPropertyChanged(nameof(this.ProgressBarValue));
+        this.OnPropertyChanged(nameof(this.ProgressBarText));
 
         this.Previous();
     }

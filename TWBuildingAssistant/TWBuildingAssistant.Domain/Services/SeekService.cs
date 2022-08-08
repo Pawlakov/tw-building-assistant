@@ -2,22 +2,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.OldModels;
-using TWBuildingAssistant.Domain.State;
 
 public class SeekService
     : ISeekService
 {
-    private readonly IWorldStore worldStore;
-
-    public SeekService(IWorldStore worldStore)
-    {
-        this.worldStore = worldStore;
-    }
-
-    public void Seek(Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition, Action<int> updateProgressMax, Action<int> updateProgressValue)
+    public void Seek(ImmutableArray<Climate> climates, ImmutableArray<Religion> religions, Province province, List<BuildingSlot> slots, Predicate<ProvinceState> minimalCondition, Action<int> updateProgressMax, Action<int> updateProgressValue)
     {
         var lastSlot = slots.Last();
         var original = slots.Select(x => x.Building).ToList().AsEnumerable();
@@ -46,7 +39,7 @@ public class SeekService
                 var currentCombination = combination.Append(option);
                 if (slot == lastSlot)
                 {
-                    var state = province.GetState(this.worldStore.GetClimates().Result, this.worldStore.GetReligions().Result);
+                    var state = province.GetState(climates, religions);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;

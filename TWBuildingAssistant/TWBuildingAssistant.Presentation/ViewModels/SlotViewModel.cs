@@ -65,7 +65,7 @@ public class SlotViewModel
 
     public void UpdateBuildings()
     {
-        var buildings = this.province.Owner.GetBuildingLevelsForSlot(this.province, this.region, this.slot);
+        var buildings = this.province.Owner.GetBuildingLevelsForSlot(this.region, this.slot);
         foreach (var building in this.Buildings.ToList())
         {
             if (building != this.selectedBuilding)

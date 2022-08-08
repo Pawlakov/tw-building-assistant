@@ -17,4 +17,6 @@ public interface IWorldDataService
     IEnumerable<Climate> GetClimates();
 
     IEnumerable<Religion> GetReligions();
+
+    IEnumerable<Resource> GetResources();
 }

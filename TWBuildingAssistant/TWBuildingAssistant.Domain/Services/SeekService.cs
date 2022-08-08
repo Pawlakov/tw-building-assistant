@@ -39,7 +39,7 @@ public class SeekService
         void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
         {
             var slot = slots[slotIndex];
-            var options = province.Owner.GetBuildingLevelsForSlot(province, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
+            var options = province.Owner.GetBuildingLevelsForSlot(province.Regions.Single(x => x.Slots.Contains(slot)), slot);
             foreach (var option in options)
             {
                 slot.Building = option;

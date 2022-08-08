@@ -6,11 +6,11 @@ using TWBuildingAssistant.Domain;
 
 public class BuildingBranch
 {
-    public BuildingBranch(SlotType slotType, RegionType? regionType, Resource resource, int? religionId, IEnumerable<BuildingLevel> levels)
+    public BuildingBranch(SlotType slotType, RegionType? regionType, int? resourceId, int? religionId, IEnumerable<BuildingLevel> levels)
     {
         this.SlotType = slotType;
         this.RegionType = regionType;
-        this.Resource = resource;
+        this.ResourceId = resourceId;
         this.ReligionId = religionId;
         this.Levels = levels;
     }
@@ -19,7 +19,7 @@ public class BuildingBranch
 
     public RegionType? RegionType { get; }
 
-    public Resource Resource { get; }
+    public int? ResourceId { get; }
 
     public int? ReligionId { get; }
 

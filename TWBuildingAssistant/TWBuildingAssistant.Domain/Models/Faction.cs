@@ -20,7 +20,7 @@ public class Faction
 
     private readonly BuildingBranch[] buildingBranches;
 
-    private Dictionary<SlotType, Dictionary<RegionType, Dictionary<Resource, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>> buildings;
+    private Dictionary<SlotType, Dictionary<RegionType, List<KeyValuePair<int?, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>>> buildings;
 
     private int? stateReligionId;
 
@@ -121,7 +121,7 @@ public class Faction
 
     public int FertilityDrop { get; set; }
 
-    public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(Province province, Region region, BuildingSlot slot)
+    public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(Region region, BuildingSlot slot)
     {
         var result = new List<BuildingLevel>();
         if (slot.SlotType == SlotType.General)
@@ -129,7 +129,7 @@ public class Faction
             result.Add(BuildingLevel.Empty);
         }
 
-        var buildings = this.buildings[slot.SlotType][slot.RegionType].Single(x => x.Key == region.Resource).Value.AsEnumerable();
+        var buildings = this.buildings[slot.SlotType][slot.RegionType].Single(x => x.Key == region.ResourceId).Value.AsEnumerable();
 
         // TODO: Correct a case such as: Quarry + Local Industry + Local Industry
         var used = region.Slots.Where(x => x != slot).Select(x => x.Building).Where(x => x != null).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
@@ -153,19 +153,19 @@ public class Faction
     {
         var slotTypes = Enums.GetValues<SlotType>();
         var regionTypes = Enums.GetValues<RegionType>();
-        var resources = this.buildingBranches.Select(x => x.Resource).Distinct();
+        var resources = this.buildingBranches.Select(x => x.ResourceId).Distinct();
         this.buildings = slotTypes.ToDictionary(x => x, slotType =>
         {
             return regionTypes.ToDictionary(x => x, regionType =>
             {
-                return resources.ToDictionary(x => x, resource =>
+                return resources.Select(resourceId =>
                 {
                     var levels = this.buildingBranches.SelectMany(x => x.Levels).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
                     var branches = this.buildingBranches.Where(branch =>
                             branch.SlotType == slotType &&
-                            (branch.RegionType == null || branch.RegionType == regionType) &&
-                            (branch.ReligionId == null || branch.ReligionId == this.StateReligionId) &&
-                            (branch.Resource == default || branch.Resource == resource));
+                            (branch.RegionType is null || branch.RegionType == regionType) &&
+                            (branch.ReligionId is null || branch.ReligionId == this.StateReligionId) &&
+                            (branch.ResourceId is null || branch.ResourceId == resourceId));
 
                     var unlockedLevels = this.technologyTiers[this.technologyTier].UniversalUnlocks.Except(this.technologyTiers[this.technologyTier].UniversalLocks);
                     if (this.UseAntilegacyTechnologies)
@@ -185,8 +185,8 @@ public class Faction
                         }
                     }
 
-                    return result;
-                });
+                    return new KeyValuePair<int?, List<KeyValuePair<BuildingBranch, BuildingLevel>>>(resourceId, result);
+                }).ToList();
             });
         });
     }

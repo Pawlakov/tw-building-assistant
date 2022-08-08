@@ -12,7 +12,7 @@ public class Region
 
     private const int TownSlotCount = 4;
 
-    public Region(string name, RegionType type, bool isCoastal, Resource resource = default, bool missingSlot = false)
+    public Region(string name, RegionType type, bool isCoastal, int? resourceId = default, bool missingSlot = false)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -20,7 +20,7 @@ public class Region
         }
 
         this.Name = name;
-        this.Resource = resource;
+        this.ResourceId = resourceId;
 
         var slotCount = (type == RegionType.City ? CitySlotCount : TownSlotCount) + (missingSlot ? -1 : 0);
         var slots = new List<BuildingSlot>();
@@ -36,7 +36,7 @@ public class Region
 
     public string Name { get; }
 
-    public Resource Resource { get; }
+    public int? ResourceId { get; }
 
     public IEnumerable<BuildingSlot> Slots { get; }
 

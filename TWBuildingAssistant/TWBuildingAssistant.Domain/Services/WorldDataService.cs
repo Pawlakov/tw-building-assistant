@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
@@ -20,12 +18,6 @@ public class WorldDataService
         this.contextFactory = contextFactory;
         using (var context = this.contextFactory.CreateDbContext())
         {
-            var resources = new List<KeyValuePair<int, Resource>>();
-            foreach (var resourceEntity in context.Resources.ToList())
-            {
-                resources.Add(new KeyValuePair<int, Resource>(resourceEntity.Id, ResourceOperations.Create(resourceEntity.Name)));
-            }
-
             var provinces = new List<KeyValuePair<int, Province>>();
             foreach (var provinceEntity in context.Provinces.ToList())
             {
@@ -35,7 +27,7 @@ public class WorldDataService
                 var regions = new List<Region>();
                 foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
                 {
-                    regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : default, regionEntity.SlotsCountOffset == -1));
+                    regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId, regionEntity.SlotsCountOffset == -1));
                 }
 
                 provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, provinceEntity.ClimateId, effect, incomes, influence)));
@@ -76,13 +68,13 @@ public class WorldDataService
                 {
                     foreach (var branchLevels in strains)
                     {
-                        branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, resources.SingleOrDefault(x => x.Key == branchEntity.ResourceId).Value, branchEntity.ReligionId, branchLevels)));
+                        branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, branchEntity.ResourceId, branchEntity.ReligionId, branchLevels)));
                     }
                 }
                 else
                 {
                     var branchLevels = strains.SelectMany(x => x).Distinct();
-                    branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, resources.SingleOrDefault(x => x.Key == branchEntity.ResourceId).Value, branchEntity.ReligionId, branchLevels)));
+                    branches.Add(new KeyValuePair<int, BuildingBranch>(branchEntity.Id, new BuildingBranch(branchEntity.SlotType, branchEntity.RegionType, branchEntity.ResourceId, branchEntity.ReligionId, branchLevels)));
                 }
             }
 
@@ -221,25 +213,33 @@ public class WorldDataService
             var models = new List<Religion>();
             foreach (var entity in entities)
             {
-                Effect effect = default;
-                var incomes = Enumerable.Empty<Income>();
-                var influence = 0;
-                if (entity.EffectId.HasValue)
+                var effect = MakeEffect(context, entity.EffectId);
+                var incomes = MakeIncomes(context, entity.EffectId);
+                var influenceEntities = context.Influences.Where(x => x.EffectId == entity.EffectId).ToList();
+                if (influenceEntities.Any(x => x.ReligionId.HasValue))
                 {
-                    var effectEntity = context.Effects.Find(entity.EffectId.Value);
-                    var bonusEntities = context.Bonuses.Where(x => x.EffectId == effectEntity.Id).ToList();
-                    var influenceEntities = context.Influences.Where(x => x.EffectId == effectEntity.Id).ToList();
-                    if (influenceEntities.Any(x => x.ReligionId.HasValue))
-                    {
-                        throw new DomainRuleViolationException("Influence of a religion with a set religion id.");
-                    }
-
-                    effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, 0);
-                    incomes = bonusEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type));
-                    influence = influenceEntities.Sum(x => x.Value);
+                    throw new DomainRuleViolationException("Influence of a religion with a set religion id.");
                 }
 
+                var influence = influenceEntities.Sum(x => x.Value);
+
                 models.Add(ReligionOperations.Create(entity.Id, entity.Name, effect, incomes, influence));
+            }
+
+            return models;
+        }
+    }
+
+    public IEnumerable<Resource> GetResources()
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            var entities = context.Resources.ToList();
+
+            var models = new List<Resource>();
+            foreach (var entity in entities)
+            {
+                models.Add(ResourceOperations.Create(entity.Name));
             }
 
             return models;

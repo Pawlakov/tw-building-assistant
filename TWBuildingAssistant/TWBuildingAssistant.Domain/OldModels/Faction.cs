@@ -22,10 +22,6 @@ public class Faction
 
     private Dictionary<SlotType, Dictionary<RegionType, List<KeyValuePair<int?, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>>> buildings;
 
-    private int? stateReligionId;
-
-    private int technologyTier;
-
     public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect, IEnumerable<Income> baseFactionwideIncomes, IEnumerable<Influence> baseFactionwideInfluences)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -86,40 +82,6 @@ public class Faction
             }.SelectMany(x => x)
             .Append(InfluenceOperations.Create(null, religions.Single(x => x.Id == this.stateReligionId).StateInfluenceWhenState));
     }
-
-    public int? StateReligionId
-    {
-        get => this.stateReligionId;
-        set
-        {
-            if (value == null)
-            {
-                throw new DomainRuleViolationException("Missing state religion.");
-            }
-
-            this.stateReligionId = value;
-            this.PrepareBuildingLevels();
-        }
-    }
-
-    public int TechnologyTier
-    {
-        get => this.technologyTier;
-        set
-        {
-            if (value < 0 || value > 4)
-            {
-                throw new DomainRuleViolationException("Tech tier out of range.");
-            }
-
-            this.technologyTier = value;
-            this.PrepareBuildingLevels();
-        }
-    }
-
-    public bool UseAntilegacyTechnologies { get; set; }
-
-    public int FertilityDrop { get; set; }
 
     public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(Region region, BuildingSlot slot)
     {

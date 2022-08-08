@@ -13,7 +13,6 @@ using TWBuildingAssistant.Presentation.ViewModels.Factories;
 public class SettingsViewModel 
     : ViewModel
 {
-    private readonly IViewModelFactory viewModelFactory;
     private readonly INavigator navigator;
     private readonly ISettingsService settingsService;
     private readonly ISettingsStore settingsStore;
@@ -28,9 +27,8 @@ public class SettingsViewModel
     private NamedId selectedSeason;
     private int corruptionRate;
 
-    public SettingsViewModel(IViewModelFactory viewModelFactory, INavigator navigator, ISettingsService settingsService, ISettingsStore settingsStore)
+    public SettingsViewModel(INavigator navigator, ISettingsService settingsService, ISettingsStore settingsStore)
     {
-        this.viewModelFactory = viewModelFactory;
         this.navigator = navigator;
         this.settingsService = settingsService;
         this.settingsStore = settingsStore;

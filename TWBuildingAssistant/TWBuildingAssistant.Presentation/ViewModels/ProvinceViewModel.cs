@@ -12,19 +12,18 @@ using TWBuildingAssistant.Presentation.State;
 public class ProvinceViewModel 
     : ViewModel
 {
+    private readonly INavigator navigator;
     private readonly IWorldStore worldStore;
     private readonly ISettingsStore settingsStore;
 
-    private readonly Province province;
-
     private string performance;
 
-    public ProvinceViewModel(IWorldStore worldStore, ISettingsStore settingsStore)
+    public ProvinceViewModel(INavigator navigator, IWorldStore worldStore, ISettingsStore settingsStore)
     {
+        this.navigator = navigator;
         this.worldStore = worldStore;
         this.settingsStore = settingsStore;
 
-        this.province = this.worldStore.GetProvinces();
         this.ProvinceName = this.province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in this.province.Regions)
@@ -71,7 +70,7 @@ public class ProvinceViewModel
 
     public void Previous()
     {
-        this.PreviousTransition?.Invoke(this, EventArgs.Empty);
+        this.navigator.CurrentViewType = INavigator.ViewType.Settings;
     }
 
     public void Next()

@@ -44,14 +44,6 @@ public class Province
 
     public IEnumerable<Region> Regions { get; }
 
-    public Faction Owner { get; set; }
-
-    public int WeatherId { get; set; }
-
-    public int SeasonId { get; set; }
-
-    public int CorruptionRate { get; set; }
-
     public ProvinceState GetState(ImmutableArray<Climate> climates, ImmutableArray<Religion> religions)
     {
         var corruptionIncome = IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage);

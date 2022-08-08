@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.Models;
 using TWBuildingAssistant.Domain.Services;
 
 internal class WorldStore

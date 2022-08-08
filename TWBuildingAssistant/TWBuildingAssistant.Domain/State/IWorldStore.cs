@@ -3,7 +3,6 @@
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.Models;
 
 public interface IWorldStore
 {

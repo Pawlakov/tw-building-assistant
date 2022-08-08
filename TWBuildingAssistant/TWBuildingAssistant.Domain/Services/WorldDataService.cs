@@ -26,40 +26,28 @@ public class WorldDataService
                 resources.Add(new KeyValuePair<int, Resource>(resourceEntity.Id, ResourceOperations.Create(resourceEntity.Name)));
             }
 
-            var weathers = new List<KeyValuePair<int, Weather>>();
-            foreach (var weatherEntity in context.Weathers.OrderBy(x => x.Order).ToList())
-            {
-                weathers.Add(new KeyValuePair<int, Weather>(weatherEntity.Id, WeatherOperations.Create(weatherEntity.Name)));
-            }
-
-            var seasons = new List<KeyValuePair<int, Season>>();
-            foreach (var seasonEntity in context.Seasons.OrderBy(x => x.Order).ToList())
-            {
-                seasons.Add(new KeyValuePair<int, Season>(seasonEntity.Id, SeasonOperations.Create(seasonEntity.Name)));
-            }
-
-            
-
             var climates = new List<KeyValuePair<int, Climate>>();
             foreach (var climateEntity in context.Climates.ToList())
             {
-                var weatherEffects = new Dictionary<Season, IDictionary<Weather, Effect>>();
-                var weatherIncomes = new Dictionary<Season, IDictionary<Weather, IEnumerable<Income>>>();
-                foreach (var season in seasons)
+                var weatherEffects = new Dictionary<int, IDictionary<int, Effect>>();
+                var weatherIncomes = new Dictionary<int, IDictionary<int, IEnumerable<Income>>>();
+                var seasonIds = context.WeatherEffects.Where(x => x.ClimateId == climateEntity.Id).Select(x => x.SeasonId).ToList().Distinct();
+                var weatherIds = context.WeatherEffects.Where(x => x.ClimateId == climateEntity.Id).Select(x => x.WeatherId).ToList().Distinct();
+                foreach (var seasonId in seasonIds)
                 {
-                    var weatherEntry = new Dictionary<Weather, Effect>();
-                    var incomesEntry = new Dictionary<Weather, IEnumerable<Income>>();
-                    foreach (var weather in weathers)
+                    var weatherEntry = new Dictionary<int, Effect>();
+                    var incomesEntry = new Dictionary<int, IEnumerable<Income>>();
+                    foreach (var weatherId in weatherIds)
                     {
-                        var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == season.Key && x.ClimateId == climateEntity.Id && x.WeatherId == weather.Key);
+                        var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == seasonId && x.ClimateId == climateEntity.Id && x.WeatherId == weatherId);
                         var effect = MakeEffect(context, weatherEffectEntity?.EffectId);
                         var incomes = MakeIncomes(context, weatherEffectEntity?.EffectId);
-                        weatherEntry.Add(weather.Value, effect);
-                        incomesEntry.Add(weather.Value, incomes);
+                        weatherEntry.Add(weatherId, effect);
+                        incomesEntry.Add(weatherId, incomes);
                     }
 
-                    weatherEffects.Add(season.Value, weatherEntry);
-                    weatherIncomes.Add(season.Value, incomesEntry);
+                    weatherEffects.Add(seasonId, weatherEntry);
+                    weatherIncomes.Add(seasonId, incomesEntry);
                 }
 
                 climates.Add(new KeyValuePair<int, Climate>(climateEntity.Id, new Climate(weatherEffects, weatherIncomes)));
@@ -191,7 +179,7 @@ public class WorldDataService
             var models = new List<Weather>();
             foreach (var entity in entities)
             {
-                models.Add(WeatherOperations.Create(entity.Name));
+                models.Add(WeatherOperations.Create(entity.Id, entity.Name));
             }
 
             return models;
@@ -209,7 +197,7 @@ public class WorldDataService
             var models = new List<Season>();
             foreach (var entity in entities)
             {
-                models.Add(SeasonOperations.Create(entity.Name));
+                models.Add(SeasonOperations.Create(entity.Id, entity.Name));
             }
 
             return models;
@@ -244,7 +232,7 @@ public class WorldDataService
                     influence = influenceEntities.Sum(x => x.Value);
                 }
 
-                models.Add(new Religion(entity.Id, entity.Name, effect, incomes, influence));
+                models.Add(ReligionOperations.Create(entity.Id, entity.Name, effect, incomes, influence));
             }
 
             return models;

@@ -61,8 +61,8 @@ public class Province
     {
         var corruptionIncome = IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage);
 
-        var climateEffect = this.climate.GetEffect(this.Season, this.Weather);
-        var climateIncomes = this.climate.GetIncomes(this.Season, this.Weather);
+        var climateEffect = this.climate.GetEffect(this.Season.Id, this.Weather.Id);
+        var climateIncomes = this.climate.GetIncomes(this.Season.Id, this.Weather.Id);
         var regionalEffects = this.Regions.Select(x => x.Effects);
         var regionalIncomes = this.Regions.Select(x => x.Incomes);
         var regionalInfluences = this.Regions.Select(x => x.Influence);

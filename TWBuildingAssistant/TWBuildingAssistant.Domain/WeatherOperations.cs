@@ -4,14 +4,16 @@ using TWBuildingAssistant.Domain.Exceptions;
 
 public static class WeatherOperations
 {
-    public static Weather Create(in string name)
+    public static Weather Create(in int id, in string name)
     {
-        return name switch
+        return (id, name) switch
         {
-            null or "" =>
+            (0, _) =>
+                throw new DomainRuleViolationException("Weather without id."),
+            (_, null or "") =>
                 throw new DomainRuleViolationException("Weather without name."),
             _ =>
-                new Weather(name),
+                new Weather(id, name),
         };
     }
 }

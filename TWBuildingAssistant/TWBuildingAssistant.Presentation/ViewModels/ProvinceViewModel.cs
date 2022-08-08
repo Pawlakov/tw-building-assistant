@@ -80,7 +80,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = this.province.GetState(this.worldStore.GetReligions().Result);
+        var state = this.province.GetState(this.worldStore.GetClimates().Result, this.worldStore.GetReligions().Result);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

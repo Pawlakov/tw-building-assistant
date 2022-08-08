@@ -1,7 +1,6 @@
 ﻿namespace TWBuildingAssistant.Domain.Services;
 
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Models;
 
@@ -14,6 +13,8 @@ public interface IWorldDataService
     IEnumerable<Weather> GetWeathers();
 
     IEnumerable<Season> GetSeasons();
+
+    IEnumerable<Climate> GetClimates();
 
     IEnumerable<Religion> GetReligions();
 }

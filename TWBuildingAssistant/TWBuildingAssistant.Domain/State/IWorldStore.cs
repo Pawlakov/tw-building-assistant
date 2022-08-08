@@ -10,5 +10,7 @@ public interface IWorldStore
 
     Task<ImmutableArray<Season>> GetSeasons();
 
+    Task<ImmutableArray<Climate>> GetClimates();
+
     Task<ImmutableArray<Religion>> GetReligions();
 }

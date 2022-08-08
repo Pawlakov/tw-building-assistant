@@ -13,6 +13,7 @@ internal class WorldStore
 
     private ImmutableArray<Season>? seasons;
     private ImmutableArray<Weather>? weathers;
+    private ImmutableArray<Climate>? climates;
     private ImmutableArray<Religion>? religions;
 
     public WorldStore(IWorldDataService worldDataService)
@@ -38,6 +39,16 @@ internal class WorldStore
         }
 
         return this.seasons.Value;
+    }
+
+    public async Task<ImmutableArray<Climate>> GetClimates()
+    {
+        if (this.climates == null)
+        {
+            this.climates = this.worldDataService.GetClimates().ToImmutableArray();
+        }
+
+        return this.climates.Value;
     }
 
     public async Task<ImmutableArray<Religion>> GetReligions()

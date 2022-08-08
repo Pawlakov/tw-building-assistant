@@ -46,7 +46,7 @@ public class SeekService
                 var currentCombination = combination.Append(option);
                 if (slot == lastSlot)
                 {
-                    var state = province.GetState(this.worldStore.GetReligions().Result);
+                    var state = province.GetState(this.worldStore.GetClimates().Result, this.worldStore.GetReligions().Result);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;

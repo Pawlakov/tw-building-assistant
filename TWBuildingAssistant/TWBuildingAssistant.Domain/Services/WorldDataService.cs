@@ -26,33 +26,6 @@ public class WorldDataService
                 resources.Add(new KeyValuePair<int, Resource>(resourceEntity.Id, ResourceOperations.Create(resourceEntity.Name)));
             }
 
-            var climates = new List<KeyValuePair<int, Climate>>();
-            foreach (var climateEntity in context.Climates.ToList())
-            {
-                var weatherEffects = new Dictionary<int, IDictionary<int, Effect>>();
-                var weatherIncomes = new Dictionary<int, IDictionary<int, IEnumerable<Income>>>();
-                var seasonIds = context.WeatherEffects.Where(x => x.ClimateId == climateEntity.Id).Select(x => x.SeasonId).ToList().Distinct();
-                var weatherIds = context.WeatherEffects.Where(x => x.ClimateId == climateEntity.Id).Select(x => x.WeatherId).ToList().Distinct();
-                foreach (var seasonId in seasonIds)
-                {
-                    var weatherEntry = new Dictionary<int, Effect>();
-                    var incomesEntry = new Dictionary<int, IEnumerable<Income>>();
-                    foreach (var weatherId in weatherIds)
-                    {
-                        var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == seasonId && x.ClimateId == climateEntity.Id && x.WeatherId == weatherId);
-                        var effect = MakeEffect(context, weatherEffectEntity?.EffectId);
-                        var incomes = MakeIncomes(context, weatherEffectEntity?.EffectId);
-                        weatherEntry.Add(weatherId, effect);
-                        incomesEntry.Add(weatherId, incomes);
-                    }
-
-                    weatherEffects.Add(seasonId, weatherEntry);
-                    weatherIncomes.Add(seasonId, incomesEntry);
-                }
-
-                climates.Add(new KeyValuePair<int, Climate>(climateEntity.Id, new Climate(weatherEffects, weatherIncomes)));
-            }
-
             var provinces = new List<KeyValuePair<int, Province>>();
             foreach (var provinceEntity in context.Provinces.ToList())
             {
@@ -65,7 +38,7 @@ public class WorldDataService
                     regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId.HasValue ? resources.Single(x => x.Key == regionEntity.ResourceId).Value : default, regionEntity.SlotsCountOffset == -1));
                 }
 
-                provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, climates.Single(x => x.Key == provinceEntity.ClimateId).Value, effect, incomes, influence)));
+                provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, provinceEntity.ClimateId, effect, incomes, influence)));
             }
 
             var buildings = new List<KeyValuePair<int, Tuple<BuildingLevel, int?>>>();
@@ -198,6 +171,40 @@ public class WorldDataService
             foreach (var entity in entities)
             {
                 models.Add(SeasonOperations.Create(entity.Id, entity.Name));
+            }
+
+            return models;
+        }
+    }
+
+    public IEnumerable<Climate> GetClimates()
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            var entities = context.Climates
+                .ToList();
+
+            var models = new List<Climate>();
+            foreach (var entity in entities)
+            {
+                var weatherEffects = new List<(int, IEnumerable<(int, Effect, IEnumerable<Income>)>)>();
+                var seasonIds = context.WeatherEffects.Where(x => x.ClimateId == entity.Id).Select(x => x.SeasonId).ToList().Distinct();
+                var weatherIds = context.WeatherEffects.Where(x => x.ClimateId == entity.Id).Select(x => x.WeatherId).ToList().Distinct();
+                foreach (var seasonId in seasonIds)
+                {
+                    var weatherEntry = new List<(int, Effect, IEnumerable<Income>)>();
+                    foreach (var weatherId in weatherIds)
+                    {
+                        var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == seasonId && x.ClimateId == entity.Id && x.WeatherId == weatherId);
+                        var effect = MakeEffect(context, weatherEffectEntity?.EffectId);
+                        var incomes = MakeIncomes(context, weatherEffectEntity?.EffectId);
+                        weatherEntry.Add((weatherId, effect, incomes));
+                    }
+
+                    weatherEffects.Add((seasonId, weatherEntry));
+                }
+
+                models.Add(ClimateOperations.Create(entity.Id, entity.Name, weatherEffects));
             }
 
             return models;

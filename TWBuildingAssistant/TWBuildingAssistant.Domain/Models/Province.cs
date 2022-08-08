@@ -13,9 +13,9 @@ public class Province
     private readonly ImmutableArray<Income> baseIncomes;
     private readonly Influence baseInfluence;
 
-    private readonly Climate climate;
+    private readonly int climateId;
 
-    public Province(string name, IEnumerable<Region> regions, Climate climate, Effect baseEffect, IEnumerable<Income> baseIncomes, Influence baseInfluence)
+    public Province(string name, IEnumerable<Region> regions, int climateId, Effect baseEffect, IEnumerable<Income> baseIncomes, Influence baseInfluence)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -32,17 +32,12 @@ public class Province
             throw new DomainRuleViolationException("Invalid region count.");
         }
 
-        if (climate == null)
-        {
-            throw new DomainRuleViolationException("Province without climate.");
-        }
-
         this.Name = name;
         this.baseEffect = baseEffect;
         this.baseIncomes = baseIncomes.ToImmutableArray();
         this.baseInfluence = baseInfluence;
         this.Regions = regions.ToList();
-        this.climate = climate;
+        this.climateId = climateId;
     }
 
     public string Name { get; }
@@ -51,18 +46,18 @@ public class Province
 
     public Faction Owner { get; set; }
 
-    public Weather Weather { get; set; }
+    public int WeatherId { get; set; }
 
-    public Season Season { get; set; }
+    public int SeasonId { get; set; }
 
     public int CorruptionRate { get; set; }
 
-    public ProvinceState GetState(ImmutableArray<Religion> religions)
+    public ProvinceState GetState(ImmutableArray<Climate> climates, ImmutableArray<Religion> religions)
     {
         var corruptionIncome = IncomeOperations.Create(-this.CorruptionRate, null, BonusType.Percentage);
 
-        var climateEffect = this.climate.GetEffect(this.Season.Id, this.Weather.Id);
-        var climateIncomes = this.climate.GetIncomes(this.Season.Id, this.Weather.Id);
+        var climate = climates.Single(x => x.Id == this.climateId);
+        (var climateEffect, var climateIncomes) = ClimateOperations.GetEffects(climate, this.SeasonId, this.WeatherId);
         var regionalEffects = this.Regions.Select(x => x.Effects);
         var regionalIncomes = this.Regions.Select(x => x.Incomes);
         var regionalInfluences = this.Regions.Select(x => x.Influence);

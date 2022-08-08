@@ -207,8 +207,8 @@ public class SettingsViewModel
         this.SelectedFaction.UseAntilegacyTechnologies = this.UseAntilegacyTechnologies;
         this.SelectedFaction.StateReligionId = this.SelectedReligion.Id;
         this.SelectedProvince.Owner = this.SelectedFaction;
-        this.SelectedProvince.Weather = this.SelectedWeather;
-        this.SelectedProvince.Season = this.SelectedSeason;
+        this.SelectedProvince.WeatherId = this.SelectedWeather.Id;
+        this.SelectedProvince.SeasonId = this.SelectedSeason.Id;
         this.SelectedProvince.CorruptionRate = this.CorruptionRate;
 
         this.NextTransition?.Invoke(this, new NextTransitionEventArgs(this.selectedProvince));

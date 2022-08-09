@@ -14,4 +14,8 @@ public interface IWorldStore
     Task<ImmutableArray<Climate>> GetClimates();
 
     Task<ImmutableArray<Religion>> GetReligions();
+
+    Task<ImmutableArray<Province>> GetProvinces();
+
+    Task<ImmutableArray<Faction>> GetFactions();
 }

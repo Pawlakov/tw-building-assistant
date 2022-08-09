@@ -6,29 +6,45 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.OldModels;
+using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Presentation.State;
 
-public class ProvinceViewModel 
+public class ProvinceViewModel
     : ViewModel
 {
     private readonly INavigator navigator;
     private readonly IWorldStore worldStore;
     private readonly ISettingsStore settingsStore;
+    private readonly IProvinceStore provinceStore;
+    private readonly IProvinceService provinceService;
+
+    private readonly Province province;
+    private readonly Faction faction;
+    private readonly Climate climate;
+    private readonly Religion religion;
 
     private string performance;
 
-    public ProvinceViewModel(INavigator navigator, IWorldStore worldStore, ISettingsStore settingsStore)
+    public ProvinceViewModel(INavigator navigator, IWorldStore worldStore, ISettingsStore settingsStore, IProvinceStore provinceStore, IProvinceService provinceService)
     {
         this.navigator = navigator;
         this.worldStore = worldStore;
         this.settingsStore = settingsStore;
+        this.provinceStore = provinceStore;
+        this.provinceService = provinceService;
+
+        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.ProvinceId);
+        this.faction = this.worldStore.GetFactions().Result.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.FactionId);
+        this.climate = this.worldStore.GetClimates().Result.Single(x => x.Id == this.province.ClimateId);
+        this.religion = this.worldStore.GetReligions().Result.Single(x => x.Id == this.settingsStore.CurrentFactionSettings.ReligionId);
 
         this.ProvinceName = this.province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in this.province.Regions)
         {
-            var newRegion = new RegionViewModel(this.province, region);
+            var newRegion = new RegionViewModel(this.settingsStore, this.faction, this.province, region);
             foreach (var slot in newRegion.Slots)
             {
                 slot.PropertyChanged += (sender, args) => this.SetPerformanceDisplay();
@@ -42,10 +58,6 @@ public class ProvinceViewModel
 
         this.SetPerformanceDisplay();
     }
-
-    public event EventHandler<EventArgs> PreviousTransition;
-
-    public event EventHandler<NextTransitionEventArgs> NextTransition;
 
     public string ProvinceName { get; }
 
@@ -75,13 +87,15 @@ public class ProvinceViewModel
 
     public void Next()
     {
-        var slots = this.Regions.SelectMany(x => x.Slots.Where(y => y.Seek)).Select(y => y.Slot).ToList();
-        this.NextTransition?.Invoke(this, new NextTransitionEventArgs(this.province, slots));
+        this.provinceStore.Slots = this.Regions.SelectMany(x => x.Slots.Where(y => y.Seek)).Select(y => y.Slot).ToList();
+
+        this.navigator.CurrentViewType = INavigator.ViewType.Seeker;
     }
 
     private void SetPerformanceDisplay()
     {
-        var state = this.province.GetState(this.worldStore.GetClimates().Result, this.worldStore.GetReligions().Result);
+        var provinceId = this.settingsStore.ProvinceId;
+        var state = this.province.GetState(this.settingsStore.CurrentProvinceSettings, this.settingsStore.CurrentFactionSettings, this.faction, this.climate, this.religion);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");
@@ -91,18 +105,5 @@ public class ProvinceViewModel
         builder.AppendLine($"Growth: {state.Growth}");
         builder.AppendLine($"Wealth: {state.Wealth}");
         this.Performance = builder.ToString();
-    }
-
-    public class NextTransitionEventArgs : EventArgs
-    {
-        public NextTransitionEventArgs(Province province, IEnumerable<BuildingSlot> slots)
-        {
-            this.Province = province;
-            this.Slots = slots.ToList();
-        }
-
-        public Province Province { get; }
-
-        public IEnumerable<BuildingSlot> Slots { get; }
     }
 }

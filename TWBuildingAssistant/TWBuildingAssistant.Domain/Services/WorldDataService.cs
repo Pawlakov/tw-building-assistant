@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
@@ -16,23 +17,12 @@ public class WorldDataService
     public WorldDataService(DatabaseContextFactory contextFactory)
     {
         this.contextFactory = contextFactory;
+    }
+
+    public IEnumerable<Faction> GetFactions()
+    {
         using (var context = this.contextFactory.CreateDbContext())
         {
-            var provinces = new List<KeyValuePair<int, Province>>();
-            foreach (var provinceEntity in context.Provinces.ToList())
-            {
-                var effect = MakeEffect(context, provinceEntity.EffectId);
-                var incomes = MakeIncomes(context, provinceEntity.EffectId);
-                var influence = MakeInfluences(context, provinceEntity.EffectId);
-                var regions = new List<Region>();
-                foreach (var regionEntity in context.Regions.Where(x => x.ProvinceId == provinceEntity.Id).ToList())
-                {
-                    regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId, regionEntity.SlotsCountOffset == -1));
-                }
-
-                provinces.Add(new KeyValuePair<int, Province>(provinceEntity.Id, new Province(provinceEntity.Name, regions, provinceEntity.ClimateId, effect, incomes, influence)));
-            }
-
             var buildings = new List<KeyValuePair<int, Tuple<BuildingLevel, int?>>>();
             foreach (var buildingLevelEntity in context.BuildingLevels)
             {
@@ -78,7 +68,7 @@ public class WorldDataService
                 }
             }
 
-            var factions = new List<KeyValuePair<int, Faction>>();
+            var factions = new List<Faction>();
             foreach (var factionEntity in context.Factions.ToList())
             {
                 var effect = MakeEffect(context, factionEntity.EffectId);
@@ -121,23 +111,47 @@ public class WorldDataService
                     factionBranches.AddRange(usedBranches.Select(x => x.Value));
                 }
 
-                factions.Add(new KeyValuePair<int, Faction>(factionEntity.Id, new Faction(factionEntity.Name, techs, factionBranches, effect, incomes, influences)));
+                factions.Add(new Faction(factionEntity.Id, factionEntity.Name, techs, factionBranches, effect, incomes, influences));
             }
 
-            this.Provinces = provinces.Select(x => x.Value);
-            this.Factions = factions.Select(x => x.Value);
+            return factions;
         }
     }
 
-    public IEnumerable<Province> Provinces { get; init; }
+    public IEnumerable<Province> GetProvinces()
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            var entities = context.Provinces
+                .AsNoTracking()
+                .Include(x => x.Regions)
+                .ToList();
 
-    public IEnumerable<Faction> Factions { get; init; }
+            var models = new List<Province>();
+            foreach (var entity in entities)
+            {
+                var effect = MakeEffect(context, entity.EffectId);
+                var incomes = MakeIncomes(context, entity.EffectId);
+                var influence = MakeInfluences(context, entity.EffectId);
+                var regions = new List<Region>();
+                foreach (var regionEntity in entity.Regions)
+                {
+                    regions.Add(new Region(regionEntity.Name, regionEntity.RegionType, regionEntity.IsCoastal, regionEntity.ResourceId, regionEntity.SlotsCountOffset == -1));
+                }
+
+                models.Add(new Province(entity.Id, entity.Name, regions, entity.ClimateId, effect, incomes, influence));
+            }
+
+            return models;
+        }
+    }
 
     public IEnumerable<Weather> GetWeathers()
     {
         using (var context = this.contextFactory.CreateDbContext())
         {
             var entities = context.Weathers
+                .AsNoTracking()
                 .OrderBy(x => x.Order)
                 .ToList();
 
@@ -156,6 +170,7 @@ public class WorldDataService
         using (var context = this.contextFactory.CreateDbContext())
         {
             var entities = context.Seasons
+                .AsNoTracking()
                 .OrderBy(x => x.Order)
                 .ToList();
 
@@ -174,20 +189,22 @@ public class WorldDataService
         using (var context = this.contextFactory.CreateDbContext())
         {
             var entities = context.Climates
+                .AsNoTracking()
+                .Include(x => x.Effects)
                 .ToList();
 
             var models = new List<Climate>();
             foreach (var entity in entities)
             {
                 var weatherEffects = new List<(int, IEnumerable<(int, Effect, IEnumerable<Income>)>)>();
-                var seasonIds = context.WeatherEffects.Where(x => x.ClimateId == entity.Id).Select(x => x.SeasonId).ToList().Distinct();
-                var weatherIds = context.WeatherEffects.Where(x => x.ClimateId == entity.Id).Select(x => x.WeatherId).ToList().Distinct();
+                var seasonIds = entity.Effects.Select(x => x.SeasonId).Distinct();
+                var weatherIds = entity.Effects.Select(x => x.WeatherId).Distinct();
                 foreach (var seasonId in seasonIds)
                 {
                     var weatherEntry = new List<(int, Effect, IEnumerable<Income>)>();
                     foreach (var weatherId in weatherIds)
                     {
-                        var weatherEffectEntity = context.WeatherEffects.SingleOrDefault(x => x.SeasonId == seasonId && x.ClimateId == entity.Id && x.WeatherId == weatherId);
+                        var weatherEffectEntity = entity.Effects.SingleOrDefault(x => x.SeasonId == seasonId && x.WeatherId == weatherId);
                         var effect = MakeEffect(context, weatherEffectEntity?.EffectId);
                         var incomes = MakeIncomes(context, weatherEffectEntity?.EffectId);
                         weatherEntry.Add((weatherId, effect, incomes));
@@ -208,6 +225,9 @@ public class WorldDataService
         using (var context = this.contextFactory.CreateDbContext())
         {
             var entities = context.Religions
+                .AsNoTracking()
+                .Include(x => x.Effect)
+                .Include(x => x.Influences)
                 .ToList();
 
             var models = new List<Religion>();
@@ -215,15 +235,15 @@ public class WorldDataService
             {
                 var effect = MakeEffect(context, entity.EffectId);
                 var incomes = MakeIncomes(context, entity.EffectId);
-                var influenceEntities = context.Influences.Where(x => x.EffectId == entity.EffectId).ToList();
-                if (influenceEntities.Any(x => x.ReligionId.HasValue))
+                var influenceEntities = entity.Effect?.Influences?.Where(x => x.EffectId == entity.EffectId);
+                if (influenceEntities?.Any(x => x.ReligionId.HasValue) == true)
                 {
                     throw new DomainRuleViolationException("Influence of a religion with a set religion id.");
                 }
 
-                var influence = influenceEntities.Sum(x => x.Value);
+                var influence = influenceEntities?.Sum(x => x.Value);
 
-                models.Add(ReligionOperations.Create(entity.Id, entity.Name, effect, incomes, influence));
+                models.Add(ReligionOperations.Create(entity.Id, entity.Name, effect, incomes, influence ?? 0));
             }
 
             return models;
@@ -234,12 +254,14 @@ public class WorldDataService
     {
         using (var context = this.contextFactory.CreateDbContext())
         {
-            var entities = context.Resources.ToList();
+            var entities = context.Resources
+                .AsNoTracking()
+                .ToList();
 
             var models = new List<Resource>();
             foreach (var entity in entities)
             {
-                models.Add(ResourceOperations.Create(entity.Name));
+                models.Add(ResourceOperations.Create(entity.Id, entity.Name));
             }
 
             return models;

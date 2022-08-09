@@ -4,14 +4,16 @@ using TWBuildingAssistant.Domain.Exceptions;
 
 public static class ResourceOperations
 {
-    public static Resource Create(in string name)
+    public static Resource Create(in int id, in string name)
     {
-        return name switch
+        return (id, name) switch
         {
-            null or "" =>
+            (0, _) =>
+                throw new DomainRuleViolationException("Resource without id."),
+            (_, null or "") =>
                 throw new DomainRuleViolationException("Resource without name."),
             _ =>
-                new Resource(name),
+                new Resource(id, name),
         };
     }
 }

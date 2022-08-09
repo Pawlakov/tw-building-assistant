@@ -1,6 +1,5 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +12,10 @@ using TWBuildingAssistant.Presentation.State;
 public class SeekerViewModel
     : ViewModel
 {
+    private readonly INavigator navigator;
     private readonly IWorldStore worldStore;
+    private readonly ISettingsStore settingsStore;
+    private readonly IProvinceStore provinceStore;
     private readonly ISeekService seekService;
 
     private readonly Province province;
@@ -25,22 +27,24 @@ public class SeekerViewModel
     private int progressBarMax;
     private int progressBarValue;
 
-    public SeekerViewModel(IWorldStore worldStore, ISeekService seekService, Province province, IEnumerable<BuildingSlot> slots)
+    public SeekerViewModel(INavigator navigator, IWorldStore worldStore, ISettingsStore settingsStore, IProvinceStore provinceStore, ISeekService seekService)
     {
+        this.navigator = navigator;
         this.worldStore = worldStore;
+        this.settingsStore = settingsStore;
+        this.provinceStore = provinceStore;
         this.seekService = seekService;
+
+        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.ProvinceId);
+        this.slots = this.provinceStore.Slots.ToList();
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
         this.processing = false;
-        this.province = province;
-        this.slots = slots.ToList();
 
         this.SeekCommand = new AsyncRelayCommand(this.Seek, this.SeekEnabled);
         this.PreviousCommand = new RelayCommand(this.Previous, this.PreviousEnabled);
     }
-
-    public event EventHandler<PreviousTransitionEventArgs> PreviousTransition;
 
     public bool RequireSantitation
     {
@@ -110,11 +114,22 @@ public class SeekerViewModel
         this.OnPropertyChanged(nameof(this.ProgressBarText));
         if (this.slots.Any())
         {
+            var factions = await this.worldStore.GetFactions();
             var climates = await this.worldStore.GetClimates();
             var religions = await this.worldStore.GetReligions();
             await Task.Run(() =>
             {
-                this.seekService.Seek(climates, religions, this.province, this.slots.ToList(), this.MinimalCondition, x => this.ProgressBarMax = x, x => this.progressBarValue = x);
+                this.seekService.Seek(
+                    this.settingsStore.CurrentProvinceSettings,
+                    this.settingsStore.CurrentFactionSettings,
+                    factions,
+                    climates,
+                    religions,
+                    this.province,
+                    this.slots.ToList(),
+                    this.MinimalCondition,
+                    x => this.ProgressBarMax = x,
+                    x => this.progressBarValue = x);
             });
         }
 
@@ -128,7 +143,7 @@ public class SeekerViewModel
 
     private void Previous()
     {
-        this.PreviousTransition?.Invoke(this, new PreviousTransitionEventArgs(this.province));
+        this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }
 
     private bool SeekEnabled()
@@ -159,15 +174,5 @@ public class SeekerViewModel
         }
 
         return true;
-    }
-
-    public class PreviousTransitionEventArgs : EventArgs
-    {
-        public PreviousTransitionEventArgs(Province province)
-        {
-            this.Province = province;
-        }
-
-        public Province Province { get; }
     }
 }

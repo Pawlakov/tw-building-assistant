@@ -9,6 +9,7 @@ using EnumsNET;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Exceptions;
+using TWBuildingAssistant.Domain.StateModels;
 
 public class Faction
 {
@@ -22,7 +23,7 @@ public class Faction
 
     private Dictionary<SlotType, Dictionary<RegionType, List<KeyValuePair<int?, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>>> buildings;
 
-    public Faction(string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect, IEnumerable<Income> baseFactionwideIncomes, IEnumerable<Influence> baseFactionwideInfluences)
+    public Faction(int id, string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect, IEnumerable<Income> baseFactionwideIncomes, IEnumerable<Influence> baseFactionwideInfluences)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -39,6 +40,7 @@ public class Faction
             throw new DomainRuleViolationException("Invalid tech tiers count.");
         }
 
+        this.Id = id;
         this.Name = name;
         this.baseFactionwideEffect = baseFactionwideEffect;
         this.baseFactionwideIncomes = baseFactionwideIncomes.ToArray();
@@ -47,44 +49,48 @@ public class Faction
         this.buildingBranches = buildingBranches.ToArray();
     }
 
+    public int Id { get; set; }
+
     public string Name { get; }
 
-    public IEnumerable<Effect> GetFactionwideEffects(ImmutableArray<Religion> religions)
+    public IEnumerable<Effect> GetFactionwideEffects(in FactionSettings settings, in Religion religion)
     {
         return
-            this.technologyTiers[this.technologyTier].UniversalEffects
-            .Concat(this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyEffects : Enumerable.Empty<Effect>())
-            .Append(this.baseFactionwideEffect)
-            .Append(religions.Single(x => x.Id == this.stateReligionId).EffectWhenState)
-            .Append(EffectOperations.Create(fertility: this.FertilityDrop));
+            this.technologyTiers[settings.TechnologyTier].UniversalEffects
+                .Concat(settings.UseAntilegacyTechnologies ? this.technologyTiers[settings.TechnologyTier].AntilegacyEffects : Enumerable.Empty<Effect>())
+                .Append(this.baseFactionwideEffect)
+                .Append(religion.EffectWhenState)
+                .Append(EffectOperations.Create(fertility: settings.FertilityDrop));
     }
 
-    public IEnumerable<Income> GetFactionwideIncomes(ImmutableArray<Religion> religions)
+    public IEnumerable<Income> GetFactionwideIncomes(in FactionSettings settings, in Religion religion)
     {
         return
             new[]
             {
                 this.baseFactionwideIncomes,
-                religions.Single(x => x.Id == this.stateReligionId).IncomesWhenState,
-                this.technologyTiers[this.technologyTier].UniversalIncomes,
-                (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyIncomes : Enumerable.Empty<Income>()),
+                religion.IncomesWhenState,
+                this.technologyTiers[settings.TechnologyTier].UniversalIncomes,
+                (settings.UseAntilegacyTechnologies ? this.technologyTiers[settings.TechnologyTier].AntilegacyIncomes : Enumerable.Empty<Income>()),
             }.SelectMany(x => x);
     }
 
-    public IEnumerable<Influence> GetFactionwideInfluence(ImmutableArray<Religion> religions)
+    public IEnumerable<Influence> GetFactionwideInfluence(in FactionSettings settings, in Religion religion)
     {
         return
             new[]
             {
                 this.baseFactionwideInfluences,
-                this.technologyTiers[this.technologyTier].UniversalInfluences,
-                (this.UseAntilegacyTechnologies ? this.technologyTiers[this.technologyTier].AntilegacyInfluences : Enumerable.Empty<Influence>()),
+                this.technologyTiers[settings.TechnologyTier].UniversalInfluences,
+                (settings.UseAntilegacyTechnologies ? this.technologyTiers[settings.TechnologyTier].AntilegacyInfluences : Enumerable.Empty<Influence>()),
             }.SelectMany(x => x)
-            .Append(InfluenceOperations.Create(null, religions.Single(x => x.Id == this.stateReligionId).StateInfluenceWhenState));
+            .Append(InfluenceOperations.Create(null, religion.StateInfluenceWhenState));
     }
 
-    public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(Region region, BuildingSlot slot)
+    public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(in FactionSettings settings, Region region, BuildingSlot slot)
     {
+        this.PrepareBuildingLevels(settings);
+
         var result = new List<BuildingLevel>();
         if (slot.SlotType == SlotType.General)
         {
@@ -111,7 +117,7 @@ public class Faction
         return result;
     }
 
-    private void PrepareBuildingLevels()
+    private void PrepareBuildingLevels(FactionSettings settings)
     {
         var slotTypes = Enums.GetValues<SlotType>();
         var regionTypes = Enums.GetValues<RegionType>();
@@ -126,13 +132,13 @@ public class Faction
                     var branches = this.buildingBranches.Where(branch =>
                             branch.SlotType == slotType &&
                             (branch.RegionType is null || branch.RegionType == regionType) &&
-                            (branch.ReligionId is null || branch.ReligionId == this.StateReligionId) &&
+                            (branch.ReligionId is null || branch.ReligionId == settings.ReligionId) &&
                             (branch.ResourceId is null || branch.ResourceId == resourceId));
 
-                    var unlockedLevels = this.technologyTiers[this.technologyTier].UniversalUnlocks.Except(this.technologyTiers[this.technologyTier].UniversalLocks);
-                    if (this.UseAntilegacyTechnologies)
+                    var unlockedLevels = this.technologyTiers[settings.TechnologyTier].UniversalUnlocks.Except(this.technologyTiers[settings.TechnologyTier].UniversalLocks);
+                    if (settings.UseAntilegacyTechnologies)
                     {
-                        unlockedLevels = unlockedLevels.Concat(this.technologyTiers[this.technologyTier].AntilegacyUnlocks).Except(this.technologyTiers[this.technologyTier].AntilegacyLocks);
+                        unlockedLevels = unlockedLevels.Concat(this.technologyTiers[settings.TechnologyTier].AntilegacyUnlocks).Except(this.technologyTiers[settings.TechnologyTier].AntilegacyLocks);
                     }
 
                     var result = new List<KeyValuePair<BuildingBranch, BuildingLevel>>();

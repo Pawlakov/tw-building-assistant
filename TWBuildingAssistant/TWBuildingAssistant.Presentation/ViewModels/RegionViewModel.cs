@@ -3,16 +3,17 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using TWBuildingAssistant.Domain.OldModels;
+using TWBuildingAssistant.Presentation.State;
 
 public class RegionViewModel 
     : ViewModel
 {
-    public RegionViewModel(Province province, Region region)
+    public RegionViewModel(ISettingsStore settingsStore, Faction faction, Province province, Region region)
     {
         this.Slots = new ObservableCollection<SlotViewModel>();
         foreach (var slot in region.Slots)
         {
-            this.Slots.Add(new SlotViewModel(province, region, slot));
+            this.Slots.Add(new SlotViewModel(settingsStore, faction, region, slot));
         }
 
         foreach (var slotViewModel in this.Slots)

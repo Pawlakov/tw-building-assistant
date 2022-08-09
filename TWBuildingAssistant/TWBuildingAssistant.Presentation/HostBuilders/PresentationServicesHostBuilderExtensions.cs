@@ -13,6 +13,7 @@ public static class PresentationServicesHostBuilderExtensions
             services.AddSingleton<IWorldStore, WorldStore>();
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
+            services.AddSingleton<IProvinceStore, ProvinceStore>();
         });
 
         return host;

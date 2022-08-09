@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.OldModels;
 
 public interface IWorldDataService
 {
@@ -14,4 +15,8 @@ public interface IWorldDataService
     IEnumerable<Religion> GetReligions();
 
     IEnumerable<Resource> GetResources();
+
+    IEnumerable<Faction> GetFactions();
+
+    IEnumerable<Province> GetProvinces();
 }

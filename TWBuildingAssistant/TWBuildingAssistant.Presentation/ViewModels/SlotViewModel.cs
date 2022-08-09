@@ -4,25 +4,29 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using TWBuildingAssistant.Domain.OldModels;
+using TWBuildingAssistant.Presentation.State;
 
 public class SlotViewModel
     : ViewModel
 {
+    private readonly ISettingsStore settingsStore;
+
     private readonly BuildingSlot slot;
-
     private readonly Region region;
-
-    private readonly Province province;
+    private readonly Faction faction;
 
     private BuildingLevel selectedBuilding;
 
     private bool seek;
 
-    public SlotViewModel(Province province, Region region, BuildingSlot slot)
+    public SlotViewModel(ISettingsStore settingsStore, Faction faction, Region region, BuildingSlot slot)
     {
+        this.settingsStore = settingsStore;
+
         this.slot = slot;
         this.region = region;
-        this.province = province;
+        this.faction = faction;
+
         this.Buildings = new ObservableCollection<BuildingLevel>();
         this.selectedBuilding = slot.Building;
         this.seek = false;
@@ -65,7 +69,7 @@ public class SlotViewModel
 
     public void UpdateBuildings()
     {
-        var buildings = this.province.Owner.GetBuildingLevelsForSlot(this.region, this.slot);
+        var buildings = this.faction.GetBuildingLevelsForSlot(this.settingsStore.CurrentFactionSettings, this.region, this.slot);
         foreach (var building in this.Buildings.ToList())
         {
             if (building != this.selectedBuilding)

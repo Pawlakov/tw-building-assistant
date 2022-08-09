@@ -1,3 +1,3 @@
 ﻿namespace TWBuildingAssistant.Domain;
 
-public readonly record struct Resource(string Name);
+public readonly record struct Resource(int Id, string Name);

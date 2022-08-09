@@ -1,6 +1,5 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
@@ -62,5 +61,25 @@ internal class WorldStore
         }
 
         return this.religions.Value;
+    }
+
+    public async Task<ImmutableArray<Province>> GetProvinces()
+    {
+        if (this.provinces == null)
+        {
+            this.provinces = this.worldDataService.GetProvinces().ToImmutableArray();
+        }
+
+        return this.provinces.Value;
+    }
+
+    public async Task<ImmutableArray<Faction>> GetFactions()
+    {
+        if (this.factions == null)
+        {
+            this.factions = this.worldDataService.GetFactions().ToImmutableArray();
+        }
+
+        return this.factions.Value;
     }
 }

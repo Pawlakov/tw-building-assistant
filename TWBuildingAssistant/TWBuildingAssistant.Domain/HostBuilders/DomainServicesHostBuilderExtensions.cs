@@ -13,6 +13,7 @@ public static class DomainServicesHostBuilderExtensions
             collection.AddTransient<IWorldDataService, WorldDataService>();
             collection.AddTransient<ISeekService, SeekService>();
             collection.AddTransient<ISettingsService, SettingsService>();
+            collection.AddTransient<IProvinceService, ProvinceService>();
         });
     }
 }

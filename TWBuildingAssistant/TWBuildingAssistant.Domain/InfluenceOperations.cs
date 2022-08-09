@@ -10,8 +10,8 @@ public static class InfluenceOperations
     {
         return value switch
         {
-            < 1 =>
-                throw new DomainRuleViolationException("Nonpositive influence."),
+            < 0 =>
+                throw new DomainRuleViolationException("Negative influence."),
             _ =>
                 new Influence(religionId, value),
         };

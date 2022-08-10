@@ -107,7 +107,7 @@ public class SettingsService
         }
     }
 
-    public async Task<(Effect Effect, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences)> GetStateFromSettings(Settings settings)
+    public async Task<EffectSet> GetStateFromSettings(Settings settings)
     {
         using (var context = this.contextFactory.CreateDbContext())
         {
@@ -142,11 +142,11 @@ public class SettingsService
                 .Concat(provinceEffects.Influences)
                 .Concat(climateEffects.Influences);
 
-            return (EffectOperations.Collect(effects), incomes.ToImmutableArray(), influences.ToImmutableArray());
+            return new EffectSet(EffectOperations.Collect(effects), incomes.ToImmutableArray(), influences.ToImmutableArray());
         }
     }
 
-    private async Task<Triad> GetFactionwideEffects(DatabaseContext context, Settings settings)
+    private async Task<EffectSet> GetFactionwideEffects(DatabaseContext context, Settings settings)
     {
         var effectEntity = await context.Factions
             .AsNoTracking()
@@ -159,7 +159,7 @@ public class SettingsService
         return this.MakeEffect(effectEntity);
     }
 
-    private async Task<Triad> GetTechnologyEffect(DatabaseContext context, Settings settings)
+    private async Task<EffectSet> GetTechnologyEffect(DatabaseContext context, Settings settings)
     {
         var universalEffectEntities = await context.TechnologyLevels
             .AsNoTracking()
@@ -188,10 +188,10 @@ public class SettingsService
             effects = effects.Concat(antilegacyEffectEntities.Select(x => this.MakeEffect(x)));
         }
 
-        return new Triad(EffectOperations.Collect(effects.Select(x => x.Effect)), effects.SelectMany(x => x.Incomes).ToImmutableArray(), effects.SelectMany(x => x.Influences).ToImmutableArray());
+        return new EffectSet(EffectOperations.Collect(effects.Select(x => x.Effect)), effects.SelectMany(x => x.Incomes).ToImmutableArray(), effects.SelectMany(x => x.Influences).ToImmutableArray());
     }
 
-    private async Task<Triad> GetReligionEffect(DatabaseContext context, Settings settings)
+    private async Task<EffectSet> GetReligionEffect(DatabaseContext context, Settings settings)
     {
         var effectEntity = await context.Religions
             .AsNoTracking()
@@ -204,7 +204,7 @@ public class SettingsService
         return this.MakeEffect(effectEntity);
     }
 
-    private async Task<Triad> GetProvinceEffect(DatabaseContext context, Settings settings)
+    private async Task<EffectSet> GetProvinceEffect(DatabaseContext context, Settings settings)
     {
         var effectEntity = await context.Provinces
             .AsNoTracking()
@@ -217,7 +217,7 @@ public class SettingsService
         return this.MakeEffect(effectEntity);
     }
 
-    private async Task<Triad> GetClimateEffect(DatabaseContext context, Settings settings)
+    private async Task<EffectSet> GetClimateEffect(DatabaseContext context, Settings settings)
     {
         var effectEntity = await context.Provinces
             .AsNoTracking()
@@ -234,7 +234,7 @@ public class SettingsService
         return this.MakeEffect(effectEntity);
     }
 
-    private Triad MakeEffect(Data.Sqlite.Entities.Effect? effectEntity)
+    private EffectSet MakeEffect(Data.Sqlite.Entities.Effect? effectEntity)
     {
         Effect effect = default;
         IEnumerable<Income> incomes = Enumerable.Empty<Income>();
@@ -253,8 +253,6 @@ public class SettingsService
             }
         }
 
-        return new Triad(effect, incomes.ToImmutableArray(), influences.ToImmutableArray());
+        return new EffectSet(effect, incomes.ToImmutableArray(), influences.ToImmutableArray());
     }
-
-    private readonly record struct Triad(in Effect Effect, in ImmutableArray<Income> Incomes, in ImmutableArray<Influence> Influences);
 }

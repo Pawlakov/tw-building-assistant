@@ -25,12 +25,25 @@ public class ProvinceService
         in Climate climate,
         in Religion religion)
     {
-        (var predefinedEffect, var predefinedIncomes, var predefinedInfluences) = this.GetPredefinded(province, settings, faction, climate, religion);
-        var provinceState = this.GetCustomizable(province, settings, predefinedEffect, predefinedIncomes, predefinedInfluences);
+        (var predefinedEffect, var predefinedIncomes, var predefinedInfluences) = this.GetFromSettings(province, settings, faction, climate, religion);
+        (var regionalEffects, var regionalIncomes, var regionalInfluences) = this.GetFromBuildings(province);
+
+        var effect = EffectOperations.Collect(regionalEffects.Append(predefinedEffect));
+        var incomes = regionalIncomes.Concat(predefinedIncomes);
+        var influences = regionalInfluences.Concat(predefinedInfluences);
+
+        var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
+        var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
+        var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
+        var publicOrder = effect.PublicOrder + InfluenceOperations.Collect(influences, settings.ReligionId);
+        var income = IncomeOperations.Collect(incomes, fertility);
+
+        var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();
+        var provinceState = new ProvinceState(regionStates, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
         return provinceState;
     }
 
-    private (Effect Effect, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetPredefinded(
+    private (Effect Effect, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetFromSettings(
         Province province,
         in Settings settings,
         Faction faction,
@@ -47,29 +60,13 @@ public class ProvinceService
         return (effect, incomes.ToImmutableArray(), influences.ToImmutableArray());
     }
 
-    private ProvinceState GetCustomizable(
-        Province province,
-        in Settings settings,
-        in Effect predefinedEffect,
-        in ImmutableArray<Income> predefinedIncomes,
-        in ImmutableArray<Influence> predefinedInfluences)
+    private (ImmutableArray<Effect> RegionalEffects, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetFromBuildings(
+        Province province)
     {
-        var regionalEffects = province.Regions.Select(x => x.Effects);
-        var regionalIncomes = province.Regions.Select(x => x.Incomes);
-        var regionalInfluences = province.Regions.Select(x => x.Influences);
+        var regionalEffects = province.Regions.Select(x => EffectOperations.Collect(x.Effects));
+        var regionalIncomes = province.Regions.SelectMany(x => x.Incomes);
+        var regionalInfluences = province.Regions.SelectMany(x => x.Influences);
 
-        var effect = EffectOperations.Collect(regionalEffects.SelectMany(x => x).Append(predefinedEffect));
-        var incomes = regionalIncomes.SelectMany(x => x).Concat(predefinedIncomes);
-        var influences = regionalInfluences.SelectMany(x => x).Concat(predefinedInfluences);
-
-        var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
-        var sanitation = regionalEffects.Select(x => x.Sum(y => y.RegionalSanitation) + effect.ProvincialSanitation);
-        var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
-        var publicOrder = effect.PublicOrder + InfluenceOperations.Collect(influences, settings.ReligionId);
-        var income = IncomeOperations.Collect(incomes, fertility);
-
-        var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();
-        var provinceState = new ProvinceState(regionStates, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
-        return provinceState;
+        return (regionalEffects.ToImmutableArray(), regionalIncomes.ToImmutableArray(), regionalInfluences.ToImmutableArray());
     }
 }

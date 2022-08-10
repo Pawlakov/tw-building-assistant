@@ -216,10 +216,9 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        var settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
-
-        (this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences) = await this.settingsService.GetStateFromSettings(settings);
-        this.settingsStore.Settings = settings;
+        this.settingsStore.Settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
+        (this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences) = await this.settingsService.GetStateFromSettings(this.settingsStore.Settings);
+        this.settingsStore.BuildingLibrary = await this.settingsService.GetBuildingLibrary(this.settingsStore.Settings);
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

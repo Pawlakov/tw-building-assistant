@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TWBuildingAssistant.Presentation.Views.ProvinceView">
     <StackPanel Orientation="Vertical">
-        <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
+        <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
             <TextBlock Text="{Binding ProvinceName}" FontWeight="Bold" HorizontalAlignment="Center"/>
         </Border>
         <ItemsControl ItemsSource="{Binding Regions}">
@@ -16,14 +16,14 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
         <StackPanel Orientation="Horizontal">
-            <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-                <Button Width="200" Command="{Binding PreviousCommand}">Previous</Button>
+            <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
+                <Button Width="276" Command="{Binding PreviousCommand}">Previous</Button>
             </Border>
-            <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-                <TextBlock Width="200" Text="{Binding Performance}"/>
+            <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
+                <TextBlock Width="276" Text="{Binding Performance}"/>
             </Border>
-            <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
-                <Button Width="200" Command="{Binding NextCommand}">Next</Button>
+            <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
+                <Button Width="276" Command="{Binding NextCommand}">Next</Button>
             </Border>
         </StackPanel>
     </StackPanel>

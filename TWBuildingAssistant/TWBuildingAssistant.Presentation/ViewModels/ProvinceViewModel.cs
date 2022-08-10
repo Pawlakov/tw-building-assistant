@@ -13,35 +13,27 @@ public class ProvinceViewModel
     : ViewModel
 {
     private readonly INavigator navigator;
-    private readonly IWorldStore worldStore;
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
     private readonly IProvinceService provinceService;
 
-    private readonly Province province;
-    private readonly Faction faction;
-
     private string performance;
 
-    public ProvinceViewModel(INavigator navigator, IWorldStore worldStore, ISettingsStore settingsStore, IProvinceStore provinceStore, IProvinceService provinceService)
+    public ProvinceViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, IProvinceService provinceService)
     {
         this.navigator = navigator;
-        this.worldStore = worldStore;
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
         this.provinceService = provinceService;
 
-        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
-        this.faction = this.worldStore.GetFactions().Result.Single(x => x.Id == this.settingsStore.Settings.FactionId);
-
-        this.ProvinceName = this.province.Name;
+        this.ProvinceName = this.provinceService.GetProvinceName(this.settingsStore.Settings.ProvinceId).Result;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in this.province.Regions)
         {
-            var newRegion = new RegionViewModel(this.settingsStore, this.faction, this.province, region);
+            var newRegion = new RegionViewModel(this.provinceService, this.settingsStore, this.provinceStore, region);
             foreach (var slot in newRegion.Slots)
             {
-                slot.PropertyChanged += (sender, args) => this.SetPerformanceDisplay();
+                slot.BuildingChanged += (sender, args) => this.SetPerformanceDisplay();
             }
 
             this.Regions.Add(newRegion);
@@ -81,14 +73,14 @@ public class ProvinceViewModel
 
     public void Next()
     {
-        this.provinceStore.Slots = this.Regions.SelectMany(x => x.Slots.Where(y => y.Seek)).Select(y => y.Slot).ToList();
+        /*this.provinceStore.OldStyleSlots = this.Regions.SelectMany(x => x.Slots.Where(y => y.Selected)).Select(y => y.Slot).ToList();
 
-        this.navigator.CurrentViewType = INavigator.ViewType.Seeker;
+        this.navigator.CurrentViewType = INavigator.ViewType.Seeker;*/
     }
 
     private void SetPerformanceDisplay()
     {
-        var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences);
+        /*var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");
@@ -97,6 +89,6 @@ public class ProvinceViewModel
         builder.AppendLine($"Research Rate: +{state.ResearchRate}%");
         builder.AppendLine($"Growth: {state.Growth}");
         builder.AppendLine($"Wealth: {state.Wealth}");
-        this.Performance = builder.ToString();
+        this.Performance = builder.ToString();*/
     }
 }

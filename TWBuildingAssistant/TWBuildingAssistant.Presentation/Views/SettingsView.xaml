@@ -87,7 +87,7 @@
             <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
                 <StackPanel Orientation="Vertical">
                     <TextBlock Width="90" Text="Antilegacy:" HorizontalAlignment="Left"/>
-                    <CheckBox IsChecked="{Binding UseAntilegacyTechnologies}" />
+                    <CheckBox VerticalContentAlignment="Center" IsChecked="{Binding UseAntilegacyTechnologies}" />
                 </StackPanel>
             </Border>
             <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">

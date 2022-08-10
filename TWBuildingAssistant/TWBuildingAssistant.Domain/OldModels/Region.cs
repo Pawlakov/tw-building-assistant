@@ -12,13 +12,14 @@ public class Region
 
     private const int TownSlotCount = 4;
 
-    public Region(string name, RegionType type, bool isCoastal, int? resourceId = default, bool missingSlot = false)
+    public Region(int id, string name, RegionType type, bool isCoastal, int? resourceId = default, bool missingSlot = false)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
             throw new DomainRuleViolationException("Region without name.");
         }
 
+        this.Id = id;
         this.Name = name;
         this.ResourceId = resourceId;
 
@@ -33,6 +34,8 @@ public class Region
 
         this.Slots = slots;
     }
+
+    public int Id { get; }
 
     public string Name { get; }
 

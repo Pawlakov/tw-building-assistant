@@ -2,10 +2,16 @@
 
 using System.Collections.Generic;
 using TWBuildingAssistant.Domain.OldModels;
-using TWBuildingAssistant.Domain.StateModels;
 
 public class ProvinceStore
     : IProvinceStore
 {
-    public List<BuildingSlot> Slots { get; set; }
+    public ProvinceStore()
+    {
+        this.BuildingLevelIds = new Dictionary<(int RegionId, int SlotIndex), (int BuildingBranchId, int BuildingLevelId)>();
+    }
+
+    public List<BuildingSlot> OldStyleSlots { get; set; }
+
+    public Dictionary<(int RegionId, int SlotIndex), (int BuildingBranchId, int BuildingLevelId)> BuildingLevelIds { get; }
 }

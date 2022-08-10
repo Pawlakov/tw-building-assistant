@@ -14,4 +14,6 @@ public class SettingsStore
     public ImmutableArray<Income> Incomes { get; set; }
 
     public ImmutableArray<Influence> Influences { get; set; }
+
+    public ImmutableArray<BuildingLibraryEntry> BuildingLibrary { get; set; }
 }

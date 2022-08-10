@@ -13,13 +13,10 @@ public class SeekerViewModel
     : ViewModel
 {
     private readonly INavigator navigator;
-    private readonly IWorldStore worldStore;
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
     private readonly ISeekService seekService;
 
-    private readonly Province province;
-    private readonly Faction faction;
     private readonly IEnumerable<BuildingSlot> slots;
 
     private bool requireSantitation;
@@ -28,17 +25,14 @@ public class SeekerViewModel
     private int progressBarMax;
     private int progressBarValue;
 
-    public SeekerViewModel(INavigator navigator, IWorldStore worldStore, ISettingsStore settingsStore, IProvinceStore provinceStore, ISeekService seekService)
+    public SeekerViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, ISeekService seekService)
     {
         this.navigator = navigator;
-        this.worldStore = worldStore;
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
         this.seekService = seekService;
 
-        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
-        this.faction = this.worldStore.GetFactions().Result.Single(x => x.Id == this.settingsStore.Settings.FactionId);
-        this.slots = this.provinceStore.Slots.ToList();
+        this.slots = this.provinceStore.OldStyleSlots.ToList();
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
@@ -118,17 +112,18 @@ public class SeekerViewModel
         {
             await Task.Run(() =>
             {
-                this.seekService.Seek(
+                /*this.seekService.Seek(
                     this.settingsStore.Settings,
                     this.settingsStore.Effect,
                     this.settingsStore.Incomes,
                     this.settingsStore.Influences,
+                    this.settingsStore.BuildingLibrary,
                     this.faction,
                     this.province,
                     this.slots.ToList(),
                     this.MinimalCondition,
                     x => this.ProgressBarMax = x,
-                    x => this.progressBarValue = x);
+                    x => this.progressBarValue = x);*/
             });
         }
 

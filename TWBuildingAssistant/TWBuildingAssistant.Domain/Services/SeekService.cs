@@ -1,5 +1,6 @@
 ﻿namespace TWBuildingAssistant.Domain.Services;
 
+using Microsoft.Extensions.DependencyModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -23,6 +24,7 @@ public class SeekService
         Effect predefinedEffect,
         ImmutableArray<Income> predefinedIncomes,
         ImmutableArray<Influence> predefinedInfluences,
+        ImmutableArray<BuildingLibraryEntry> buildingLibrary,
         Faction faction,
         Province province,
         List<BuildingSlot> slots,
@@ -49,8 +51,8 @@ public class SeekService
 
         void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
         {
-            var slot = slots[slotIndex];
-            var options = faction.GetBuildingLevelsForSlot(settings, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
+            /*var slot = slots[slotIndex];
+            var options = faction.GetBuildingLevelsForSlotExact(buildingLibrary, settings, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
             foreach (var option in options)
             {
                 slot.Building = option;
@@ -68,7 +70,7 @@ public class SeekService
                 {
                     RecursiveSeek(slotIndex + 1, currentCombination);
                 }
-            }
+            }*/
         }
     }
 }

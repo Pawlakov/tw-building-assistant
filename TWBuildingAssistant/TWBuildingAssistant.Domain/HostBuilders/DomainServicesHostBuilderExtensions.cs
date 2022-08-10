@@ -10,7 +10,6 @@ public static class DomainServicesHostBuilderExtensions
     {
         return host.ConfigureServices((HostBuilderContext context, IServiceCollection collection) =>
         {
-            collection.AddTransient<IWorldDataService, WorldDataService>();
             collection.AddTransient<ISeekService, SeekService>();
             collection.AddTransient<ISettingsService, SettingsService>();
             collection.AddTransient<IProvinceService, ProvinceService>();

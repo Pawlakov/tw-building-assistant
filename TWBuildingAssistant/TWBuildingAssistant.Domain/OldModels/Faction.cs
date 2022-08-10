@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using EnumsNET;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Domain;
@@ -13,17 +12,11 @@ using TWBuildingAssistant.Domain.StateModels;
 
 public class Faction
 {
-    private readonly Effect baseFactionwideEffect;
-    private readonly Income[] baseFactionwideIncomes;
-    private readonly Influence[] baseFactionwideInfluences;
-
     private readonly TechnologyTier[] technologyTiers;
 
     private readonly BuildingBranch[] buildingBranches;
 
-    private Dictionary<SlotType, Dictionary<RegionType, List<KeyValuePair<int?, List<KeyValuePair<BuildingBranch, BuildingLevel>>>>>> buildings;
-
-    public Faction(int id, string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches, Effect baseFactionwideEffect, IEnumerable<Income> baseFactionwideIncomes, IEnumerable<Influence> baseFactionwideInfluences)
+    public Faction(int id, string name, IEnumerable<TechnologyTier> technologyTiers, IEnumerable<BuildingBranch> buildingBranches)
     {
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -42,9 +35,6 @@ public class Faction
 
         this.Id = id;
         this.Name = name;
-        this.baseFactionwideEffect = baseFactionwideEffect;
-        this.baseFactionwideIncomes = baseFactionwideIncomes.ToArray();
-        this.baseFactionwideInfluences = baseFactionwideInfluences.ToArray();
         this.technologyTiers = technologyTiers.ToArray();
         this.buildingBranches = buildingBranches.ToArray();
     }
@@ -52,76 +42,4 @@ public class Faction
     public int Id { get; set; }
 
     public string Name { get; }
-
-    public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(in Settings settings, Region region, BuildingSlot slot)
-    {
-        this.PrepareBuildingLevels(settings);
-
-        var result = new List<BuildingLevel>();
-        if (slot.SlotType == SlotType.General)
-        {
-            result.Add(BuildingLevel.Empty);
-        }
-
-        var buildings = this.buildings[slot.SlotType][slot.RegionType].Single(x => x.Key == region.ResourceId).Value.AsEnumerable();
-
-        // TODO: Correct a case such as: Quarry + Local Industry + Local Industry
-        var used = region.Slots.Where(x => x != slot).Select(x => x.Building).Where(x => x != null).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
-        foreach (var entry in used)
-        {
-            if (buildings.Count(x => x.Value == entry.Key) <= entry.Value)
-            {
-                buildings = buildings.Where(x => !x.Key.Levels.Contains(entry.Key));
-            }
-        }
-
-        foreach (var building in buildings.Where(x => !result.Contains(x.Value)))
-        {
-            result.Add(building.Value);
-        }
-
-        return result;
-    }
-
-    private void PrepareBuildingLevels(Settings settings)
-    {
-        var slotTypes = Enums.GetValues<SlotType>();
-        var regionTypes = Enums.GetValues<RegionType>();
-        var resources = this.buildingBranches.Select(x => x.ResourceId).Distinct();
-        this.buildings = slotTypes.ToDictionary(x => x, slotType =>
-        {
-            return regionTypes.ToDictionary(x => x, regionType =>
-            {
-                return resources.Select(resourceId =>
-                {
-                    var levels = this.buildingBranches.SelectMany(x => x.Levels).GroupBy(x => x).ToDictionary(x => x.Key, y => y.Count());
-                    var branches = this.buildingBranches.Where(branch =>
-                            branch.SlotType == slotType &&
-                            (branch.RegionType is null || branch.RegionType == regionType) &&
-                            (branch.ReligionId is null || branch.ReligionId == settings.ReligionId) &&
-                            (branch.ResourceId is null || branch.ResourceId == resourceId));
-
-                    var unlockedLevels = this.technologyTiers[settings.TechnologyTier].UniversalUnlocks.Except(this.technologyTiers[settings.TechnologyTier].UniversalLocks);
-                    if (settings.UseAntilegacyTechnologies)
-                    {
-                        unlockedLevels = unlockedLevels.Concat(this.technologyTiers[settings.TechnologyTier].AntilegacyUnlocks).Except(this.technologyTiers[settings.TechnologyTier].AntilegacyLocks);
-                    }
-
-                    var result = new List<KeyValuePair<BuildingBranch, BuildingLevel>>();
-                    foreach (var branch in branches)
-                    {
-                        foreach (var level in branch.Levels)
-                        {
-                            if (unlockedLevels.Contains(level))
-                            {
-                                result.Add(new KeyValuePair<BuildingBranch, BuildingLevel>(branch, level));
-                            }
-                        }
-                    }
-
-                    return new KeyValuePair<int?, List<KeyValuePair<BuildingBranch, BuildingLevel>>>(resourceId, result);
-                }).ToList();
-            });
-        });
-    }
 }

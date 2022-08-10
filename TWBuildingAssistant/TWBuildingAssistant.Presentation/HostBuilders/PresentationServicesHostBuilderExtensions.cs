@@ -10,7 +10,6 @@ public static class PresentationServicesHostBuilderExtensions
     {
         host.ConfigureServices(services =>
         {
-            services.AddSingleton<IWorldStore, WorldStore>();
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<ISettingsStore, SettingsStore>();
             services.AddSingleton<IProvinceStore, ProvinceStore>();

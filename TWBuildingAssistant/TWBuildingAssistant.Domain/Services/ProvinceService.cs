@@ -3,8 +3,11 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Data.Sqlite;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.StateModels;
 
@@ -16,6 +19,18 @@ public class ProvinceService
     public ProvinceService(DatabaseContextFactory contextFactory)
     {
         this.contextFactory = contextFactory;
+    }
+
+    public async Task<string> GetProvinceName(int provinceId)
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            return await context.Provinces
+                .AsNoTracking()
+                .Where(x => x.Id == provinceId)
+                .Select(x => x.Name)
+                .FirstOrDefaultAsync();
+        }
     }
 
     public ProvinceState GetState(

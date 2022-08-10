@@ -14,6 +14,7 @@ public interface ISeekService
         Effect predefinedEffect,
         ImmutableArray<Income> predefinedIncomes,
         ImmutableArray<Influence> predefinedInfluences,
+        ImmutableArray<BuildingLibraryEntry> buildingLibrary,
         Faction faction,
         Province province,
         List<BuildingSlot> slots,

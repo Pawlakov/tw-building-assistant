@@ -3,94 +3,132 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using TWBuildingAssistant.Data.Model;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.OldModels;
+using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Presentation.State;
 
 public class SlotViewModel
     : ViewModel
 {
+    private readonly IProvinceService provinceService;
     private readonly ISettingsStore settingsStore;
+    private readonly IProvinceStore provinceStore;
 
-    private readonly BuildingSlot slot;
-    private readonly Region region;
-    private readonly Faction faction;
+    private readonly int regionId;
+    private readonly int slotIndex;
+    private readonly RegionType regionType;
+    private readonly SlotType slotType;
 
-    private BuildingLevel selectedBuilding;
+    private NamedId selectedBuildingBranch;
+    private NamedId selectedBuildingLevel;
 
-    private bool seek;
+    private bool selected;
 
-    public SlotViewModel(ISettingsStore settingsStore, Faction faction, Region region, BuildingSlot slot)
+    public SlotViewModel(IProvinceService provinceService, ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, RegionType regionType, SlotType slotType)
     {
+        this.provinceService = provinceService;
         this.settingsStore = settingsStore;
+        this.provinceStore = provinceStore;
 
-        this.slot = slot;
-        this.region = region;
-        this.faction = faction;
+        this.regionId = regionId;
+        this.slotIndex = slotIndex;
+        this.regionType = regionType;
+        this.slotType = slotType;
 
-        this.Buildings = new ObservableCollection<BuildingLevel>();
-        this.selectedBuilding = slot.Building;
-        this.seek = false;
+        this.selected = false;
+        this.BuildingBranches = new ObservableCollection<NamedId>(this.provinceService.GetBuildingBranchOptions(this.settingsStore.Settings, this.regionType, this.slotType).Result);
+        if (this.provinceStore.BuildingLevelIds.ContainsKey((this.regionId, this.slotIndex)))
+        {
+            var fromStore = this.provinceStore.BuildingLevelIds[(this.regionId, this.slotIndex)];
+            if (this.BuildingBranches.Any(x => x.Id == fromStore.BuildingBranchId))
+            {
+                this.selectedBuildingBranch = this.BuildingBranches.Single(x => x.Id == fromStore.BuildingBranchId);
+                this.BuildingLevels = new ObservableCollection<NamedId>(this.provinceService.GetBuildingLevelOptions(this.settingsStore.Settings, this.selectedBuildingBranch.Id).Result);
+                if (this.BuildingLevels.Any(x => x.Id == fromStore.BuildingLevelId))
+                {
+                    this.selectedBuildingLevel = this.BuildingLevels.Single(x => x.Id == fromStore.BuildingLevelId);
+                }
+            }
+        }
+        else
+        {
+            this.selectedBuildingBranch = this.BuildingBranches[0];
+            this.BuildingLevels = new ObservableCollection<NamedId>(this.provinceService.GetBuildingLevelOptions(this.settingsStore.Settings, this.selectedBuildingBranch.Id).Result);
+            this.selectedBuildingLevel = this.BuildingLevels[0];
+        }
     }
 
     public event EventHandler BuildingChanged;
 
-    public BuildingSlot Slot => this.slot;
+    public ObservableCollection<NamedId> BuildingBranches { get; }
 
-    public ObservableCollection<BuildingLevel> Buildings { get; }
+    public ObservableCollection<NamedId> BuildingLevels { get; }
 
-    public BuildingLevel SelectedBuilding
+    public NamedId SelectedBuildingBranch
     {
-        get => this.selectedBuilding;
+        get => this.selectedBuildingBranch;
         set
         {
-            this.slot.Building = value;
-            if (this.selectedBuilding != value)
+            if (this.selectedBuildingBranch != value)
             {
-                this.selectedBuilding = value;
-                this.OnPropertyChanged(nameof(this.SelectedBuilding));
-            }
+                this.selectedBuildingBranch = value;
+                this.OnPropertyChanged(nameof(this.SelectedBuildingBranch));
 
-            this.BuildingChanged?.Invoke(this, EventArgs.Empty);
-        }
-    }
+                this.BuildingLevels.Clear();
+                foreach (var level in this.provinceService.GetBuildingLevelOptions(this.settingsStore.Settings, value.Id).Result)
+                {
+                    this.BuildingLevels.Add(level);
+                }
 
-    public bool Seek
-    {
-        get => this.seek;
-        set
-        {
-            if (this.seek != value)
-            {
-                this.seek = value;
-                this.OnPropertyChanged(nameof(this.Seek));
+                this.selectedBuildingLevel = this.BuildingLevels[0];
+                this.OnPropertyChanged(nameof(this.SelectedBuildingLevel));
+
+                this.provinceStore.BuildingLevelIds[(this.regionId, this.slotIndex)] = (this.selectedBuildingBranch.Id, this.selectedBuildingLevel.Id);
+
+                this.BuildingChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }
 
-    public void UpdateBuildings()
+    public NamedId SelectedBuildingLevel
     {
-        var buildings = this.faction.GetBuildingLevelsForSlot(this.settingsStore.Settings, this.region, this.slot);
-        foreach (var building in this.Buildings.ToList())
+        get => this.selectedBuildingLevel;
+        set
         {
-            if (building != this.selectedBuilding)
+            if (this.selectedBuildingLevel != value)
             {
-                this.Buildings.Remove(building);
+                this.selectedBuildingLevel = value;
+                this.OnPropertyChanged(nameof(this.SelectedBuildingLevel));
+
+                this.provinceStore.BuildingLevelIds[(this.regionId, this.slotIndex)] = (this.selectedBuildingBranch.Id, this.selectedBuildingLevel.Id);
+
+                this.BuildingChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+    }
 
-        foreach (var building in buildings)
+    public bool Selected
+    {
+        get => this.selected;
+        set
         {
-            if (!this.Buildings.Contains(building))
+            if (this.selected != value)
             {
-                this.Buildings.Add(building);
+                this.selected = value;
+                this.OnPropertyChanged(nameof(this.Selected));
             }
         }
+    }
 
-        if (this.selectedBuilding == null)
+    public async Task UpdateBuildings()
+    {
+        this.BuildingBranches.Clear();
+        foreach (var branch in await this.provinceService.GetBuildingBranchOptions(this.settingsStore.Settings, this.regionType, this.slotType))
         {
-            this.selectedBuilding = this.Buildings.First();
+            this.BuildingBranches.Add(branch);
         }
-
-        this.slot.Building = this.selectedBuilding;
     }
 }

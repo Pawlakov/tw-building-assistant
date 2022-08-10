@@ -22,7 +22,7 @@ public class BuildingLevel
 
     public Effect? Effect { get; set; }
 
-    public BuildingBranch BuildingBranch { get; set; }
+    public BuildingBranch? BuildingBranch { get; set; }
 
     public ICollection<BuildingLevelLock> Locks { get; set; }
 }

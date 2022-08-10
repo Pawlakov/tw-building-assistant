@@ -20,9 +20,10 @@ public class SeekService
 
     public void Seek(
         Settings settings,
-        in ImmutableArray<Faction> factions,
-        in ImmutableArray<Climate> climates,
-        in ImmutableArray<Religion> religions,
+        Effect predefinedEffect,
+        ImmutableArray<Income> predefinedIncomes,
+        ImmutableArray<Influence> predefinedInfluences,
+        Faction faction,
         Province province,
         List<BuildingSlot> slots,
         Predicate<ProvinceState> minimalCondition,
@@ -33,11 +34,6 @@ public class SeekService
         var original = slots.Select(x => x.Building).ToList().AsEnumerable();
         var bestCombination = original.ToList().AsEnumerable();
         var bestWealth = 0d;
-
-        var faction = factions.Single(x => x.Id == settings.FactionId);
-        var climate = climates.Single(x => x.Id == province.ClimateId);
-        var religion = religions.Single(x => x.Id == settings.ReligionId);
-        var predefinedState = this.provinceService.GetStateFromSettings(province, settings, faction, climate, religion);
 
         updateProgressMax(100);
         updateProgressValue(0);
@@ -61,7 +57,7 @@ public class SeekService
                 var currentCombination = combination.Append(option);
                 if (slot == lastSlot)
                 {
-                    var state = this.provinceService.GetState(province, settings, predefinedState.Effect, predefinedState.Incomes, predefinedState.Influences);
+                    var state = this.provinceService.GetState(province, settings, predefinedEffect, predefinedIncomes, predefinedInfluences);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;

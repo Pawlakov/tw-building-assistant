@@ -12,11 +12,4 @@ public interface IProvinceService
         Effect predefinedEffect,
         ImmutableArray<Income> predefinedIncomes,
         ImmutableArray<Influence> predefinedInfluences);
-
-    (Effect Effect, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetStateFromSettings(
-        Province province,
-        in Settings settings,
-        Faction faction,
-        in Climate climate,
-        in Religion religion);
 }

@@ -10,10 +10,11 @@ using TWBuildingAssistant.Domain.StateModels;
 public interface ISeekService
 {
     void Seek(
-        Settings provinceSettings,
-        in ImmutableArray<Faction> factions,
-        in ImmutableArray<Climate> climates,
-        in ImmutableArray<Religion> religions,
+        Settings settings,
+        Effect predefinedEffect,
+        ImmutableArray<Income> predefinedIncomes,
+        ImmutableArray<Influence> predefinedInfluences,
+        Faction faction,
         Province province,
         List<BuildingSlot> slots,
         Predicate<ProvinceState> minimalCondition,

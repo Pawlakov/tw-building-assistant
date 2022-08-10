@@ -53,40 +53,6 @@ public class Faction
 
     public string Name { get; }
 
-    public IEnumerable<Effect> GetFactionwideEffects(in Settings settings, in Religion religion)
-    {
-        return
-            this.technologyTiers[settings.TechnologyTier].UniversalEffects
-                .Concat(settings.UseAntilegacyTechnologies ? this.technologyTiers[settings.TechnologyTier].AntilegacyEffects : Enumerable.Empty<Effect>())
-                .Append(this.baseFactionwideEffect)
-                .Append(religion.EffectWhenState)
-                .Append(EffectOperations.Create(fertility: settings.FertilityDrop));
-    }
-
-    public IEnumerable<Income> GetFactionwideIncomes(in Settings settings, in Religion religion)
-    {
-        return
-            new[]
-            {
-                this.baseFactionwideIncomes,
-                religion.IncomesWhenState,
-                this.technologyTiers[settings.TechnologyTier].UniversalIncomes,
-                (settings.UseAntilegacyTechnologies ? this.technologyTiers[settings.TechnologyTier].AntilegacyIncomes : Enumerable.Empty<Income>()),
-            }.SelectMany(x => x);
-    }
-
-    public IEnumerable<Influence> GetFactionwideInfluence(in Settings settings, in Religion religion)
-    {
-        return
-            new[]
-            {
-                this.baseFactionwideInfluences,
-                this.technologyTiers[settings.TechnologyTier].UniversalInfluences,
-                (settings.UseAntilegacyTechnologies ? this.technologyTiers[settings.TechnologyTier].AntilegacyInfluences : Enumerable.Empty<Influence>()),
-            }.SelectMany(x => x)
-            .Append(InfluenceOperations.Create(null, religion.StateInfluenceWhenState));
-    }
-
     public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(in Settings settings, Region region, BuildingSlot slot)
     {
         this.PrepareBuildingLevels(settings);

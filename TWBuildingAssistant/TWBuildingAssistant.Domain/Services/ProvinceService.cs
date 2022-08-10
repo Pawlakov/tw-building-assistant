@@ -42,23 +42,6 @@ public class ProvinceService
         return provinceState;
     }
 
-    public (Effect Effect, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetStateFromSettings(
-        Province province,
-        in Settings settings,
-        Faction faction,
-        in Climate climate,
-        in Religion religion)
-    {
-        var corruptionIncome = IncomeOperations.Create(-settings.CorruptionRate, null, BonusType.Percentage);
-
-        (var climateEffect, var climateIncomes) = ClimateOperations.GetEffects(climate, settings.SeasonId, settings.WeatherId);
-        var effect = EffectOperations.Collect(faction.GetFactionwideEffects(settings, religion).Append(province.BaseEffect).Append(climateEffect));
-        var incomes = province.BaseIncomes.Append(corruptionIncome).Concat(climateIncomes).Concat(faction.GetFactionwideIncomes(settings, religion));
-        var influences = province.BaseInfluences.Concat(faction.GetFactionwideInfluence(settings, religion));
-
-        return (effect, incomes.ToImmutableArray(), influences.ToImmutableArray());
-    }
-
     private (ImmutableArray<Effect> RegionalEffects, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetStateFromBuildings(
         IEnumerable<IEnumerable<BuildingLevel>> buildings)
     {

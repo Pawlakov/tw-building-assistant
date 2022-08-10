@@ -20,8 +20,6 @@ public class ProvinceViewModel
 
     private readonly Province province;
     private readonly Faction faction;
-    private readonly Climate climate;
-    private readonly Religion religion;
 
     private string performance;
 
@@ -35,8 +33,6 @@ public class ProvinceViewModel
 
         this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
         this.faction = this.worldStore.GetFactions().Result.Single(x => x.Id == this.settingsStore.Settings.FactionId);
-        this.climate = this.worldStore.GetClimates().Result.Single(x => x.Id == this.province.ClimateId);
-        this.religion = this.worldStore.GetReligions().Result.Single(x => x.Id == this.settingsStore.Settings.ReligionId);
 
         this.ProvinceName = this.province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
@@ -92,9 +88,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var provinceId = this.settingsStore.Settings.ProvinceId;
-        var predefinedState = this.provinceService.GetStateFromSettings(this.province, this.settingsStore.Settings, this.faction, this.climate, this.religion);
-        var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, predefinedState.Effect, predefinedState.Incomes, predefinedState.Influences);
+        var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

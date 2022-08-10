@@ -3,8 +3,11 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using TWBuildingAssistant.Data.Sqlite.Entities;
 using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.StateModels;
 using TWBuildingAssistant.Presentation.State;
@@ -66,7 +69,7 @@ public class SettingsViewModel
             this.selectedProvince = this.Provinces.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
         }
 
-        this.NextCommand = new RelayCommand(this.Next);
+        this.NextCommand = new AsyncRelayCommand(this.Next);
     }
 
     public ObservableCollection<NamedId> Religions { get; set; }
@@ -209,11 +212,14 @@ public class SettingsViewModel
         }
     }
 
-    public RelayCommand NextCommand { get; init; }
+    public AsyncRelayCommand NextCommand { get; init; }
 
-    public void Next()
+    public async Task Next()
     {
-        this.settingsStore.Settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
+        var settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
+
+        (this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences) = await this.settingsService.GetStateFromSettings(settings);
+        this.settingsStore.Settings = settings;
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

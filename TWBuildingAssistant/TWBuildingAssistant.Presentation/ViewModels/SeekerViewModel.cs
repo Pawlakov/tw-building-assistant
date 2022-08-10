@@ -19,6 +19,7 @@ public class SeekerViewModel
     private readonly ISeekService seekService;
 
     private readonly Province province;
+    private readonly Faction faction;
     private readonly IEnumerable<BuildingSlot> slots;
 
     private bool requireSantitation;
@@ -36,6 +37,7 @@ public class SeekerViewModel
         this.seekService = seekService;
 
         this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
+        this.faction = this.worldStore.GetFactions().Result.Single(x => x.Id == this.settingsStore.Settings.FactionId);
         this.slots = this.provinceStore.Slots.ToList();
 
         this.requireSantitation = true;
@@ -114,16 +116,14 @@ public class SeekerViewModel
         this.OnPropertyChanged(nameof(this.ProgressBarText));
         if (this.slots.Any())
         {
-            var factions = await this.worldStore.GetFactions();
-            var climates = await this.worldStore.GetClimates();
-            var religions = await this.worldStore.GetReligions();
             await Task.Run(() =>
             {
                 this.seekService.Seek(
                     this.settingsStore.Settings,
-                    factions,
-                    climates,
-                    religions,
+                    this.settingsStore.Effect,
+                    this.settingsStore.Incomes,
+                    this.settingsStore.Influences,
+                    this.faction,
                     this.province,
                     this.slots.ToList(),
                     this.MinimalCondition,

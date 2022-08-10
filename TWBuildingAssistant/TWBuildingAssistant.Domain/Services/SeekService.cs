@@ -11,6 +11,13 @@ using TWBuildingAssistant.Domain.StateModels;
 public class SeekService
     : ISeekService
 {
+    private readonly IProvinceService provinceService;
+
+    public SeekService(IProvinceService provinceService)
+    {
+        this.provinceService = provinceService;
+    }
+
     public void Seek(
         Settings settings,
         in ImmutableArray<Faction> factions,
@@ -53,7 +60,7 @@ public class SeekService
                 var currentCombination = combination.Append(option);
                 if (slot == lastSlot)
                 {
-                    var state = province.GetState(settings, faction, climate, religion);
+                    var state = this.provinceService.GetState(province, settings, faction, climate, religion);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;

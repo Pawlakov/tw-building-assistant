@@ -1,7 +1,5 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -95,7 +93,7 @@ public class ProvinceViewModel
     private void SetPerformanceDisplay()
     {
         var provinceId = this.settingsStore.Settings.ProvinceId;
-        var state = this.province.GetState(this.settingsStore.Settings, this.faction, this.climate, this.religion);
+        var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, this.faction, this.climate, this.religion);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

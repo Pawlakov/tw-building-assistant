@@ -21,12 +21,11 @@ public class ProvinceService
     public ProvinceState GetState(
         Province province,
         in Settings settings,
-        Faction faction,
-        in Climate climate,
-        in Religion religion)
+        Effect predefinedEffect,
+        ImmutableArray<Income> predefinedIncomes,
+        ImmutableArray<Influence> predefinedInfluences)
     {
-        (var predefinedEffect, var predefinedIncomes, var predefinedInfluences) = this.GetFromSettings(province, settings, faction, climate, religion);
-        (var regionalEffects, var regionalIncomes, var regionalInfluences) = this.GetFromBuildings(province);
+        (var regionalEffects, var regionalIncomes, var regionalInfluences) = this.GetStateFromBuildings(province.Regions.Select(x => x.Slots.Select(x => x.Building)));
 
         var effect = EffectOperations.Collect(regionalEffects.Append(predefinedEffect));
         var incomes = regionalIncomes.Concat(predefinedIncomes);
@@ -43,7 +42,7 @@ public class ProvinceService
         return provinceState;
     }
 
-    private (Effect Effect, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetFromSettings(
+    public (Effect Effect, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetStateFromSettings(
         Province province,
         in Settings settings,
         Faction faction,
@@ -60,12 +59,12 @@ public class ProvinceService
         return (effect, incomes.ToImmutableArray(), influences.ToImmutableArray());
     }
 
-    private (ImmutableArray<Effect> RegionalEffects, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetFromBuildings(
-        Province province)
+    private (ImmutableArray<Effect> RegionalEffects, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetStateFromBuildings(
+        IEnumerable<IEnumerable<BuildingLevel>> buildings)
     {
-        var regionalEffects = province.Regions.Select(x => EffectOperations.Collect(x.Effects));
-        var regionalIncomes = province.Regions.SelectMany(x => x.Incomes);
-        var regionalInfluences = province.Regions.SelectMany(x => x.Influences);
+        var regionalEffects = buildings.Select(x => EffectOperations.Collect(x.Select(x => x.Effect)));
+        var regionalIncomes = buildings.SelectMany(x => x).SelectMany(x => x.Incomes);
+        var regionalInfluences = buildings.SelectMany(x => x).SelectMany(x => x.Influences);
 
         return (regionalEffects.ToImmutableArray(), regionalIncomes.ToImmutableArray(), regionalInfluences.ToImmutableArray());
     }

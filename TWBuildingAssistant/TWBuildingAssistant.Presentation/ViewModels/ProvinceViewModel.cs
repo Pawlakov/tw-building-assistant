@@ -93,7 +93,8 @@ public class ProvinceViewModel
     private void SetPerformanceDisplay()
     {
         var provinceId = this.settingsStore.Settings.ProvinceId;
-        var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, this.faction, this.climate, this.religion);
+        var predefinedState = this.provinceService.GetStateFromSettings(this.province, this.settingsStore.Settings, this.faction, this.climate, this.religion);
+        var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, predefinedState.Effect, predefinedState.Incomes, predefinedState.Influences);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

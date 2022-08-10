@@ -39,28 +39,4 @@ public class Region
     public int? ResourceId { get; }
 
     public IEnumerable<BuildingSlot> Slots { get; }
-
-    public IEnumerable<Effect> Effects
-    {
-        get
-        {
-            return this.Slots.Select(x => x.Effect);
-        }
-    }
-
-    public IEnumerable<Income> Incomes
-    {
-        get
-        {
-            return this.Slots.SelectMany(x => x.Incomes);
-        }
-    }
-
-    public IEnumerable<Influence> Influences
-    {
-        get
-        {
-            return this.Slots.SelectMany(x => x.Influences);
-        }
-    }
 }

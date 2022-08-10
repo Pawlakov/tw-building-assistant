@@ -37,6 +37,7 @@ public class SeekService
         var faction = factions.Single(x => x.Id == settings.FactionId);
         var climate = climates.Single(x => x.Id == province.ClimateId);
         var religion = religions.Single(x => x.Id == settings.ReligionId);
+        var predefinedState = this.provinceService.GetStateFromSettings(province, settings, faction, climate, religion);
 
         updateProgressMax(100);
         updateProgressValue(0);
@@ -60,7 +61,7 @@ public class SeekService
                 var currentCombination = combination.Append(option);
                 if (slot == lastSlot)
                 {
-                    var state = this.provinceService.GetState(province, settings, faction, climate, religion);
+                    var state = this.provinceService.GetState(province, settings, predefinedState.Effect, predefinedState.Incomes, predefinedState.Influences);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;

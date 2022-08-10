@@ -69,7 +69,7 @@ public class SlotViewModel
 
     public void UpdateBuildings()
     {
-        var buildings = this.faction.GetBuildingLevelsForSlot(this.settingsStore.CurrentFactionSettings, this.region, this.slot);
+        var buildings = this.faction.GetBuildingLevelsForSlot(this.settingsStore.Settings, this.region, this.slot);
         foreach (var building in this.Buildings.ToList())
         {
             if (building != this.selectedBuilding)

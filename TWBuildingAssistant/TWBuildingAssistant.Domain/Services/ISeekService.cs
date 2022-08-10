@@ -10,8 +10,7 @@ using TWBuildingAssistant.Domain.StateModels;
 public interface ISeekService
 {
     void Seek(
-        ProvinceSettings provinceSettings,
-        FactionSettings factionSettings,
+        Settings provinceSettings,
         in ImmutableArray<Faction> factions,
         in ImmutableArray<Climate> climates,
         in ImmutableArray<Religion> religions,

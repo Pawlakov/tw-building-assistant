@@ -35,7 +35,7 @@ public class SeekerViewModel
         this.provinceStore = provinceStore;
         this.seekService = seekService;
 
-        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.ProvinceId);
+        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
         this.slots = this.provinceStore.Slots.ToList();
 
         this.requireSantitation = true;
@@ -120,8 +120,7 @@ public class SeekerViewModel
             await Task.Run(() =>
             {
                 this.seekService.Seek(
-                    this.settingsStore.CurrentProvinceSettings,
-                    this.settingsStore.CurrentFactionSettings,
+                    this.settingsStore.Settings,
                     factions,
                     climates,
                     religions,

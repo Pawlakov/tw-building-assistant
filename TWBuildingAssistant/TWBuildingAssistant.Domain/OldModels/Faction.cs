@@ -53,7 +53,7 @@ public class Faction
 
     public string Name { get; }
 
-    public IEnumerable<Effect> GetFactionwideEffects(in FactionSettings settings, in Religion religion)
+    public IEnumerable<Effect> GetFactionwideEffects(in Settings settings, in Religion religion)
     {
         return
             this.technologyTiers[settings.TechnologyTier].UniversalEffects
@@ -63,7 +63,7 @@ public class Faction
                 .Append(EffectOperations.Create(fertility: settings.FertilityDrop));
     }
 
-    public IEnumerable<Income> GetFactionwideIncomes(in FactionSettings settings, in Religion religion)
+    public IEnumerable<Income> GetFactionwideIncomes(in Settings settings, in Religion religion)
     {
         return
             new[]
@@ -75,7 +75,7 @@ public class Faction
             }.SelectMany(x => x);
     }
 
-    public IEnumerable<Influence> GetFactionwideInfluence(in FactionSettings settings, in Religion religion)
+    public IEnumerable<Influence> GetFactionwideInfluence(in Settings settings, in Religion religion)
     {
         return
             new[]
@@ -87,7 +87,7 @@ public class Faction
             .Append(InfluenceOperations.Create(null, religion.StateInfluenceWhenState));
     }
 
-    public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(in FactionSettings settings, Region region, BuildingSlot slot)
+    public IEnumerable<BuildingLevel> GetBuildingLevelsForSlot(in Settings settings, Region region, BuildingSlot slot)
     {
         this.PrepareBuildingLevels(settings);
 
@@ -117,7 +117,7 @@ public class Faction
         return result;
     }
 
-    private void PrepareBuildingLevels(FactionSettings settings)
+    private void PrepareBuildingLevels(Settings settings)
     {
         var slotTypes = Enums.GetValues<SlotType>();
         var regionTypes = Enums.GetValues<RegionType>();

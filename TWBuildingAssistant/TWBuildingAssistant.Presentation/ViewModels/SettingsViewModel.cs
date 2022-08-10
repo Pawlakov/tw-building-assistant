@@ -41,43 +41,29 @@ public class SettingsViewModel
         this.Weathers = new ObservableCollection<NamedId>(this.settingsService.GetWeatherOptions().Result);
         this.Seasons = new ObservableCollection<NamedId>(this.settingsService.GetSeasonOptions().Result);
 
-        if (this.settingsStore.CurrentFactionSettings == default)
+        if (this.settingsStore.Settings == default)
         {
             this.selectedFertilityDrop = this.FertilityDrops[0];
             this.selectedTechnologyTier = this.TechnologyTiers[0];
             this.useAntilegacyTechnologies = false;
             this.selectedReligion = this.Religions[0];
-        }
-        else
-        {
-            this.selectedFertilityDrop = this.settingsStore.CurrentFactionSettings.FertilityDrop;
-            this.selectedTechnologyTier = this.settingsStore.CurrentFactionSettings.TechnologyTier;
-            this.useAntilegacyTechnologies = this.settingsStore.CurrentFactionSettings.UseAntilegacyTechnologies;
-            this.selectedReligion = this.Religions.Single(x => x.Id == this.settingsStore.CurrentFactionSettings.ReligionId);
-        }
-
-        if (this.settingsStore.CurrentProvinceSettings == default)
-        {
             this.selectedFaction = this.Factions[0];
             this.selectedWeather = this.Weathers[0];
             this.selectedSeason = this.Seasons[0];
             this.corruptionRate = 1;
-        }
-        else
-        {
-            this.selectedFaction = this.Factions.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.FactionId);
-            this.selectedWeather = this.Weathers.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.WeatherId);
-            this.selectedSeason = this.Seasons.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.SeasonId);
-            this.corruptionRate = this.settingsStore.CurrentProvinceSettings.CorruptionRate;
-        }
-
-        if (this.settingsStore.ProvinceId == default)
-        {
             this.selectedProvince = this.Provinces[0];
         }
         else
         {
-            this.selectedProvince = this.Provinces.Single(x => x.Id == this.settingsStore.ProvinceId);
+            this.selectedFertilityDrop = this.settingsStore.Settings.FertilityDrop;
+            this.selectedTechnologyTier = this.settingsStore.Settings.TechnologyTier;
+            this.useAntilegacyTechnologies = this.settingsStore.Settings.UseAntilegacyTechnologies;
+            this.selectedReligion = this.Religions.Single(x => x.Id == this.settingsStore.Settings.ReligionId);
+            this.selectedFaction = this.Factions.Single(x => x.Id == this.settingsStore.Settings.FactionId);
+            this.selectedWeather = this.Weathers.Single(x => x.Id == this.settingsStore.Settings.WeatherId);
+            this.selectedSeason = this.Seasons.Single(x => x.Id == this.settingsStore.Settings.SeasonId);
+            this.corruptionRate = this.settingsStore.Settings.CorruptionRate;
+            this.selectedProvince = this.Provinces.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
         }
 
         this.NextCommand = new RelayCommand(this.Next);
@@ -227,9 +213,7 @@ public class SettingsViewModel
 
     public void Next()
     {
-        this.settingsStore.CurrentFactionSettings = new FactionSettings(this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id);
-        this.settingsStore.CurrentProvinceSettings = new ProvinceSettings(this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
-        this.settingsStore.ProvinceId = this.selectedProvince.Id;
+        this.settingsStore.Settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

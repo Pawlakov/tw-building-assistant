@@ -35,10 +35,10 @@ public class ProvinceViewModel
         this.provinceStore = provinceStore;
         this.provinceService = provinceService;
 
-        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.ProvinceId);
-        this.faction = this.worldStore.GetFactions().Result.Single(x => x.Id == this.settingsStore.CurrentProvinceSettings.FactionId);
+        this.province = this.worldStore.GetProvinces().Result.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
+        this.faction = this.worldStore.GetFactions().Result.Single(x => x.Id == this.settingsStore.Settings.FactionId);
         this.climate = this.worldStore.GetClimates().Result.Single(x => x.Id == this.province.ClimateId);
-        this.religion = this.worldStore.GetReligions().Result.Single(x => x.Id == this.settingsStore.CurrentFactionSettings.ReligionId);
+        this.religion = this.worldStore.GetReligions().Result.Single(x => x.Id == this.settingsStore.Settings.ReligionId);
 
         this.ProvinceName = this.province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
@@ -94,8 +94,8 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var provinceId = this.settingsStore.ProvinceId;
-        var state = this.province.GetState(this.settingsStore.CurrentProvinceSettings, this.settingsStore.CurrentFactionSettings, this.faction, this.climate, this.religion);
+        var provinceId = this.settingsStore.Settings.ProvinceId;
+        var state = this.province.GetState(this.settingsStore.Settings, this.faction, this.climate, this.religion);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

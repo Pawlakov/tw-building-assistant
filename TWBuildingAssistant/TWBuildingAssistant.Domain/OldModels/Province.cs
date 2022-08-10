@@ -49,8 +49,7 @@ public class Province
     public IEnumerable<Region> Regions { get; init; }
 
     public ProvinceState GetState(
-        in ProvinceSettings settings,
-        in FactionSettings factionSettings,
+        in Settings settings,
         Faction faction,
         in Climate climate,
         in Religion religion)
@@ -61,14 +60,14 @@ public class Province
         var regionalEffects = this.Regions.Select(x => x.Effects);
         var regionalIncomes = this.Regions.Select(x => x.Incomes);
         var regionalInfluences = this.Regions.Select(x => x.Influences);
-        var effect = EffectOperations.Collect(regionalEffects.SelectMany(x => x).Append(this.baseEffect).Append(climateEffect).Concat(faction.GetFactionwideEffects(factionSettings, religion)));
-        var incomes = regionalIncomes.SelectMany(x => x).Concat(this.baseIncomes).Append(corruptionIncome).Concat(climateIncomes).Concat(faction.GetFactionwideIncomes(factionSettings, religion));
-        var influences = regionalInfluences.SelectMany(x => x).Concat(this.baseInfluences).Concat(faction.GetFactionwideInfluence(factionSettings, religion));
+        var effect = EffectOperations.Collect(regionalEffects.SelectMany(x => x).Append(this.baseEffect).Append(climateEffect).Concat(faction.GetFactionwideEffects(settings, religion)));
+        var incomes = regionalIncomes.SelectMany(x => x).Concat(this.baseIncomes).Append(corruptionIncome).Concat(climateIncomes).Concat(faction.GetFactionwideIncomes(settings, religion));
+        var influences = regionalInfluences.SelectMany(x => x).Concat(this.baseInfluences).Concat(faction.GetFactionwideInfluence(settings, religion));
 
         var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
         var sanitation = regionalEffects.Select(x => x.Sum(y => y.RegionalSanitation) + effect.ProvincialSanitation);
         var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
-        var publicOrder = effect.PublicOrder + InfluenceOperations.Collect(influences, factionSettings.ReligionId);
+        var publicOrder = effect.PublicOrder + InfluenceOperations.Collect(influences, settings.ReligionId);
         var income = IncomeOperations.Collect(incomes, fertility);
 
         var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();

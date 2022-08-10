@@ -12,8 +12,7 @@ public class SeekService
     : ISeekService
 {
     public void Seek(
-        ProvinceSettings provinceSettings,
-        FactionSettings factionSettings,
+        Settings settings,
         in ImmutableArray<Faction> factions,
         in ImmutableArray<Climate> climates,
         in ImmutableArray<Religion> religions,
@@ -28,9 +27,9 @@ public class SeekService
         var bestCombination = original.ToList().AsEnumerable();
         var bestWealth = 0d;
 
-        var faction = factions.Single(x => x.Id == provinceSettings.FactionId);
+        var faction = factions.Single(x => x.Id == settings.FactionId);
         var climate = climates.Single(x => x.Id == province.ClimateId);
-        var religion = religions.Single(x => x.Id == factionSettings.ReligionId);
+        var religion = religions.Single(x => x.Id == settings.ReligionId);
 
         updateProgressMax(100);
         updateProgressValue(0);
@@ -47,14 +46,14 @@ public class SeekService
         void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
         {
             var slot = slots[slotIndex];
-            var options = faction.GetBuildingLevelsForSlot(factionSettings, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
+            var options = faction.GetBuildingLevelsForSlot(settings, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
             foreach (var option in options)
             {
                 slot.Building = option;
                 var currentCombination = combination.Append(option);
                 if (slot == lastSlot)
                 {
-                    var state = province.GetState(provinceSettings, factionSettings, faction, climate, religion);
+                    var state = province.GetState(settings, faction, climate, religion);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;

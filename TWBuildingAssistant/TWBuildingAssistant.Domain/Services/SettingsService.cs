@@ -237,6 +237,11 @@ public class SettingsService
         }
 
         var finalDictionary = new List<BuildingBranch>();
+        if (descriptor.SlotType == SlotType.General)
+        {
+            finalDictionary.Add(BuildingBranchOperations.Empty);
+        }
+
         foreach (var strain in strainPairs)
         {
             var levelsOther = new List<BuildingLevel>();

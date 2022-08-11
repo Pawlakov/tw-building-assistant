@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
-using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Presentation.State;
 

@@ -1,11 +1,9 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Presentation.State;
 

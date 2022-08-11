@@ -5,13 +5,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
-using TWBuildingAssistant.Data.Sqlite.Entities;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.StateModels;
 using TWBuildingAssistant.Presentation.State;
-using TWBuildingAssistant.Presentation.ViewModels.Factories;
 
 public class SettingsViewModel 
     : ViewModel

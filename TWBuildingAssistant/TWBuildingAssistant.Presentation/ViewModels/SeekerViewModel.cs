@@ -17,7 +17,7 @@ public class SeekerViewModel
     private readonly IProvinceStore provinceStore;
     private readonly ISeekService seekService;
 
-    private readonly IEnumerable<BuildingSlot> slots;
+    /*private readonly IEnumerable<BuildingSlot> slots;*/
 
     private bool requireSantitation;
     private int minimalPublicOrder;
@@ -32,7 +32,7 @@ public class SeekerViewModel
         this.provinceStore = provinceStore;
         this.seekService = seekService;
 
-        this.slots = this.provinceStore.OldStyleSlots.ToList();
+        /*this.slots = this.provinceStore.OldStyleSlots.ToList();*/
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
@@ -108,11 +108,11 @@ public class SeekerViewModel
         this.OnPropertyChanged(nameof(this.ProgressBarMax));
         this.OnPropertyChanged(nameof(this.ProgressBarValue));
         this.OnPropertyChanged(nameof(this.ProgressBarText));
-        if (this.slots.Any())
+        /*if (this.slots.Any())
         {
             await Task.Run(() =>
             {
-                /*this.seekService.Seek(
+                this.seekService.Seek(
                     this.settingsStore.Settings,
                     this.settingsStore.Effect,
                     this.settingsStore.Incomes,
@@ -123,9 +123,9 @@ public class SeekerViewModel
                     this.slots.ToList(),
                     this.MinimalCondition,
                     x => this.ProgressBarMax = x,
-                    x => this.progressBarValue = x);*/
+                    x => this.progressBarValue = x);
             });
-        }
+        }*/
 
         this.processing = false;
         this.OnPropertyChanged(nameof(this.ProgressBarMax));

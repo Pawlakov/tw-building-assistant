@@ -1,27 +1,25 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using System;
 using System.Collections.ObjectModel;
-using TWBuildingAssistant.Domain.OldModels;
-using TWBuildingAssistant.Domain.Services;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
 
 public class RegionViewModel 
     : ViewModel
 {
-    public RegionViewModel(IProvinceService provinceService, ISettingsStore settingsStore, IProvinceStore provinceStore, Region region)
+    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, Region region)
     {
         this.Slots = new ObservableCollection<SlotViewModel>();
         var slotIndex = 0;
         foreach (var slot in region.Slots)
         {
-            this.Slots.Add(new SlotViewModel(provinceService, settingsStore, provinceStore, region.Id, slotIndex++, slot.RegionType, slot.SlotType));
+            this.Slots.Add(new SlotViewModel(settingsStore, provinceStore, region.Id, slotIndex++, slot));
         }
 
-        foreach (var slotViewModel in this.Slots)
+        /*foreach (var slotViewModel in this.Slots)
         {
             slotViewModel.BuildingChanged += this.BuildingChangedHandler;
-        }
+        }*/
 
         this.Name = region.Name;
     }
@@ -30,7 +28,7 @@ public class RegionViewModel
 
     public string Name { get; }
 
-    private async void BuildingChangedHandler(object? sender, EventArgs args)
+    /*private async void BuildingChangedHandler(object? sender, EventArgs args)
     {
         foreach (var slot in this.Slots)
         {
@@ -39,5 +37,5 @@ public class RegionViewModel
                 await slot.UpdateBuildings();
             }
         }
-    }
+    }*/
 }

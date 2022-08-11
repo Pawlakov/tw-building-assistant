@@ -10,6 +10,7 @@ using EnumsNET;
 using Microsoft.EntityFrameworkCore;
 using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Data.Sqlite;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.StateModels;
 
 public class SettingsService
@@ -162,7 +163,7 @@ public class SettingsService
                 .ToListAsync();
 
             var results = new List<BuildingLibraryEntry>();
-            foreach (var descriptor in slotTypes.SelectMany(x => regionTypes.SelectMany(y => resourceIdsInProvince.Select(z => new BuildingLibraryEntryDescriptor(x, y, z)))))
+            foreach (var descriptor in slotTypes.SelectMany(x => regionTypes.SelectMany(y => resourceIdsInProvince.Select(z => new SlotDescriptor(x, y, z)))))
             {
                 results.Add(await this.GetBuildingLibraryEntry(context, settings, descriptor));
             }
@@ -171,7 +172,7 @@ public class SettingsService
         }
     }
 
-    private async Task<BuildingLibraryEntry> GetBuildingLibraryEntry(DatabaseContext context, Settings settings, BuildingLibraryEntryDescriptor descriptor)
+    private async Task<BuildingLibraryEntry> GetBuildingLibraryEntry(DatabaseContext context, Settings settings, SlotDescriptor descriptor)
     {
         var usedBranchEntitites = await context.BuildingBranchUses
             .AsNoTracking()

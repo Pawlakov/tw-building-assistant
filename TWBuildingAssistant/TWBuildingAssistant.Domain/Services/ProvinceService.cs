@@ -5,10 +5,8 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using TWBuildingAssistant.Data.Model;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.StateModels;
 
 public class ProvinceService
@@ -21,26 +19,28 @@ public class ProvinceService
         this.contextFactory = contextFactory;
     }
 
-    public async Task<string> GetProvinceName(int provinceId)
+    public async Task<Province> GetProvince(int provinceId)
     {
         using (var context = this.contextFactory.CreateDbContext())
         {
-            return await context.Provinces
+            var entity = await context.Provinces
                 .AsNoTracking()
+                .Include(x => x.Regions)
                 .Where(x => x.Id == provinceId)
-                .Select(x => x.Name)
                 .FirstOrDefaultAsync();
+
+            return ProvinceOperations.Create(entity.Id, entity.Name, entity.Regions.Select(x => RegionOperations.Create(x.Id, x.Name, x.RegionType, x.IsCoastal, x.ResourceId, x.SlotsCountOffset != 0)));
         }
     }
 
     public ProvinceState GetState(
-        Province province,
+        IEnumerable<IEnumerable<BuildingLevel>> buildings,
         in Settings settings,
         Effect predefinedEffect,
         ImmutableArray<Income> predefinedIncomes,
         ImmutableArray<Influence> predefinedInfluences)
     {
-        (var regionalEffects, var regionalIncomes, var regionalInfluences) = this.GetStateFromBuildings(province.Regions.Select(x => x.Slots.Select(x => x.Building)));
+        (var regionalEffects, var regionalIncomes, var regionalInfluences) = this.GetStateFromBuildings(buildings);
 
         var effect = EffectOperations.Collect(regionalEffects.Append(predefinedEffect));
         var incomes = regionalIncomes.Concat(predefinedIncomes);

@@ -1,10 +1,10 @@
 ﻿namespace TWBuildingAssistant.Domain.Services;
 
-using Microsoft.Extensions.DependencyModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Microsoft.Extensions.DependencyModel;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.OldModels;
 using TWBuildingAssistant.Domain.StateModels;
@@ -19,7 +19,7 @@ public class SeekService
         this.provinceService = provinceService;
     }
 
-    public void Seek(
+    /*public void Seek(
         Settings settings,
         Effect predefinedEffect,
         ImmutableArray<Income> predefinedIncomes,
@@ -51,7 +51,7 @@ public class SeekService
 
         void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
         {
-            /*var slot = slots[slotIndex];
+            var slot = slots[slotIndex];
             var options = faction.GetBuildingLevelsForSlotExact(buildingLibrary, settings, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
             foreach (var option in options)
             {
@@ -70,7 +70,7 @@ public class SeekService
                 {
                     RecursiveSeek(slotIndex + 1, currentCombination);
                 }
-            }*/
+            }
         }
-    }
+    }*/
 }

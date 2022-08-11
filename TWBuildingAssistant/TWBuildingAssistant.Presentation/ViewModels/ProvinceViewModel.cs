@@ -26,11 +26,12 @@ public class ProvinceViewModel
         this.provinceStore = provinceStore;
         this.provinceService = provinceService;
 
-        this.ProvinceName = this.provinceService.GetProvinceName(this.settingsStore.Settings.ProvinceId).Result;
+        var province = this.provinceService.GetProvince(this.settingsStore.Settings.ProvinceId).Result;
+        this.ProvinceName = province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
-        foreach (var region in this.province.Regions)
+        foreach (var region in province.Regions)
         {
-            var newRegion = new RegionViewModel(this.provinceService, this.settingsStore, this.provinceStore, region);
+            var newRegion = new RegionViewModel(this.settingsStore, this.provinceStore, region);
             foreach (var slot in newRegion.Slots)
             {
                 slot.BuildingChanged += (sender, args) => this.SetPerformanceDisplay();
@@ -80,7 +81,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        /*var state = this.provinceService.GetState(this.province, this.settingsStore.Settings, this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences);
+        var state = this.provinceService.GetState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.settingsStore.Settings, this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");
@@ -89,6 +90,6 @@ public class ProvinceViewModel
         builder.AppendLine($"Research Rate: +{state.ResearchRate}%");
         builder.AppendLine($"Growth: {state.Growth}");
         builder.AppendLine($"Wealth: {state.Wealth}");
-        this.Performance = builder.ToString();*/
+        this.Performance = builder.ToString();
     }
 }

@@ -9,7 +9,7 @@ using TWBuildingAssistant.Domain.StateModels;
 
 public interface ISeekService
 {
-    void Seek(
+    /*void Seek(
         Settings settings,
         Effect predefinedEffect,
         ImmutableArray<Income> predefinedIncomes,
@@ -20,5 +20,5 @@ public interface ISeekService
         List<BuildingSlot> slots,
         Predicate<ProvinceState> minimalCondition,
         Action<int> updateProgressMax,
-        Action<int> updateProgressValue);
+        Action<int> updateProgressValue);*/
 }

@@ -14,7 +14,6 @@ public class SlotViewModel
 
     private readonly int regionId;
     private readonly int slotIndex;
-    private readonly SlotDescriptor descriptor;
 
     private BuildingBranch selectedBuildingBranch;
     private BuildingLevel selectedBuildingLevel;
@@ -28,7 +27,7 @@ public class SlotViewModel
 
         this.regionId = regionId;
         this.slotIndex = slotIndex;
-        this.descriptor = descriptor;
+        this.Descriptor = descriptor;
 
         this.selected = false;
         this.BuildingBranches = new ObservableCollection<BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor == descriptor).BuildingBranches);
@@ -113,6 +112,8 @@ public class SlotViewModel
             }
         }
     }
+
+    public SlotDescriptor Descriptor { get; init; }
 
     public bool Selected
     {

@@ -1,10 +1,12 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
 using TWBuildingAssistant.Domain.Services;
+using TWBuildingAssistant.Domain.StateModels;
 using TWBuildingAssistant.Presentation.State;
 
 public class ProvinceViewModel
@@ -72,14 +74,16 @@ public class ProvinceViewModel
 
     public void Next()
     {
-        /*this.provinceStore.OldStyleSlots = this.Regions.SelectMany(x => x.Slots.Where(y => y.Selected)).Select(y => y.Slot).ToList();
+        this.provinceStore.SeekerSettings = this.Regions
+            .Select(x => new SeekerSettingsRegion(x.Slots.Where(y => y.SelectedBuildingBranch.Id > 0 && !y.Selected).Select(y => (y.SelectedBuildingBranch, y.SelectedBuildingLevel)).ToImmutableArray(), x.Slots.Where(y => y.Selected).Select(y => y.Descriptor).ToImmutableArray()))
+            .ToImmutableArray();
 
-        this.navigator.CurrentViewType = INavigator.ViewType.Seeker;*/
+        this.navigator.CurrentViewType = INavigator.ViewType.Seeker;
     }
 
     private void SetPerformanceDisplay()
     {
-        var state = this.provinceService.GetState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.settingsStore.Settings, this.settingsStore.Effect, this.settingsStore.Incomes, this.settingsStore.Influences);
+        var state = this.provinceService.GetState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.settingsStore.Settings, this.settingsStore.Effect);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

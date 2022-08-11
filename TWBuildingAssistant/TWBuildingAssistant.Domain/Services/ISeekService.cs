@@ -1,23 +1,17 @@
 ﻿namespace TWBuildingAssistant.Domain.Services;
 
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.StateModels;
 
 public interface ISeekService
 {
-    /*void Seek(
+    void Seek(
         Settings settings,
-        Effect predefinedEffect,
-        ImmutableArray<Income> predefinedIncomes,
-        ImmutableArray<Influence> predefinedInfluences,
+        EffectSet predefinedEffect,
         ImmutableArray<BuildingLibraryEntry> buildingLibrary,
-        Faction faction,
-        Province province,
-        List<BuildingSlot> slots,
+        ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,
-        Action<int> updateProgressMax,
-        Action<int> updateProgressValue);*/
+        Action<long> updateProgressMax,
+        Action<long> updateProgressValue);
 }

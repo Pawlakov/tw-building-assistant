@@ -1,7 +1,8 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
 using System.Collections.Generic;
-using TWBuildingAssistant.Domain;
+using System.Collections.Immutable;
+using TWBuildingAssistant.Domain.StateModels;
 
 public class ProvinceStore
     : IProvinceStore
@@ -12,4 +13,6 @@ public class ProvinceStore
     }
 
     public Dictionary<(int RegionId, int SlotIndex), (int BuildingBranchId, int BuildingLevelId)> BuildingLevelIds { get; }
+
+    public ImmutableArray<SeekerSettingsRegion> SeekerSettings { get; set; }
 }

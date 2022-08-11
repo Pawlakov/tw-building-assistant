@@ -3,8 +3,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
-using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Services;
+using TWBuildingAssistant.Domain.StateModels;
 using TWBuildingAssistant.Presentation.State;
 
 public class SeekerViewModel
@@ -15,13 +15,11 @@ public class SeekerViewModel
     private readonly IProvinceStore provinceStore;
     private readonly ISeekService seekService;
 
-    /*private readonly IEnumerable<BuildingSlot> slots;*/
-
     private bool requireSantitation;
     private int minimalPublicOrder;
     private bool processing;
-    private int progressBarMax;
-    private int progressBarValue;
+    private long progressBarMax;
+    private long progressBarValue;
 
     public SeekerViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, ISeekService seekService)
     {
@@ -29,8 +27,6 @@ public class SeekerViewModel
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
         this.seekService = seekService;
-
-        /*this.slots = this.provinceStore.OldStyleSlots.ToList();*/
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
@@ -66,7 +62,7 @@ public class SeekerViewModel
         }
     }
 
-    public int ProgressBarMax
+    public long ProgressBarMax
     {
         get => this.processing switch { true => this.progressBarMax, false => 0 };
         set
@@ -80,7 +76,7 @@ public class SeekerViewModel
         }
     }
 
-    public int ProgressBarValue
+    public long ProgressBarValue
     {
         get => this.processing switch { true => this.progressBarValue, false => 0 };
         set
@@ -106,24 +102,18 @@ public class SeekerViewModel
         this.OnPropertyChanged(nameof(this.ProgressBarMax));
         this.OnPropertyChanged(nameof(this.ProgressBarValue));
         this.OnPropertyChanged(nameof(this.ProgressBarText));
-        /*if (this.slots.Any())
+
+        await Task.Run(() =>
         {
-            await Task.Run(() =>
-            {
-                this.seekService.Seek(
-                    this.settingsStore.Settings,
-                    this.settingsStore.Effect,
-                    this.settingsStore.Incomes,
-                    this.settingsStore.Influences,
-                    this.settingsStore.BuildingLibrary,
-                    this.faction,
-                    this.province,
-                    this.slots.ToList(),
-                    this.MinimalCondition,
-                    x => this.ProgressBarMax = x,
-                    x => this.progressBarValue = x);
-            });
-        }*/
+            this.seekService.Seek(
+                this.settingsStore.Settings,
+                this.settingsStore.Effect,
+                this.settingsStore.BuildingLibrary,
+                this.provinceStore.SeekerSettings,
+                this.MinimalCondition,
+                x => this.ProgressBarMax = x,
+                x => this.progressBarValue = x);
+        });
 
         this.processing = false;
         this.OnPropertyChanged(nameof(this.ProgressBarMax));

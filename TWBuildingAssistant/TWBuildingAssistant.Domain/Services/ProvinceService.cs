@@ -36,15 +36,13 @@ public class ProvinceService
     public ProvinceState GetState(
         IEnumerable<IEnumerable<BuildingLevel>> buildings,
         in Settings settings,
-        Effect predefinedEffect,
-        ImmutableArray<Income> predefinedIncomes,
-        ImmutableArray<Influence> predefinedInfluences)
+        in EffectSet predefinedEffect)
     {
         (var regionalEffects, var regionalIncomes, var regionalInfluences) = this.GetStateFromBuildings(buildings);
 
-        var effect = EffectOperations.Collect(regionalEffects.Append(predefinedEffect));
-        var incomes = regionalIncomes.Concat(predefinedIncomes);
-        var influences = regionalInfluences.Concat(predefinedInfluences);
+        var effect = EffectOperations.Collect(regionalEffects.Append(predefinedEffect.Effect));
+        var incomes = regionalIncomes.Concat(predefinedEffect.Incomes);
+        var influences = regionalInfluences.Concat(predefinedEffect.Influences);
 
         var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
         var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using Microsoft.Extensions.DependencyModel;
+using System.Threading;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.StateModels;
 
@@ -18,47 +18,45 @@ public class SeekService
         this.provinceService = provinceService;
     }
 
-    /*public void Seek(
+    public void Seek(
         Settings settings,
-        Effect predefinedEffect,
-        ImmutableArray<Income> predefinedIncomes,
-        ImmutableArray<Influence> predefinedInfluences,
+        EffectSet predefinedEffect,
         ImmutableArray<BuildingLibraryEntry> buildingLibrary,
-        Faction faction,
-        Province province,
-        List<BuildingSlot> slots,
+        ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,
-        Action<int> updateProgressMax,
-        Action<int> updateProgressValue)
+        Action<long> updateProgressMax,
+        Action<long> updateProgressValue)
     {
-        var lastSlot = slots.Last();
+        updateProgressMax(seekerSettings.SelectMany(x => x.Slots).Aggregate(1L, (x, y) => x * buildingLibrary.Single(z => z.Descriptor == y).BuildingBranches.Length));
+        updateProgressValue(0);
+
+        /*var lastSlot = slots.Last();
         var original = slots.Select(x => x.Building).ToList().AsEnumerable();
         var bestCombination = original.ToList().AsEnumerable();
         var bestWealth = 0d;
 
-        updateProgressMax(100);
-        updateProgressValue(0);
         RecursiveSeek(0, new List<BuildingLevel>());
         var enumerator = bestCombination.GetEnumerator();
         foreach (var slot in slots)
         {
             enumerator.MoveNext();
             slot.Building = enumerator.Current;
-        }
+        }*/
 
+        Thread.Sleep(5000);
         updateProgressValue(100);
 
-        void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
+        /*void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
         {
-            var slot = slots[slotIndex];
-            var options = faction.GetBuildingLevelsForSlotExact(buildingLibrary, settings, province.Regions.Single(x => x.Slots.Contains(slot)), slot);
+            var slotDescriptor = slots[slotIndex];
+            var options = buildingLibrary.Single(x => x.Descriptor == slotDescriptor).BuildingBranches;
             foreach (var option in options)
             {
-                slot.Building = option;
+                slotDescriptor.Building = option;
                 var currentCombination = combination.Append(option);
-                if (slot == lastSlot)
+                if (slotDescriptor == lastSlot)
                 {
-                    var state = this.provinceService.GetState(province, settings, predefinedEffect, predefinedIncomes, predefinedInfluences);
+                    var state = this.provinceService.GetState(province, settings, predefinedEffect.Effect, predefinedEffect.Incomes, predefinedEffect.Influences);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         bestWealth = state.Wealth;
@@ -70,6 +68,6 @@ public class SeekService
                     RecursiveSeek(slotIndex + 1, currentCombination);
                 }
             }
-        }
-    }*/
+        }*/
+    }
 }

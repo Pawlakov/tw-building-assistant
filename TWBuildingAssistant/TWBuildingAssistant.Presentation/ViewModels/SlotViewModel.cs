@@ -67,6 +67,8 @@ public class SlotViewModel
             this.BuildingLevels = new ObservableCollection<BuildingLevel>(this.selectedBuildingBranch.Levels);
             this.selectedBuildingLevel = correspondingResult.Level;
 
+            this.provinceStore.BuildingLevelIds[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch.Id, this.selectedBuildingLevel.Id);
+
             this.provinceStore.SeekerResults.Remove(correspondingResult);
         }
     }

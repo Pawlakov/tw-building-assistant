@@ -33,12 +33,16 @@ public class SeekService
         await updateProgressMax(seekerSettings.SelectMany(x => x.Slots).Aggregate(1L, (x, y) => x * buildingLibrary.Single(z => z.Descriptor == y.Descriptor).BuildingBranches.Length));
         await updateProgressValue(0);
 
-        var lastSlot = seekingSlots.Last();
         var completedCounter = 0;
         var bestCombination = new List<SeekerResult>();
         var bestWealth = 0d;
 
-        await RecursiveSeek(0);
+        var lastSlot = seekingSlots.LastOrDefault();
+        if (lastSlot != null)
+        {
+            await RecursiveSeek(0);
+        }
+
         return bestCombination.ToImmutableArray();
 
         async Task RecursiveSeek(int slotIndex)
@@ -47,23 +51,27 @@ public class SeekService
             var options = buildingLibrary.Single(x => x.Descriptor == slot.Descriptor).BuildingBranches;
             foreach (var branchOption in options)
             {
-                foreach (var levelOption in branchOption.Levels)
+                slot.Branch = branchOption;
+                var collision = simulationRegions.Any(x => x.Where(y => y.Branch != null).GroupBy(y => y.Branch).Any(y => y.Count() > 1));
+                if (!collision)
                 {
-                    slot.Branch = branchOption;
-                    slot.Level = levelOption;
-                    if (slot == lastSlot)
+                    foreach (var levelOption in branchOption.Levels)
                     {
-                        var state = this.provinceService.GetState(simulationRegions.Select(x => x.Select(y => y.Level.Value)), settings, predefinedEffect);
-                        if (minimalCondition(state) && state.Wealth > bestWealth)
+                        slot.Level = levelOption;
+                        if (slot == lastSlot)
                         {
-                            bestWealth = state.Wealth;
-                            bestCombination.Clear();
-                            bestCombination.AddRange(seekingSlots.Select(x => new SeekerResult(x.Branch.Value, x.Level.Value, x.RegionId, x.SlotIndex)));
+                            var state = this.provinceService.GetState(simulationRegions.Select(x => x.Select(y => y.Level.Value)), settings, predefinedEffect);
+                            if (minimalCondition(state) && state.Wealth > bestWealth)
+                            {
+                                bestWealth = state.Wealth;
+                                bestCombination.Clear();
+                                bestCombination.AddRange(seekingSlots.Select(x => new SeekerResult(x.Branch.Value, x.Level.Value, x.RegionId, x.SlotIndex)));
+                            }
                         }
-                    }
-                    else
-                    {
-                        await RecursiveSeek(slotIndex + 1);
+                        else
+                        {
+                            await RecursiveSeek(slotIndex + 1);
+                        }
                     }
                 }
 

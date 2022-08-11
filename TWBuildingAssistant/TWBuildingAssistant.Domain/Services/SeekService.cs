@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading;
+using System.Threading.Tasks;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.StateModels;
 
@@ -18,56 +18,79 @@ public class SeekService
         this.provinceService = provinceService;
     }
 
-    public void Seek(
+    public async Task<ImmutableArray<SeekerResult>> Seek(
         Settings settings,
         EffectSet predefinedEffect,
         ImmutableArray<BuildingLibraryEntry> buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,
-        Action<long> updateProgressMax,
-        Action<long> updateProgressValue)
+        Func<long, Task> updateProgressMax,
+        Func<long, Task> updateProgressValue)
     {
-        updateProgressMax(seekerSettings.SelectMany(x => x.Slots).Aggregate(1L, (x, y) => x * buildingLibrary.Single(z => z.Descriptor == y).BuildingBranches.Length));
-        updateProgressValue(0);
+        var simulationRegions = seekerSettings.Select(x => x.Slots.Select(y => new CalculationSlot(y.Descriptor, y.Branch, y.Level, y.RegionId, y.SlotIndex)).ToArray()).ToArray();
+        var seekingSlots = simulationRegions.SelectMany(x => x).Where(x => x.Branch == null || x.Level == null).ToArray();
 
-        /*var lastSlot = slots.Last();
-        var original = slots.Select(x => x.Building).ToList().AsEnumerable();
-        var bestCombination = original.ToList().AsEnumerable();
+        await updateProgressMax(seekerSettings.SelectMany(x => x.Slots).Aggregate(1L, (x, y) => x * buildingLibrary.Single(z => z.Descriptor == y.Descriptor).BuildingBranches.Length));
+        await updateProgressValue(0);
+
+        var lastSlot = seekingSlots.Last();
+        var completedCounter = 0;
+        var bestCombination = new List<SeekerResult>();
         var bestWealth = 0d;
 
-        RecursiveSeek(0, new List<BuildingLevel>());
-        var enumerator = bestCombination.GetEnumerator();
-        foreach (var slot in slots)
-        {
-            enumerator.MoveNext();
-            slot.Building = enumerator.Current;
-        }*/
+        await RecursiveSeek(0);
+        return bestCombination.ToImmutableArray();
 
-        Thread.Sleep(5000);
-        updateProgressValue(100);
-
-        /*void RecursiveSeek(int slotIndex, IEnumerable<BuildingLevel> combination)
+        async Task RecursiveSeek(int slotIndex)
         {
-            var slotDescriptor = slots[slotIndex];
-            var options = buildingLibrary.Single(x => x.Descriptor == slotDescriptor).BuildingBranches;
-            foreach (var option in options)
+            var slot = seekingSlots[slotIndex];
+            var options = buildingLibrary.Single(x => x.Descriptor == slot.Descriptor).BuildingBranches;
+            foreach (var branchOption in options)
             {
-                slotDescriptor.Building = option;
-                var currentCombination = combination.Append(option);
-                if (slotDescriptor == lastSlot)
+                foreach (var levelOption in branchOption.Levels)
                 {
-                    var state = this.provinceService.GetState(province, settings, predefinedEffect.Effect, predefinedEffect.Incomes, predefinedEffect.Influences);
-                    if (minimalCondition(state) && state.Wealth > bestWealth)
+                    slot.Branch = branchOption;
+                    slot.Level = levelOption;
+                    if (slot == lastSlot)
                     {
-                        bestWealth = state.Wealth;
-                        bestCombination = currentCombination;
+                        var state = this.provinceService.GetState(simulationRegions.Select(x => x.Select(y => y.Level.Value)), settings, predefinedEffect);
+                        if (minimalCondition(state) && state.Wealth > bestWealth)
+                        {
+                            bestWealth = state.Wealth;
+                            bestCombination.Clear();
+                            bestCombination.AddRange(seekingSlots.Select(x => new SeekerResult(x.Branch.Value, x.Level.Value, x.RegionId, x.SlotIndex)));
+                        }
+                    }
+                    else
+                    {
+                        await RecursiveSeek(slotIndex + 1);
                     }
                 }
-                else
-                {
-                    RecursiveSeek(slotIndex + 1, currentCombination);
-                }
+
+                await updateProgressValue(++completedCounter);
             }
-        }*/
+        }
+    }
+
+    private class CalculationSlot
+    {
+        public CalculationSlot(SlotDescriptor? descriptor, BuildingBranch? branch, BuildingLevel? level, int regionId, int slotIndex)
+        {
+            this.Descriptor = descriptor;
+            this.Branch = branch;
+            this.Level = level;
+            this.RegionId = regionId;
+            this.SlotIndex = slotIndex;
+        }
+
+        public SlotDescriptor? Descriptor { get; set; }
+
+        public BuildingBranch? Branch { get; set; }
+
+        public BuildingLevel? Level { get; set; }
+
+        public int RegionId { get; set; }
+
+        public int SlotIndex { get; set; }
     }
 }

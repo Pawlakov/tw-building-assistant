@@ -103,17 +103,16 @@ public class SeekerViewModel
         this.OnPropertyChanged(nameof(this.ProgressBarValue));
         this.OnPropertyChanged(nameof(this.ProgressBarText));
 
-        await Task.Run(() =>
-        {
-            this.seekService.Seek(
-                this.settingsStore.Settings,
-                this.settingsStore.Effect,
-                this.settingsStore.BuildingLibrary,
-                this.provinceStore.SeekerSettings,
-                this.MinimalCondition,
-                x => this.ProgressBarMax = x,
-                x => this.progressBarValue = x);
-        });
+        var seekerResults = await this.seekService.Seek(
+            this.settingsStore.Settings,
+            this.settingsStore.Effect,
+            this.settingsStore.BuildingLibrary,
+            this.provinceStore.SeekerSettings,
+            this.MinimalCondition,
+            async x => this.ProgressBarMax = x,
+            async x => this.progressBarValue = x);
+
+        this.provinceStore.SeekerResults.AddRange(seekerResults);
 
         this.processing = false;
         this.OnPropertyChanged(nameof(this.ProgressBarMax));

@@ -75,7 +75,7 @@ public class ProvinceViewModel
     public void Next()
     {
         this.provinceStore.SeekerSettings = this.Regions
-            .Select(x => new SeekerSettingsRegion(x.Slots.Where(y => y.SelectedBuildingBranch.Id > 0 && !y.Selected).Select(y => (y.SelectedBuildingBranch, y.SelectedBuildingLevel)).ToImmutableArray(), x.Slots.Where(y => y.Selected).Select(y => y.Descriptor).ToImmutableArray()))
+            .Select(x => new SeekerSettingsRegion(x.Slots.Where(y => y.SelectedBuildingBranch.Id > 0 || y.Selected).Select(y => new SeekerSettingsSlot(y.Selected ? null : y.SelectedBuildingBranch, y.Selected ? null : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex)).ToImmutableArray()))
             .ToImmutableArray();
 
         this.navigator.CurrentViewType = INavigator.ViewType.Seeker;

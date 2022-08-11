@@ -2,16 +2,17 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Threading.Tasks;
 using TWBuildingAssistant.Domain.StateModels;
 
 public interface ISeekService
 {
-    void Seek(
+    Task<ImmutableArray<SeekerResult>> Seek(
         Settings settings,
         EffectSet predefinedEffect,
         ImmutableArray<BuildingLibraryEntry> buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,
-        Action<long> updateProgressMax,
-        Action<long> updateProgressValue);
+        Func<long, Task> updateProgressMax,
+        Func<long, Task> updateProgressValue);
 }

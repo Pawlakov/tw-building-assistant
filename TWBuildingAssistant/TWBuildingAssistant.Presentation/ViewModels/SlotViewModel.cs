@@ -37,12 +37,24 @@ public class SlotViewModel
             var fromStore = this.provinceStore.BuildingLevelIds[(this.regionId, this.slotIndex)];
             if (this.BuildingBranches.Any(x => x.Id == fromStore.BuildingBranchId))
             {
-                this.selectedBuildingBranch = this.BuildingBranches.Single(x => x.Id == fromStore.BuildingBranchId);
+                var matchingBranches = this.BuildingBranches.Where(x => x.Id == fromStore.BuildingBranchId);
+                this.selectedBuildingBranch = matchingBranches.Single(x => x.Levels.Any(y => y.Id == fromStore.BuildingLevelId));
+
                 this.BuildingLevels = new ObservableCollection<BuildingLevel>(this.selectedBuildingBranch.Levels);
                 if (this.BuildingLevels.Any(x => x.Id == fromStore.BuildingLevelId))
                 {
                     this.selectedBuildingLevel = this.BuildingLevels.Single(x => x.Id == fromStore.BuildingLevelId);
                 }
+                else
+                {
+                    this.selectedBuildingLevel = this.BuildingLevels[0];
+                }
+            }
+            else
+            {
+                this.selectedBuildingBranch = this.BuildingBranches[0];
+                this.BuildingLevels = new ObservableCollection<BuildingLevel>(this.selectedBuildingBranch.Levels);
+                this.selectedBuildingLevel = this.BuildingLevels[0];
             }
         }
         else

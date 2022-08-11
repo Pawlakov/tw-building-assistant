@@ -60,10 +60,10 @@ public class ProvinceService
     private (ImmutableArray<Effect> RegionalEffects, ImmutableArray<Income> Incomes, ImmutableArray<Influence> Influences) GetStateFromBuildings(
         IEnumerable<IEnumerable<BuildingLevel>> buildings)
     {
-        var regionalEffects = buildings.Select(x => EffectOperations.Collect(x.Select(x => x.Effect)));
-        var regionalIncomes = buildings.SelectMany(x => x).SelectMany(x => x.Incomes);
-        var regionalInfluences = buildings.SelectMany(x => x).SelectMany(x => x.Influences);
+        var regionalEffects = buildings.Select(x => EffectOperations.Collect(x.Select(x => x.Effect))).ToImmutableArray();
+        var regionalIncomes = buildings.SelectMany(x => x).SelectMany(x => x.Incomes).ToImmutableArray();
+        var regionalInfluences = buildings.SelectMany(x => x).SelectMany(x => x.Influences).ToImmutableArray();
 
-        return (regionalEffects.ToImmutableArray(), regionalIncomes.ToImmutableArray(), regionalInfluences.ToImmutableArray());
+        return (regionalEffects, regionalIncomes, regionalInfluences);
     }
 }

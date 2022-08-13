@@ -19,6 +19,8 @@ public class BuildingBranch
 
     public bool AllowParallel { get; set; }
 
+    public bool Interesting { get; set; }
+
     [ForeignKey(nameof(RootBuildingLevel))]
     public int RootBuildingLevelId { get; set; }
 

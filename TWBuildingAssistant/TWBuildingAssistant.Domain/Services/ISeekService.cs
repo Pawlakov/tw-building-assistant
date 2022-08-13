@@ -7,7 +7,7 @@ using TWBuildingAssistant.Domain.StateModels;
 
 public interface ISeekService
 {
-    Task<ImmutableArray<SeekerResult>> Seek(
+    ImmutableArray<SeekerResult> Seek(
         Settings settings,
         EffectSet predefinedEffect,
         ImmutableArray<BuildingLibraryEntry> buildingLibrary,

@@ -253,7 +253,7 @@ public class SettingsService
 
             if (levelsOther.Any())
             {
-                finalDictionary.Add(new BuildingBranch(strain.Branch.Id, strain.Branch.Name, levelsOther.ToImmutableArray()));
+                finalDictionary.Add(new BuildingBranch(strain.Branch.Id, strain.Branch.Name, strain.Branch.Interesting, levelsOther.ToImmutableArray()));
             }
         }
 

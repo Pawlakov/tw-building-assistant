@@ -4,5 +4,5 @@ using System.Collections.Immutable;
 
 public static class BuildingBranchOperations
 {
-    public static BuildingBranch Empty { get; } = new BuildingBranch(0, "Empty", ImmutableArray.Create(BuildingLevelOperations.Empty));
+    public static BuildingBranch Empty { get; } = new BuildingBranch(0, "Empty", true, ImmutableArray.Create(BuildingLevelOperations.Empty));
 }

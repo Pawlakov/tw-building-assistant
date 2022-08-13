@@ -26,10 +26,11 @@ public class ProvinceService
             var entity = await context.Provinces
                 .AsNoTracking()
                 .Include(x => x.Regions)
+                .ThenInclude(x => x.Resource)
                 .Where(x => x.Id == provinceId)
                 .FirstOrDefaultAsync();
 
-            return ProvinceOperations.Create(entity.Id, entity.Name, entity.Regions.Select(x => RegionOperations.Create(x.Id, x.Name, x.RegionType, x.IsCoastal, x.ResourceId, x.SlotsCountOffset != 0)));
+            return ProvinceOperations.Create(entity.Id, entity.Name, entity.Regions.Select(x => RegionOperations.Create(x.Id, x.Name, x.RegionType, x.IsCoastal, x.ResourceId, x.Resource?.Name, x.SlotsCountOffset != 0)));
         }
     }
 

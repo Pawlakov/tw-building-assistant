@@ -17,6 +17,10 @@ public interface ISettingsService
 
     Task<IEnumerable<NamedId>> GetFactionOptions();
 
+    Task<IEnumerable<NamedId>> GetDifficultyOptions();
+
+    Task<IEnumerable<NamedId>> GetTaxOptions();
+
     Task<EffectSet> GetStateFromSettings(Settings settings);
 
     Task<ImmutableArray<BuildingLibraryEntry>> GetBuildingLibrary(Settings settings);

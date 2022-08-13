@@ -16,26 +16,17 @@ public class RegionViewModel
             this.Slots.Add(new SlotViewModel(settingsStore, provinceStore, region.Id, slotIndex++, slot));
         }
 
-        /*foreach (var slotViewModel in this.Slots)
+        if (region.ResourceId == null)
         {
-            slotViewModel.BuildingChanged += this.BuildingChangedHandler;
-        }*/
-
-        this.Name = region.Name;
+            this.Name = region.Name;
+        }
+        else
+        {
+            this.Name = $"{region.Name} ({region.ResourceName})";
+        }
     }
 
     public ObservableCollection<SlotViewModel> Slots { get; }
 
     public string Name { get; }
-
-    /*private async void BuildingChangedHandler(object? sender, EventArgs args)
-    {
-        foreach (var slot in this.Slots)
-        {
-            if (slot != sender)
-            {
-                await slot.UpdateBuildings();
-            }
-        }
-    }*/
 }

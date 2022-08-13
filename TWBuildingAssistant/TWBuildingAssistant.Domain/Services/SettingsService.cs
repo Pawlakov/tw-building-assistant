@@ -110,6 +110,42 @@ public class SettingsService
         }
     }
 
+    public async Task<IEnumerable<NamedId>> GetDifficultyOptions()
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            var entities = context.Difficulties
+                .OrderBy(x => x.Order)
+                .ToList();
+
+            var models = new List<NamedId>();
+            foreach (var entity in entities)
+            {
+                models.Add(new NamedId(entity.Id, entity.Name));
+            }
+
+            return models;
+        }
+    }
+
+    public async Task<IEnumerable<NamedId>> GetTaxOptions()
+    {
+        using (var context = this.contextFactory.CreateDbContext())
+        {
+            var entities = context.Taxes
+                .OrderBy(x => x.Order)
+                .ToList();
+
+            var models = new List<NamedId>();
+            foreach (var entity in entities)
+            {
+                models.Add(new NamedId(entity.Id, entity.Name));
+            }
+
+            return models;
+        }
+    }
+
     public async Task<EffectSet> GetStateFromSettings(Settings settings)
     {
         using (var context = this.contextFactory.CreateDbContext())
@@ -119,8 +155,11 @@ public class SettingsService
             var religionEffects = await this.GetReligionEffect(context, settings);
             var provinceEffects = await this.GetProvinceEffect(context, settings);
             var climateEffects = await this.GetClimateEffect(context, settings);
+            var difficultyEffects = await this.GetDifficultyEffect(context, settings);
+            var taxEffects = await this.GetTaxEffect(context, settings);
             var fertilityDropEffect = EffectOperations.Create(fertility: settings.FertilityDrop);
             var corruptionIncome = IncomeOperations.Create(-settings.CorruptionRate, null, BonusType.Percentage);
+            var piracyIncome = IncomeOperations.Create(-settings.PiracyRate, IncomeCategory.MaritimeCommerce, BonusType.Percentage);
 
             var effects = new[]
             {
@@ -129,6 +168,8 @@ public class SettingsService
                 religionEffects.Effect,
                 provinceEffects.Effect,
                 climateEffects.Effect,
+                difficultyEffects.Effect,
+                taxEffects.Effect,
                 fertilityDropEffect,
             };
 
@@ -137,13 +178,18 @@ public class SettingsService
                 .Concat(religionEffects.Incomes)
                 .Concat(provinceEffects.Incomes)
                 .Concat(climateEffects.Incomes)
-                .Append(corruptionIncome);
+                .Concat(difficultyEffects.Incomes)
+                .Concat(taxEffects.Incomes)
+                .Append(corruptionIncome)
+                .Append(piracyIncome);
 
             var influences = factionEffects.Influences
                 .Concat(technologyEffects.Influences)
                 .Concat(religionEffects.Influences)
                 .Concat(provinceEffects.Influences)
-                .Concat(climateEffects.Influences);
+                .Concat(climateEffects.Influences)
+                .Concat(difficultyEffects.Influences)
+                .Concat(taxEffects.Influences);
 
             return new EffectSet(EffectOperations.Collect(effects), incomes.ToImmutableArray(), influences.ToImmutableArray());
         }
@@ -368,6 +414,32 @@ public class SettingsService
             .Where(x => x.Id == settings.ProvinceId)
             .SelectMany(x => x.Climate.Effects)
             .Where(x => x.WeatherId == settings.WeatherId && x.SeasonId == settings.SeasonId)
+            .Select(x => x.Effect)
+            .FirstOrDefaultAsync();
+
+        return this.MakeEffect(effectEntity);
+    }
+
+    private async Task<EffectSet> GetDifficultyEffect(DatabaseContext context, Settings settings)
+    {
+        var effectEntity = await context.Difficulties
+            .AsNoTracking()
+            .Include(x => x.Effect.Bonuses)
+            .Include(x => x.Effect.Influences)
+            .Where(x => x.Id == settings.DifficultyId)
+            .Select(x => x.Effect)
+            .FirstOrDefaultAsync();
+
+        return this.MakeEffect(effectEntity);
+    }
+
+    private async Task<EffectSet> GetTaxEffect(DatabaseContext context, Settings settings)
+    {
+        var effectEntity = await context.Taxes
+            .AsNoTracking()
+            .Include(x => x.Effect.Bonuses)
+            .Include(x => x.Effect.Influences)
+            .Where(x => x.Id == settings.DifficultyId)
             .Select(x => x.Effect)
             .FirstOrDefaultAsync();
 

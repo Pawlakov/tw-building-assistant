@@ -26,6 +26,9 @@ public class SettingsViewModel
     private NamedId selectedWeather;
     private NamedId selectedSeason;
     private int corruptionRate;
+    private int piracyRate;
+    private NamedId selectedDifficulty;
+    private NamedId selectedTax;
 
     public SettingsViewModel(INavigator navigator, ISettingsService settingsService, ISettingsStore settingsStore)
     {
@@ -40,6 +43,8 @@ public class SettingsViewModel
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
         this.Weathers = new ObservableCollection<NamedId>(this.settingsService.GetWeatherOptions().Result);
         this.Seasons = new ObservableCollection<NamedId>(this.settingsService.GetSeasonOptions().Result);
+        this.Difficulties = new ObservableCollection<NamedId>(this.settingsService.GetDifficultyOptions().Result);
+        this.Taxes = new ObservableCollection<NamedId>(this.settingsService.GetTaxOptions().Result);
 
         if (this.settingsStore.Settings == default)
         {
@@ -51,7 +56,10 @@ public class SettingsViewModel
             this.selectedWeather = this.Weathers[0];
             this.selectedSeason = this.Seasons[0];
             this.corruptionRate = 1;
+            this.piracyRate = 1;
             this.selectedProvince = this.Provinces[0];
+            this.selectedDifficulty = this.Difficulties[0];
+            this.selectedTax = this.Taxes[0];
         }
         else
         {
@@ -63,7 +71,10 @@ public class SettingsViewModel
             this.selectedWeather = this.Weathers.Single(x => x.Id == this.settingsStore.Settings.WeatherId);
             this.selectedSeason = this.Seasons.Single(x => x.Id == this.settingsStore.Settings.SeasonId);
             this.corruptionRate = this.settingsStore.Settings.CorruptionRate;
+            this.piracyRate = this.settingsStore.Settings.PiracyRate;
             this.selectedProvince = this.Provinces.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
+            this.selectedDifficulty = this.Difficulties.Single(x => x.Id == this.settingsStore.Settings.DifficultyId);
+            this.selectedTax = this.Taxes.Single(x => x.Id == this.settingsStore.Settings.TaxId);
         }
 
         this.NextCommand = new AsyncRelayCommand(this.Next);
@@ -187,6 +198,36 @@ public class SettingsViewModel
         }
     }
 
+    public ObservableCollection<NamedId> Difficulties { get; set; }
+
+    public NamedId SelectedDifficulty
+    {
+        get => this.selectedDifficulty;
+        set
+        {
+            if (this.selectedDifficulty != value)
+            {
+                this.selectedDifficulty = value;
+                this.OnPropertyChanged(nameof(this.SelectedDifficulty));
+            }
+        }
+    }
+
+    public ObservableCollection<NamedId> Taxes { get; set; }
+
+    public NamedId SelectedTax
+    {
+        get => this.selectedTax;
+        set
+        {
+            if (this.selectedTax != value)
+            {
+                this.selectedTax = value;
+                this.OnPropertyChanged(nameof(this.SelectedTax));
+            }
+        }
+    }
+
     public int CorruptionRate
     {
         get => this.corruptionRate;
@@ -209,11 +250,33 @@ public class SettingsViewModel
         }
     }
 
+    public int PiracyRate
+    {
+        get => this.piracyRate;
+        set
+        {
+            if (value > 99)
+            {
+                value = 99;
+            }
+            else if (value < 1)
+            {
+                value = 1;
+            }
+
+            if (this.piracyRate != value)
+            {
+                this.piracyRate = value;
+                this.OnPropertyChanged(nameof(this.PiracyRate));
+            }
+        }
+    }
+
     public AsyncRelayCommand NextCommand { get; init; }
 
     public async Task Next()
     {
-        this.settingsStore.Settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.CorruptionRate);
+        this.settingsStore.Settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.SelectedDifficulty.Id, this.SelectedTax.Id, this.CorruptionRate, this.PiracyRate);
         this.settingsStore.Effect = await this.settingsService.GetStateFromSettings(this.settingsStore.Settings);
         this.settingsStore.BuildingLibrary = await this.settingsService.GetBuildingLibrary(this.settingsStore.Settings);
 

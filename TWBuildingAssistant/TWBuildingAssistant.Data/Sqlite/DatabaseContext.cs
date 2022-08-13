@@ -47,6 +47,10 @@ public class DatabaseContext
 
     public DbSet<WeatherEffect> WeatherEffects { get; set; }
 
+    public DbSet<Difficulty> Difficulties { get; set; }
+
+    public DbSet<Tax> Taxes { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BuildingBranchUse>()

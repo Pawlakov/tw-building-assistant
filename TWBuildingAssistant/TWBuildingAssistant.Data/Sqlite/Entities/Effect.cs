@@ -43,6 +43,10 @@ public class Effect
 
     public Faction Faction { get; set; }
 
+    public Difficulty Difficulty { get; set; }
+
+    public Tax Tax { get; set; }
+
     public ICollection<Bonus> Bonuses { get; set; }
 
     public ICollection<Influence> Influences { get; set; }

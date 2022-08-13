@@ -113,7 +113,7 @@ public class SeekerViewModel
 
             async Task UpdateProgressValue(long x)
             {
-                this.progressBarValue = x;
+                this.ProgressBarValue = x;
                 await Task.CompletedTask;
             }
 

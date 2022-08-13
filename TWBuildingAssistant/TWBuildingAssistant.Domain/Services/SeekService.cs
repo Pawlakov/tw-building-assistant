@@ -37,7 +37,7 @@ public class SeekService
         var bestCombination = new List<SeekerResult>();
         var bestWealth = 0d;
 
-        foreach (var combination in combinations)
+        Parallel.ForEach(combinations, combination =>
         {
             var seekingSlots = combination.Regions.SelectMany(x => x.Slots).Where(x => x.Level == null).ToArray();
 
@@ -75,7 +75,7 @@ public class SeekService
                     }
                 }
             }
-        }
+        });
 
         return bestCombination.ToImmutableArray();
     }

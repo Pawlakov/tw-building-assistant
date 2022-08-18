@@ -4,28 +4,21 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using TWBuildingAssistant.Domain;
+using TWBuildingAssistant.Domain.StateModels;
 
 public static class ConfigurationExtension
 {
     private const string CertainValueKey = "CertainValue";
-    private const string OtherValueKey = "OtherValue";
+    private const string SettingsKey = "Settings";
 
-    public static string GetCertainValue(this IConfiguration configuration)
+    public static Settings? GetSettings(this IConfiguration configuration)
     {
-        return configuration.GetValue<string>(CertainValueKey);
-    }
-
-    public static BuildingLevel GetOtherValue(this IConfiguration configuration)
-    {
-        var section = configuration.GetSection(OtherValueKey);
-        var dictionary = section.GetValue<BuildingLevel>(OtherValueKey);
-        if (dictionary == null)
+        if (configuration.GetSection(SettingsKey).Exists())
         {
-            dictionary = BuildingLevelOperations.Empty;
+            return configuration.GetSection(SettingsKey).Get<Settings>();
         }
 
-        return dictionary;
+        return null;
     }
 
     public static void SetCertainValue(this IConfiguration configuration, string value)
@@ -34,10 +27,10 @@ public static class ConfigurationExtension
         AddOrUpdateAppSettings(CertainValueKey, value);
     }
 
-    public static void SetOtherValue(this IConfiguration configuration, BuildingLevel value)
+    public static void SetSettings(this IConfiguration configuration, Settings value)
     {
-        configuration[OtherValueKey] = JsonConvert.SerializeObject(value);
-        AddOrUpdateAppSettings(OtherValueKey, (dynamic)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(value)));
+        configuration[SettingsKey] = JsonConvert.SerializeObject(value);
+        AddOrUpdateAppSettings(SettingsKey, (dynamic)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(value)));
     }
 
     private static void AddOrUpdateAppSettings<TValue>(string sectionPathKey, TValue value)

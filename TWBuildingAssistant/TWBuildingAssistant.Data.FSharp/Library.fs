@@ -4,13 +4,10 @@ open Donald
 open Microsoft.Data.Sqlite
 open Models
 
-let getConnection () =
-    new SqliteConnection "Data Source=twa_data.db"
-
-let getProvinceOptions () =
+let getIdNameOptions tableName =
     let result =
-        let sql = "select * from Provinces"
-        use conn = getConnection ()
+        let sql = tableName |> sprintf "select * from %s"
+        use conn = new SqliteConnection "Data Source=twa_data.db"
         conn
             |> Db.newCommand sql
             |> Db.query NamedId.ofDataReader
@@ -20,3 +17,24 @@ let getProvinceOptions () =
         failwith "Database error"
     | Ok elements -> 
         elements |> List.toSeq
+
+let getProvinceOptions () =
+    getIdNameOptions "Provinces"
+
+let getWeatherOptions () =
+    getIdNameOptions "Weathers"
+
+let getSeasonOptions () =
+    getIdNameOptions "Seasons"
+
+let getReligionOptions () =
+    getIdNameOptions "Religions"
+
+let getFactionOptions () =
+    getIdNameOptions "Factions"
+
+let getDifficultyOptions () =
+    getIdNameOptions "Difficulties"
+
+let getTaxOptions () =
+    getIdNameOptions "Taxes"

@@ -1,96 +1,81 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using TWBuildingAssistant.Data.FSharp;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.StateModels;
+using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 
-public class SettingsViewModel 
+public class SettingsViewModel
     : ViewModel
 {
     private readonly INavigator navigator;
     private readonly ISettingsService settingsService;
     private readonly ISettingsStore settingsStore;
+    private readonly IConfiguration configuration;
 
-    private NamedId selectedReligion;
-    private Models.NamedId selectedProvince;
-    private NamedId selectedFaction;
-    private int selectedTechnologyTier;
-    private bool useAntilegacyTechnologies;
-    private int selectedFertilityDrop;
-    private NamedId selectedWeather;
-    private NamedId selectedSeason;
-    private int corruptionRate;
-    private int piracyRate;
-    private NamedId selectedDifficulty;
-    private NamedId selectedTax;
+    private Settings settings;
 
-    public SettingsViewModel(INavigator navigator, ISettingsService settingsService, ISettingsStore settingsStore)
+    public SettingsViewModel(INavigator navigator, ISettingsService settingsService, ISettingsStore settingsStore, IConfiguration configuration)
     {
         this.navigator = navigator;
         this.settingsService = settingsService;
         this.settingsStore = settingsStore;
+        this.configuration = configuration;
 
-        this.Religions = new ObservableCollection<NamedId>(this.settingsService.GetReligionOptions().Result);
+        this.Religions = new ObservableCollection<Models.NamedId>(Library.getReligionOptions());
         this.Provinces = new ObservableCollection<Models.NamedId>(Library.getProvinceOptions());
-        this.Factions = new ObservableCollection<NamedId>(this.settingsService.GetFactionOptions().Result);
+        this.Factions = new ObservableCollection<Models.NamedId>(Library.getFactionOptions());
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<NamedId>(this.settingsService.GetWeatherOptions().Result);
-        this.Seasons = new ObservableCollection<NamedId>(this.settingsService.GetSeasonOptions().Result);
-        this.Difficulties = new ObservableCollection<NamedId>(this.settingsService.GetDifficultyOptions().Result);
-        this.Taxes = new ObservableCollection<NamedId>(this.settingsService.GetTaxOptions().Result);
+        this.Weathers = new ObservableCollection<Models.NamedId>(Library.getWeatherOptions());
+        this.Seasons = new ObservableCollection<Models.NamedId>(Library.getSeasonOptions());
+        this.Difficulties = new ObservableCollection<Models.NamedId>(Library.getDifficultyOptions());
+        this.Taxes = new ObservableCollection<Models.NamedId>(Library.getTaxOptions());
 
-        if (this.settingsStore.Settings == default)
+        var settings = this.configuration.GetSettings();
+        if (settings == null)
         {
-            this.selectedFertilityDrop = this.FertilityDrops[0];
-            this.selectedTechnologyTier = this.TechnologyTiers[0];
-            this.useAntilegacyTechnologies = false;
-            this.selectedReligion = this.Religions[0];
-            this.selectedFaction = this.Factions[0];
-            this.selectedWeather = this.Weathers[0];
-            this.selectedSeason = this.Seasons[0];
-            this.corruptionRate = 1;
-            this.piracyRate = 1;
-            this.selectedProvince = this.Provinces[0];
-            this.selectedDifficulty = this.Difficulties[0];
-            this.selectedTax = this.Taxes[0];
+            this.settings = new Settings
+            {
+                FertilityDrop = this.FertilityDrops[0],
+                TechnologyTier = this.TechnologyTiers[0],
+                UseAntilegacyTechnologies = false,
+                ReligionId = this.Religions[0].Id,
+                FactionId = this.Factions[0].Id,
+                WeatherId = this.Weathers[0].Id,
+                SeasonId = this.Seasons[0].Id,
+                CorruptionRate = 1,
+                PiracyRate = 1,
+                ProvinceId = this.Provinces[0].Id,
+                DifficultyId = this.Difficulties[0].Id,
+                TaxId = this.Taxes[0].Id,
+            };
         }
         else
         {
-            this.selectedFertilityDrop = this.settingsStore.Settings.FertilityDrop;
-            this.selectedTechnologyTier = this.settingsStore.Settings.TechnologyTier;
-            this.useAntilegacyTechnologies = this.settingsStore.Settings.UseAntilegacyTechnologies;
-            this.selectedReligion = this.Religions.Single(x => x.Id == this.settingsStore.Settings.ReligionId);
-            this.selectedFaction = this.Factions.Single(x => x.Id == this.settingsStore.Settings.FactionId);
-            this.selectedWeather = this.Weathers.Single(x => x.Id == this.settingsStore.Settings.WeatherId);
-            this.selectedSeason = this.Seasons.Single(x => x.Id == this.settingsStore.Settings.SeasonId);
-            this.corruptionRate = this.settingsStore.Settings.CorruptionRate;
-            this.piracyRate = this.settingsStore.Settings.PiracyRate;
-            this.selectedProvince = this.Provinces.Single(x => x.Id == this.settingsStore.Settings.ProvinceId);
-            this.selectedDifficulty = this.Difficulties.Single(x => x.Id == this.settingsStore.Settings.DifficultyId);
-            this.selectedTax = this.Taxes.Single(x => x.Id == this.settingsStore.Settings.TaxId);
+            this.settings = settings.Value;
         }
 
         this.NextCommand = new AsyncRelayCommand(this.Next);
     }
 
-    public ObservableCollection<NamedId> Religions { get; set; }
+    public ObservableCollection<Models.NamedId> Religions { get; set; }
 
-    public NamedId SelectedReligion
+    public Models.NamedId SelectedReligion
     {
-        get => this.selectedReligion;
+        get => this.Religions.FirstOrDefault(x => x.Id == this.settings.ReligionId);
         set
         {
-            if (this.selectedReligion != value)
+            if (this.settings.ReligionId != value.Id)
             {
-                this.selectedReligion = value;
+                this.settings.ReligionId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedReligion));
             }
         }
@@ -100,27 +85,27 @@ public class SettingsViewModel
 
     public Models.NamedId SelectedProvince
     {
-        get => this.selectedProvince;
+        get => this.Provinces.FirstOrDefault(x => x.Id == this.settings.ProvinceId);
         set
         {
-            if (this.selectedProvince != value)
+            if (this.settings.ProvinceId != value.Id)
             {
-                this.selectedProvince = value;
+                this.settings.ProvinceId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedProvince));
             }
         }
     }
 
-    public ObservableCollection<NamedId> Factions { get; set; }
+    public ObservableCollection<Models.NamedId> Factions { get; set; }
 
-    public NamedId SelectedFaction
+    public Models.NamedId SelectedFaction
     {
-        get => this.selectedFaction;
+        get => this.Factions.FirstOrDefault(x => x.Id == this.settings.FactionId);
         set
         {
-            if (this.selectedFaction != value)
+            if (this.settings.FactionId != value.Id)
             {
-                this.selectedFaction = value;
+                this.settings.FactionId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedFaction));
             }
         }
@@ -130,12 +115,12 @@ public class SettingsViewModel
 
     public int SelectedTechnologyTier
     {
-        get => this.selectedTechnologyTier;
+        get => this.settings.TechnologyTier;
         set
         {
-            if (this.selectedTechnologyTier != value)
+            if (this.settings.TechnologyTier != value)
             {
-                this.selectedTechnologyTier = value;
+                this.settings.TechnologyTier = value;
                 this.OnPropertyChanged(nameof(this.SelectedTechnologyTier));
             }
         }
@@ -143,12 +128,12 @@ public class SettingsViewModel
 
     public bool UseAntilegacyTechnologies
     {
-        get => this.useAntilegacyTechnologies;
+        get => this.settings.UseAntilegacyTechnologies;
         set
         {
-            if (this.useAntilegacyTechnologies != value)
+            if (this.settings.UseAntilegacyTechnologies != value)
             {
-                this.useAntilegacyTechnologies = value;
+                this.settings.UseAntilegacyTechnologies = value;
                 this.OnPropertyChanged(nameof(this.UseAntilegacyTechnologies));
             }
         }
@@ -158,72 +143,72 @@ public class SettingsViewModel
 
     public int SelectedFertilityDrop
     {
-        get => this.selectedFertilityDrop;
+        get => this.settings.FertilityDrop;
         set
         {
-            if (this.selectedFertilityDrop != value)
+            if (this.settings.FertilityDrop != value)
             {
-                this.selectedFertilityDrop = value;
+                this.settings.FertilityDrop = value;
                 this.OnPropertyChanged(nameof(this.SelectedFertilityDrop));
             }
         }
     }
 
-    public ObservableCollection<NamedId> Weathers { get; set; }
+    public ObservableCollection<Models.NamedId> Weathers { get; set; }
 
-    public NamedId SelectedWeather
+    public Models.NamedId SelectedWeather
     {
-        get => this.selectedWeather;
+        get => this.Weathers.FirstOrDefault(x => x.Id == this.settings.WeatherId);
         set
         {
-            if (this.selectedWeather != value)
+            if (this.settings.WeatherId != value.Id)
             {
-                this.selectedWeather = value;
+                this.settings.WeatherId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedWeather));
             }
         }
     }
 
-    public ObservableCollection<NamedId> Seasons { get; set; }
+    public ObservableCollection<Models.NamedId> Seasons { get; set; }
 
-    public NamedId SelectedSeason
+    public Models.NamedId SelectedSeason
     {
-        get => this.selectedSeason;
+        get => this.Seasons.FirstOrDefault(x => x.Id == this.settings.SeasonId);
         set
         {
-            if (this.selectedSeason != value)
+            if (this.settings.SeasonId != value.Id)
             {
-                this.selectedSeason = value;
+                this.settings.SeasonId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedSeason));
             }
         }
     }
 
-    public ObservableCollection<NamedId> Difficulties { get; set; }
+    public ObservableCollection<Models.NamedId> Difficulties { get; set; }
 
-    public NamedId SelectedDifficulty
+    public Models.NamedId SelectedDifficulty
     {
-        get => this.selectedDifficulty;
+        get => this.Difficulties.FirstOrDefault(x => x.Id == this.settings.DifficultyId);
         set
         {
-            if (this.selectedDifficulty != value)
+            if (this.settings.DifficultyId != value.Id)
             {
-                this.selectedDifficulty = value;
+                this.settings.DifficultyId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedDifficulty));
             }
         }
     }
 
-    public ObservableCollection<NamedId> Taxes { get; set; }
+    public ObservableCollection<Models.NamedId> Taxes { get; set; }
 
-    public NamedId SelectedTax
+    public Models.NamedId SelectedTax
     {
-        get => this.selectedTax;
+        get => this.Taxes.FirstOrDefault(x => x.Id == this.settings.TaxId);
         set
         {
-            if (this.selectedTax != value)
+            if (this.settings.TaxId != value.Id)
             {
-                this.selectedTax = value;
+                this.settings.TaxId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedTax));
             }
         }
@@ -231,7 +216,7 @@ public class SettingsViewModel
 
     public int CorruptionRate
     {
-        get => this.corruptionRate;
+        get => this.settings.CorruptionRate;
         set
         {
             if (value > 99)
@@ -243,9 +228,9 @@ public class SettingsViewModel
                 value = 1;
             }
 
-            if (this.corruptionRate != value)
+            if (this.settings.CorruptionRate != value)
             {
-                this.corruptionRate = value;
+                this.settings.CorruptionRate = value;
                 this.OnPropertyChanged(nameof(this.CorruptionRate));
             }
         }
@@ -253,7 +238,7 @@ public class SettingsViewModel
 
     public int PiracyRate
     {
-        get => this.piracyRate;
+        get => this.settings.PiracyRate;
         set
         {
             if (value > 99)
@@ -265,9 +250,9 @@ public class SettingsViewModel
                 value = 1;
             }
 
-            if (this.piracyRate != value)
+            if (this.settings.PiracyRate != value)
             {
-                this.piracyRate = value;
+                this.settings.PiracyRate = value;
                 this.OnPropertyChanged(nameof(this.PiracyRate));
             }
         }
@@ -277,9 +262,10 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        this.settingsStore.Settings = new Settings(this.selectedProvince.Id, this.SelectedFertilityDrop, this.SelectedTechnologyTier, this.UseAntilegacyTechnologies, this.SelectedReligion.Id, this.SelectedFaction.Id, this.SelectedWeather.Id, this.SelectedSeason.Id, this.SelectedDifficulty.Id, this.SelectedTax.Id, this.CorruptionRate, this.PiracyRate);
-        this.settingsStore.Effect = await this.settingsService.GetStateFromSettings(this.settingsStore.Settings);
-        this.settingsStore.BuildingLibrary = await this.settingsService.GetBuildingLibrary(this.settingsStore.Settings);
+        this.configuration.SetSettings(this.settings);
+
+        this.settingsStore.Effect = await this.settingsService.GetStateFromSettings(this.settings);
+        this.settingsStore.BuildingLibrary = await this.settingsService.GetBuildingLibrary(this.settings);
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

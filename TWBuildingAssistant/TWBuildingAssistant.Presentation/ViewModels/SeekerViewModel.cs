@@ -3,8 +3,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.StateModels;
+using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 
 public class SeekerViewModel
@@ -14,6 +16,7 @@ public class SeekerViewModel
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
     private readonly ISeekService seekService;
+    private readonly IConfiguration configuration;
 
     private bool requireSantitation;
     private int minimalPublicOrder;
@@ -21,12 +24,13 @@ public class SeekerViewModel
     private long progressBarMax;
     private long progressBarValue;
 
-    public SeekerViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, ISeekService seekService)
+    public SeekerViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, ISeekService seekService, IConfiguration configuration)
     {
         this.navigator = navigator;
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
         this.seekService = seekService;
+        this.configuration = configuration;
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
@@ -118,10 +122,10 @@ public class SeekerViewModel
             }
 
             var seekerResults = this.seekService.Seek(
-                settingsStore.Settings,
-                settingsStore.Effect,
-                settingsStore.BuildingLibrary,
-                provinceStore.SeekerSettings,
+                this.configuration.GetSettings().Value,
+                this.settingsStore.Effect,
+                this.settingsStore.BuildingLibrary,
+                this.provinceStore.SeekerSettings,
                 this.MinimalCondition,
                 UpdateProgressMax,
                 UpdateProgressValue);

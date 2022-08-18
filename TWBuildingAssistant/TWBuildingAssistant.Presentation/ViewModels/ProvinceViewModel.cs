@@ -5,8 +5,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Configuration;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.StateModels;
+using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 
 public class ProvinceViewModel
@@ -16,17 +18,19 @@ public class ProvinceViewModel
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
     private readonly IProvinceService provinceService;
+    private readonly IConfiguration configuration;
 
     private string performance;
 
-    public ProvinceViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, IProvinceService provinceService)
+    public ProvinceViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, IProvinceService provinceService, IConfiguration configuration)
     {
         this.navigator = navigator;
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
         this.provinceService = provinceService;
+        this.configuration = configuration;
 
-        var province = this.provinceService.GetProvince(this.settingsStore.Settings.ProvinceId).Result;
+        var province = this.provinceService.GetProvince(this.configuration.GetSettings().Value.ProvinceId).Result;
         this.ProvinceName = province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in province.Regions)
@@ -83,7 +87,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = this.provinceService.GetState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.settingsStore.Settings, this.settingsStore.Effect);
+        var state = this.provinceService.GetState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings().Value, this.settingsStore.Effect);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

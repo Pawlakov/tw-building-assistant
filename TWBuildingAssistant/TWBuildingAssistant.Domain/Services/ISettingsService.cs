@@ -13,8 +13,6 @@ public interface ISettingsService
 
     Task<IEnumerable<NamedId>> GetReligionOptions();
 
-    Task<IEnumerable<NamedId>> GetProvinceOptions();
-
     Task<IEnumerable<NamedId>> GetFactionOptions();
 
     Task<IEnumerable<NamedId>> GetDifficultyOptions();

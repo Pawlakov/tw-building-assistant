@@ -40,23 +40,6 @@ public class SettingsService
         }
     }
 
-    public async Task<IEnumerable<NamedId>> GetProvinceOptions()
-    {
-        using (var context = this.contextFactory.CreateDbContext())
-        {
-            var entities = context.Provinces
-                .ToList();
-
-            var models = new List<NamedId>();
-            foreach (var entity in entities)
-            {
-                models.Add(new NamedId(entity.Id, entity.Name));
-            }
-
-            return models;
-        }
-    }
-
     public async Task<IEnumerable<NamedId>> GetReligionOptions()
     {
         using (var context = this.contextFactory.CreateDbContext())

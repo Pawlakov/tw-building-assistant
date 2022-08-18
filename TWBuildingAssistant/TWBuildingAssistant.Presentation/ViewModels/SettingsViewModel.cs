@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using TWBuildingAssistant.Data.FSharp;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.StateModels;
@@ -18,7 +19,7 @@ public class SettingsViewModel
     private readonly ISettingsStore settingsStore;
 
     private NamedId selectedReligion;
-    private NamedId selectedProvince;
+    private Models.NamedId selectedProvince;
     private NamedId selectedFaction;
     private int selectedTechnologyTier;
     private bool useAntilegacyTechnologies;
@@ -37,7 +38,7 @@ public class SettingsViewModel
         this.settingsStore = settingsStore;
 
         this.Religions = new ObservableCollection<NamedId>(this.settingsService.GetReligionOptions().Result);
-        this.Provinces = new ObservableCollection<NamedId>(this.settingsService.GetProvinceOptions().Result);
+        this.Provinces = new ObservableCollection<Models.NamedId>(Library.getProvinceOptions());
         this.Factions = new ObservableCollection<NamedId>(this.settingsService.GetFactionOptions().Result);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
@@ -95,9 +96,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<NamedId> Provinces { get; set; }
+    public ObservableCollection<Models.NamedId> Provinces { get; set; }
 
-    public NamedId SelectedProvince
+    public Models.NamedId SelectedProvince
     {
         get => this.selectedProvince;
         set

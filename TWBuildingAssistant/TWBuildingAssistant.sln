@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Domain"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Presentation", "TWBuildingAssistant.Presentation\TWBuildingAssistant.Presentation.csproj", "{91C92F46-8CB4-463D-A828-BAD13A84E2AC}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TWBuildingAssistant.Data.FSharp", "TWBuildingAssistant.Data.FSharp\TWBuildingAssistant.Data.FSharp.fsproj", "{DD9618DF-DC2D-40E2-A249-FD4FA22E533C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{91C92F46-8CB4-463D-A828-BAD13A84E2AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91C92F46-8CB4-463D-A828-BAD13A84E2AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91C92F46-8CB4-463D-A828-BAD13A84E2AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD9618DF-DC2D-40E2-A249-FD4FA22E533C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD9618DF-DC2D-40E2-A249-FD4FA22E533C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD9618DF-DC2D-40E2-A249-FD4FA22E533C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD9618DF-DC2D-40E2-A249-FD4FA22E533C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

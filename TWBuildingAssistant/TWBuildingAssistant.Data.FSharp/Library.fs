@@ -1,40 +1,195 @@
 ﻿module TWBuildingAssistant.Data.FSharp.Library
 
-open Donald
-open Microsoft.Data.Sqlite
+open FSharp.Data.Sql
 open Models
 
-let getIdNameOptions tableName =
-    let result =
-        let sql = tableName |> sprintf "select * from %s"
-        use conn = new SqliteConnection "Data Source=twa_data.db"
-        conn
-            |> Db.newCommand sql
-            |> Db.query NamedId.ofDataReader
+[<Literal>]
+let dbVendor = 
+    Common.DatabaseProviderTypes.MSSQLSERVER
 
-    match result with
-    | Error error -> 
-        failwith "Database error"
-    | Ok elements -> 
-        elements |> List.toSeq
+[<Literal>]
+let connString = 
+    "Data Source=.;Initial Catalog=twa;Integrated Security=true;TrustServerCertificate=True;"
+    
+[<Literal>]
+let useOptTypes =
+    Common.NullableColumnType.VALUE_OPTION
+    
+type sql =
+    SqlDataProvider<
+        DatabaseVendor = dbVendor,
+        ConnectionString = connString,
+        UseOptionTypes = useOptTypes>
 
 let getProvinceOptions () =
-    getIdNameOptions "Provinces"
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let query =
+        query {
+            for province in ctx.Dbo.Provinces do
+            select { Id = province.Id; Name = province.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
 
 let getWeatherOptions () =
-    getIdNameOptions "Weathers"
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let query =
+        query {
+            for province in ctx.Dbo.Weathers do
+            select { Id = province.Id; Name = province.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
 
 let getSeasonOptions () =
-    getIdNameOptions "Seasons"
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let query =
+        query {
+            for province in ctx.Dbo.Seasons do
+            select { Id = province.Id; Name = province.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
 
 let getReligionOptions () =
-    getIdNameOptions "Religions"
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let query =
+        query {
+            for province in ctx.Dbo.Religions do
+            select { Id = province.Id; Name = province.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
 
 let getFactionOptions () =
-    getIdNameOptions "Factions"
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let query =
+        query {
+            for province in ctx.Dbo.Factions do
+            select { Id = province.Id; Name = province.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
 
 let getDifficultyOptions () =
-    getIdNameOptions "Difficulties"
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let query =
+        query {
+            for province in ctx.Dbo.Difficulties do
+            select { Id = province.Id; Name = province.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
 
 let getTaxOptions () =
-    getIdNameOptions "Taxes"
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let query =
+        query {
+            for province in ctx.Dbo.Taxes do
+            select { Id = province.Id; Name = province.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
+
+//let getEffect effectId =
+//    match effectId with
+//    | Some effectId ->
+//        let effectQueryResult = 
+//            let sql = "
+//            select *
+//            from Effects 
+//            where Id = @id"
+
+//            use conn = getConnection ()
+//            conn
+//                |> Db.newCommand sql
+//                |> Db.setParams ["id", SqlType.Int effectId]
+//                |> Db.querySingle Effect.ofDataReader
+
+//        let incomeQueryResult = 
+//            let sql = "
+//            select *
+//            from Bonuses 
+//            where EffectId = @id"
+
+//            use conn = getConnection ()
+//            conn
+//                |> Db.newCommand sql
+//                |> Db.setParams ["id", SqlType.Int effectId]
+//                |> Db.query Income.ofDataReader
+
+//        let influenceQueryResult = 
+//            let sql = "
+//            select *
+//            from Influences 
+//            where EffectId = @id"
+
+//            use conn = getConnection ()
+//            conn
+//                |> Db.newCommand sql
+//                |> Db.setParams ["id", SqlType.Int effectId]
+//                |> Db.query Influence.ofDataReader
+
+//        let effect = 
+//            match effectQueryResult with
+//            | Error error -> 
+//                failwith "Database error"
+//            | Ok element -> 
+//                match element with
+//                | None ->
+//                    failwith "Database error"
+//                | Some element ->
+//                    element
+        
+//        let incomes = 
+//            match incomeQueryResult with
+//            | Error error -> 
+//                failwith "Database error"
+//            | Ok elements -> 
+//                elements
+        
+//        let influences = 
+//            match influenceQueryResult with
+//            | Error error -> 
+//                failwith "Database error"
+//            | Ok elements -> 
+//                elements
+
+//        Some { Effect = effect; Incomes = incomes; Influences = influences }
+//    | None ->
+//        None

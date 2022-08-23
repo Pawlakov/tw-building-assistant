@@ -122,7 +122,7 @@ public class SeekerViewModel
             }
 
             var seekerResults = this.seekService.Seek(
-                this.configuration.GetSettings().Value,
+                this.configuration.GetSettings(),
                 this.settingsStore.Effect,
                 this.settingsStore.BuildingLibrary,
                 this.provinceStore.SeekerSettings,

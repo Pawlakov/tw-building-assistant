@@ -64,7 +64,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TWBuildingAssistant.Data.FSharp\TWBuildingAssistant.Data.FSharp.fsproj" />
     <ProjectReference Include="..\TWBuildingAssistant.Domain\TWBuildingAssistant.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>

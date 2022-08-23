@@ -21,56 +21,7 @@ public class SettingsService
         this.contextFactory = contextFactory;
     }
 
-    public async Task<EffectSet> GetStateFromSettings(Settings settings)
-    {
-        using (var context = this.contextFactory.CreateDbContext())
-        {
-            var factionEffects = await this.GetFactionwideEffects(context, settings);
-            var technologyEffects = await this.GetTechnologyEffect(context, settings);
-            var religionEffects = await this.GetReligionEffect(context, settings);
-            var provinceEffects = await this.GetProvinceEffect(context, settings);
-            var climateEffects = await this.GetClimateEffect(context, settings);
-            var difficultyEffects = await this.GetDifficultyEffect(context, settings);
-            var taxEffects = await this.GetTaxEffect(context, settings);
-            var fertilityDropEffect = EffectOperations.Create(fertility: settings.FertilityDrop);
-            var corruptionIncome = IncomeOperations.Create(-settings.CorruptionRate, null, BonusType.Percentage);
-            var piracyIncome = IncomeOperations.Create(-settings.PiracyRate, IncomeCategory.MaritimeCommerce, BonusType.Percentage);
-
-            var effects = new[]
-            {
-                factionEffects.Effect,
-                technologyEffects.Effect,
-                religionEffects.Effect,
-                provinceEffects.Effect,
-                climateEffects.Effect,
-                difficultyEffects.Effect,
-                taxEffects.Effect,
-                fertilityDropEffect,
-            };
-
-            var incomes = factionEffects.Incomes
-                .Concat(technologyEffects.Incomes)
-                .Concat(religionEffects.Incomes)
-                .Concat(provinceEffects.Incomes)
-                .Concat(climateEffects.Incomes)
-                .Concat(difficultyEffects.Incomes)
-                .Concat(taxEffects.Incomes)
-                .Append(corruptionIncome)
-                .Append(piracyIncome);
-
-            var influences = factionEffects.Influences
-                .Concat(technologyEffects.Influences)
-                .Concat(religionEffects.Influences)
-                .Concat(provinceEffects.Influences)
-                .Concat(climateEffects.Influences)
-                .Concat(difficultyEffects.Influences)
-                .Concat(taxEffects.Influences);
-
-            return new EffectSet(EffectOperations.Collect(effects), incomes.ToImmutableArray(), influences.ToImmutableArray());
-        }
-    }
-
-    public async Task<ImmutableArray<BuildingLibraryEntry>> GetBuildingLibrary(Settings settings)
+    public async Task<ImmutableArray<BuildingLibraryEntry>> GetBuildingLibrary(Data.FSharp.Models.Settings settings)
     {
         using (var context = this.contextFactory.CreateDbContext())
         {
@@ -93,7 +44,7 @@ public class SettingsService
         }
     }
 
-    private async Task<BuildingLibraryEntry> GetBuildingLibraryEntry(DatabaseContext context, Settings settings, SlotDescriptor descriptor)
+    private async Task<BuildingLibraryEntry> GetBuildingLibraryEntry(DatabaseContext context, Data.FSharp.Models.Settings settings, SlotDescriptor descriptor)
     {
         var usedBranchEntitites = await context.BuildingBranchUses
             .AsNoTracking()
@@ -148,13 +99,6 @@ public class SettingsService
             }
         }
 
-        var buildings = new List<(BuildingLevel Level, int? ParentId)>();
-        foreach (var buildingLevelEntity in unlockedLevelEntitites)
-        {
-            (var effect, var incomes, var influences) = await this.GetEffect(buildingLevelEntity.EffectId);
-            buildings.Add((new BuildingLevel(buildingLevelEntity.Id, buildingLevelEntity.Name, effect, incomes, influences), buildingLevelEntity.ParentBuildingLevelId));
-        }
-
         var finalDictionary = new List<BuildingBranch>();
         if (descriptor.SlotType == SlotType.General)
         {
@@ -166,7 +110,7 @@ public class SettingsService
             var levelsOther = new List<BuildingLevel>();
             foreach (var level in strain.Levels)
             {
-                var levelEffect = await this.GetEffect(level.EffectId);
+                var levelEffect = Data.FSharp.Library.getEffectOption(level.EffectId);
                 levelsOther.Add(new BuildingLevel(level.Id, level.Name, levelEffect.Effect, levelEffect.Incomes, levelEffect.Influences));
             }
 
@@ -179,7 +123,7 @@ public class SettingsService
         return new BuildingLibraryEntry(descriptor, finalDictionary.ToImmutableArray());
     }
 
-    private async Task<List<int>> GetUnlockedBuildingLevelIds(DatabaseContext context, Settings settings)
+    private async Task<List<int>> GetUnlockedBuildingLevelIds(DatabaseContext context, Data.FSharp.Models.Settings settings)
     {
         var locksEntities = await context.TechnologyLevels
             .AsNoTracking()
@@ -203,137 +147,5 @@ public class SettingsService
         }
 
         return unlockedIds.Except(lockedIds).ToList();
-    }
-
-    private async Task<EffectSet> GetFactionwideEffects(DatabaseContext context, Settings settings)
-    {
-        var effectId = await context.Factions
-            .AsNoTracking()
-            .Where(x => x.Id == settings.FactionId)
-            .Select(x => x.EffectId)
-            .FirstOrDefaultAsync();
-
-        return await this.GetEffect(effectId);
-    }
-
-    private async Task<EffectSet> GetTechnologyEffect(DatabaseContext context, Settings settings)
-    {
-        var universalEffectIds = await context.TechnologyLevels
-            .AsNoTracking()
-            .Where(x => x.FactionId == settings.FactionId)
-            .Where(x => x.Order <= settings.TechnologyTier)
-            .Select(x => x.UniversalEffectId)
-            .ToListAsync();
-
-        var effectTasks = universalEffectIds.Select(x => this.GetEffect(x));
-        var effects = (await Task.WhenAll(effectTasks)).AsEnumerable();
-
-        if (settings.UseAntilegacyTechnologies)
-        {
-            var antilegacyEffectIds = await context.TechnologyLevels
-                .AsNoTracking()
-                .Where(x => x.FactionId == settings.FactionId)
-                .Where(x => x.Order <= settings.TechnologyTier)
-                .Select(x => x.AntilegacyEffectId)
-                .ToListAsync();
-
-            effectTasks = antilegacyEffectIds.Select(x => this.GetEffect(x));
-            effects = effects.Concat(await Task.WhenAll(effectTasks));
-        }
-
-        return new EffectSet(EffectOperations.Collect(effects.Select(x => x.Effect)), effects.SelectMany(x => x.Incomes).ToImmutableArray(), effects.SelectMany(x => x.Influences).ToImmutableArray());
-    }
-
-    private async Task<EffectSet> GetReligionEffect(DatabaseContext context, Settings settings)
-    {
-        var effectId = await context.Religions
-            .AsNoTracking()
-            .Where(x => x.Id == settings.ReligionId)
-            .Select(x => x.EffectId)
-            .FirstOrDefaultAsync();
-
-        return await this.GetEffect(effectId);
-    }
-
-    private async Task<EffectSet> GetProvinceEffect(DatabaseContext context, Settings settings)
-    {
-        var effectId = await context.Provinces
-            .AsNoTracking()
-            .Where(x => x.Id == settings.ProvinceId)
-            .Select(x => x.EffectId)
-            .FirstOrDefaultAsync();
-
-        return await this.GetEffect(effectId);
-    }
-
-    private async Task<EffectSet> GetClimateEffect(DatabaseContext context, Settings settings)
-    {
-        var effectId = await context.Provinces
-            .AsNoTracking()
-            .Where(x => x.Id == settings.ProvinceId)
-            .SelectMany(x => x.Climate.Effects)
-            .Where(x => x.WeatherId == settings.WeatherId && x.SeasonId == settings.SeasonId)
-            .Select(x => x.EffectId)
-            .FirstOrDefaultAsync();
-
-        return await this.GetEffect(effectId);
-    }
-
-    private async Task<EffectSet> GetDifficultyEffect(DatabaseContext context, Settings settings)
-    {
-        var effectId = await context.Difficulties
-            .AsNoTracking()
-            .Where(x => x.Id == settings.DifficultyId)
-            .Select(x => x.EffectId)
-            .FirstOrDefaultAsync();
-
-        return await this.GetEffect(effectId);
-    }
-
-    private async Task<EffectSet> GetTaxEffect(DatabaseContext context, Settings settings)
-    {
-        var effectId = await context.Taxes
-            .AsNoTracking()
-            .Where(x => x.Id == settings.DifficultyId)
-            .Select(x => x.EffectId)
-            .FirstOrDefaultAsync();
-
-        return await this.GetEffect(effectId);
-    }
-
-    private async Task<EffectSet> GetEffect(int? effectId)
-    {
-        var effect = default(Effect);
-        var incomes = Enumerable.Empty<Income>();
-        var influences = Enumerable.Empty<Influence>();
-        if (effectId is not null)
-        {
-            using (var context = this.contextFactory.CreateDbContext())
-            {
-                var effectEntity = await context.Effects
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(x => x.Id == effectId);
-
-                var incomeEntities = await context.Bonuses
-                    .AsNoTracking()
-                    .Where(x => x.EffectId == effectId)
-                    .ToListAsync();
-
-                var influenceEntities = await context.Influences
-                    .AsNoTracking()
-                    .Where(x => x.EffectId == effectId)
-                    .ToListAsync();
-
-                if (effectEntity is not null)
-                {
-                    effect = EffectOperations.Create(effectEntity.PublicOrder, effectEntity.RegularFood, effectEntity.FertilityDependentFood, effectEntity.ProvincialSanitation, effectEntity.ResearchRate, effectEntity.Growth, effectEntity.Fertility, effectEntity.ReligiousOsmosis, effectEntity.RegionalSanitation);
-                }
-
-                incomes = incomeEntities.Select(x => IncomeOperations.Create(x.Value, x.Category, x.Type));
-                influences = influenceEntities.Select(x => InfluenceOperations.Create(x.ReligionId, x.Value));
-            }
-        }
-
-        return new EffectSet(effect, incomes.ToImmutableArray(), influences.ToImmutableArray());
     }
 }

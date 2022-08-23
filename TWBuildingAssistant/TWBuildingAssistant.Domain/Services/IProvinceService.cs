@@ -11,6 +11,6 @@ public interface IProvinceService
 
     ProvinceState GetState(
         IEnumerable<IEnumerable<BuildingLevel>> buildings,
-        in Settings settings,
-        in EffectSet predefinedEffect);
+        Data.FSharp.Models.Settings settings,
+        Data.FSharp.Models.EffectSet predefinedEffect);
 }

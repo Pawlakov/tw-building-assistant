@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using TWBuildingAssistant.Data.FSharp;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.Services;
 using TWBuildingAssistant.Domain.StateModels;
 using TWBuildingAssistant.Presentation.Extensions;
+using TWBuildingAssistant.Presentation.Models;
 using TWBuildingAssistant.Presentation.State;
 
 public class SettingsViewModel
@@ -29,15 +29,15 @@ public class SettingsViewModel
         this.settingsStore = settingsStore;
         this.configuration = configuration;
 
-        this.Religions = new ObservableCollection<Models.NamedId>(Library.getReligionOptions());
-        this.Provinces = new ObservableCollection<Models.NamedId>(Library.getProvinceOptions());
-        this.Factions = new ObservableCollection<Models.NamedId>(Library.getFactionOptions());
+        this.Religions = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getReligionOptions());
+        this.Provinces = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getProvinceOptions());
+        this.Factions = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getFactionOptions());
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<Models.NamedId>(Library.getWeatherOptions());
-        this.Seasons = new ObservableCollection<Models.NamedId>(Library.getSeasonOptions());
-        this.Difficulties = new ObservableCollection<Models.NamedId>(Library.getDifficultyOptions());
-        this.Taxes = new ObservableCollection<Models.NamedId>(Library.getTaxOptions());
+        this.Weathers = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getWeatherOptions());
+        this.Seasons = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getSeasonOptions());
+        this.Difficulties = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getDifficultyOptions());
+        this.Taxes = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getTaxOptions());
 
         var settings = this.configuration.GetSettings();
         if (settings == null)
@@ -60,15 +60,29 @@ public class SettingsViewModel
         }
         else
         {
-            this.settings = settings.Value;
+            this.settings = new Settings
+            {
+                FertilityDrop = settings.FertilityDrop,
+                TechnologyTier = settings.TechnologyTier,
+                UseAntilegacyTechnologies = settings.UseAntilegacyTechnologies,
+                ReligionId = settings.ReligionId,
+                FactionId = settings.FactionId,
+                WeatherId = settings.WeatherId,
+                SeasonId = settings.SeasonId,
+                CorruptionRate = settings.CorruptionRate,
+                PiracyRate = settings.PiracyRate,
+                ProvinceId = settings.ProvinceId,
+                DifficultyId = settings.DifficultyId,
+                TaxId = settings.TaxId,
+            };
         }
 
         this.NextCommand = new AsyncRelayCommand(this.Next);
     }
 
-    public ObservableCollection<Models.NamedId> Religions { get; set; }
+    public ObservableCollection<Data.FSharp.Models.NamedId> Religions { get; set; }
 
-    public Models.NamedId SelectedReligion
+    public Data.FSharp.Models.NamedId SelectedReligion
     {
         get => this.Religions.FirstOrDefault(x => x.Id == this.settings.ReligionId);
         set
@@ -81,9 +95,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Models.NamedId> Provinces { get; set; }
+    public ObservableCollection<Data.FSharp.Models.NamedId> Provinces { get; set; }
 
-    public Models.NamedId SelectedProvince
+    public Data.FSharp.Models.NamedId SelectedProvince
     {
         get => this.Provinces.FirstOrDefault(x => x.Id == this.settings.ProvinceId);
         set
@@ -96,9 +110,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Models.NamedId> Factions { get; set; }
+    public ObservableCollection<Data.FSharp.Models.NamedId> Factions { get; set; }
 
-    public Models.NamedId SelectedFaction
+    public Data.FSharp.Models.NamedId SelectedFaction
     {
         get => this.Factions.FirstOrDefault(x => x.Id == this.settings.FactionId);
         set
@@ -154,9 +168,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Models.NamedId> Weathers { get; set; }
+    public ObservableCollection<Data.FSharp.Models.NamedId> Weathers { get; set; }
 
-    public Models.NamedId SelectedWeather
+    public Data.FSharp.Models.NamedId SelectedWeather
     {
         get => this.Weathers.FirstOrDefault(x => x.Id == this.settings.WeatherId);
         set
@@ -169,9 +183,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Models.NamedId> Seasons { get; set; }
+    public ObservableCollection<Data.FSharp.Models.NamedId> Seasons { get; set; }
 
-    public Models.NamedId SelectedSeason
+    public Data.FSharp.Models.NamedId SelectedSeason
     {
         get => this.Seasons.FirstOrDefault(x => x.Id == this.settings.SeasonId);
         set
@@ -184,9 +198,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Models.NamedId> Difficulties { get; set; }
+    public ObservableCollection<Data.FSharp.Models.NamedId> Difficulties { get; set; }
 
-    public Models.NamedId SelectedDifficulty
+    public Data.FSharp.Models.NamedId SelectedDifficulty
     {
         get => this.Difficulties.FirstOrDefault(x => x.Id == this.settings.DifficultyId);
         set
@@ -199,9 +213,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Models.NamedId> Taxes { get; set; }
+    public ObservableCollection<Data.FSharp.Models.NamedId> Taxes { get; set; }
 
-    public Models.NamedId SelectedTax
+    public Data.FSharp.Models.NamedId SelectedTax
     {
         get => this.Taxes.FirstOrDefault(x => x.Id == this.settings.TaxId);
         set
@@ -262,10 +276,11 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        this.configuration.SetSettings(this.settings);
+        var settings = new Data.FSharp.Models.Settings(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.CorruptionRate, this.settings.PiracyRate);
+        this.configuration.SetSettings(settings);
 
-        this.settingsStore.Effect = await this.settingsService.GetStateFromSettings(this.settings);
-        this.settingsStore.BuildingLibrary = await this.settingsService.GetBuildingLibrary(this.settings);
+        this.settingsStore.Effect = Data.FSharp.Library.getStateFromSettings(settings);
+        this.settingsStore.BuildingLibrary = await this.settingsService.GetBuildingLibrary(settings);
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

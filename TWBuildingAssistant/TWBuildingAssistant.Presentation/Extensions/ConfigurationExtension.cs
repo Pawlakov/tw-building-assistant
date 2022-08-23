@@ -4,18 +4,18 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using TWBuildingAssistant.Domain.StateModels;
+using TWBuildingAssistant.Presentation.Models;
 
 public static class ConfigurationExtension
 {
     private const string CertainValueKey = "CertainValue";
     private const string SettingsKey = "Settings";
 
-    public static Settings? GetSettings(this IConfiguration configuration)
+    public static Data.FSharp.Models.Settings? GetSettings(this IConfiguration configuration)
     {
         if (configuration.GetSection(SettingsKey).Exists())
         {
-            return configuration.GetSection(SettingsKey).Get<Settings>();
+            return configuration.GetSection(SettingsKey).Get<Data.FSharp.Models.Settings>();
         }
 
         return null;
@@ -27,7 +27,7 @@ public static class ConfigurationExtension
         AddOrUpdateAppSettings(CertainValueKey, value);
     }
 
-    public static void SetSettings(this IConfiguration configuration, Settings value)
+    public static void SetSettings(this IConfiguration configuration, Data.FSharp.Models.Settings value)
     {
         configuration[SettingsKey] = JsonConvert.SerializeObject(value);
         AddOrUpdateAppSettings(SettingsKey, (dynamic)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(value)));

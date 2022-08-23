@@ -19,8 +19,8 @@ public class SeekService
     }
 
     public ImmutableArray<SeekerResult> Seek(
-        Settings settings,
-        EffectSet predefinedEffect,
+        Data.FSharp.Models.Settings settings,
+        Data.FSharp.Models.EffectSet predefinedEffect,
         ImmutableArray<BuildingLibraryEntry> buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,

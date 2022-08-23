@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TWBuildingAssistant.Data.FSharp\TWBuildingAssistant.Data.FSharp.fsproj" />
     <ProjectReference Include="..\TWBuildingAssistant.Data\TWBuildingAssistant.Data.csproj" />
   </ItemGroup>
 

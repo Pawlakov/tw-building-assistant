@@ -30,7 +30,7 @@ public class ProvinceViewModel
         this.provinceService = provinceService;
         this.configuration = configuration;
 
-        var province = this.provinceService.GetProvince(this.configuration.GetSettings().Value.ProvinceId).Result;
+        var province = this.provinceService.GetProvince(this.configuration.GetSettings().ProvinceId).Result;
         this.ProvinceName = province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in province.Regions)
@@ -87,7 +87,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = this.provinceService.GetState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings().Value, this.settingsStore.Effect);
+        var state = this.provinceService.GetState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings(), this.settingsStore.Effect);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

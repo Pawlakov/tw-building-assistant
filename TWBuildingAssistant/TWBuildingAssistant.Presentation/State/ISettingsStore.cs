@@ -5,7 +5,7 @@ using TWBuildingAssistant.Domain.StateModels;
 
 public interface ISettingsStore
 {
-    EffectSet Effect { get; set; }
+    Data.FSharp.Models.EffectSet Effect { get; set; }
 
     ImmutableArray<BuildingLibraryEntry> BuildingLibrary { get; set; }
 }

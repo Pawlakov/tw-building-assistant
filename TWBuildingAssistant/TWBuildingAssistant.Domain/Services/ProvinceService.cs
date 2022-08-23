@@ -12,28 +12,6 @@ using TWBuildingAssistant.Domain.StateModels;
 public class ProvinceService
     : IProvinceService
 {
-    private readonly DatabaseContextFactory contextFactory;
-
-    public ProvinceService(DatabaseContextFactory contextFactory)
-    {
-        this.contextFactory = contextFactory;
-    }
-
-    public async Task<Province> GetProvince(int provinceId)
-    {
-        using (var context = this.contextFactory.CreateDbContext())
-        {
-            var entity = await context.Provinces
-                .AsNoTracking()
-                .Include(x => x.Regions)
-                .ThenInclude(x => x.Resource)
-                .Where(x => x.Id == provinceId)
-                .FirstOrDefaultAsync();
-
-            return ProvinceOperations.Create(entity.Id, entity.Name, entity.Regions.Select(x => RegionOperations.Create(x.Id, x.Name, x.RegionType, x.IsCoastal, x.ResourceId, x.Resource?.Name, x.SlotsCountOffset != 0)));
-        }
-    }
-
     public ProvinceState GetState(
         IEnumerable<IEnumerable<BuildingLevel>> buildings,
         Data.FSharp.Models.Settings settings,

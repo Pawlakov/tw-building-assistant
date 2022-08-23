@@ -25,8 +25,8 @@ public class SettingsService
     {
         using (var context = this.contextFactory.CreateDbContext())
         {
-            var slotTypes = Enums.GetValues<SlotType>();
-            var regionTypes = Enums.GetValues<RegionType>();
+            var slotTypes = new[] { Data.FSharp.Models.SlotType.Main, Data.FSharp.Models.SlotType.Coastal, Data.FSharp.Models.SlotType.General, };
+            var regionTypes = new[] { Data.FSharp.Models.RegionType.City, Data.FSharp.Models.RegionType.Town, };
             var resourceIdsInProvince = await context.Regions
                 .AsNoTracking()
                 .Where(x => x.ProvinceId == settings.ProvinceId)
@@ -35,7 +35,7 @@ public class SettingsService
                 .ToListAsync();
 
             var results = new List<BuildingLibraryEntry>();
-            foreach (var descriptor in slotTypes.SelectMany(x => regionTypes.SelectMany(y => resourceIdsInProvince.Select(z => new SlotDescriptor(x, y, z)))))
+            foreach (var descriptor in slotTypes.SelectMany(x => regionTypes.SelectMany(y => resourceIdsInProvince.Select(z => new Data.FSharp.Models.SlotDescriptor(x, y, z)))))
             {
                 results.Add(await this.GetBuildingLibraryEntry(context, settings, descriptor));
             }
@@ -44,17 +44,17 @@ public class SettingsService
         }
     }
 
-    private async Task<BuildingLibraryEntry> GetBuildingLibraryEntry(DatabaseContext context, Data.FSharp.Models.Settings settings, SlotDescriptor descriptor)
+    private async Task<BuildingLibraryEntry> GetBuildingLibraryEntry(DatabaseContext context, Data.FSharp.Models.Settings settings, Data.FSharp.Models.SlotDescriptor descriptor)
     {
         var usedBranchEntitites = await context.BuildingBranchUses
             .AsNoTracking()
             .Where(x => x.FactionId == settings.FactionId)
             .Select(x => x.BuildingBranch)
             .Where(x =>
-                x.SlotType == descriptor.SlotType &&
-                (x.RegionType == null || x.RegionType == descriptor.RegionType) &&
+                (int)x.SlotType == descriptor.SlotType.Tag &&
+                (x.RegionType == null || (int)x.RegionType == descriptor.RegionType.Tag) &&
                 (x.ReligionId == null || x.ReligionId == settings.ReligionId) &&
-                (x.ResourceId == null || x.ResourceId == descriptor.ResourceId))
+                (x.ResourceId == null || (Microsoft.FSharp.Core.OptionModule.IsSome(descriptor.ResourceId) && x.ResourceId.Value == descriptor.ResourceId.Value)))
             .ToListAsync();
 
         var unlockedLevelIds = await this.GetUnlockedBuildingLevelIds(context, settings);
@@ -100,7 +100,7 @@ public class SettingsService
         }
 
         var finalDictionary = new List<BuildingBranch>();
-        if (descriptor.SlotType == SlotType.General)
+        if (descriptor.SlotType == Data.FSharp.Models.SlotType.General)
         {
             finalDictionary.Add(BuildingBranchOperations.Empty);
         }

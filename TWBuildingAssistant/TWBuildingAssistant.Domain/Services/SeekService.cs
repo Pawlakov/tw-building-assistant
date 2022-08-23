@@ -108,7 +108,7 @@ public class SeekService
     private ImmutableArray<CombinationTaskRegion> GetRegionCombinationsToSeek(ImmutableArray<BuildingLibraryEntry> buildingLibrary, SeekerSettingsRegion regionSeekerSettings)
     {
         var simulationSlots = regionSeekerSettings.Slots.Select(y => new CalculationSlot(y.Descriptor, y.Branch, y.Level, y.RegionId, y.SlotIndex)).ToArray();
-        var options = simulationSlots.Select(x => buildingLibrary.Single(y => y.Descriptor == x.Descriptor).BuildingBranches).ToArray();
+        var options = simulationSlots.Select(x => buildingLibrary.Single(y => y.Descriptor.Equals(x.Descriptor)).BuildingBranches).ToArray();
 
         var validCombinations = RecursiveSeek(0, Enumerable.Empty<CalculationSlot>()).ToImmutableArray();
         return validCombinations;
@@ -141,7 +141,7 @@ public class SeekService
 
     private class CalculationSlot
     {
-        public CalculationSlot(SlotDescriptor? descriptor, BuildingBranch? branch, BuildingLevel? level, int regionId, int slotIndex)
+        public CalculationSlot(Data.FSharp.Models.SlotDescriptor? descriptor, BuildingBranch? branch, BuildingLevel? level, int regionId, int slotIndex)
         {
             this.Descriptor = descriptor;
             this.Branch = branch;
@@ -168,7 +168,7 @@ public class SeekService
             this.SlotIndex = original.SlotIndex;
         }
 
-        public SlotDescriptor? Descriptor { get; set; }
+        public Data.FSharp.Models.SlotDescriptor? Descriptor { get; set; }
 
         public BuildingBranch? Branch { get; set; }
 

@@ -59,6 +59,33 @@ type Settings =
       CorruptionRate:int
       PiracyRate:int }
 
+type RegionType =
+    | City
+    | Town
+
+type SlotType =
+    | Main
+    | Coastal
+    | General
+
+type SlotDescriptor =
+    { SlotType:SlotType
+      RegionType:RegionType
+      ResourceId:int option }
+
+type Region =
+    { Id:int
+      Name:string
+      RegionType:RegionType
+      ResourceId:int option
+      ResourceName: string option
+      Slots:SlotDescriptor[] }
+
+type Province =
+    { Id:int 
+      Name:string
+      Regions:Region[] }
+
 let emptyEffect =
     { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
 

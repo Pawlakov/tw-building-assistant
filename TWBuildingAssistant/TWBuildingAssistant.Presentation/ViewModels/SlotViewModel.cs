@@ -17,7 +17,7 @@ public class SlotViewModel
 
     private bool selected;
 
-    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, SlotDescriptor descriptor)
+    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, Data.FSharp.Models.SlotDescriptor descriptor)
     {
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
@@ -27,7 +27,7 @@ public class SlotViewModel
         this.Descriptor = descriptor;
 
         this.selected = false;
-        this.BuildingBranches = new ObservableCollection<BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor == descriptor).BuildingBranches);
+        this.BuildingBranches = new ObservableCollection<BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor.Equals(descriptor)).BuildingBranches);
         if (this.provinceStore.BuildingLevels.ContainsKey((this.RegionId, this.SlotIndex)))
         {
             var fromStore = this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)];
@@ -122,7 +122,7 @@ public class SlotViewModel
         }
     }
 
-    public SlotDescriptor Descriptor { get; init; }
+    public Data.FSharp.Models.SlotDescriptor Descriptor { get; init; }
 
     public int RegionId { get; init; }
 

@@ -30,7 +30,7 @@ public class ProvinceViewModel
         this.provinceService = provinceService;
         this.configuration = configuration;
 
-        var province = this.provinceService.GetProvince(this.configuration.GetSettings().ProvinceId).Result;
+        var province = Data.FSharp.Province.getProvince(this.configuration.GetSettings().ProvinceId);
         this.ProvinceName = province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in province.Regions)

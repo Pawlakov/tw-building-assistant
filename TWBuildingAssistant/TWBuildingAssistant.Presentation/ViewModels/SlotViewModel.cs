@@ -12,8 +12,8 @@ public class SlotViewModel
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
 
-    private BuildingBranch selectedBuildingBranch;
-    private BuildingLevel selectedBuildingLevel;
+    private Data.FSharp.Models.BuildingBranch selectedBuildingBranch;
+    private Data.FSharp.Models.BuildingLevel selectedBuildingLevel;
 
     private bool selected;
 
@@ -27,7 +27,7 @@ public class SlotViewModel
         this.Descriptor = descriptor;
 
         this.selected = false;
-        this.BuildingBranches = new ObservableCollection<BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor.Equals(descriptor)).BuildingBranches);
+        this.BuildingBranches = new ObservableCollection<Data.FSharp.Models.BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor.Equals(descriptor)).BuildingBranches);
         if (this.provinceStore.BuildingLevels.ContainsKey((this.RegionId, this.SlotIndex)))
         {
             var fromStore = this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)];
@@ -36,7 +36,7 @@ public class SlotViewModel
                 var matchingBranches = this.BuildingBranches.Where(x => x == fromStore.BuildingBranch);
                 this.selectedBuildingBranch = matchingBranches.Single(x => x.Levels.Any(y => y == fromStore.BuildingLevel));
 
-                this.BuildingLevels = new ObservableCollection<BuildingLevel>(this.selectedBuildingBranch.Levels);
+                this.BuildingLevels = new ObservableCollection<Data.FSharp.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
                 if (this.BuildingLevels.Any(x => x == fromStore.BuildingLevel))
                 {
                     this.selectedBuildingLevel = this.BuildingLevels.Single(x => x == fromStore.BuildingLevel);
@@ -49,14 +49,14 @@ public class SlotViewModel
             else
             {
                 this.selectedBuildingBranch = this.BuildingBranches[0];
-                this.BuildingLevels = new ObservableCollection<BuildingLevel>(this.selectedBuildingBranch.Levels);
+                this.BuildingLevels = new ObservableCollection<Data.FSharp.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
                 this.selectedBuildingLevel = this.BuildingLevels[0];
             }
         }
         else
         {
             this.selectedBuildingBranch = this.BuildingBranches[0];
-            this.BuildingLevels = new ObservableCollection<BuildingLevel>(this.selectedBuildingBranch.Levels);
+            this.BuildingLevels = new ObservableCollection<Data.FSharp.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
             this.selectedBuildingLevel = this.BuildingLevels[0];
         }
 
@@ -64,7 +64,7 @@ public class SlotViewModel
         if (correspondingResult != default)
         {
             this.selectedBuildingBranch = correspondingResult.Branch;
-            this.BuildingLevels = new ObservableCollection<BuildingLevel>(this.selectedBuildingBranch.Levels);
+            this.BuildingLevels = new ObservableCollection<Data.FSharp.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
             this.selectedBuildingLevel = correspondingResult.Level;
 
             this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch, this.selectedBuildingLevel);
@@ -75,11 +75,11 @@ public class SlotViewModel
 
     public event EventHandler BuildingChanged;
 
-    public ObservableCollection<BuildingBranch> BuildingBranches { get; }
+    public ObservableCollection<Data.FSharp.Models.BuildingBranch> BuildingBranches { get; }
 
-    public ObservableCollection<BuildingLevel> BuildingLevels { get; }
+    public ObservableCollection<Data.FSharp.Models.BuildingLevel> BuildingLevels { get; }
 
-    public BuildingBranch SelectedBuildingBranch
+    public Data.FSharp.Models.BuildingBranch SelectedBuildingBranch
     {
         get => this.selectedBuildingBranch;
         set
@@ -105,7 +105,7 @@ public class SlotViewModel
         }
     }
 
-    public BuildingLevel SelectedBuildingLevel
+    public Data.FSharp.Models.BuildingLevel SelectedBuildingLevel
     {
         get => this.selectedBuildingLevel;
         set

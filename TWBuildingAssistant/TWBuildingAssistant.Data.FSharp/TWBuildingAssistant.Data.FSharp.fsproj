@@ -12,6 +12,7 @@
     <Compile Include="Settings.fs" />
     <Compile Include="Library.fs" />
     <Compile Include="Province.fs" />
+    <Compile Include="Buildings.fs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,9 +3,6 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Domain.StateModels;
 
@@ -13,7 +10,7 @@ public class ProvinceService
     : IProvinceService
 {
     public ProvinceState GetState(
-        IEnumerable<IEnumerable<BuildingLevel>> buildings,
+        IEnumerable<IEnumerable<Data.FSharp.Models.BuildingLevel>> buildings,
         Data.FSharp.Models.Settings settings,
         Data.FSharp.Models.EffectSet predefinedEffect)
     {
@@ -35,11 +32,11 @@ public class ProvinceService
     }
 
     private (ImmutableArray<Data.FSharp.Models.Effect> RegionalEffects, ImmutableArray<Data.FSharp.Models.Income> Incomes, ImmutableArray<Data.FSharp.Models.Influence> Influences) GetStateFromBuildings(
-        IEnumerable<IEnumerable<BuildingLevel>> buildings)
+        IEnumerable<IEnumerable<Data.FSharp.Models.BuildingLevel>> buildings)
     {
-        var regionalEffects = buildings.Select(x => Data.FSharp.Library.collectEffectsSeq(x.Select(x => x.Effect))).ToImmutableArray();
-        var regionalIncomes = buildings.SelectMany(x => x).SelectMany(x => x.Incomes).ToImmutableArray();
-        var regionalInfluences = buildings.SelectMany(x => x).SelectMany(x => x.Influences).ToImmutableArray();
+        var regionalEffects = buildings.Select(x => Data.FSharp.Library.collectEffectsSeq(x.Select(x => x.EffectSet.Effect))).ToImmutableArray();
+        var regionalIncomes = buildings.SelectMany(x => x).SelectMany(x => x.EffectSet.Incomes).ToImmutableArray();
+        var regionalInfluences = buildings.SelectMany(x => x).SelectMany(x => x.EffectSet.Influences).ToImmutableArray();
 
         return (regionalEffects, regionalIncomes, regionalInfluences);
     }

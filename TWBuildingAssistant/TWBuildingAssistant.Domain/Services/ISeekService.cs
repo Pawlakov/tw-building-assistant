@@ -10,7 +10,7 @@ public interface ISeekService
     ImmutableArray<SeekerResult> Seek(
         Data.FSharp.Models.Settings settings,
         Data.FSharp.Models.EffectSet predefinedEffect,
-        ImmutableArray<BuildingLibraryEntry> buildingLibrary,
+        ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,
         Func<long, Task> updateProgressMax,

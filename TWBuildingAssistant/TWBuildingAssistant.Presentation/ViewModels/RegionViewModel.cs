@@ -1,7 +1,6 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
 using System.Collections.ObjectModel;
-using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
 
 public class RegionViewModel 
@@ -22,7 +21,7 @@ public class RegionViewModel
         }
         else
         {
-            this.Name = $"{region.Name} ({region.ResourceName})";
+            this.Name = $"{region.Name} ({region.ResourceName.Value})";
         }
     }
 

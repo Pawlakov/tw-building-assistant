@@ -86,8 +86,29 @@ type Province =
       Name:string
       Regions:Region[] }
 
+type BuildingLevel =
+    { Id:int
+      Name:string
+      EffectSet:EffectSet }
+
+type BuildingBranch =
+    { Id:int
+      Name:string
+      Interesting:bool
+      Levels:BuildingLevel[] }
+
+type BuildingLibraryEntry =
+    { Descriptor:SlotDescriptor
+      BuildingBranches:BuildingBranch[] }
+
 let emptyEffect =
     { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
 
 let emptyEffectSet =
     { Effect = emptyEffect; Incomes = []; Influences = [] }
+
+let emptyBuildingLevel =
+    { Id = 0; Name = "Empty"; EffectSet = emptyEffectSet }
+
+let emptyBuildingBranch =
+    { Id = 0; Name = "Empty"; Interesting = true; Levels = [|emptyBuildingLevel|]}

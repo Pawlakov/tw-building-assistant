@@ -21,7 +21,7 @@ public class SeekService
     public ImmutableArray<SeekerResult> Seek(
         Data.FSharp.Models.Settings settings,
         Data.FSharp.Models.EffectSet predefinedEffect,
-        ImmutableArray<BuildingLibraryEntry> buildingLibrary,
+        ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,
         Func<long, Task> updateProgressMax,
@@ -80,7 +80,7 @@ public class SeekService
         return bestCombination.ToImmutableArray();
     }
 
-    private ImmutableArray<CombinationTask> GetCombinationsToSeek(ImmutableArray<BuildingLibraryEntry> buildingLibrary, ImmutableArray<SeekerSettingsRegion> seekerSettings)
+    private ImmutableArray<CombinationTask> GetCombinationsToSeek(ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> buildingLibrary, ImmutableArray<SeekerSettingsRegion> seekerSettings)
     {
         var regionCombinations = new List<IEnumerable<CombinationTaskRegion>>();
         foreach (var region in seekerSettings)
@@ -105,7 +105,7 @@ public class SeekService
         }
     }
 
-    private ImmutableArray<CombinationTaskRegion> GetRegionCombinationsToSeek(ImmutableArray<BuildingLibraryEntry> buildingLibrary, SeekerSettingsRegion regionSeekerSettings)
+    private ImmutableArray<CombinationTaskRegion> GetRegionCombinationsToSeek(ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> buildingLibrary, SeekerSettingsRegion regionSeekerSettings)
     {
         var simulationSlots = regionSeekerSettings.Slots.Select(y => new CalculationSlot(y.Descriptor, y.Branch, y.Level, y.RegionId, y.SlotIndex)).ToArray();
         var options = simulationSlots.Select(x => buildingLibrary.Single(y => y.Descriptor.Equals(x.Descriptor)).BuildingBranches).ToArray();
@@ -141,7 +141,7 @@ public class SeekService
 
     private class CalculationSlot
     {
-        public CalculationSlot(Data.FSharp.Models.SlotDescriptor? descriptor, BuildingBranch? branch, BuildingLevel? level, int regionId, int slotIndex)
+        public CalculationSlot(Data.FSharp.Models.SlotDescriptor? descriptor, Data.FSharp.Models.BuildingBranch? branch, Data.FSharp.Models.BuildingLevel? level, int regionId, int slotIndex)
         {
             this.Descriptor = descriptor;
             this.Branch = branch;
@@ -159,7 +159,7 @@ public class SeekService
             this.SlotIndex = original.SlotIndex;
         }
 
-        public CalculationSlot(CalculationSlot original, BuildingBranch? branch)
+        public CalculationSlot(CalculationSlot original, Data.FSharp.Models.BuildingBranch? branch)
         {
             this.Descriptor = original.Descriptor;
             this.Branch = branch;
@@ -170,9 +170,9 @@ public class SeekService
 
         public Data.FSharp.Models.SlotDescriptor? Descriptor { get; set; }
 
-        public BuildingBranch? Branch { get; set; }
+        public Data.FSharp.Models.BuildingBranch? Branch { get; set; }
 
-        public BuildingLevel? Level { get; set; }
+        public Data.FSharp.Models.BuildingLevel? Level { get; set; }
 
         public int RegionId { get; set; }
 

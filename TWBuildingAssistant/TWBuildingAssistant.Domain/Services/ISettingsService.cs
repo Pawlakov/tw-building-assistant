@@ -6,5 +6,5 @@ using TWBuildingAssistant.Domain.StateModels;
 
 public interface ISettingsService
 {
-    Task<ImmutableArray<BuildingLibraryEntry>> GetBuildingLibrary(Data.FSharp.Models.Settings settings);
+    Task<ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry>> GetBuildingLibrary(Data.FSharp.Models.Settings settings);
 }

@@ -16,28 +16,27 @@ public class SettingsViewModel
     : ViewModel
 {
     private readonly INavigator navigator;
-    private readonly ISettingsService settingsService;
     private readonly ISettingsStore settingsStore;
     private readonly IConfiguration configuration;
 
     private Settings settings;
 
-    public SettingsViewModel(INavigator navigator, ISettingsService settingsService, ISettingsStore settingsStore, IConfiguration configuration)
+    public SettingsViewModel(INavigator navigator, ISettingsStore settingsStore, IConfiguration configuration)
     {
         this.navigator = navigator;
-        this.settingsService = settingsService;
         this.settingsStore = settingsStore;
         this.configuration = configuration;
 
-        this.Religions = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getReligionOptions());
-        this.Provinces = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getProvinceOptions());
-        this.Factions = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getFactionOptions());
+        var options = Data.FSharp.Settings.getOptions();
+        this.Religions = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Religions);
+        this.Provinces = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Provinces);
+        this.Factions = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getWeatherOptions());
-        this.Seasons = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getSeasonOptions());
-        this.Difficulties = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getDifficultyOptions());
-        this.Taxes = new ObservableCollection<Data.FSharp.Models.NamedId>(Data.FSharp.Settings.getTaxOptions());
+        this.Weathers = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Weathers);
+        this.Seasons = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Seasons);
+        this.Difficulties = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Difficulties);
+        this.Taxes = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Taxes);
 
         var settings = this.configuration.GetSettings();
         if (settings == null)
@@ -279,8 +278,8 @@ public class SettingsViewModel
         var settings = new Data.FSharp.Models.Settings(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.CorruptionRate, this.settings.PiracyRate);
         this.configuration.SetSettings(settings);
 
-        this.settingsStore.Effect = Data.FSharp.Library.getStateFromSettings(settings);
-        this.settingsStore.BuildingLibrary = await this.settingsService.GetBuildingLibrary(settings);
+        this.settingsStore.Effect = Data.FSharp.Effects.getStateFromSettings(settings);
+        this.settingsStore.BuildingLibrary = Data.FSharp.Buildings.getBuildingLibrary(settings);
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

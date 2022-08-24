@@ -1,4 +1,4 @@
-﻿module TWBuildingAssistant.Data.FSharp.Library
+﻿module TWBuildingAssistant.Data.FSharp.Effects
 
 open FSharp.Data.Sql
 open Database
@@ -55,10 +55,7 @@ let createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =
     | (_, _) ->
         { ReligionId = religionId; Value = value }
 
-let getEffect effectId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getEffect (ctx:sql.dataContext) effectId =
     let effect =
         query {
             for effect in ctx.Dbo.Effects do
@@ -91,10 +88,10 @@ let getEffect effectId =
 
     { Effect = effect; Incomes = incomes; Influences = influences }
 
-let getEffectOption effectId =
+let getEffectOption (ctx:sql.dataContext) effectId =
     match effectId with
     | Some effectId ->
-        effectId |> getEffect
+        effectId |> getEffect ctx
     | None ->
         emptyEffectSet
 
@@ -169,10 +166,7 @@ let collectInfluences stateReligionId influences =
     let result = 0 - int(System.Math.Floor((750.0 - (percentage * 7.0)) * 0.01))
     result
 
-let getFactionwideEffects factionId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getFactionwideEffects (ctx:sql.dataContext) factionId =
     let effectId = 
         query {
             for faction in ctx.Dbo.Factions do
@@ -180,14 +174,11 @@ let getFactionwideEffects factionId =
             select faction.EffectId
             head }
 
-    effectId |> Option.map getEffect
+    effectId |> Option.map (getEffect ctx)
 
-let getTechnologyEffect factionId technologyTier useAntilegacyTechnologies =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier useAntilegacyTechnologies =
     let getEffectOption =
-        Option.map getEffect
+        Option.map (getEffect ctx)
 
     let getEffectSeq =
         Seq.choose getEffectOption
@@ -213,10 +204,7 @@ let getTechnologyEffect factionId technologyTier useAntilegacyTechnologies =
 
     { Effect = effects |> List.map (fun x -> x.Effect) |> collectEffects; Incomes = effects |> List.collect (fun x -> x.Incomes); Influences = effects |> List.collect (fun x -> x.Influences) }
 
-let getReligionEffect religionId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getReligionEffect (ctx:sql.dataContext) religionId =
     let effectId = 
         query {
             for religion in ctx.Dbo.Religions do
@@ -224,12 +212,9 @@ let getReligionEffect religionId =
             select religion.EffectId
             head }
 
-    effectId |> Option.map getEffect
+    effectId |> Option.map (getEffect ctx)
 
-let getProvinceEffect provinceId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getProvinceEffect (ctx:sql.dataContext) provinceId =
     let effectId = 
         query {
             for province in ctx.Dbo.Provinces do
@@ -237,12 +222,9 @@ let getProvinceEffect provinceId =
             select province.EffectId
             head }
 
-    effectId |> Option.map getEffect
+    effectId |> Option.map (getEffect ctx)
 
-let getClimateEffect provinceId seasonId weatherId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getClimateEffect (ctx:sql.dataContext) provinceId seasonId weatherId =
     let effectId = 
         query {
             for province in ctx.Dbo.Provinces do
@@ -252,12 +234,9 @@ let getClimateEffect provinceId seasonId weatherId =
             select effect.EffectId
             head }
 
-    effectId |> getEffect
+    effectId |> (getEffect ctx)
 
-let getDifficultyEffect difficultyId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getDifficultyEffect (ctx:sql.dataContext) difficultyId =
     let effectId = 
         query {
             for difficulty in ctx.Dbo.Difficulties do
@@ -265,12 +244,9 @@ let getDifficultyEffect difficultyId =
             select difficulty.EffectId
             head }
 
-    effectId |> Option.map getEffect
+    effectId |> Option.map (getEffect ctx)
 
-let getTaxEffect taxId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getTaxEffect (ctx:sql.dataContext) taxId =
     let effectId = 
         query {
             for tax in ctx.Dbo.Taxes do
@@ -278,16 +254,19 @@ let getTaxEffect taxId =
             select tax.EffectId
             head }
 
-    effectId |> Option.map getEffect
+    effectId |> Option.map (getEffect ctx)
 
 let getStateFromSettings settings =
-    let factionEffects = getFactionwideEffects settings.FactionId
-    let technologyEffects = getTechnologyEffect settings.FactionId settings.TechnologyTier settings.UseAntilegacyTechnologies
-    let religionEffects = getReligionEffect settings.ReligionId
-    let provinceEffects = getProvinceEffect settings.ProvinceId
-    let climateEffects = getClimateEffect settings.ProvinceId settings.SeasonId settings.WeatherId
-    let difficultyEffects = getDifficultyEffect settings.DifficultyId
-    let taxEffects = getTaxEffect settings.TaxId
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let factionEffects = getFactionwideEffects ctx settings.FactionId
+    let technologyEffects = getTechnologyEffect ctx settings.FactionId settings.TechnologyTier settings.UseAntilegacyTechnologies
+    let religionEffects = getReligionEffect ctx settings.ReligionId
+    let provinceEffects = getProvinceEffect ctx settings.ProvinceId
+    let climateEffects = getClimateEffect ctx settings.ProvinceId settings.SeasonId settings.WeatherId
+    let difficultyEffects = getDifficultyEffect ctx settings.DifficultyId
+    let taxEffects = getTaxEffect ctx settings.TaxId
     let fertilityDropEffect = 
         { emptyEffect with Fertility = settings.FertilityDrop }
     let corruptionIncome = 

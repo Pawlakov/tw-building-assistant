@@ -21,7 +21,7 @@ public class SeekService
     public ImmutableArray<SeekerResult> Seek(
         Data.FSharp.Models.Settings settings,
         Data.FSharp.Models.EffectSet predefinedEffect,
-        ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> buildingLibrary,
+        Data.FSharp.Models.BuildingLibraryEntry[] buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
         Predicate<ProvinceState> minimalCondition,
         Func<long, Task> updateProgressMax,
@@ -80,7 +80,7 @@ public class SeekService
         return bestCombination.ToImmutableArray();
     }
 
-    private ImmutableArray<CombinationTask> GetCombinationsToSeek(ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> buildingLibrary, ImmutableArray<SeekerSettingsRegion> seekerSettings)
+    private ImmutableArray<CombinationTask> GetCombinationsToSeek(Data.FSharp.Models.BuildingLibraryEntry[] buildingLibrary, ImmutableArray<SeekerSettingsRegion> seekerSettings)
     {
         var regionCombinations = new List<IEnumerable<CombinationTaskRegion>>();
         foreach (var region in seekerSettings)
@@ -105,7 +105,7 @@ public class SeekService
         }
     }
 
-    private ImmutableArray<CombinationTaskRegion> GetRegionCombinationsToSeek(ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> buildingLibrary, SeekerSettingsRegion regionSeekerSettings)
+    private ImmutableArray<CombinationTaskRegion> GetRegionCombinationsToSeek(Data.FSharp.Models.BuildingLibraryEntry[] buildingLibrary, SeekerSettingsRegion regionSeekerSettings)
     {
         var simulationSlots = regionSeekerSettings.Slots.Select(y => new CalculationSlot(y.Descriptor, y.Branch, y.Level, y.RegionId, y.SlotIndex)).ToArray();
         var options = simulationSlots.Select(x => buildingLibrary.Single(y => y.Descriptor.Equals(x.Descriptor)).BuildingBranches).ToArray();

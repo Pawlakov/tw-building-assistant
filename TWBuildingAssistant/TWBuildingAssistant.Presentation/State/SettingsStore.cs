@@ -7,5 +7,5 @@ public class SettingsStore
 {
     public Data.FSharp.Models.EffectSet Effect { get; set; }
 
-    public ImmutableArray<Data.FSharp.Models.BuildingLibraryEntry> BuildingLibrary { get; set; }
+    public Data.FSharp.Models.BuildingLibraryEntry[] BuildingLibrary { get; set; }
 }

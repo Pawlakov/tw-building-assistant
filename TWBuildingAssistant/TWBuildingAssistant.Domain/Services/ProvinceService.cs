@@ -16,15 +16,15 @@ public class ProvinceService
     {
         (var regionalEffects, var regionalIncomes, var regionalInfluences) = this.GetStateFromBuildings(buildings);
 
-        var effect = Data.FSharp.Library.collectEffectsSeq(regionalEffects.Append(predefinedEffect.Effect));
+        var effect = Data.FSharp.Effects.collectEffectsSeq(regionalEffects.Append(predefinedEffect.Effect));
         var incomes = regionalIncomes.Concat(predefinedEffect.Incomes);
         var influences = regionalInfluences.Concat(predefinedEffect.Influences);
 
         var fertility = effect.Fertility < 0 ? 0 : effect.Fertility > 5 ? 5 : effect.Fertility;
         var sanitation = regionalEffects.Select(x => x.RegionalSanitation + effect.ProvincialSanitation);
         var food = effect.RegularFood + (fertility * effect.FertilityDependentFood);
-        var publicOrder = effect.PublicOrder + Data.FSharp.Library.collectInfluencesSeq(settings.ReligionId, influences);
-        var income = Data.FSharp.Library.collectIncomesSeq(fertility, incomes);
+        var publicOrder = effect.PublicOrder + Data.FSharp.Effects.collectInfluencesSeq(settings.ReligionId, influences);
+        var income = Data.FSharp.Effects.collectIncomesSeq(fertility, incomes);
 
         var regionStates = sanitation.Select(x => new RegionState(x)).ToImmutableArray();
         var provinceState = new ProvinceState(regionStates, food, publicOrder, effect.ReligiousOsmosis, effect.ResearchRate, effect.Growth, income);
@@ -34,7 +34,7 @@ public class ProvinceService
     private (ImmutableArray<Data.FSharp.Models.Effect> RegionalEffects, ImmutableArray<Data.FSharp.Models.Income> Incomes, ImmutableArray<Data.FSharp.Models.Influence> Influences) GetStateFromBuildings(
         IEnumerable<IEnumerable<Data.FSharp.Models.BuildingLevel>> buildings)
     {
-        var regionalEffects = buildings.Select(x => Data.FSharp.Library.collectEffectsSeq(x.Select(x => x.EffectSet.Effect))).ToImmutableArray();
+        var regionalEffects = buildings.Select(x => Data.FSharp.Effects.collectEffectsSeq(x.Select(x => x.EffectSet.Effect))).ToImmutableArray();
         var regionalIncomes = buildings.SelectMany(x => x).SelectMany(x => x.EffectSet.Incomes).ToImmutableArray();
         var regionalInfluences = buildings.SelectMany(x => x).SelectMany(x => x.EffectSet.Influences).ToImmutableArray();
 

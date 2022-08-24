@@ -4,6 +4,15 @@ type NamedId =
     { Id:int
       Name:string }
 
+type OptionSet =
+    { Provinces:NamedId list
+      Weathers:NamedId list
+      Seasons:NamedId list
+      Religions:NamedId list
+      Factions:NamedId list
+      Difficulties:NamedId list
+      Taxes:NamedId list }
+
 type Effect =
     { PublicOrder:int
       RegularFood:int

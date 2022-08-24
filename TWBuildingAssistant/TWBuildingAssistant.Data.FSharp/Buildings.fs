@@ -3,12 +3,9 @@
 open FSharp.Data.Sql
 open Database
 open Models
-open Library
+open Effects
 
-let getUnlockedBuildingLevelIds settings =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getUnlockedBuildingLevelIds (ctx:sql.dataContext) settings =
     let techIds =
         query {
             for tech in ctx.Dbo.TechnologyLevels do
@@ -34,10 +31,7 @@ let getUnlockedBuildingLevelIds settings =
 
     unlockedIds |> List.except lockedIds
 
-let getBuildingLibraryEntry settings descriptor =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
     let usedBranchIds =
         query {
             for branchUse in ctx.Dbo.BuildingBranchUses do
@@ -65,7 +59,7 @@ let getBuildingLibraryEntry settings descriptor =
             where (branch.ReligionId = None || branch.ReligionId = Some settings.ReligionId)
             where (branch.ResourceId = None || branch.ResourceId = descriptor.ResourceId) }
 
-    let unlockedLevelIds = getUnlockedBuildingLevelIds settings
+    let unlockedLevelIds = getUnlockedBuildingLevelIds ctx settings
     let unlockedLevels = 
         query {
             for level in ctx.Dbo.BuildingLevels do
@@ -108,7 +102,7 @@ let getBuildingLibraryEntry settings descriptor =
     let secondLoop finalDictionary ((branch:sql.dataContext.``dbo.BuildingBranchesEntity``), (levels:sql.dataContext.``dbo.BuildingLevelsEntity`` list)) =
         let levelsOther =
             levels
-            |> List.map (fun level -> { Id = level.Id; Name = level.Name; EffectSet = (level.EffectId |> getEffectOption) })
+            |> List.map (fun level -> { Id = level.Id; Name = level.Name; EffectSet = (level.EffectId |> getEffectOption ctx) })
             |> List.toArray
         match levelsOther with
         | [||] ->
@@ -125,3 +119,28 @@ let getBuildingLibraryEntry settings descriptor =
         | _ -> finalDictionary  
 
     { Descriptor = descriptor; BuildingBranches = (finalFinalDictionary |> List.toArray) }
+
+let getBuildingLibrary settings =
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let slotTypes = [ Main; Coastal; General ]
+    let regionTypes = [ City; Town ]
+    let resourceIdsInProvince = 
+        query {
+        for region in ctx.Dbo.Regions do
+        where (region.ProvinceId = settings.ProvinceId)
+        select (region.ResourceId)
+        distinct }
+        |> Seq.toList
+
+    let descriptors =
+        slotTypes 
+        |> List.collect (fun slotType -> regionTypes |> List.collect (fun regionType -> resourceIdsInProvince |> List.map (fun resourceId -> { SlotType = slotType; RegionType = regionType; ResourceId = resourceId })))
+
+    let results =
+        descriptors 
+        |> List.map (getBuildingLibraryEntry ctx settings)
+        |> List.toArray
+
+    results

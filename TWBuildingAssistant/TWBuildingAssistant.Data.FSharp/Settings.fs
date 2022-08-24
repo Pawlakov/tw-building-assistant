@@ -4,10 +4,7 @@ open FSharp.Data.Sql
 open Database
 open Models
 
-let getProvinceOptions () =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getProvinceOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Provinces do
@@ -19,10 +16,7 @@ let getProvinceOptions () =
 
     result
 
-let getWeatherOptions () =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getWeatherOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Weathers do
@@ -34,10 +28,7 @@ let getWeatherOptions () =
 
     result
 
-let getSeasonOptions () =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getSeasonOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Seasons do
@@ -49,10 +40,7 @@ let getSeasonOptions () =
 
     result
 
-let getReligionOptions () =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getReligionOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Religions do
@@ -64,10 +52,7 @@ let getReligionOptions () =
 
     result
 
-let getFactionOptions () =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getFactionOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Factions do
@@ -79,10 +64,7 @@ let getFactionOptions () =
 
     result
 
-let getDifficultyOptions () =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getDifficultyOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Difficulties do
@@ -94,10 +76,7 @@ let getDifficultyOptions () =
 
     result
 
-let getTaxOptions () =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let getTaxOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Taxes do
@@ -108,3 +87,9 @@ let getTaxOptions () =
         query |> Seq.toList
 
     result
+
+let getOptions () =
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    { Provinces = getProvinceOptions ctx; Weathers = getWeatherOptions ctx; Seasons = getSeasonOptions ctx; Religions = getReligionOptions ctx; Factions = getFactionOptions ctx; Difficulties = getDifficultyOptions ctx; Taxes = getTaxOptions ctx }

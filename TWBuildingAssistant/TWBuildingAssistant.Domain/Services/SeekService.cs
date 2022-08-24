@@ -11,19 +11,12 @@ using TWBuildingAssistant.Domain.StateModels;
 public class SeekService
     : ISeekService
 {
-    private readonly IProvinceService provinceService;
-
-    public SeekService(IProvinceService provinceService)
-    {
-        this.provinceService = provinceService;
-    }
-
     public ImmutableArray<SeekerResult> Seek(
         Data.FSharp.Models.Settings settings,
         Data.FSharp.Models.EffectSet predefinedEffect,
         Data.FSharp.Models.BuildingLibraryEntry[] buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
-        Predicate<ProvinceState> minimalCondition,
+        Predicate<Data.FSharp.Models.ProvinceState> minimalCondition,
         Func<long, Task> updateProgressMax,
         Func<long, Task> updateProgressValue)
     {
@@ -63,7 +56,7 @@ public class SeekService
                 }
                 else
                 {
-                    var state = this.provinceService.GetState(combination.Regions.Select(x => x.Slots.Select(y => y.Level)), settings, predefinedEffect);
+                    var state = Data.FSharp.State.getState(combination.Regions.Select(x => x.Slots.Select(y => y.Level)), settings, predefinedEffect);
                     if (minimalCondition(state) && state.Wealth > bestWealth)
                     {
                         lock (bestCombination)

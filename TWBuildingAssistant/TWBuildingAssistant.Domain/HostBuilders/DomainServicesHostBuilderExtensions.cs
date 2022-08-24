@@ -11,7 +11,6 @@ public static class DomainServicesHostBuilderExtensions
         return host.ConfigureServices((HostBuilderContext context, IServiceCollection collection) =>
         {
             collection.AddTransient<ISeekService, SeekService>();
-            collection.AddTransient<IProvinceService, ProvinceService>();
         });
     }
 }

@@ -110,6 +110,18 @@ type BuildingLibraryEntry =
     { Descriptor:SlotDescriptor
       BuildingBranches:BuildingBranch[] }
 
+type RegionState = 
+    { Sanitation:int }
+
+type ProvinceState = 
+    { Regions:RegionState[]
+      Food:int
+      PublicOrder:int
+      ReligiousOsmosis:int
+      ResearchRate:int
+      Growth:int
+      Wealth:float }
+
 let emptyEffect =
     { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
 

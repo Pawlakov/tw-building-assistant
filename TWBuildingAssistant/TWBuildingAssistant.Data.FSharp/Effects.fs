@@ -95,7 +95,7 @@ let getEffectOption (ctx:sql.dataContext) effectId =
     | None ->
         emptyEffectSet
 
-let collectEffects effects =
+let collectEffects (effects:Effect list) =
     { PublicOrder = effects |> List.map (fun x -> x.PublicOrder) |> List.sum;
       RegularFood = effects |> List.map (fun x -> x.RegularFood) |> List.sum; 
       FertilityDependentFood = effects |> List.map (fun x -> x.FertilityDependentFood) |> List.sum;

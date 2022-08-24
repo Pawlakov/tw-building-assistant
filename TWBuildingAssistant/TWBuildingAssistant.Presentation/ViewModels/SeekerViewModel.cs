@@ -156,7 +156,7 @@ public class SeekerViewModel
         return !this.processing;
     }
 
-    private bool MinimalCondition(ProvinceState state)
+    private bool MinimalCondition(Data.FSharp.Models.ProvinceState state)
     {
         if (state.Food < 0)
         {

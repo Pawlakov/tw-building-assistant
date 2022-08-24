@@ -12,7 +12,7 @@ public interface ISeekService
         Data.FSharp.Models.EffectSet predefinedEffect,
         Data.FSharp.Models.BuildingLibraryEntry[] buildingLibrary,
         ImmutableArray<SeekerSettingsRegion> seekerSettings,
-        Predicate<ProvinceState> minimalCondition,
+        Predicate<Data.FSharp.Models.ProvinceState> minimalCondition,
         Func<long, Task> updateProgressMax,
         Func<long, Task> updateProgressValue);
 }

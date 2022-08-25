@@ -122,6 +122,29 @@ type ProvinceState =
       Growth:int
       Wealth:float }
 
+type CalculationSlot =
+    { Descriptor:SlotDescriptor option
+      Branch:BuildingBranch option
+      Level:BuildingLevel option
+      RegionId:int
+      SlotIndex:int }
+
+type CombinationTaskRegion = 
+    { Slots:CalculationSlot[] }
+
+type CombinationTask = 
+    { Regions:CombinationTaskRegion[] }
+
+type SeekerSettingsSlot = 
+    { Branch:BuildingBranch option
+      Level:BuildingLevel option
+      Descriptor:SlotDescriptor
+      RegionId:int
+      SlotIndex:int }
+
+type SeekerSettingsRegion = 
+    { Slots:SeekerSettingsSlot[] }
+
 let emptyEffect =
     { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
 

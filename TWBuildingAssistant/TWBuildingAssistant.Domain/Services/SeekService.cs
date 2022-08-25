@@ -27,50 +27,73 @@ public class SeekService
         updateProgressMax(combinations.Length);
 
         var completedCounter = 0;
-        var bestCombination = new List<SeekerResult>();
-        var bestWealth = 0d;
 
-        Parallel.ForEach(combinations, combination =>
+        SeekerResultWithWealth? Loop(CombinationTask combination)
         {
-            var seekingSlots = combination.Regions.SelectMany(x => x.Slots).Where(x => x.Level == null).ToArray();
+            SeekerResultWithWealth? RecursiveSeek(int regionIndex, int slotIndex, IEnumerable<IEnumerable<SeekerResult>> combinationResult, IEnumerable<SeekerResult> combinationRegionResult)
+            {
+                if (regionIndex < combination.Regions.Length)
+                {
+                    if (slotIndex < combination.Regions[regionIndex].Slots.Length)
+                    {
+                        var seekResult = Enumerable.Empty<object>();
+                        var slot = combination.Regions[regionIndex].Slots[slotIndex];
+                        if (slot.Level == null)
+                        {
+                            var subResults = new List<SeekerResultWithWealth?>();
+                            foreach (var levelOption in slot.Branch.Levels)
+                            {
+                                subResults.Add(RecursiveSeek(regionIndex, slotIndex + 1, combinationResult, combinationRegionResult.Append(new SeekerResult(slot.Branch, levelOption, slot.RegionId, slot.SlotIndex))));
+                            }
 
-            RecursiveSeek(0);
+                            return subResults
+                                .Where(x => x != null)
+                                .OrderByDescending(x => x.Wealth)
+                                .FirstOrDefault();
+                        }
+                        else
+                        {
+                            return RecursiveSeek(regionIndex, slotIndex + 1, combinationResult, combinationRegionResult.Append(new SeekerResult(slot.Branch, slot.Level, slot.RegionId, slot.SlotIndex)));
+                        }
+                    }
+                    else
+                    {
+                        return RecursiveSeek(regionIndex + 1, 0, combinationResult.Append(combinationRegionResult), new List<SeekerResult>());
+                    }
+                }
+                else
+                {
+                    var state = Data.FSharp.State.getState(combinationResult.Select(x => x.Select(y => y.Level)), settings, predefinedEffect);
+                    if (minimalCondition(state))
+                    {
+                        return new SeekerResultWithWealth(state.Wealth, combinationResult.SelectMany(x => x).ToImmutableArray());
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+
+            var loopResult = RecursiveSeek(0, 0, new List<List<SeekerResult>>(), new List<SeekerResult>());
 
             lock (updateProgressValue)
             {
                 updateProgressValue(++completedCounter);
             }
 
-            void RecursiveSeek(int slotIndex)
-            {
-                if (slotIndex < seekingSlots.Length)
-                {
-                    var seekResult = Enumerable.Empty<object>();
-                    var slot = seekingSlots[slotIndex];
-                    foreach (var levelOption in slot.Branch.Levels)
-                    {
-                        slot.Level = levelOption;
-                        RecursiveSeek(slotIndex + 1);
-                        slot.Level = null;
-                    }
-                }
-                else
-                {
-                    var state = Data.FSharp.State.getState(combination.Regions.Select(x => x.Slots.Select(y => y.Level)), settings, predefinedEffect);
-                    if (minimalCondition(state) && state.Wealth > bestWealth)
-                    {
-                        lock (bestCombination)
-                        {
-                            bestWealth = state.Wealth;
-                            bestCombination.Clear();
-                            bestCombination.AddRange(seekingSlots.Select(x => new SeekerResult(x.Branch, x.Level, x.RegionId, x.SlotIndex)));
-                        }
-                    }
-                }
-            }
-        });
+            return loopResult;
+        }
 
-        return bestCombination.ToImmutableArray();
+        var bestCombination = combinations
+            .AsParallel()
+            .Select(Loop)
+            .Where(x => x != null)
+            .OrderByDescending(x => x.Wealth)
+            .FirstOrDefault()
+            ?.Result;
+
+        return bestCombination ?? Enumerable.Empty<SeekerResult>().ToImmutableArray();
     }
 
     private ImmutableArray<CombinationTask> GetCombinationsToSeek(Data.FSharp.Models.BuildingLibraryEntry[] buildingLibrary, ImmutableArray<SeekerSettingsRegion> seekerSettings)
@@ -88,7 +111,7 @@ public class SeekService
         {
             if (regionIndex == regionCombinations.Count)
             {
-                return new[] { new CombinationTask(combination.Select(x => new CombinationTaskRegion(x.Slots.Select(x => new CalculationSlot(x)).ToImmutableArray())).ToImmutableArray()) };
+                return new[] { new CombinationTask(combination.Select(x => new CombinationTaskRegion(x.Slots.Select(y => new CalculationSlot(y.Descriptor, y.Branch, y.Level, y.RegionId, y.SlotIndex)).ToImmutableArray())).ToImmutableArray()) };
             }
             else
             {
@@ -122,7 +145,7 @@ public class SeekService
                 else
                 {
                     var slotOptions = options[slotIndex].Where(x => x.Interesting).Where(x => x.Id == 0 || simulationSlots.Where(y => y.Level != null).Concat(combination).All(y => y.Branch != x));
-                    return slotOptions.Select(x => RecursiveSeek(slotIndex + 1, combination.Append(new CalculationSlot(slot, x)))).SelectMany(x => x);
+                    return slotOptions.Select(x => RecursiveSeek(slotIndex + 1, combination.Append(new CalculationSlot(slot.Descriptor, x, null, slot.RegionId, slot.SlotIndex)))).SelectMany(x => x);
                 }
             }
         }
@@ -132,43 +155,7 @@ public class SeekService
 
     private record class CombinationTaskRegion(ImmutableArray<CalculationSlot> Slots);
 
-    private class CalculationSlot
-    {
-        public CalculationSlot(Data.FSharp.Models.SlotDescriptor? descriptor, Data.FSharp.Models.BuildingBranch? branch, Data.FSharp.Models.BuildingLevel? level, int regionId, int slotIndex)
-        {
-            this.Descriptor = descriptor;
-            this.Branch = branch;
-            this.Level = level;
-            this.RegionId = regionId;
-            this.SlotIndex = slotIndex;
-        }
+    private record class SeekerResultWithWealth(double Wealth, ImmutableArray<SeekerResult> Result);
 
-        public CalculationSlot(CalculationSlot original)
-        {
-            this.Descriptor = original.Descriptor;
-            this.Branch = original.Branch;
-            this.Level = original.Level;
-            this.RegionId = original.RegionId;
-            this.SlotIndex = original.SlotIndex;
-        }
-
-        public CalculationSlot(CalculationSlot original, Data.FSharp.Models.BuildingBranch? branch)
-        {
-            this.Descriptor = original.Descriptor;
-            this.Branch = branch;
-            this.Level = null;
-            this.RegionId = original.RegionId;
-            this.SlotIndex = original.SlotIndex;
-        }
-
-        public Data.FSharp.Models.SlotDescriptor? Descriptor { get; set; }
-
-        public Data.FSharp.Models.BuildingBranch? Branch { get; set; }
-
-        public Data.FSharp.Models.BuildingLevel? Level { get; set; }
-
-        public int RegionId { get; set; }
-
-        public int SlotIndex { get; set; }
-    }
+    private record class CalculationSlot(Data.FSharp.Models.SlotDescriptor Descriptor, Data.FSharp.Models.BuildingBranch? Branch, Data.FSharp.Models.BuildingLevel? Level, int RegionId, int SlotIndex);
 }

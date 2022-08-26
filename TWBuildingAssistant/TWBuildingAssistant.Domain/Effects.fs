@@ -27,16 +27,19 @@ type IncomeCategory =
 
 type IncomeValue =
     | Simple of int
-    | Percentage of int
     | FertilityDependent of int
 
-type CategoryIncome =
+type Income =
     { Category:IncomeCategory
       Value:IncomeValue }
 
-type Income =
-    | CategoryIncome of CategoryIncome
-    | AllPercentage of int
+type CategoryBonus =
+    { Category:IncomeCategory
+      Value:int }
+
+type Bonus =
+    | CategoryBonus of CategoryBonus
+    | AllBonus of int
 
 type StateReligionInfluence =
     { Value:int }
@@ -51,52 +54,55 @@ type Influence =
 
 type EffectSet =
     { Effect:Effect
-      RegionIncomes:Income list
-      ProvinceIncomes:Income list
+      Bonuses:Bonus list
       Influences:Influence list }
 
 let emptyEffect =
     { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
 
 let emptyEffectSet =
-    { Effect = emptyEffect; RegionIncomes = []; ProvinceIncomes = []; Influences = [] }
+    { Effect = emptyEffect; Bonuses = []; Influences = [] }
 
 let getIncomeCategory intValue =
     match intValue with
-    | Some 1 -> Some Agriculture
-    | Some 2 -> Some Husbandry
-    | Some 3 -> Some Culture
-    | Some 4 -> Some Industry
-    | Some 5 -> Some LocalCommerce
-    | Some 6 -> Some MaritimeCommerce
-    | Some 7 -> Some Subsistence
-    | Some 8 -> Some Maintenance
-    | Some _ -> failwith "Invalid value"
-    | None -> None
+    | 1 -> Agriculture
+    | 2 -> Husbandry
+    | 3 -> Culture
+    | 4 -> Industry
+    | 5 -> LocalCommerce
+    | 6 -> MaritimeCommerce
+    | 7 -> Subsistence
+    | 8 -> Maintenance
+    | _ -> failwith "Invalid value"
 
-let createIncome (rd:sql.dataContext.``dbo.BonusesEntity``) =  
+let getIncomeCategoryOption intValue =
+    intValue 
+    |> Option.map getIncomeCategory
+
+let createIncome (rd:sql.dataContext.``dbo.IncomesEntity``) =  
     let value = rd.Value 
     let category = rd.Category |> getIncomeCategory
-    let bonusType = rd.Type
+    let isFertilityDependent = rd.IsFertilityDependent
 
-    match bonusType with
-    | 0 -> // Simple
+    match isFertilityDependent with
+    | false ->
         match (value, category) with
-        | (value, Some Maintenance) when value > 0 -> failwith "Positive 'Maintenance' income."
-        | (_, Some category) -> CategoryIncome { Category = category; Value = Simple value }
-        | (_, _) -> failwith "Invalid 'All' income."
-    | 1 -> // Percentahe
+        | (value, Maintenance) when value > 0 -> failwith "Positive 'Maintenance' income."
+        | (_, category) -> { Category = category; Value = Simple value }:Income
+    | true -> 
         match (value, category) with
-        | (_, Some Maintenance) -> failwith "Invalid 'Maintenance' income."
-        | (_, Some category) -> CategoryIncome { Category = category; Value = Percentage value }
-        | (_, _) -> AllPercentage value
-    | 2 -> // Fertility Dependent
-        match (value, category) with
-        | (_, Some Agriculture) -> CategoryIncome { Category = Agriculture; Value = FertilityDependent value }
-        | (_, Some Husbandry) -> CategoryIncome { Category = Husbandry; Value = FertilityDependent value }
+        | (_, Agriculture) -> { Category = Agriculture; Value = FertilityDependent value }
+        | (_, Husbandry) -> { Category = Husbandry; Value = FertilityDependent value }
         | (_, _) -> failwith "Invalid fertility-based income."
-    | _ ->
-        failwith "Invalid value"
+
+let createBonus (rd:sql.dataContext.``dbo.BonusesEntity``) =  
+    let value = rd.Value 
+    let category = rd.Category |> getIncomeCategoryOption
+
+    match (value, category) with
+    | (_, Some Maintenance) -> failwith "Invalid 'Maintenance' bonus."
+    | (_, Some category) -> CategoryBonus { Category = category; Value = value }
+    | (_, _) -> AllBonus value
 
 let createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =    
     let religionId = rd.ReligionId
@@ -110,14 +116,6 @@ let createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =
         StateReligion { Value = value }
 
 let getEffect (ctx:sql.dataContext) effectId =
-    let assignIncomePartition income =
-        match income with
-        | AllPercentage _ -> true
-        | CategoryIncome income ->
-            match income.Value with
-            | Percentage _ -> true
-            | _ -> false
-
     let effect =
         query {
             for effect in ctx.Dbo.Effects do
@@ -134,16 +132,12 @@ let getEffect (ctx:sql.dataContext) effectId =
                   RegionalSanitation = effect.RegionalSanitation }
             head }
 
-    let incomes =
+    let bonuses =
         query {
-            for income in ctx.Dbo.Bonuses do
-            where (income.EffectId = Some effectId) }
-        |> Seq.map createIncome
+            for bonus in ctx.Dbo.Bonuses do
+            where (bonus.EffectId = Some effectId) }
+        |> Seq.map createBonus
         |> Seq.toList
-
-    let (provinceIncomes, regionIncomes) =
-        incomes
-        |> List.partition assignIncomePartition
 
     let influences =
         query {
@@ -152,7 +146,7 @@ let getEffect (ctx:sql.dataContext) effectId =
         |> Seq.map createInfluence
         |> Seq.toList
 
-    { Effect = effect; RegionIncomes = regionIncomes; ProvinceIncomes = provinceIncomes; Influences = influences }
+    { Effect = effect; Bonuses = bonuses; Influences = influences }
 
 let getEffectOption (ctx:sql.dataContext) effectId =
     match effectId with
@@ -160,6 +154,16 @@ let getEffectOption (ctx:sql.dataContext) effectId =
         effectId |> getEffect ctx
     | None ->
         emptyEffectSet
+
+let getIncomes (ctx:sql.dataContext) buildingLevelId =
+    let incomes =
+        query {
+            for income in ctx.Dbo.Incomes do
+            where (income.BuildingLevelId = buildingLevelId) }
+        |> Seq.map createIncome
+        |> Seq.toList
+
+    incomes
 
 let collectEffects (effects:Effect list) =
     { PublicOrder = effects |> List.map (fun x -> x.PublicOrder) |> List.sum;
@@ -172,27 +176,33 @@ let collectEffects (effects:Effect list) =
       ReligiousOsmosis = effects |> List.map (fun x -> x.ReligiousOsmosis) |> List.sum;
       RegionalSanitation = effects |> List.map (fun x -> x.RegionalSanitation) |> List.sum }
 
-let collectIncomes fertilityLevel incomes =
-    let firstLoop (records, allBonus) (income:Income) =
-        match income with
-        | AllPercentage value ->
+let collectIncomes fertilityLevel bonuses (incomes:Income list) =
+    let firstLoop (records, allBonus) (bonus:Bonus) =
+        match bonus with
+        | AllBonus value ->
             (records, allBonus + value)
-        | CategoryIncome income ->
+        | CategoryBonus income ->
             (income::records, allBonus)
 
-    let (categoryIncomes, allBonus) = 
-        incomes 
+    let (categoryBonuses, allBonus) = 
+        bonuses 
         |> List.fold firstLoop ([], 0)
 
+    let bonusesGrouped =
+        categoryBonuses 
+        |> List.groupBy (fun x -> x.Category) 
+
+    let incomesGrouped =
+        incomes 
+        |> List.groupBy (fun x -> x.Category) 
+
     let secondLoop total (category, categoryIncomes) =
-        let thirdLoop (sum, percentageFromIncomes) (income:CategoryIncome) =
+        let thirdLoop sum (income:Income) =
             match income.Value with
             | Simple value ->
-                (sum + value, percentageFromIncomes)
-            | Percentage value ->
-                (sum, percentageFromIncomes + value)
+                sum + value
             | FertilityDependent value ->
-                (sum + (value * fertilityLevel), percentageFromIncomes)
+                sum + (value * fertilityLevel)
 
         let basePercentage = 
             match category with
@@ -201,15 +211,20 @@ let collectIncomes fertilityLevel incomes =
             | _ ->
                 100 + allBonus
 
-        let (sum, percentage) = 
+        let percentage =
+            bonusesGrouped 
+            |> List.tryPick (fun (x, y) -> if x = category then Some y else None)
+            |> Option.map (fun x -> x |> List.sumBy (fun y -> y.Value))
+            |> Option.fold (fun x y -> x + y) basePercentage
+
+        let sum = 
             categoryIncomes 
-            |> List.fold thirdLoop (0, basePercentage)
+            |> List.fold thirdLoop 0
 
         total + (float(sum * percentage) * 0.01)
 
     let total =
-        categoryIncomes 
-        |> List.groupBy (fun x -> x.Category) 
+        incomesGrouped
         |> List.fold secondLoop 0
 
     total
@@ -275,8 +290,7 @@ let getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier useAntile
         |> Seq.toList
 
     { Effect = effects |> List.map (fun x -> x.Effect) |> collectEffects
-      ProvinceIncomes = effects |> List.collect (fun x -> x.ProvinceIncomes)
-      RegionIncomes = effects |> List.collect (fun x -> x.RegionIncomes)
+      Bonuses = effects |> List.collect (fun x -> x.Bonuses)
       Influences = effects |> List.collect (fun x -> x.Influences) }
 
 let getReligionEffect (ctx:sql.dataContext) religionId =
@@ -344,10 +358,10 @@ let getStateFromSettings settings =
     let taxEffects = getTaxEffect ctx settings.TaxId
     let fertilityDropEffect = 
         { emptyEffect with Fertility = settings.FertilityDrop }
-    let corruptionIncome = 
-        AllPercentage -settings.CorruptionRate
-    let piracyIncome = 
-        CategoryIncome { Category = MaritimeCommerce; Value = Percentage -settings.PiracyRate }
+    let corruptionBonus = 
+        AllBonus -settings.CorruptionRate
+    let piracyBonus = 
+        CategoryBonus { Category = MaritimeCommerce; Value = -settings.PiracyRate }
 
     let effectSets =
         [ factionEffects
@@ -357,22 +371,19 @@ let getStateFromSettings settings =
           Some climateEffects
           difficultyEffects
           taxEffects
-          Some { Effect = fertilityDropEffect; RegionIncomes = []; ProvinceIncomes = [corruptionIncome; piracyIncome]; Influences = []} ]
+          Some { Effect = fertilityDropEffect; Bonuses = [corruptionBonus; piracyBonus]; Influences = []} ]
         |> List.choose (fun x -> x)
 
     let effect =
         effectSets |> List.map (fun x -> x.Effect) |> collectEffects
 
-    let regionIncomes = 
-        effectSets |> List.map (fun x -> x.RegionIncomes) |> List.concat
-
-    let provinceIncomes = 
-        effectSets |> List.map (fun x -> x.ProvinceIncomes) |> List.concat
+    let bonuses = 
+        effectSets |> List.map (fun x -> x.Bonuses) |> List.concat
 
     let influences = 
         effectSets |> List.map (fun x -> x.Influences) |> List.concat
 
-    { Effect = effect; RegionIncomes = regionIncomes; ProvinceIncomes = provinceIncomes; Influences = influences }
+    { Effect = effect; Bonuses = bonuses; Influences = influences }
 
 let collectEffectsSeq effects =
     effects 

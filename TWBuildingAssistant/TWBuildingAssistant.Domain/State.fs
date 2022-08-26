@@ -19,10 +19,23 @@ type ProvinceState =
 
 let getStateFromBuildings buildings =
     let getSetFromRegion regionBuildings =
-        { Effect = collectEffectsSeq (regionBuildings |> Seq.map (fun x -> x.EffectSet.Effect))
-          RegionIncomes = (regionBuildings |> Seq.collect (fun x -> x.EffectSet.RegionIncomes) |> Seq.toList)
-          ProvinceIncomes = (regionBuildings |> Seq.collect (fun x -> x.EffectSet.ProvinceIncomes) |> Seq.toList)
-          Influences = (regionBuildings |> Seq.collect (fun x -> x.EffectSet.Influences) |> Seq.toList) }
+        let incomes =
+            regionBuildings
+            |> Seq.collect (fun x -> x.Incomes)
+            |> Seq.toList
+        let effect = 
+            regionBuildings 
+            |> Seq.map (fun x -> x.EffectSet.Effect)
+            |> collectEffectsSeq
+        let bonuses = 
+            regionBuildings 
+            |> Seq.collect (fun x -> x.EffectSet.Bonuses) 
+            |> Seq.toList
+        let influences = 
+            regionBuildings 
+            |> Seq.collect (fun x -> x.EffectSet.Influences) 
+            |> Seq.toList
+        (incomes, { Effect = effect; Bonuses = bonuses; Influences = influences })
 
     buildings
     |> Seq.map getSetFromRegion
@@ -33,14 +46,14 @@ let getState buildings settings predefinedEffect =
         getStateFromBuildings buildings
 
     let effect = 
-        collectEffectsSeq (predefinedEffect.Effect::(regionalEffectSets |> List.map (fun x -> x.Effect)))
+        collectEffectsSeq (predefinedEffect.Effect::(regionalEffectSets |> List.map (fun (_, x) -> x.Effect)))
     let provinceIncomes =
         regionalEffectSets
-        |> List.collect (fun x -> x.ProvinceIncomes)
-        |> List.append predefinedEffect.ProvinceIncomes
+        |> List.collect (fun (_, x) -> x.Bonuses)
+        |> List.append predefinedEffect.Bonuses
     let influences = 
         regionalEffectSets
-        |> List.collect (fun x -> x.Influences)
+        |> List.collect (fun (_, x) -> x.Influences)
         |> List.append predefinedEffect.Influences
 
     let fertility = 
@@ -55,7 +68,7 @@ let getState buildings settings predefinedEffect =
 
     let regionStates = 
         regionalEffectSets
-        |> Seq.map (fun x -> { Sanitation = (x.Effect.RegionalSanitation + effect.ProvincialSanitation); Wealth = (collectIncomes fertility ([x.RegionIncomes; provinceIncomes] |> List.collect (fun x -> x))) })
+        |> Seq.map (fun (x, y) -> { Sanitation = (y.Effect.RegionalSanitation + effect.ProvincialSanitation); Wealth = (collectIncomes fertility provinceIncomes x) })
         |> Seq.toArray
 
     { Regions = regionStates

@@ -9,6 +9,7 @@ open Settings
 type BuildingLevel =
     { Id:int
       Name:string
+      Incomes:Income[]
       EffectSet:EffectSet }
 
 type BuildingBranch =
@@ -22,7 +23,7 @@ type BuildingLibraryEntry =
       BuildingBranches:BuildingBranch[] }
 
 let emptyBuildingLevel =
-    { Id = 0; Name = "Empty"; EffectSet = emptyEffectSet }
+    { Id = 0; Name = "Empty"; Incomes = [||]; EffectSet = emptyEffectSet }
 
 let emptyBuildingBranch =
     { Id = 0; Name = "Empty"; Interesting = true; Levels = [|emptyBuildingLevel|]}
@@ -124,7 +125,7 @@ let getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
     let secondLoop finalDictionary ((branch:sql.dataContext.``dbo.BuildingBranchesEntity``), (levels:sql.dataContext.``dbo.BuildingLevelsEntity`` list)) =
         let levelsOther =
             levels
-            |> List.map (fun level -> { Id = level.Id; Name = level.Name; EffectSet = (level.EffectId |> getEffectOption ctx) })
+            |> List.map (fun level -> { Id = level.Id; Name = level.Name; Incomes = (level.Id |> (getIncomes ctx) |> List.toArray); EffectSet = (level.EffectId |> getEffectOption ctx) }:BuildingLevel)
             |> List.toArray
         match levelsOther with
         | [||] ->

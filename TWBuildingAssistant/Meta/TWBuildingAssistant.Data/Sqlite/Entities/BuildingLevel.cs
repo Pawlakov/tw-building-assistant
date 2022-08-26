@@ -25,4 +25,6 @@ public class BuildingLevel
     public BuildingBranch? BuildingBranch { get; set; }
 
     public ICollection<BuildingLevelLock> Locks { get; set; }
+
+    public ICollection<Income> Incomes { get; set; }
 }

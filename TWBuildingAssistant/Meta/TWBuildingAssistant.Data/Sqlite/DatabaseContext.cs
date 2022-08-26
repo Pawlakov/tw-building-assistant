@@ -1,7 +1,5 @@
 ﻿namespace TWBuildingAssistant.Data.Sqlite;
 
-using System;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using TWBuildingAssistant.Data.Sqlite.Entities;
 
@@ -50,6 +48,8 @@ public class DatabaseContext
     public DbSet<Difficulty> Difficulties { get; set; }
 
     public DbSet<Tax> Taxes { get; set; }
+
+    public DbSet<Income> Incomes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

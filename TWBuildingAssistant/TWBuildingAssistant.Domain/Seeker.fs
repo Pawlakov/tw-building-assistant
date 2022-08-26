@@ -37,6 +37,10 @@ type SeekerResultWithWealth =
     { Wealth:double
       Result:SeekerResult[] }
 
+type MinimalConditionDelegate = delegate of ProvinceState -> bool
+type ResetProgressDelegate = delegate of int -> unit
+type IncrementProgressDelegate = delegate of unit -> unit
+
 let getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionSeekerSettings =
     let simulationSlots = 
         regionSeekerSettings.Slots
@@ -91,9 +95,6 @@ let getCombinationsToSeek buildingLibrary (seekerSettings:SeekerSettingsRegion[]
 
     recursiveSeek 0 [||]
 
-type MinimalConditionDelegate = delegate of ProvinceState -> bool
-type ResetProgressDelegate = delegate of int -> unit
-type IncrementProgressDelegate = delegate of unit -> unit
 let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondition:MinimalConditionDelegate) (resetProgress:ResetProgressDelegate) (incrementProgress:IncrementProgressDelegate) =
     resetProgress.Invoke 0
     let combinations = getCombinationsToSeek buildingLibrary seekerSettings
@@ -120,7 +121,7 @@ let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondit
             else
                 let state = getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
                 if (minimalCondition.Invoke state) then
-                    Some { Wealth = state.Wealth; Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
+                    Some { Wealth = state.Regions |> Array.sumBy (fun x -> x.Wealth); Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
                 else
                     None
 

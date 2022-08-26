@@ -99,7 +99,7 @@ public class ProvinceViewModel
         builder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");
         builder.AppendLine($"Research Rate: +{state.ResearchRate}%");
         builder.AppendLine($"Growth: {state.Growth}");
-        builder.AppendLine($"Wealth: {state.Wealth}");
+        builder.AppendLine($"Wealth: {string.Join("/", state.Regions.Select(x => x.Wealth.ToString()))}");
         this.Performance = builder.ToString();
     }
 }

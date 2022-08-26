@@ -51,14 +51,15 @@ type Influence =
 
 type EffectSet =
     { Effect:Effect
-      Incomes:Income list
+      RegionIncomes:Income list
+      ProvinceIncomes:Income list
       Influences:Influence list }
 
 let emptyEffect =
     { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
 
 let emptyEffectSet =
-    { Effect = emptyEffect; Incomes = []; Influences = [] }
+    { Effect = emptyEffect; RegionIncomes = []; ProvinceIncomes = []; Influences = [] }
 
 let getIncomeCategory intValue =
     match intValue with
@@ -109,6 +110,14 @@ let createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =
         StateReligion { Value = value }
 
 let getEffect (ctx:sql.dataContext) effectId =
+    let assignIncomePartition income =
+        match income with
+        | AllPercentage _ -> true
+        | CategoryIncome income ->
+            match income.Value with
+            | Percentage _ -> true
+            | _ -> false
+
     let effect =
         query {
             for effect in ctx.Dbo.Effects do
@@ -132,6 +141,10 @@ let getEffect (ctx:sql.dataContext) effectId =
         |> Seq.map createIncome
         |> Seq.toList
 
+    let (provinceIncomes, regionIncomes) =
+        incomes
+        |> List.partition assignIncomePartition
+
     let influences =
         query {
             for influence in ctx.Dbo.Influences do
@@ -139,7 +152,7 @@ let getEffect (ctx:sql.dataContext) effectId =
         |> Seq.map createInfluence
         |> Seq.toList
 
-    { Effect = effect; Incomes = incomes; Influences = influences }
+    { Effect = effect; RegionIncomes = regionIncomes; ProvinceIncomes = provinceIncomes; Influences = influences }
 
 let getEffectOption (ctx:sql.dataContext) effectId =
     match effectId with
@@ -261,7 +274,10 @@ let getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier useAntile
             universalEffectIds |> getEffectSeq
         |> Seq.toList
 
-    { Effect = effects |> List.map (fun x -> x.Effect) |> collectEffects; Incomes = effects |> List.collect (fun x -> x.Incomes); Influences = effects |> List.collect (fun x -> x.Influences) }
+    { Effect = effects |> List.map (fun x -> x.Effect) |> collectEffects
+      ProvinceIncomes = effects |> List.collect (fun x -> x.ProvinceIncomes)
+      RegionIncomes = effects |> List.collect (fun x -> x.RegionIncomes)
+      Influences = effects |> List.collect (fun x -> x.Influences) }
 
 let getReligionEffect (ctx:sql.dataContext) religionId =
     let effectId = 
@@ -341,19 +357,22 @@ let getStateFromSettings settings =
           Some climateEffects
           difficultyEffects
           taxEffects
-          Some { Effect = fertilityDropEffect; Incomes = [corruptionIncome; piracyIncome]; Influences = []} ]
+          Some { Effect = fertilityDropEffect; RegionIncomes = []; ProvinceIncomes = [corruptionIncome; piracyIncome]; Influences = []} ]
         |> List.choose (fun x -> x)
 
     let effect =
         effectSets |> List.map (fun x -> x.Effect) |> collectEffects
 
-    let incomes = 
-        effectSets |> List.map (fun x -> x.Incomes) |> List.concat
+    let regionIncomes = 
+        effectSets |> List.map (fun x -> x.RegionIncomes) |> List.concat
+
+    let provinceIncomes = 
+        effectSets |> List.map (fun x -> x.ProvinceIncomes) |> List.concat
 
     let influences = 
         effectSets |> List.map (fun x -> x.Influences) |> List.concat
 
-    { Effect = effect; Incomes = incomes; Influences = influences }
+    { Effect = effect; RegionIncomes = regionIncomes; ProvinceIncomes = provinceIncomes; Influences = influences }
 
 let collectEffectsSeq effects =
     effects 

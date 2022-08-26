@@ -6,7 +6,8 @@ open Effects
 open Settings
 
 type RegionState = 
-    { Sanitation:int }
+    { Sanitation:int
+      Wealth:float }
 
 type ProvinceState = 
     { Regions:RegionState[]
@@ -14,57 +15,52 @@ type ProvinceState =
       PublicOrder:int
       ReligiousOsmosis:int
       ResearchRate:int
-      Growth:int
-      Wealth:float }
+      Growth:int }
 
 let getStateFromBuildings buildings =
-    let regionalEffects = 
-        buildings
-        |> Seq.map (fun x -> collectEffectsSeq(x |> Seq.map (fun x -> x.EffectSet.Effect)))
+    let getSetFromRegion regionBuildings =
+        { Effect = collectEffectsSeq (regionBuildings |> Seq.map (fun x -> x.EffectSet.Effect))
+          RegionIncomes = (regionBuildings |> Seq.collect (fun x -> x.EffectSet.RegionIncomes) |> Seq.toList)
+          ProvinceIncomes = (regionBuildings |> Seq.collect (fun x -> x.EffectSet.ProvinceIncomes) |> Seq.toList)
+          Influences = (regionBuildings |> Seq.collect (fun x -> x.EffectSet.Influences) |> Seq.toList) }
 
-    let regionalIncomes = 
-        buildings
-        |> Seq.collect (fun x -> x)
-        |> Seq.collect (fun x -> x.EffectSet.Incomes)
-
-    let regionalInfluences = 
-        buildings
-        |> Seq.collect (fun x -> x)
-        |> Seq.collect (fun x -> x.EffectSet.Influences)
-
-    (regionalEffects |> Seq.toList, regionalIncomes |> Seq.toList, regionalInfluences |> Seq.toList)
+    buildings
+    |> Seq.map getSetFromRegion
+    |> Seq.toList
 
 let getState buildings settings predefinedEffect =
-    let (regionalEffects, regionalIncomes, regionalInfluences) = 
+    let regionalEffectSets = 
         getStateFromBuildings buildings
 
     let effect = 
-        collectEffectsSeq (predefinedEffect.Effect::regionalEffects)
-    let incomes = 
-        regionalIncomes
-        |> Seq.append predefinedEffect.Incomes
+        collectEffectsSeq (predefinedEffect.Effect::(regionalEffectSets |> List.map (fun x -> x.Effect)))
+    let provinceIncomes =
+        regionalEffectSets
+        |> List.collect (fun x -> x.ProvinceIncomes)
+        |> List.append predefinedEffect.ProvinceIncomes
     let influences = 
-        regionalInfluences
-        |> Seq.append predefinedEffect.Influences
+        regionalEffectSets
+        |> List.collect (fun x -> x.Influences)
+        |> List.append predefinedEffect.Influences
 
     let fertility = 
         match effect.Fertility with
         | fertility when fertility < 0 -> 0
         | fertility when fertility > 5 -> 5
         | fertility -> fertility
-    let sanitation = 
-        regionalEffects
-        |> Seq.map (fun x -> x.RegionalSanitation + effect.ProvincialSanitation)
     let food = 
         effect.RegularFood + (fertility * effect.FertilityDependentFood)
     let publicOrder = 
         effect.PublicOrder + collectInfluencesSeq settings.ReligionId influences
-    let income = 
-        collectIncomesSeq fertility incomes
 
     let regionStates = 
-        sanitation
-        |> Seq.map (fun x -> { Sanitation = x })
+        regionalEffectSets
+        |> Seq.map (fun x -> { Sanitation = (x.Effect.RegionalSanitation + effect.ProvincialSanitation); Wealth = (collectIncomes fertility ([x.RegionIncomes; provinceIncomes] |> List.collect (fun x -> x))) })
         |> Seq.toArray
 
-    { Regions = regionStates; Food = food; PublicOrder = publicOrder; ReligiousOsmosis = effect.ReligiousOsmosis; ResearchRate = effect.ResearchRate; Growth = effect.Growth; Wealth = income }
+    { Regions = regionStates
+      Food = food
+      PublicOrder = publicOrder
+      ReligiousOsmosis = effect.ReligiousOsmosis
+      ResearchRate = effect.ResearchRate
+      Growth = effect.Growth }

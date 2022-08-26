@@ -12,6 +12,8 @@ public class BuildingLevel
     [Required(AllowEmptyStrings = false)]
     public string Name { get; set; }
 
+    public int Maintenance { get; set; }
+
     [ForeignKey(nameof(Parent))]
     public int? ParentBuildingLevelId { get; set; }
 

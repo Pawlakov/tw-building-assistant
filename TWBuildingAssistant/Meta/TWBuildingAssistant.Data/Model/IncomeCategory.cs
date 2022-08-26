@@ -15,6 +15,4 @@ public enum IncomeCategory
     MaritimeCommerce,
 
     Subsistence,
-
-    Maintenance,
 }

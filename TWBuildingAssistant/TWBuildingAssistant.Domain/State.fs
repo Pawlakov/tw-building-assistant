@@ -23,6 +23,9 @@ let getStateFromBuildings buildings =
             regionBuildings
             |> Seq.collect (fun x -> x.Incomes)
             |> Seq.toList
+        let maintenance =
+            regionBuildings
+            |> Seq.sumBy (fun x -> x.Maintenance)
         let effect = 
             regionBuildings 
             |> Seq.map (fun x -> x.EffectSet.Effect)
@@ -35,7 +38,7 @@ let getStateFromBuildings buildings =
             regionBuildings 
             |> Seq.collect (fun x -> x.EffectSet.Influences) 
             |> Seq.toList
-        (incomes, { Effect = effect; Bonuses = bonuses; Influences = influences })
+        (incomes, { Effect = effect; Bonuses = bonuses; Influences = influences }, float(maintenance))
 
     buildings
     |> Seq.map getSetFromRegion
@@ -46,14 +49,14 @@ let getState buildings settings predefinedEffect =
         getStateFromBuildings buildings
 
     let effect = 
-        collectEffectsSeq (predefinedEffect.Effect::(regionalEffectSets |> List.map (fun (_, x) -> x.Effect)))
+        collectEffectsSeq (predefinedEffect.Effect::(regionalEffectSets |> List.map (fun (_, x, _) -> x.Effect)))
     let provinceIncomes =
         regionalEffectSets
-        |> List.collect (fun (_, x) -> x.Bonuses)
+        |> List.collect (fun (_, x, _) -> x.Bonuses)
         |> List.append predefinedEffect.Bonuses
     let influences = 
         regionalEffectSets
-        |> List.collect (fun (_, x) -> x.Influences)
+        |> List.collect (fun (_, x, _) -> x.Influences)
         |> List.append predefinedEffect.Influences
 
     let fertility = 
@@ -68,7 +71,7 @@ let getState buildings settings predefinedEffect =
 
     let regionStates = 
         regionalEffectSets
-        |> Seq.map (fun (x, y) -> { Sanitation = (y.Effect.RegionalSanitation + effect.ProvincialSanitation); Wealth = (collectIncomes fertility provinceIncomes x) })
+        |> Seq.map (fun (x, y, z) -> { Sanitation = (y.Effect.RegionalSanitation + effect.ProvincialSanitation); Wealth = ((collectIncomes fertility provinceIncomes x) + z) })
         |> Seq.toArray
 
     { Regions = regionStates

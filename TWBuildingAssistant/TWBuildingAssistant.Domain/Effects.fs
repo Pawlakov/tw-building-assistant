@@ -23,7 +23,6 @@ type IncomeCategory =
     | LocalCommerce
     | MaritimeCommerce
     | Subsistence
-    | Maintenance
 
 type IncomeValue =
     | Simple of int
@@ -72,7 +71,6 @@ let getIncomeCategory intValue =
     | 5 -> LocalCommerce
     | 6 -> MaritimeCommerce
     | 7 -> Subsistence
-    | 8 -> Maintenance
     | _ -> failwith "Invalid value"
 
 let getIncomeCategoryOption intValue =
@@ -86,9 +84,7 @@ let createIncome (rd:sql.dataContext.``dbo.IncomesEntity``) =
 
     match isFertilityDependent with
     | false ->
-        match (value, category) with
-        | (value, Maintenance) when value > 0 -> failwith "Positive 'Maintenance' income."
-        | (_, category) -> { Category = category; Value = Simple value }:Income
+        { Category = category; Value = Simple value }:Income
     | true -> 
         match (value, category) with
         | (_, Agriculture) -> { Category = Agriculture; Value = FertilityDependent value }
@@ -100,7 +96,6 @@ let createBonus (rd:sql.dataContext.``dbo.BonusesEntity``) =
     let category = rd.Category |> getIncomeCategoryOption
 
     match (value, category) with
-    | (_, Some Maintenance) -> failwith "Invalid 'Maintenance' bonus."
     | (_, Some category) -> CategoryBonus { Category = category; Value = value }
     | (_, _) -> AllBonus value
 
@@ -205,11 +200,7 @@ let collectIncomes fertilityLevel bonuses (incomes:Income list) =
                 sum + (value * fertilityLevel)
 
         let basePercentage = 
-            match category with
-            | Maintenance ->
-                100
-            | _ ->
-                100 + allBonus
+            100 + allBonus
 
         let percentage =
             bonusesGrouped 

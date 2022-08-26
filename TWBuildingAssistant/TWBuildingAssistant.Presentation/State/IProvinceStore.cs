@@ -1,14 +1,12 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using TWBuildingAssistant.Domain.StateModels;
 
 public interface IProvinceStore
 {
     Dictionary<(int RegionId, int SlotIndex), (Data.FSharp.Models.BuildingBranch BuildingBranch, Data.FSharp.Models.BuildingLevel BuildingLevel)> BuildingLevels { get; }
 
-    ImmutableArray<SeekerSettingsRegion> SeekerSettings { get; set; }
+    Data.FSharp.Models.SeekerSettingsRegion[] SeekerSettings { get; set; }
 
-    List<SeekerResult> SeekerResults { get; }
+    List<Data.FSharp.Models.SeekerResult> SeekerResults { get; }
 }

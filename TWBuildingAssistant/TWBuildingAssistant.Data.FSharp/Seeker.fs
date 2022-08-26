@@ -1,14 +1,15 @@
 ﻿module TWBuildingAssistant.Data.FSharp.Seeker
 
 open Models
+open State
 
 let getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionSeekerSettings =
     let simulationSlots = 
         regionSeekerSettings.Slots
-        |> Array.map (fun y -> { Descriptor = Some y.Descriptor; Branch = y.Branch; Level = y.Level; RegionId = y.RegionId; SlotIndex = y.SlotIndex }:CalculationSlot)
+        |> Array.map (fun y -> { Descriptor = y.Descriptor; Branch = y.Branch; Level = y.Level; RegionId = y.RegionId; SlotIndex = y.SlotIndex }:CalculationSlot)
     let options = 
         simulationSlots
-        |> Array.map (fun x -> (buildingLibrary |> Array.find (fun y -> Some y.Descriptor = x.Descriptor)).BuildingBranches)
+        |> Array.map (fun x -> (buildingLibrary |> Array.find (fun y -> y.Descriptor = x.Descriptor)).BuildingBranches)
 
     let simulationSlotsLength =
         simulationSlots |> Array.length
@@ -20,14 +21,20 @@ let getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionS
         | slotIndex ->
             let slot = simulationSlots.[slotIndex];
             match slot.Level with
-            | None ->
-                recursiveSeek (slotIndex + 1) (combination |> Array.append [|slot|])
             | Some level ->
-                let slotOptions = 
-                    options[slotIndex]
-                        |> Array.filter (fun x -> x.Interesting)
-                        |> Array.filter (fun x -> x.Id = 0 || simulationSlots |> Array.filter (fun y -> y.Level <> None) |> Array.append(combination) |> Array.forall (fun y -> y.Branch <> Some x))
-                slotOptions
+                recursiveSeek (slotIndex + 1) (combination |> Array.append [|slot|])
+            | None ->
+                let branchFilter branch =
+                    match (branch.Id, branch.Interesting) with
+                    | _, false -> false
+                    | 0, _ -> true
+                    | _, _ ->
+                        simulationSlots 
+                        |> Array.filter (fun y -> y.Level <> None) 
+                        |> Array.append(combination) 
+                        |> Array.forall (fun y -> y.Branch <> Some branch)
+                options[slotIndex]
+                    |> Array.filter branchFilter
                     |> Array.map (fun x -> recursiveSeek (slotIndex + 1) (combination |> Array.append [|{ slot with Branch = Some x; Level = None }|] ))
                     |> Array.collect (fun x -> x)
 
@@ -48,49 +55,56 @@ let getCombinationsToSeek buildingLibrary (seekerSettings:SeekerSettingsRegion[]
                 |> Array.map (fun x -> recursiveSeek (regionIndex + 1) (combination |> Array.append [|x|] ))
                 |> Array.collect (fun x -> x)
 
-            
     recursiveSeek 0 [||]
 
-//let seek settings predefinedEffect buildingLibrary seekerSettings minimalCondition updateProgressMax updateProgressValue =
-//    updateProgressMax 0
-//    updateProgressValue 0
+type MinimalConditionDelegate = delegate of ProvinceState -> bool
+type ResetProgressDelegate = delegate of int -> unit
+type IncrementProgressDelegate = delegate of unit -> unit
+let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondition:MinimalConditionDelegate) (resetProgress:ResetProgressDelegate) (incrementProgress:IncrementProgressDelegate) =
+    resetProgress.Invoke 0
+    let combinations = getCombinationsToSeek buildingLibrary seekerSettings
+    resetProgress.Invoke combinations.Length
 
-//    let combinations = getCombinationsToSeek buildingLibrary seekerSettings
-//    updateProgressMax combinations.Length
+    let loop combination =
+        let rec recursiveSeek regionIndex slotIndex combinationResult (combinationRegionResult:SeekerResult list) =
+            if (regionIndex < combination.Regions.Length) then
+                if (slotIndex < combination.Regions.[regionIndex].Slots.Length) then
+                    let slot = combination.Regions.[regionIndex].Slots.[slotIndex]
+                    match (slot.Branch, slot.Level) with
+                    | None, _ ->
+                        failwith "This shouldn't happen"
+                    | Some slotBranch, None ->
+                        slotBranch.Levels
+                        |> Array.map (fun levelOption -> recursiveSeek regionIndex (slotIndex + 1) combinationResult ({ Branch = slotBranch; Level = levelOption; RegionId = slot.RegionId; SlotIndex = slot.SlotIndex }::combinationRegionResult))
+                        |> Array.choose (fun x -> x)
+                        |> Array.sortByDescending (fun x -> x.Wealth)
+                        |> Array.tryHead
+                    | Some slotBranch, Some slotLevel ->
+                        recursiveSeek regionIndex (slotIndex + 1) combinationResult ({ Branch = slotBranch; Level = slotLevel; RegionId = slot.RegionId; SlotIndex = slot.SlotIndex }::combinationRegionResult)
+                else
+                    recursiveSeek (regionIndex + 1) 0 (combinationRegionResult::combinationResult) []
+            else
+                let state = getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
+                if (minimalCondition.Invoke state) then
+                    Some { Wealth = state.Wealth; Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
+                else
+                    None
 
-//    let completedCounter = 0;
-//    let bestCombination = []
-//    let bestWealth = 0.0;
+        let loopResult = recursiveSeek 0 0 [] []
 
-//    let singleCombination combination =
-//        let seekingSlots = combination.Regions.SelectMany(x => x.Slots).Where(x => x.Level == null).ToArray();
+        incrementProgress.Invoke ()
 
-//        let rec recursiveSeek slotIndex =
-//            if (slotIndex < seekingSlots.Length) then
-//                var seekResult = Enumerable.Empty<object>();
-//                var slot = seekingSlots[slotIndex];
-//                foreach (var levelOption in slot.Branch.Levels)
-//                {
-//                    slot.Level = levelOption;
-//                    RecursiveSeek(slotIndex + 1);
-//                    slot.Level = null;
-//                }
-//            else
-//                var state = Data.FSharp.State.getState(combination.Regions.Select(x => x.Slots.Select(y => y.Level)), settings, predefinedEffect);
-//                if (minimalCondition(state) && state.Wealth > bestWealth)
-//                {
-//                    lock (bestCombination)
-//                    {
-//                        bestWealth = state.Wealth;
-//                        bestCombination.Clear();
-//                        bestCombination.AddRange(seekingSlots.Select(x => new SeekerResult(x.Branch, x.Level, x.RegionId, x.SlotIndex)));
-//                    }
-//                }
+        loopResult
 
-//        recursiveSeek 0 
+    let bestCombination = 
+        combinations
+        |> Array.map loop
+        |> Array.choose (fun x -> x)
+        |> Array.sortByDescending (fun x -> x.Wealth)
+        |> Array.tryHead
 
-//        lock updateProgressValue (fun () -> updateProgressValue(++completedCounter))
-
-//    combinations |> Array.Parallel.iter singleCombination
-
-//    bestCombination
+    match bestCombination with
+    | Some bestCombination ->
+        bestCombination.Result
+    | None ->
+        [||]

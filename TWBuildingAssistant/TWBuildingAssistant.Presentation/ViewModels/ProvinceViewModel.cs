@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using TWBuildingAssistant.Domain.Services;
-using TWBuildingAssistant.Domain.StateModels;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 
@@ -77,8 +75,15 @@ public class ProvinceViewModel
     public void Next()
     {
         this.provinceStore.SeekerSettings = this.Regions
-            .Select(x => new SeekerSettingsRegion(x.Slots.Where(y => y.SelectedBuildingBranch.Id > 0 || y.Selected).Select(y => new SeekerSettingsSlot(y.Selected ? null : y.SelectedBuildingBranch, y.Selected ? null : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex)).ToImmutableArray()))
-            .ToImmutableArray();
+            .Select(x =>
+            {
+                return new Data.FSharp.Models.SeekerSettingsRegion(
+                    x.Slots
+                        .Where(y => y.SelectedBuildingBranch.Id > 0 || y.Selected)
+                        .Select(y => new Data.FSharp.Models.SeekerSettingsSlot(y.Selected ? Microsoft.FSharp.Core.FSharpOption<Data.FSharp.Models.BuildingBranch>.None : y.SelectedBuildingBranch, y.Selected ? Microsoft.FSharp.Core.FSharpOption<Data.FSharp.Models.BuildingLevel>.None : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex))
+                        .ToArray());
+            })
+            .ToArray();
 
         this.navigator.CurrentViewType = INavigator.ViewType.Seeker;
     }

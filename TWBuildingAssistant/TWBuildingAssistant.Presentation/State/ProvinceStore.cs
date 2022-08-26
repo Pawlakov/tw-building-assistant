@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using TWBuildingAssistant.Domain.StateModels;
 
 public class ProvinceStore
     : IProvinceStore
@@ -10,12 +9,12 @@ public class ProvinceStore
     public ProvinceStore()
     {
         this.BuildingLevels = new Dictionary<(int RegionId, int SlotIndex), (Data.FSharp.Models.BuildingBranch BuildingBranch, Data.FSharp.Models.BuildingLevel BuildingLevel)>();
-        this.SeekerResults = new List<SeekerResult>();
+        this.SeekerResults = new List<Data.FSharp.Models.SeekerResult>();
     }
 
     public Dictionary<(int RegionId, int SlotIndex), (Data.FSharp.Models.BuildingBranch BuildingBranch, Data.FSharp.Models.BuildingLevel BuildingLevel)> BuildingLevels { get; }
 
-    public ImmutableArray<SeekerSettingsRegion> SeekerSettings { get; set; }
+    public Data.FSharp.Models.SeekerSettingsRegion[] SeekerSettings { get; set; }
 
-    public List<SeekerResult> SeekerResults { get; }
+    public List<Data.FSharp.Models.SeekerResult> SeekerResults { get; }
 }

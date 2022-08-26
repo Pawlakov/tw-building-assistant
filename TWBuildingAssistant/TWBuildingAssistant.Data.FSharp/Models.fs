@@ -123,7 +123,7 @@ type ProvinceState =
       Wealth:float }
 
 type CalculationSlot =
-    { Descriptor:SlotDescriptor option
+    { Descriptor:SlotDescriptor
       Branch:BuildingBranch option
       Level:BuildingLevel option
       RegionId:int
@@ -144,6 +144,16 @@ type SeekerSettingsSlot =
 
 type SeekerSettingsRegion = 
     { Slots:SeekerSettingsSlot[] }
+
+type SeekerResult = 
+    { Branch:BuildingBranch
+      Level:BuildingLevel
+      RegionId:int
+      SlotIndex:int }
+
+type SeekerResultWithWealth =
+    { Wealth:double
+      Result:SeekerResult[] }
 
 let emptyEffect =
     { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }

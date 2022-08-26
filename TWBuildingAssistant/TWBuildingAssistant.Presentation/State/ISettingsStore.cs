@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 
 public interface ISettingsStore
 {
-    Data.FSharp.Models.EffectSet Effect { get; set; }
+    Domain.Models.EffectSet Effect { get; set; }
 
-    Data.FSharp.Models.BuildingLibraryEntry[] BuildingLibrary { get; set; }
+    Domain.Models.BuildingLibraryEntry[] BuildingLibrary { get; set; }
 }

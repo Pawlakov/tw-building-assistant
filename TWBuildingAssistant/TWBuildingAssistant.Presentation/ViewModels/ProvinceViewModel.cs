@@ -26,7 +26,7 @@ public class ProvinceViewModel
         this.provinceStore = provinceStore;
         this.configuration = configuration;
 
-        var province = Data.FSharp.Province.getProvince(this.configuration.GetSettings().ProvinceId);
+        var province = Domain.Province.getProvince(this.configuration.GetSettings().ProvinceId);
         this.ProvinceName = province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in province.Regions)
@@ -77,10 +77,10 @@ public class ProvinceViewModel
         this.provinceStore.SeekerSettings = this.Regions
             .Select(x =>
             {
-                return new Data.FSharp.Models.SeekerSettingsRegion(
+                return new Domain.Models.SeekerSettingsRegion(
                     x.Slots
                         .Where(y => y.SelectedBuildingBranch.Id > 0 || y.Selected)
-                        .Select(y => new Data.FSharp.Models.SeekerSettingsSlot(y.Selected ? Microsoft.FSharp.Core.FSharpOption<Data.FSharp.Models.BuildingBranch>.None : y.SelectedBuildingBranch, y.Selected ? Microsoft.FSharp.Core.FSharpOption<Data.FSharp.Models.BuildingLevel>.None : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex))
+                        .Select(y => new Domain.Models.SeekerSettingsSlot(y.Selected ? Microsoft.FSharp.Core.FSharpOption<Domain.Models.BuildingBranch>.None : y.SelectedBuildingBranch, y.Selected ? Microsoft.FSharp.Core.FSharpOption<Domain.Models.BuildingLevel>.None : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex))
                         .ToArray());
             })
             .ToArray();
@@ -90,7 +90,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = Data.FSharp.State.getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings(), this.settingsStore.Effect);
+        var state = Domain.State.getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings(), this.settingsStore.Effect);
         var builder = new StringBuilder();
         builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
         builder.AppendLine($"Food: {state.Food}");

@@ -6,7 +6,7 @@ using TWBuildingAssistant.Presentation.State;
 public class RegionViewModel 
     : ViewModel
 {
-    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, Data.FSharp.Models.Region region)
+    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, Domain.Models.Region region)
     {
         this.Slots = new ObservableCollection<SlotViewModel>();
         var slotIndex = 0;

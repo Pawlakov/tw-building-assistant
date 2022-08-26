@@ -13,8 +13,8 @@ public static class DbContextHostBuilderExtensions
     {
         host.ConfigureServices((context, services) =>
         {
-            string connectionString = context.Configuration.GetConnectionString("sqlite");
-            Action<DbContextOptionsBuilder> configureDbContext = o => o.UseSqlite(connectionString);
+            string connectionString = context.Configuration.GetConnectionString("sqlserver");
+            Action<DbContextOptionsBuilder> configureDbContext = o => o.UseSqlServer(connectionString);
 
             services.AddDbContext<DatabaseContext>(configureDbContext);
             services.AddSingleton<DatabaseContextFactory>(new DatabaseContextFactory(configureDbContext));

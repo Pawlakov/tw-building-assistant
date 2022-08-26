@@ -1,4 +1,4 @@
-﻿module TWBuildingAssistant.Data.FSharp.Seeker
+﻿module TWBuildingAssistant.Domain.Seeker
 
 open Models
 open State

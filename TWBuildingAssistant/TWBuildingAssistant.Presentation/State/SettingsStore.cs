@@ -5,7 +5,7 @@ using System.Collections.Immutable;
 public class SettingsStore
     : ISettingsStore
 {
-    public Data.FSharp.Models.EffectSet Effect { get; set; }
+    public Domain.Models.EffectSet Effect { get; set; }
 
-    public Data.FSharp.Models.BuildingLibraryEntry[] BuildingLibrary { get; set; }
+    public Domain.Models.BuildingLibraryEntry[] BuildingLibrary { get; set; }
 }

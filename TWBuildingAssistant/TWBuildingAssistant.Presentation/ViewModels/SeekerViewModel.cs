@@ -118,7 +118,7 @@ public class SeekerViewModel
                 await Task.CompletedTask;
             }
 
-            var seekerResults = Data.FSharp.Seeker.seek(
+            var seekerResults = Domain.Seeker.seek(
                 this.configuration.GetSettings(),
                 this.settingsStore.Effect,
                 this.settingsStore.BuildingLibrary,
@@ -153,7 +153,7 @@ public class SeekerViewModel
         return !this.processing;
     }
 
-    private bool MinimalCondition(Data.FSharp.Models.ProvinceState state)
+    private bool MinimalCondition(Domain.Models.ProvinceState state)
     {
         if (state.Food < 0)
         {

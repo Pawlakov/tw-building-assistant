@@ -24,16 +24,16 @@ public class SettingsViewModel
         this.settingsStore = settingsStore;
         this.configuration = configuration;
 
-        var options = Data.FSharp.Settings.getOptions();
-        this.Religions = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Religions);
-        this.Provinces = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Provinces);
-        this.Factions = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Factions);
+        var options = Domain.Settings.getOptions();
+        this.Religions = new ObservableCollection<Domain.Models.NamedId>(options.Religions);
+        this.Provinces = new ObservableCollection<Domain.Models.NamedId>(options.Provinces);
+        this.Factions = new ObservableCollection<Domain.Models.NamedId>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Weathers);
-        this.Seasons = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Seasons);
-        this.Difficulties = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Difficulties);
-        this.Taxes = new ObservableCollection<Data.FSharp.Models.NamedId>(options.Taxes);
+        this.Weathers = new ObservableCollection<Domain.Models.NamedId>(options.Weathers);
+        this.Seasons = new ObservableCollection<Domain.Models.NamedId>(options.Seasons);
+        this.Difficulties = new ObservableCollection<Domain.Models.NamedId>(options.Difficulties);
+        this.Taxes = new ObservableCollection<Domain.Models.NamedId>(options.Taxes);
 
         var settings = this.configuration.GetSettings();
         if (settings == null)
@@ -76,9 +76,9 @@ public class SettingsViewModel
         this.NextCommand = new AsyncRelayCommand(this.Next);
     }
 
-    public ObservableCollection<Data.FSharp.Models.NamedId> Religions { get; set; }
+    public ObservableCollection<Domain.Models.NamedId> Religions { get; set; }
 
-    public Data.FSharp.Models.NamedId SelectedReligion
+    public Domain.Models.NamedId SelectedReligion
     {
         get => this.Religions.FirstOrDefault(x => x.Id == this.settings.ReligionId);
         set
@@ -91,9 +91,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Data.FSharp.Models.NamedId> Provinces { get; set; }
+    public ObservableCollection<Domain.Models.NamedId> Provinces { get; set; }
 
-    public Data.FSharp.Models.NamedId SelectedProvince
+    public Domain.Models.NamedId SelectedProvince
     {
         get => this.Provinces.FirstOrDefault(x => x.Id == this.settings.ProvinceId);
         set
@@ -106,9 +106,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Data.FSharp.Models.NamedId> Factions { get; set; }
+    public ObservableCollection<Domain.Models.NamedId> Factions { get; set; }
 
-    public Data.FSharp.Models.NamedId SelectedFaction
+    public Domain.Models.NamedId SelectedFaction
     {
         get => this.Factions.FirstOrDefault(x => x.Id == this.settings.FactionId);
         set
@@ -164,9 +164,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Data.FSharp.Models.NamedId> Weathers { get; set; }
+    public ObservableCollection<Domain.Models.NamedId> Weathers { get; set; }
 
-    public Data.FSharp.Models.NamedId SelectedWeather
+    public Domain.Models.NamedId SelectedWeather
     {
         get => this.Weathers.FirstOrDefault(x => x.Id == this.settings.WeatherId);
         set
@@ -179,9 +179,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Data.FSharp.Models.NamedId> Seasons { get; set; }
+    public ObservableCollection<Domain.Models.NamedId> Seasons { get; set; }
 
-    public Data.FSharp.Models.NamedId SelectedSeason
+    public Domain.Models.NamedId SelectedSeason
     {
         get => this.Seasons.FirstOrDefault(x => x.Id == this.settings.SeasonId);
         set
@@ -194,9 +194,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Data.FSharp.Models.NamedId> Difficulties { get; set; }
+    public ObservableCollection<Domain.Models.NamedId> Difficulties { get; set; }
 
-    public Data.FSharp.Models.NamedId SelectedDifficulty
+    public Domain.Models.NamedId SelectedDifficulty
     {
         get => this.Difficulties.FirstOrDefault(x => x.Id == this.settings.DifficultyId);
         set
@@ -209,9 +209,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Data.FSharp.Models.NamedId> Taxes { get; set; }
+    public ObservableCollection<Domain.Models.NamedId> Taxes { get; set; }
 
-    public Data.FSharp.Models.NamedId SelectedTax
+    public Domain.Models.NamedId SelectedTax
     {
         get => this.Taxes.FirstOrDefault(x => x.Id == this.settings.TaxId);
         set
@@ -272,11 +272,11 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        var settings = new Data.FSharp.Models.Settings(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.CorruptionRate, this.settings.PiracyRate);
+        var settings = new Domain.Models.Settings(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.CorruptionRate, this.settings.PiracyRate);
         this.configuration.SetSettings(settings);
 
-        this.settingsStore.Effect = Data.FSharp.Effects.getStateFromSettings(settings);
-        this.settingsStore.BuildingLibrary = Data.FSharp.Buildings.getBuildingLibrary(settings);
+        this.settingsStore.Effect = Domain.Effects.getStateFromSettings(settings);
+        this.settingsStore.BuildingLibrary = Domain.Buildings.getBuildingLibrary(settings);
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

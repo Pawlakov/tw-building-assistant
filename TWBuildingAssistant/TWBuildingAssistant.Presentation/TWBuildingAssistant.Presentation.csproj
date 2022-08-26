@@ -65,7 +65,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TWBuildingAssistant.Data.FSharp\TWBuildingAssistant.Data.FSharp.fsproj" />
+    <ProjectReference Include="..\TWBuildingAssistant.Domain\TWBuildingAssistant.Domain.fsproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Views\ProvinceView.xaml.cs">

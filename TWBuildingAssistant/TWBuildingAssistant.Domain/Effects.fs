@@ -1,4 +1,4 @@
-﻿module TWBuildingAssistant.Data.FSharp.Effects
+﻿module TWBuildingAssistant.Domain.Effects
 
 open FSharp.Data.Sql
 open Database

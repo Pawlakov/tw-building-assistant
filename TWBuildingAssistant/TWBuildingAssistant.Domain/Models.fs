@@ -1,4 +1,4 @@
-﻿module TWBuildingAssistant.Data.FSharp.Models
+﻿module TWBuildingAssistant.Domain.Models
 
 type NamedId = 
     { Id:int

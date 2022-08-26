@@ -1,4 +1,4 @@
-﻿module TWBuildingAssistant.Data.FSharp.Database
+﻿module TWBuildingAssistant.Domain.Database
 
 open FSharp.Data.Sql
 

@@ -8,13 +8,13 @@ public class ProvinceStore
 {
     public ProvinceStore()
     {
-        this.BuildingLevels = new Dictionary<(int RegionId, int SlotIndex), (Data.FSharp.Models.BuildingBranch BuildingBranch, Data.FSharp.Models.BuildingLevel BuildingLevel)>();
-        this.SeekerResults = new List<Data.FSharp.Models.SeekerResult>();
+        this.BuildingLevels = new Dictionary<(int RegionId, int SlotIndex), (Domain.Models.BuildingBranch BuildingBranch, Domain.Models.BuildingLevel BuildingLevel)>();
+        this.SeekerResults = new List<Domain.Models.SeekerResult>();
     }
 
-    public Dictionary<(int RegionId, int SlotIndex), (Data.FSharp.Models.BuildingBranch BuildingBranch, Data.FSharp.Models.BuildingLevel BuildingLevel)> BuildingLevels { get; }
+    public Dictionary<(int RegionId, int SlotIndex), (Domain.Models.BuildingBranch BuildingBranch, Domain.Models.BuildingLevel BuildingLevel)> BuildingLevels { get; }
 
-    public Data.FSharp.Models.SeekerSettingsRegion[] SeekerSettings { get; set; }
+    public Domain.Models.SeekerSettingsRegion[] SeekerSettings { get; set; }
 
-    public List<Data.FSharp.Models.SeekerResult> SeekerResults { get; }
+    public List<Domain.Models.SeekerResult> SeekerResults { get; }
 }

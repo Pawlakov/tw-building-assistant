@@ -3,6 +3,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
 
 public class SlotViewModel
@@ -11,12 +12,12 @@ public class SlotViewModel
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
 
-    private Domain.Models.BuildingBranch selectedBuildingBranch;
-    private Domain.Models.BuildingLevel selectedBuildingLevel;
+    private Buildings.BuildingBranch selectedBuildingBranch;
+    private Buildings.BuildingLevel selectedBuildingLevel;
 
     private bool selected;
 
-    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, Domain.Models.SlotDescriptor descriptor)
+    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, Province.SlotDescriptor descriptor)
     {
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
@@ -26,7 +27,7 @@ public class SlotViewModel
         this.Descriptor = descriptor;
 
         this.selected = false;
-        this.BuildingBranches = new ObservableCollection<Domain.Models.BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor.Equals(descriptor)).BuildingBranches);
+        this.BuildingBranches = new ObservableCollection<Buildings.BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor.Equals(descriptor)).BuildingBranches);
         if (this.provinceStore.BuildingLevels.ContainsKey((this.RegionId, this.SlotIndex)))
         {
             var fromStore = this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)];
@@ -35,7 +36,7 @@ public class SlotViewModel
                 var matchingBranches = this.BuildingBranches.Where(x => x == fromStore.BuildingBranch);
                 this.selectedBuildingBranch = matchingBranches.Single(x => x.Levels.Any(y => y == fromStore.BuildingLevel));
 
-                this.BuildingLevels = new ObservableCollection<Domain.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
+                this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
                 if (this.BuildingLevels.Any(x => x == fromStore.BuildingLevel))
                 {
                     this.selectedBuildingLevel = this.BuildingLevels.Single(x => x == fromStore.BuildingLevel);
@@ -48,14 +49,14 @@ public class SlotViewModel
             else
             {
                 this.selectedBuildingBranch = this.BuildingBranches[0];
-                this.BuildingLevels = new ObservableCollection<Domain.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
+                this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
                 this.selectedBuildingLevel = this.BuildingLevels[0];
             }
         }
         else
         {
             this.selectedBuildingBranch = this.BuildingBranches[0];
-            this.BuildingLevels = new ObservableCollection<Domain.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
+            this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
             this.selectedBuildingLevel = this.BuildingLevels[0];
         }
 
@@ -63,7 +64,7 @@ public class SlotViewModel
         if (correspondingResult != default)
         {
             this.selectedBuildingBranch = correspondingResult.Branch;
-            this.BuildingLevels = new ObservableCollection<Domain.Models.BuildingLevel>(this.selectedBuildingBranch.Levels);
+            this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
             this.selectedBuildingLevel = correspondingResult.Level;
 
             this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch, this.selectedBuildingLevel);
@@ -74,11 +75,11 @@ public class SlotViewModel
 
     public event EventHandler BuildingChanged;
 
-    public ObservableCollection<Domain.Models.BuildingBranch> BuildingBranches { get; }
+    public ObservableCollection<Buildings.BuildingBranch> BuildingBranches { get; }
 
-    public ObservableCollection<Domain.Models.BuildingLevel> BuildingLevels { get; }
+    public ObservableCollection<Buildings.BuildingLevel> BuildingLevels { get; }
 
-    public Domain.Models.BuildingBranch SelectedBuildingBranch
+    public Buildings.BuildingBranch SelectedBuildingBranch
     {
         get => this.selectedBuildingBranch;
         set
@@ -104,7 +105,7 @@ public class SlotViewModel
         }
     }
 
-    public Domain.Models.BuildingLevel SelectedBuildingLevel
+    public Buildings.BuildingLevel SelectedBuildingLevel
     {
         get => this.selectedBuildingLevel;
         set
@@ -121,7 +122,7 @@ public class SlotViewModel
         }
     }
 
-    public Domain.Models.SlotDescriptor Descriptor { get; init; }
+    public Province.SlotDescriptor Descriptor { get; init; }
 
     public int RegionId { get; init; }
 

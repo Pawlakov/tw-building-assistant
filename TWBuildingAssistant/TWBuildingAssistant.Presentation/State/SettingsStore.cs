@@ -1,11 +1,11 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
-using System.Collections.Immutable;
+using TWBuildingAssistant.Domain;
 
 public class SettingsStore
     : ISettingsStore
 {
-    public Domain.Models.EffectSet Effect { get; set; }
+    public Effects.EffectSet Effect { get; set; }
 
-    public Domain.Models.BuildingLibraryEntry[] BuildingLibrary { get; set; }
+    public Buildings.BuildingLibraryEntry[] BuildingLibrary { get; set; }
 }

@@ -2,7 +2,33 @@
 
 open FSharp.Data.Sql
 open Database
-open Models
+
+type RegionType =
+    | City
+    | Town
+
+type SlotType =
+    | Main
+    | Coastal
+    | General
+
+type SlotDescriptor =
+    { SlotType:SlotType
+      RegionType:RegionType
+      ResourceId:int option }
+
+type Region =
+    { Id:int
+      Name:string
+      RegionType:RegionType
+      ResourceId:int option
+      ResourceName: string option
+      Slots:SlotDescriptor[] }
+
+type Province =
+    { Id:int 
+      Name:string
+      Regions:Region[] }
 
 let getRegionType intValue =
     match intValue with

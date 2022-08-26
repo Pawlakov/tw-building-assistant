@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 
@@ -153,7 +154,7 @@ public class SeekerViewModel
         return !this.processing;
     }
 
-    private bool MinimalCondition(Domain.Models.ProvinceState state)
+    private bool MinimalCondition(State.ProvinceState state)
     {
         if (state.Food < 0)
         {

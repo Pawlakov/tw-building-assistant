@@ -1,12 +1,13 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
 using System.Collections.ObjectModel;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
 
 public class RegionViewModel 
     : ViewModel
 {
-    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, Domain.Models.Region region)
+    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, Province.Region region)
     {
         this.Slots = new ObservableCollection<SlotViewModel>();
         var slotIndex = 0;

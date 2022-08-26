@@ -2,8 +2,30 @@
 
 open FSharp.Data.Sql
 open Database
-open Models
 open Effects
+open Province
+open Settings
+
+type BuildingLevel =
+    { Id:int
+      Name:string
+      EffectSet:EffectSet }
+
+type BuildingBranch =
+    { Id:int
+      Name:string
+      Interesting:bool
+      Levels:BuildingLevel[] }
+
+type BuildingLibraryEntry =
+    { Descriptor:SlotDescriptor
+      BuildingBranches:BuildingBranch[] }
+
+let emptyBuildingLevel =
+    { Id = 0; Name = "Empty"; EffectSet = emptyEffectSet }
+
+let emptyBuildingBranch =
+    { Id = 0; Name = "Empty"; Interesting = true; Levels = [|emptyBuildingLevel|]}
 
 let getUnlockedBuildingLevelIds (ctx:sql.dataContext) settings =
     let techIds =

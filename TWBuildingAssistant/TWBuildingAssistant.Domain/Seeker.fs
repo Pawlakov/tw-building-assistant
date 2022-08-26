@@ -1,7 +1,41 @@
 ﻿module TWBuildingAssistant.Domain.Seeker
 
-open Models
+open Buildings
+open Province
 open State
+
+type CalculationSlot =
+    { Descriptor:SlotDescriptor
+      Branch:BuildingBranch option
+      Level:BuildingLevel option
+      RegionId:int
+      SlotIndex:int }
+
+type CombinationTaskRegion = 
+    { Slots:CalculationSlot[] }
+
+type CombinationTask = 
+    { Regions:CombinationTaskRegion[] }
+
+type SeekerSettingsSlot = 
+    { Branch:BuildingBranch option
+      Level:BuildingLevel option
+      Descriptor:SlotDescriptor
+      RegionId:int
+      SlotIndex:int }
+
+type SeekerSettingsRegion = 
+    { Slots:SeekerSettingsSlot[] }
+
+type SeekerResult = 
+    { Branch:BuildingBranch
+      Level:BuildingLevel
+      RegionId:int
+      SlotIndex:int }
+
+type SeekerResultWithWealth =
+    { Wealth:double
+      Result:SeekerResult[] }
 
 let getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionSeekerSettings =
     let simulationSlots = 
@@ -24,7 +58,7 @@ let getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionS
             | Some level ->
                 recursiveSeek (slotIndex + 1) (combination |> Array.append [|slot|])
             | None ->
-                let branchFilter branch =
+                let branchFilter (branch:BuildingBranch) =
                     match (branch.Id, branch.Interesting) with
                     | _, false -> false
                     | 0, _ -> true

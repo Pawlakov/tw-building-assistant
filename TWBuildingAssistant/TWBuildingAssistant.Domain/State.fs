@@ -1,8 +1,21 @@
 ﻿module TWBuildingAssistant.Domain.State
 
 open FSharp.Data.Sql
+open Buildings
 open Effects
-open Models
+open Settings
+
+type RegionState = 
+    { Sanitation:int }
+
+type ProvinceState = 
+    { Regions:RegionState[]
+      Food:int
+      PublicOrder:int
+      ReligiousOsmosis:int
+      ResearchRate:int
+      Growth:int
+      Wealth:float }
 
 let getStateFromBuildings buildings =
     let regionalEffects = 

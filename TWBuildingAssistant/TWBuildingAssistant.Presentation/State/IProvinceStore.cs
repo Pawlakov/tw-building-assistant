@@ -1,12 +1,13 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
 using System.Collections.Generic;
+using TWBuildingAssistant.Domain;
 
 public interface IProvinceStore
 {
-    Dictionary<(int RegionId, int SlotIndex), (Domain.Models.BuildingBranch BuildingBranch, Domain.Models.BuildingLevel BuildingLevel)> BuildingLevels { get; }
+    Dictionary<(int RegionId, int SlotIndex), (Buildings.BuildingBranch BuildingBranch, Buildings.BuildingLevel BuildingLevel)> BuildingLevels { get; }
 
-    Domain.Models.SeekerSettingsRegion[] SeekerSettings { get; set; }
+    Seeker.SeekerSettingsRegion[] SeekerSettings { get; set; }
 
-    List<Domain.Models.SeekerResult> SeekerResults { get; }
+    List<Seeker.SeekerResult> SeekerResults { get; }
 }

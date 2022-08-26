@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 
@@ -77,10 +78,10 @@ public class ProvinceViewModel
         this.provinceStore.SeekerSettings = this.Regions
             .Select(x =>
             {
-                return new Domain.Models.SeekerSettingsRegion(
+                return new Seeker.SeekerSettingsRegion(
                     x.Slots
                         .Where(y => y.SelectedBuildingBranch.Id > 0 || y.Selected)
-                        .Select(y => new Domain.Models.SeekerSettingsSlot(y.Selected ? Microsoft.FSharp.Core.FSharpOption<Domain.Models.BuildingBranch>.None : y.SelectedBuildingBranch, y.Selected ? Microsoft.FSharp.Core.FSharpOption<Domain.Models.BuildingLevel>.None : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex))
+                        .Select(y => new Seeker.SeekerSettingsSlot(y.Selected ? Microsoft.FSharp.Core.FSharpOption<Buildings.BuildingBranch>.None : y.SelectedBuildingBranch, y.Selected ? Microsoft.FSharp.Core.FSharpOption<Buildings.BuildingLevel>.None : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex))
                         .ToArray());
             })
             .ToArray();

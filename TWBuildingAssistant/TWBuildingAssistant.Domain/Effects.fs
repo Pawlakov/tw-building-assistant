@@ -2,7 +2,54 @@
 
 open FSharp.Data.Sql
 open Database
-open Models
+open Settings
+
+type Effect =
+    { PublicOrder:int
+      RegularFood:int
+      FertilityDependentFood:int
+      ProvincialSanitation:int
+      ResearchRate:int
+      Growth:int
+      Fertility:int
+      ReligiousOsmosis:int
+      RegionalSanitation:int }
+
+type IncomeCategory =
+    | Agriculture
+    | Husbandry
+    | Culture
+    | Industry
+    | LocalCommerce
+    | MaritimeCommerce
+    | Subsistence
+    | Maintenance
+
+type IncomeType =
+    | Simple
+    | Percentage
+    | FertilityDependent
+
+type Income =
+    { Category:IncomeCategory option
+      Simple:int
+      Percentage:int
+      FertilityDependent:int }
+
+type Influence =
+    { ReligionId:int option
+      Value:int }
+
+type EffectSet =
+    { Effect:Effect
+      Incomes:Income list
+      Influences:Influence list }
+
+let emptyEffect =
+    { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
+
+let emptyEffectSet =
+    { Effect = emptyEffect; Incomes = []; Influences = [] }
 
 let getIncomeCategory intValue =
     match intValue with

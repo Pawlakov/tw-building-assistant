@@ -2,7 +2,33 @@
 
 open FSharp.Data.Sql
 open Database
-open Models
+
+type NamedId = 
+    { Id:int
+      Name:string }
+
+type OptionSet =
+    { Provinces:NamedId list
+      Weathers:NamedId list
+      Seasons:NamedId list
+      Religions:NamedId list
+      Factions:NamedId list
+      Difficulties:NamedId list
+      Taxes:NamedId list }
+
+type Settings =
+    { ProvinceId:int
+      FertilityDrop:int 
+      TechnologyTier:int 
+      UseAntilegacyTechnologies:bool 
+      ReligionId:int
+      FactionId:int
+      WeatherId:int
+      SeasonId:int
+      DifficultyId:int
+      TaxId:int
+      CorruptionRate:int
+      PiracyRate:int }
 
 let getProvinceOptions (ctx:sql.dataContext) =
     let query =

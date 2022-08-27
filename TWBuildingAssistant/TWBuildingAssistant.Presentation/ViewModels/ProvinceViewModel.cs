@@ -92,7 +92,7 @@ public class ProvinceViewModel
     {
         var state = State.getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings(), this.settingsStore.Effect);
         var provinceBuilder = new StringBuilder();
-        provinceBuilder.AppendLine($"Food: {state.Food}");
+        provinceBuilder.AppendLine($"Total Food: {state.TotalFood}");
         provinceBuilder.AppendLine($"Public Order: {state.PublicOrder}");
         provinceBuilder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");
         provinceBuilder.AppendLine($"Research Rate: +{state.ResearchRate}%");
@@ -104,6 +104,7 @@ public class ProvinceViewModel
         {
             var regionBuilder = new StringBuilder();
             regionBuilder.AppendLine($"Sanitation: {region.Sanitation}");
+            regionBuilder.AppendLine($"Food: {region.Food}");
             regionBuilder.AppendLine($"Wealth: {region.Wealth}");
             regionBuilder.AppendLine($"Maintenance: {region.Maintenance}");
             this.Regions[i++].Performance = regionBuilder.ToString();

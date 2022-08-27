@@ -156,7 +156,7 @@ public class SeekerViewModel
 
     private bool MinimalCondition(State.ProvinceState state)
     {
-        if (state.Food < 0)
+        if (state.TotalFood < 0)
         {
             return false;
         }

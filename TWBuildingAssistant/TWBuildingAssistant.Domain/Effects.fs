@@ -6,14 +6,18 @@ open Settings
 
 type Effect =
     { PublicOrder:int
-      RegularFood:int
-      FertilityDependentFood:int
-      ProvincialSanitation:int
+      Food:int
+      Sanitation:int
       ResearchRate:int
       Growth:int
       Fertility:int
-      ReligiousOsmosis:int
-      RegionalSanitation:int }
+      ReligiousOsmosis:int }
+
+type LocalEffect =
+    { Maintenance:int
+      Food:int
+      FoodFromFertility:int
+      Sanitation:int }
 
 type IncomeCategory =
     | Agriculture
@@ -56,11 +60,21 @@ type EffectSet =
       Bonuses:Bonus list
       Influences:Influence list }
 
+type LocalEffectSet =
+    { LocalEffect:LocalEffect
+      Incomes:Income list }
+
 let emptyEffect =
-    { PublicOrder = 0; RegularFood = 0; FertilityDependentFood = 0; ProvincialSanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; RegionalSanitation = 0 }
+    { PublicOrder = 0; Food = 0; Sanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0 }
+
+let emptyLocalEffect =
+    { Maintenance = 0; Food = 0; FoodFromFertility = 0; Sanitation = 0 }
 
 let emptyEffectSet =
     { Effect = emptyEffect; Bonuses = []; Influences = [] }
+
+let emptyLocalEffectSet =
+    { LocalEffect = emptyLocalEffect; Incomes = [] }
 
 let getIncomeCategory intValue =
     match intValue with
@@ -117,14 +131,12 @@ let getEffect (ctx:sql.dataContext) effectId =
             where (effect.Id = effectId)
             select 
                 { PublicOrder = effect.PublicOrder;
-                  RegularFood = effect.RegularFood; 
-                  FertilityDependentFood = effect.FertilityDependentFood;
-                  ProvincialSanitation = effect.ProvincialSanitation;
+                  Food = effect.Food; 
+                  Sanitation = effect.Sanitation;
                   ResearchRate = effect.ResearchRate;
                   Growth = effect.Growth
                   Fertility = effect.Fertility
-                  ReligiousOsmosis = effect.ReligiousOsmosis
-                  RegionalSanitation = effect.RegionalSanitation }
+                  ReligiousOsmosis = effect.ReligiousOsmosis }
             head }
 
     let bonuses =
@@ -150,7 +162,18 @@ let getEffectOption (ctx:sql.dataContext) effectId =
     | None ->
         emptyEffectSet
 
-let getIncomes (ctx:sql.dataContext) buildingLevelId =
+let getLocalEffect (ctx:sql.dataContext) buildingLevelId =
+    let localEffect =
+        query {
+            for buildingLevel in ctx.Dbo.BuildingLevels do
+            where (buildingLevel.Id = buildingLevelId)
+            select 
+                { Maintenance = buildingLevel.Maintenance
+                  Food = buildingLevel.LocalFood
+                  FoodFromFertility = buildingLevel.LocalFoodFromFertility
+                  Sanitation = buildingLevel.LocalSanitation }
+            head }
+
     let incomes =
         query {
             for income in ctx.Dbo.Incomes do
@@ -158,18 +181,16 @@ let getIncomes (ctx:sql.dataContext) buildingLevelId =
         |> Seq.map createIncome
         |> Seq.toList
 
-    incomes
+    { LocalEffect = localEffect; Incomes = incomes }
 
 let collectEffects (effects:Effect list) =
-    { PublicOrder = effects |> List.map (fun x -> x.PublicOrder) |> List.sum;
-      RegularFood = effects |> List.map (fun x -> x.RegularFood) |> List.sum; 
-      FertilityDependentFood = effects |> List.map (fun x -> x.FertilityDependentFood) |> List.sum;
-      ProvincialSanitation = effects |> List.map (fun x -> x.ProvincialSanitation) |> List.sum;
-      ResearchRate = effects |> List.map (fun x -> x.ResearchRate) |> List.sum;
-      Growth = effects |> List.map (fun x -> x.Growth) |> List.sum;
-      Fertility = effects |> List.map (fun x -> x.Fertility) |> List.sum;
-      ReligiousOsmosis = effects |> List.map (fun x -> x.ReligiousOsmosis) |> List.sum;
-      RegionalSanitation = effects |> List.map (fun x -> x.RegionalSanitation) |> List.sum }
+    { PublicOrder = effects |> List.sumBy (fun x -> x.PublicOrder)
+      Food = effects |> List.sumBy (fun x -> x.Food)
+      Sanitation = effects |> List.sumBy (fun x -> x.Sanitation)
+      ResearchRate = effects |> List.sumBy (fun x -> x.ResearchRate)
+      Growth = effects |> List.sumBy (fun x -> x.Growth)
+      Fertility = effects |> List.sumBy (fun x -> x.Fertility)
+      ReligiousOsmosis = effects |> List.sumBy (fun x -> x.ReligiousOsmosis) }
 
 let collectIncomes fertilityLevel bonuses (incomes:Income list) =
     let firstLoop (records, allBonus) (bonus:Bonus) =
@@ -243,6 +264,12 @@ let collectInfluences stateReligionId influences =
 
     let result = 0 - int(System.Math.Floor((750.0 - (percentage * 7.0)) * 0.01))
     result
+
+let collectLocalEffects (localEffects:LocalEffect list) =
+    { Maintenance = localEffects |> List.sumBy (fun x -> x.Maintenance)
+      Food = localEffects |> List.sumBy (fun x -> x.Food)
+      FoodFromFertility = localEffects |> List.sumBy (fun x -> x.FoodFromFertility)
+      Sanitation = localEffects |> List.sumBy (fun x -> x.Sanitation) }
 
 let getFactionwideEffects (ctx:sql.dataContext) factionId =
     let effectId = 
@@ -381,10 +408,10 @@ let collectEffectsSeq effects =
     |> Seq.toList 
     |> collectEffects
 
-let collectIncomesSeq fertilityLevel incomes =
-    incomes 
+let collectLocalEffectsSeq localEffects =
+    localEffects 
     |> Seq.toList 
-    |> collectIncomes fertilityLevel
+    |> collectLocalEffects
 
 let collectInfluencesSeq stateReligionId influences =
     influences 

@@ -14,6 +14,12 @@ public class BuildingLevel
 
     public int Maintenance { get; set; }
 
+    public int LocalFood { get; set; }
+
+    public int LocalFoodFromFertility { get; set; }
+
+    public int LocalSanitation { get; set; }
+
     [ForeignKey(nameof(Parent))]
     public int? ParentBuildingLevelId { get; set; }
 

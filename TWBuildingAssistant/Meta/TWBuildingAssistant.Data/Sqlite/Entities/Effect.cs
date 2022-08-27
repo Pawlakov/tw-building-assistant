@@ -11,11 +11,9 @@ public class Effect
 
     public int PublicOrder { get; set; }
 
-    public int RegularFood { get; set; }
+    public int Food { get; set; }
 
-    public int FertilityDependentFood { get; set; }
-
-    public int ProvincialSanitation { get; set; }
+    public int Sanitation { get; set; }
 
     public int ResearchRate { get; set; }
 
@@ -24,8 +22,6 @@ public class Effect
     public int Fertility { get; set; }
 
     public int ReligiousOsmosis { get; set; }
-
-    public int RegionalSanitation { get; set; }
 
     public BuildingLevel BuildingLevel { get; set; }
 

@@ -392,7 +392,7 @@ let getStateFromSettings settings =
     let taxEffects = getTaxEffect ctx settings.TaxId
     let powerLevelEffects = getPowerLevelEffect ctx settings.PowerLevelId
     let fertilityDropAndCorrputionEffect = 
-        { emptyEffect with Fertility = settings.FertilityDrop; CorruptionRate = -settings.CorruptionRate }
+        { emptyEffect with Fertility = settings.FertilityDrop; CorruptionRate = settings.CorruptionRate }
     let piracyBonus = 
         CategoryBonus { Category = MaritimeCommerce; Value = -settings.PiracyRate }
 

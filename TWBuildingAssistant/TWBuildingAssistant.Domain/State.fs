@@ -14,6 +14,8 @@ type RegionState =
 type ProvinceState = 
     { Regions:RegionState[]
       TotalFood:int
+      TotalWealth:float
+      TotalIncome:float
       PublicOrder:int
       ReligiousOsmosis:int
       ResearchRate:int
@@ -94,8 +96,16 @@ let getState buildings settings predefinedEffectSet =
     let publicOrder = 
         provinceEffectSet.Effect.PublicOrder + collectInfluencesSeq settings.ReligionId provinceEffectSet.Influences
 
+    let totalWealth =
+        Array.sumBy (fun x -> x.Wealth) regionStates
+
+    let totalIncome =
+        totalWealth + Array.sumBy (fun x -> x.Maintenance) regionStates
+
     { Regions = regionStates
       TotalFood = totalFood
+      TotalWealth = totalWealth
+      TotalIncome = totalIncome
       PublicOrder = publicOrder
       ReligiousOsmosis = provinceEffectSet.Effect.ReligiousOsmosis
       ResearchRate = provinceEffectSet.Effect.ResearchRate

@@ -33,8 +33,8 @@ type SeekerResult =
       RegionId:int
       SlotIndex:int }
 
-type SeekerResultWithWealth =
-    { Wealth:double
+type SeekerResultWithIncome =
+    { Income:float
       Result:SeekerResult[] }
 
 type MinimalConditionDelegate = delegate of ProvinceState -> bool
@@ -101,7 +101,7 @@ let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondit
     resetProgress.Invoke combinations.Length
 
     let loop combination =
-        let rec recursiveSeek regionIndex slotIndex combinationResult (combinationRegionResult:SeekerResult list) =
+        let rec recursiveSeek regionIndex slotIndex combinationResult (combinationRegionResult:SeekerResult list) :SeekerResultWithIncome option =
             if (regionIndex < combination.Regions.Length) then
                 if (slotIndex < combination.Regions.[regionIndex].Slots.Length) then
                     let slot = combination.Regions.[regionIndex].Slots.[slotIndex]
@@ -112,7 +112,7 @@ let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondit
                         slotBranch.Levels
                         |> Array.map (fun levelOption -> recursiveSeek regionIndex (slotIndex + 1) combinationResult ({ Branch = slotBranch; Level = levelOption; RegionId = slot.RegionId; SlotIndex = slot.SlotIndex }::combinationRegionResult))
                         |> Array.choose (fun x -> x)
-                        |> Array.sortByDescending (fun x -> x.Wealth)
+                        |> Array.sortByDescending (fun x -> x.Income)
                         |> Array.tryHead
                     | Some slotBranch, Some slotLevel ->
                         recursiveSeek regionIndex (slotIndex + 1) combinationResult ({ Branch = slotBranch; Level = slotLevel; RegionId = slot.RegionId; SlotIndex = slot.SlotIndex }::combinationRegionResult)
@@ -121,7 +121,7 @@ let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondit
             else
                 let state = getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
                 if (minimalCondition.Invoke state) then
-                    Some { Wealth = state.Regions |> Array.sumBy (fun x -> x.Wealth + x.Maintenance); Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
+                    Some { Income = state.TotalIncome; Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
                 else
                     None
 
@@ -135,7 +135,7 @@ let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondit
         combinations
         |> Array.map loop
         |> Array.choose (fun x -> x)
-        |> Array.sortByDescending (fun x -> x.Wealth)
+        |> Array.sortByDescending (fun x -> x.Income)
         |> Array.tryHead
 
     match bestCombination with

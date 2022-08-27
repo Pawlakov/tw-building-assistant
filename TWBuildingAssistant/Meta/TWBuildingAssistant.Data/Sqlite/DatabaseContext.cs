@@ -51,6 +51,8 @@ public class DatabaseContext
 
     public DbSet<Income> Incomes { get; set; }
 
+    public DbSet<PowerLevel> PowerLevels { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<BuildingBranchUse>()

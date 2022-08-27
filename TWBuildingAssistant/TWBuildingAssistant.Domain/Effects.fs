@@ -11,7 +11,8 @@ type Effect =
       ResearchRate:int
       Growth:int
       Fertility:int
-      ReligiousOsmosis:int }
+      ReligiousOsmosis:int
+      TaxRate:int }
 
 type LocalEffect =
     { Maintenance:int
@@ -65,7 +66,7 @@ type LocalEffectSet =
       Incomes:Income list }
 
 let emptyEffect =
-    { PublicOrder = 0; Food = 0; Sanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0 }
+    { PublicOrder = 0; Food = 0; Sanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; TaxRate = 0 }
 
 let emptyLocalEffect =
     { Maintenance = 0; Food = 0; FoodFromFertility = 0; Sanitation = 0 }
@@ -136,7 +137,8 @@ let getEffect (ctx:sql.dataContext) effectId =
                   ResearchRate = effect.ResearchRate;
                   Growth = effect.Growth
                   Fertility = effect.Fertility
-                  ReligiousOsmosis = effect.ReligiousOsmosis }
+                  ReligiousOsmosis = effect.ReligiousOsmosis
+                  TaxRate = effect.TaxRate }
             head }
 
     let bonuses =
@@ -190,7 +192,8 @@ let collectEffects (effects:Effect list) =
       ResearchRate = effects |> List.sumBy (fun x -> x.ResearchRate)
       Growth = effects |> List.sumBy (fun x -> x.Growth)
       Fertility = effects |> List.sumBy (fun x -> x.Fertility)
-      ReligiousOsmosis = effects |> List.sumBy (fun x -> x.ReligiousOsmosis) }
+      ReligiousOsmosis = effects |> List.sumBy (fun x -> x.ReligiousOsmosis)
+      TaxRate = effects |> List.sumBy (fun x -> x.TaxRate) }
 
 let collectIncomes fertilityLevel bonuses (incomes:Income list) =
     let firstLoop (records, allBonus) (bonus:Bonus) =
@@ -363,6 +366,16 @@ let getTaxEffect (ctx:sql.dataContext) taxId =
 
     effectId |> Option.map (getEffect ctx)
 
+let getPowerLevelEffect (ctx:sql.dataContext) powerLevelId =
+    let effectId = 
+        query {
+            for powerLevel in ctx.Dbo.PowerLevels do
+            where (powerLevel.Id = powerLevelId)
+            select powerLevel.EffectId
+            head }
+
+    effectId |> Option.map (getEffect ctx)
+
 let getStateFromSettings settings =
     let ctx =
         sql.GetDataContext SelectOperations.DatabaseSide
@@ -374,6 +387,7 @@ let getStateFromSettings settings =
     let climateEffects = getClimateEffect ctx settings.ProvinceId settings.SeasonId settings.WeatherId
     let difficultyEffects = getDifficultyEffect ctx settings.DifficultyId
     let taxEffects = getTaxEffect ctx settings.TaxId
+    let powerLevelEffects = getPowerLevelEffect ctx settings.PowerLevelId
     let fertilityDropEffect = 
         { emptyEffect with Fertility = settings.FertilityDrop }
     let corruptionBonus = 
@@ -389,6 +403,7 @@ let getStateFromSettings settings =
           Some climateEffects
           difficultyEffects
           taxEffects
+          powerLevelEffects
           Some { Effect = fertilityDropEffect; Bonuses = [corruptionBonus; piracyBonus]; Influences = []} ]
         |> List.choose (fun x -> x)
 

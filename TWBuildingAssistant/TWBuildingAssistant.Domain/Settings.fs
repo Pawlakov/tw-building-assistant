@@ -14,7 +14,8 @@ type OptionSet =
       Religions:NamedId list
       Factions:NamedId list
       Difficulties:NamedId list
-      Taxes:NamedId list }
+      Taxes:NamedId list
+      PowerLevels:NamedId list }
 
 type Settings =
     { ProvinceId:int
@@ -27,6 +28,7 @@ type Settings =
       SeasonId:int
       DifficultyId:int
       TaxId:int
+      PowerLevelId:int
       CorruptionRate:int
       PiracyRate:int }
 
@@ -105,8 +107,20 @@ let getDifficultyOptions (ctx:sql.dataContext) =
 let getTaxOptions (ctx:sql.dataContext) =
     let query =
         query {
-            for province in ctx.Dbo.Taxes do
-            select { Id = province.Id; Name = province.Name }
+            for tax in ctx.Dbo.Taxes do
+            select { Id = tax.Id; Name = tax.Name }
+        }
+
+    let result =
+        query |> Seq.toList
+
+    result
+
+let getPowerLevelOptions (ctx:sql.dataContext) =
+    let query =
+        query {
+            for powerLevel in ctx.Dbo.PowerLevels do
+            select { Id = powerLevel.Id; Name = powerLevel.Name }
         }
 
     let result =
@@ -118,4 +132,11 @@ let getOptions () =
     let ctx =
         sql.GetDataContext SelectOperations.DatabaseSide
 
-    { Provinces = getProvinceOptions ctx; Weathers = getWeatherOptions ctx; Seasons = getSeasonOptions ctx; Religions = getReligionOptions ctx; Factions = getFactionOptions ctx; Difficulties = getDifficultyOptions ctx; Taxes = getTaxOptions ctx }
+    { Provinces = getProvinceOptions ctx
+      Weathers = getWeatherOptions ctx
+      Seasons = getSeasonOptions ctx
+      Religions = getReligionOptions ctx
+      Factions = getFactionOptions ctx
+      Difficulties = getDifficultyOptions ctx
+      Taxes = getTaxOptions ctx
+      PowerLevels = getPowerLevelOptions ctx }

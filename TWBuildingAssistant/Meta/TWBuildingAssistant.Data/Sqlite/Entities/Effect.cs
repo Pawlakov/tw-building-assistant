@@ -23,25 +23,27 @@ public class Effect
 
     public int ReligiousOsmosis { get; set; }
 
-    public BuildingLevel BuildingLevel { get; set; }
+    public BuildingLevel? BuildingLevel { get; set; }
 
-    public Province Province { get; set; }
+    public Province? Province { get; set; }
 
-    public Religion Religion { get; set; }
+    public Religion? Religion { get; set; }
 
     [InverseProperty(nameof(TechnologyLevel.UniversalEffect))]
-    public TechnologyLevel UniversalTechnologyLevel { get; set; }
+    public TechnologyLevel? UniversalTechnologyLevel { get; set; }
 
     [InverseProperty(nameof(TechnologyLevel.AntilegacyEffect))]
-    public TechnologyLevel AntilegacyTechnologyLevel { get; set; }
+    public TechnologyLevel? AntilegacyTechnologyLevel { get; set; }
 
-    public WeatherEffect WeatherEffect { get; set; }
+    public WeatherEffect? WeatherEffect { get; set; }
 
-    public Faction Faction { get; set; }
+    public Faction? Faction { get; set; }
 
-    public Difficulty Difficulty { get; set; }
+    public Difficulty? Difficulty { get; set; }
 
-    public Tax Tax { get; set; }
+    public Tax? Tax { get; set; }
+
+    public PowerLevel? PowerLevel { get; set; }
 
     public ICollection<Bonus> Bonuses { get; set; }
 

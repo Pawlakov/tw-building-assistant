@@ -34,6 +34,7 @@ public class SettingsViewModel
         this.Seasons = new ObservableCollection<Settings.NamedId>(options.Seasons);
         this.Difficulties = new ObservableCollection<Settings.NamedId>(options.Difficulties);
         this.Taxes = new ObservableCollection<Settings.NamedId>(options.Taxes);
+        this.PowerLevels = new ObservableCollection<Settings.NamedId>(options.PowerLevels);
 
         var settings = this.configuration.GetSettings();
         if (settings == null)
@@ -52,6 +53,7 @@ public class SettingsViewModel
                 ProvinceId = this.Provinces[0].Id,
                 DifficultyId = this.Difficulties[0].Id,
                 TaxId = this.Taxes[0].Id,
+                PowerLevelId = this.PowerLevels[0].Id,
             };
         }
         else
@@ -70,6 +72,7 @@ public class SettingsViewModel
                 ProvinceId = settings.ProvinceId,
                 DifficultyId = settings.DifficultyId,
                 TaxId = settings.TaxId,
+                PowerLevelId = settings.PowerLevelId,
             };
         }
 
@@ -224,6 +227,21 @@ public class SettingsViewModel
         }
     }
 
+    public ObservableCollection<Settings.NamedId> PowerLevels { get; set; }
+
+    public Settings.NamedId SelectedPowerLevel
+    {
+        get => this.PowerLevels.FirstOrDefault(x => x.Id == this.settings.PowerLevelId);
+        set
+        {
+            if (this.settings.PowerLevelId != value.Id)
+            {
+                this.settings.PowerLevelId = value.Id;
+                this.OnPropertyChanged(nameof(this.SelectedPowerLevel));
+            }
+        }
+    }
+
     public int CorruptionRate
     {
         get => this.settings.CorruptionRate;
@@ -272,7 +290,7 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        var settings = new Settings.Settings(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.CorruptionRate, this.settings.PiracyRate);
+        var settings = new Settings.Settings(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
         this.configuration.SetSettings(settings);
 
         this.settingsStore.Effect = Domain.Effects.getStateFromSettings(settings);

@@ -15,7 +15,13 @@ public static class ConfigurationExtension
     {
         if (configuration.GetSection(SettingsKey).Exists())
         {
-            return configuration.GetSection(SettingsKey).Get<Settings.Settings>();
+            try
+            {
+                return configuration.GetSection(SettingsKey).Get<Settings.Settings>();
+            }
+            catch
+            {
+            }
         }
 
         return null;

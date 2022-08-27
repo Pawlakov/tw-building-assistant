@@ -121,7 +121,7 @@ let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondit
             else
                 let state = getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
                 if (minimalCondition.Invoke state) then
-                    Some { Wealth = state.Regions |> Array.sumBy (fun x -> x.Wealth); Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
+                    Some { Wealth = state.Regions |> Array.sumBy (fun x -> x.Wealth + x.Maintenance); Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
                 else
                     None
 

@@ -4,10 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TWBuildingAssistant.Presentation.Views.RegionView">
-    <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
-        <StackPanel Orientation="Vertical">
-            <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-            <ItemsControl ItemsSource="{Binding Slots}"></ItemsControl>
-        </StackPanel>
-    </Border>
+    <StackPanel Orientation="Vertical">
+        <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
+                <ItemsControl ItemsSource="{Binding Slots}"></ItemsControl>
+            </StackPanel>
+        </Border>
+        <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
+            <TextBlock Width="276" Text="{Binding Performance}"/>
+        </Border>
+    </StackPanel>
 </UserControl>

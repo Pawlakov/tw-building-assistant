@@ -1,6 +1,5 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -59,7 +58,7 @@ public class ProvinceViewModel
             if (this.performance != value)
             {
                 this.performance = value;
-                this.OnPropertyChanged(nameof(this.Performance));
+                this.OnPropertyChanged(nameof(this.performance));
             }
         }
     }
@@ -91,15 +90,23 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = Domain.State.getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings(), this.settingsStore.Effect);
-        var builder = new StringBuilder();
-        builder.AppendLine($"Sanitation: {string.Join("/", state.Regions.Select(x => x.Sanitation.ToString()))}");
-        builder.AppendLine($"Food: {state.Food}");
-        builder.AppendLine($"Public Order: {state.PublicOrder}");
-        builder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");
-        builder.AppendLine($"Research Rate: +{state.ResearchRate}%");
-        builder.AppendLine($"Growth: {state.Growth}");
-        builder.AppendLine($"Wealth: {string.Join("/", state.Regions.Select(x => x.Wealth.ToString()))}");
-        this.Performance = builder.ToString();
+        var state = State.getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings(), this.settingsStore.Effect);
+        var provinceBuilder = new StringBuilder();
+        provinceBuilder.AppendLine($"Food: {state.Food}");
+        provinceBuilder.AppendLine($"Public Order: {state.PublicOrder}");
+        provinceBuilder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");
+        provinceBuilder.AppendLine($"Research Rate: +{state.ResearchRate}%");
+        provinceBuilder.AppendLine($"Growth: {state.Growth}");
+        this.Performance = provinceBuilder.ToString();
+
+        var i = 0;
+        foreach (var region in state.Regions)
+        {
+            var regionBuilder = new StringBuilder();
+            regionBuilder.AppendLine($"Sanitation: {region.Sanitation}");
+            regionBuilder.AppendLine($"Wealth: {region.Wealth}");
+            regionBuilder.AppendLine($"Maintenance: {region.Maintenance}");
+            this.Regions[i++].Performance = regionBuilder.ToString();
+        }
     }
 }

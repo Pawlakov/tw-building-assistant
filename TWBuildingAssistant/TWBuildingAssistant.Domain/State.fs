@@ -7,7 +7,8 @@ open Settings
 
 type RegionState = 
     { Sanitation:int
-      Wealth:float }
+      Wealth:float
+      Maintenance:float }
 
 type ProvinceState = 
     { Regions:RegionState[]
@@ -38,7 +39,7 @@ let getStateFromBuildings buildings =
             regionBuildings 
             |> Seq.collect (fun x -> x.EffectSet.Influences) 
             |> Seq.toList
-        (incomes, { Effect = effect; Bonuses = bonuses; Influences = influences }, float(maintenance))
+        (incomes, { Effect = effect; Bonuses = bonuses; Influences = influences }, maintenance)
 
     buildings
     |> Seq.map getSetFromRegion
@@ -71,7 +72,7 @@ let getState buildings settings predefinedEffect =
 
     let regionStates = 
         regionalEffectSets
-        |> Seq.map (fun (x, y, z) -> { Sanitation = (y.Effect.RegionalSanitation + effect.ProvincialSanitation); Wealth = ((collectIncomes fertility provinceIncomes x) + z) })
+        |> Seq.map (fun (x, y, z) -> { Sanitation = (y.Effect.RegionalSanitation + effect.ProvincialSanitation); Wealth = (collectIncomes fertility provinceIncomes x); Maintenance = float(z) })
         |> Seq.toArray
 
     { Regions = regionStates

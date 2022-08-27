@@ -7,6 +7,8 @@ using TWBuildingAssistant.Presentation.State;
 public class RegionViewModel 
     : ViewModel
 {
+    private string performance;
+
     public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, Province.Region region)
     {
         this.Slots = new ObservableCollection<SlotViewModel>();
@@ -29,4 +31,17 @@ public class RegionViewModel
     public ObservableCollection<SlotViewModel> Slots { get; }
 
     public string Name { get; }
+
+    public string Performance
+    {
+        get => this.performance;
+        set
+        {
+            if (this.performance != value)
+            {
+                this.performance = value;
+                this.OnPropertyChanged(nameof(this.performance));
+            }
+        }
+    }
 }

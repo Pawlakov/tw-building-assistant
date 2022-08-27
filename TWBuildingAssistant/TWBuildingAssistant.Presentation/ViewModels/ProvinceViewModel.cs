@@ -94,6 +94,7 @@ public class ProvinceViewModel
         var provinceBuilder = new StringBuilder();
         provinceBuilder.AppendLine($"Total Wealth: {state.TotalWealth}");
         provinceBuilder.AppendLine($"Tax Rate: {state.TaxRate}%");
+        provinceBuilder.AppendLine($"Corrpution Rate: {state.CorruptionRate}%");
         provinceBuilder.AppendLine($"Total Income: {state.TotalIncome}");
         provinceBuilder.AppendLine($"Total Food: {state.TotalFood}");
         provinceBuilder.AppendLine($"Public Order: {state.PublicOrder}");

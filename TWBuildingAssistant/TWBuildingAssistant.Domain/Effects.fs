@@ -12,7 +12,8 @@ type Effect =
       Growth:int
       Fertility:int
       ReligiousOsmosis:int
-      TaxRate:int }
+      TaxRate:int
+      CorruptionRate:int }
 
 type LocalEffect =
     { Maintenance:int
@@ -66,7 +67,7 @@ type LocalEffectSet =
       Incomes:Income list }
 
 let emptyEffect =
-    { PublicOrder = 0; Food = 0; Sanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; TaxRate = 0 }
+    { PublicOrder = 0; Food = 0; Sanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; TaxRate = 0; CorruptionRate = 0 }
 
 let emptyLocalEffect =
     { Maintenance = 0; Food = 0; FoodFromFertility = 0; Sanitation = 0 }
@@ -138,7 +139,8 @@ let getEffect (ctx:sql.dataContext) effectId =
                   Growth = effect.Growth
                   Fertility = effect.Fertility
                   ReligiousOsmosis = effect.ReligiousOsmosis
-                  TaxRate = effect.TaxRate }
+                  TaxRate = effect.TaxRate
+                  CorruptionRate = effect.CorruptionRate }
             head }
 
     let bonuses =
@@ -193,7 +195,8 @@ let collectEffects (effects:Effect list) =
       Growth = effects |> List.sumBy (fun x -> x.Growth)
       Fertility = effects |> List.sumBy (fun x -> x.Fertility)
       ReligiousOsmosis = effects |> List.sumBy (fun x -> x.ReligiousOsmosis)
-      TaxRate = effects |> List.sumBy (fun x -> x.TaxRate) }
+      TaxRate = effects |> List.sumBy (fun x -> x.TaxRate)
+      CorruptionRate = effects |> List.sumBy (fun x -> x.CorruptionRate) }
 
 let collectIncomes fertilityLevel bonuses (incomes:Income list) =
     let firstLoop (records, allBonus) (bonus:Bonus) =
@@ -388,10 +391,8 @@ let getStateFromSettings settings =
     let difficultyEffects = getDifficultyEffect ctx settings.DifficultyId
     let taxEffects = getTaxEffect ctx settings.TaxId
     let powerLevelEffects = getPowerLevelEffect ctx settings.PowerLevelId
-    let fertilityDropEffect = 
-        { emptyEffect with Fertility = settings.FertilityDrop }
-    let corruptionBonus = 
-        AllBonus -settings.CorruptionRate
+    let fertilityDropAndCorrputionEffect = 
+        { emptyEffect with Fertility = settings.FertilityDrop; CorruptionRate = -settings.CorruptionRate }
     let piracyBonus = 
         CategoryBonus { Category = MaritimeCommerce; Value = -settings.PiracyRate }
 
@@ -404,7 +405,7 @@ let getStateFromSettings settings =
           difficultyEffects
           taxEffects
           powerLevelEffects
-          Some { Effect = fertilityDropEffect; Bonuses = [corruptionBonus; piracyBonus]; Influences = []} ]
+          Some { Effect = fertilityDropAndCorrputionEffect; Bonuses = [piracyBonus]; Influences = []} ]
         |> List.choose (fun x -> x)
 
     let effect =

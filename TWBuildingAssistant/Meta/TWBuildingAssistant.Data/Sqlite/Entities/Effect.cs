@@ -23,6 +23,10 @@ public class Effect
 
     public int ReligiousOsmosis { get; set; }
 
+    public int TaxRate { get; set; }
+
+    public int CorruptionRate { get; set; }
+
     public BuildingLevel? BuildingLevel { get; set; }
 
     public Province? Province { get; set; }

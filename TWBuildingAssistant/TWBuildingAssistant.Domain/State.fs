@@ -16,6 +16,7 @@ type ProvinceState =
       TotalFood:int
       TotalWealth:float
       TaxRate:int
+      CorruptionRate:int
       TotalIncome:float
       PublicOrder:int
       ReligiousOsmosis:int
@@ -101,12 +102,13 @@ let getState buildings settings predefinedEffectSet =
         Array.sumBy (fun x -> x.Wealth) regionStates
 
     let totalIncome =
-        (totalWealth * float(100 + provinceEffectSet.Effect.TaxRate) / 100.0) + Array.sumBy (fun x -> x.Maintenance) regionStates
+        (totalWealth * float(100 + provinceEffectSet.Effect.TaxRate + provinceEffectSet.Effect.CorruptionRate) / 100.0) + Array.sumBy (fun x -> x.Maintenance) regionStates
 
     { Regions = regionStates
       TotalFood = totalFood
       TotalWealth = totalWealth
       TaxRate = provinceEffectSet.Effect.TaxRate
+      CorruptionRate = provinceEffectSet.Effect.CorruptionRate
       TotalIncome = totalIncome
       PublicOrder = publicOrder
       ReligiousOsmosis = provinceEffectSet.Effect.ReligiousOsmosis

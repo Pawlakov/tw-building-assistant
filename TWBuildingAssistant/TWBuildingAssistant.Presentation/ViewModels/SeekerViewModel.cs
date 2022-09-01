@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
+using static TWBuildingAssistant.Domain.Interface;
 
 public class SeekerViewModel
     : ViewModel
@@ -119,12 +120,10 @@ public class SeekerViewModel
                 await Task.CompletedTask;
             }
 
-            var seekerResults = Domain.Seeker.seek(
+            var seekerResults = seek(
                 this.configuration.GetSettings(),
-                this.settingsStore.Effect,
-                this.settingsStore.BuildingLibrary,
                 this.provinceStore.SeekerSettings,
-                this.MinimalCondition,
+                this.MinimalCondition(),
                 ResetProgressBar,
                 IncrementProgressBar);
 
@@ -154,23 +153,8 @@ public class SeekerViewModel
         return !this.processing;
     }
 
-    private bool MinimalCondition(State.ProvinceState state)
+    private MinimalConditionDto MinimalCondition()
     {
-        if (state.TotalFood < 0)
-        {
-            return false;
-        }
-
-        if (this.requireSantitation && state.Regions.Any(x => x.Sanitation < 0))
-        {
-            return false;
-        }
-
-        if (state.PublicOrder < this.minimalPublicOrder)
-        {
-            return false;
-        }
-
-        return true;
+        return new MinimalConditionDto(this.RequireSantitation, true, this.MinimalPublicOrder);
     }
 }

@@ -3,11 +3,11 @@
 open FSharp.Data.Sql
 open Database
 
-type NamedId = 
+type internal NamedId = 
     { Id:int
       Name:string }
 
-type OptionSet =
+type internal OptionSet =
     { Provinces:NamedId list
       Weathers:NamedId list
       Seasons:NamedId list
@@ -17,7 +17,7 @@ type OptionSet =
       Taxes:NamedId list
       PowerLevels:NamedId list }
 
-type Settings =
+type internal Settings =
     { ProvinceId:int
       FertilityDrop:int 
       TechnologyTier:int 
@@ -32,7 +32,7 @@ type Settings =
       CorruptionRate:int
       PiracyRate:int }
 
-let getProvinceOptions (ctx:sql.dataContext) =
+let internal getProvinceOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Provinces do
@@ -44,7 +44,7 @@ let getProvinceOptions (ctx:sql.dataContext) =
 
     result
 
-let getWeatherOptions (ctx:sql.dataContext) =
+let internal getWeatherOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Weathers do
@@ -56,7 +56,7 @@ let getWeatherOptions (ctx:sql.dataContext) =
 
     result
 
-let getSeasonOptions (ctx:sql.dataContext) =
+let internal getSeasonOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Seasons do
@@ -68,7 +68,7 @@ let getSeasonOptions (ctx:sql.dataContext) =
 
     result
 
-let getReligionOptions (ctx:sql.dataContext) =
+let internal getReligionOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Religions do
@@ -80,7 +80,7 @@ let getReligionOptions (ctx:sql.dataContext) =
 
     result
 
-let getFactionOptions (ctx:sql.dataContext) =
+let internal getFactionOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Factions do
@@ -92,7 +92,7 @@ let getFactionOptions (ctx:sql.dataContext) =
 
     result
 
-let getDifficultyOptions (ctx:sql.dataContext) =
+let internal getDifficultyOptions (ctx:sql.dataContext) =
     let query =
         query {
             for province in ctx.Dbo.Difficulties do
@@ -104,7 +104,7 @@ let getDifficultyOptions (ctx:sql.dataContext) =
 
     result
 
-let getTaxOptions (ctx:sql.dataContext) =
+let internal getTaxOptions (ctx:sql.dataContext) =
     let query =
         query {
             for tax in ctx.Dbo.Taxes do
@@ -116,7 +116,7 @@ let getTaxOptions (ctx:sql.dataContext) =
 
     result
 
-let getPowerLevelOptions (ctx:sql.dataContext) =
+let internal getPowerLevelOptions (ctx:sql.dataContext) =
     let query =
         query {
             for powerLevel in ctx.Dbo.PowerLevels do
@@ -128,7 +128,7 @@ let getPowerLevelOptions (ctx:sql.dataContext) =
 
     result
 
-let getOptions () =
+let internal getOptions () =
     let ctx =
         sql.GetDataContext SelectOperations.DatabaseSide
 

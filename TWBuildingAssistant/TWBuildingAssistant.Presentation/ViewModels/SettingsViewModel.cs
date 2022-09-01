@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
+using static TWBuildingAssistant.Domain.Interface;
 
 public class SettingsViewModel
     : ViewModel
@@ -24,17 +25,17 @@ public class SettingsViewModel
         this.settingsStore = settingsStore;
         this.configuration = configuration;
 
-        var options = Settings.getOptions();
-        this.Religions = new ObservableCollection<Settings.NamedId>(options.Religions);
-        this.Provinces = new ObservableCollection<Settings.NamedId>(options.Provinces);
-        this.Factions = new ObservableCollection<Settings.NamedId>(options.Factions);
+        var options = getSettingOptions();
+        this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
+        this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
+        this.Factions = new ObservableCollection<NamedIdDto>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<Settings.NamedId>(options.Weathers);
-        this.Seasons = new ObservableCollection<Settings.NamedId>(options.Seasons);
-        this.Difficulties = new ObservableCollection<Settings.NamedId>(options.Difficulties);
-        this.Taxes = new ObservableCollection<Settings.NamedId>(options.Taxes);
-        this.PowerLevels = new ObservableCollection<Settings.NamedId>(options.PowerLevels);
+        this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
+        this.Seasons = new ObservableCollection<NamedIdDto>(options.Seasons);
+        this.Difficulties = new ObservableCollection<NamedIdDto>(options.Difficulties);
+        this.Taxes = new ObservableCollection<NamedIdDto>(options.Taxes);
+        this.PowerLevels = new ObservableCollection<NamedIdDto>(options.PowerLevels);
 
         var settings = this.configuration.GetSettings();
         if (settings == null)
@@ -79,9 +80,9 @@ public class SettingsViewModel
         this.NextCommand = new AsyncRelayCommand(this.Next);
     }
 
-    public ObservableCollection<Settings.NamedId> Religions { get; set; }
+    public ObservableCollection<NamedIdDto> Religions { get; set; }
 
-    public Settings.NamedId SelectedReligion
+    public NamedIdDto SelectedReligion
     {
         get => this.Religions.FirstOrDefault(x => x.Id == this.settings.ReligionId);
         set
@@ -94,9 +95,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Settings.NamedId> Provinces { get; set; }
+    public ObservableCollection<NamedIdDto> Provinces { get; set; }
 
-    public Settings.NamedId SelectedProvince
+    public NamedIdDto SelectedProvince
     {
         get => this.Provinces.FirstOrDefault(x => x.Id == this.settings.ProvinceId);
         set
@@ -109,9 +110,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Settings.NamedId> Factions { get; set; }
+    public ObservableCollection<NamedIdDto> Factions { get; set; }
 
-    public Settings.NamedId SelectedFaction
+    public NamedIdDto SelectedFaction
     {
         get => this.Factions.FirstOrDefault(x => x.Id == this.settings.FactionId);
         set
@@ -167,9 +168,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Settings.NamedId> Weathers { get; set; }
+    public ObservableCollection<NamedIdDto> Weathers { get; set; }
 
-    public Settings.NamedId SelectedWeather
+    public NamedIdDto SelectedWeather
     {
         get => this.Weathers.FirstOrDefault(x => x.Id == this.settings.WeatherId);
         set
@@ -182,9 +183,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Settings.NamedId> Seasons { get; set; }
+    public ObservableCollection<NamedIdDto> Seasons { get; set; }
 
-    public Settings.NamedId SelectedSeason
+    public NamedIdDto SelectedSeason
     {
         get => this.Seasons.FirstOrDefault(x => x.Id == this.settings.SeasonId);
         set
@@ -197,9 +198,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Settings.NamedId> Difficulties { get; set; }
+    public ObservableCollection<NamedIdDto> Difficulties { get; set; }
 
-    public Settings.NamedId SelectedDifficulty
+    public NamedIdDto SelectedDifficulty
     {
         get => this.Difficulties.FirstOrDefault(x => x.Id == this.settings.DifficultyId);
         set
@@ -212,9 +213,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Settings.NamedId> Taxes { get; set; }
+    public ObservableCollection<NamedIdDto> Taxes { get; set; }
 
-    public Settings.NamedId SelectedTax
+    public NamedIdDto SelectedTax
     {
         get => this.Taxes.FirstOrDefault(x => x.Id == this.settings.TaxId);
         set
@@ -227,9 +228,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<Settings.NamedId> PowerLevels { get; set; }
+    public ObservableCollection<NamedIdDto> PowerLevels { get; set; }
 
-    public Settings.NamedId SelectedPowerLevel
+    public NamedIdDto SelectedPowerLevel
     {
         get => this.PowerLevels.FirstOrDefault(x => x.Id == this.settings.PowerLevelId);
         set
@@ -290,11 +291,10 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        var settings = new Settings.Settings(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
+        var settings = new SettingsDto(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
         this.configuration.SetSettings(settings);
 
-        this.settingsStore.Effect = Domain.Effects.getStateFromSettings(settings);
-        this.settingsStore.BuildingLibrary = Domain.Buildings.getBuildingLibrary(settings);
+        this.settingsStore.BuildingLibrary = getBuildingLibrary(settings);
 
         this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }

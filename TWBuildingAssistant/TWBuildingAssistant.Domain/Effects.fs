@@ -4,7 +4,7 @@ open FSharp.Data.Sql
 open Database
 open Settings
 
-type Effect =
+type internal Effect =
     { PublicOrder:int
       Food:int
       Sanitation:int
@@ -15,13 +15,13 @@ type Effect =
       TaxRate:int
       CorruptionRate:int }
 
-type LocalEffect =
+type internal LocalEffect =
     { Maintenance:int
       Food:int
       FoodFromFertility:int
       Sanitation:int }
 
-type IncomeCategory =
+type internal IncomeCategory =
     | Agriculture
     | Husbandry
     | Culture
@@ -30,55 +30,55 @@ type IncomeCategory =
     | MaritimeCommerce
     | Subsistence
 
-type IncomeValue =
+type internal IncomeValue =
     | Simple of int
     | FertilityDependent of int
 
-type Income =
+type internal Income =
     { Category:IncomeCategory
       Value:IncomeValue }
 
-type CategoryBonus =
+type internal CategoryBonus =
     { Category:IncomeCategory
       Value:int }
 
-type Bonus =
+type internal Bonus =
     | CategoryBonus of CategoryBonus
     | AllBonus of int
 
-type StateReligionInfluence =
+type internal StateReligionInfluence =
     { Value:int }
 
-type SpecificReligionInfluence =
+type internal SpecificReligionInfluence =
     { ReligionId:int
       Value:int }
 
-type Influence =
+type internal Influence =
     | StateReligion of StateReligionInfluence
     | SpecificReligion of SpecificReligionInfluence
 
-type EffectSet =
+type internal EffectSet =
     { Effect:Effect
       Bonuses:Bonus list
       Influences:Influence list }
 
-type LocalEffectSet =
+type internal LocalEffectSet =
     { LocalEffect:LocalEffect
       Incomes:Income list }
 
-let emptyEffect =
+let internal emptyEffect =
     { PublicOrder = 0; Food = 0; Sanitation = 0; ResearchRate = 0; Growth = 0; Fertility = 0; ReligiousOsmosis = 0; TaxRate = 0; CorruptionRate = 0 }
 
-let emptyLocalEffect =
+let internal emptyLocalEffect =
     { Maintenance = 0; Food = 0; FoodFromFertility = 0; Sanitation = 0 }
 
-let emptyEffectSet =
+let internal emptyEffectSet =
     { Effect = emptyEffect; Bonuses = []; Influences = [] }
 
-let emptyLocalEffectSet =
+let internal emptyLocalEffectSet =
     { LocalEffect = emptyLocalEffect; Incomes = [] }
 
-let getIncomeCategory intValue =
+let internal getIncomeCategory intValue =
     match intValue with
     | 1 -> Agriculture
     | 2 -> Husbandry
@@ -89,11 +89,11 @@ let getIncomeCategory intValue =
     | 7 -> Subsistence
     | _ -> failwith "Invalid value"
 
-let getIncomeCategoryOption intValue =
+let internal getIncomeCategoryOption intValue =
     intValue 
     |> Option.map getIncomeCategory
 
-let createIncome (rd:sql.dataContext.``dbo.IncomesEntity``) =  
+let internal createIncome (rd:sql.dataContext.``dbo.IncomesEntity``) =  
     let value = rd.Value 
     let category = rd.Category |> getIncomeCategory
     let isFertilityDependent = rd.IsFertilityDependent
@@ -107,7 +107,7 @@ let createIncome (rd:sql.dataContext.``dbo.IncomesEntity``) =
         | (_, Husbandry) -> { Category = Husbandry; Value = FertilityDependent value }
         | (_, _) -> failwith "Invalid fertility-based income."
 
-let createBonus (rd:sql.dataContext.``dbo.BonusesEntity``) =  
+let internal createBonus (rd:sql.dataContext.``dbo.BonusesEntity``) =  
     let value = rd.Value 
     let category = rd.Category |> getIncomeCategoryOption
 
@@ -115,7 +115,7 @@ let createBonus (rd:sql.dataContext.``dbo.BonusesEntity``) =
     | (_, Some category) -> CategoryBonus { Category = category; Value = value }
     | (_, _) -> AllBonus value
 
-let createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =    
+let internal createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =    
     let religionId = rd.ReligionId
     let value = rd.Value
     match (religionId, value) with
@@ -126,7 +126,7 @@ let createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =
     | (None, _) ->
         StateReligion { Value = value }
 
-let getEffect (ctx:sql.dataContext) effectId =
+let internal getEffect (ctx:sql.dataContext) effectId =
     let effect =
         query {
             for effect in ctx.Dbo.Effects do
@@ -159,14 +159,14 @@ let getEffect (ctx:sql.dataContext) effectId =
 
     { Effect = effect; Bonuses = bonuses; Influences = influences }
 
-let getEffectOption (ctx:sql.dataContext) effectId =
+let internal getEffectOption (ctx:sql.dataContext) effectId =
     match effectId with
     | Some effectId ->
         effectId |> getEffect ctx
     | None ->
         emptyEffectSet
 
-let getLocalEffect (ctx:sql.dataContext) buildingLevelId =
+let internal getLocalEffect (ctx:sql.dataContext) buildingLevelId =
     let localEffect =
         query {
             for buildingLevel in ctx.Dbo.BuildingLevels do
@@ -187,7 +187,7 @@ let getLocalEffect (ctx:sql.dataContext) buildingLevelId =
 
     { LocalEffect = localEffect; Incomes = incomes }
 
-let collectEffects (effects:Effect list) =
+let internal collectEffects (effects:Effect list) =
     { PublicOrder = effects |> List.sumBy (fun x -> x.PublicOrder)
       Food = effects |> List.sumBy (fun x -> x.Food)
       Sanitation = effects |> List.sumBy (fun x -> x.Sanitation)
@@ -198,7 +198,7 @@ let collectEffects (effects:Effect list) =
       TaxRate = effects |> List.sumBy (fun x -> x.TaxRate)
       CorruptionRate = effects |> List.sumBy (fun x -> x.CorruptionRate) }
 
-let collectIncomes fertilityLevel bonuses (incomes:Income list) =
+let internal collectIncomes fertilityLevel bonuses (incomes:Income list) =
     let firstLoop (records, allBonus) (bonus:Bonus) =
         match bonus with
         | AllBonus value ->
@@ -247,7 +247,7 @@ let collectIncomes fertilityLevel bonuses (incomes:Income list) =
 
     total
 
-let collectInfluences stateReligionId influences =
+let internal collectInfluences stateReligionId influences =
     let loop (state, all) (influence:Influence) =
         match influence with
         | StateReligion influence ->
@@ -271,13 +271,13 @@ let collectInfluences stateReligionId influences =
     let result = 0 - int(System.Math.Floor((750.0 - (percentage * 7.0)) * 0.01))
     result
 
-let collectLocalEffects (localEffects:LocalEffect list) =
+let internal collectLocalEffects (localEffects:LocalEffect list) =
     { Maintenance = localEffects |> List.sumBy (fun x -> x.Maintenance)
       Food = localEffects |> List.sumBy (fun x -> x.Food)
       FoodFromFertility = localEffects |> List.sumBy (fun x -> x.FoodFromFertility)
       Sanitation = localEffects |> List.sumBy (fun x -> x.Sanitation) }
 
-let getFactionwideEffects (ctx:sql.dataContext) factionId =
+let internal getFactionwideEffects (ctx:sql.dataContext) factionId =
     let effectId = 
         query {
             for faction in ctx.Dbo.Factions do
@@ -287,7 +287,7 @@ let getFactionwideEffects (ctx:sql.dataContext) factionId =
 
     effectId |> Option.map (getEffect ctx)
 
-let getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier useAntilegacyTechnologies =
+let internal getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier useAntilegacyTechnologies =
     let getEffectOption =
         Option.map (getEffect ctx)
 
@@ -317,7 +317,7 @@ let getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier useAntile
       Bonuses = effects |> List.collect (fun x -> x.Bonuses)
       Influences = effects |> List.collect (fun x -> x.Influences) }
 
-let getReligionEffect (ctx:sql.dataContext) religionId =
+let internal getReligionEffect (ctx:sql.dataContext) religionId =
     let effectId = 
         query {
             for religion in ctx.Dbo.Religions do
@@ -327,7 +327,7 @@ let getReligionEffect (ctx:sql.dataContext) religionId =
 
     effectId |> Option.map (getEffect ctx)
 
-let getProvinceEffect (ctx:sql.dataContext) provinceId =
+let internal getProvinceEffect (ctx:sql.dataContext) provinceId =
     let effectId = 
         query {
             for province in ctx.Dbo.Provinces do
@@ -337,7 +337,7 @@ let getProvinceEffect (ctx:sql.dataContext) provinceId =
 
     effectId |> Option.map (getEffect ctx)
 
-let getClimateEffect (ctx:sql.dataContext) provinceId seasonId weatherId =
+let internal getClimateEffect (ctx:sql.dataContext) provinceId seasonId weatherId =
     let effectId = 
         query {
             for province in ctx.Dbo.Provinces do
@@ -349,7 +349,7 @@ let getClimateEffect (ctx:sql.dataContext) provinceId seasonId weatherId =
 
     effectId |> (getEffect ctx)
 
-let getDifficultyEffect (ctx:sql.dataContext) difficultyId =
+let internal getDifficultyEffect (ctx:sql.dataContext) difficultyId =
     let effectId = 
         query {
             for difficulty in ctx.Dbo.Difficulties do
@@ -359,7 +359,7 @@ let getDifficultyEffect (ctx:sql.dataContext) difficultyId =
 
     effectId |> Option.map (getEffect ctx)
 
-let getTaxEffect (ctx:sql.dataContext) taxId =
+let internal getTaxEffect (ctx:sql.dataContext) taxId =
     let effectId = 
         query {
             for tax in ctx.Dbo.Taxes do
@@ -369,7 +369,7 @@ let getTaxEffect (ctx:sql.dataContext) taxId =
 
     effectId |> Option.map (getEffect ctx)
 
-let getPowerLevelEffect (ctx:sql.dataContext) powerLevelId =
+let internal getPowerLevelEffect (ctx:sql.dataContext) powerLevelId =
     let effectId = 
         query {
             for powerLevel in ctx.Dbo.PowerLevels do
@@ -379,7 +379,7 @@ let getPowerLevelEffect (ctx:sql.dataContext) powerLevelId =
 
     effectId |> Option.map (getEffect ctx)
 
-let getStateFromSettings settings =
+let internal getStateFromSettings settings =
     let ctx =
         sql.GetDataContext SelectOperations.DatabaseSide
 
@@ -419,17 +419,17 @@ let getStateFromSettings settings =
 
     { Effect = effect; Bonuses = bonuses; Influences = influences }
 
-let collectEffectsSeq effects =
+let internal collectEffectsSeq effects =
     effects 
     |> Seq.toList 
     |> collectEffects
 
-let collectLocalEffectsSeq localEffects =
+let internal collectLocalEffectsSeq localEffects =
     localEffects 
     |> Seq.toList 
     |> collectLocalEffects
 
-let collectInfluencesSeq stateReligionId influences =
+let internal collectInfluencesSeq stateReligionId influences =
     influences 
     |> Seq.toList 
     |> collectInfluences stateReligionId

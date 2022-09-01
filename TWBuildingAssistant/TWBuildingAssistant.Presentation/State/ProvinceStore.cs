@@ -3,19 +3,20 @@
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using TWBuildingAssistant.Domain;
+using static TWBuildingAssistant.Domain.Interface;
 
 public class ProvinceStore
     : IProvinceStore
 {
     public ProvinceStore()
     {
-        this.BuildingLevels = new Dictionary<(int RegionId, int SlotIndex), (Buildings.BuildingBranch BuildingBranch, Buildings.BuildingLevel BuildingLevel)>();
-        this.SeekerResults = new List<Seeker.SeekerResult>();
+        this.BuildingLevels = new Dictionary<(int RegionId, int SlotIndex), (int BuildingBranchId, int BuildingLevelId)>();
+        this.SeekerResults = new List<SeekerResultDto>();
     }
 
-    public Dictionary<(int RegionId, int SlotIndex), (Buildings.BuildingBranch BuildingBranch, Buildings.BuildingLevel BuildingLevel)> BuildingLevels { get; }
+    public Dictionary<(int RegionId, int SlotIndex), (int BuildingBranchId, int BuildingLevelId)> BuildingLevels { get; }
 
-    public Seeker.SeekerSettingsRegion[] SeekerSettings { get; set; }
+    public SeekerSettingsRegionDto[] SeekerSettings { get; set; }
 
-    public List<Seeker.SeekerResult> SeekerResults { get; }
+    public List<SeekerResultDto> SeekerResults { get; }
 }

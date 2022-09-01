@@ -3,13 +3,14 @@
 using System.Collections.ObjectModel;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
+using static TWBuildingAssistant.Domain.Interface;
 
 public class RegionViewModel 
     : ViewModel
 {
     private string performance;
 
-    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, Province.Region region)
+    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, RegionDto region)
     {
         this.Slots = new ObservableCollection<SlotViewModel>();
         var slotIndex = 0;

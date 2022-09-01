@@ -5,13 +5,13 @@ open Buildings
 open Effects
 open Settings
 
-type RegionState = 
+type internal RegionState = 
     { Sanitation:int
       Food:int
       Wealth:float
       Maintenance:float }
 
-type ProvinceState = 
+type internal ProvinceState = 
     { Regions:RegionState[]
       TotalFood:int
       TotalWealth:float
@@ -23,7 +23,7 @@ type ProvinceState =
       ResearchRate:int
       Growth:int }
 
-let gatherRegionLocalEffects regionBuildings =
+let internal gatherRegionLocalEffects regionBuildings =
     let localEffect =
         regionBuildings 
         |> Seq.map (fun x -> x.LocalEffectSet.LocalEffect)
@@ -34,7 +34,7 @@ let gatherRegionLocalEffects regionBuildings =
         |> Seq.toList
     { LocalEffect = localEffect; Incomes = incomes }
 
-let gatherEffects buildings predefinedEffect =
+let internal gatherEffects buildings predefinedEffect =
     let provinceBuildings =
         buildings
         |> Seq.collect (fun x -> x)
@@ -59,7 +59,7 @@ let gatherEffects buildings predefinedEffect =
 
     { Effect = effect; Bonuses = bonuses; Influences = influences }
 
-let getRegionState effectSet localEffectSet =
+let internal getRegionState effectSet localEffectSet =
     let sanitation = 
         localEffectSet.LocalEffect.Sanitation + effectSet.Effect.Sanitation
 
@@ -83,7 +83,7 @@ let getRegionState effectSet localEffectSet =
       Wealth = wealth
       Maintenance = maintenance }
 
-let getState buildings settings predefinedEffectSet =
+let internal getState buildings settings predefinedEffectSet =
     let provinceEffectSet = 
         gatherEffects buildings predefinedEffectSet
 

@@ -6,29 +6,29 @@ open Effects
 open Province
 open Settings
 
-type BuildingLevel =
+type internal BuildingLevel =
     { Id:int
       Name:string
       LocalEffectSet:LocalEffectSet
       EffectSet:EffectSet }
 
-type BuildingBranch =
+type internal BuildingBranch =
     { Id:int
       Name:string
       Interesting:bool
       Levels:BuildingLevel[] }
 
-type BuildingLibraryEntry =
+type internal BuildingLibraryEntry =
     { Descriptor:SlotDescriptor
       BuildingBranches:BuildingBranch[] }
 
-let emptyBuildingLevel =
+let internal emptyBuildingLevel =
     { Id = 0; Name = "Empty"; LocalEffectSet = emptyLocalEffectSet; EffectSet = emptyEffectSet }
 
-let emptyBuildingBranch =
+let internal emptyBuildingBranch =
     { Id = 0; Name = "Empty"; Interesting = true; Levels = [|emptyBuildingLevel|]}
 
-let getUnlockedBuildingLevelIds (ctx:sql.dataContext) settings =
+let internal getUnlockedBuildingLevelIds (ctx:sql.dataContext) settings =
     let techIds =
         query {
             for tech in ctx.Dbo.TechnologyLevels do
@@ -54,7 +54,7 @@ let getUnlockedBuildingLevelIds (ctx:sql.dataContext) settings =
 
     unlockedIds |> List.except lockedIds
 
-let getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
+let internal getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
     let usedBranchIds =
         query {
             for branchUse in ctx.Dbo.BuildingBranchUses do
@@ -143,7 +143,7 @@ let getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
 
     { Descriptor = descriptor; BuildingBranches = (finalFinalDictionary |> List.toArray) }
 
-let getBuildingLibrary settings =
+let internal getBuildingLibrary settings =
     let ctx =
         sql.GetDataContext SelectOperations.DatabaseSide
 
@@ -167,3 +167,15 @@ let getBuildingLibrary settings =
         |> List.toArray
 
     results
+
+let internal getBuildingLevel id =
+    let ctx =
+        sql.GetDataContext SelectOperations.DatabaseSide
+
+    let level = 
+        query {
+            for level in ctx.Dbo.BuildingLevels do
+            where (level.Id = id)
+            head }
+
+    { Id = level.Id; Name = level.Name; LocalEffectSet = (level.Id |> getLocalEffect ctx); EffectSet = (level.EffectId |> getEffectOption ctx) }:BuildingLevel

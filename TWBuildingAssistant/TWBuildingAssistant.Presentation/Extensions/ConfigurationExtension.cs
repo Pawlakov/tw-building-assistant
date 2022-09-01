@@ -5,19 +5,20 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using TWBuildingAssistant.Domain;
+using static TWBuildingAssistant.Domain.Interface;
 
 public static class ConfigurationExtension
 {
     private const string CertainValueKey = "CertainValue";
     private const string SettingsKey = "Settings";
 
-    public static Settings.Settings? GetSettings(this IConfiguration configuration)
+    public static SettingsDto? GetSettings(this IConfiguration configuration)
     {
         if (configuration.GetSection(SettingsKey).Exists())
         {
             try
             {
-                return configuration.GetSection(SettingsKey).Get<Settings.Settings>();
+                return configuration.GetSection(SettingsKey).Get<SettingsDto>();
             }
             catch
             {
@@ -33,7 +34,7 @@ public static class ConfigurationExtension
         AddOrUpdateAppSettings(CertainValueKey, value);
     }
 
-    public static void SetSettings(this IConfiguration configuration, Settings.Settings value)
+    public static void SetSettings(this IConfiguration configuration, SettingsDto value)
     {
         configuration[SettingsKey] = JsonConvert.SerializeObject(value);
         AddOrUpdateAppSettings(SettingsKey, (dynamic)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(value)));

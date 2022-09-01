@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
+using static TWBuildingAssistant.Domain.Interface;
 
 public class ProvinceViewModel
     : ViewModel
@@ -26,7 +27,7 @@ public class ProvinceViewModel
         this.provinceStore = provinceStore;
         this.configuration = configuration;
 
-        var province = Domain.Province.getProvince(this.configuration.GetSettings().ProvinceId);
+        var province = getProvince(this.configuration.GetSettings().ProvinceId);
         this.ProvinceName = province.Name;
         this.Regions = new ObservableCollection<RegionViewModel>();
         foreach (var region in province.Regions)
@@ -77,10 +78,10 @@ public class ProvinceViewModel
         this.provinceStore.SeekerSettings = this.Regions
             .Select(x =>
             {
-                return new Seeker.SeekerSettingsRegion(
+                return new SeekerSettingsRegionDto(
                     x.Slots
                         .Where(y => y.SelectedBuildingBranch.Id > 0 || y.Selected)
-                        .Select(y => new Seeker.SeekerSettingsSlot(y.Selected ? Microsoft.FSharp.Core.FSharpOption<Buildings.BuildingBranch>.None : y.SelectedBuildingBranch, y.Selected ? Microsoft.FSharp.Core.FSharpOption<Buildings.BuildingLevel>.None : y.SelectedBuildingLevel, y.Descriptor, y.RegionId, y.SlotIndex))
+                        .Select(y => new SeekerSettingsSlotDto(y.Selected ? Microsoft.FSharp.Core.FSharpOption<int>.None : y.SelectedBuildingBranch.Id, y.Selected ? Microsoft.FSharp.Core.FSharpOption<int>.None : y.SelectedBuildingLevel.Id, y.Descriptor, y.RegionId, y.SlotIndex))
                         .ToArray());
             })
             .ToArray();
@@ -90,7 +91,7 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = State.getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel)), this.configuration.GetSettings(), this.settingsStore.Effect);
+        var state = getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel.Id).ToArray()).ToArray(), this.configuration.GetSettings());
         var provinceBuilder = new StringBuilder();
         provinceBuilder.AppendLine($"Total Wealth: {state.TotalWealth}");
         provinceBuilder.AppendLine($"Tax Rate: {state.TaxRate}%");

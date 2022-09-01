@@ -3,21 +3,21 @@
 open FSharp.Data.Sql
 open Database
 
-type RegionType =
+type internal RegionType =
     | City
     | Town
 
-type SlotType =
+type internal SlotType =
     | Main
     | Coastal
     | General
 
-type SlotDescriptor =
+type internal SlotDescriptor =
     { SlotType:SlotType
       RegionType:RegionType
       ResourceId:int option }
 
-type Region =
+type internal Region =
     { Id:int
       Name:string
       RegionType:RegionType
@@ -25,18 +25,18 @@ type Region =
       ResourceName: string option
       Slots:SlotDescriptor[] }
 
-type Province =
+type internal Province =
     { Id:int 
       Name:string
       Regions:Region[] }
 
-let getRegionType intValue =
+let internal getRegionType intValue =
     match intValue with
     | 0 -> City
     | 1 -> Town
     | _ -> failwith "Invalid value"
 
-let createRegion id name regionType isCoastal resourceId resourceName missingSlot =
+let internal createRegion id name regionType isCoastal resourceId resourceName missingSlot =
     match (id, name) with
     | 0, _ -> failwith "Region without id."
     | _, "" -> failwith "Region without name."
@@ -65,7 +65,7 @@ let createRegion id name regionType isCoastal resourceId resourceName missingSlo
 
         { Id = id; Name = name; RegionType = regionType; ResourceId = resourceId; ResourceName = resourceName; Slots = slots }
 
-let createProvince id name regions =
+let internal createProvince id name regions =
     match (id, name, regions) with
     | 0, _, _ ->
         failwith "Province without id."
@@ -76,7 +76,7 @@ let createProvince id name regions =
     | _ ->
         { Id = id; Name = name; Regions = regions }
 
-let getProvince provinceId =
+let internal getProvince provinceId =
     let ctx =
         sql.GetDataContext SelectOperations.DatabaseSide
 

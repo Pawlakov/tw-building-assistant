@@ -2,12 +2,13 @@
 
 using System.Collections.Generic;
 using TWBuildingAssistant.Domain;
+using static TWBuildingAssistant.Domain.Interface;
 
 public interface IProvinceStore
 {
-    Dictionary<(int RegionId, int SlotIndex), (Buildings.BuildingBranch BuildingBranch, Buildings.BuildingLevel BuildingLevel)> BuildingLevels { get; }
+    Dictionary<(int RegionId, int SlotIndex), (int BuildingBranchId, int BuildingLevelId)> BuildingLevels { get; }
 
-    Seeker.SeekerSettingsRegion[] SeekerSettings { get; set; }
+    SeekerSettingsRegionDto[] SeekerSettings { get; set; }
 
-    List<Seeker.SeekerResult> SeekerResults { get; }
+    List<SeekerResultDto> SeekerResults { get; }
 }

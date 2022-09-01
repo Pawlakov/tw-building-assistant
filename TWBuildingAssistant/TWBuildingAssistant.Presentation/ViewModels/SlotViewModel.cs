@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
+using static TWBuildingAssistant.Domain.Interface;
 
 public class SlotViewModel
     : ViewModel
@@ -12,12 +13,12 @@ public class SlotViewModel
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
 
-    private Buildings.BuildingBranch selectedBuildingBranch;
-    private Buildings.BuildingLevel selectedBuildingLevel;
+    private NamedIdWithItemsDto selectedBuildingBranch;
+    private NamedIdDto selectedBuildingLevel;
 
     private bool selected;
 
-    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, Province.SlotDescriptor descriptor)
+    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, SlotDescriptorDto descriptor)
     {
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
@@ -27,19 +28,19 @@ public class SlotViewModel
         this.Descriptor = descriptor;
 
         this.selected = false;
-        this.BuildingBranches = new ObservableCollection<Buildings.BuildingBranch>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor.Equals(descriptor)).BuildingBranches);
+        this.BuildingBranches = new ObservableCollection<NamedIdWithItemsDto>(this.settingsStore.BuildingLibrary.Single(x => x.Descriptor.Equals(descriptor)).BuildingBranches);
         if (this.provinceStore.BuildingLevels.ContainsKey((this.RegionId, this.SlotIndex)))
         {
             var fromStore = this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)];
-            if (this.BuildingBranches.Any(x => x == fromStore.BuildingBranch))
+            if (this.BuildingBranches.Any(x => x.Id == fromStore.BuildingBranchId))
             {
-                var matchingBranches = this.BuildingBranches.Where(x => x == fromStore.BuildingBranch);
-                this.selectedBuildingBranch = matchingBranches.Single(x => x.Levels.Any(y => y == fromStore.BuildingLevel));
+                var matchingBranches = this.BuildingBranches.Where(x => x.Id == fromStore.BuildingBranchId);
+                this.selectedBuildingBranch = matchingBranches.Single(x => x.Items.Any(y => y.Id == fromStore.BuildingLevelId));
 
-                this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
-                if (this.BuildingLevels.Any(x => x == fromStore.BuildingLevel))
+                this.BuildingLevels = new ObservableCollection<NamedIdDto>(this.selectedBuildingBranch.Items);
+                if (this.BuildingLevels.Any(x => x.Id == fromStore.BuildingLevelId))
                 {
-                    this.selectedBuildingLevel = this.BuildingLevels.Single(x => x == fromStore.BuildingLevel);
+                    this.selectedBuildingLevel = this.BuildingLevels.Single(x => x.Id == fromStore.BuildingLevelId);
                 }
                 else
                 {
@@ -49,25 +50,26 @@ public class SlotViewModel
             else
             {
                 this.selectedBuildingBranch = this.BuildingBranches[0];
-                this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
+                this.BuildingLevels = new ObservableCollection<NamedIdDto>(this.selectedBuildingBranch.Items);
                 this.selectedBuildingLevel = this.BuildingLevels[0];
             }
         }
         else
         {
             this.selectedBuildingBranch = this.BuildingBranches[0];
-            this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
+            this.BuildingLevels = new ObservableCollection<NamedIdDto>(this.selectedBuildingBranch.Items);
             this.selectedBuildingLevel = this.BuildingLevels[0];
         }
 
         var correspondingResult = this.provinceStore.SeekerResults.FirstOrDefault(x => x.SlotIndex == this.SlotIndex && x.RegionId == this.RegionId);
         if (correspondingResult != default)
         {
-            this.selectedBuildingBranch = correspondingResult.Branch;
-            this.BuildingLevels = new ObservableCollection<Buildings.BuildingLevel>(this.selectedBuildingBranch.Levels);
-            this.selectedBuildingLevel = correspondingResult.Level;
+            var matchingBranches = this.BuildingBranches.Where(x => x.Id == correspondingResult.BranchId);
+            this.selectedBuildingBranch = matchingBranches.Single(x => x.Items.Any(y => y.Id == correspondingResult.LevelId));
+            this.BuildingLevels = new ObservableCollection<NamedIdDto>(this.selectedBuildingBranch.Items);
+            this.selectedBuildingLevel = this.BuildingLevels.Single(x => x.Id == correspondingResult.LevelId);
 
-            this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch, this.selectedBuildingLevel);
+            this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch.Id, this.selectedBuildingLevel.Id);
 
             this.provinceStore.SeekerResults.Remove(correspondingResult);
         }
@@ -75,11 +77,11 @@ public class SlotViewModel
 
     public event EventHandler BuildingChanged;
 
-    public ObservableCollection<Buildings.BuildingBranch> BuildingBranches { get; }
+    public ObservableCollection<NamedIdWithItemsDto> BuildingBranches { get; }
 
-    public ObservableCollection<Buildings.BuildingLevel> BuildingLevels { get; }
+    public ObservableCollection<NamedIdDto> BuildingLevels { get; }
 
-    public Buildings.BuildingBranch SelectedBuildingBranch
+    public NamedIdWithItemsDto SelectedBuildingBranch
     {
         get => this.selectedBuildingBranch;
         set
@@ -90,7 +92,7 @@ public class SlotViewModel
                 this.OnPropertyChanged(nameof(this.SelectedBuildingBranch));
 
                 this.BuildingLevels.Clear();
-                foreach (var level in this.selectedBuildingBranch.Levels)
+                foreach (var level in this.selectedBuildingBranch.Items)
                 {
                     this.BuildingLevels.Add(level);
                 }
@@ -98,14 +100,14 @@ public class SlotViewModel
                 this.selectedBuildingLevel = this.BuildingLevels[0];
                 this.OnPropertyChanged(nameof(this.SelectedBuildingLevel));
 
-                this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch, this.selectedBuildingLevel);
+                this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch.Id, this.selectedBuildingLevel.Id);
 
                 this.BuildingChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }
 
-    public Buildings.BuildingLevel SelectedBuildingLevel
+    public NamedIdDto SelectedBuildingLevel
     {
         get => this.selectedBuildingLevel;
         set
@@ -115,14 +117,14 @@ public class SlotViewModel
                 this.selectedBuildingLevel = value;
                 this.OnPropertyChanged(nameof(this.SelectedBuildingLevel));
 
-                this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch, this.selectedBuildingLevel);
+                this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)] = (this.selectedBuildingBranch.Id, this.selectedBuildingLevel.Id);
 
                 this.BuildingChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }
 
-    public Province.SlotDescriptor Descriptor { get; init; }
+    public SlotDescriptorDto Descriptor { get; init; }
 
     public int RegionId { get; init; }
 

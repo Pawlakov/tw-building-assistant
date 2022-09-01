@@ -1,10 +1,9 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
 using TWBuildingAssistant.Domain;
+using static TWBuildingAssistant.Domain.Interface;
 
 public interface ISettingsStore
 {
-    Effects.EffectSet Effect { get; set; }
-
-    Buildings.BuildingLibraryEntry[] BuildingLibrary { get; set; }
+    BuildingLibraryEntryDto[] BuildingLibrary { get; set; }
 }

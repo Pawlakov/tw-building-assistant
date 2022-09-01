@@ -3,18 +3,18 @@
 open FSharp.Data.Sql
 
 [<Literal>]
-let dbVendor = 
+let internal dbVendor = 
     Common.DatabaseProviderTypes.MSSQLSERVER
 
 [<Literal>]
-let connString = 
+let internal connString = 
     "Data Source=.;Initial Catalog=twa;Integrated Security=true;TrustServerCertificate=True;"
     
 [<Literal>]
-let useOptTypes =
+let internal useOptTypes =
     Common.NullableColumnType.OPTION
     
-type sql =
+type internal sql =
     SqlDataProvider<
         DatabaseVendor = dbVendor,
         ConnectionString = connString,

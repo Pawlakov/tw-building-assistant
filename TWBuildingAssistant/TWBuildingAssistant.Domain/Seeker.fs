@@ -4,44 +4,40 @@ open Buildings
 open Province
 open State
 
-type CalculationSlot =
+type internal CalculationSlot =
     { Descriptor:SlotDescriptor
       Branch:BuildingBranch option
       Level:BuildingLevel option
       RegionId:int
       SlotIndex:int }
 
-type CombinationTaskRegion = 
+type internal CombinationTaskRegion = 
     { Slots:CalculationSlot[] }
 
-type CombinationTask = 
+type internal CombinationTask = 
     { Regions:CombinationTaskRegion[] }
 
-type SeekerSettingsSlot = 
+type internal SeekerSettingsSlot = 
     { Branch:BuildingBranch option
       Level:BuildingLevel option
       Descriptor:SlotDescriptor
       RegionId:int
       SlotIndex:int }
 
-type SeekerSettingsRegion = 
+type internal SeekerSettingsRegion = 
     { Slots:SeekerSettingsSlot[] }
 
-type SeekerResult = 
+type internal SeekerResult = 
     { Branch:BuildingBranch
       Level:BuildingLevel
       RegionId:int
       SlotIndex:int }
 
-type SeekerResultWithIncome =
+type internal SeekerResultWithIncome =
     { Income:float
       Result:SeekerResult[] }
 
-type MinimalConditionDelegate = delegate of ProvinceState -> bool
-type ResetProgressDelegate = delegate of int -> unit
-type IncrementProgressDelegate = delegate of unit -> unit
-
-let getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionSeekerSettings =
+let internal getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionSeekerSettings =
     let simulationSlots = 
         regionSeekerSettings.Slots
         |> Array.map (fun y -> { Descriptor = y.Descriptor; Branch = y.Branch; Level = y.Level; RegionId = y.RegionId; SlotIndex = y.SlotIndex }:CalculationSlot)
@@ -78,7 +74,7 @@ let getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionS
 
     recursiveSeek 0 [||]
 
-let getCombinationsToSeek buildingLibrary (seekerSettings:SeekerSettingsRegion[]) =
+let internal getCombinationsToSeek buildingLibrary (seekerSettings:SeekerSettingsRegion[]) =
     let regionCombinations =
         seekerSettings
         |> Array.map (getRegionCombinationsToSeek buildingLibrary)
@@ -95,10 +91,10 @@ let getCombinationsToSeek buildingLibrary (seekerSettings:SeekerSettingsRegion[]
 
     recursiveSeek 0 [||]
 
-let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondition:MinimalConditionDelegate) (resetProgress:ResetProgressDelegate) (incrementProgress:IncrementProgressDelegate) =
-    resetProgress.Invoke 0
+let internal seek settings predefinedEffect buildingLibrary seekerSettings minimalCondition resetProgress incrementProgress =
+    resetProgress 0
     let combinations = getCombinationsToSeek buildingLibrary seekerSettings
-    resetProgress.Invoke combinations.Length
+    resetProgress combinations.Length
 
     let loop combination =
         let rec recursiveSeek regionIndex slotIndex combinationResult (combinationRegionResult:SeekerResult list) :SeekerResultWithIncome option =
@@ -120,14 +116,14 @@ let seek settings predefinedEffect buildingLibrary seekerSettings (minimalCondit
                     recursiveSeek (regionIndex + 1) 0 (combinationRegionResult::combinationResult) []
             else
                 let state = getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
-                if (minimalCondition.Invoke state) then
+                if (minimalCondition state) then
                     Some { Income = state.TotalIncome; Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
                 else
                     None
 
         let loopResult = recursiveSeek 0 0 [] []
 
-        incrementProgress.Invoke ()
+        incrementProgress ()
 
         loopResult
 

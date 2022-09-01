@@ -1,8 +1,7 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
 using System.Collections.Generic;
-using TWBuildingAssistant.Domain;
-using static TWBuildingAssistant.Domain.Interface;
+using static TWBuildingAssistant.Domain.DTOs;
 
 public interface IProvinceStore
 {

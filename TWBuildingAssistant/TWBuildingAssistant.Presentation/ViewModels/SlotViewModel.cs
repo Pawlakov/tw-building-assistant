@@ -3,9 +3,8 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
-using static TWBuildingAssistant.Domain.Interface;
+using static TWBuildingAssistant.Domain.DTOs;
 
 public class SlotViewModel
     : ViewModel

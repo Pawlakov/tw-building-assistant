@@ -4,8 +4,7 @@ using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using TWBuildingAssistant.Domain;
-using static TWBuildingAssistant.Domain.Interface;
+using static TWBuildingAssistant.Domain.DTOs;
 
 public static class ConfigurationExtension
 {

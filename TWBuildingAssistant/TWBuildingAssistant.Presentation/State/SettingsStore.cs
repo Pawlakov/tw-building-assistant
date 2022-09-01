@@ -1,7 +1,6 @@
 ﻿namespace TWBuildingAssistant.Presentation.State;
 
-using TWBuildingAssistant.Domain;
-using static TWBuildingAssistant.Domain.Interface;
+using static TWBuildingAssistant.Domain.DTOs;
 
 public class SettingsStore
     : ISettingsStore

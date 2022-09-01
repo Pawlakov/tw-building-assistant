@@ -1,19 +1,17 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
-using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
+using static TWBuildingAssistant.Domain.DTOs;
 using static TWBuildingAssistant.Domain.Interface;
 
 public class SeekerViewModel
     : ViewModel
 {
     private readonly INavigator navigator;
-    private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
     private readonly IConfiguration configuration;
 
@@ -23,10 +21,9 @@ public class SeekerViewModel
     private int progressBarMax;
     private int progressBarValue;
 
-    public SeekerViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, IConfiguration configuration)
+    public SeekerViewModel(INavigator navigator, IProvinceStore provinceStore, IConfiguration configuration)
     {
         this.navigator = navigator;
-        this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
         this.configuration = configuration;
 

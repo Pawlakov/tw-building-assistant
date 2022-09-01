@@ -1,9 +1,8 @@
 ﻿namespace TWBuildingAssistant.Presentation.ViewModels;
 
 using System.Collections.ObjectModel;
-using TWBuildingAssistant.Domain;
 using TWBuildingAssistant.Presentation.State;
-using static TWBuildingAssistant.Domain.Interface;
+using static TWBuildingAssistant.Domain.DTOs;
 
 public class RegionViewModel 
     : ViewModel

@@ -146,7 +146,7 @@ let internal mapSeekerSettingsSlotFromDTO (buildingLibrary:Buildings.BuildingLib
 
 let getSettingOptions () =
     let options =
-        Settings.getOptions ()
+        Settings.getOptions None
 
     options |> mapOptionSetToDTO
 

@@ -1,0 +1,154 @@
+﻿@using TWBuildingAssistant.Client.Models
+@using TWBuildingAssistant.Shared.DTOs
+@inject HttpClient Http
+
+<EditForm Model="@this.model" OnValidSubmit="@this.HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="panel is-info">
+        <p class="panel-heading">
+            Settings
+        </p>
+        @if (this.model != null)
+        {
+            if (this.activeTab == Tab.Faction)
+            {
+                <p class="panel-tabs has-background-white">
+                    <a class="is-active">Faction</a>
+                    <a @onclick="() => this.ChangeTab(Tab.Province)">Province</a>
+                </p>
+                <SettingsControl For="@(() => this.model.FactionId)" Label="Faction" FaClass="fa-flag">
+                    <SettingsSelect @bind-Value="this.model.FactionId" Options="@this.options?.Factions">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.RelligionId)" Label="Religion" FaClass="fa-person-praying">
+                    <SettingsSelect @bind-Value="this.model.RelligionId" Options="@this.options?.Religions">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.Corruption)" Label="Corruption" FaClass="fa-mask">
+                    <InputNumber @bind-Value="this.model.Corruption" class="input" />
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.TechnologyTier)" Label="Technology tier">
+                    <InputRadioGroup @bind-Value="this.model.TechnologyTier">
+                        @foreach (var number in Enumerable.Range(0, 5))
+                        {
+                            <label class="radio">
+                                <InputRadio Value="@number" />
+                                @number
+                            </label>
+                        }
+                    </InputRadioGroup>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.UseAntilegacy)" Label="Use antilegacy">
+                    <label class="checkbox">
+                        <InputCheckbox @bind-Value="this.model.UseAntilegacy" />
+                    </label>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.PowerLevelId)" Label="Power level" FaClass="fa-landmark-flag">
+                    <SettingsSelect @bind-Value="this.model.PowerLevelId" Options="@this.options?.PowerLevels">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.TaxId)" Label="Tax" FaClass="fa-sack-dollar">
+                    <SettingsSelect @bind-Value="this.model.TaxId" Options="@this.options?.Taxes">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.DifficultyId)" Label="Difficulty" FaClass="fa-person-hiking">
+                    <SettingsSelect @bind-Value="this.model.DifficultyId" Options="@this.options?.Difficulties">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+            }
+            else if (this.activeTab == Tab.Province)
+            {
+                <p class="panel-tabs has-background-white">
+                    <a @onclick="() => this.ChangeTab(Tab.Faction)">Faction</a>
+                    <a class="is-active">Province</a>
+                </p>
+                <SettingsControl For="@(() => this.model.ProvinceId)" Label="Province" FaClass="fa-earth-europe">
+                    <SettingsSelect @bind-Value="this.model.ProvinceId" Options="@this.options?.Provinces">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.SeasonId)" Label="Season" FaClass="fa-tree">
+                    <SettingsSelect @bind-Value="this.model.SeasonId" Options="@this.options?.Seasons">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.WeatherId)" Label="Weather" FaClass="fa-cloud">
+                    <SettingsSelect @bind-Value="this.model.WeatherId" Options="@this.options?.Weathers">
+                        <OptionTemplate Context="option">
+                            <option value="@option.Id">@option.Name</option>
+                        </OptionTemplate>
+                    </SettingsSelect>
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.Piracy)" Label="Piracy" FaClass="fa-skull-crossbones">
+                    <InputNumber @bind-Value="this.model.Piracy" class="input" />
+                </SettingsControl>
+                <SettingsControl For="@(() => this.model.FertilityDrop)" Label="Fertility drop">
+                    <InputRadioGroup @bind-Value="this.model.FertilityDrop">
+                        @foreach (var number in Enumerable.Range(-4, 5).Reverse())
+                        {
+                            <label class="radio">
+                                <InputRadio Value="@number" />
+                                @number
+                            </label>
+                        }
+                    </InputRadioGroup>
+                </SettingsControl>
+            }
+            <div class="panel-block has-background-white">
+                <button class="button is-success" type="submit">Submit</button>
+            </div>
+        }
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public bool Visible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> VisibleChanged { get; set; }
+
+    private Tab activeTab;
+    private SettingsModel? model;
+    private SettingOptionsDTO? options;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.model = new SettingsModel();
+        this.options = await Http.GetFromJsonAsync<SettingOptionsDTO>("api/seeker/options");
+    }
+
+    private void ChangeTab(Tab tab)
+    {
+        this.activeTab = tab;
+    }
+
+    private void HandleValidSubmit()
+    {
+    }
+
+    private enum Tab
+    {
+        Faction,
+        Province,
+    }
+}

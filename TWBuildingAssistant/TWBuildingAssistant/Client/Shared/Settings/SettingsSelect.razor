@@ -1,0 +1,34 @@
+﻿@using System.Linq.Expressions
+@using TWBuildingAssistant.Shared.DTOs
+
+@typeparam TOption
+
+<div class="select is-fullwidth @(this.Options == null ? "is-loading" : "")">
+    <InputSelect Value="@this.Value" ValueExpression="@this.ValueExpression" ValueChanged="@this.ValueChanged">
+        <option></option>
+        @if (this.Options != null)
+        {
+            @foreach (var option in this.Options)
+            {
+                @this.OptionTemplate(option)
+            }
+        }
+    </InputSelect>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment<TOption> OptionTemplate { get; set; }
+
+    [Parameter]
+    public int? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<int?> ValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<int?>> ValueExpression { get; set; }
+
+    [Parameter]
+    public IEnumerable<TOption>? Options { get; set; }
+}

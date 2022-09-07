@@ -1,0 +1,31 @@
+﻿@using System.Linq.Expressions
+
+<div class="panel-block has-background-white">
+    <div class="control @(this.FaClass != null ? "has-icons-left" : "")">
+        @ChildContent
+        @if (this.FaClass != null)
+        {
+            <div class="icon is-small is-left">
+                <i class="fas @this.FaClass"></i>
+            </div>
+        }
+        @if (this.For != null)
+        {
+            <ValidationMessage For="@this.For" class="help is-danger" />
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public Expression<Func<object>> For { get; set; }
+
+    [Parameter]
+    public string Label { get; set; }
+
+    [Parameter]
+    public string? FaClass { get; set; }
+}

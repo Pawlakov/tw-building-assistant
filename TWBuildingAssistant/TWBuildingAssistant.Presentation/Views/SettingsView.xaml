@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="TWBuildingAssistant.Presentation.Views.SettingsView">
-    <StackPanel Orientation="Vertical">
+    <StackPanel Orientation="Vertical" Background="White">
         <StackPanel Orientation="Horizontal">
             <Border Padding="4" Margin="5" BorderThickness="1" BorderBrush="DarkGray">
                 <StackPanel Orientation="Vertical">

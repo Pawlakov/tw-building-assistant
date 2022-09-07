@@ -3,11 +3,11 @@
 open FSharp.Data.Sql
 open Database
 
-type internal NamedId = 
+type NamedId = 
     { Id:int
       Name:string }
 
-type internal OptionSet =
+type OptionSet =
     { Provinces:NamedId list
       Weathers:NamedId list
       Seasons:NamedId list
@@ -128,9 +128,13 @@ let internal getPowerLevelOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getOptions () =
+let getOptions (connString:string option) =
     let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
+        match connString with
+        | None ->
+            sql.GetDataContext SelectOperations.DatabaseSide
+        | Some someConnString ->
+            sql.GetDataContext (someConnString, SelectOperations.DatabaseSide)
 
     { Provinces = getProvinceOptions ctx
       Weathers = getWeatherOptions ctx

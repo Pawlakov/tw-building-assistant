@@ -15,11 +15,11 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TWBuildingAssistant.Domain"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{CD097702-0BF4-436C-B32E-2C3F93E6B3C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.Server", "TWBuildingAssistant\Server\TWBuildingAssistant.Server.csproj", "{6B5998BD-F3FC-452A-929C-8B8D3CC25251}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Server", "TWBuildingAssistant\Server\TWBuildingAssistant.Server.csproj", "{6B5998BD-F3FC-452A-929C-8B8D3CC25251}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.Client", "TWBuildingAssistant\Client\TWBuildingAssistant.Client.csproj", "{1C72ECD9-B486-4C2E-B8F2-B736FC758B5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Client", "TWBuildingAssistant\Client\TWBuildingAssistant.Client.csproj", "{1C72ECD9-B486-4C2E-B8F2-B736FC758B5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.Shared", "TWBuildingAssistant\Shared\TWBuildingAssistant.Shared.csproj", "{FE4F72F1-DE63-4655-A4AD-3E13A5043131}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.Shared", "TWBuildingAssistant\Shared\TWBuildingAssistant.Shared.csproj", "{FE4F72F1-DE63-4655-A4AD-3E13A5043131}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

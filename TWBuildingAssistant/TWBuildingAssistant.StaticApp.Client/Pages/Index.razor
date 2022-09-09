@@ -1,9 +1,36 @@
 ﻿@page "/"
+@using TWBuildingAssistant.StaticApp.Client.Shared.Settings
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
+<section class="section">
+    <h1 class="title">Hello, world!</h1>
+    <h2 class="subtitle">Welcome to your new app.</h2>
+    <button @onclick="this.OpenSettings" class="button is-info">
+        Settings
+    </button>
+</section>
+@if (this.settingsVisible)
+{
+    <div class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <Settings @bind-Visible="this.settingsVisible" />
+        </div>
+        <button @onclick="this.CloseSettings" class="modal-close is-large" aria-label="close"></button>
+    </div>
+}
 
-Welcome to your new app.
+@code {
+    private bool settingsVisible = false;
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private void OpenSettings()
+    {
+        this.settingsVisible = true;
+    }
+
+    private void CloseSettings()
+    {
+        this.settingsVisible = false;
+    }
+}

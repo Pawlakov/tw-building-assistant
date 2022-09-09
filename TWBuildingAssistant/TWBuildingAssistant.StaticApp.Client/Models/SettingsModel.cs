@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Client.Models;
+﻿namespace TWBuildingAssistant.StaticApp.Client.Models;
 
 using System.ComponentModel.DataAnnotations;
 

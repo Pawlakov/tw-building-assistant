@@ -1,21 +1,42 @@
 ﻿namespace TWBuildingAssistant.StaticApp.Api;
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using TWBuildingAssistant.StaticApp.Shared;
 
-public static class WeatherForecastFunction
+public class WeatherForecastFunction
 {
-    private static string GetSummary(int temp)
+    private readonly ILogger logger;
+
+    public WeatherForecastFunction(ILoggerFactory loggerFactory)
+    {
+        this.logger = loggerFactory.CreateLogger<WeatherForecastFunction>();
+    }
+
+    [Function("WeatherForecast")]
+    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestData req)
+    {
+        var randomNumber = new Random();
+        var temp = 0;
+
+        var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = temp = randomNumber.Next(-20, 55),
+            Summary = GetSummary(temp)
+        }).ToArray();
+
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.WriteAsJsonAsync(result);
+
+        return response;
+    }
+
+    private string GetSummary(int temp)
     {
         var summary = "Mild";
 
@@ -33,23 +54,5 @@ public static class WeatherForecastFunction
         }
 
         return summary;
-    }
-
-    [FunctionName("WeatherForecast")]
-    public static IActionResult Run(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequest req,
-        ILogger log)
-    {
-        var randomNumber = new Random();
-        var temp = 0;
-
-        var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = temp = randomNumber.Next(-20, 55),
-            Summary = GetSummary(temp)
-        }).ToArray();
-
-        return new OkObjectResult(result);
     }
 }

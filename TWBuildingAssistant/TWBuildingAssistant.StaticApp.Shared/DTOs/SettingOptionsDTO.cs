@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Shared.DTOs;
+﻿namespace TWBuildingAssistant.StaticApp.Shared.DTOs;
 
 public class SettingOptionsDTO
 {

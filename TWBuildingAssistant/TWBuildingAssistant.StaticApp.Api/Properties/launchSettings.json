@@ -2,7 +2,7 @@
   "profiles": {
     "TWBuildingAssistant.StaticApp.Api": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7277",
+      "commandLineArgs": "start --cors *",
       "launchBrowser": false
     }
   }

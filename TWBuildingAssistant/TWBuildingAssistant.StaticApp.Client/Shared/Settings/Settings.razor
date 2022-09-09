@@ -134,7 +134,7 @@
     protected override async Task OnInitializedAsync()
     {
         this.model = new SettingsModel();
-        this.options = await Http.GetFromJsonAsync<SettingOptionsDTO>("api/seeker/options");
+        this.options = await Http.GetFromJsonAsync<SettingOptionsDTO>("api/GetSeekerOptions");
     }
 
     private void ChangeTab(Tab tab)

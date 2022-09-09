@@ -1,7 +1,6 @@
 ﻿module TWBuildingAssistant.Domain.Province
 
-open FSharp.Data.Sql
-open Database
+open TWBuildingAssistant.Data.Sqlite
 
 type internal RegionType =
     | City
@@ -76,39 +75,48 @@ let internal createProvince id name regions =
     | _ ->
         { Id = id; Name = name; Regions = regions }
 
-let internal getProvince provinceId =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let internal getProvince (ctx:DatabaseContext) provinceId =
     let regions =
         query {
-            for region in ctx.Dbo.Regions do
+            for region in ctx.Regions do
             where (region.ProvinceId = provinceId)
             select region }
         |> Seq.toList
 
     let resourceIds =
         regions 
-        |> List.choose (fun x -> x.ResourceId) 
+        |> List.choose (fun x -> (if x.ResourceId.HasValue then Some x.ResourceId.Value else None)) 
         |> List.distinct
 
     let resources =
         query {
-            for resource in ctx.Dbo.Resources do
-            where (resource.Id |=| resourceIds)
+            for resource in ctx.Resources do
+            where (List.contains resource.Id resourceIds)
             select resource }
         |> Seq.toList
 
     let province =
         query {
-            for province in ctx.Dbo.Provinces do
+            for province in ctx.Provinces do
             where (province.Id = provinceId)
             select province
             head }
 
+    let regionMap (region:Entities.Region) =
+        let regionType =
+            region.RegionType |> getRegionType
+        let resourceId = 
+            if region.ResourceId.HasValue then Some region.ResourceId.Value else None
+        let resourceName =
+            resourceId |> Option.map (fun x -> (resources |> List.find (fun y -> y.Id = x)).Name)
+        let missingSlot =
+            region.SlotsCountOffset <> 0
+
+        createRegion region.Id region.Name regionType region.IsCoastal resourceId resourceName missingSlot
+
     let regions =
         regions
-        |> List.map (fun region -> createRegion region.Id region.Name (region.RegionType |> getRegionType) region.IsCoastal region.ResourceId (region.ResourceId |> Option.map (fun x -> (resources |> List.find (fun y -> y.Id = x)).Name)) (region.SlotsCountOffset <> 0))
+        |> List.map regionMap
         |> List.toArray
 
     createProvince province.Id province.Name regions

@@ -2,7 +2,6 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TWBuildingAssistant.Data.Model;
 
 public class Income
 {
@@ -11,7 +10,7 @@ public class Income
 
     public int Value { get; set; }
 
-    public IncomeCategory Category { get; set; }
+    public int Category { get; set; }
 
     public bool IsFertilityDependent { get; set; }
 

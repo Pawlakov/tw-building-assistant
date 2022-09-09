@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 using static TWBuildingAssistant.Domain.DTOs;
@@ -16,26 +17,31 @@ public class SettingsViewModel
     private readonly INavigator navigator;
     private readonly ISettingsStore settingsStore;
     private readonly IConfiguration configuration;
+    private readonly DatabaseContextFactory dbContextFactory;
 
     private Models.Settings settings;
 
-    public SettingsViewModel(INavigator navigator, ISettingsStore settingsStore, IConfiguration configuration)
+    public SettingsViewModel(INavigator navigator, ISettingsStore settingsStore, IConfiguration configuration, DatabaseContextFactory dbContextFactory)
     {
         this.navigator = navigator;
         this.settingsStore = settingsStore;
         this.configuration = configuration;
+        this.dbContextFactory = dbContextFactory;
 
-        var options = getSettingOptions();
-        this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
-        this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
-        this.Factions = new ObservableCollection<NamedIdDto>(options.Factions);
-        this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
-        this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
-        this.Seasons = new ObservableCollection<NamedIdDto>(options.Seasons);
-        this.Difficulties = new ObservableCollection<NamedIdDto>(options.Difficulties);
-        this.Taxes = new ObservableCollection<NamedIdDto>(options.Taxes);
-        this.PowerLevels = new ObservableCollection<NamedIdDto>(options.PowerLevels);
+        using (var dbContext = this.dbContextFactory.CreateDbContext())
+        {
+            var options = getSettingOptions(dbContext);
+            this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
+            this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
+            this.Factions = new ObservableCollection<NamedIdDto>(options.Factions);
+            this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
+            this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
+            this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
+            this.Seasons = new ObservableCollection<NamedIdDto>(options.Seasons);
+            this.Difficulties = new ObservableCollection<NamedIdDto>(options.Difficulties);
+            this.Taxes = new ObservableCollection<NamedIdDto>(options.Taxes);
+            this.PowerLevels = new ObservableCollection<NamedIdDto>(options.PowerLevels);
+        }
 
         var settings = this.configuration.GetSettings();
         if (settings == null)
@@ -291,11 +297,14 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        var settings = new SettingsDto(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
-        this.configuration.SetSettings(settings);
+        using (var dbContext = this.dbContextFactory.CreateDbContext())
+        {
+            var settings = new SettingsDto(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
+            this.configuration.SetSettings(settings);
 
-        this.settingsStore.BuildingLibrary = getBuildingLibrary(settings);
+            this.settingsStore.BuildingLibrary = getBuildingLibrary(dbContext, settings);
 
-        this.navigator.CurrentViewType = INavigator.ViewType.Province;
+            this.navigator.CurrentViewType = INavigator.ViewType.Province;
+        }
     }
 }

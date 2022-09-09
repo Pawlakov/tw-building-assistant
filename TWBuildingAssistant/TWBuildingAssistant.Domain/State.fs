@@ -1,6 +1,5 @@
 ﻿module TWBuildingAssistant.Domain.State
 
-open FSharp.Data.Sql
 open Buildings
 open Effects
 open Settings

@@ -22,7 +22,7 @@ public partial class App
     {
         return Host.CreateDefaultBuilder(args)
             .AddConfiguration()
-            .AddDbContext()
+            .AddDbContextLocal()
             /*.AddServices()
             .AddStores()*/
             .AddViewModels()

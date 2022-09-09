@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 using static TWBuildingAssistant.Domain.DTOs;
@@ -17,28 +18,33 @@ public class ProvinceViewModel
     private readonly ISettingsStore settingsStore;
     private readonly IProvinceStore provinceStore;
     private readonly IConfiguration configuration;
+    private readonly DatabaseContextFactory dbContextFactory;
 
     private string performance;
 
-    public ProvinceViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, IConfiguration configuration)
+    public ProvinceViewModel(INavigator navigator, ISettingsStore settingsStore, IProvinceStore provinceStore, IConfiguration configuration, DatabaseContextFactory dbContextFactory)
     {
         this.navigator = navigator;
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
         this.configuration = configuration;
+        this.dbContextFactory = dbContextFactory;
 
-        var province = getProvince(this.configuration.GetSettings().ProvinceId);
-        this.ProvinceName = province.Name;
-        this.Regions = new ObservableCollection<RegionViewModel>();
-        foreach (var region in province.Regions)
+        using (var dbContext = this.dbContextFactory.CreateDbContext())
         {
-            var newRegion = new RegionViewModel(this.settingsStore, this.provinceStore, region);
-            foreach (var slot in newRegion.Slots)
+            var province = getProvince(dbContext, this.configuration.GetSettings().ProvinceId);
+            this.ProvinceName = province.Name;
+            this.Regions = new ObservableCollection<RegionViewModel>();
+            foreach (var region in province.Regions)
             {
-                slot.BuildingChanged += (sender, args) => this.SetPerformanceDisplay();
-            }
+                var newRegion = new RegionViewModel(this.settingsStore, this.provinceStore, region);
+                foreach (var slot in newRegion.Slots)
+                {
+                    slot.BuildingChanged += (sender, args) => this.SetPerformanceDisplay();
+                }
 
-            this.Regions.Add(newRegion);
+                this.Regions.Add(newRegion);
+            }
         }
 
         this.PreviousCommand = new RelayCommand(this.Previous);
@@ -91,28 +97,31 @@ public class ProvinceViewModel
 
     private void SetPerformanceDisplay()
     {
-        var state = getState(this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel.Id).ToArray()).ToArray(), this.configuration.GetSettings());
-        var provinceBuilder = new StringBuilder();
-        provinceBuilder.AppendLine($"Total Wealth: {state.TotalWealth}");
-        provinceBuilder.AppendLine($"Tax Rate: {state.TaxRate}%");
-        provinceBuilder.AppendLine($"Corrpution Rate: {state.CorruptionRate}%");
-        provinceBuilder.AppendLine($"Total Income: {state.TotalIncome}");
-        provinceBuilder.AppendLine($"Total Food: {state.TotalFood}");
-        provinceBuilder.AppendLine($"Public Order: {state.PublicOrder}");
-        provinceBuilder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");
-        provinceBuilder.AppendLine($"Research Rate: +{state.ResearchRate}%");
-        provinceBuilder.Append($"Growth: {state.Growth}");
-        this.Performance = provinceBuilder.ToString();
-
-        var i = 0;
-        foreach (var region in state.Regions)
+        using (var dbContext = this.dbContextFactory.CreateDbContext())
         {
-            var regionBuilder = new StringBuilder();
-            regionBuilder.AppendLine($"Sanitation: {region.Sanitation}");
-            regionBuilder.AppendLine($"Food: {region.Food}");
-            regionBuilder.AppendLine($"Wealth: {region.Wealth}");
-            regionBuilder.Append($"Maintenance: {region.Maintenance}");
-            this.Regions[i++].Performance = regionBuilder.ToString();
+            var state = getState(dbContext, this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel.Id).ToArray()).ToArray(), this.configuration.GetSettings());
+            var provinceBuilder = new StringBuilder();
+            provinceBuilder.AppendLine($"Total Wealth: {state.TotalWealth}");
+            provinceBuilder.AppendLine($"Tax Rate: {state.TaxRate}%");
+            provinceBuilder.AppendLine($"Corrpution Rate: {state.CorruptionRate}%");
+            provinceBuilder.AppendLine($"Total Income: {state.TotalIncome}");
+            provinceBuilder.AppendLine($"Total Food: {state.TotalFood}");
+            provinceBuilder.AppendLine($"Public Order: {state.PublicOrder}");
+            provinceBuilder.AppendLine($"Relgious Osmosis: {state.ReligiousOsmosis}");
+            provinceBuilder.AppendLine($"Research Rate: +{state.ResearchRate}%");
+            provinceBuilder.Append($"Growth: {state.Growth}");
+            this.Performance = provinceBuilder.ToString();
+
+            var i = 0;
+            foreach (var region in state.Regions)
+            {
+                var regionBuilder = new StringBuilder();
+                regionBuilder.AppendLine($"Sanitation: {region.Sanitation}");
+                regionBuilder.AppendLine($"Food: {region.Food}");
+                regionBuilder.AppendLine($"Wealth: {region.Wealth}");
+                regionBuilder.Append($"Maintenance: {region.Maintenance}");
+                this.Regions[i++].Performance = regionBuilder.ToString();
+            }
         }
     }
 }

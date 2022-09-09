@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
+using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 using static TWBuildingAssistant.Domain.DTOs;
@@ -14,6 +15,7 @@ public class SeekerViewModel
     private readonly INavigator navigator;
     private readonly IProvinceStore provinceStore;
     private readonly IConfiguration configuration;
+    private readonly DatabaseContextFactory dbContextFactory;
 
     private bool requireSantitation;
     private int minimalPublicOrder;
@@ -21,11 +23,12 @@ public class SeekerViewModel
     private int progressBarMax;
     private int progressBarValue;
 
-    public SeekerViewModel(INavigator navigator, IProvinceStore provinceStore, IConfiguration configuration)
+    public SeekerViewModel(INavigator navigator, IProvinceStore provinceStore, IConfiguration configuration, DatabaseContextFactory dbContextFactory)
     {
         this.navigator = navigator;
         this.provinceStore = provinceStore;
         this.configuration = configuration;
+        this.dbContextFactory = dbContextFactory;
 
         this.requireSantitation = true;
         this.minimalPublicOrder = 1;
@@ -102,30 +105,34 @@ public class SeekerViewModel
         this.OnPropertyChanged(nameof(this.ProgressBarValue));
         this.OnPropertyChanged(nameof(this.ProgressBarText));
 
-        await Task.Run(() =>
+        using (var dbContext = this.dbContextFactory.CreateDbContext())
         {
-            async void ResetProgressBar(int x)
+            await Task.Run(() =>
             {
-                this.ProgressBarMax = x;
-                this.ProgressBarValue = 0;
-                await Task.CompletedTask;
-            }
+                async void ResetProgressBar(int x)
+                {
+                    this.ProgressBarMax = x;
+                    this.ProgressBarValue = 0;
+                    await Task.CompletedTask;
+                }
 
-            async void IncrementProgressBar()
-            {
-                this.ProgressBarValue += 1;
-                await Task.CompletedTask;
-            }
+                async void IncrementProgressBar()
+                {
+                    this.ProgressBarValue += 1;
+                    await Task.CompletedTask;
+                }
 
-            var seekerResults = seek(
-                this.configuration.GetSettings(),
-                this.provinceStore.SeekerSettings,
-                this.MinimalCondition(),
-                ResetProgressBar,
-                IncrementProgressBar);
+                var seekerResults = seek(
+                    dbContext,
+                    this.configuration.GetSettings(),
+                    this.provinceStore.SeekerSettings,
+                    this.MinimalCondition(),
+                    ResetProgressBar,
+                    IncrementProgressBar);
 
-            this.provinceStore.SeekerResults.AddRange(seekerResults);
-        });
+                this.provinceStore.SeekerResults.AddRange(seekerResults);
+            });
+        }
 
         this.processing = false;
         this.OnPropertyChanged(nameof(this.ProgressBarMax));

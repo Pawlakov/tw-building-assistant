@@ -1,7 +1,6 @@
 ﻿module TWBuildingAssistant.Domain.Effects
 
-open FSharp.Data.Sql
-open Database
+open TWBuildingAssistant.Data.Sqlite
 open Settings
 
 type internal Effect =
@@ -93,7 +92,7 @@ let internal getIncomeCategoryOption intValue =
     intValue 
     |> Option.map getIncomeCategory
 
-let internal createIncome (rd:sql.dataContext.``dbo.IncomesEntity``) =  
+let internal createIncome (rd:Entities.Income) =  
     let value = rd.Value 
     let category = rd.Category |> getIncomeCategory
     let isFertilityDependent = rd.IsFertilityDependent
@@ -107,16 +106,16 @@ let internal createIncome (rd:sql.dataContext.``dbo.IncomesEntity``) =
         | (_, Husbandry) -> { Category = Husbandry; Value = FertilityDependent value }
         | (_, _) -> failwith "Invalid fertility-based income."
 
-let internal createBonus (rd:sql.dataContext.``dbo.BonusesEntity``) =  
+let internal createBonus (rd:Entities.Bonus) =  
     let value = rd.Value 
-    let category = rd.Category |> getIncomeCategoryOption
+    let category = (if rd.Category.HasValue then Some rd.Category.Value else None) |> getIncomeCategoryOption
 
     match (value, category) with
     | (_, Some category) -> CategoryBonus { Category = category; Value = value }
     | (_, _) -> AllBonus value
 
-let internal createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =    
-    let religionId = rd.ReligionId
+let internal createInfluence (rd:Entities.Influence) =    
+    let religionId = (if rd.ReligionId.HasValue then Some rd.ReligionId.Value else None)
     let value = rd.Value
     match (religionId, value) with
     | (_, value) when value < 1 ->
@@ -126,10 +125,10 @@ let internal createInfluence (rd:sql.dataContext.``dbo.InfluencesEntity``) =
     | (None, _) ->
         StateReligion { Value = value }
 
-let internal getEffect (ctx:sql.dataContext) effectId =
+let internal getEffect (ctx:DatabaseContext) effectId =
     let effect =
         query {
-            for effect in ctx.Dbo.Effects do
+            for effect in ctx.Effects do
             where (effect.Id = effectId)
             select 
                 { PublicOrder = effect.PublicOrder;
@@ -145,31 +144,31 @@ let internal getEffect (ctx:sql.dataContext) effectId =
 
     let bonuses =
         query {
-            for bonus in ctx.Dbo.Bonuses do
-            where (bonus.EffectId = Some effectId) }
+            for bonus in ctx.Bonuses do
+            where (bonus.EffectId = effectId) }
         |> Seq.map createBonus
         |> Seq.toList
 
     let influences =
         query {
-            for influence in ctx.Dbo.Influences do
-            where (influence.EffectId = Some effectId) }
+            for influence in ctx.Influences do
+            where (influence.EffectId = effectId) }
         |> Seq.map createInfluence
         |> Seq.toList
 
     { Effect = effect; Bonuses = bonuses; Influences = influences }
 
-let internal getEffectOption (ctx:sql.dataContext) effectId =
+let internal getEffectOption (ctx:DatabaseContext) effectId =
     match effectId with
     | Some effectId ->
         effectId |> getEffect ctx
     | None ->
         emptyEffectSet
 
-let internal getLocalEffect (ctx:sql.dataContext) buildingLevelId =
+let internal getLocalEffect (ctx:DatabaseContext) buildingLevelId =
     let localEffect =
         query {
-            for buildingLevel in ctx.Dbo.BuildingLevels do
+            for buildingLevel in ctx.BuildingLevels do
             where (buildingLevel.Id = buildingLevelId)
             select 
                 { Maintenance = buildingLevel.Maintenance
@@ -180,7 +179,7 @@ let internal getLocalEffect (ctx:sql.dataContext) buildingLevelId =
 
     let incomes =
         query {
-            for income in ctx.Dbo.Incomes do
+            for income in ctx.Incomes do
             where (income.BuildingLevelId = buildingLevelId) }
         |> Seq.map createIncome
         |> Seq.toList
@@ -277,26 +276,26 @@ let internal collectLocalEffects (localEffects:LocalEffect list) =
       FoodFromFertility = localEffects |> List.sumBy (fun x -> x.FoodFromFertility)
       Sanitation = localEffects |> List.sumBy (fun x -> x.Sanitation) }
 
-let internal getFactionwideEffects (ctx:sql.dataContext) factionId =
+let internal getFactionwideEffects (ctx:DatabaseContext) factionId =
     let effectId = 
         query {
-            for faction in ctx.Dbo.Factions do
+            for faction in ctx.Factions do
             where (faction.Id = factionId)
             select faction.EffectId
             head }
 
-    effectId |> Option.map (getEffect ctx)
+    (if effectId.HasValue then Some effectId.Value else None) |> Option.map (getEffect ctx)
 
-let internal getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier useAntilegacyTechnologies =
-    let getEffectOption =
-        Option.map (getEffect ctx)
+let internal getTechnologyEffect (ctx:DatabaseContext) factionId technologyTier useAntilegacyTechnologies =
+    let getEffectNullable (effectId:System.Nullable<int>) =
+        if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
     let getEffectSeq =
-        Seq.choose getEffectOption
+        Seq.choose getEffectNullable
 
     let universalEffectIds = 
         query {
-            for technologyLevel in ctx.Dbo.TechnologyLevels do
+            for technologyLevel in ctx.TechnologyLevels do
             where (technologyLevel.FactionId = factionId && technologyLevel.Order <= technologyTier)
             select technologyLevel.UniversalEffectId }
 
@@ -304,7 +303,7 @@ let internal getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier 
         if useAntilegacyTechnologies then
             let antilegacyEffectIds = 
                 query {
-                    for technologyLevel in ctx.Dbo.TechnologyLevels do
+                    for technologyLevel in ctx.TechnologyLevels do
                     where (technologyLevel.FactionId = factionId && technologyLevel.Order <= technologyTier)
                     select technologyLevel.AntilegacyEffectId }
 
@@ -317,72 +316,69 @@ let internal getTechnologyEffect (ctx:sql.dataContext) factionId technologyTier 
       Bonuses = effects |> List.collect (fun x -> x.Bonuses)
       Influences = effects |> List.collect (fun x -> x.Influences) }
 
-let internal getReligionEffect (ctx:sql.dataContext) religionId =
+let internal getReligionEffect (ctx:DatabaseContext) religionId =
     let effectId = 
         query {
-            for religion in ctx.Dbo.Religions do
+            for religion in ctx.Religions do
             where (religion.Id = religionId)
             select religion.EffectId
             head }
 
-    effectId |> Option.map (getEffect ctx)
+    if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
-let internal getProvinceEffect (ctx:sql.dataContext) provinceId =
+let internal getProvinceEffect (ctx:DatabaseContext) provinceId =
     let effectId = 
         query {
-            for province in ctx.Dbo.Provinces do
+            for province in ctx.Provinces do
             where (province.Id = provinceId)
             select province.EffectId
             head }
 
-    effectId |> Option.map (getEffect ctx)
+    if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
-let internal getClimateEffect (ctx:sql.dataContext) provinceId seasonId weatherId =
+let internal getClimateEffect (ctx:DatabaseContext) provinceId seasonId weatherId =
     let effectId = 
         query {
-            for province in ctx.Dbo.Provinces do
+            for province in ctx.Provinces do
             where (province.Id = provinceId)
-            join effect in ctx.Dbo.WeatherEffects on (province.ClimateId = effect.ClimateId)
+            join effect in ctx.WeatherEffects on (province.ClimateId = effect.ClimateId)
             where (effect.WeatherId = weatherId && effect.SeasonId = seasonId)
             select effect.EffectId
             head }
 
     effectId |> (getEffect ctx)
 
-let internal getDifficultyEffect (ctx:sql.dataContext) difficultyId =
+let internal getDifficultyEffect (ctx:DatabaseContext) difficultyId =
     let effectId = 
         query {
-            for difficulty in ctx.Dbo.Difficulties do
+            for difficulty in ctx.Difficulties do
             where (difficulty.Id = difficultyId)
             select difficulty.EffectId
             head }
 
-    effectId |> Option.map (getEffect ctx)
+    if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
-let internal getTaxEffect (ctx:sql.dataContext) taxId =
+let internal getTaxEffect (ctx:DatabaseContext) taxId =
     let effectId = 
         query {
-            for tax in ctx.Dbo.Taxes do
+            for tax in ctx.Taxes do
             where (tax.Id = taxId)
             select tax.EffectId
             head }
 
-    effectId |> Option.map (getEffect ctx)
+    if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
-let internal getPowerLevelEffect (ctx:sql.dataContext) powerLevelId =
+let internal getPowerLevelEffect (ctx:DatabaseContext) powerLevelId =
     let effectId = 
         query {
-            for powerLevel in ctx.Dbo.PowerLevels do
+            for powerLevel in ctx.PowerLevels do
             where (powerLevel.Id = powerLevelId)
             select powerLevel.EffectId
             head }
 
-    effectId |> Option.map (getEffect ctx)
+    if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
-let internal getStateFromSettings settings =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let internal getStateFromSettings (ctx:DatabaseContext) settings =
     let factionEffects = getFactionwideEffects ctx settings.FactionId
     let technologyEffects = getTechnologyEffect ctx settings.FactionId settings.TechnologyTier settings.UseAntilegacyTechnologies
     let religionEffects = getReligionEffect ctx settings.ReligionId

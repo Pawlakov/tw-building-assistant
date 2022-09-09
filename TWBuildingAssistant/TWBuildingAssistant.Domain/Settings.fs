@@ -1,7 +1,6 @@
 ﻿module TWBuildingAssistant.Domain.Settings
 
-open FSharp.Data.Sql
-open Database
+open TWBuildingAssistant.Data.Sqlite
 
 type NamedId = 
     { Id:int
@@ -32,10 +31,10 @@ type internal Settings =
       CorruptionRate:int
       PiracyRate:int }
 
-let internal getProvinceOptions (ctx:sql.dataContext) =
+let internal getProvinceOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for province in ctx.Dbo.Provinces do
+            for province in ctx.Provinces do
             select { Id = province.Id; Name = province.Name }
         }
 
@@ -44,10 +43,10 @@ let internal getProvinceOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getWeatherOptions (ctx:sql.dataContext) =
+let internal getWeatherOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for province in ctx.Dbo.Weathers do
+            for province in ctx.Weathers do
             select { Id = province.Id; Name = province.Name }
         }
 
@@ -56,10 +55,10 @@ let internal getWeatherOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getSeasonOptions (ctx:sql.dataContext) =
+let internal getSeasonOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for province in ctx.Dbo.Seasons do
+            for province in ctx.Seasons do
             select { Id = province.Id; Name = province.Name }
         }
 
@@ -68,10 +67,10 @@ let internal getSeasonOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getReligionOptions (ctx:sql.dataContext) =
+let internal getReligionOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for province in ctx.Dbo.Religions do
+            for province in ctx.Religions do
             select { Id = province.Id; Name = province.Name }
         }
 
@@ -80,10 +79,10 @@ let internal getReligionOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getFactionOptions (ctx:sql.dataContext) =
+let internal getFactionOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for province in ctx.Dbo.Factions do
+            for province in ctx.Factions do
             select { Id = province.Id; Name = province.Name }
         }
 
@@ -92,10 +91,10 @@ let internal getFactionOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getDifficultyOptions (ctx:sql.dataContext) =
+let internal getDifficultyOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for province in ctx.Dbo.Difficulties do
+            for province in ctx.Difficulties do
             select { Id = province.Id; Name = province.Name }
         }
 
@@ -104,10 +103,10 @@ let internal getDifficultyOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getTaxOptions (ctx:sql.dataContext) =
+let internal getTaxOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for tax in ctx.Dbo.Taxes do
+            for tax in ctx.Taxes do
             select { Id = tax.Id; Name = tax.Name }
         }
 
@@ -116,10 +115,10 @@ let internal getTaxOptions (ctx:sql.dataContext) =
 
     result
 
-let internal getPowerLevelOptions (ctx:sql.dataContext) =
+let internal getPowerLevelOptions (ctx:DatabaseContext) =
     let query =
         query {
-            for powerLevel in ctx.Dbo.PowerLevels do
+            for powerLevel in ctx.PowerLevels do
             select { Id = powerLevel.Id; Name = powerLevel.Name }
         }
 
@@ -128,14 +127,7 @@ let internal getPowerLevelOptions (ctx:sql.dataContext) =
 
     result
 
-let getOptions (connString:string option) =
-    let ctx =
-        match connString with
-        | None ->
-            sql.GetDataContext SelectOperations.DatabaseSide
-        | Some someConnString ->
-            sql.GetDataContext (someConnString, SelectOperations.DatabaseSide)
-
+let getOptions (ctx:DatabaseContext) =
     { Provinces = getProvinceOptions ctx
       Weathers = getWeatherOptions ctx
       Seasons = getSeasonOptions ctx

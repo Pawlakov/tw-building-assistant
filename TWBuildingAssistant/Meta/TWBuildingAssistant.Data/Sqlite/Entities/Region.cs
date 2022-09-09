@@ -2,7 +2,6 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TWBuildingAssistant.Data.Model;
 
 public class Region
 {
@@ -12,7 +11,7 @@ public class Region
     [Required(AllowEmptyStrings = false)]
     public string Name { get; set; }
 
-    public RegionType RegionType { get; set; }
+    public int RegionType { get; set; }
 
     public bool IsCoastal { get; set; }
 

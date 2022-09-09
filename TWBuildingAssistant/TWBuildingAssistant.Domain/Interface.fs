@@ -1,6 +1,7 @@
 ﻿module TWBuildingAssistant.Domain.Interface
 
 open DTOs
+open TWBuildingAssistant.Data.Sqlite
 
 let internal mapNamedIdToDTO (model:Settings.NamedId) =
     { Id = model.Id; Name = model.Name}
@@ -144,34 +145,34 @@ let internal mapSeekerSettingsSlotFromDTO (buildingLibrary:Buildings.BuildingLib
       RegionId = seekerSettingsSlot.RegionId
       SlotIndex = seekerSettingsSlot.SlotIndex }:Seeker.SeekerSettingsSlot
 
-let getSettingOptions () =
+let getSettingOptions (ctx:DatabaseContext) =
     let options =
-        Settings.getOptions None
+        Settings.getOptions ctx
 
     options |> mapOptionSetToDTO
 
-let getProvince provinceId =
-    let province = Province.getProvince provinceId
+let getProvince (ctx:DatabaseContext) provinceId =
+    let province = Province.getProvince ctx provinceId
 
     province |> mapProvinceToDTO
 
-let getBuildingLibrary settings =
+let getBuildingLibrary (ctx:DatabaseContext) settings =
     let settingsModel =
         settings |> mapSettingsFromDTO
 
     let buildingsModels = 
-        Buildings.getBuildingLibrary settingsModel
+        Buildings.getBuildingLibrary ctx settingsModel
 
     buildingsModels |> Array.map mapBuildingLibraryEntryToDTO
 
-let getState buildingLevelIds settings =
+let getState (ctx:DatabaseContext) buildingLevelIds settings =
     let settingsModel =
         settings |> mapSettingsFromDTO
     let predefinedEffectSet = 
-        Effects.getStateFromSettings settingsModel
+        Effects.getStateFromSettings ctx settingsModel
     let buildings =
         buildingLevelIds
-        |> Array.map (fun region -> region |> Array.filter (fun x -> x <> 0) |> Array.map Buildings.getBuildingLevel |> Array.toSeq)
+        |> Array.map (fun region -> region |> Array.filter (fun x -> x <> 0) |> Array.map (Buildings.getBuildingLevel ctx) |> Array.toSeq)
         |> Array.toSeq
 
     let state = 
@@ -179,13 +180,13 @@ let getState buildingLevelIds settings =
 
     state |> mapProvinceStateToDTO
 
-let seek settings seekerSettings minimalCondition (resetProgress:ResetProgressDelegate) (incrementProgress:IncrementProgressDelegate) =
+let seek(ctx:DatabaseContext) settings seekerSettings minimalCondition (resetProgress:ResetProgressDelegate) (incrementProgress:IncrementProgressDelegate) =
     let settingsModel =
         settings |> mapSettingsFromDTO
     let predefinedEffectSet = 
-        Effects.getStateFromSettings settingsModel
+        Effects.getStateFromSettings ctx settingsModel
     let buildingLibrary = 
-        Buildings.getBuildingLibrary settingsModel
+        Buildings.getBuildingLibrary ctx settingsModel
     let seekerSettingsModel =
         seekerSettings |> Array.map (fun x -> { Slots = x.Slots |> (Array.map (mapSeekerSettingsSlotFromDTO buildingLibrary)) }:Seeker.SeekerSettingsRegion )
     let minimalConditionFun (state:State.ProvinceState) =

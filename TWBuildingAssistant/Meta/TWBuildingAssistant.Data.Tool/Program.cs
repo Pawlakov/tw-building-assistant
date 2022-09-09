@@ -1,10 +1,10 @@
 ﻿namespace TWBuildingAssistant.Data.Tool;
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using TWBuildingAssistant.Data.HostBuilders;
 using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Data.Sqlite.Entities;
@@ -13,7 +13,7 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        using (var host = Host.CreateDefaultBuilder(args).AddConfiguration().AddDbContext().Build())
+        using (var host = Host.CreateDefaultBuilder(args).AddConfiguration().AddDbContextLocal().Build())
         {
             host.Start();
 

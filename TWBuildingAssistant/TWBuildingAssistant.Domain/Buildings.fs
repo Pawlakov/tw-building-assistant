@@ -1,7 +1,6 @@
 ﻿module TWBuildingAssistant.Domain.Buildings
 
-open FSharp.Data.Sql
-open Database
+open TWBuildingAssistant.Data.Sqlite
 open Effects
 open Province
 open Settings
@@ -28,20 +27,20 @@ let internal emptyBuildingLevel =
 let internal emptyBuildingBranch =
     { Id = 0; Name = "Empty"; Interesting = true; Levels = [|emptyBuildingLevel|]}
 
-let internal getUnlockedBuildingLevelIds (ctx:sql.dataContext) settings =
+let internal getUnlockedBuildingLevelIds (ctx:DatabaseContext) settings =
     let techIds =
         query {
-            for tech in ctx.Dbo.TechnologyLevels do
+            for tech in ctx.TechnologyLevels do
             where (tech.FactionId = settings.FactionId && tech.Order <= settings.TechnologyTier)
             select (tech.Id) }
 
     let locks =
         query {
-            for lock in ctx.Dbo.BuildingLevelLocks do
-            where ((lock.TechnologyLevelId |=| techIds) && (settings.UseAntilegacyTechnologies || not lock.Antilegacy)) }
+            for lock in ctx.BuildingLevelLocks do
+            where ((Seq.contains lock.TechnologyLevelId techIds) && (settings.UseAntilegacyTechnologies || not lock.Antilegacy)) }
         |> Seq.toList
 
-    let loop (lockedIds, unlockedIds) (lock:sql.dataContext.``dbo.BuildingLevelLocksEntity``) =
+    let loop (lockedIds, unlockedIds) (lock:Entities.BuildingLevelLock) =
         match lock.Lock with
         | true ->
             (lock.BuildingLevelId::lockedIds, unlockedIds)
@@ -54,10 +53,10 @@ let internal getUnlockedBuildingLevelIds (ctx:sql.dataContext) settings =
 
     unlockedIds |> List.except lockedIds
 
-let internal getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
+let internal getBuildingLibraryEntry (ctx:DatabaseContext) settings descriptor =
     let usedBranchIds =
         query {
-            for branchUse in ctx.Dbo.BuildingBranchUses do
+            for branchUse in ctx.BuildingBranchUses do
             where (branchUse.FactionId = settings.FactionId)
             select (branchUse.BuildingBranchId) }
         |> Seq.toList
@@ -75,27 +74,27 @@ let internal getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
 
     let usedBranches =
         query {
-            for branch in ctx.Dbo.BuildingBranches do
-            where (branch.Id |=| usedBranchIds)
+            for branch in ctx.BuildingBranches do
+            where (List.contains branch.Id usedBranchIds)
             where (branch.SlotType = slotTypeInt)
-            where (branch.RegionType = None || branch.RegionType = Some regionTypeInt)
-            where (branch.ReligionId = None || branch.ReligionId = Some settings.ReligionId)
-            where (branch.ResourceId = None || branch.ResourceId = descriptor.ResourceId) }
+            where (not branch.RegionType.HasValue || branch.RegionType.Value = regionTypeInt)
+            where (not branch.ReligionId.HasValue || branch.ReligionId.Value = settings.ReligionId)
+            where (not branch.ResourceId.HasValue || (match descriptor.ResourceId with | Some resourceId -> branch.ResourceId.Value = resourceId | None -> false)) }
 
     let unlockedLevelIds = getUnlockedBuildingLevelIds ctx settings
     let unlockedLevels = 
         query {
-            for level in ctx.Dbo.BuildingLevels do
-            where (level.Id |=| unlockedLevelIds) }
+            for level in ctx.BuildingLevels do
+            where (List.contains level.Id unlockedLevelIds) }
         |> Seq.toList
 
-    let firstLoop strainPairs (branch:sql.dataContext.``dbo.BuildingBranchesEntity``) =
-        let rec traverseBranch ancestors (current:sql.dataContext.``dbo.BuildingLevelsEntity``) =
+    let firstLoop strainPairs (branch:Entities.BuildingBranch) =
+        let rec traverseBranch ancestors (current:Entities.BuildingLevel) =
             let branchLevels = 
                 current::ancestors
             let children =
                 unlockedLevels
-                |> List.filter (fun x -> x.ParentBuildingLevelId = Some current.Id)
+                |> List.filter (fun x -> x.ParentBuildingLevelId = current.Id)
             match children with
             | [] -> 
                 [ branchLevels ]
@@ -122,10 +121,10 @@ let internal getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
         usedBranches 
         |> Seq.fold firstLoop []
 
-    let secondLoop finalDictionary ((branch:sql.dataContext.``dbo.BuildingBranchesEntity``), (levels:sql.dataContext.``dbo.BuildingLevelsEntity`` list)) =
+    let secondLoop finalDictionary ((branch:Entities.BuildingBranch), (levels:Entities.BuildingLevel list)) =
         let levelsOther =
             levels
-            |> List.map (fun level -> { Id = level.Id; Name = level.Name; LocalEffectSet = (level.Id |> getLocalEffect ctx); EffectSet = (level.EffectId |> getEffectOption ctx) }:BuildingLevel)
+            |> List.map (fun level -> { Id = level.Id; Name = level.Name; LocalEffectSet = (level.Id |> getLocalEffect ctx); EffectSet = ((if level.EffectId.HasValue then Some level.EffectId.Value else None) |> getEffectOption ctx) }:BuildingLevel)
             |> List.toArray
         match levelsOther with
         | [||] ->
@@ -143,23 +142,20 @@ let internal getBuildingLibraryEntry (ctx:sql.dataContext) settings descriptor =
 
     { Descriptor = descriptor; BuildingBranches = (finalFinalDictionary |> List.toArray) }
 
-let internal getBuildingLibrary settings =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let internal getBuildingLibrary (ctx:DatabaseContext) settings =
     let slotTypes = [ Main; Coastal; General ]
     let regionTypes = [ City; Town ]
     let resourceIdsInProvince = 
         query {
-        for region in ctx.Dbo.Regions do
-        where (region.ProvinceId = settings.ProvinceId)
-        select (region.ResourceId)
-        distinct }
+            for region in ctx.Regions do
+            where (region.ProvinceId = settings.ProvinceId)
+            select (region.ResourceId)
+            distinct }
         |> Seq.toList
 
     let descriptors =
         slotTypes 
-        |> List.collect (fun slotType -> regionTypes |> List.collect (fun regionType -> resourceIdsInProvince |> List.map (fun resourceId -> { SlotType = slotType; RegionType = regionType; ResourceId = resourceId })))
+        |> List.collect (fun slotType -> regionTypes |> List.collect (fun regionType -> resourceIdsInProvince |> List.map (fun resourceId -> { SlotType = slotType; RegionType = regionType; ResourceId = (if resourceId.HasValue then Some resourceId.Value else None) })))
 
     let results =
         descriptors 
@@ -168,14 +164,17 @@ let internal getBuildingLibrary settings =
 
     results
 
-let internal getBuildingLevel id =
-    let ctx =
-        sql.GetDataContext SelectOperations.DatabaseSide
-
+let internal getBuildingLevel (ctx:DatabaseContext) id =
     let level = 
         query {
-            for level in ctx.Dbo.BuildingLevels do
+            for level in ctx.BuildingLevels do
             where (level.Id = id)
             head }
 
-    { Id = level.Id; Name = level.Name; LocalEffectSet = (level.Id |> getLocalEffect ctx); EffectSet = (level.EffectId |> getEffectOption ctx) }:BuildingLevel
+    let levelEffectId =
+        if level.EffectId.HasValue then
+            Some level.EffectId.Value
+        else
+            None
+
+    { Id = level.Id; Name = level.Name; LocalEffectSet = (level.Id |> getLocalEffect ctx); EffectSet = (levelEffectId |> getEffectOption ctx) }:BuildingLevel

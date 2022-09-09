@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using TWBuildingAssistant.Data.Model;
 
 public class BuildingBranch
 {
@@ -13,9 +12,9 @@ public class BuildingBranch
     [Required(AllowEmptyStrings = false)]
     public string Name { get; set; }
 
-    public SlotType SlotType { get; set; }
+    public int SlotType { get; set; }
 
-    public RegionType? RegionType { get; set; }
+    public int? RegionType { get; set; }
 
     public bool AllowParallel { get; set; }
 

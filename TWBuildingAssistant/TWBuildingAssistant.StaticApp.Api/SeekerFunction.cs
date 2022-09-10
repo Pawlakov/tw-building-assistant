@@ -24,7 +24,7 @@ public class SeekerFunction
     }
 
     [Function("GetSettingOptions")]
-    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] HttpRequestData req)
+    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
     {
         using (var dbContext = this.dbContextFactory.CreateDbContext())
         {

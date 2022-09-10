@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: '.\TWBuildingAssistant\TWBuildingAssistant.StaticApp.Client'
+        working-directory: './TWBuildingAssistant/TWBuildingAssistant.StaticApp.Client'
 
     steps:
       - uses: actions/checkout@v2

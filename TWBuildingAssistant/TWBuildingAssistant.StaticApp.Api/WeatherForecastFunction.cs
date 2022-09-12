@@ -18,7 +18,7 @@ public class WeatherForecastFunction
     }
 
     [Function("WeatherForecast")]
-    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
+    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "WeatherForecast")] HttpRequestData req)
     {
         var randomNumber = new Random();
         var temp = 0;

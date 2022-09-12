@@ -1,6 +1,6 @@
 ﻿@page "/fetchdata"
 @using TWBuildingAssistant.StaticApp.Shared
-@inject HttpClient Http
+@inject HttpClient http
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -42,6 +42,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("api/WeatherForecast");
+        forecasts = await this.http.GetFromJsonAsync<WeatherForecast[]>("/api/WeatherForecast");
     }
 }

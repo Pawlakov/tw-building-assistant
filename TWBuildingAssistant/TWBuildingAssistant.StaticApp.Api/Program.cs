@@ -8,7 +8,7 @@ public class Program
     public static void Main()
     {
         var host = new HostBuilder()
-            .AddConfiguration()
+            //.AddConfiguration()
             //.AddDbContextAzure()
             .ConfigureFunctionsWorkerDefaults()
             .Build();

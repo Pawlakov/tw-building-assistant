@@ -1,6 +1,6 @@
 ﻿@using TWBuildingAssistant.StaticApp.Client.Models
 @using TWBuildingAssistant.StaticApp.Shared.DTOs
-@inject HttpClient Http
+@inject HttpClient http
 
 <EditForm Model="@this.model" OnValidSubmit="@this.HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -134,7 +134,7 @@
     protected override async Task OnInitializedAsync()
     {
         this.model = new SettingsModel();
-        this.options = await Http.GetFromJsonAsync<SettingOptionsDTO>("api/GetSettingOptions");
+        this.options = await this.http.GetFromJsonAsync<SettingOptionsDTO>("/api/GetSettingOptions");
     }
 
     private void ChangeTab(Tab tab)

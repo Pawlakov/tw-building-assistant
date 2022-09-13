@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.StaticA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.StaticApp.Client", "TWBuildingAssistant.StaticApp.Client\TWBuildingAssistant.StaticApp.Client.csproj", "{CBC3A026-0383-4EDE-9ADB-DB798794D3D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.StaticApp.TestApi", "TWBuildingAssistant.StaticApp.TestApi\TWBuildingAssistant.StaticApp.TestApi.csproj", "{4B22182D-B1BB-4408-B71C-3F2A755B2553}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{CBC3A026-0383-4EDE-9ADB-DB798794D3D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBC3A026-0383-4EDE-9ADB-DB798794D3D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBC3A026-0383-4EDE-9ADB-DB798794D3D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B22182D-B1BB-4408-B71C-3F2A755B2553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B22182D-B1BB-4408-B71C-3F2A755B2553}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B22182D-B1BB-4408-B71C-3F2A755B2553}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B22182D-B1BB-4408-B71C-3F2A755B2553}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{1C839A53-EA8D-4613-B0A4-9D96FBC9924D} = {35C37CA1-9736-459E-A3D8-EEC3D0B27DFA}
 		{F42CFDA3-8E10-4B82-B2A7-8B74B72B085D} = {35C37CA1-9736-459E-A3D8-EEC3D0B27DFA}
 		{CBC3A026-0383-4EDE-9ADB-DB798794D3D5} = {35C37CA1-9736-459E-A3D8-EEC3D0B27DFA}
+		{4B22182D-B1BB-4408-B71C-3F2A755B2553} = {35C37CA1-9736-459E-A3D8-EEC3D0B27DFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {101DA20B-E11F-4C58-B119-E90A857E6C46}

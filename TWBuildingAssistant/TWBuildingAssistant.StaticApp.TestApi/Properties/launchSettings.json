@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "TWBuildingAssistant.StaticApp.TestApi": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7085",
-      "launchBrowser": false
-    }
-  }
-}

@@ -15,7 +15,7 @@ builder.Services.AddScoped(sp =>
             BaseAddress = new Uri("https://twa-api.azurewebsites.net"),
         };
 
-        client.DefaultRequestHeaders.Add("x-functions-key", config["twa_apikey"]);
+        client.DefaultRequestHeaders.Add("x-functions-key", config["TWA_APIKEY"]);
         return client;
     });
 

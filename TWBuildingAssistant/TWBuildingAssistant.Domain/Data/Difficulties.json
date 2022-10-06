@@ -1,0 +1,31 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Easy",
+    "Order": 1
+  },
+  {
+    "Id": 2,
+    "Name": "Normal",
+    "Order": 2,
+    "EffectId": 426
+  },
+  {
+    "Id": 3,
+    "Name": "Hard",
+    "Order": 3,
+    "EffectId": 427
+  },
+  {
+    "Id": 4,
+    "Name": "Very Hard",
+    "Order": 4,
+    "EffectId": 428
+  },
+  {
+    "Id": 5,
+    "Name": "Legendary",
+    "Order": 5,
+    "EffectId": 429
+  }
+]

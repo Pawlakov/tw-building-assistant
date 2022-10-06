@@ -69,13 +69,13 @@ let internal getSeasonOptions (seasonsData: SeasonsData.Root []) =
 
     result
 
-let internal getReligionOptions (ctx: DatabaseContext) =
+let internal getReligionOptions (religionsData: ReligionsData.Root []) =
     let query =
         query {
-            for province in ctx.Religions do
+            for religion in religionsData do
                 select
-                    { Id = province.Id
-                      Name = province.Name }
+                    { Id = religion.Id
+                      Name = religion.Name }
         }
 
     let result = query |> Seq.toList
@@ -95,10 +95,10 @@ let internal getFactionOptions (ctx: DatabaseContext) =
 
     result
 
-let internal getDifficultyOptions (ctx: DatabaseContext) =
+let internal getDifficultyOptions (difficultiesData: DifficultiesData.Root []) =
     let query =
         query {
-            for province in ctx.Difficulties do
+            for province in difficultiesData do
                 select
                     { Id = province.Id
                       Name = province.Name }
@@ -108,10 +108,10 @@ let internal getDifficultyOptions (ctx: DatabaseContext) =
 
     result
 
-let internal getTaxOptions (ctx: DatabaseContext) =
+let internal getTaxOptions (taxesData: TaxesData.Root []) =
     let query =
         query {
-            for tax in ctx.Taxes do
+            for tax in taxesData do
                 select { Id = tax.Id; Name = tax.Name }
         }
 
@@ -119,10 +119,10 @@ let internal getTaxOptions (ctx: DatabaseContext) =
 
     result
 
-let internal getPowerLevelOptions (ctx: DatabaseContext) =
+let internal getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
     let query =
         query {
-            for powerLevel in ctx.PowerLevels do
+            for powerLevel in powerLevelsData do
                 select
                     { Id = powerLevel.Id
                       Name = powerLevel.Name }
@@ -132,12 +132,12 @@ let internal getPowerLevelOptions (ctx: DatabaseContext) =
 
     result
 
-let getOptions (ctx: DatabaseContext) weathersData seasonsData provincesData =
+let getOptions (ctx: DatabaseContext) weathersData seasonsData provincesData religionsData difficultiesData taxesData powerLevelsData =
     { Provinces = getProvinceOptions provincesData
       Weathers = getWeatherOptions weathersData
       Seasons = getSeasonOptions seasonsData
-      Religions = getReligionOptions ctx
+      Religions = getReligionOptions religionsData
       Factions = getFactionOptions ctx
-      Difficulties = getDifficultyOptions ctx
-      Taxes = getTaxOptions ctx
-      PowerLevels = getPowerLevelOptions ctx }
+      Difficulties = getDifficultyOptions difficultiesData
+      Taxes = getTaxOptions taxesData
+      PowerLevels = getPowerLevelOptions powerLevelsData }

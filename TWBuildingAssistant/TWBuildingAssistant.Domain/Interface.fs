@@ -5,20 +5,43 @@ open DTOs
 open Data
 open System.IO
 
-let internal mapNamedIdToDTO (model:Settings.NamedId) =
-    { Id = model.Id; Name = model.Name}
+let internal mapNamedIdToDTO (model: Settings.NamedId) = { Id = model.Id; Name = model.Name }
 
-let internal mapOptionSetToDTO (model:Settings.OptionSet) =
-    { Provinces = model.Provinces |> List.map mapNamedIdToDTO |> List.toArray
-      Weathers = model.Weathers |> List.map mapNamedIdToDTO |> List.toArray
-      Seasons = model.Seasons |> List.map mapNamedIdToDTO |> List.toArray
-      Religions = model.Religions |> List.map mapNamedIdToDTO |> List.toArray
-      Factions = model.Factions |> List.map mapNamedIdToDTO |> List.toArray
-      Difficulties = model.Difficulties |> List.map mapNamedIdToDTO |> List.toArray
-      Taxes = model.Taxes |> List.map mapNamedIdToDTO |> List.toArray
-      PowerLevels = model.PowerLevels |> List.map mapNamedIdToDTO |> List.toArray }
+let internal mapOptionSetToDTO (model: Settings.OptionSet) =
+    { Provinces =
+        model.Provinces
+        |> List.map mapNamedIdToDTO
+        |> List.toArray
+      Weathers =
+        model.Weathers
+        |> List.map mapNamedIdToDTO
+        |> List.toArray
+      Seasons =
+        model.Seasons
+        |> List.map mapNamedIdToDTO
+        |> List.toArray
+      Religions =
+        model.Religions
+        |> List.map mapNamedIdToDTO
+        |> List.toArray
+      Factions =
+        model.Factions
+        |> List.map mapNamedIdToDTO
+        |> List.toArray
+      Difficulties =
+        model.Difficulties
+        |> List.map mapNamedIdToDTO
+        |> List.toArray
+      Taxes =
+        model.Taxes
+        |> List.map mapNamedIdToDTO
+        |> List.toArray
+      PowerLevels =
+        model.PowerLevels
+        |> List.map mapNamedIdToDTO
+        |> List.toArray }
 
-let internal mapSlotToDTO (model:Province.SlotDescriptor) =
+let internal mapSlotToDTO (model: Province.SlotDescriptor) =
     let mapSlotType slotType =
         match slotType with
         | Province.Main -> 0
@@ -34,38 +57,38 @@ let internal mapSlotToDTO (model:Province.SlotDescriptor) =
       RegionType = model.RegionType |> mapRegionType
       ResourceId = model.ResourceId }
 
-let internal mapRegionToDTO (model:Province.Region) =
+let internal mapRegionToDTO (model: Province.Region) =
     { Id = model.Id
       Name = model.Name
       ResourceId = model.ResourceId
       ResourceName = model.ResourceName
       Slots = model.Slots |> Array.map mapSlotToDTO }
 
-let internal mapProvinceToDTO (model:Province.Province) =
+let internal mapProvinceToDTO (model: Province.Province) =
     { Id = model.Id
-      Name = model.Name 
+      Name = model.Name
       Regions = model.Regions |> Array.map mapRegionToDTO }
 
-let internal mapBuildingLevelToDTO (model:Buildings.BuildingLevel) =
-    { Id = model.Id
-      Name = model.Name }
+let internal mapBuildingLevelToDTO (model: Buildings.BuildingLevel) = { Id = model.Id; Name = model.Name }
 
-let internal mapBuildingBranchToDTO (model:Buildings.BuildingBranch) =
+let internal mapBuildingBranchToDTO (model: Buildings.BuildingBranch) =
     { Id = model.Id
-      Name = model.Name 
-      Items = model.Levels |> Array.map mapBuildingLevelToDTO}
+      Name = model.Name
+      Items = model.Levels |> Array.map mapBuildingLevelToDTO }
 
-let internal mapBuildingLibraryEntryToDTO (model:Buildings.BuildingLibraryEntry) =
+let internal mapBuildingLibraryEntryToDTO (model: Buildings.BuildingLibraryEntry) =
     { Descriptor = model.Descriptor |> mapSlotToDTO
-      BuildingBranches = model.BuildingBranches |> Array.map mapBuildingBranchToDTO }
+      BuildingBranches =
+        model.BuildingBranches
+        |> Array.map mapBuildingBranchToDTO }
 
-let internal mapRegionStateToDTO (model:State.RegionState) =
+let internal mapRegionStateToDTO (model: State.RegionState) =
     { Sanitation = model.Sanitation
       Food = model.Food
       Wealth = model.Wealth
       Maintenance = model.Maintenance }
 
-let internal mapProvinceStateToDTO (model:State.ProvinceState) =
+let internal mapProvinceStateToDTO (model: State.ProvinceState) =
     { Regions = model.Regions |> Array.map mapRegionStateToDTO
       TotalFood = model.TotalFood
       TotalWealth = model.TotalWealth
@@ -77,17 +100,17 @@ let internal mapProvinceStateToDTO (model:State.ProvinceState) =
       ResearchRate = model.ResearchRate
       Growth = model.Growth }
 
-let internal mapSeekerResultToDTO (seekerResult:Seeker.SeekerResult) =
+let internal mapSeekerResultToDTO (seekerResult: Seeker.SeekerResult) =
     { BranchId = seekerResult.Branch.Id
       LevelId = seekerResult.Level.Id
       RegionId = seekerResult.RegionId
       SlotIndex = seekerResult.SlotIndex }
 
-let internal mapSettingsFromDTO dto =
+let internal mapSettingsFromDTO dto : Settings.Settings =
     { ProvinceId = dto.ProvinceId
       FertilityDrop = dto.FertilityDrop
       TechnologyTier = dto.TechnologyTier
-      UseAntilegacyTechnologies = dto.UseAntilegacyTechnologies 
+      UseAntilegacyTechnologies = dto.UseAntilegacyTechnologies
       ReligionId = dto.ReligionId
       FactionId = dto.FactionId
       WeatherId = dto.WeatherId
@@ -96,7 +119,7 @@ let internal mapSettingsFromDTO dto =
       TaxId = dto.TaxId
       PowerLevelId = dto.PowerLevelId
       CorruptionRate = dto.CorruptionRate
-      PiracyRate = dto.PiracyRate }:Settings.Settings
+      PiracyRate = dto.PiracyRate }
 
 let internal mapSlotFromDTO dto =
     let mapSlotType slotType =
@@ -114,30 +137,35 @@ let internal mapSlotFromDTO dto =
 
     { SlotType = dto.SlotType |> mapSlotType
       RegionType = dto.RegionType |> mapRegionType
-      ResourceId = dto.ResourceId }:Province.SlotDescriptor
+      ResourceId = dto.ResourceId }: Province.SlotDescriptor
 
-let internal mapSeekerSettingsSlotFromDTO (buildingLibrary:Buildings.BuildingLibraryEntry[]) seekerSettingsSlot =
+let internal mapSeekerSettingsSlotFromDTO (buildingLibrary: Buildings.BuildingLibraryEntry []) seekerSettingsSlot =
     let descriptor = seekerSettingsSlot.Descriptor |> mapSlotFromDTO
-    let libraryEntry = 
+
+    let libraryEntry =
         buildingLibrary
         |> Array.find (fun x -> x.Descriptor = descriptor)
+
     let branch =
         match seekerSettingsSlot.BranchId, seekerSettingsSlot.LevelId with
         | None, _ -> None
-        | Some branchId, None -> 
+        | Some branchId, None ->
             libraryEntry.BuildingBranches
             |> Array.find (fun x -> x.Id = branchId)
             |> Some
         | Some branchId, Some levelId ->
             libraryEntry.BuildingBranches
-            |> Array.find (fun x -> x.Id = branchId && (x.Levels |> Array.exists (fun y -> y.Id = levelId)))
+            |> Array.find (fun x ->
+                x.Id = branchId
+                && (x.Levels |> Array.exists (fun y -> y.Id = levelId)))
             |> Some
+
     let level =
         match branch, seekerSettingsSlot.LevelId with
         | None, _ -> None
         | _, None -> None
         | Some branch, Some levelId ->
-            branch.Levels 
+            branch.Levels
             |> Array.find (fun x -> x.Id = levelId)
             |> Some
 
@@ -145,77 +173,183 @@ let internal mapSeekerSettingsSlotFromDTO (buildingLibrary:Buildings.BuildingLib
       Level = level
       Descriptor = descriptor
       RegionId = seekerSettingsSlot.RegionId
-      SlotIndex = seekerSettingsSlot.SlotIndex }:Seeker.SeekerSettingsSlot
+      SlotIndex = seekerSettingsSlot.SlotIndex }: Seeker.SeekerSettingsSlot
 
-let getSettingOptions (ctx:DatabaseContext) =
-    let weathersData = "Data/Weathers.json" |> File.ReadAllText |> WeathersData.ParseList
-    let seasonsData = "Data/Seasons.json" |> File.ReadAllText |> SeasonsData.ParseList
-    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+let internal getWeathersData () =
+    "Data/Weathers.json"
+    |> File.ReadAllText
+    |> WeathersData.ParseList
+
+let internal getSeasonsData () =
+    "Data/Seasons.json"
+    |> File.ReadAllText
+    |> SeasonsData.ParseList
+
+let internal getClimatesData () =
+    "Data/Climates.json"
+    |> File.ReadAllText
+    |> ClimatesData.ParseList
+
+let internal getResourcesData () =
+    "Data/Resources.json"
+    |> File.ReadAllText
+    |> ResourcesData.ParseList
+
+let internal getProvincesData () =
+    "Data/Provinces.json"
+    |> File.ReadAllText
+    |> ProvincesData.ParseList
+
+let internal getReligionsData () =
+    "Data/Religions.json"
+    |> File.ReadAllText
+    |> ReligionsData.ParseList
+
+let internal getDifficultiesData () =
+    "Data/Difficulties.json"
+    |> File.ReadAllText
+    |> DifficultiesData.ParseList
+
+let internal getTaxesData () =
+    "Data/Taxes.json"
+    |> File.ReadAllText
+    |> TaxesData.ParseList
+
+let internal getPowerLevelsData () =
+    "Data/PowerLevels.json"
+    |> File.ReadAllText
+    |> PowerLevelsData.ParseList
+
+let getSettingOptions (ctx: DatabaseContext) =
+    let weathersData = getWeathersData ()
+    let seasonsData = getSeasonsData ()
+    let provincesData = getProvincesData ()
+    let religionsData = getReligionsData ()
+    let difficultiesData = getDifficultiesData ()
+    let taxesData = getTaxesData ()
+    let powerLevelsData = getPowerLevelsData ()
 
     let options =
-        Settings.getOptions ctx weathersData seasonsData provincesData
+        Settings.getOptions
+            ctx
+            weathersData
+            seasonsData
+            provincesData
+            religionsData
+            difficultiesData
+            taxesData
+            powerLevelsData
 
     options |> mapOptionSetToDTO
 
 let getProvince provinceId =
-    let resourcesData = "Data/Resources.json" |> File.ReadAllText |> ResourcesData.ParseList
-    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+    let resourcesData = getResourcesData ()
+    let provincesData = getProvincesData ()
 
     let province = Province.getProvince provincesData resourcesData provinceId
 
     province |> mapProvinceToDTO
 
-let getBuildingLibrary (ctx:DatabaseContext) settings =
-    let settingsModel =
-        settings |> mapSettingsFromDTO
+let getBuildingLibrary (ctx: DatabaseContext) settings =
+    let settingsModel = settings |> mapSettingsFromDTO
 
-    let buildingsModels = 
-        Buildings.getBuildingLibrary ctx settingsModel
+    let buildingsModels = Buildings.getBuildingLibrary ctx settingsModel
 
-    buildingsModels |> Array.map mapBuildingLibraryEntryToDTO
+    buildingsModels
+    |> Array.map mapBuildingLibraryEntryToDTO
 
-let getState (ctx:DatabaseContext) buildingLevelIds settings =
-    let climatesData = "Data/Climates.json" |> File.ReadAllText |> ClimatesData.ParseList
-    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+let getState (ctx: DatabaseContext) buildingLevelIds settings =
+    let climatesData = getClimatesData ()
+    let provincesData = getProvincesData ()
+    let religionsData = getReligionsData ()
+    let difficultiesData = getDifficultiesData ()
+    let taxesData = getTaxesData ()
+    let powerLevelsData = getPowerLevelsData ()
 
-    let settingsModel =
-        settings |> mapSettingsFromDTO
-    let predefinedEffectSet = 
-        Effects.getStateFromSettings ctx climatesData provincesData settingsModel
+    let settingsModel = settings |> mapSettingsFromDTO
+
+    let predefinedEffectSet =
+        Effects.getStateFromSettings
+            ctx
+            climatesData
+            provincesData
+            religionsData
+            difficultiesData
+            taxesData
+            powerLevelsData
+            settingsModel
+
     let buildings =
         buildingLevelIds
-        |> Array.map (fun region -> region |> Array.filter (fun x -> x <> 0) |> Array.map (Buildings.getBuildingLevel ctx) |> Array.toSeq)
+        |> Array.map (fun region ->
+            region
+            |> Array.filter (fun x -> x <> 0)
+            |> Array.map (Buildings.getBuildingLevel ctx)
+            |> Array.toSeq)
         |> Array.toSeq
 
-    let state = 
-        State.getState buildings settingsModel predefinedEffectSet
+    let state = State.getState buildings settingsModel predefinedEffectSet
 
     state |> mapProvinceStateToDTO
 
-let seek(ctx:DatabaseContext) settings seekerSettings minimalCondition (resetProgress:ResetProgressDelegate) (incrementProgress:IncrementProgressDelegate) =
-    let climatesData = "Data/Climates.json" |> File.ReadAllText |> ClimatesData.ParseList
-    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+let seek
+    (ctx: DatabaseContext)
+    settings
+    seekerSettings
+    minimalCondition
+    (resetProgress: ResetProgressDelegate)
+    (incrementProgress: IncrementProgressDelegate)
+    =
+    let climatesData = getClimatesData ()
+    let provincesData = getProvincesData ()
+    let religionsData = getReligionsData ()
+    let difficultiesData = getDifficultiesData ()
+    let taxesData = getTaxesData ()
+    let powerLevelsData = getPowerLevelsData ()
 
-    let settingsModel =
-        settings |> mapSettingsFromDTO
-    let predefinedEffectSet = 
-        Effects.getStateFromSettings ctx climatesData provincesData settingsModel
-    let buildingLibrary = 
-        Buildings.getBuildingLibrary ctx settingsModel
+    let settingsModel = settings |> mapSettingsFromDTO
+
+    let predefinedEffectSet =
+        Effects.getStateFromSettings
+            ctx
+            climatesData
+            provincesData
+            religionsData
+            difficultiesData
+            taxesData
+            powerLevelsData
+            settingsModel
+
+    let buildingLibrary = Buildings.getBuildingLibrary ctx settingsModel
+
     let seekerSettingsModel =
-        seekerSettings |> Array.map (fun x -> { Slots = x.Slots |> (Array.map (mapSeekerSettingsSlotFromDTO buildingLibrary)) }:Seeker.SeekerSettingsRegion )
-    let minimalConditionFun (state:State.ProvinceState) =
-        if minimalCondition.RequireFood && state.TotalFood < 0 then
+        seekerSettings
+        |> Array.map (fun x ->
+            { Slots =
+                x.Slots
+                |> (Array.map (mapSeekerSettingsSlotFromDTO buildingLibrary)) }: Seeker.SeekerSettingsRegion)
+
+    let minimalConditionFun (state: State.ProvinceState) =
+        if minimalCondition.RequireFood
+           && state.TotalFood < 0 then
             false
-        elif minimalCondition.RequireSanitation && (state.Regions |> Array.exists (fun x -> x.Sanitation < 0)) then
+        elif minimalCondition.RequireSanitation
+             && (state.Regions
+                 |> Array.exists (fun x -> x.Sanitation < 0)) then
             false
         elif minimalCondition.MinimalPublicOrder > state.PublicOrder then
             false
-        else 
+        else
             true
 
     let seekerResults =
-        Seeker.seek settingsModel predefinedEffectSet buildingLibrary seekerSettingsModel minimalConditionFun (fun x -> resetProgress.Invoke x) (fun () -> incrementProgress.Invoke ())
+        Seeker.seek
+            settingsModel
+            predefinedEffectSet
+            buildingLibrary
+            seekerSettingsModel
+            minimalConditionFun
+            (fun x -> resetProgress.Invoke x)
+            (fun () -> incrementProgress.Invoke())
 
-    seekerResults
-    |> Array.map mapSeekerResultToDTO
+    seekerResults |> Array.map mapSeekerResultToDTO

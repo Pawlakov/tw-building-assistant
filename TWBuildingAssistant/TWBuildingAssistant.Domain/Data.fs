@@ -61,3 +61,8 @@ type ProvincesData =
         } 
     }
     """, SampleIsList=true>
+
+type ReligionsData = JsonProvider<"Data/Religions.json", SampleIsList=true>
+type TaxesData = JsonProvider<"Data/Taxes.json", SampleIsList=true>
+type DifficultiesData = JsonProvider<"Data/Difficulties.json", SampleIsList=true>
+type PowerLevelsData = JsonProvider<"Data/PowerLevels.json", SampleIsList=true>

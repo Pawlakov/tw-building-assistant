@@ -1,0 +1,68 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Arian Christian",
+    "EffectId": 284
+  },
+  {
+    "Id": 2,
+    "Name": "Celtic Pagan",
+    "EffectId": 285
+  },
+  {
+    "Id": 3,
+    "Name": "East Christian",
+    "EffectId": 286
+  },
+  {
+    "Id": 4,
+    "Name": "Germanic Pagan"
+  },
+  {
+    "Id": 5,
+    "Name": "Grecoroman Pagan",
+    "EffectId": 287
+  },
+  {
+    "Id": 6,
+    "Name": "Orthodox Christian",
+    "EffectId": 288
+  },
+  {
+    "Id": 7,
+    "Name": "Judaic",
+    "EffectId": 289
+  },
+  {
+    "Id": 8,
+    "Name": "Catholic Christian",
+    "EffectId": 290
+  },
+  {
+    "Id": 9,
+    "Name": "Manichaeist",
+    "EffectId": 291
+  },
+  {
+    "Id": 10,
+    "Name": "Minor"
+  },
+  {
+    "Id": 11,
+    "Name": "Semitic Pagan"
+  },
+  {
+    "Id": 12,
+    "Name": "Slavic Pagan",
+    "EffectId": 292
+  },
+  {
+    "Id": 13,
+    "Name": "Tengri"
+  },
+  {
+    "Id": 14,
+    "Name": "Zoroastrian",
+    "EffectId": 293
+  }
+]

@@ -1,6 +1,6 @@
 ﻿module TWBuildingAssistant.Domain.Province
 
-open TWBuildingAssistant.Data.Sqlite
+open Data
 
 type internal RegionType =
     | City
@@ -29,11 +29,10 @@ type internal Province =
       Name:string
       Regions:Region[] }
 
-let internal getRegionType intValue =
-    match intValue with
-    | 0 -> City
-    | 1 -> Town
-    | _ -> failwith "Invalid value"
+type internal RegionData =
+    | CityData of ProvincesData.City
+    | TownFirstData of ProvincesData.City
+    | TownSecondData of ProvincesData.City
 
 let internal createRegion id name regionType isCoastal resourceId resourceName missingSlot =
     match (id, name) with
@@ -64,59 +63,57 @@ let internal createRegion id name regionType isCoastal resourceId resourceName m
 
         { Id = id; Name = name; RegionType = regionType; ResourceId = resourceId; ResourceName = resourceName; Slots = slots }
 
-let internal createProvince id name regions =
-    match (id, name, regions) with
-    | 0, _, _ ->
+let internal createProvince id name city townFirst townSecond =
+    match (id, name) with
+    | 0, _ ->
         failwith "Province without id."
-    | _, "", _ ->
+    | _, "" ->
         failwith "Province without name."
-    | _, _, regions when regions |> Array.length <> 3 ->
-        failwith "Invalid region count."
     | _ ->
-        { Id = id; Name = name; Regions = regions }
+        { Id = id; Name = name; Regions = [| city; townFirst; townSecond |] }
 
-let internal getProvince (ctx:DatabaseContext) provinceId =
-    let regions =
+let internal getProvince (provincesData:ProvincesData.Root[]) (resourcesData:ResourcesData.Root[]) provinceId =
+    let province =
         query {
-            for region in ctx.Regions do
-            where (region.ProvinceId = provinceId)
-            select region }
-        |> Seq.toList
-
+            for province in provincesData do
+            where (province.Id = provinceId)
+            select province
+            head }
+    
     let resourceIds =
-        regions 
-        |> List.choose (fun x -> (if x.ResourceId.HasValue then Some x.ResourceId.Value else None)) 
+        [ province.City.ResourceId; province.TownFirst.ResourceId; province.TownSecond.ResourceId ]
+        |> List.choose (fun x -> x) 
         |> List.distinct
 
     let resources =
         query {
-            for resource in ctx.Resources do
+            for resource in resourcesData do
             where (List.contains resource.Id resourceIds)
             select resource }
         |> Seq.toList
 
-    let province =
-        query {
-            for province in ctx.Provinces do
-            where (province.Id = provinceId)
-            select province
-            head }
+    let regionMap region =
+        let (id, name, regionType, isCoastal, resourceId, slotsCountOffset) =
+            match region with
+            | CityData region ->
+                (region.Id, region.Name, City, region.IsCoastal, region.ResourceId, region.SlotsCountOffset)
+            | TownFirstData region ->
+                (region.Id, region.Name, Town, region.IsCoastal, region.ResourceId, region.SlotsCountOffset)
+            | TownSecondData region ->
+                (region.Id, region.Name, Town, region.IsCoastal, region.ResourceId, region.SlotsCountOffset)
 
-    let regionMap (region:Entities.Region) =
-        let regionType =
-            region.RegionType |> getRegionType
-        let resourceId = 
-            if region.ResourceId.HasValue then Some region.ResourceId.Value else None
         let resourceName =
             resourceId |> Option.map (fun x -> (resources |> List.find (fun y -> y.Id = x)).Name)
         let missingSlot =
-            region.SlotsCountOffset <> 0
+            match slotsCountOffset with
+                | Some 0 -> false
+                | None -> false
+                | _ -> true
 
-        createRegion region.Id region.Name regionType region.IsCoastal resourceId resourceName missingSlot
+        createRegion id name regionType (Option.defaultValue false isCoastal) resourceId resourceName missingSlot
 
-    let regions =
-        regions
-        |> List.map regionMap
-        |> List.toArray
+    let city = regionMap (CityData province.City)
+    let townFirst = regionMap (TownFirstData province.TownFirst)
+    let townSecond = regionMap (TownSecondData province.TownSecond)
 
-    createProvince province.Id province.Name regions
+    createProvince province.Id province.Name city townFirst townSecond

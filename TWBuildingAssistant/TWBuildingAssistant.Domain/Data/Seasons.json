@@ -1,0 +1,22 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Spring",
+    "Order": 1
+  },
+  {
+    "Id": 2,
+    "Name": "Summer",
+    "Order": 2
+  },
+  {
+    "Id": 3,
+    "Name": "Autumn",
+    "Order": 3
+  },
+  {
+    "Id": 4,
+    "Name": "Winter",
+    "Order": 4
+  }
+]

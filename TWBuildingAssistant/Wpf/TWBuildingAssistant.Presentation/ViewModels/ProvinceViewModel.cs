@@ -30,21 +30,18 @@ public class ProvinceViewModel
         this.configuration = configuration;
         this.dbContextFactory = dbContextFactory;
 
-        using (var dbContext = this.dbContextFactory.CreateDbContext())
+        var province = getProvince(this.configuration.GetSettings().ProvinceId);
+        this.ProvinceName = province.Name;
+        this.Regions = new ObservableCollection<RegionViewModel>();
+        foreach (var region in province.Regions)
         {
-            var province = getProvince(dbContext, this.configuration.GetSettings().ProvinceId);
-            this.ProvinceName = province.Name;
-            this.Regions = new ObservableCollection<RegionViewModel>();
-            foreach (var region in province.Regions)
+            var newRegion = new RegionViewModel(this.settingsStore, this.provinceStore, region);
+            foreach (var slot in newRegion.Slots)
             {
-                var newRegion = new RegionViewModel(this.settingsStore, this.provinceStore, region);
-                foreach (var slot in newRegion.Slots)
-                {
-                    slot.BuildingChanged += (sender, args) => this.SetPerformanceDisplay();
-                }
-
-                this.Regions.Add(newRegion);
+                slot.BuildingChanged += (sender, args) => this.SetPerformanceDisplay();
             }
+
+            this.Regions.Add(newRegion);
         }
 
         this.PreviousCommand = new RelayCommand(this.Previous);

@@ -1,7 +1,9 @@
 ﻿module TWBuildingAssistant.Domain.Interface
 
-open DTOs
 open TWBuildingAssistant.Data.Sqlite
+open DTOs
+open Data
+open System.IO
 
 let internal mapNamedIdToDTO (model:Settings.NamedId) =
     { Id = model.Id; Name = model.Name}
@@ -146,13 +148,20 @@ let internal mapSeekerSettingsSlotFromDTO (buildingLibrary:Buildings.BuildingLib
       SlotIndex = seekerSettingsSlot.SlotIndex }:Seeker.SeekerSettingsSlot
 
 let getSettingOptions (ctx:DatabaseContext) =
+    let weathersData = "Data/Weathers.json" |> File.ReadAllText |> WeathersData.ParseList
+    let seasonsData = "Data/Seasons.json" |> File.ReadAllText |> SeasonsData.ParseList
+    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+
     let options =
-        Settings.getOptions ctx
+        Settings.getOptions ctx weathersData seasonsData provincesData
 
     options |> mapOptionSetToDTO
 
-let getProvince (ctx:DatabaseContext) provinceId =
-    let province = Province.getProvince ctx provinceId
+let getProvince provinceId =
+    let resourcesData = "Data/Resources.json" |> File.ReadAllText |> ResourcesData.ParseList
+    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+
+    let province = Province.getProvince provincesData resourcesData provinceId
 
     province |> mapProvinceToDTO
 
@@ -166,10 +175,13 @@ let getBuildingLibrary (ctx:DatabaseContext) settings =
     buildingsModels |> Array.map mapBuildingLibraryEntryToDTO
 
 let getState (ctx:DatabaseContext) buildingLevelIds settings =
+    let climatesData = "Data/Climates.json" |> File.ReadAllText |> ClimatesData.ParseList
+    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+
     let settingsModel =
         settings |> mapSettingsFromDTO
     let predefinedEffectSet = 
-        Effects.getStateFromSettings ctx settingsModel
+        Effects.getStateFromSettings ctx climatesData provincesData settingsModel
     let buildings =
         buildingLevelIds
         |> Array.map (fun region -> region |> Array.filter (fun x -> x <> 0) |> Array.map (Buildings.getBuildingLevel ctx) |> Array.toSeq)
@@ -181,10 +193,13 @@ let getState (ctx:DatabaseContext) buildingLevelIds settings =
     state |> mapProvinceStateToDTO
 
 let seek(ctx:DatabaseContext) settings seekerSettings minimalCondition (resetProgress:ResetProgressDelegate) (incrementProgress:IncrementProgressDelegate) =
+    let climatesData = "Data/Climates.json" |> File.ReadAllText |> ClimatesData.ParseList
+    let provincesData = "Data/Provinces.json" |> File.ReadAllText |> ProvincesData.ParseList
+
     let settingsModel =
         settings |> mapSettingsFromDTO
     let predefinedEffectSet = 
-        Effects.getStateFromSettings ctx settingsModel
+        Effects.getStateFromSettings ctx climatesData provincesData settingsModel
     let buildingLibrary = 
         Buildings.getBuildingLibrary ctx settingsModel
     let seekerSettingsModel =

@@ -1,0 +1,1255 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Aegyptus",
+    "ClimateId": 4,
+    "EffectId": 294,
+    "City": {
+      "Id": 8,
+      "Name": "Alexandria",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 29,
+      "Name": "Berenice",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 121,
+      "Name": "Oxyrhynchus",
+      "ResourceId": 4
+    }
+  },
+  {
+    "Id": 2,
+    "Name": "Aethiopia",
+    "ClimateId": 4,
+    "EffectId": 295,
+    "City": {
+      "Id": 6,
+      "Name": "Aksum",
+      "ResourceId": 2
+    },
+    "TownFirst": {
+      "Id": 2,
+      "Name": "Adulis",
+      "ResourceId": 12,
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 122,
+      "Name": "Pachoras"
+    }
+  },
+  {
+    "Id": 3,
+    "Name": "Africa",
+    "ClimateId": 4,
+    "EffectId": 296,
+    "City": {
+      "Id": 40,
+      "Name": "Carthago",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 46,
+      "Name": "Constantina",
+      "ResourceId": 8
+    },
+    "TownSecond": {
+      "Id": 81,
+      "Name": "Hadrumentum",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 4,
+    "Name": "Aquitania",
+    "ClimateId": 1,
+    "EffectId": 297,
+    "City": {
+      "Id": 34,
+      "Name": "Burdigala",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 26,
+      "Name": "Avaricum",
+      "ResourceId": 4
+    },
+    "TownSecond": {
+      "Id": 67,
+      "Name": "Elusa"
+    }
+  },
+  {
+    "Id": 5,
+    "Name": "Arabia Felix",
+    "ClimateId": 4,
+    "EffectId": 298,
+    "City": {
+      "Id": 186,
+      "Name": "Zafar",
+      "ResourceId": 6
+    },
+    "TownFirst": {
+      "Id": 71,
+      "Name": "Eudaemon",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 120,
+      "Name": "Omana",
+      "IsCoastal": true,
+      "ResourceId": 12
+    }
+  },
+  {
+    "Id": 6,
+    "Name": "Arabia Magna",
+    "ClimateId": 4,
+    "EffectId": 299,
+    "City": {
+      "Id": 185,
+      "Name": "Yathrib",
+      "ResourceId": 5
+    },
+    "TownFirst": {
+      "Id": 55,
+      "Name": "Damatha"
+    },
+    "TownSecond": {
+      "Id": 85,
+      "Name": "Hira"
+    }
+  },
+  {
+    "Id": 7,
+    "Name": "Armenia",
+    "ClimateId": 3,
+    "EffectId": 300,
+    "City": {
+      "Id": 58,
+      "Name": "Duin"
+    },
+    "TownFirst": {
+      "Id": 127,
+      "Name": "Payttakaran"
+    },
+    "TownSecond": {
+      "Id": 172,
+      "Name": "Tosp",
+      "ResourceId": 7
+    }
+  },
+  {
+    "Id": 8,
+    "Name": "Asia",
+    "ClimateId": 2,
+    "EffectId": 301,
+    "City": {
+      "Id": 70,
+      "Name": "Ephesus",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 53,
+      "Name": "Cyzicus",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 162,
+      "Name": "Synnada",
+      "ResourceId": 8
+    }
+  },
+  {
+    "Id": 9,
+    "Name": "Asorastan",
+    "ClimateId": 3,
+    "EffectId": 302,
+    "City": {
+      "Id": 51,
+      "Name": "Ctesiphon"
+    },
+    "TownFirst": {
+      "Id": 17,
+      "Name": "Arbela",
+      "ResourceId": 8
+    },
+    "TownSecond": {
+      "Id": 106,
+      "Name": "Meshan",
+      "ResourceId": 12,
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 10,
+    "Name": "Baetica",
+    "ClimateId": 2,
+    "EffectId": 303,
+    "City": {
+      "Id": 48,
+      "Name": "Corduba"
+    },
+    "TownFirst": {
+      "Id": 86,
+      "Name": "Hispalis"
+    },
+    "TownSecond": {
+      "Id": 101,
+      "Name": "Malaca",
+      "ResourceId": 13,
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 11,
+    "Name": "Belgica",
+    "ClimateId": 1,
+    "EffectId": 304,
+    "City": {
+      "Id": 24,
+      "Name": "Augusta Treverorum",
+      "ResourceId": 7
+    },
+    "TownFirst": {
+      "Id": 44,
+      "Name": "Colonia Agrippina"
+    },
+    "TownSecond": {
+      "Id": 60,
+      "Name": "Durocortorum"
+    }
+  },
+  {
+    "Id": 12,
+    "Name": "Bithynia",
+    "ClimateId": 2,
+    "EffectId": 305,
+    "City": {
+      "Id": 11,
+      "Name": "Ancyra",
+      "ResourceId": 11,
+      "SlotsCountOffset": -1
+    },
+    "TownFirst": {
+      "Id": 112,
+      "Name": "Nicomedia",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 153,
+      "Name": "Sinope"
+    }
+  },
+  {
+    "Id": 13,
+    "Name": "Britannia Inferior",
+    "ClimateId": 1,
+    "EffectId": 306,
+    "City": {
+      "Id": 63,
+      "Name": "Eburacum"
+    },
+    "TownFirst": {
+      "Id": 96,
+      "Name": "Lindum"
+    },
+    "TownSecond": {
+      "Id": 134,
+      "Name": "Segontium",
+      "IsCoastal": true,
+      "ResourceId": 6
+    }
+  },
+  {
+    "Id": 14,
+    "Name": "Britannia Superior",
+    "ClimateId": 1,
+    "EffectId": 307,
+    "City": {
+      "Id": 97,
+      "Name": "Londinium",
+      "ResourceId": 5
+    },
+    "TownFirst": {
+      "Id": 38,
+      "Name": "Camulodunum",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 49,
+      "Name": "Corinium"
+    }
+  },
+  {
+    "Id": 15,
+    "Name": "Caledonia et Hibernia",
+    "ClimateId": 1,
+    "EffectId": 308,
+    "City": {
+      "Id": 175,
+      "Name": "Tuesis"
+    },
+    "TownFirst": {
+      "Id": 62,
+      "Name": "Eblana",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 66,
+      "Name": "Eildon",
+      "ResourceId": 7
+    }
+  },
+  {
+    "Id": 16,
+    "Name": "Cappadocia",
+    "ClimateId": 2,
+    "EffectId": 309,
+    "City": {
+      "Id": 37,
+      "Name": "Caesarea Eusebia",
+      "SlotsCountOffset": -1
+    },
+    "TownFirst": {
+      "Id": 104,
+      "Name": "Melitene",
+      "ResourceId": 6
+    },
+    "TownSecond": {
+      "Id": 173,
+      "Name": "Trapezus",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 17,
+    "Name": "Carthaginensis",
+    "ClimateId": 2,
+    "EffectId": 310,
+    "City": {
+      "Id": 41,
+      "Name": "Carthago Nova",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 148,
+      "Name": "Segobriga",
+      "ResourceId": 9
+    },
+    "TownSecond": {
+      "Id": 171,
+      "Name": "Toletum"
+    }
+  },
+  {
+    "Id": 18,
+    "Name": "Caucasia",
+    "ClimateId": 1,
+    "EffectId": 311,
+    "City": {
+      "Id": 108,
+      "Name": "Mtskheta"
+    },
+    "TownFirst": {
+      "Id": 74,
+      "Name": "Gabala"
+    },
+    "TownSecond": {
+      "Id": 93,
+      "Name": "Kotais",
+      "ResourceId": 11
+    }
+  },
+  {
+    "Id": 19,
+    "Name": "Cilicia",
+    "ClimateId": 2,
+    "EffectId": 312,
+    "City": {
+      "Id": 167,
+      "Name": "Tarsus",
+      "IsCoastal": true,
+      "ResourceId": 9
+    },
+    "TownFirst": {
+      "Id": 88,
+      "Name": "Iconium"
+    },
+    "TownSecond": {
+      "Id": 109,
+      "Name": "Myra",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 20,
+    "Name": "Dacia",
+    "ClimateId": 1,
+    "EffectId": 314,
+    "City": {
+      "Id": 14,
+      "Name": "Apulum",
+      "ResourceId": 10
+    },
+    "TownFirst": {
+      "Id": 128,
+      "Name": "Petrodava"
+    },
+    "TownSecond": {
+      "Id": 139,
+      "Name": "Romula",
+      "ResourceId": 5
+    }
+  },
+  {
+    "Id": 21,
+    "Name": "Dalmatia",
+    "ClimateId": 2,
+    "EffectId": 314,
+    "City": {
+      "Id": 143,
+      "Name": "Salona",
+      "IsCoastal": true,
+      "ResourceId": 13
+    },
+    "TownFirst": {
+      "Id": 57,
+      "Name": "Domavia"
+    },
+    "TownSecond": {
+      "Id": 155,
+      "Name": "Siscia"
+    }
+  },
+  {
+    "Id": 22,
+    "Name": "Dardania",
+    "ClimateId": 2,
+    "EffectId": 315,
+    "City": {
+      "Id": 151,
+      "Name": "Serdica"
+    },
+    "TownFirst": {
+      "Id": 147,
+      "Name": "Scupi",
+      "ResourceId": 6
+    },
+    "TownSecond": {
+      "Id": 183,
+      "Name": "Viminacium"
+    }
+  },
+  {
+    "Id": 23,
+    "Name": "Frisia",
+    "ClimateId": 1,
+    "EffectId": 316,
+    "City": {
+      "Id": 176,
+      "Name": "Tulifurdum",
+      "ResourceId": 2
+    },
+    "TownFirst": {
+      "Id": 12,
+      "Name": "Angulus",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 73,
+      "Name": "Flevum"
+    }
+  },
+  {
+    "Id": 24,
+    "Name": "Gallaecia",
+    "ClimateId": 1,
+    "EffectId": 317,
+    "City": {
+      "Id": 31,
+      "Name": "Bracara",
+      "ResourceId": 4
+    },
+    "TownFirst": {
+      "Id": 22,
+      "Name": "Asturica"
+    },
+    "TownSecond": {
+      "Id": 32,
+      "Name": "Brigantium",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 25,
+    "Name": "Germania",
+    "ClimateId": 1,
+    "EffectId": 318,
+    "City": {
+      "Id": 179,
+      "Name": "Uburzis",
+      "ResourceId": 3
+    },
+    "TownFirst": {
+      "Id": 18,
+      "Name": "Aregelia"
+    },
+    "TownSecond": {
+      "Id": 99,
+      "Name": "Lupfurdum"
+    }
+  },
+  {
+    "Id": 26,
+    "Name": "Germanosarmatia",
+    "ClimateId": 1,
+    "EffectId": 319,
+    "City": {
+      "Id": 124,
+      "Name": "Palteskja"
+    },
+    "TownFirst": {
+      "Id": 59,
+      "Name": "Duna",
+      "IsCoastal": true,
+      "ResourceId": 3
+    },
+    "TownSecond": {
+      "Id": 117,
+      "Name": "Oium"
+    }
+  },
+  {
+    "Id": 27,
+    "Name": "Gothiscandza",
+    "ClimateId": 1,
+    "EffectId": 320,
+    "City": {
+      "Id": 79,
+      "Name": "Gothiscandza",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 21,
+      "Name": "Ascaucalis",
+      "ResourceId": 10
+    },
+    "TownSecond": {
+      "Id": 141,
+      "Name": "Rugion",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 28,
+    "Name": "Hercynia",
+    "ClimateId": 1,
+    "EffectId": 321,
+    "City": {
+      "Id": 42,
+      "Name": "Casurgis"
+    },
+    "TownFirst": {
+      "Id": 33,
+      "Name": "Budorgis",
+      "ResourceId": 6
+    },
+    "TownSecond": {
+      "Id": 113,
+      "Name": "Nitrahwa"
+    }
+  },
+  {
+    "Id": 29,
+    "Name": "Hyperborea",
+    "ClimateId": 1,
+    "EffectId": 322,
+    "City": {
+      "Id": 91,
+      "Name": "Kariskos",
+      "ResourceId": 2
+    },
+    "TownFirst": {
+      "Id": 107,
+      "Name": "Moramar"
+    },
+    "TownSecond": {
+      "Id": 161,
+      "Name": "Sylis"
+    }
+  },
+  {
+    "Id": 30,
+    "Name": "Insulae Occidentalis",
+    "ClimateId": 2,
+    "EffectId": 323,
+    "City": {
+      "Id": 39,
+      "Name": "Caralis",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 5,
+      "Name": "Ajax",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 123,
+      "Name": "Palma",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 31,
+    "Name": "Insulae Orientalis",
+    "ClimateId": 2,
+    "EffectId": 324,
+    "City": {
+      "Id": 80,
+      "Name": "Gortyna",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 45,
+      "Name": "Constantia",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 137,
+      "Name": "Rhodes",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 32,
+    "Name": "Italia",
+    "ClimateId": 2,
+    "EffectId": 325,
+    "City": {
+      "Id": 138,
+      "Name": "Roma"
+    },
+    "TownFirst": {
+      "Id": 72,
+      "Name": "Fiorentia"
+    },
+    "TownSecond": {
+      "Id": 111,
+      "Name": "Neapolis",
+      "IsCoastal": true,
+      "ResourceId": 10
+    }
+  },
+  {
+    "Id": 33,
+    "Name": "Khwarasan",
+    "ClimateId": 3,
+    "EffectId": 326,
+    "City": {
+      "Id": 1,
+      "Name": "Abarshahr"
+    },
+    "TownFirst": {
+      "Id": 83,
+      "Name": "Harev"
+    },
+    "TownSecond": {
+      "Id": 105,
+      "Name": "Merv",
+      "ResourceId": 11
+    }
+  },
+  {
+    "Id": 34,
+    "Name": "Liguria",
+    "ClimateId": 2,
+    "EffectId": 327,
+    "City": {
+      "Id": 103,
+      "Name": "Mediolanum"
+    },
+    "TownFirst": {
+      "Id": 78,
+      "Name": "Genua",
+      "IsCoastal": true,
+      "ResourceId": 8
+    },
+    "TownSecond": {
+      "Id": 150,
+      "Name": "Segusio"
+    }
+  },
+  {
+    "Id": 35,
+    "Name": "Lugdunensis",
+    "ClimateId": 1,
+    "EffectId": 328,
+    "City": {
+      "Id": 98,
+      "Name": "Lugdunum"
+    },
+    "TownFirst": {
+      "Id": 140,
+      "Name": "Rotomagus",
+      "IsCoastal": true,
+      "ResourceId": 10
+    },
+    "TownSecond": {
+      "Id": 177,
+      "Name": "Turonum"
+    }
+  },
+  {
+    "Id": 36,
+    "Name": "Lusitania",
+    "ClimateId": 2,
+    "EffectId": 329,
+    "City": {
+      "Id": 68,
+      "Name": "Emerita Augusta"
+    },
+    "TownFirst": {
+      "Id": 119,
+      "Name": "Olispo",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 126,
+      "Name": "Pax Augusta",
+      "ResourceId": 5
+    }
+  },
+  {
+    "Id": 37,
+    "Name": "Libya",
+    "ClimateId": 4,
+    "EffectId": 330,
+    "City": {
+      "Id": 131,
+      "Name": "Ptolemais",
+      "IsCoastal": true,
+      "ResourceId": 9
+    },
+    "TownFirst": {
+      "Id": 23,
+      "Name": "Augila"
+    },
+    "TownSecond": {
+      "Id": 125,
+      "Name": "Paraetonium",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 38,
+    "Name": "Macedonia",
+    "ClimateId": 2,
+    "EffectId": 331,
+    "City": {
+      "Id": 169,
+      "Name": "Thessalonica",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 50,
+      "Name": "Corinthus",
+      "IsCoastal": true,
+      "ResourceId": 8
+    },
+    "TownSecond": {
+      "Id": 61,
+      "Name": "Dyrrachium",
+      "IsCoastal": true,
+      "ResourceId": 9
+    }
+  },
+  {
+    "Id": 39,
+    "Name": "Magna Graecia",
+    "ClimateId": 2,
+    "EffectId": 332,
+    "City": {
+      "Id": 166,
+      "Name": "Tarentum",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 136,
+      "Name": "Rhegium",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 163,
+      "Name": "Syracusae",
+      "IsCoastal": true,
+      "ResourceId": 13
+    }
+  },
+  {
+    "Id": 40,
+    "Name": "Makran",
+    "ClimateId": 3,
+    "EffectId": 333,
+    "City": {
+      "Id": 132,
+      "Name": "Pura"
+    },
+    "TownFirst": {
+      "Id": 84,
+      "Name": "Harmosia",
+      "IsCoastal": true,
+      "ResourceId": 12
+    },
+    "TownSecond": {
+      "Id": 129,
+      "Name": "Phra",
+      "ResourceId": 10
+    }
+  },
+  {
+    "Id": 41,
+    "Name": "Mauretania",
+    "ClimateId": 4,
+    "EffectId": 334,
+    "City": {
+      "Id": 36,
+      "Name": "Caesarea",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 164,
+      "Name": "Tamousiga",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 170,
+      "Name": "Tingis",
+      "IsCoastal": true,
+      "ResourceId": 7
+    }
+  },
+  {
+    "Id": 42,
+    "Name": "Maxima Sequanorum",
+    "ClimateId": 1,
+    "EffectId": 335,
+    "City": {
+      "Id": 181,
+      "Name": "Vesontio"
+    },
+    "TownFirst": {
+      "Id": 19,
+      "Name": "Argentoratum",
+      "SlotsCountOffset": -1
+    },
+    "TownSecond": {
+      "Id": 116,
+      "Name": "Octodurum",
+      "ResourceId": 5
+    }
+  },
+  {
+    "Id": 43,
+    "Name": "Media Atropatene",
+    "ClimateId": 3,
+    "EffectId": 336,
+    "City": {
+      "Id": 64,
+      "Name": "Ecbatana",
+      "ResourceId": 11
+    },
+    "TownFirst": {
+      "Id": 75,
+      "Name": "Ganzaga"
+    },
+    "TownSecond": {
+      "Id": 135,
+      "Name": "Rhaga"
+    }
+  },
+  {
+    "Id": 44,
+    "Name": "Narbonensis",
+    "ClimateId": 2,
+    "EffectId": 337,
+    "City": {
+      "Id": 15,
+      "Name": "Aquae Sextiae",
+      "ResourceId": 13
+    },
+    "TownFirst": {
+      "Id": 110,
+      "Name": "Narbo",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 182,
+      "Name": "Vienna"
+    }
+  },
+  {
+    "Id": 45,
+    "Name": "Osroene",
+    "ClimateId": 3,
+    "EffectId": 338,
+    "City": {
+      "Id": 65,
+      "Name": "Edessa",
+      "ResourceId": 13
+    },
+    "TownFirst": {
+      "Id": 9,
+      "Name": "Amida"
+    },
+    "TownSecond": {
+      "Id": 114,
+      "Name": "Nisibis"
+    }
+  },
+  {
+    "Id": 46,
+    "Name": "Palaestinea",
+    "ClimateId": 2,
+    "EffectId": 339,
+    "City": {
+      "Id": 115,
+      "Name": "Nova Trajana Bostra",
+      "SlotsCountOffset": -1
+    },
+    "TownFirst": {
+      "Id": 3,
+      "Name": "Aelia Capitolina"
+    },
+    "TownSecond": {
+      "Id": 4,
+      "Name": "Aila",
+      "IsCoastal": true,
+      "ResourceId": 3
+    }
+  },
+  {
+    "Id": 47,
+    "Name": "Pannonia",
+    "ClimateId": 1,
+    "EffectId": 340,
+    "City": {
+      "Id": 154,
+      "Name": "Sirmium"
+    },
+    "TownFirst": {
+      "Id": 146,
+      "Name": "Savaria",
+      "ResourceId": 2
+    },
+    "TownSecond": {
+      "Id": 156,
+      "Name": "Sopianae"
+    }
+  },
+  {
+    "Id": 48,
+    "Name": "Persis",
+    "ClimateId": 3,
+    "EffectId": 341,
+    "City": {
+      "Id": 158,
+      "Name": "Stakhr"
+    },
+    "TownFirst": {
+      "Id": 27,
+      "Name": "Behdesir"
+    },
+    "TownSecond": {
+      "Id": 159,
+      "Name": "Straf",
+      "ResourceId": 1
+    }
+  },
+  {
+    "Id": 49,
+    "Name": "Raetia et Noricum",
+    "ClimateId": 1,
+    "EffectId": 342,
+    "City": {
+      "Id": 25,
+      "Name": "Augusta Vindelicorum"
+    },
+    "TownFirst": {
+      "Id": 90,
+      "Name": "Iuvavum",
+      "ResourceId": 7
+    },
+    "TownSecond": {
+      "Id": 184,
+      "Name": "Virunum"
+    }
+  },
+  {
+    "Id": 50,
+    "Name": "Phazania",
+    "ClimateId": 4,
+    "EffectId": 343,
+    "City": {
+      "Id": 76,
+      "Name": "Garama"
+    },
+    "TownFirst": {
+      "Id": 52,
+      "Name": "Cydamus"
+    },
+    "TownSecond": {
+      "Id": 56,
+      "Name": "Dimmidi",
+      "ResourceId": 3
+    }
+  },
+  {
+    "Id": 51,
+    "Name": "Sarmatia Asiatica",
+    "ClimateId": 1,
+    "EffectId": 344,
+    "City": {
+      "Id": 10,
+      "Name": "Anacopia",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 144,
+      "Name": "Samandar"
+    },
+    "TownSecond": {
+      "Id": 165,
+      "Name": "Tanais",
+      "IsCoastal": true,
+      "ResourceId": 4
+    }
+  },
+  {
+    "Id": 52,
+    "Name": "Sarmatia Europaea",
+    "ClimateId": 1,
+    "EffectId": 345,
+    "City": {
+      "Id": 43,
+      "Name": "Chersonessus",
+      "IsCoastal": true,
+      "ResourceId": 13
+    },
+    "TownFirst": {
+      "Id": 77,
+      "Name": "Gelonus"
+    },
+    "TownSecond": {
+      "Id": 118,
+      "Name": "Olbia",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 53,
+    "Name": "Scandza",
+    "ClimateId": 1,
+    "EffectId": 346,
+    "City": {
+      "Id": 87,
+      "Name": "Hrefnesholt",
+      "IsCoastal": true,
+      "ResourceId": 7
+    },
+    "TownFirst": {
+      "Id": 7,
+      "Name": "Alabu",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 82,
+      "Name": "Hafn",
+      "IsCoastal": true
+    }
+  },
+  {
+    "Id": 54,
+    "Name": "Scythia",
+    "ClimateId": 1,
+    "EffectId": 347,
+    "City": {
+      "Id": 145,
+      "Name": "Sarai"
+    },
+    "TownFirst": {
+      "Id": 30,
+      "Name": "Bolghar"
+    },
+    "TownSecond": {
+      "Id": 133,
+      "Name": "Raha",
+      "ResourceId": 7
+    }
+  },
+  {
+    "Id": 55,
+    "Name": "Spahan",
+    "ClimateId": 3,
+    "EffectId": 348,
+    "City": {
+      "Id": 157,
+      "Name": "Spahan",
+      "ResourceId": 4
+    },
+    "TownFirst": {
+      "Id": 89,
+      "Name": "Issatis"
+    },
+    "TownSecond": {
+      "Id": 160,
+      "Name": "Susa"
+    }
+  },
+  {
+    "Id": 56,
+    "Name": "Syria",
+    "ClimateId": 2,
+    "EffectId": 349,
+    "City": {
+      "Id": 13,
+      "Name": "Antiochia",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 69,
+      "Name": "Emesa"
+    },
+    "TownSecond": {
+      "Id": 178,
+      "Name": "Tyrus",
+      "IsCoastal": true,
+      "ResourceId": 1
+    }
+  },
+  {
+    "Id": 57,
+    "Name": "Tarraconensis",
+    "ClimateId": 2,
+    "EffectId": 350,
+    "City": {
+      "Id": 168,
+      "Name": "Tarraco",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 35,
+      "Name": "Caesaraugusta"
+    },
+    "TownSecond": {
+      "Id": 130,
+      "Name": "Pompaelo",
+      "ResourceId": 8
+    }
+  },
+  {
+    "Id": 58,
+    "Name": "Thracia",
+    "ClimateId": 2,
+    "EffectId": 351,
+    "City": {
+      "Id": 47,
+      "Name": "Constantinopolis",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 102,
+      "Name": "Marcianopolis"
+    },
+    "TownSecond": {
+      "Id": 174,
+      "Name": "Trimontium",
+      "ResourceId": 4
+    }
+  },
+  {
+    "Id": 59,
+    "Name": "Transcarpathia",
+    "ClimateId": 1,
+    "EffectId": 352,
+    "City": {
+      "Id": 20,
+      "Name": "Arheimar"
+    },
+    "TownFirst": {
+      "Id": 28,
+      "Name": "Belz"
+    },
+    "TownSecond": {
+      "Id": 94,
+      "Name": "Leopolis",
+      "ResourceId": 1
+    }
+  },
+  {
+    "Id": 60,
+    "Name": "Transcaspia",
+    "ClimateId": 3,
+    "EffectId": 353,
+    "City": {
+      "Id": 92,
+      "Name": "Kath",
+      "ResourceId": 5
+    },
+    "TownFirst": {
+      "Id": 54,
+      "Name": "Dahistan"
+    },
+    "TownSecond": {
+      "Id": 152,
+      "Name": "Siahkuh",
+      "ResourceId": 1
+    }
+  },
+  {
+    "Id": 61,
+    "Name": "Tripolitana",
+    "ClimateId": 4,
+    "EffectId": 354,
+    "City": {
+      "Id": 95,
+      "Name": "Leptis Magna",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 100,
+      "Name": "Macomades",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 142,
+      "Name": "Sabrata",
+      "IsCoastal": true,
+      "ResourceId": 1
+    }
+  },
+  {
+    "Id": 62,
+    "Name": "Venetia",
+    "ClimateId": 2,
+    "EffectId": 355,
+    "City": {
+      "Id": 134,
+      "Name": "Ravenna",
+      "IsCoastal": true
+    },
+    "TownFirst": {
+      "Id": 16,
+      "Name": "Aquilea",
+      "IsCoastal": true
+    },
+    "TownSecond": {
+      "Id": 180,
+      "Name": "Verona",
+      "ResourceId": 9
+    }
+  }
+]

@@ -7,7 +7,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Data\Map.yml" />
+    <None Include="Data\Resources.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Weathers.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Seasons.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Provinces.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Climates.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Data.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Effects.fs" />
     <Compile Include="Province.fs" />
@@ -19,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FSharp.Configuration" Version="2.0.0" />
+    <PackageReference Include="FSharp.Data" Version="6.0.1-beta001" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +44,5 @@
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="6.0.6" />
   </ItemGroup>
-
-  <ItemGroup />
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿module TWBuildingAssistant.Domain.Effects
 
 open TWBuildingAssistant.Data.Sqlite
+open Data
 open Settings
 
 type internal Effect =
@@ -326,27 +327,37 @@ let internal getReligionEffect (ctx:DatabaseContext) religionId =
 
     if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
-let internal getProvinceEffect (ctx:DatabaseContext) provinceId =
+let internal getProvinceEffect (ctx:DatabaseContext) (provincesData:ProvincesData.Root[]) provinceId =
     let effectId = 
         query {
-            for province in ctx.Provinces do
+            for province in provincesData do
             where (province.Id = provinceId)
             select province.EffectId
             head }
 
-    if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
+    effectId |> (getEffect ctx)
 
-let internal getClimateEffect (ctx:DatabaseContext) provinceId seasonId weatherId =
-    let effectId = 
+let internal getClimateEffect (ctx:DatabaseContext) (provincesData:ProvincesData.Root[]) (climatesData:ClimatesData.Root[]) provinceId seasonId weatherId =
+    let climateId =
         query {
-            for province in ctx.Provinces do
+            for province in provincesData do
             where (province.Id = provinceId)
-            join effect in ctx.WeatherEffects on (province.ClimateId = effect.ClimateId)
-            where (effect.WeatherId = weatherId && effect.SeasonId = seasonId)
-            select effect.EffectId
+            select province.ClimateId
             head }
 
-    effectId |> (getEffect ctx)
+    let climate = 
+        query {
+            for climate in climatesData do
+            where (climate.Id = climateId)
+            select climate
+            head }
+
+    let effectId =
+        climate.Effects 
+            |> Seq.tryFind (fun x -> x.SeasonId = seasonId)
+            |> Option.bind (fun x -> x.Effects |> Seq.tryFind (fun y -> y.WeatherId = weatherId) |> Option.map (fun z -> z.EffectId))
+
+    effectId |> (getEffectOption ctx)
 
 let internal getDifficultyEffect (ctx:DatabaseContext) difficultyId =
     let effectId = 
@@ -378,12 +389,12 @@ let internal getPowerLevelEffect (ctx:DatabaseContext) powerLevelId =
 
     if effectId.HasValue then getEffect ctx effectId.Value |> Some else None
 
-let internal getStateFromSettings (ctx:DatabaseContext) settings =
+let internal getStateFromSettings (ctx:DatabaseContext) (climatesData:ClimatesData.Root[]) (provincesData:ProvincesData.Root[]) settings =
     let factionEffects = getFactionwideEffects ctx settings.FactionId
     let technologyEffects = getTechnologyEffect ctx settings.FactionId settings.TechnologyTier settings.UseAntilegacyTechnologies
     let religionEffects = getReligionEffect ctx settings.ReligionId
-    let provinceEffects = getProvinceEffect ctx settings.ProvinceId
-    let climateEffects = getClimateEffect ctx settings.ProvinceId settings.SeasonId settings.WeatherId
+    let provinceEffects = getProvinceEffect ctx provincesData settings.ProvinceId
+    let climateEffects = getClimateEffect ctx provincesData climatesData settings.ProvinceId settings.SeasonId settings.WeatherId
     let difficultyEffects = getDifficultyEffect ctx settings.DifficultyId
     let taxEffects = getTaxEffect ctx settings.TaxId
     let powerLevelEffects = getPowerLevelEffect ctx settings.PowerLevelId
@@ -396,7 +407,7 @@ let internal getStateFromSettings (ctx:DatabaseContext) settings =
         [ factionEffects
           Some technologyEffects
           religionEffects
-          provinceEffects
+          Some provinceEffects
           Some climateEffects
           difficultyEffects
           taxEffects

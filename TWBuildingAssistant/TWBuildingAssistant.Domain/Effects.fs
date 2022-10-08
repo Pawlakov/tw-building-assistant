@@ -304,38 +304,40 @@ let internal collectLocalEffects (localEffects: LocalEffect list) =
         |> List.sumBy (fun x -> x.FoodFromFertility)
       Sanitation = localEffects |> List.sumBy (fun x -> x.Sanitation) }
 
-let internal getFactionwideEffects (ctx: DatabaseContext) factionId =
+let internal getFactionwideEffects (ctx: DatabaseContext) (factionsData: FactionsData.Root []) factionId =
     let effectId =
         query {
-            for faction in ctx.Factions do
+            for faction in factionsData do
                 where (faction.Id = factionId)
                 select faction.EffectId
                 head
         }
 
-    (if effectId.HasValue then
-         Some effectId.Value
-     else
-         None)
-    |> Option.map (getEffect ctx)
+    effectId |> (getEffectOption ctx)
 
-let internal getTechnologyEffect (ctx: DatabaseContext) factionId technologyTier useAntilegacyTechnologies =
-    let getEffectNullable (effectId: System.Nullable<int>) =
-        if effectId.HasValue then
-            getEffect ctx effectId.Value |> Some
-        else
-            None
+let internal getTechnologyEffect
+    (ctx: DatabaseContext)
+    (factionsData: FactionsData.Root [])
+    factionId
+    technologyTier
+    useAntilegacyTechnologies
+    =
+    let getEffectSeq effectIdSeq =
+        effectIdSeq
+        |> Seq.choose (fun x -> x)
+        |> Seq.map (getEffect ctx)
 
-    let getEffectSeq = Seq.choose getEffectNullable
+    let faction =
+        query {
+            for faction in factionsData do
+                where (faction.Id = factionId)
+                head
+        }
 
     let universalEffectIds =
         query {
-            for technologyLevel in ctx.TechnologyLevels do
-                where (
-                    technologyLevel.FactionId = factionId
-                    && technologyLevel.Order <= technologyTier
-                )
-
+            for technologyLevel in faction.TechnologyLevels do
+                where (technologyLevel.Order <= technologyTier)
                 select technologyLevel.UniversalEffectId
         }
 
@@ -343,12 +345,8 @@ let internal getTechnologyEffect (ctx: DatabaseContext) factionId technologyTier
         if useAntilegacyTechnologies then
             let antilegacyEffectIds =
                 query {
-                    for technologyLevel in ctx.TechnologyLevels do
-                        where (
-                            technologyLevel.FactionId = factionId
-                            && technologyLevel.Order <= technologyTier
-                        )
-
+                    for technologyLevel in faction.TechnologyLevels do
+                        where (technologyLevel.Order <= technologyTier)
                         select technologyLevel.AntilegacyEffectId
                 }
 
@@ -455,11 +453,26 @@ let internal getPowerLevelEffect (ctx: DatabaseContext) (powerLevelsData: PowerL
 
     effectId |> (getEffect ctx)
 
-let internal getStateFromSettings (ctx: DatabaseContext) climatesData provincesData religionsData difficultiesData taxesData powerLevelsData settings =
-    let factionEffects = getFactionwideEffects ctx settings.FactionId
+let internal getStateFromSettings
+    (ctx: DatabaseContext)
+    climatesData
+    provincesData
+    religionsData
+    difficultiesData
+    taxesData
+    powerLevelsData
+    factionsData
+    settings
+    =
+    let factionEffects = getFactionwideEffects ctx factionsData settings.FactionId
 
     let technologyEffects =
-        getTechnologyEffect ctx settings.FactionId settings.TechnologyTier settings.UseAntilegacyTechnologies
+        getTechnologyEffect
+            ctx
+            factionsData
+            settings.FactionId
+            settings.TechnologyTier
+            settings.UseAntilegacyTechnologies
 
     let religionEffects = getReligionEffect ctx religionsData settings.ReligionId
     let provinceEffects = getProvinceEffect ctx provincesData settings.ProvinceId
@@ -467,9 +480,13 @@ let internal getStateFromSettings (ctx: DatabaseContext) climatesData provincesD
     let climateEffects =
         getClimateEffect ctx provincesData climatesData settings.ProvinceId settings.SeasonId settings.WeatherId
 
-    let difficultyEffects = getDifficultyEffect ctx difficultiesData settings.DifficultyId
+    let difficultyEffects =
+        getDifficultyEffect ctx difficultiesData settings.DifficultyId
+
     let taxEffects = getTaxEffect ctx taxesData settings.TaxId
-    let powerLevelEffects = getPowerLevelEffect ctx powerLevelsData settings.PowerLevelId
+
+    let powerLevelEffects =
+        getPowerLevelEffect ctx powerLevelsData settings.PowerLevelId
 
     let fertilityDropAndCorrputionEffect =
         { emptyEffect with
@@ -483,18 +500,16 @@ let internal getStateFromSettings (ctx: DatabaseContext) climatesData provincesD
 
     let effectSets =
         [ factionEffects
-          Some technologyEffects
-          Some religionEffects
-          Some provinceEffects
-          Some climateEffects
-          Some difficultyEffects
-          Some taxEffects
-          Some powerLevelEffects
-          Some
-              { Effect = fertilityDropAndCorrputionEffect
-                Bonuses = [ piracyBonus ]
-                Influences = [] } ]
-        |> List.choose (fun x -> x)
+          technologyEffects
+          religionEffects
+          provinceEffects
+          climateEffects
+          difficultyEffects
+          taxEffects
+          powerLevelEffects
+          { Effect = fertilityDropAndCorrputionEffect
+            Bonuses = [ piracyBonus ]
+            Influences = [] } ]
 
     let effect =
         effectSets

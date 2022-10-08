@@ -66,3 +66,39 @@ type ReligionsData = JsonProvider<"Data/Religions.json", SampleIsList=true>
 type TaxesData = JsonProvider<"Data/Taxes.json", SampleIsList=true>
 type DifficultiesData = JsonProvider<"Data/Difficulties.json", SampleIsList=true>
 type PowerLevelsData = JsonProvider<"Data/PowerLevels.json", SampleIsList=true>
+
+type FactionsData =
+    JsonProvider<Sample="""
+    { 
+        "Id":0, 
+        "Name":"a", 
+        "EffectId":0, 
+        "TechnologyLevels":[
+            {
+                "Id":0, 
+                "Order":0, 
+                "UniversalEffectId":0, 
+                "AntilegacyEffectId":0,
+                "UniversalUnlockedBuildingLevelIds": [
+                  0
+                ],
+                "AntilegacyUnlockedBuildingLevelIds": [
+                  0
+                ],
+                "AntilegacyLockedBuildingLevelIds": [
+                  0
+                ]
+            }
+        ]
+    }
+    { 
+        "Id":0, 
+        "Name":"a",
+        "TechnologyLevels":[
+            {
+                "Id":0, 
+                "Order":0
+            }
+        ]
+    }
+    """, SampleIsList=true>

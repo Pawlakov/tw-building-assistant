@@ -220,6 +220,11 @@ let internal getPowerLevelsData () =
     |> File.ReadAllText
     |> PowerLevelsData.ParseList
 
+let internal getFactionsData () =
+    "Data/Factions.json"
+    |> File.ReadAllText
+    |> FactionsData.ParseList
+
 let getSettingOptions (ctx: DatabaseContext) =
     let weathersData = getWeathersData ()
     let seasonsData = getSeasonsData ()
@@ -228,10 +233,10 @@ let getSettingOptions (ctx: DatabaseContext) =
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
+    let factionsData = getFactionsData ()
 
     let options =
         Settings.getOptions
-            ctx
             weathersData
             seasonsData
             provincesData
@@ -239,6 +244,7 @@ let getSettingOptions (ctx: DatabaseContext) =
             difficultiesData
             taxesData
             powerLevelsData
+            factionsData
 
     options |> mapOptionSetToDTO
 
@@ -251,9 +257,11 @@ let getProvince provinceId =
     province |> mapProvinceToDTO
 
 let getBuildingLibrary (ctx: DatabaseContext) settings =
+    let factionsData = getFactionsData ()
+
     let settingsModel = settings |> mapSettingsFromDTO
 
-    let buildingsModels = Buildings.getBuildingLibrary ctx settingsModel
+    let buildingsModels = Buildings.getBuildingLibrary ctx factionsData settingsModel
 
     buildingsModels
     |> Array.map mapBuildingLibraryEntryToDTO
@@ -265,6 +273,7 @@ let getState (ctx: DatabaseContext) buildingLevelIds settings =
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
+    let factionsData = getFactionsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
@@ -277,6 +286,7 @@ let getState (ctx: DatabaseContext) buildingLevelIds settings =
             difficultiesData
             taxesData
             powerLevelsData
+            factionsData
             settingsModel
 
     let buildings =
@@ -306,6 +316,7 @@ let seek
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
+    let factionsData = getFactionsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
@@ -318,9 +329,10 @@ let seek
             difficultiesData
             taxesData
             powerLevelsData
+            factionsData
             settingsModel
 
-    let buildingLibrary = Buildings.getBuildingLibrary ctx settingsModel
+    let buildingLibrary = Buildings.getBuildingLibrary ctx factionsData settingsModel
 
     let seekerSettingsModel =
         seekerSettings

@@ -82,10 +82,10 @@ let internal getReligionOptions (religionsData: ReligionsData.Root []) =
 
     result
 
-let internal getFactionOptions (ctx: DatabaseContext) =
+let internal getFactionOptions (factionsData: FactionsData.Root []) =
     let query =
         query {
-            for province in ctx.Factions do
+            for province in factionsData do
                 select
                     { Id = province.Id
                       Name = province.Name }
@@ -132,12 +132,12 @@ let internal getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
 
     result
 
-let getOptions (ctx: DatabaseContext) weathersData seasonsData provincesData religionsData difficultiesData taxesData powerLevelsData =
+let getOptions weathersData seasonsData provincesData religionsData difficultiesData taxesData powerLevelsData factionsData =
     { Provinces = getProvinceOptions provincesData
       Weathers = getWeatherOptions weathersData
       Seasons = getSeasonOptions seasonsData
       Religions = getReligionOptions religionsData
-      Factions = getFactionOptions ctx
+      Factions = getFactionOptions factionsData
       Difficulties = getDifficultyOptions difficultiesData
       Taxes = getTaxOptions taxesData
       PowerLevels = getPowerLevelOptions powerLevelsData }

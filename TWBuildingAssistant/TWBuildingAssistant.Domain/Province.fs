@@ -82,7 +82,7 @@ let internal getProvince (provincesData:ProvincesData.Root[]) (resourcesData:Res
     
     let resourceIds =
         [ province.City.ResourceId; province.TownFirst.ResourceId; province.TownSecond.ResourceId ]
-        |> List.choose (fun x -> x) 
+        |> List.choose id
         |> List.distinct
 
     let resources =

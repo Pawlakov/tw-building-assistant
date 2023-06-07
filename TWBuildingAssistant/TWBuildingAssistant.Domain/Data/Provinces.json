@@ -7,7 +7,8 @@
     "City": {
       "Id": 8,
       "Name": "Alexandria",
-      "IsCoastal": true
+      "IsCoastal": true,
+      "ResourceId": 14
     },
     "TownFirst": {
       "Id": 29,
@@ -631,7 +632,8 @@
     "EffectId": 325,
     "City": {
       "Id": 138,
-      "Name": "Roma"
+      "Name": "Roma",
+      "ResourceId": 14
     },
     "TownFirst": {
       "Id": 72,
@@ -922,7 +924,8 @@
     },
     "TownFirst": {
       "Id": 3,
-      "Name": "Aelia Capitolina"
+      "Name": "Aelia Capitolina",
+      "ResourceId": 14
     },
     "TownSecond": {
       "Id": 4,
@@ -1117,7 +1120,8 @@
     "City": {
       "Id": 13,
       "Name": "Antiochia",
-      "IsCoastal": true
+      "IsCoastal": true,
+      "ResourceId": 14
     },
     "TownFirst": {
       "Id": 69,
@@ -1158,7 +1162,8 @@
     "City": {
       "Id": 47,
       "Name": "Constantinopolis",
-      "IsCoastal": true
+      "IsCoastal": true,
+      "ResourceId": 14
     },
     "TownFirst": {
       "Id": 102,

@@ -8,7 +8,8 @@ type internal RegionState =
     { Sanitation:int
       Food:int
       Wealth:float
-      Maintenance:float }
+      Maintenance:float
+      CapitalTier:int }
 
 type internal ProvinceState = 
     { Regions:RegionState[]
@@ -36,7 +37,7 @@ let internal gatherRegionLocalEffects regionBuildings =
 let internal gatherEffects buildings predefinedEffect =
     let provinceBuildings =
         buildings
-        |> Seq.collect (fun x -> x)
+        |> Seq.collect id
     
     let effect = 
         provinceBuildings 
@@ -77,10 +78,14 @@ let internal getRegionState effectSet localEffectSet =
     let maintenance =
         localEffectSet.LocalEffect.Maintenance |> float
 
+    let capitalTier =
+        localEffectSet.LocalEffect.CapitalTier
+
     { Sanitation = sanitation
       Food = food
       Wealth = wealth
-      Maintenance = maintenance }
+      Maintenance = maintenance
+      CapitalTier = capitalTier }
 
 let internal getState buildings settings predefinedEffectSet =
     let provinceEffectSet = 

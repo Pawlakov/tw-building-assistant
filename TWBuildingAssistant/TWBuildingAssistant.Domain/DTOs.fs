@@ -59,7 +59,8 @@ type RegionStateDto =
     { Sanitation:int
       Food:int
       Wealth:float
-      Maintenance:float }
+      Maintenance:float
+      CapitalTier:int }
 
 type ProvinceStateDto =
     { Regions:RegionStateDto[]

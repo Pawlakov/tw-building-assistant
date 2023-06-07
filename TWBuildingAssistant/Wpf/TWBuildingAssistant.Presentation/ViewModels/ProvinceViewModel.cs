@@ -100,7 +100,7 @@ public class ProvinceViewModel
             var provinceBuilder = new StringBuilder();
             provinceBuilder.AppendLine($"Total Wealth: {state.TotalWealth}");
             provinceBuilder.AppendLine($"Tax Rate: {state.TaxRate}%");
-            provinceBuilder.AppendLine($"Corrpution Rate: {state.CorruptionRate}%");
+            provinceBuilder.AppendLine($"Corruption Rate: {state.CorruptionRate}%");
             provinceBuilder.AppendLine($"Total Income: {state.TotalIncome}");
             provinceBuilder.AppendLine($"Total Food: {state.TotalFood}");
             provinceBuilder.AppendLine($"Public Order: {state.PublicOrder}");
@@ -116,6 +116,7 @@ public class ProvinceViewModel
                 regionBuilder.AppendLine($"Sanitation: {region.Sanitation}");
                 regionBuilder.AppendLine($"Food: {region.Food}");
                 regionBuilder.AppendLine($"Wealth: {region.Wealth}");
+                regionBuilder.AppendLine($"Capital Tier: {region.CapitalTier}");
                 regionBuilder.Append($"Maintenance: {region.Maintenance}");
                 this.Regions[i++].Performance = regionBuilder.ToString();
             }

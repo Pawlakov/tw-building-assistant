@@ -86,7 +86,8 @@ let internal mapRegionStateToDTO (model: State.RegionState) =
     { Sanitation = model.Sanitation
       Food = model.Food
       Wealth = model.Wealth
-      Maintenance = model.Maintenance }
+      Maintenance = model.Maintenance
+      CapitalTier = model.CapitalTier }
 
 let internal mapProvinceStateToDTO (model: State.ProvinceState) =
     { Regions = model.Regions |> Array.map mapRegionStateToDTO
@@ -225,7 +226,14 @@ let internal getFactionsData () =
     |> File.ReadAllText
     |> FactionsData.ParseList
 
-let getSettingOptions (ctx: DatabaseContext) =
+let internal getBuildingsData () =
+    let roman = ("Data/BuildingsRoman.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
+    let religion = ("Data/BuildingsReligion.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
+    let resource = ("Data/BuildingsResource.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
+
+    Array.concat [roman; religion; resource]
+
+let getSettingOptions () =
     let weathersData = getWeathersData ()
     let seasonsData = getSeasonsData ()
     let provincesData = getProvincesData ()
@@ -256,17 +264,19 @@ let getProvince provinceId =
 
     province |> mapProvinceToDTO
 
-let getBuildingLibrary (ctx: DatabaseContext) settings =
+let getBuildingLibrary ctx settings =
+    let provincesData = getProvincesData ()
     let factionsData = getFactionsData ()
+    let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
-    let buildingsModels = Buildings.getBuildingLibrary ctx factionsData settingsModel
+    let buildingsModels = Buildings.getBuildingLibrary ctx buildingsData factionsData provincesData settingsModel
 
     buildingsModels
     |> Array.map mapBuildingLibraryEntryToDTO
 
-let getState (ctx: DatabaseContext) buildingLevelIds settings =
+let getState ctx buildingLevelIds settings =
     let climatesData = getClimatesData ()
     let provincesData = getProvincesData ()
     let religionsData = getReligionsData ()
@@ -274,6 +284,7 @@ let getState (ctx: DatabaseContext) buildingLevelIds settings =
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
     let factionsData = getFactionsData ()
+    let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
@@ -317,6 +328,7 @@ let seek
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
     let factionsData = getFactionsData ()
+    let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
@@ -332,7 +344,7 @@ let seek
             factionsData
             settingsModel
 
-    let buildingLibrary = Buildings.getBuildingLibrary ctx factionsData settingsModel
+    let buildingLibrary = Buildings.getBuildingLibrary ctx buildingsData factionsData provincesData settingsModel
 
     let seekerSettingsModel =
         seekerSettings

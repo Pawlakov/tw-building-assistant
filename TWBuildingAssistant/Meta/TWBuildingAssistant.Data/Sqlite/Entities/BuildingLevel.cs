@@ -20,6 +20,8 @@ public class BuildingLevel
 
     public int LocalSanitation { get; set; }
 
+    public int CapitalTier { get; set; }
+
     [ForeignKey(nameof(Parent))]
     public int? ParentBuildingLevelId { get; set; }
 

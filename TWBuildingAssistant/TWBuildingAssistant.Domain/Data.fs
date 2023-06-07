@@ -73,6 +73,7 @@ type FactionsData =
         "Id":0, 
         "Name":"a", 
         "EffectId":0, 
+        "UsedBuildingBranchIds":[0],
         "TechnologyLevels":[
             {
                 "Id":0, 
@@ -94,11 +95,51 @@ type FactionsData =
     { 
         "Id":0, 
         "Name":"a",
+        "UsedBuildingBranchIds":[0],
         "TechnologyLevels":[
             {
                 "Id":0, 
                 "Order":0
             }
         ]
+    }
+    """, SampleIsList=true>
+
+type BuildingsData =
+    JsonProvider<Sample="""
+    {
+        "Branches":[{
+            "Id":0,
+            "Name":"a",
+            "SlotType":0,
+            "RegionType":0,
+            "ReligionId":0,
+            "ResourceId":0,
+            "AllowParallel":true,
+            "Interesting":true,
+            "CrownLevelIds": [0],
+            "Levels":[{
+                "Id":0,
+                "Name":"a",
+                "EffectId":0,
+                "Maintenance":0,
+                "LocalFood": 0,
+                "LocalFoodFromFertility": 0,
+                "LocalSanitation": 0,
+                "ParentId": 0
+            }]
+        }]
+    }
+    {
+        "Branches":[{
+            "Id":0,
+            "Name":"a",
+            "SlotType":0,
+            "CrownLevelIds": [0],
+            "Levels":[{
+                "Id":0,
+                "Name":"a"
+            }]
+        }]
     }
     """, SampleIsList=true>

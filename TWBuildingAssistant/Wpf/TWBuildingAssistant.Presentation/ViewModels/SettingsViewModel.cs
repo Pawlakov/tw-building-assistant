@@ -28,20 +28,17 @@ public class SettingsViewModel
         this.configuration = configuration;
         this.dbContextFactory = dbContextFactory;
 
-        using (var dbContext = this.dbContextFactory.CreateDbContext())
-        {
-            var options = getSettingOptions(dbContext);
-            this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
-            this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
-            this.Factions = new ObservableCollection<NamedIdDto>(options.Factions);
-            this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
-            this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-            this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
-            this.Seasons = new ObservableCollection<NamedIdDto>(options.Seasons);
-            this.Difficulties = new ObservableCollection<NamedIdDto>(options.Difficulties);
-            this.Taxes = new ObservableCollection<NamedIdDto>(options.Taxes);
-            this.PowerLevels = new ObservableCollection<NamedIdDto>(options.PowerLevels);
-        }
+        var options = getSettingOptions();
+        this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
+        this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
+        this.Factions = new ObservableCollection<NamedIdDto>(options.Factions);
+        this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
+        this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
+        this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
+        this.Seasons = new ObservableCollection<NamedIdDto>(options.Seasons);
+        this.Difficulties = new ObservableCollection<NamedIdDto>(options.Difficulties);
+        this.Taxes = new ObservableCollection<NamedIdDto>(options.Taxes);
+        this.PowerLevels = new ObservableCollection<NamedIdDto>(options.PowerLevels);
 
         var settings = this.configuration.GetSettings();
         if (settings == null)

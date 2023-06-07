@@ -19,7 +19,8 @@ type internal LocalEffect =
     { Maintenance: int
       Food: int
       FoodFromFertility: int
-      Sanitation: int }
+      Sanitation: int
+      CapitalTier: int }
 
 type internal IncomeCategory =
     | Agriculture
@@ -78,7 +79,8 @@ let internal emptyLocalEffect =
     { Maintenance = 0
       Food = 0
       FoodFromFertility = 0
-      Sanitation = 0 }
+      Sanitation = 0
+      CapitalTier = 0 }
 
 let internal emptyEffectSet =
     { Effect = emptyEffect
@@ -208,7 +210,8 @@ let internal getLocalEffect (ctx: DatabaseContext) buildingLevelId =
                     { Maintenance = buildingLevel.Maintenance
                       Food = buildingLevel.LocalFood
                       FoodFromFertility = buildingLevel.LocalFoodFromFertility
-                      Sanitation = buildingLevel.LocalSanitation }
+                      Sanitation = buildingLevel.LocalSanitation
+                      CapitalTier = buildingLevel.CapitalTier }
 
                 head
         }
@@ -298,11 +301,19 @@ let internal collectLocalEffects (localEffects: LocalEffect list) =
     { Maintenance =
         localEffects
         |> List.sumBy (fun x -> x.Maintenance)
-      Food = localEffects |> List.sumBy (fun x -> x.Food)
+      Food = 
+        localEffects 
+        |> List.sumBy (fun x -> x.Food)
       FoodFromFertility =
         localEffects
         |> List.sumBy (fun x -> x.FoodFromFertility)
-      Sanitation = localEffects |> List.sumBy (fun x -> x.Sanitation) }
+      Sanitation = 
+        localEffects 
+        |> List.sumBy (fun x -> x.Sanitation)
+      CapitalTier =
+        localEffects
+        |> List.map (fun x -> x.CapitalTier)
+        |> List.max }
 
 let internal getFactionwideEffects (ctx: DatabaseContext) (factionsData: FactionsData.Root []) factionId =
     let effectId =
@@ -324,7 +335,7 @@ let internal getTechnologyEffect
     =
     let getEffectSeq effectIdSeq =
         effectIdSeq
-        |> Seq.choose (fun x -> x)
+        |> Seq.choose id
         |> Seq.map (getEffect ctx)
 
     let faction =
@@ -488,7 +499,7 @@ let internal getStateFromSettings
     let powerLevelEffects =
         getPowerLevelEffect ctx powerLevelsData settings.PowerLevelId
 
-    let fertilityDropAndCorrputionEffect =
+    let fertilityDropAndCorruptionEffect =
         { emptyEffect with
             Fertility = settings.FertilityDrop
             CorruptionRate = settings.CorruptionRate }
@@ -507,7 +518,7 @@ let internal getStateFromSettings
           difficultyEffects
           taxEffects
           powerLevelEffects
-          { Effect = fertilityDropAndCorrputionEffect
+          { Effect = fertilityDropAndCorruptionEffect
             Bonuses = [ piracyBonus ]
             Influences = [] } ]
 

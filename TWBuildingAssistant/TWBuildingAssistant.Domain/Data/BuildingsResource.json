@@ -1,0 +1,565 @@
+﻿{
+  "$schema": ".\\Buildings-schema.json",
+  "Branches": [
+    {
+      "Id": 29,
+      "Name": "Dye Production",
+      "SlotType": 2,
+      "ResourceId": 1,
+      "Interesting": true,
+      "CrownLevelIds": [ 28 ],
+      "Levels": [
+        {
+          "Id": 25,
+          "Name": "Dye Tubs",
+          "EffectId": 1
+        },
+        {
+          "Id": 26,
+          "ParentId": 25,
+          "Name": "Dye Maker",
+          "EffectId": 2,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 27,
+          "ParentId": 26,
+          "Name": "Dye Works",
+          "EffectId": 3,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 28,
+          "ParentId": 27,
+          "Name": "Dye Factory",
+          "EffectId": 4,
+          "LocalSanitation": -6
+        }
+      ]
+    },
+    {
+      "Id": 30,
+      "Name": "Fur Production",
+      "SlotType": 2,
+      "ResourceId": 2,
+      "Interesting": true,
+      "CrownLevelIds": [ 43 ],
+      "Levels": [
+        {
+          "Id": 40,
+          "Name": "Hunting Grounds",
+          "LocalFood": 30
+        },
+        {
+          "Id": 41,
+          "ParentId": 40,
+          "Name": "Hunting Lodges",
+          "LocalFood": 50,
+          "LocalSanitation": -1
+        },
+        {
+          "Id": 42,
+          "ParentId": 41,
+          "Name": "Fur Trader",
+          "LocalFood": 70,
+          "LocalSanitation": -3
+        },
+        {
+          "Id": 43,
+          "ParentId": 42,
+          "Name": "Fur Market",
+          "LocalFood": 90,
+          "LocalSanitation": -5
+        }
+      ]
+    },
+    {
+      "Id": 31,
+      "Name": "Gemstone Production",
+      "SlotType": 2,
+      "ResourceId": 3,
+      "Interesting": true,
+      "CrownLevelIds": [ 51 ],
+      "Levels": [
+        {
+          "Id": 48,
+          "Name": "Gem Deposit"
+        },
+        {
+          "Id": 49,
+          "ParentId": 48,
+          "Name": "Gem Cutter",
+          "EffectId": 9,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 50,
+          "ParentId": 49,
+          "Name": "Gem Trader",
+          "EffectId": 10,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 51,
+          "ParentId": 50,
+          "Name": "Gem Market",
+          "EffectId": 11,
+          "LocalSanitation": -6
+        }
+      ]
+    },
+    {
+      "Id": 32,
+      "Name": "Goldmine",
+      "SlotType": 2,
+      "ResourceId": 4,
+      "Interesting": true,
+      "CrownLevelIds": [ 55, 58 ],
+      "Levels": [
+        {
+          "Id": 52,
+          "Name": "Gold Veins",
+          "EffectId": 12,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 53,
+          "ParentId": 52,
+          "Name": "Goldsmith",
+          "EffectId": 13,
+          "LocalSanitation": -3
+        },
+        {
+          "Id": 54,
+          "ParentId": 53,
+          "Name": "Jewelsmith",
+          "EffectId": 14,
+          "LocalSanitation": -6
+        },
+        {
+          "Id": 55,
+          "ParentId": 54,
+          "Name": "Jeweller",
+          "EffectId": 15,
+          "LocalSanitation": -10
+        },
+        {
+          "Id": 56,
+          "ParentId": 52,
+          "Name": "Small Gold Mine",
+          "EffectId": 16,
+          "LocalSanitation": -3
+        },
+        {
+          "Id": 57,
+          "ParentId": 56,
+          "Name": "Gold Mine",
+          "EffectId": 17,
+          "LocalSanitation": -6
+        },
+        {
+          "Id": 58,
+          "ParentId": 57,
+          "Name": "Deep Gold Mine",
+          "EffectId": 18,
+          "LocalSanitation": -10
+        }
+      ]
+    },
+    {
+      "Id": 33,
+      "Name": "Iron Production",
+      "SlotType": 2,
+      "ResourceId": 5,
+      "Interesting": true,
+      "CrownLevelIds": [ 70, 73 ],
+      "Levels": [
+        {
+          "Id": 67,
+          "Name": "Iron Smelter"
+        },
+        {
+          "Id": 68,
+          "ParentId": 67,
+          "Name": "Toolmaker",
+          "EffectId": 19,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 69,
+          "ParentId": 68,
+          "Name": "Ironsmith",
+          "EffectId": 20,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 70,
+          "ParentId": 69,
+          "Name": "Forge",
+          "EffectId": 21,
+          "LocalSanitation": -6
+        },
+        {
+          "Id": 71,
+          "ParentId": 67,
+          "Name": "Weaponsmith",
+          "EffectId": 22,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 72,
+          "ParentId": 71,
+          "Name": "Forge",
+          "EffectId": 23,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 73,
+          "ParentId": 72,
+          "Name": "Great Forge",
+          "EffectId": 24,
+          "LocalSanitation": -6
+        }
+      ]
+    },
+    {
+      "Id": 34,
+      "Name": "Lead Production",
+      "SlotType": 2,
+      "ResourceId": 6,
+      "Interesting": true,
+      "CrownLevelIds": [ 89 ],
+      "Levels": [
+        {
+          "Id": 86,
+          "Name": "Lead Deposit",
+          "EffectId": 25
+        },
+        {
+          "Id": 87,
+          "ParentId": 86,
+          "Name": "Lead Mine",
+          "EffectId": 26,
+          "LocalFood": -2
+        },
+        {
+          "Id": 88,
+          "ParentId": 87,
+          "Name": "Lead Smelter",
+          "EffectId": 27,
+          "LocalFood": -4
+        },
+        {
+          "Id": 89,
+          "ParentId": 88,
+          "Name": "Glass Workshop",
+          "EffectId": 28,
+          "LocalFood": -6
+        }
+      ]
+    },
+    {
+      "Id": 35,
+      "Name": "Wood Production",
+      "SlotType": 2,
+      "ResourceId": 7,
+      "Interesting": true,
+      "CrownLevelIds": [ 96 ],
+      "Levels": [
+        {
+          "Id": 93,
+          "Name": "Prime Forest",
+          "EffectId": 29
+        },
+        {
+          "Id": 94,
+          "ParentId": 93,
+          "Name": "Woodcutter",
+          "EffectId": 30
+        },
+        {
+          "Id": 95,
+          "ParentId": 94,
+          "Name": "Logging Camp",
+          "EffectId": 31
+        },
+        {
+          "Id": 96,
+          "ParentId": 95,
+          "Name": "Lumber Camp",
+          "EffectId": 32
+        }
+      ]
+    },
+    {
+      "Id": 36,
+      "Name": "Marble Production",
+      "SlotType": 2,
+      "ResourceId": 8,
+      "Interesting": true,
+      "CrownLevelIds": [ 100, 103 ],
+      "Levels": [
+        {
+          "Id": 97,
+          "Name": "Marble Stonecutter"
+        },
+        {
+          "Id": 98,
+          "ParentId": 97,
+          "Name": "Small Marble Quarry",
+          "EffectId": 33,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 99,
+          "ParentId": 98,
+          "Name": "Marble Quarry",
+          "EffectId": 34,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 100,
+          "ParentId": 99,
+          "Name": "Marble Quarry Complex",
+          "EffectId": 35,
+          "LocalSanitation": -6
+        },
+        {
+          "Id": 101,
+          "ParentId": 97,
+          "Name": "Column Carver",
+          "EffectId": 36,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 102,
+          "ParentId": 101,
+          "Name": "Statue Carver",
+          "EffectId": 37,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 103,
+          "ParentId": 102,
+          "Name": "Sculptor",
+          "EffectId": 38,
+          "LocalSanitation": -6
+        }
+      ]
+    },
+    {
+      "Id": 37,
+      "Name": "Olive Production",
+      "SlotType": 2,
+      "ResourceId": 9,
+      "Interesting": true,
+      "CrownLevelIds": [ 123 ],
+      "Levels": [
+        {
+          "Id": 120,
+          "Name": "Olive Trees",
+          "EffectId": 39,
+          "LocalFood": 50
+        },
+        {
+          "Id": 121,
+          "ParentId": 120,
+          "Name": "Olive Orchards",
+          "EffectId": 40,
+          "LocalFood": 90,
+          "LocalSanitation": -1
+        },
+        {
+          "Id": 122,
+          "ParentId": 121,
+          "Name": "Olive Press",
+          "EffectId": 41,
+          "LocalFood": 130,
+          "LocalSanitation": -3
+        },
+        {
+          "Id": 123,
+          "ParentId": 122,
+          "Name": "Olive Oil Mill",
+          "EffectId": 42,
+          "LocalFood": 170,
+          "LocalSanitation": -5
+        }
+      ]
+    },
+    {
+      "Id": 38,
+      "Name": "Salt Production",
+      "SlotType": 2,
+      "ResourceId": 10,
+      "Interesting": true,
+      "CrownLevelIds": [ 141 ],
+      "Levels": [
+        {
+          "Id": 138,
+          "Name": "Salt Deposit",
+          "LocalFood": 30
+        },
+        {
+          "Id": 139,
+          "ParentId": 138,
+          "Name": "Saltworks",
+          "EffectId": 44,
+          "LocalFood": 50,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 140,
+          "ParentId": 139,
+          "Name": "Large Saltworks",
+          "EffectId": 45,
+          "LocalFood": 70,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 141,
+          "ParentId": 140,
+          "Name": "Salt Trading Port",
+          "EffectId": 46,
+          "LocalFood": 90,
+          "LocalSanitation": -6
+        }
+      ]
+    },
+    {
+      "Id": 39,
+      "Name": "Silk Road",
+      "SlotType": 2,
+      "ResourceId": 11,
+      "Interesting": true,
+      "CrownLevelIds": [ 152 ],
+      "Levels": [
+        {
+          "Id": 149,
+          "Name": "Silk Road Resthouse",
+          "EffectId": 47
+        },
+        {
+          "Id": 150,
+          "ParentId": 149,
+          "Name": "Silk Road Tradehouse",
+          "EffectId": 48,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 151,
+          "ParentId": 150,
+          "Name": "Silk Road Market",
+          "EffectId": 49,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 152,
+          "ParentId": 151,
+          "Name": "Silk Road Bazaar",
+          "EffectId": 50,
+          "LocalSanitation": -6
+        }
+      ]
+    },
+    {
+      "Id": 40,
+      "Name": "Spice Trading Port",
+      "SlotType": 1,
+      "ResourceId": 12,
+      "Interesting": true,
+      "CrownLevelIds": [ 162 ],
+      "Levels": [
+        {
+          "Id": 159,
+          "Name": "Oriental Docks"
+        },
+        {
+          "Id": 160,
+          "ParentId": 159,
+          "Name": "Oriental Harbour",
+          "EffectId": 52,
+          "LocalSanitation": -2
+        },
+        {
+          "Id": 161,
+          "ParentId": 160,
+          "Name": "Oriental Port",
+          "EffectId": 53,
+          "LocalSanitation": -4
+        },
+        {
+          "Id": 162,
+          "ParentId": 161,
+          "Name": "Spice Trading Port",
+          "EffectId": 54,
+          "LocalSanitation": -6
+        }
+      ]
+    },
+    {
+      "Id": 41,
+      "Name": "Wine Production",
+      "SlotType": 2,
+      "ResourceId": 13,
+      "Interesting": true,
+      "CrownLevelIds": [ 126, 174 ],
+      "Levels": [
+        {
+          "Id": 184,
+          "Name": "Orchards",
+          "EffectId": 55,
+          "LocalFood": 50
+        },
+        {
+          "Id": 124,
+          "ParentId": 184,
+          "Name": "Fruit Orchard",
+          "EffectId": 56,
+          "LocalFood": 90,
+          "LocalSanitation": -1
+        },
+        {
+          "Id": 125,
+          "ParentId": 124,
+          "Name": "Fruit Plantation",
+          "EffectId": 57,
+          "LocalFood": 130,
+          "LocalSanitation": -3
+        },
+        {
+          "Id": 126,
+          "ParentId": 125,
+          "Name": "Fruit Dryer",
+          "EffectId": 58,
+          "LocalFood": 170,
+          "LocalSanitation": -5
+        },
+        {
+          "Id": 172,
+          "ParentId": 184,
+          "Name": "Vineyard",
+          "EffectId": 59,
+          "LocalFood": 50,
+          "LocalSanitation": -1
+        },
+        {
+          "Id": 173,
+          "ParentId": 172,
+          "Name": "Grape Press",
+          "EffectId": 60,
+          "LocalFood": 70,
+          "LocalSanitation": -3
+        },
+        {
+          "Id": 174,
+          "ParentId": 173,
+          "Name": "Winery",
+          "EffectId": 61,
+          "LocalFood": 90,
+          "LocalSanitation": -5
+        }
+      ]
+    }
+  ]
+}

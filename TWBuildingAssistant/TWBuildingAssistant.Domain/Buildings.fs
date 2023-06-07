@@ -66,14 +66,17 @@ let internal getUnlockedBuildingLevelIds (factionsData: FactionsData.Root []) se
 
     unlockedIds |> Array.except lockedIds
 
-let internal getBuildingLibraryEntry (ctx: DatabaseContext) factionsData settings descriptor =
-    let usedBranchIds =
+let internal getBuildingLibraryEntry ctx (buildingsData: BuildingsData.Branch []) (factionsData: FactionsData.Root []) settings descriptor =
+    let faction =
         query {
-            for branchUse in ctx.BuildingBranchUses do
-                where (branchUse.FactionId = settings.FactionId)
-                select (branchUse.BuildingBranchId)
+            for faction in factionsData do
+                where (faction.Id = settings.FactionId)
+                head
         }
-        |> Seq.toList
+    
+    let usedBranchIds =
+        faction.UsedBuildingBranchIds
+        |> Array.toList
 
     let slotTypeInt =
         match descriptor.SlotType with
@@ -88,87 +91,58 @@ let internal getBuildingLibraryEntry (ctx: DatabaseContext) factionsData setting
 
     let usedBranches =
         query {
-            for branch in ctx.BuildingBranches do
+            for branch in buildingsData do
                 where (List.contains branch.Id usedBranchIds)
                 where (branch.SlotType = slotTypeInt)
-
-                where (
-                    not branch.RegionType.HasValue
-                    || branch.RegionType.Value = regionTypeInt
-                )
-
-                where (
-                    not branch.ReligionId.HasValue
-                    || branch.ReligionId.Value = settings.ReligionId
-                )
-
-                where (
-                    not branch.ResourceId.HasValue
-                    || (match descriptor.ResourceId with
-                        | Some resourceId -> branch.ResourceId.Value = resourceId
-                        | None -> false)
-                )
+                where (branch.RegionType = None || branch.RegionType = Some regionTypeInt)
+                where (branch.ReligionId = None || branch.ReligionId = Some settings.ReligionId)
+                where (branch.ResourceId = None || branch.ResourceId = descriptor.ResourceId)
         }
 
-    let unlockedLevelIds = getUnlockedBuildingLevelIds factionsData settings
-
-    let unlockedLevels =
-        query {
-            for level in ctx.BuildingLevels do
-                where (Array.contains level.Id unlockedLevelIds)
-        }
-        |> Seq.toList
-
-    let firstLoop strainPairs (branch: Entities.BuildingBranch) =
-        let rec traverseBranch ancestors (current: Entities.BuildingLevel) =
-            let branchLevels = current :: ancestors
-
-            let children =
-                unlockedLevels
-                |> List.filter (fun x -> x.ParentBuildingLevelId = current.Id)
-
-            match children with
-            | [] -> [ branchLevels ]
-            | _ ->
-                children
-                |> List.map (traverseBranch branchLevels)
-                |> List.collect (fun x -> x)
-
-        let strains =
-            unlockedLevels
-            |> List.find (fun x -> x.Id = branch.RootBuildingLevelId)
-            |> traverseBranch []
+    let firstLoop strainPairs (branch: BuildingsData.Branch) =
+        let rec traverseStrain (current: BuildingsData.Level option) (accumulated: BuildingsData.Level list) =
+            match current with
+            | None -> accumulated
+            | Some current ->
+                let parent = 
+                    match current.ParentId with
+                    | None -> None
+                    | Some parentId -> 
+                        branch.Levels 
+                        |> Array.filter (fun x -> x.Id = parentId) 
+                        |> Array.exactlyOne
+                        |> Some
+                traverseStrain parent (current::accumulated)
 
         match branch.AllowParallel with
-        | true ->
-            strainPairs
-            |> List.append (
-                strains
-                |> List.map (fun x -> (branch, x |> List.rev))
-            )
-        | false ->
-            let levels =
-                strains
-                |> List.collect (fun x -> x |> List.rev)
-                |> List.distinct
+        | Some true ->
+            let crownLevels = 
+                branch.CrownLevelIds 
+                |> Array.map (fun x -> branch.Levels |> Array.filter (fun y -> y.Id = x) |> Array.exactlyOne)
+                |> Array.toList
 
-            (branch, levels) :: strainPairs
+            let strains = 
+                crownLevels 
+                |> List.map (fun x -> traverseStrain (Some x) [])
+
+            (strains |> List.map (fun x -> (branch, x))) @ strainPairs
+        | _ -> 
+            (branch, branch.Levels |> Array.toList) :: strainPairs
 
     let strainPairs = usedBranches |> Seq.fold firstLoop []
 
-    let secondLoop finalDictionary ((branch: Entities.BuildingBranch), (levels: Entities.BuildingLevel list)) =
+    let unlockedLevelIds = getUnlockedBuildingLevelIds factionsData settings
+
+    let secondLoop finalDictionary ((branch: BuildingsData.Branch), (levels: BuildingsData.Level list)) =
         let levelsOther =
             levels
+            |> List.filter (fun x -> 
+                Array.contains x.Id unlockedLevelIds)
             |> List.map (fun level ->
                 { Id = level.Id
                   Name = level.Name
                   LocalEffectSet = (level.Id |> getLocalEffect ctx)
-                  EffectSet =
-                    ((if level.EffectId.HasValue then
-                          Some level.EffectId.Value
-                      else
-                          None)
-                     |> getEffectOption ctx) }: BuildingLevel)
+                  EffectSet = ( level.EffectId |> getEffectOption ctx) }: BuildingLevel)
             |> List.toArray
 
         match levelsOther with
@@ -176,7 +150,7 @@ let internal getBuildingLibraryEntry (ctx: DatabaseContext) factionsData setting
         | _ ->
             { Id = branch.Id
               Name = branch.Name
-              Interesting = branch.Interesting
+              Interesting = branch.Interesting = Some true
               Levels = levelsOther }
             :: finalDictionary
 
@@ -190,18 +164,20 @@ let internal getBuildingLibraryEntry (ctx: DatabaseContext) factionsData setting
     { Descriptor = descriptor
       BuildingBranches = (finalFinalDictionary |> List.toArray) }
 
-let internal getBuildingLibrary (ctx: DatabaseContext) factionsData settings =
+let internal getBuildingLibrary ctx buildingsData factionsData (provincesData: ProvincesData.Root []) settings =
     let slotTypes = [ Main; Coastal; General ]
     let regionTypes = [ City; Town ]
 
-    let resourceIdsInProvince =
+    let province =
         query {
-            for region in ctx.Regions do
-                where (region.ProvinceId = settings.ProvinceId)
-                select (region.ResourceId)
-                distinct
+            for province in provincesData do
+                where (province.Id = settings.ProvinceId)
+                head
         }
-        |> Seq.toList
+
+    let resourceIdsInProvince =
+        [province.City.ResourceId; province.TownFirst.ResourceId; province.TownSecond.ResourceId]
+        |> List.distinct
 
     let descriptors =
         slotTypes
@@ -212,15 +188,11 @@ let internal getBuildingLibrary (ctx: DatabaseContext) factionsData settings =
                 |> List.map (fun resourceId ->
                     { SlotType = slotType
                       RegionType = regionType
-                      ResourceId =
-                        (if resourceId.HasValue then
-                             Some resourceId.Value
-                         else
-                             None) })))
+                      ResourceId = resourceId })))
 
     let results =
         descriptors
-        |> List.map (getBuildingLibraryEntry ctx factionsData settings)
+        |> List.map (getBuildingLibraryEntry ctx buildingsData factionsData settings)
         |> List.toArray
 
     results

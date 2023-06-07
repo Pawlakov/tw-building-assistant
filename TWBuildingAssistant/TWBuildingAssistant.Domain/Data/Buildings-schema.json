@@ -1,0 +1,96 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Buildings aggregate",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "Branches": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/branch"
+      }
+    }
+  },
+  "required": [ "$schema", "Branches" ],
+  "additionalProperties": false,
+  "definitions": {
+    "branch": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "SlotType": {
+          "type": "integer"
+        },
+        "RegionType": {
+          "type": "integer"
+        },
+        "ReligionId": {
+          "type": "integer"
+        },
+        "ResourceId": {
+          "type": "integer"
+        },
+        "AllowParallel": {
+          "type": "boolean"
+        },
+        "Interesting": {
+          "type": "boolean"
+        },
+        "CrownLevelIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "integer"
+          }
+        },
+        "Levels": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/definitions/level"
+          }
+        }
+      },
+      "required": [ "Id", "Name", "SlotType", "CrownLevelIds", "Levels" ],
+      "additionalProperties": false
+    },
+    "level": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "ParentId": {
+          "type": "integer"
+        },
+        "EffectId": {
+          "type": "integer"
+        },
+        "Maintenance": {
+          "type": "integer"
+        },
+        "LocalFood": {
+          "type": "integer"
+        },
+        "LocalFoodFromFertility": {
+          "type": "integer"
+        },
+        "LocalSanitation": {
+          "type": "integer"
+        }
+      },
+      "required": [ "Id", "Name" ],
+      "additionalProperties": false
+    }
+  }
+}

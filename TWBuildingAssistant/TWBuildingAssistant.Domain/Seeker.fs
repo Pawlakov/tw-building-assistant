@@ -35,6 +35,8 @@ type internal SeekerResult =
 
 type internal SeekerResultWithIncome =
     { Income:float
+      CapitalTierMin:int
+      CapitalTierSum:int
       Result:SeekerResult[] }
 
 let internal getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionSeekerSettings =
@@ -70,7 +72,7 @@ let internal getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]
                 options[slotIndex]
                     |> Array.filter branchFilter
                     |> Array.map (fun x -> recursiveSeek (slotIndex + 1) (combination |> Array.append [|{ slot with Branch = Some x; Level = None }|] ))
-                    |> Array.collect (fun x -> x)
+                    |> Array.collect id
 
     recursiveSeek 0 [||]
 
@@ -87,9 +89,21 @@ let internal getCombinationsToSeek buildingLibrary (seekerSettings:SeekerSetting
                 regionCombinations[regionIndex]
             regionOptions
                 |> Array.map (fun x -> recursiveSeek (regionIndex + 1) (combination |> Array.append [|x|] ))
-                |> Array.collect (fun x -> x)
+                |> Array.collect id
 
     recursiveSeek 0 [||]
+
+let internal combinationComparer left right =
+    let capitalTiersMinCompare = compare left.CapitalTierMin right.CapitalTierMin
+    if capitalTiersMinCompare = 0 then
+
+        let capitalTiersSumCompare = compare left.CapitalTierSum right.CapitalTierSum
+        if capitalTiersSumCompare = 0 then
+            compare left.Income right.Income
+        else
+            capitalTiersSumCompare
+    else
+        capitalTiersMinCompare
 
 let internal seek settings predefinedEffect buildingLibrary seekerSettings minimalCondition resetProgress incrementProgress =
     resetProgress 0
@@ -107,7 +121,7 @@ let internal seek settings predefinedEffect buildingLibrary seekerSettings minim
                     | Some slotBranch, None ->
                         slotBranch.Levels
                         |> Array.map (fun levelOption -> recursiveSeek regionIndex (slotIndex + 1) combinationResult ({ Branch = slotBranch; Level = levelOption; RegionId = slot.RegionId; SlotIndex = slot.SlotIndex }::combinationRegionResult))
-                        |> Array.choose (fun x -> x)
+                        |> Array.choose id
                         |> Array.sortByDescending (fun x -> x.Income)
                         |> Array.tryHead
                     | Some slotBranch, Some slotLevel ->
@@ -117,7 +131,10 @@ let internal seek settings predefinedEffect buildingLibrary seekerSettings minim
             else
                 let state = getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
                 if (minimalCondition state) then
-                    Some { Income = state.TotalIncome; Result = (combinationResult |> List.collect (fun x -> x)) |> List.toArray }
+                    let capitalTiers = state.Regions |> Array.map (fun x -> x.CapitalTier)
+                    let capitalTierMin = capitalTiers |> Array.min
+                    let capitalTierSum = capitalTiers |> Array.sum
+                    Some { Income = state.TotalIncome; CapitalTierMin = capitalTierMin; CapitalTierSum = capitalTierSum; Result = (combinationResult |> List.collect id) |> List.toArray }
                 else
                     None
 
@@ -130,8 +147,8 @@ let internal seek settings predefinedEffect buildingLibrary seekerSettings minim
     let bestCombination = 
         combinations
         |> Array.map loop
-        |> Array.choose (fun x -> x)
-        |> Array.sortByDescending (fun x -> x.Income)
+        |> Array.choose id
+        |> Array.sortWith combinationComparer
         |> Array.tryHead
 
     match bestCombination with

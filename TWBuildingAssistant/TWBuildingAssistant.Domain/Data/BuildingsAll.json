@@ -1,0 +1,639 @@
+﻿{
+  "$schema": ".\\Buildings-schema.json",
+  "Branches": [
+    {
+      "Id": "att_bch_all_city_major",
+      "Name": "City",
+      "SlotType": 0,
+      "RegionType": 0,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_roman_west_city_major_1",
+          "Name": "Civitas",
+          "EffectId": 186,
+          "LocalFood": -30,
+          "LocalSanitation": -1,
+          "CapitalTier": 1,
+          "Incomes": [
+            {
+              "Value": 300,
+              "Category": 7
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_roman_west_city_major_2",
+          "ParentId": "att_bld_roman_west_city_major_1",
+          "Name": "Municipium",
+          "EffectId": 187,
+          "LocalFood": -60,
+          "LocalSanitation": -2,
+          "CapitalTier": 2,
+          "Incomes": [
+            {
+              "Value": 400,
+              "Category": 7
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_roman_west_city_major_3",
+          "ParentId": "att_bld_roman_west_city_major_2",
+          "Name": "Urbs",
+          "EffectId": 188,
+          "LocalFood": -100,
+          "LocalSanitation": -3,
+          "CapitalTier": 3,
+          "Incomes": [
+            {
+              "Value": 500,
+              "Category": 7
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_roman_west_city_major_4",
+          "ParentId": "att_bld_roman_west_city_major_3",
+          "Name": "Metropolis",
+          "EffectId": 189,
+          "LocalFood": -140,
+          "LocalSanitation": -4,
+          "CapitalTier": 4,
+          "Incomes": [
+            {
+              "Value": 600,
+              "Category": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_all_city_minor",
+      "Name": "Town",
+      "SlotType": 0,
+      "RegionType": 1,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_roman_west_city_minor_generic_1",
+          "Name": "Vicus",
+          "LocalFood": -10,
+          "CapitalTier": 1,
+          "Incomes": [
+            {
+              "Value": 150,
+              "Category": 7
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_roman_west_city_minor_generic_2",
+          "ParentId": "att_bld_roman_west_city_minor_generic_1",
+          "Name": "Colonia",
+          "EffectId": 191,
+          "LocalFood": -20,
+          "CapitalTier": 2,
+          "Incomes": [
+            {
+              "Value": 200,
+              "Category": 7
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_roman_west_city_minor_generic_3",
+          "ParentId": "att_bld_roman_west_city_minor_generic_2",
+          "Name": "Town",
+          "EffectId": 192,
+          "LocalFood": -40,
+          "LocalSanitation": -1,
+          "CapitalTier": 3,
+          "Incomes": [
+            {
+              "Value": 250,
+              "Category": 7
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_roman_west_city_minor_generic_4",
+          "ParentId": "att_bld_roman_west_city_minor_generic_3",
+          "Name": "Foritified Town",
+          "EffectId": 193,
+          "LocalFood": -80,
+          "LocalSanitation": -2,
+          "CapitalTier": 4,
+          "Incomes": [
+            {
+              "Value": 300,
+              "Category": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_all_agriculture",
+      "Name": "Agriculture",
+      "SlotType": 2,
+      "RegionType": 1,
+      "AllowParallel": true,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_all_agriculture_generic_1",
+          "Name": "Fields",
+          "LocalFood": 10,
+          "LocalFoodFromFertility": 8,
+          "Incomes": [
+            {
+              "Value": 30,
+              "Category": 1
+            },
+            {
+              "Value": 30,
+              "Category": 1,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_livestock_cows_2",
+          "ParentId": "att_bld_all_agriculture_generic_1",
+          "Name": "Cattle Herd",
+          "EffectId": 220,
+          "LocalFood": 40,
+          "LocalFoodFromFertility": 10,
+          "LocalSanitation": -1,
+          "Incomes": [
+            {
+              "Value": 200,
+              "Category": 2
+            },
+            {
+              "Value": 50,
+              "Category": 2,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_livestock_cows_3",
+          "ParentId": "att_bld_all_livestock_cows_2",
+          "Name": "Cattle Pens",
+          "EffectId": 221,
+          "LocalFood": 55,
+          "LocalFoodFromFertility": 15,
+          "LocalSanitation": -3,
+          "Incomes": [
+            {
+              "Value": 300,
+              "Category": 2
+            },
+            {
+              "Value": 100,
+              "Category": 2,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_livestock_cows_4",
+          "ParentId": "att_bld_all_livestock_cows_3",
+          "Name": "Cattle Farm",
+          "EffectId": 222,
+          "LocalFood": 70,
+          "LocalFoodFromFertility": 20,
+          "LocalSanitation": -5,
+          "Incomes": [
+            {
+              "Value": 500,
+              "Category": 2
+            },
+            {
+              "Value": 150,
+              "Category": 2,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_livestock_sheep_2",
+          "ParentId": "att_bld_all_agriculture_generic_1",
+          "Name": "Sheep Flock",
+          "EffectId": 217,
+          "LocalFood": 30,
+          "LocalFoodFromFertility": 5,
+          "LocalSanitation": -1,
+          "Incomes": [
+            {
+              "Value": 450,
+              "Category": 2
+            },
+            {
+              "Value": 60,
+              "Category": 2,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_livestock_sheep_3",
+          "ParentId": "att_bld_all_livestock_sheep_2",
+          "Name": "Sheep Pens",
+          "EffectId": 218,
+          "LocalFood": 40,
+          "LocalFoodFromFertility": 6,
+          "LocalSanitation": -3,
+          "Incomes": [
+            {
+              "Value": 780,
+              "Category": 2
+            },
+            {
+              "Value": 105,
+              "Category": 2,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_livestock_sheep_4",
+          "ParentId": "att_bld_all_livestock_sheep_3",
+          "Name": "Sheep Barns",
+          "EffectId": 219,
+          "LocalFood": 50,
+          "LocalFoodFromFertility": 7,
+          "LocalSanitation": -5,
+          "Incomes": [
+            {
+              "Value": 1250,
+              "Category": 2
+            },
+            {
+              "Value": 165,
+              "Category": 2,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_agriculture_grain_2",
+          "ParentId": "att_bld_all_agriculture_generic_1",
+          "Name": "Wheat Fields",
+          "EffectId": 214,
+          "LocalFood": 20,
+          "LocalFoodFromFertility": 18,
+          "LocalSanitation": -1,
+          "Incomes": [
+            {
+              "Value": 30,
+              "Category": 1
+            },
+            {
+              "Value": 30,
+              "Category": 1,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_agriculture_grain_3",
+          "ParentId": "att_bld_all_agriculture_grain_2",
+          "Name": "Wheat Farm",
+          "EffectId": 215,
+          "LocalFood": 30,
+          "LocalFoodFromFertility": 26,
+          "LocalSanitation": -3,
+          "Incomes": [
+            {
+              "Value": 50,
+              "Category": 1
+            },
+            {
+              "Value": 50,
+              "Category": 1,
+              "IsFertilityDependent": true
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_agriculture_grain_4",
+          "ParentId": "att_bld_all_agriculture_grain_3",
+          "Name": "Wheat Mills",
+          "EffectId": 216,
+          "LocalFood": 40,
+          "LocalFoodFromFertility": 34,
+          "LocalSanitation": -5,
+          "Incomes": [
+            {
+              "Value": 80,
+              "Category": 1
+            },
+            {
+              "Value": 80,
+              "Category": 1,
+              "IsFertilityDependent": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_all_industry_minor",
+      "Name": "Town Industry",
+      "SlotType": 2,
+      "RegionType": 1,
+      "AllowParallel": true,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_all_industry_minor_generic_1",
+          "Name": "Local Industry",
+          "Incomes": [
+            {
+              "Value": 375,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_minor_quarry_2",
+          "ParentId": "att_bld_all_industry_minor_generic_1",
+          "Name": "Quarry",
+          "EffectId": 224,
+          "LocalSanitation": -2,
+          "Incomes": [
+            {
+              "Value": 600,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_minor_quarry_3",
+          "ParentId": "att_bld_all_industry_minor_quarry_2",
+          "Name": "Stone Cutter",
+          "EffectId": 225,
+          "LocalSanitation": -4,
+          "Incomes": [
+            {
+              "Value": 1000,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_minor_quarry_4",
+          "ParentId": "att_bld_all_industry_minor_quarry_3",
+          "Name": "Builder's Workshop",
+          "EffectId": 226,
+          "LocalSanitation": -6,
+          "Incomes": [
+            {
+              "Value": 1650,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_minor_tannery_2",
+          "ParentId": "att_bld_all_industry_minor_generic_1",
+          "Name": "Tanner",
+          "EffectId": 227,
+          "LocalSanitation": -2,
+          "Incomes": [
+            {
+              "Value": 600,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_minor_tannery_3",
+          "ParentId": "att_bld_all_industry_minor_tannery_2",
+          "Name": "Leatherworker",
+          "EffectId": 228,
+          "LocalSanitation": -4,
+          "Incomes": [
+            {
+              "Value": 1000,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_minor_tannery_4",
+          "ParentId": "att_bld_all_industry_minor_tannery_3",
+          "Name": "Leather Manufacture",
+          "EffectId": 229,
+          "LocalSanitation": -6,
+          "Incomes": [
+            {
+              "Value": 1650,
+              "Category": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_all_military_upgrades",
+      "Name": "Military Upgrades",
+      "SlotType": 2,
+      "RegionType": 0,
+      "AllowParallel": true,
+      "Levels": [
+        {
+          "Id": "att_bld_all_military_upgrades_1",
+          "Name": "Supply Storage",
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_armor_2",
+          "ParentId": "att_bld_all_military_upgrades_1",
+          "Name": "Armourer",
+          "EffectId": 244,
+          "LocalSanitation": -2,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_armor_3",
+          "ParentId": "att_bld_all_military_upgrades_armor_2",
+          "Name": "Armoury",
+          "EffectId": 245,
+          "LocalSanitation": -4,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_armor_4",
+          "ParentId": "att_bld_all_military_upgrades_armor_3",
+          "Name": "Royal Armoury",
+          "EffectId": 246,
+          "LocalSanitation": -8,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_wood_2",
+          "ParentId": "att_bld_all_military_upgrades_1",
+          "Name": "Carpenter",
+          "EffectId": 238,
+          "LocalSanitation": -2,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_wood_3",
+          "ParentId": "att_bld_all_military_upgrades_wood_2",
+          "Name": "Carpentry Workshop",
+          "EffectId": 239,
+          "LocalSanitation": -4,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_wood_4",
+          "ParentId": "att_bld_all_military_upgrades_wood_3",
+          "Name": "Siege Workshop",
+          "EffectId": 240,
+          "LocalSanitation": -8,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_weapons_2",
+          "ParentId": "att_bld_all_military_upgrades_1",
+          "Name": "Blacksmith",
+          "EffectId": 241,
+          "LocalSanitation": -2,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_weapons_3",
+          "ParentId": "att_bld_all_military_upgrades_weapons_2",
+          "Name": "Weaponsmith",
+          "EffectId": 242,
+          "LocalSanitation": -4,
+          "Incomes": []
+        },
+        {
+          "Id": "att_bld_all_military_upgrades_weapons_4",
+          "ParentId": "att_bld_all_military_upgrades_weapons_3",
+          "Name": "Master Weaponsmith",
+          "EffectId": 243,
+          "LocalSanitation": -8,
+          "Incomes": []
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_all_industry_major",
+      "Name": "City Industry",
+      "SlotType": 2,
+      "RegionType": 0,
+      "AllowParallel": true,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_all_industry_major_generic_1",
+          "Name": "Workshops",
+          "Incomes": [
+            {
+              "Value": 375,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_major_pottery_2",
+          "ParentId": "att_bld_all_industry_major_generic_1",
+          "Name": "Adobe Dryer",
+          "EffectId": 255,
+          "LocalSanitation": -2,
+          "Incomes": [
+            {
+              "Value": 450,
+              "Category": 4
+            },
+            {
+              "Value": 450,
+              "Category": 5
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_major_pottery_3",
+          "ParentId": "att_bld_all_industry_major_pottery_2",
+          "Name": "Adobe Maker",
+          "EffectId": 256,
+          "LocalSanitation": -5,
+          "Incomes": [
+            {
+              "Value": 750,
+              "Category": 4
+            },
+            {
+              "Value": 750,
+              "Category": 5
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_major_pottery_4",
+          "ParentId": "att_bld_all_industry_major_pottery_3",
+          "Name": "Adobe Klins",
+          "EffectId": 257,
+          "LocalSanitation": -10,
+          "Incomes": [
+            {
+              "Value": 1250,
+              "Category": 4
+            },
+            {
+              "Value": 1250,
+              "Category": 5
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_major_pewter_2",
+          "ParentId": "att_bld_all_industry_major_generic_1",
+          "Name": "Pewter Caster",
+          "EffectId": 258,
+          "LocalSanitation": -2,
+          "Incomes": [
+            {
+              "Value": 900,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_major_pewter_3",
+          "ParentId": "att_bld_all_industry_major_pewter_2",
+          "Name": "Pewter Artisans",
+          "EffectId": 259,
+          "LocalSanitation": -5,
+          "Incomes": [
+            {
+              "Value": 1500,
+              "Category": 4
+            }
+          ]
+        },
+        {
+          "Id": "att_bld_all_industry_major_pewter_4",
+          "ParentId": "att_bld_all_industry_major_pewter_3",
+          "Name": "Pewter Manufacture",
+          "EffectId": 260,
+          "LocalSanitation": -10,
+          "Incomes": [
+            {
+              "Value": 2500,
+              "Category": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

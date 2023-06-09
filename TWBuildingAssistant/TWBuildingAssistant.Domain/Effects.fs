@@ -105,10 +105,10 @@ let internal getIncomeCategory intValue =
 let internal getIncomeCategoryOption intValue =
     intValue |> Option.map getIncomeCategory
 
-let internal createIncome (rd: Entities.Income) =
+let internal createIncome (rd: JsonBuildingIncome) =
     let value = rd.Value
     let category = rd.Category |> getIncomeCategory
-    let isFertilityDependent = rd.IsFertilityDependent
+    let isFertilityDependent = rd.IsFertilityDependent |> Option.defaultValue false
 
     match isFertilityDependent with
     | false ->
@@ -200,27 +200,16 @@ let internal getEffectOption (ctx: DatabaseContext) effectId =
     | Some effectId -> effectId |> getEffect ctx
     | None -> emptyEffectSet
 
-let internal getLocalEffect (ctx: DatabaseContext) buildingLevelId =
+let internal getLocalEffect (buildingLevel:JsonBuildingLevel) =
     let localEffect =
-        query {
-            for buildingLevel in ctx.BuildingLevels do
-                where (buildingLevel.Id = buildingLevelId)
-
-                select
-                    { Maintenance = buildingLevel.Maintenance
-                      Food = buildingLevel.LocalFood
-                      FoodFromFertility = buildingLevel.LocalFoodFromFertility
-                      Sanitation = buildingLevel.LocalSanitation
-                      CapitalTier = buildingLevel.CapitalTier }
-
-                head
-        }
+        { Maintenance = buildingLevel.Maintenance |> Option.defaultValue 0
+          Food = buildingLevel.LocalFood |> Option.defaultValue 0
+          FoodFromFertility = buildingLevel.LocalFoodFromFertility |> Option.defaultValue 0
+          Sanitation = buildingLevel.LocalSanitation |> Option.defaultValue 0
+          CapitalTier = buildingLevel.CapitalTier |> Option.defaultValue 0 }
 
     let incomes =
-        query {
-            for income in ctx.Incomes do
-                where (income.BuildingLevelId = buildingLevelId)
-        }
+        buildingLevel.Incomes
         |> Seq.map createIncome
         |> Seq.toList
 
@@ -315,7 +304,7 @@ let internal collectLocalEffects (localEffects: LocalEffect list) =
         |> List.map (fun x -> x.CapitalTier)
         |> List.max }
 
-let internal getFactionwideEffects (ctx: DatabaseContext) (factionsData: FactionsData.Root []) factionId =
+let internal getFactionwideEffects (ctx: DatabaseContext) (factionsData: JsonFaction []) factionId =
     let effectId =
         query {
             for faction in factionsData do
@@ -328,7 +317,7 @@ let internal getFactionwideEffects (ctx: DatabaseContext) (factionsData: Faction
 
 let internal getTechnologyEffect
     (ctx: DatabaseContext)
-    (factionsData: FactionsData.Root [])
+    (factionsData: JsonFaction [])
     factionId
     technologyTier
     useAntilegacyTechnologies

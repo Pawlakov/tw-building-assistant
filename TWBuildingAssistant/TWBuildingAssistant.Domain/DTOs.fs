@@ -4,10 +4,14 @@ type NamedIdDto =
     { Id:int
       Name:string }
 
-type NamedIdWithItemsDto =
-    { Id:int
+type NamedStringIdDto =
+    { StringId:string
+      Name:string }
+
+type NamedStringIdWithItemsDto =
+    { StringId:string
       Name:string
-      Items:NamedIdDto[] }
+      Items:NamedStringIdDto[] }
 
 type SettingOptions =
     { Provinces:NamedIdDto[]
@@ -53,7 +57,7 @@ type ProvinceDto =
 
 type BuildingLibraryEntryDto =
     { Descriptor:SlotDescriptorDto
-      BuildingBranches:NamedIdWithItemsDto[] }
+      BuildingBranches:NamedStringIdWithItemsDto[] }
 
 type RegionStateDto =
     { Sanitation:int
@@ -75,8 +79,8 @@ type ProvinceStateDto =
       Growth:int }
 
 type SeekerSettingsSlotDto = 
-    { BranchId:int option
-      LevelId:int option
+    { BranchId:string option
+      LevelId:string option
       Descriptor:SlotDescriptorDto
       RegionId:int
       SlotIndex:int }
@@ -90,8 +94,8 @@ type MinimalConditionDto =
       MinimalPublicOrder:int }
 
 type SeekerResultDto = 
-    { BranchId:int
-      LevelId:int
+    { BranchId:string
+      LevelId:string
       RegionId:int
       SlotIndex:int }
 

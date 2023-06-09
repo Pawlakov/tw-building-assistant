@@ -70,46 +70,53 @@ type PowerLevelsData = JsonProvider<"Data/PowerLevels.json", SampleIsList=true>
 type FactionsData =
     JsonProvider<Sample="""
     { 
-        "Id":0, 
-        "Name":"a", 
-        "EffectId":0, 
-        "UsedBuildingBranchIds":[0],
-        "TechnologyLevels":[
-            {
-                "Id":0, 
-                "Order":0, 
-                "UniversalEffectId":0, 
-                "AntilegacyEffectId":0,
-                "UniversalUnlockedBuildingLevelIds": [
-                  0
-                ],
-                "AntilegacyUnlockedBuildingLevelIds": [
-                  0
-                ],
-                "AntilegacyLockedBuildingLevelIds": [
-                  0
-                ]
-            }
-        ]
+        "Factions":[{
+            "Id":0, 
+            "Name":"a", 
+            "EffectId":0, 
+            "UsedBuildingBranchIds":["a"],
+            "TechnologyLevels":[
+                {
+                    "Id":0, 
+                    "Order":0, 
+                    "UniversalEffectId":0, 
+                    "AntilegacyEffectId":0,
+                    "UniversalUnlockedBuildingLevelIds": [
+                      "a"
+                    ],
+                    "AntilegacyUnlockedBuildingLevelIds": [
+                      "a"
+                    ],
+                    "AntilegacyLockedBuildingLevelIds": [
+                      "a"
+                    ]
+                }
+            ]
+        }]
     }
     { 
-        "Id":0, 
-        "Name":"a",
-        "UsedBuildingBranchIds":[0],
-        "TechnologyLevels":[
-            {
-                "Id":0, 
-                "Order":0
-            }
-        ]
+        "Factions":[{
+            "Id":0, 
+            "Name":"a",
+            "UsedBuildingBranchIds":["a"],
+            "TechnologyLevels":[
+                {
+                    "Id":0, 
+                    "Order":0
+                }
+            ]
+        }]
     }
     """, SampleIsList=true>
+
+type internal JsonFaction = FactionsData.Faction
+type internal JsonTechnologyLevel = FactionsData.TechnologyLevel
 
 type BuildingsData =
     JsonProvider<Sample="""
     {
         "Branches":[{
-            "Id":0,
+            "Id":"a",
             "Name":"a",
             "SlotType":0,
             "RegionType":0,
@@ -117,29 +124,41 @@ type BuildingsData =
             "ResourceId":0,
             "AllowParallel":true,
             "Interesting":true,
-            "CrownLevelIds": [0],
             "Levels":[{
-                "Id":0,
+                "Id":"a",
+                "ParentId": "a",
                 "Name":"a",
                 "EffectId":0,
                 "Maintenance":0,
                 "LocalFood": 0,
                 "LocalFoodFromFertility": 0,
                 "LocalSanitation": 0,
-                "ParentId": 0
+                "CapitalTier": 0,
+                "Incomes": [{
+                    "Value":0,
+                    "Category":0,
+                    "IsFertilityDependent":true
+                }]
             }]
         }]
     }
     {
         "Branches":[{
-            "Id":0,
+            "Id":"a",
             "Name":"a",
             "SlotType":0,
-            "CrownLevelIds": [0],
             "Levels":[{
-                "Id":0,
-                "Name":"a"
+                "Id":"a",
+                "Name":"a",
+                "Incomes": [{
+                    "Value":0,
+                    "Category":0
+                }]
             }]
         }]
     }
     """, SampleIsList=true>
+
+type internal JsonBuildingBranch = BuildingsData.Branch
+type internal JsonBuildingLevel = BuildingsData.Level
+type internal JsonBuildingIncome = BuildingsData.Income

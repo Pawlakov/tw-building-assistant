@@ -1,0 +1,83 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Factions aggregate",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "Factions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/faction"
+      }
+    }
+  },
+  "required": [ "$schema", "Factions" ],
+  "additionalProperties": false,
+  "definitions": {
+    "faction": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "UsedBuildingBranchIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "TechnologyLevels": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/definitions/technology_level"
+          }
+        }
+      },
+      "required": [ "Id", "Name", "UsedBuildingBranchIds", "TechnologyLevels" ],
+      "additionalProperties": false
+    },
+    "technology_level": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Order": {
+          "type": "integer"
+        },
+        "UniversalEffectId": {
+          "type": "integer"
+        },
+        "AntilegacyEffectId": {
+          "type": "integer"
+        },
+        "UniversalUnlockedBuildingLevelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "AntilegacyUnlockedBuildingLevelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "AntilegacyLockedBuildingLevelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [ "Id", "Order" ],
+      "additionalProperties": false
+    }
+  }
+}

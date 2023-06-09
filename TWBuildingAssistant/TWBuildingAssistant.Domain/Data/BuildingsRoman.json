@@ -2,836 +2,356 @@
   "$schema": ".\\Buildings-schema.json",
   "Branches": [
     {
-      "Id": 1,
-      "Name": "City",
-      "SlotType": 0,
-      "RegionType": 0,
-      "Interesting": true,
-      "CrownLevelIds": [ 24 ],
-      "Levels": [
-        {
-          "Id": 18,
-          "Name": "Civitas",
-          "EffectId": 186,
-          "LocalFood": -30,
-          "LocalSanitation": -1
-        },
-        {
-          "Id": 20,
-          "Name": "Municipium",
-          "EffectId": 187,
-          "LocalFood": -60,
-          "LocalSanitation": -2,
-          "ParentId": 18
-        },
-        {
-          "Id": 22,
-          "Name": "Urbs",
-          "EffectId": 188,
-          "LocalFood": -100,
-          "LocalSanitation": -3,
-          "ParentId": 20
-        },
-        {
-          "Id": 24,
-          "Name": "Metropolis",
-          "EffectId": 189,
-          "LocalFood": -140,
-          "LocalSanitation": -4,
-          "ParentId": 22
-        }
-      ]
-    },
-    {
-      "Id": 2,
-      "Name": "Town",
-      "SlotType": 0,
-      "RegionType": 1,
-      "Interesting": true,
-      "CrownLevelIds": [ 23 ],
-      "Levels": [
-        {
-          "Id": 17,
-          "Name": "Vicus",
-          "LocalFood": -10
-        },
-        {
-          "Id": 19,
-          "Name": "Colonia",
-          "EffectId": 191,
-          "LocalFood": -20,
-          "ParentId": 17
-        },
-        {
-          "Id": 21,
-          "Name": "Town",
-          "EffectId": 192,
-          "LocalFood": -40,
-          "LocalSanitation": -1,
-          "ParentId": 19
-        },
-        {
-          "Id": 23,
-          "Name": "Foritified Town",
-          "EffectId": 193,
-          "LocalFood": -80,
-          "LocalSanitation": -2,
-          "ParentId": 21
-        }
-      ]
-    },
-    {
-      "Id": 3,
-      "Name": "Port",
-      "SlotType": 1,
-      "Interesting": true,
-      "CrownLevelIds": [ 32, 110, 171 ],
-      "Levels": [
-        {
-          "Id": 137,
-          "Name": "Jetty"
-        },
-        {
-          "Id": 30,
-          "Name": "Fishing Jetties",
-          "EffectId": 195,
-          "LocalFood": 50,
-          "LocalSanitation": -2,
-          "ParentId": 137
-        },
-        {
-          "Id": 31,
-          "Name": "Fishing Wharf",
-          "EffectId": 196,
-          "LocalFood": 70,
-          "LocalSanitation": -4,
-          "ParentId": 30
-        },
-        {
-          "Id": 32,
-          "Name": "Fishing Port",
-          "EffectId": 197,
-          "LocalFood": 90,
-          "LocalSanitation": -6,
-          "ParentId": 31
-        },
-        {
-          "Id": 108,
-          "Name": "Military Jetties",
-          "LocalSanitation": -2,
-          "ParentId": 137
-        },
-        {
-          "Id": 109,
-          "Name": "Military Wharf",
-          "LocalSanitation": -4,
-          "ParentId": 108
-        },
-        {
-          "Id": 110,
-          "Name": "Military Port",
-          "LocalSanitation": -6,
-          "ParentId": 109
-        },
-        {
-          "Id": 169,
-          "Name": "Trade Jetties",
-          "EffectId": 198,
-          "LocalSanitation": -2,
-          "ParentId": 137
-        },
-        {
-          "Id": 170,
-          "Name": "Trade Wharf",
-          "EffectId": 199,
-          "LocalSanitation": -4,
-          "ParentId": 169
-        },
-        {
-          "Id": 171,
-          "Name": "Trade Port",
-          "EffectId": 200,
-          "LocalSanitation": -6,
-          "ParentId": 170
-        }
-      ]
-    },
-    {
-      "Id": 5,
-      "Name": "Military Recruitment",
-      "SlotType": 2,
-      "AllowParallel": true,
-      "CrownLevelIds": [ 16, 66, 155 ],
-      "Levels": [
-        {
-          "Id": 7,
-          "Name": "Rally Field"
-        },
-        {
-          "Id": 14,
-          "Name": "Cavalry Corral",
-          "Maintenance": -200,
-          "ParentId": 7
-        },
-        {
-          "Id": 15,
-          "Name": "Cavalry Stables",
-          "Maintenance": -600,
-          "ParentId": 14
-        },
-        {
-          "Id": 16,
-          "Name": "Cavalry Compound",
-          "Maintenance": -1000,
-          "ParentId": 15
-        },
-        {
-          "Id": 64,
-          "Name": "Infantry Grounds",
-          "Maintenance": -200,
-          "ParentId": 7
-        },
-        {
-          "Id": 65,
-          "Name": "Infantry Barracks",
-          "Maintenance": -600,
-          "ParentId": 64
-        },
-        {
-          "Id": 66,
-          "Name": "Infantry Compound",
-          "Maintenance": -1000,
-          "ParentId": 65
-        },
-        {
-          "Id": 153,
-          "Name": "Missile Range",
-          "Maintenance": -200,
-          "ParentId": 7
-        },
-        {
-          "Id": 154,
-          "Name": "Skirmisher Barracks",
-          "Maintenance": -400,
-          "ParentId": 153
-        },
-        {
-          "Id": 155,
-          "Name": "Skirmisher Compound",
-          "Maintenance": -800,
-          "ParentId": 154
-        }
-      ]
-    },
-    {
-      "Id": 7,
-      "Name": "Agriculture",
-      "SlotType": 2,
-      "RegionType": 1,
-      "AllowParallel": true,
-      "Interesting": true,
-      "CrownLevelIds": [ 13, 148, 183 ],
-      "Levels": [
-        {
-          "Id": 29,
-          "Name": "Fields",
-          "LocalFood": 10,
-          "LocalFoodFromFertility": 8
-        },
-        {
-          "Id": 11,
-          "ParentId": 29,
-          "Name": "Cattle Herd",
-          "EffectId": 220,
-          "LocalFood": 40,
-          "LocalFoodFromFertility": 10,
-          "LocalSanitation": -1
-        },
-        {
-          "Id": 12,
-          "ParentId": 11,
-          "Name": "Cattle Pens",
-          "EffectId": 221,
-          "LocalFood": 55,
-          "LocalFoodFromFertility": 15,
-          "LocalSanitation": -3
-        },
-        {
-          "Id": 13,
-          "ParentId": 12,
-          "Name": "Cattle Farm",
-          "EffectId": 222,
-          "LocalFood": 70,
-          "LocalFoodFromFertility": 20,
-          "LocalSanitation": -5
-        },
-        {
-          "Id": 146,
-          "ParentId": 29,
-          "Name": "Sheep Flock",
-          "EffectId": 217,
-          "LocalFood": 30,
-          "LocalFoodFromFertility": 5,
-          "LocalSanitation": -1
-        },
-        {
-          "Id": 147,
-          "ParentId": 146,
-          "Name": "Sheep Pens",
-          "EffectId": 218,
-          "LocalFood": 40,
-          "LocalFoodFromFertility": 6,
-          "LocalSanitation": -3
-        },
-        {
-          "Id": 148,
-          "ParentId": 147,
-          "Name": "Sheep Barns",
-          "EffectId": 219,
-          "LocalFood": 50,
-          "LocalFoodFromFertility": 7,
-          "LocalSanitation": -5
-        },
-        {
-          "Id": 181,
-          "ParentId": 29,
-          "Name": "Wheat Fields",
-          "EffectId": 214,
-          "LocalFood": 20,
-          "LocalFoodFromFertility": 18,
-          "LocalSanitation": -1
-        },
-        {
-          "Id": 182,
-          "ParentId": 181,
-          "Name": "Wheat Farm",
-          "EffectId": 215,
-          "LocalFood": 30,
-          "LocalFoodFromFertility": 26,
-          "LocalSanitation": -3
-        },
-        {
-          "Id": 183,
-          "ParentId": 182,
-          "Name": "Wheat Mills",
-          "EffectId": 216,
-          "LocalFood": 40,
-          "LocalFoodFromFertility": 34,
-          "LocalSanitation": -5
-        }
-      ]
-    },
-    {
-      "Id": 10,
-      "Name": "Town Industry",
-      "SlotType": 2,
-      "RegionType": 1,
-      "AllowParallel": true,
-      "Interesting": true,
-      "CrownLevelIds": [ 113, 165 ],
-      "Levels": [
-        {
-          "Id": 62,
-          "Name": "Local Industry"
-        },
-        {
-          "Id": 111,
-          "ParentId": 62,
-          "Name": "Quarry",
-          "EffectId": 224,
-          "LocalSanitation": -2
-        },
-        {
-          "Id": 112,
-          "ParentId": 111,
-          "Name": "Stone Cutter",
-          "EffectId": 225,
-          "LocalSanitation": -4
-        },
-        {
-          "Id": 113,
-          "ParentId": 112,
-          "Name": "Builder's Workshop",
-          "EffectId": 226,
-          "LocalSanitation": -6
-        },
-        {
-          "Id": 163,
-          "ParentId": 62,
-          "Name": "Tanner",
-          "EffectId": 227,
-          "LocalSanitation": -2
-        },
-        {
-          "Id": 164,
-          "ParentId": 163,
-          "Name": "Leatherworker",
-          "EffectId": 228,
-          "LocalSanitation": -4
-        },
-        {
-          "Id": 165,
-          "ParentId": 164,
-          "Name": "Leather Manufacture",
-          "EffectId": 229,
-          "LocalSanitation": -6
-        }
-      ]
-    },
-    {
-      "Id": 12,
+      "Id": "att_bch_roman_water_minor",
       "Name": "Town Waterworks",
       "SlotType": 2,
       "RegionType": 1,
       "Interesting": true,
-      "CrownLevelIds": [ 39 ],
       "Levels": [
         {
-          "Id": 36,
+          "Id": "att_bld_roman_water_minor_1",
           "Name": "Fountain",
           "EffectId": 230,
           "LocalFood": -10,
-          "LocalSanitation": 2
+          "LocalSanitation": 2,
+          "Incomes": [
+            {
+              "Value": 150,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 37,
-          "ParentId": 36,
+          "Id": "att_bld_roman_water_minor_2",
+          "ParentId": "att_bld_roman_water_minor_1",
           "Name": "Bath House",
           "EffectId": 231,
           "LocalFood": -20,
-          "LocalSanitation": 3
+          "LocalSanitation": 3,
+          "Incomes": [
+            {
+              "Value": 300,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 38,
-          "ParentId": 37,
+          "Id": "att_bld_roman_water_minor_3",
+          "ParentId": "att_bld_roman_water_minor_2",
           "Name": "Balnae",
           "EffectId": 232,
           "LocalFood": -30,
-          "LocalSanitation": 5
+          "LocalSanitation": 5,
+          "Incomes": [
+            {
+              "Value": 500,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 39,
-          "ParentId": 38,
+          "Id": "att_bld_roman_water_minor_4",
+          "ParentId": "att_bld_roman_water_minor_3",
           "Name": "Thermae",
           "EffectId": 233,
           "LocalFood": -40,
-          "LocalSanitation": 6
+          "LocalSanitation": 6,
+          "Incomes": [
+            {
+              "Value": 825,
+              "Category": 3
+            }
+          ]
         }
       ]
     },
     {
-      "Id": 13,
-      "Name": "Garrison",
-      "SlotType": 2,
-      "RegionType": 1,
-      "Interesting": true,
-      "CrownLevelIds": [ 47 ],
-      "Levels": [
-        {
-          "Id": 44,
-          "Name": "Guardhouse",
-          "EffectId": 234,
-          "LocalFood": -10
-        },
-        {
-          "Id": 45,
-          "ParentId": 44,
-          "Name": "Garrison Encampment",
-          "EffectId": 235,
-          "LocalFood": -20
-        },
-        {
-          "Id": 46,
-          "ParentId": 45,
-          "Name": "Garrison Quarters",
-          "EffectId": 236,
-          "LocalFood": -40
-        },
-        {
-          "Id": 47,
-          "ParentId": 46,
-          "Name": "Veteran Garrison Quarters",
-          "EffectId": 237,
-          "LocalFood": -80
-        }
-      ]
-    },
-    {
-      "Id": 16,
-      "Name": "Military Upgrades",
-      "SlotType": 2,
-      "RegionType": 0,
-      "AllowParallel": true,
-      "CrownLevelIds": [ 6, 116, 180 ],
-      "Levels": [
-        {
-          "Id": 187,
-          "Name": "Supply Storage"
-        },
-        {
-          "Id": 4,
-          "ParentId": 187,
-          "Name": "Armourer",
-          "EffectId": 244,
-          "LocalSanitation": -2
-        },
-        {
-          "Id": 5,
-          "ParentId": 4,
-          "Name": "Armoury",
-          "EffectId": 245,
-          "LocalSanitation": -4
-        },
-        {
-          "Id": 6,
-          "ParentId": 5,
-          "Name": "Royal Armoury",
-          "EffectId": 246,
-          "LocalSanitation": -8
-        },
-        {
-          "Id": 114,
-          "ParentId": 187,
-          "Name": "Carpenter",
-          "EffectId": 238,
-          "LocalSanitation": -2
-        },
-        {
-          "Id": 115,
-          "ParentId": 114,
-          "Name": "Carpentry Workshop",
-          "EffectId": 239,
-          "LocalSanitation": -4
-        },
-        {
-          "Id": 116,
-          "ParentId": 115,
-          "Name": "Siege Workshop",
-          "EffectId": 240,
-          "LocalSanitation": -8
-        },
-        {
-          "Id": 178,
-          "ParentId": 187,
-          "Name": "Blacksmith",
-          "EffectId": 241,
-          "LocalSanitation": -2
-        },
-        {
-          "Id": 179,
-          "ParentId": 178,
-          "Name": "Weaponsmith",
-          "EffectId": 242,
-          "LocalSanitation": -4
-        },
-        {
-          "Id": 180,
-          "ParentId": 179,
-          "Name": "Master Weaponsmith",
-          "EffectId": 243,
-          "LocalSanitation": -8
-        }
-      ]
-    },
-    {
-      "Id": 19,
-      "Name": "Administration",
-      "SlotType": 2,
-      "RegionType": 0,
-      "AllowParallel": true,
-      "Interesting": true,
-      "CrownLevelIds": [ 119, 136 ],
-      "Levels": [
-        {
-          "Id": 1,
-          "Name": "Capitol",
-          "EffectId": 247,
-          "LocalFood": -10
-        },
-        {
-          "Id": 117,
-          "ParentId": 1,
-          "Name": "Statue",
-          "EffectId": 251
-        },
-        {
-          "Id": 118,
-          "ParentId": 117,
-          "Name": "Monument",
-          "EffectId": 252
-        },
-        {
-          "Id": 119,
-          "ParentId": 118,
-          "Name": "Triumphial Arch",
-          "EffectId": 253
-        },
-        {
-          "Id": 134,
-          "ParentId": 1,
-          "Name": "Governor's House",
-          "EffectId": 248,
-          "LocalFood": -20
-        },
-        {
-          "Id": 135,
-          "ParentId": 134,
-          "Name": "Governor's Estate",
-          "EffectId": 249,
-          "LocalFood": -50
-        },
-        {
-          "Id": 136,
-          "ParentId": 135,
-          "Name": "Governor's Palace",
-          "EffectId": 250,
-          "LocalFood": -100
-        }
-      ]
-    },
-    {
-      "Id": 21,
-      "Name": "City Industry",
-      "SlotType": 2,
-      "RegionType": 0,
-      "AllowParallel": true,
-      "Interesting": true,
-      "CrownLevelIds": [ 10, 107 ],
-      "Levels": [
-        {
-          "Id": 63,
-          "Name": "Workshops"
-        },
-        {
-          "Id": 8,
-          "ParentId": 63,
-          "Name": "Adobe Dryer",
-          "EffectId": 255,
-          "LocalSanitation": -2
-        },
-        {
-          "Id": 9,
-          "ParentId": 8,
-          "Name": "Adobe Maker",
-          "EffectId": 256,
-          "LocalSanitation": -5
-        },
-        {
-          "Id": 10,
-          "ParentId": 9,
-          "Name": "Adobe Klins",
-          "EffectId": 257,
-          "LocalSanitation": -10
-        },
-        {
-          "Id": 105,
-          "ParentId": 63,
-          "Name": "Pewter Caster",
-          "EffectId": 258,
-          "LocalSanitation": -2
-        },
-        {
-          "Id": 106,
-          "ParentId": 105,
-          "Name": "Pewter Artisans",
-          "EffectId": 259,
-          "LocalSanitation": -5
-        },
-        {
-          "Id": 107,
-          "ParentId": 106,
-          "Name": "Pewter Manufacture",
-          "EffectId": 260,
-          "LocalSanitation": -10
-        }
-      ]
-    },
-    {
-      "Id": 23,
+      "Id": "att_bch_roman_water_major",
       "Name": "City Waterworks",
       "SlotType": 2,
       "RegionType": 0,
       "Interesting": true,
-      "CrownLevelIds": [ 145, 177 ],
       "Levels": [
         {
-          "Id": 60,
+          "Id": "att_bld_roman_water_major_1",
           "Name": "Waterworks",
           "EffectId": 261,
           "Maintenance": -25,
-          "LocalSanitation": 3
+          "LocalSanitation": 3,
+          "Incomes": []
         },
         {
-          "Id": 143,
-          "ParentId": 60,
+          "Id": "att_bld_roman_water_sewers_2",
+          "ParentId": "att_bld_roman_water_major_1",
           "Name": "Latrines",
           "EffectId": 262,
           "Maintenance": -50,
-          "LocalSanitation": 6
+          "LocalSanitation": 6,
+          "Incomes": []
         },
         {
-          "Id": 144,
-          "ParentId": 143,
+          "Id": "att_bld_roman_water_sewers_3",
+          "ParentId": "att_bld_roman_water_sewers_2",
           "Name": "Sewers",
           "EffectId": 263,
           "Maintenance": -100,
-          "LocalSanitation": 9
+          "LocalSanitation": 9,
+          "Incomes": []
         },
         {
-          "Id": 145,
-          "ParentId": 144,
+          "Id": "att_bld_roman_water_sewers_4",
+          "ParentId": "att_bld_roman_water_sewers_3",
           "Name": "Cloaca",
           "EffectId": 264,
           "Maintenance": -200,
-          "LocalSanitation": 12
+          "LocalSanitation": 12,
+          "Incomes": []
         },
         {
-          "Id": 175,
-          "ParentId": 60,
+          "Id": "att_bld_roman_water_aqueducts_2",
+          "ParentId": "att_bld_roman_water_major_1",
           "Name": "Reservoir",
           "EffectId": 265,
-          "Maintenance": -50
+          "Maintenance": -50,
+          "Incomes": []
         },
         {
-          "Id": 176,
-          "ParentId": 175,
+          "Id": "att_bld_roman_water_aqueducts_3",
+          "ParentId": "att_bld_roman_water_aqueducts_2",
           "Name": "Aqueduct",
           "EffectId": 266,
-          "Maintenance": -100
+          "Maintenance": -100,
+          "Incomes": []
         },
         {
-          "Id": 177,
-          "ParentId": 176,
+          "Id": "att_bld_roman_water_aqueducts_4",
+          "ParentId": "att_bld_roman_water_aqueducts_3",
           "Name": "Aqueduct Network",
           "EffectId": 267,
-          "Maintenance": -200
+          "Maintenance": -200,
+          "Incomes": []
         }
       ]
     },
     {
-      "Id": 24,
+      "Id": "att_bch_roman_civic_major",
       "Name": "City Centre",
       "SlotType": 2,
       "RegionType": 0,
       "AllowParallel": true,
       "Interesting": true,
-      "CrownLevelIds": [ 91, 34, 157, 186, 3, 168],
       "Levels": [
         {
-          "Id": 35,
+          "Id": "att_bld_roman_civic_major_1",
           "Name": "Forum",
-          "EffectId": 268
+          "EffectId": 268,
+          "Incomes": [
+            {
+              "Value": 225,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 90,
-          "ParentId": 35,
+          "Id": "att_bld_roman_civic_library_2",
+          "ParentId": "att_bld_roman_civic_major_1",
           "Name": "Scriptorium",
           "EffectId": 276,
-          "LocalFood": -20
+          "LocalFood": -20,
+          "Incomes": [
+            {
+              "Value": 450,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 91,
-          "ParentId": 90,
+          "Id": "att_bld_roman_civic_library_3",
+          "ParentId": "att_bld_roman_civic_library_2",
           "Name": "Library",
           "EffectId": 277,
-          "LocalFood": -40
+          "LocalFood": -40,
+          "Incomes": [
+            {
+              "Value": 750,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 92,
-          "ParentId": 91,
+          "Id": "att_bld_roman_civic_library_4",
+          "ParentId": "att_bld_roman_civic_library_3",
           "Name": "Imperial Library",
           "EffectId": 278,
-          "LocalFood": -80
+          "LocalFood": -80,
+          "Incomes": [
+            {
+              "Value": 1250,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 104,
-          "ParentId": 35,
+          "Id": "att_bld_roman_civic_market_2",
+          "ParentId": "att_bld_roman_civic_major_1",
           "Name": "Tabernae",
           "EffectId": 269,
-          "LocalSanitation": -2
+          "LocalSanitation": -2,
+          "Incomes": [
+            {
+              "Value": 750,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 33,
-          "ParentId": 104,
+          "Id": "att_bld_roman_civic_market_food_3",
+          "ParentId": "att_bld_roman_civic_market_2",
           "Name": "Food Market",
           "EffectId": 270,
           "LocalFood": 70,
-          "LocalSanitation": -3
+          "LocalSanitation": -3,
+          "Incomes": [
+            {
+              "Value": 250,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 34,
-          "ParentId": 33,
+          "Id": "att_bld_roman_civic_market_food_4",
+          "ParentId": "att_bld_roman_civic_market_food_3",
           "Name": "Food Emporium",
           "EffectId": 271,
           "LocalFood": 90,
-          "LocalSanitation": -6
+          "LocalSanitation": -6,
+          "Incomes": [
+            {
+              "Value": 400,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 156,
-          "ParentId": 104,
+          "Id": "att_bld_roman_civic_market_slave_3",
+          "ParentId": "att_bld_roman_civic_market_2",
           "Name": "Slave Market",
           "EffectId": 272,
-          "LocalSanitation": -3
+          "LocalSanitation": -3,
+          "Incomes": [
+            {
+              "Value": 875,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 157,
-          "ParentId": 156,
+          "Id": "att_bld_roman_civic_market_slave_4",
+          "ParentId": "att_bld_roman_civic_market_slave_3",
           "Name": "Slave Emporium",
           "EffectId": 273,
-          "LocalSanitation": -6
+          "LocalSanitation": -6,
+          "Incomes": [
+            {
+              "Value": 1450,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 185,
-          "ParentId": 104,
+          "Id": "att_bld_roman_civic_market_wine_3",
+          "ParentId": "att_bld_roman_civic_market_2",
           "Name": "Wine Market",
           "EffectId": 274,
-          "LocalSanitation": -3
+          "LocalSanitation": -3,
+          "Incomes": [
+            {
+              "Value": 1200,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 186,
-          "ParentId": 185,
+          "Id": "att_bld_roman_civic_market_wine_4",
+          "ParentId": "att_bld_roman_civic_market_wine_3",
           "Name": "Wine Market",
           "EffectId": 275,
-          "LocalSanitation": -6
+          "LocalSanitation": -6,
+          "Incomes": [
+            {
+              "Value": 2500,
+              "Category": 5
+            }
+          ]
         },
         {
-          "Id": 166,
-          "ParentId": 35,
+          "Id": "att_bld_roman_civic_entertain_2",
+          "ParentId": "att_bld_roman_civic_major_1",
           "Name": "Auditorium",
           "EffectId": 279,
-          "LocalFood": -30
+          "LocalFood": -30,
+          "Incomes": [
+            {
+              "Value": 300,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 2,
-          "ParentId": 166,
+          "Id": "att_bld_roman_civic_entertain_arena_3",
+          "ParentId": "att_bld_roman_civic_entertain_2",
           "Name": "Amphitheatre",
           "EffectId": 282,
           "LocalFood": -50,
-          "LocalSanitation": -2
+          "LocalSanitation": -2,
+          "Incomes": [
+            {
+              "Value": 500,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 3,
-          "ParentId": 2,
+          "Id": "att_bld_roman_civic_entertain_arena_4",
+          "ParentId": "att_bld_roman_civic_entertain_arena_3",
           "Name": "Circus",
           "EffectId": 283,
           "LocalFood": -100,
-          "LocalSanitation": -4
+          "LocalSanitation": -4,
+          "Incomes": [
+            {
+              "Value": 825,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 167,
-          "ParentId": 166,
+          "Id": "att_bld_roman_civic_entertain_drama_3",
+          "ParentId": "att_bld_roman_civic_entertain_2",
           "Name": "Theatre",
           "EffectId": 280,
           "LocalFood": -50,
-          "LocalSanitation": -1
+          "LocalSanitation": -1,
+          "Incomes": [
+            {
+              "Value": 1000,
+              "Category": 3
+            }
+          ]
         },
         {
-          "Id": 168,
-          "ParentId": 167,
+          "Id": "att_bld_roman_civic_entertain_drama_4",
+          "ParentId": "att_bld_roman_civic_entertain_drama_3",
           "Name": "Great Theatre",
           "EffectId": 281,
           "LocalFood": -100,
-          "LocalSanitation": -2
+          "LocalSanitation": -2,
+          "Incomes": [
+            {
+              "Value": 1650,
+              "Category": 3
+            }
+          ]
         }
       ]
     }

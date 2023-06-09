@@ -7,13 +7,13 @@ open Province
 open Settings
 
 type internal BuildingLevel =
-    { Id: int
+    { Id: string
       Name: string
       LocalEffectSet: LocalEffectSet
       EffectSet: EffectSet }
 
 type internal BuildingBranch =
-    { Id: int
+    { Id: string
       Name: string
       Interesting: bool
       Levels: BuildingLevel [] }
@@ -23,18 +23,18 @@ type internal BuildingLibraryEntry =
       BuildingBranches: BuildingBranch [] }
 
 let internal emptyBuildingLevel =
-    { Id = 0
+    { Id = ""
       Name = "Empty"
       LocalEffectSet = emptyLocalEffectSet
       EffectSet = emptyEffectSet }
 
 let internal emptyBuildingBranch =
-    { Id = 0
+    { Id = ""
       Name = "Empty"
       Interesting = true
       Levels = [| emptyBuildingLevel |] }
 
-let internal getUnlockedBuildingLevelIds (factionsData: FactionsData.Root []) settings =
+let internal getUnlockedBuildingLevelIds (factionsData: JsonFaction []) settings =
     let faction =
         query {
             for faction in factionsData do
@@ -66,7 +66,7 @@ let internal getUnlockedBuildingLevelIds (factionsData: FactionsData.Root []) se
 
     unlockedIds |> Array.except lockedIds
 
-let internal getBuildingLibraryEntry ctx (buildingsData: BuildingsData.Branch []) (factionsData: FactionsData.Root []) settings descriptor =
+let internal getBuildingLibraryEntry ctx (buildingsData: JsonBuildingBranch []) (factionsData: JsonFaction []) settings descriptor =
     let faction =
         query {
             for faction in factionsData do
@@ -99,8 +99,8 @@ let internal getBuildingLibraryEntry ctx (buildingsData: BuildingsData.Branch []
                 where (branch.ResourceId = None || branch.ResourceId = descriptor.ResourceId)
         }
 
-    let firstLoop strainPairs (branch: BuildingsData.Branch) =
-        let rec traverseStrain (current: BuildingsData.Level option) (accumulated: BuildingsData.Level list) =
+    let firstLoop strainPairs (branch: JsonBuildingBranch) =
+        let rec traverseStrain (current: JsonBuildingLevel option) (accumulated: JsonBuildingLevel list) =
             match current with
             | None -> accumulated
             | Some current ->
@@ -114,11 +114,14 @@ let internal getBuildingLibraryEntry ctx (buildingsData: BuildingsData.Branch []
                         |> Some
                 traverseStrain parent (current::accumulated)
 
+        let isCrownLevel (level: JsonBuildingLevel) =
+            branch.Levels 
+            |> Array.forall (fun x -> (Some level.Id) <> x.ParentId)
+
         match branch.AllowParallel with
         | Some true ->
             let crownLevels = 
-                branch.CrownLevelIds 
-                |> Array.map (fun x -> branch.Levels |> Array.filter (fun y -> y.Id = x) |> Array.exactlyOne)
+                branch.Levels |> Array.filter isCrownLevel
                 |> Array.toList
 
             let strains = 
@@ -133,7 +136,7 @@ let internal getBuildingLibraryEntry ctx (buildingsData: BuildingsData.Branch []
 
     let unlockedLevelIds = getUnlockedBuildingLevelIds factionsData settings
 
-    let secondLoop finalDictionary ((branch: BuildingsData.Branch), (levels: BuildingsData.Level list)) =
+    let secondLoop finalDictionary ((branch: JsonBuildingBranch), (levels:JsonBuildingLevel list)) =
         let levelsOther =
             levels
             |> List.filter (fun x -> 
@@ -141,7 +144,7 @@ let internal getBuildingLibraryEntry ctx (buildingsData: BuildingsData.Branch []
             |> List.map (fun level ->
                 { Id = level.Id
                   Name = level.Name
-                  LocalEffectSet = (level.Id |> getLocalEffect ctx)
+                  LocalEffectSet = (level |> getLocalEffect)
                   EffectSet = ( level.EffectId |> getEffectOption ctx) }: BuildingLevel)
             |> List.toArray
 
@@ -197,21 +200,16 @@ let internal getBuildingLibrary ctx buildingsData factionsData (provincesData: P
 
     results
 
-let internal getBuildingLevel (ctx: DatabaseContext) id =
+let internal getBuildingLevel ctx (buildingsData: JsonBuildingBranch []) id =
+    let levels = buildingsData |> Seq.collect (fun x -> x.Levels)
     let level =
         query {
-            for level in ctx.BuildingLevels do
+            for level in levels do
                 where (level.Id = id)
                 head
         }
 
-    let levelEffectId =
-        if level.EffectId.HasValue then
-            Some level.EffectId.Value
-        else
-            None
-
     { Id = level.Id
       Name = level.Name
-      LocalEffectSet = (level.Id |> getLocalEffect ctx)
-      EffectSet = (levelEffectId |> getEffectOption ctx) }: BuildingLevel
+      LocalEffectSet = (level |> getLocalEffect)
+      EffectSet = (level.EffectId |> getEffectOption ctx) }: BuildingLevel

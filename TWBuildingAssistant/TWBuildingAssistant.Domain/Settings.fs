@@ -82,7 +82,7 @@ let internal getReligionOptions (religionsData: ReligionsData.Root []) =
 
     result
 
-let internal getFactionOptions (factionsData: FactionsData.Root []) =
+let internal getFactionOptions (factionsData: JsonFaction []) =
     let query =
         query {
             for province in factionsData do

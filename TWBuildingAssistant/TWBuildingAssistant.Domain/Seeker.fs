@@ -63,7 +63,7 @@ let internal getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]
                 let branchFilter (branch:BuildingBranch) =
                     match (branch.Id, branch.Interesting) with
                     | _, false -> false
-                    | 0, _ -> true
+                    | "", _ -> true
                     | _, _ ->
                         simulationSlots 
                         |> Array.filter (fun y -> y.Level <> None) 

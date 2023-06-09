@@ -69,10 +69,10 @@ let internal mapProvinceToDTO (model: Province.Province) =
       Name = model.Name
       Regions = model.Regions |> Array.map mapRegionToDTO }
 
-let internal mapBuildingLevelToDTO (model: Buildings.BuildingLevel) = { Id = model.Id; Name = model.Name }
+let internal mapBuildingLevelToDTO (model: Buildings.BuildingLevel) = { StringId = model.Id; Name = model.Name }
 
 let internal mapBuildingBranchToDTO (model: Buildings.BuildingBranch) =
-    { Id = model.Id
+    { StringId = model.Id
       Name = model.Name
       Items = model.Levels |> Array.map mapBuildingLevelToDTO }
 
@@ -222,16 +222,16 @@ let internal getPowerLevelsData () =
     |> PowerLevelsData.ParseList
 
 let internal getFactionsData () =
-    "Data/Factions.json"
-    |> File.ReadAllText
-    |> FactionsData.ParseList
+    ("Data/Factions.json" |> File.ReadAllText |> FactionsData.Parse).Factions
 
 let internal getBuildingsData () =
-    let roman = ("Data/BuildingsRoman.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
-    let religion = ("Data/BuildingsReligion.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
+    let all = ("Data/BuildingsAll.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
     let resource = ("Data/BuildingsResource.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
+    let religion = ("Data/BuildingsReligion.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
+    let roman = ("Data/BuildingsRoman.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
+    let romanWest = ("Data/BuildingsRomanWest.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
 
-    Array.concat [roman; religion; resource]
+    Array.concat [all; resource; religion; roman; romanWest]
 
 let getSettingOptions () =
     let weathersData = getWeathersData ()
@@ -304,8 +304,8 @@ let getState ctx buildingLevelIds settings =
         buildingLevelIds
         |> Array.map (fun region ->
             region
-            |> Array.filter (fun x -> x <> 0)
-            |> Array.map (Buildings.getBuildingLevel ctx)
+            |> Array.filter (fun x -> x <> "")
+            |> Array.map (Buildings.getBuildingLevel ctx buildingsData)
             |> Array.toSeq)
         |> Array.toSeq
 

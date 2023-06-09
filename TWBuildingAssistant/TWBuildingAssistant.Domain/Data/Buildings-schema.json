@@ -20,7 +20,7 @@
       "type": "object",
       "properties": {
         "Id": {
-          "type": "integer"
+          "type": "string"
         },
         "Name": {
           "type": "string"
@@ -43,13 +43,6 @@
         "Interesting": {
           "type": "boolean"
         },
-        "CrownLevelIds": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "integer"
-          }
-        },
         "Levels": {
           "type": "array",
           "minItems": 3,
@@ -58,20 +51,20 @@
           }
         }
       },
-      "required": [ "Id", "Name", "SlotType", "CrownLevelIds", "Levels" ],
+      "required": [ "Id", "Name", "SlotType", "Levels" ],
       "additionalProperties": false
     },
     "level": {
       "type": "object",
       "properties": {
         "Id": {
-          "type": "integer"
+          "type": "string"
         },
         "Name": {
           "type": "string"
         },
         "ParentId": {
-          "type": "integer"
+          "type": "string"
         },
         "EffectId": {
           "type": "integer"
@@ -87,9 +80,34 @@
         },
         "LocalSanitation": {
           "type": "integer"
+        },
+        "CapitalTier": {
+          "type": "integer"
+        },
+        "Incomes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/income"
+          }
         }
       },
-      "required": [ "Id", "Name" ],
+      "required": [ "Id", "Name", "Incomes" ],
+      "additionalProperties": false
+    },
+    "income": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "integer"
+        },
+        "Category": {
+          "type": "integer"
+        },
+        "IsFertilityDependent": {
+          "type": "boolean"
+        }
+      },
+      "required": [ "Value", "Category" ],
       "additionalProperties": false
     }
   }

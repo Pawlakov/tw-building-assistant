@@ -11,9 +11,12 @@
         {
           "Id": "att_bld_roman_water_minor_1",
           "Name": "Fountain",
-          "EffectId": 230,
           "LocalFood": -10,
           "LocalSanitation": 2,
+          "Effect": {
+            "PublicOrder": 1,
+            "Sanitation": 2
+          },
           "Incomes": [
             {
               "Value": 150,
@@ -25,9 +28,12 @@
           "Id": "att_bld_roman_water_minor_2",
           "ParentId": "att_bld_roman_water_minor_1",
           "Name": "Bath House",
-          "EffectId": 231,
           "LocalFood": -20,
           "LocalSanitation": 3,
+          "Effect": {
+            "PublicOrder": 2,
+            "Sanitation": 4
+          },
           "Incomes": [
             {
               "Value": 300,
@@ -39,9 +45,12 @@
           "Id": "att_bld_roman_water_minor_3",
           "ParentId": "att_bld_roman_water_minor_2",
           "Name": "Balnae",
-          "EffectId": 232,
           "LocalFood": -30,
           "LocalSanitation": 5,
+          "Effect": {
+            "PublicOrder": 3,
+            "Sanitation": 5
+          },
           "Incomes": [
             {
               "Value": 500,
@@ -53,9 +62,12 @@
           "Id": "att_bld_roman_water_minor_4",
           "ParentId": "att_bld_roman_water_minor_3",
           "Name": "Thermae",
-          "EffectId": 233,
           "LocalFood": -40,
           "LocalSanitation": 6,
+          "Effect": {
+            "PublicOrder": 4,
+            "Sanitation": 7
+          },
           "Incomes": [
             {
               "Value": 825,
@@ -75,61 +87,75 @@
         {
           "Id": "att_bld_roman_water_major_1",
           "Name": "Waterworks",
-          "EffectId": 261,
           "Maintenance": -25,
           "LocalSanitation": 3,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 1,
+            "Sanitation": 2
+          }
         },
         {
           "Id": "att_bld_roman_water_sewers_2",
           "ParentId": "att_bld_roman_water_major_1",
           "Name": "Latrines",
-          "EffectId": 262,
           "Maintenance": -50,
           "LocalSanitation": 6,
-          "Incomes": []
+          "Effect": {
+            "Growth": 7,
+            "Sanitation": 4
+          }
         },
         {
           "Id": "att_bld_roman_water_sewers_3",
           "ParentId": "att_bld_roman_water_sewers_2",
           "Name": "Sewers",
-          "EffectId": 263,
           "Maintenance": -100,
           "LocalSanitation": 9,
-          "Incomes": []
+          "Effect": {
+            "Growth": 10,
+            "Sanitation": 5
+          }
         },
         {
           "Id": "att_bld_roman_water_sewers_4",
           "ParentId": "att_bld_roman_water_sewers_3",
           "Name": "Cloaca",
-          "EffectId": 264,
           "Maintenance": -200,
           "LocalSanitation": 12,
-          "Incomes": []
+          "Effect": {
+            "Growth": 13,
+            "Sanitation": 6
+          }
         },
         {
           "Id": "att_bld_roman_water_aqueducts_2",
           "ParentId": "att_bld_roman_water_major_1",
           "Name": "Reservoir",
-          "EffectId": 265,
           "Maintenance": -50,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Sanitation": 8
+          }
         },
         {
           "Id": "att_bld_roman_water_aqueducts_3",
           "ParentId": "att_bld_roman_water_aqueducts_2",
           "Name": "Aqueduct",
-          "EffectId": 266,
           "Maintenance": -100,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Sanitation": 12
+          }
         },
         {
           "Id": "att_bld_roman_water_aqueducts_4",
           "ParentId": "att_bld_roman_water_aqueducts_3",
           "Name": "Aqueduct Network",
-          "EffectId": 267,
           "Maintenance": -200,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "Sanitation": 16
+          }
         }
       ]
     },
@@ -144,7 +170,9 @@
         {
           "Id": "att_bld_roman_civic_major_1",
           "Name": "Forum",
-          "EffectId": 268,
+          "Effect": {
+            "PublicOrder": 3
+          },
           "Incomes": [
             {
               "Value": 225,
@@ -156,8 +184,10 @@
           "Id": "att_bld_roman_civic_library_2",
           "ParentId": "att_bld_roman_civic_major_1",
           "Name": "Scriptorium",
-          "EffectId": 276,
           "LocalFood": -20,
+          "Effect": {
+            "ResearchRate": 5
+          },
           "Incomes": [
             {
               "Value": 450,
@@ -169,8 +199,10 @@
           "Id": "att_bld_roman_civic_library_3",
           "ParentId": "att_bld_roman_civic_library_2",
           "Name": "Library",
-          "EffectId": 277,
           "LocalFood": -40,
+          "Effect": {
+            "ResearchRate": 10
+          },
           "Incomes": [
             {
               "Value": 750,
@@ -182,8 +214,10 @@
           "Id": "att_bld_roman_civic_library_4",
           "ParentId": "att_bld_roman_civic_library_3",
           "Name": "Imperial Library",
-          "EffectId": 278,
           "LocalFood": -80,
+          "Effect": {
+            "ResearchRate": 20
+          },
           "Incomes": [
             {
               "Value": 1250,
@@ -195,8 +229,15 @@
           "Id": "att_bld_roman_civic_market_2",
           "ParentId": "att_bld_roman_civic_major_1",
           "Name": "Tabernae",
-          "EffectId": 269,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": 1,
+            "Bonuses": [
+              {
+                "Value": 5
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 750,
@@ -208,9 +249,21 @@
           "Id": "att_bld_roman_civic_market_food_3",
           "ParentId": "att_bld_roman_civic_market_2",
           "Name": "Food Market",
-          "EffectId": 270,
           "LocalFood": 70,
           "LocalSanitation": -3,
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 1
+              },
+              {
+                "Value": 10,
+                "Category": 2
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 250,
@@ -222,9 +275,21 @@
           "Id": "att_bld_roman_civic_market_food_4",
           "ParentId": "att_bld_roman_civic_market_food_3",
           "Name": "Food Emporium",
-          "EffectId": 271,
           "LocalFood": 90,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -4,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 1
+              },
+              {
+                "Value": 15,
+                "Category": 2
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 400,
@@ -236,8 +301,16 @@
           "Id": "att_bld_roman_civic_market_slave_3",
           "ParentId": "att_bld_roman_civic_market_2",
           "Name": "Slave Market",
-          "EffectId": 272,
           "LocalSanitation": -3,
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 4
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 875,
@@ -249,8 +322,16 @@
           "Id": "att_bld_roman_civic_market_slave_4",
           "ParentId": "att_bld_roman_civic_market_slave_3",
           "Name": "Slave Emporium",
-          "EffectId": 273,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -4,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 4
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 1450,
@@ -262,8 +343,16 @@
           "Id": "att_bld_roman_civic_market_wine_3",
           "ParentId": "att_bld_roman_civic_market_2",
           "Name": "Wine Market",
-          "EffectId": 274,
           "LocalSanitation": -3,
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 3
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 1200,
@@ -275,8 +364,16 @@
           "Id": "att_bld_roman_civic_market_wine_4",
           "ParentId": "att_bld_roman_civic_market_wine_3",
           "Name": "Wine Market",
-          "EffectId": 275,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -4,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 3
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 2500,
@@ -288,8 +385,16 @@
           "Id": "att_bld_roman_civic_entertain_2",
           "ParentId": "att_bld_roman_civic_major_1",
           "Name": "Auditorium",
-          "EffectId": 279,
           "LocalFood": -30,
+          "Effect": {
+            "PublicOrder": 7,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 5
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 300,
@@ -301,9 +406,17 @@
           "Id": "att_bld_roman_civic_entertain_arena_3",
           "ParentId": "att_bld_roman_civic_entertain_2",
           "Name": "Amphitheatre",
-          "EffectId": 282,
           "LocalFood": -50,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": 15,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 5
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 500,
@@ -315,9 +428,17 @@
           "Id": "att_bld_roman_civic_entertain_arena_4",
           "ParentId": "att_bld_roman_civic_entertain_arena_3",
           "Name": "Circus",
-          "EffectId": 283,
           "LocalFood": -100,
           "LocalSanitation": -4,
+          "Effect": {
+            "PublicOrder": 21,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 5
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 825,
@@ -329,9 +450,17 @@
           "Id": "att_bld_roman_civic_entertain_drama_3",
           "ParentId": "att_bld_roman_civic_entertain_2",
           "Name": "Theatre",
-          "EffectId": 280,
           "LocalFood": -50,
           "LocalSanitation": -1,
+          "Effect": {
+            "PublicOrder": 10,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 5
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 1000,
@@ -343,9 +472,17 @@
           "Id": "att_bld_roman_civic_entertain_drama_4",
           "ParentId": "att_bld_roman_civic_entertain_drama_3",
           "Name": "Great Theatre",
-          "EffectId": 281,
           "LocalFood": -100,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": 13,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 5
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 1650,

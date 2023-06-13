@@ -17,16 +17,14 @@ public class SettingsViewModel
     private readonly INavigator navigator;
     private readonly ISettingsStore settingsStore;
     private readonly IConfiguration configuration;
-    private readonly DatabaseContextFactory dbContextFactory;
 
     private Models.Settings settings;
 
-    public SettingsViewModel(INavigator navigator, ISettingsStore settingsStore, IConfiguration configuration, DatabaseContextFactory dbContextFactory)
+    public SettingsViewModel(INavigator navigator, ISettingsStore settingsStore, IConfiguration configuration)
     {
         this.navigator = navigator;
         this.settingsStore = settingsStore;
         this.configuration = configuration;
-        this.dbContextFactory = dbContextFactory;
 
         var options = getSettingOptions();
         this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
@@ -294,14 +292,11 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        using (var dbContext = this.dbContextFactory.CreateDbContext())
-        {
-            var settings = new SettingsDto(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
-            this.configuration.SetSettings(settings);
+        var settings = new SettingsDto(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
+        this.configuration.SetSettings(settings);
 
-            this.settingsStore.BuildingLibrary = getBuildingLibrary(dbContext, settings);
+        this.settingsStore.BuildingLibrary = getBuildingLibrary(settings);
 
-            this.navigator.CurrentViewType = INavigator.ViewType.Province;
-        }
+        this.navigator.CurrentViewType = INavigator.ViewType.Province;
     }
 }

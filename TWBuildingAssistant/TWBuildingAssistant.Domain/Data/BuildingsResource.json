@@ -21,9 +21,11 @@
           "Id": "att_bld_all_resources_port_fish_2",
           "ParentId": "att_bld_all_resources_port_generic_1",
           "Name": "Fishing Jetties",
-          "EffectId": 195,
           "LocalFood": 50,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": -2
+          },
           "Incomes": [
             {
               "Value": 450,
@@ -35,9 +37,11 @@
           "Id": "att_bld_all_resources_port_fish_3",
           "ParentId": "att_bld_all_resources_port_fish_2",
           "Name": "Fishing Wharf",
-          "EffectId": 196,
           "LocalFood": 70,
           "LocalSanitation": -4,
+          "Effect": {
+            "PublicOrder": -4
+          },
           "Incomes": [
             {
               "Value": 750,
@@ -49,9 +53,11 @@
           "Id": "att_bld_all_resources_port_fish_4",
           "ParentId": "att_bld_all_resources_port_fish_3",
           "Name": "Fishing Port",
-          "EffectId": 197,
           "LocalFood": 90,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -6
+          },
           "Incomes": [
             {
               "Value": 1250,
@@ -63,29 +69,28 @@
           "Id": "att_bld_all_resources_port_military_2",
           "ParentId": "att_bld_all_resources_port_generic_1",
           "Name": "Military Jetties",
-          "LocalSanitation": -2,
-          "Incomes": []
+          "LocalSanitation": -2
         },
         {
           "Id": "att_bld_all_resources_port_military_3",
           "ParentId": "att_bld_all_resources_port_military_2",
           "Name": "Military Wharf",
-          "LocalSanitation": -4,
-          "Incomes": []
+          "LocalSanitation": -4
         },
         {
           "Id": "att_bld_all_resources_port_military_4",
           "ParentId": "att_bld_all_resources_port_military_3",
           "Name": "Military Port",
-          "LocalSanitation": -6,
-          "Incomes": []
+          "LocalSanitation": -6
         },
         {
           "Id": "att_bld_all_resources_port_trade_2",
           "ParentId": "att_bld_all_resources_port_generic_1",
           "Name": "Trade Jetties",
-          "EffectId": 198,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": -2
+          },
           "Incomes": [
             {
               "Value": 450,
@@ -101,8 +106,10 @@
           "Id": "att_bld_all_resources_port_trade_3",
           "ParentId": "att_bld_all_resources_port_trade_2",
           "Name": "Trade Wharf",
-          "EffectId": 199,
           "LocalSanitation": -4,
+          "Effect": {
+            "PublicOrder": -4
+          },
           "Incomes": [
             {
               "Value": 750,
@@ -118,8 +125,10 @@
           "Id": "att_bld_all_resources_port_trade_4",
           "ParentId": "att_bld_all_resources_port_trade_3",
           "Name": "Trade Port",
-          "EffectId": 200,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -6
+          },
           "Incomes": [
             {
               "Value": 1250,
@@ -143,32 +152,88 @@
         {
           "Id": "att_bld_all_resources_dyes_1",
           "Name": "Dye Tubs",
-          "EffectId": 1,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 2,
+                "Category": 4
+              },
+              {
+                "Value": 2,
+                "Category": 5
+              },
+              {
+                "Value": 2,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_dyes_2",
           "ParentId": "att_bld_all_resources_dyes_1",
           "Name": "Dye Maker",
-          "EffectId": 2,
           "LocalSanitation": -2,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 4,
+                "Category": 4
+              },
+              {
+                "Value": 4,
+                "Category": 5
+              },
+              {
+                "Value": 4,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_dyes_3",
           "ParentId": "att_bld_all_resources_dyes_2",
           "Name": "Dye Works",
-          "EffectId": 3,
           "LocalSanitation": -4,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 6,
+                "Category": 4
+              },
+              {
+                "Value": 6,
+                "Category": 5
+              },
+              {
+                "Value": 6,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_dyes_4",
           "ParentId": "att_bld_all_resources_dyes_3",
           "Name": "Dye Factory",
-          "EffectId": 4,
           "LocalSanitation": -6,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 8,
+                "Category": 4
+              },
+              {
+                "Value": 8,
+                "Category": 5
+              },
+              {
+                "Value": 8,
+                "Category": 6
+              }
+            ]
+          }
         }
       ]
     },
@@ -240,32 +305,34 @@
       "Levels": [
         {
           "Id": "att_bld_all_resources_gems_1",
-          "Name": "Gem Deposit",
-          "Incomes": []
+          "Name": "Gem Deposit"
         },
         {
           "Id": "att_bld_all_resources_gems_2",
           "ParentId": "att_bld_all_resources_gems_1",
           "Name": "Gem Cutter",
-          "EffectId": 9,
           "LocalSanitation": -2,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -1
+          }
         },
         {
           "Id": "att_bld_all_resources_gems_3",
           "ParentId": "att_bld_all_resources_gems_2",
           "Name": "Gem Trader",
-          "EffectId": 10,
           "LocalSanitation": -4,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -2
+          }
         },
         {
           "Id": "att_bld_all_resources_gems_4",
           "ParentId": "att_bld_all_resources_gems_3",
           "Name": "Gem Market",
-          "EffectId": 11,
           "LocalSanitation": -6,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -4
+          }
         }
       ]
     },
@@ -279,8 +346,20 @@
         {
           "Id": "att_bld_all_resources_gold_1",
           "Name": "Gold Veins",
-          "EffectId": 12,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 5
+              },
+              {
+                "Value": 10,
+                "Category": 6
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 600,
@@ -292,8 +371,10 @@
           "Id": "att_bld_all_resources_gold_jeweler_2",
           "ParentId": "att_bld_all_resources_gold_1",
           "Name": "Goldsmith",
-          "EffectId": 13,
           "LocalSanitation": -3,
+          "Effect": {
+            "PublicOrder": -5
+          },
           "Incomes": [
             {
               "Value": 1200,
@@ -305,8 +386,10 @@
           "Id": "att_bld_all_resources_gold_jeweler_3",
           "ParentId": "att_bld_all_resources_gold_jeweler_2",
           "Name": "Jewelsmith",
-          "EffectId": 14,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -10
+          },
           "Incomes": [
             {
               "Value": 2000,
@@ -318,8 +401,10 @@
           "Id": "att_bld_all_resources_gold_jeweler_4",
           "ParentId": "att_bld_all_resources_gold_jeweler_3",
           "Name": "Jeweller",
-          "EffectId": 15,
           "LocalSanitation": -10,
+          "Effect": {
+            "PublicOrder": -15
+          },
           "Incomes": [
             {
               "Value": 3000,
@@ -331,8 +416,10 @@
           "Id": "att_bld_all_resources_gold_mine_2",
           "ParentId": "att_bld_all_resources_gold_1",
           "Name": "Small Gold Mine",
-          "EffectId": 16,
           "LocalSanitation": -3,
+          "Effect": {
+            "PublicOrder": -5
+          },
           "Incomes": [
             {
               "Value": 1200,
@@ -344,8 +431,10 @@
           "Id": "att_bld_all_resources_gold_mine_3",
           "ParentId": "att_bld_all_resources_gold_mine_2",
           "Name": "Gold Mine",
-          "EffectId": 17,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -10
+          },
           "Incomes": [
             {
               "Value": 1500,
@@ -357,8 +446,10 @@
           "Id": "att_bld_all_resources_gold_mine_4",
           "ParentId": "att_bld_all_resources_gold_mine_3",
           "Name": "Deep Gold Mine",
-          "EffectId": 18,
           "LocalSanitation": -10,
+          "Effect": {
+            "PublicOrder": -15
+          },
           "Incomes": [
             {
               "Value": 2000,
@@ -377,56 +468,91 @@
       "Levels": [
         {
           "Id": "att_bld_all_resources_iron_1",
-          "Name": "Iron Smelter",
-          "Incomes": []
+          "Name": "Iron Smelter"
         },
         {
           "Id": "att_bld_all_resources_iron_blacksmith_2",
           "ParentId": "att_bld_all_resources_iron_1",
           "Name": "Toolmaker",
-          "EffectId": 19,
           "LocalSanitation": -2,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -1,
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 1
+              },
+              {
+                "Value": 5,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_iron_blacksmith_3",
           "ParentId": "att_bld_all_resources_iron_blacksmith_2",
           "Name": "Ironsmith",
-          "EffectId": 20,
           "LocalSanitation": -4,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 1
+              },
+              {
+                "Value": 10,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_iron_blacksmith_4",
           "ParentId": "att_bld_all_resources_iron_blacksmith_3",
           "Name": "Forge",
-          "EffectId": 21,
           "LocalSanitation": -6,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -4,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 1
+              },
+              {
+                "Value": 15,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_iron_armory_2",
           "ParentId": "att_bld_all_resources_iron_1",
           "Name": "Weaponsmith",
-          "EffectId": 22,
           "LocalSanitation": -2,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -1
+          }
         },
         {
           "Id": "att_bld_all_resources_iron_armory_3",
           "ParentId": "att_bld_all_resources_iron_armory_2",
           "Name": "Forge",
-          "EffectId": 23,
           "LocalSanitation": -4,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -2
+          }
         },
         {
           "Id": "att_bld_all_resources_iron_armory_4",
           "ParentId": "att_bld_all_resources_iron_armory_3",
           "Name": "Great Forge",
-          "EffectId": 24,
           "LocalSanitation": -6,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -4
+          }
         }
       ]
     },
@@ -440,32 +566,59 @@
         {
           "Id": "att_bld_all_resources_lead_1",
           "Name": "Lead Deposit",
-          "EffectId": 25,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_lead_2",
           "ParentId": "att_bld_all_resources_lead_1",
           "Name": "Lead Mine",
-          "EffectId": 26,
           "LocalFood": -2,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -1,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_lead_3",
           "ParentId": "att_bld_all_resources_lead_2",
           "Name": "Lead Smelter",
-          "EffectId": 27,
           "LocalFood": -4,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_lead_4",
           "ParentId": "att_bld_all_resources_lead_3",
           "Name": "Glass Workshop",
-          "EffectId": 28,
           "LocalFood": -6,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -4,
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 4
+              }
+            ]
+          }
         }
       ]
     },
@@ -479,29 +632,53 @@
         {
           "Id": "att_bld_all_resources_wood_1",
           "Name": "Prime Forest",
-          "EffectId": 29,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_wood_2",
           "ParentId": "att_bld_all_resources_wood_1",
           "Name": "Woodcutter",
-          "EffectId": 30,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_wood_3",
           "ParentId": "att_bld_all_resources_wood_2",
           "Name": "Logging Camp",
-          "EffectId": 31,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_wood_4",
           "ParentId": "att_bld_all_resources_wood_3",
           "Name": "Lumber Camp",
-          "EffectId": 32,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 4
+              }
+            ]
+          }
         }
       ]
     },
@@ -514,15 +691,16 @@
       "Levels": [
         {
           "Id": "att_bld_all_resources_marble_1",
-          "Name": "Marble Stonecutter",
-          "Incomes": []
+          "Name": "Marble Stonecutter"
         },
         {
           "Id": "att_bld_all_resources_marble_quarry_2",
           "ParentId": "att_bld_all_resources_marble_1",
           "Name": "Small Marble Quarry",
-          "EffectId": 33,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": -2
+          },
           "Incomes": [
             {
               "Value": 600,
@@ -534,8 +712,10 @@
           "Id": "att_bld_all_resources_marble_quarry_3",
           "ParentId": "att_bld_all_resources_marble_quarry_2",
           "Name": "Marble Quarry",
-          "EffectId": 34,
           "LocalSanitation": -4,
+          "Effect": {
+            "PublicOrder": -4
+          },
           "Incomes": [
             {
               "Value": 1000,
@@ -547,8 +727,10 @@
           "Id": "att_bld_all_resources_marble_quarry_4",
           "ParentId": "att_bld_all_resources_marble_quarry_3",
           "Name": "Marble Quarry Complex",
-          "EffectId": 35,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -8
+          },
           "Incomes": [
             {
               "Value": 1650,
@@ -560,25 +742,61 @@
           "Id": "att_bld_all_resources_marble_mason_2",
           "ParentId": "att_bld_all_resources_marble_1",
           "Name": "Column Carver",
-          "EffectId": 36,
           "LocalSanitation": -2,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -1,
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 3
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 1
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_marble_mason_3",
           "ParentId": "att_bld_all_resources_marble_mason_2",
           "Name": "Statue Carver",
-          "EffectId": 37,
           "LocalSanitation": -4,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 3
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_marble_mason_4",
           "ParentId": "att_bld_all_resources_marble_mason_3",
           "Name": "Sculptor",
-          "EffectId": 38,
           "LocalSanitation": -6,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -4,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 3
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 3
+              }
+            ]
+          }
         }
       ]
     },
@@ -592,36 +810,76 @@
         {
           "Id": "att_bld_all_resources_olives_1",
           "Name": "Olive Trees",
-          "EffectId": 39,
           "LocalFood": 50,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 5
+              },
+              {
+                "Value": 5,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_olives_2",
           "ParentId": "att_bld_all_resources_olives_1",
           "Name": "Olive Orchards",
-          "EffectId": 40,
           "LocalFood": 90,
           "LocalSanitation": -1,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 5
+              },
+              {
+                "Value": 10,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_olives_3",
           "ParentId": "att_bld_all_resources_olives_2",
           "Name": "Olive Press",
-          "EffectId": 41,
           "LocalFood": 130,
           "LocalSanitation": -3,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 5
+              },
+              {
+                "Value": 15,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_olives_4",
           "ParentId": "att_bld_all_resources_olives_3",
           "Name": "Olive Oil Mill",
-          "EffectId": 42,
           "LocalFood": 170,
           "LocalSanitation": -5,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 5
+              },
+              {
+                "Value": 20,
+                "Category": 6
+              }
+            ]
+          }
         }
       ]
     },
@@ -647,9 +905,11 @@
           "Id": "att_bld_all_resources_salt_2",
           "ParentId": "att_bld_all_resources_salt_1",
           "Name": "Saltworks",
-          "EffectId": 44,
           "LocalFood": 50,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": -1
+          },
           "Incomes": [
             {
               "Value": 240,
@@ -661,9 +921,11 @@
           "Id": "att_bld_all_resources_salt_3",
           "ParentId": "att_bld_all_resources_salt_2",
           "Name": "Large Saltworks",
-          "EffectId": 45,
           "LocalFood": 70,
           "LocalSanitation": -4,
+          "Effect": {
+            "PublicOrder": -2
+          },
           "Incomes": [
             {
               "Value": 450,
@@ -675,9 +937,11 @@
           "Id": "att_bld_all_resources_salt_4",
           "ParentId": "att_bld_all_resources_salt_3",
           "Name": "Salt Trading Port",
-          "EffectId": 46,
           "LocalFood": 90,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -4
+          },
           "Incomes": [
             {
               "Value": 900,
@@ -697,32 +961,75 @@
         {
           "Id": "att_bld_all_resources_silk_1",
           "Name": "Silk Road Resthouse",
-          "EffectId": 47,
-          "Incomes": []
+          "Effect": {
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 5
+              },
+              {
+                "Value": 5,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_silk_2",
           "ParentId": "att_bld_all_resources_silk_1",
           "Name": "Silk Road Tradehouse",
-          "EffectId": 48,
           "LocalSanitation": -2,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -1,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 5
+              },
+              {
+                "Value": 10,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_silk_3",
           "ParentId": "att_bld_all_resources_silk_2",
           "Name": "Silk Road Market",
-          "EffectId": 49,
           "LocalSanitation": -4,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -2,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 5
+              },
+              {
+                "Value": 15,
+                "Category": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_all_resources_silk_4",
           "ParentId": "att_bld_all_resources_silk_3",
           "Name": "Silk Road Bazaar",
-          "EffectId": 50,
           "LocalSanitation": -6,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": -4,
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 5
+              },
+              {
+                "Value": 20,
+                "Category": 6
+              }
+            ]
+          }
         }
       ]
     },
@@ -747,8 +1054,10 @@
           "Id": "att_bld_all_resources_port_spice_2",
           "ParentId": "att_bld_all_resources_port_spice_1",
           "Name": "Oriental Harbour",
-          "EffectId": 52,
           "LocalSanitation": -2,
+          "Effect": {
+            "PublicOrder": -2
+          },
           "Incomes": [
             {
               "Value": 300,
@@ -760,8 +1069,10 @@
           "Id": "att_bld_all_resources_port_spice_3",
           "ParentId": "att_bld_all_resources_port_spice_2",
           "Name": "Oriental Port",
-          "EffectId": 53,
           "LocalSanitation": -4,
+          "Effect": {
+            "PublicOrder": -4
+          },
           "Incomes": [
             {
               "Value": 500,
@@ -773,8 +1084,10 @@
           "Id": "att_bld_all_resources_port_spice_4",
           "ParentId": "att_bld_all_resources_port_spice_3",
           "Name": "Spice Trading Port",
-          "EffectId": 54,
           "LocalSanitation": -6,
+          "Effect": {
+            "PublicOrder": -6
+          },
           "Incomes": [
             {
               "Value": 825,
@@ -794,63 +1107,70 @@
         {
           "Id": "att_bld_all_resources_orchards_1",
           "Name": "Orchards",
-          "EffectId": 55,
           "LocalFood": 50,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3
+          }
         },
         {
           "Id": "att_bld_all_resources_orchards_fruit_2",
           "ParentId": "att_bld_all_resources_orchards_1",
           "Name": "Fruit Orchard",
-          "EffectId": 56,
           "LocalFood": 90,
           "LocalSanitation": -1,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3
+          }
         },
         {
           "Id": "att_bld_all_resources_orchards_fruit_3",
           "ParentId": "att_bld_all_resources_orchards_fruit_2",
           "Name": "Fruit Plantation",
-          "EffectId": 57,
           "LocalFood": 130,
           "LocalSanitation": -3,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4
+          }
         },
         {
           "Id": "att_bld_all_resources_orchards_fruit_4",
           "ParentId": "att_bld_all_resources_orchards_fruit_3",
           "Name": "Fruit Dryer",
-          "EffectId": 58,
           "LocalFood": 170,
           "LocalSanitation": -5,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5
+          }
         },
         {
           "Id": "att_bld_all_resources_orchards_vineyard_2",
           "ParentId": "att_bld_all_resources_orchards_1",
           "Name": "Vineyard",
-          "EffectId": 59,
           "LocalFood": 50,
           "LocalSanitation": -1,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5
+          }
         },
         {
           "Id": "att_bld_all_resources_orchards_vineyard_3",
           "ParentId": "att_bld_all_resources_orchards_vineyard_2",
           "Name": "Grape Press",
-          "EffectId": 60,
           "LocalFood": 70,
           "LocalSanitation": -3,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7
+          }
         },
         {
           "Id": "att_bld_all_resources_orchards_vineyard_4",
           "ParentId": "att_bld_all_resources_orchards_vineyard_3",
           "Name": "Winery",
-          "EffectId": 61,
           "LocalFood": 90,
           "LocalSanitation": -5,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 9
+          }
         }
       ]
     }

@@ -105,10 +105,10 @@ let internal getIncomeCategory intValue =
 let internal getIncomeCategoryOption intValue =
     intValue |> Option.map getIncomeCategory
 
-let internal createIncome (rd: JsonBuildingIncome) =
-    let value = rd.Value
-    let category = rd.Category |> getIncomeCategory
-    let isFertilityDependent = rd.IsFertilityDependent |> Option.defaultValue false
+let internal createIncomeFromJson (jsonBuildingIncome: JsonBuildingIncome) =
+    let value = jsonBuildingIncome.Value
+    let category = jsonBuildingIncome.Category |> getIncomeCategory
+    let isFertilityDependent = jsonBuildingIncome.IsFertilityDependent |> Option.defaultValue false
 
     match isFertilityDependent with
     | false ->
@@ -138,6 +138,14 @@ let internal createBonus (rd: Entities.Bonus) =
     | (_, Some category) -> CategoryBonus { Category = category; Value = value }
     | (_, _) -> AllBonus value
 
+let internal createBonusFromJson (jsonBuildingBonus: JsonBuildingBonus) =
+    let value = jsonBuildingBonus.Value
+    let category = jsonBuildingBonus.Category |> getIncomeCategoryOption
+
+    match (value, category) with
+    | (_, Some category) -> CategoryBonus { Category = category; Value = value }
+    | (_, _) -> AllBonus value
+
 let internal createInfluence (rd: Entities.Influence) =
     let religionId =
         (if rd.ReligionId.HasValue then
@@ -146,6 +154,18 @@ let internal createInfluence (rd: Entities.Influence) =
              None)
 
     let value = rd.Value
+
+    match (religionId, value) with
+    | (_, value) when value < 1 -> failwith "Negative influence."
+    | (Some religionId, _) ->
+        SpecificReligion
+            { ReligionId = religionId
+              Value = value }
+    | (None, _) -> StateReligion { Value = value }
+
+let internal createInfluenceFromJson (jsonBuildingInfluence: JsonBuildingInfluence) =
+    let religionId = jsonBuildingInfluence.ReligionId
+    let value = jsonBuildingInfluence.Value
 
     match (religionId, value) with
     | (_, value) when value < 1 -> failwith "Negative influence."
@@ -195,22 +215,53 @@ let internal getEffect (ctx: DatabaseContext) effectId =
       Bonuses = bonuses
       Influences = influences }
 
+let internal getEffectFromJson (jsonBuildingEffect:JsonBuildingEffect) =
+    let effect =
+        { PublicOrder = jsonBuildingEffect.PublicOrder |> Option.defaultValue 0
+          Food = jsonBuildingEffect.Food |> Option.defaultValue 0
+          Sanitation = jsonBuildingEffect.Sanitation |> Option.defaultValue 0
+          ResearchRate = jsonBuildingEffect.ResearchRate |> Option.defaultValue 0
+          Growth = jsonBuildingEffect.Growth |> Option.defaultValue 0
+          Fertility = jsonBuildingEffect.Fertility |> Option.defaultValue 0
+          ReligiousOsmosis = jsonBuildingEffect.ReligiousOsmosis |> Option.defaultValue 0
+          TaxRate = jsonBuildingEffect.TaxRate |> Option.defaultValue 0
+          CorruptionRate = jsonBuildingEffect.CorruptionRate |> Option.defaultValue 0 }
+
+    let bonuses =
+        jsonBuildingEffect.Bonuses
+        |> Seq.map createBonusFromJson
+        |> Seq.toList
+
+    let influences =
+        jsonBuildingEffect.Influences
+        |> Seq.map createInfluenceFromJson
+        |> Seq.toList
+
+    { Effect = effect
+      Bonuses = bonuses
+      Influences = influences }
+
 let internal getEffectOption (ctx: DatabaseContext) effectId =
     match effectId with
     | Some effectId -> effectId |> getEffect ctx
     | None -> emptyEffectSet
 
-let internal getLocalEffect (buildingLevel:JsonBuildingLevel) =
+let internal getEffectFromJsonOption (jsonBuildingEffect:JsonBuildingEffect option) =
+    match jsonBuildingEffect with
+    | Some jsonBuildingEffect -> jsonBuildingEffect |> getEffectFromJson
+    | None -> emptyEffectSet
+
+let internal getLocalEffectFromJson (jsonBuildingLevel:JsonBuildingLevel) =
     let localEffect =
-        { Maintenance = buildingLevel.Maintenance |> Option.defaultValue 0
-          Food = buildingLevel.LocalFood |> Option.defaultValue 0
-          FoodFromFertility = buildingLevel.LocalFoodFromFertility |> Option.defaultValue 0
-          Sanitation = buildingLevel.LocalSanitation |> Option.defaultValue 0
-          CapitalTier = buildingLevel.CapitalTier |> Option.defaultValue 0 }
+        { Maintenance = jsonBuildingLevel.Maintenance |> Option.defaultValue 0
+          Food = jsonBuildingLevel.LocalFood |> Option.defaultValue 0
+          FoodFromFertility = jsonBuildingLevel.LocalFoodFromFertility |> Option.defaultValue 0
+          Sanitation = jsonBuildingLevel.LocalSanitation |> Option.defaultValue 0
+          CapitalTier = jsonBuildingLevel.CapitalTier |> Option.defaultValue 0 }
 
     let incomes =
-        buildingLevel.Incomes
-        |> Seq.map createIncome
+        jsonBuildingLevel.Incomes
+        |> Seq.map createIncomeFromJson
         |> Seq.toList
 
     { LocalEffect = localEffect

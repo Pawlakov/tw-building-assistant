@@ -9,71 +9,61 @@
       "Levels": [
         {
           "Id": "att_bld_roman_west_military_1",
-          "Name": "Rally Field",
-          "Incomes": []
+          "Name": "Rally Field"
         },
         {
           "Id": "att_bld_roman_west_military_cavalry_2",
           "ParentId": "att_bld_roman_west_military_1",
           "Name": "Cavalry Corral",
-          "Maintenance": -200,
-          "Incomes": []
+          "Maintenance": -200
         },
         {
           "Id": "att_bld_roman_west_military_cavalry_3",
           "ParentId": "att_bld_roman_west_military_cavalry_2",
           "Name": "Cavalry Stables",
-          "Maintenance": -600,
-          "Incomes": []
+          "Maintenance": -600
         },
         {
           "Id": "att_bld_roman_west_military_cavalry_4",
           "ParentId": "att_bld_roman_west_military_cavalry_3",
           "Name": "Cavalry Compound",
-          "Maintenance": -1000,
-          "Incomes": []
+          "Maintenance": -1000
         },
         {
           "Id": "att_bld_roman_west_military_infantry_2",
           "ParentId": "att_bld_roman_west_military_1",
           "Name": "Infantry Grounds",
-          "Maintenance": -200,
-          "Incomes": []
+          "Maintenance": -200
         },
         {
           "Id": "att_bld_roman_west_military_infantry_3",
           "ParentId": "att_bld_roman_west_military_infantry_2",
           "Name": "Infantry Barracks",
-          "Maintenance": -600,
-          "Incomes": []
+          "Maintenance": -600
         },
         {
           "Id": "att_bld_roman_west_military_infantry_4",
           "ParentId": "att_bld_roman_west_military_infantry_3",
           "Name": "Infantry Compound",
-          "Maintenance": -1000,
-          "Incomes": []
+          "Maintenance": -1000
         },
         {
           "Id": "att_bld_roman_west_military_skirmisher_2",
           "ParentId": "att_bld_roman_west_military_1",
           "Name": "Missile Range",
-          "Maintenance": -200,
-          "Incomes": []
+          "Maintenance": -200
         },
         {
           "Id": "att_bld_roman_west_military_skirmisher_3",
           "ParentId": "att_bld_roman_west_military_skirmisher_2",
           "Name": "Skirmisher Barracks",
-          "Maintenance": -400,
-          "Incomes": []
+          "Maintenance": -400
         },
         {
           "Id": "att_bld_roman_west_military_skirmisher_4",
           "ParentId": "att_bld_roman_west_military_skirmisher_3",
           "Name": "Skirmisher Compound",
-          "Maintenance": -800,
-          "Incomes": []
+          "Maintenance": -800
         }
       ]
     },
@@ -87,33 +77,37 @@
         {
           "Id": "att_bld_roman_west_civic_garrison_1",
           "Name": "Guardhouse",
-          "EffectId": 234,
           "LocalFood": -10,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3
+          }
         },
         {
           "Id": "att_bld_roman_west_civic_garrison_2",
           "ParentId": "att_bld_roman_west_civic_garrison_1",
           "Name": "Garrison Encampment",
-          "EffectId": 235,
           "LocalFood": -20,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5
+          }
         },
         {
           "Id": "att_bld_roman_west_civic_garrison_3",
           "ParentId": "att_bld_roman_west_civic_garrison_2",
           "Name": "Garrison Quarters",
-          "EffectId": 236,
           "LocalFood": -40,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7
+          }
         },
         {
           "Id": "att_bld_roman_west_civic_garrison_4",
           "ParentId": "att_bld_roman_west_civic_garrison_3",
           "Name": "Veteran Garrison Quarters",
-          "EffectId": 237,
           "LocalFood": -80,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 9
+          }
         }
       ]
     },
@@ -128,8 +122,10 @@
         {
           "Id": "att_bld_roman_west_civic_major_1",
           "Name": "Capitol",
-          "EffectId": 247,
           "LocalFood": -10,
+          "Effect": {
+            "PublicOrder": 3
+          },
           "Incomes": [
             {
               "Value": 300,
@@ -141,29 +137,39 @@
           "Id": "att_bld_roman_west_civic_monument_2",
           "ParentId": "att_bld_roman_west_civic_major_1",
           "Name": "Statue",
-          "EffectId": 251,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5
+          }
         },
         {
           "Id": "att_bld_roman_west_civic_monument_3",
           "ParentId": "att_bld_roman_west_civic_monument_2",
           "Name": "Monument",
-          "EffectId": 252,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7
+          }
         },
         {
           "Id": "att_bld_roman_west_civic_monument_4",
           "ParentId": "att_bld_roman_west_civic_monument_3",
           "Name": "Triumphial Arch",
-          "EffectId": 253,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 9
+          }
         },
         {
           "Id": "att_bld_roman_west_civic_governor_2",
           "ParentId": "att_bld_roman_west_civic_major_1",
           "Name": "Governor's House",
-          "EffectId": 248,
           "LocalFood": -20,
+          "Effect": {
+            "PublicOrder": 9,
+            "Bonuses": [
+              {
+                "Value": 5
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 300,
@@ -175,8 +181,15 @@
           "Id": "att_bld_roman_west_civic_governor_3",
           "ParentId": "att_bld_roman_west_civic_governor_2",
           "Name": "Governor's Estate",
-          "EffectId": 249,
           "LocalFood": -50,
+          "Effect": {
+            "PublicOrder": 13,
+            "Bonuses": [
+              {
+                "Value": 7
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 500,
@@ -188,8 +201,15 @@
           "Id": "att_bld_roman_west_civic_governor_4",
           "ParentId": "att_bld_roman_west_civic_governor_3",
           "Name": "Governor's Palace",
-          "EffectId": 250,
           "LocalFood": -100,
+          "Effect": {
+            "PublicOrder": 17,
+            "Bonuses": [
+              {
+                "Value": 10
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 900,

@@ -128,16 +128,41 @@ type BuildingsData =
                 "Id":"a",
                 "ParentId": "a",
                 "Name":"a",
-                "EffectId":0,
                 "Maintenance":0,
                 "LocalFood": 0,
                 "LocalFoodFromFertility": 0,
                 "LocalSanitation": 0,
                 "CapitalTier": 0,
+                "Effect":{
+                    "PublicOrder":0,
+                    "ResearchRate":0,
+                    "Growth":0,
+                    "Fertility":0,
+                    "ReligiousOsmosis":0,
+                    "Food":0,
+                    "Sanitation":0,
+                    "TaxRate":0,
+                    "CorruptionRate":0,
+                    "Bonuses":[{
+                        "Value":0,
+                        "Category":0
+                    },{
+                        "Value":0
+                    }],
+                    "Influences":[{
+                        "Value":0,
+                        "ReligionId":0
+                    },{
+                        "Value":0
+                    }]
+                },
                 "Incomes": [{
                     "Value":0,
                     "Category":0,
                     "IsFertilityDependent":true
+                },{
+                    "Value":0,
+                    "Category":0
                 }]
             }]
         }]
@@ -149,11 +174,11 @@ type BuildingsData =
             "SlotType":0,
             "Levels":[{
                 "Id":"a",
+                "Name":"a"
+            },{
+                "Id":"a",
                 "Name":"a",
-                "Incomes": [{
-                    "Value":0,
-                    "Category":0
-                }]
+                "Effect":{}
             }]
         }]
     }
@@ -161,4 +186,7 @@ type BuildingsData =
 
 type internal JsonBuildingBranch = BuildingsData.Branch
 type internal JsonBuildingLevel = BuildingsData.Level
+type internal JsonBuildingEffect = BuildingsData.Effect
+type internal JsonBuildingBonus = BuildingsData.Bonus
+type internal JsonBuildingInfluence = BuildingsData.Influencis
 type internal JsonBuildingIncome = BuildingsData.Income

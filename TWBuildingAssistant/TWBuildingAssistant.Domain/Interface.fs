@@ -264,14 +264,14 @@ let getProvince provinceId =
 
     province |> mapProvinceToDTO
 
-let getBuildingLibrary ctx settings =
+let getBuildingLibrary settings =
     let provincesData = getProvincesData ()
     let factionsData = getFactionsData ()
     let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
-    let buildingsModels = Buildings.getBuildingLibrary ctx buildingsData factionsData provincesData settingsModel
+    let buildingsModels = Buildings.getBuildingLibrary buildingsData factionsData provincesData settingsModel
 
     buildingsModels
     |> Array.map mapBuildingLibraryEntryToDTO
@@ -305,7 +305,7 @@ let getState ctx buildingLevelIds settings =
         |> Array.map (fun region ->
             region
             |> Array.filter (fun x -> x <> "")
-            |> Array.map (Buildings.getBuildingLevel ctx buildingsData)
+            |> Array.map (Buildings.getBuildingLevel buildingsData)
             |> Array.toSeq)
         |> Array.toSeq
 
@@ -344,7 +344,7 @@ let seek
             factionsData
             settingsModel
 
-    let buildingLibrary = Buildings.getBuildingLibrary ctx buildingsData factionsData provincesData settingsModel
+    let buildingLibrary = Buildings.getBuildingLibrary buildingsData factionsData provincesData settingsModel
 
     let seekerSettingsModel =
         seekerSettings

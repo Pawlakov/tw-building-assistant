@@ -2,147 +2,302 @@
   "$schema": ".\\Buildings-schema.json",
   "Branches": [
     {
-      "Id": "att_bch_religion_catholic_minor",
-      "Name": "Town Catholic Temple",
+      "Id": "att_bch_religion_arian_legendary",
+      "Name": "Pentarchy Arian Temple",
       "SlotType": 2,
-      "RegionType": 1,
-      "ReligionId": 8,
+      "ReligionId": 1,
+      "ResourceId": 14,
       "Interesting": true,
       "Levels": [
         {
-          "Id": "att_bld_religion_catholic_minor_1",
-          "Name": "Latin Baptistry",
-          "EffectId": 62,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_catholic_minor_2",
-          "ParentId": "att_bld_religion_catholic_minor_1",
-          "Name": "Latin Shrine",
-          "EffectId": 63,
+          "Id": "att_bld_religion_arian_legendary_1",
+          "Name": "Arian Patriarchal Chapel",
           "Maintenance": -200,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 1
+              }
+            ]
+          }
         },
         {
-          "Id": "att_bld_religion_catholic_minor_3",
-          "ParentId": "att_bld_religion_catholic_minor_2",
-          "Name": "Latin Martyrium",
-          "EffectId": 64,
-          "Maintenance": -400,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_catholic_minor_4",
-          "ParentId": "att_bld_religion_catholic_minor_3",
-          "Name": "Latin Sanctuary",
-          "EffectId": 65,
+          "Id": "att_bld_religion_arian_legendary_2",
+          "ParentId": "att_bld_religion_arian_legendary_1",
+          "Name": "Arian Patriarchal Church",
           "Maintenance": -600,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 1
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_arian_legendary_3",
+          "ParentId": "att_bld_religion_arian_legendary_2",
+          "Name": "Arian Patriarchal Basilica",
+          "Maintenance": -1000,
+          "Effect": {
+            "PublicOrder": 7,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 1
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_arian_legendary_4",
+          "ParentId": "att_bld_religion_arian_legendary_3",
+          "Name": "Arian Patriarchal Patriarchal Cathedral",
+          "Maintenance": -1500,
+          "Effect": {
+            "PublicOrder": 10,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 1
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_arian_legendary_5",
+          "ParentId": "att_bld_religion_arian_legendary_4",
+          "Name": "Arian Patriarchal Patriarchal See",
+          "Maintenance": -3000,
+          "Effect": {
+            "PublicOrder": 15,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 15,
+                "ReligionId": 1
+              }
+            ]
+          }
         }
       ]
     },
     {
-      "Id": "att_bch_religion_grecoroman_minor",
-      "Name": "Town Grecoroman Temple",
-      "SlotType": 2,
-      "RegionType": 1,
-      "ReligionId": 5,
-      "Interesting": true,
-      "Levels": [
-        {
-          "Id": "att_bld_religion_grecoroman_minor_1",
-          "Name": "Statue of the Divine",
-          "EffectId": 66,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_grecoroman_minor_2",
-          "ParentId": "att_bld_religion_grecoroman_minor_1",
-          "Name": "Sculpture of the Divine",
-          "EffectId": 67,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_grecoroman_minor_3",
-          "ParentId": "att_bld_religion_grecoroman_minor_2",
-          "Name": "Column of the Divine",
-          "EffectId": 68,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_grecoroman_minor_4",
-          "ParentId": "att_bld_religion_grecoroman_minor_3",
-          "Name": "Altar of the Di Superi",
-          "EffectId": 69,
-          "Incomes": []
-        }
-      ]
-    },
-    {
-      "Id": "att_bch_religion_catholic_major",
-      "Name": "City Catholic Temple",
+      "Id": "att_bch_religion_arian_major",
+      "Name": "City Arian Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 8,
+      "ReligionId": 1,
       "Interesting": true,
       "Levels": [
         {
-          "Id": "att_bld_religion_catholic_major_1",
-          "Name": "Latin Chapel",
-          "EffectId": 70,
+          "Id": "att_bld_religion_arian_major_1",
+          "Name": "Arian Chapel",
           "Maintenance": -200,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 1
+              }
+            ]
+          }
         },
         {
-          "Id": "att_bld_religion_catholic_major_monestary_2",
-          "ParentId": "att_bld_religion_catholic_major_1",
-          "Name": "Latin Hermitage",
-          "EffectId": 74,
+          "Id": "att_bld_religion_arian_major_church_2",
+          "ParentId": "att_bld_religion_arian_major_1",
+          "Name": "Arian Church",
           "Maintenance": -600,
-          "LocalSanitation": 6,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 1
+              }
+            ]
+          }
         },
         {
-          "Id": "att_bld_religion_catholic_major_monestary_3",
-          "ParentId": "att_bld_religion_catholic_major_monestary_2",
-          "Name": "Latin Monastery",
-          "EffectId": 75,
+          "Id": "att_bld_religion_arian_major_church_3",
+          "ParentId": "att_bld_religion_arian_major_church_2",
+          "Name": "Arian Basilica",
           "Maintenance": -1000,
-          "LocalSanitation": 10,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 1
+              }
+            ]
+          }
         },
         {
-          "Id": "att_bld_religion_catholic_major_monestary_4",
-          "ParentId": "att_bld_religion_catholic_major_monestary_3",
-          "Name": "Monastic Hospice",
-          "EffectId": 76,
+          "Id": "att_bld_religion_arian_major_church_4",
+          "ParentId": "att_bld_religion_arian_major_church_3",
+          "Name": "Arian Cathedral",
           "Maintenance": -1500,
-          "LocalSanitation": 15,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 1
+              }
+            ]
+          }
         },
         {
-          "Id": "att_bld_religion_catholic_major_church_2",
-          "ParentId": "att_bld_religion_catholic_major_1",
-          "Name": "Latin Church",
-          "EffectId": 71,
+          "Id": "att_bld_religion_arian_major_monestary_2",
+          "ParentId": "att_bld_religion_arian_major_1",
+          "Name": "Arian Hermitage",
           "Maintenance": -600,
-          "Incomes": []
+          "LocalFood": 30,
+          "Effect": {
+            "ReligiousOsmosis": 1,
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 1
+              },
+              {
+                "Value": 5,
+                "Category": 2
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 1
+              }
+            ]
+          }
         },
         {
-          "Id": "att_bld_religion_catholic_major_church_3",
-          "ParentId": "att_bld_religion_catholic_major_church_2",
-          "Name": "Latin Basilica",
-          "EffectId": 72,
+          "Id": "att_bld_religion_arian_major_monestary_3",
+          "ParentId": "att_bld_religion_arian_major_monestary_2",
+          "Name": "Arian Monastery",
           "Maintenance": -1000,
-          "Incomes": []
+          "LocalFood": 40,
+          "Effect": {
+            "ReligiousOsmosis": 2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 1
+              },
+              {
+                "Value": 10,
+                "Category": 2
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 1
+              }
+            ]
+          }
         },
         {
-          "Id": "att_bld_religion_catholic_major_church_4",
-          "ParentId": "att_bld_religion_catholic_major_church_3",
-          "Name": "Latin Cathedral",
-          "EffectId": 73,
+          "Id": "att_bld_religion_arian_major_monestary_4",
+          "ParentId": "att_bld_religion_arian_major_monestary_3",
+          "Name": "Arian Estates",
           "Maintenance": -1500,
-          "Incomes": []
+          "LocalFood": 50,
+          "Effect": {
+            "ReligiousOsmosis": 3,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 1
+              },
+              {
+                "Value": 15,
+                "Category": 2
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 6,
+                "ReligionId": 1
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_religion_arian_minor",
+      "Name": "Town Arian Temple",
+      "SlotType": 2,
+      "RegionType": 1,
+      "ReligionId": 1,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_religion_arian_minor_1",
+          "Name": "Arian Baptistry",
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 1
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_arian_minor_2",
+          "ParentId": "att_bld_religion_arian_minor_1",
+          "Name": "Arian Shrine",
+          "Maintenance": -200,
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 1
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_arian_minor_3",
+          "ParentId": "att_bld_religion_arian_minor_2",
+          "Name": "Arian Martyrum",
+          "Maintenance": -400,
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 1
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_arian_minor_4",
+          "ParentId": "att_bld_religion_arian_minor_3",
+          "Name": "Arian Sanctuary",
+          "Maintenance": -600,
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 1
+              }
+            ]
+          }
         }
       ]
     },
@@ -157,65 +312,291 @@
         {
           "Id": "att_bld_religion_grecoroman_major_1",
           "Name": "Consecrated Ground",
-          "EffectId": 77,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 5
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_grecoroman_major_2",
           "ParentId": "att_bld_religion_grecoroman_major_1",
           "Name": "Sacred Shrine",
-          "EffectId": 78,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 5
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_grecoroman_major_3",
           "ParentId": "att_bld_religion_grecoroman_major_2",
           "Name": "Temple Precinct",
-          "EffectId": 79,
           "LocalFood": -90,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 5
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_grecoroman_major_4_hermes",
           "ParentId": "att_bld_religion_grecoroman_major_3",
           "Name": "Basilica of Hermes",
-          "EffectId": 80,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 5
+              },
+              {
+                "Value": 20,
+                "Category": 6
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 5
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_grecoroman_major_4_cult",
           "ParentId": "att_bld_religion_grecoroman_major_3",
           "Name": "Imperial Cult Basilica",
-          "EffectId": 81,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 8,
+                "ReligionId": 5
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_grecoroman_major_4_isis",
           "ParentId": "att_bld_religion_grecoroman_major_3",
           "Name": "Basilica of Isis",
-          "EffectId": 82,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "Growth": 4,
+            "Bonuses": [
+              {
+                "Value": 15,
+                "Category": 1
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 5
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_grecoroman_major_4_serapis",
           "ParentId": "att_bld_religion_grecoroman_major_3",
           "Name": "Serapeum",
-          "EffectId": 83,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 3
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 5
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_grecoroman_major_4_sol",
           "ParentId": "att_bld_religion_grecoroman_major_3",
           "Name": "Basilica of Sol Invictus",
-          "EffectId": 84,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 8,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_religion_grecoroman_minor",
+      "Name": "Town Grecoroman Temple",
+      "SlotType": 2,
+      "RegionType": 1,
+      "ReligionId": 5,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_religion_grecoroman_minor_1",
+          "Name": "Statue of the Divine",
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 5
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_grecoroman_minor_2",
+          "ParentId": "att_bld_religion_grecoroman_minor_1",
+          "Name": "Sculpture of the Divine",
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 5
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_grecoroman_minor_3",
+          "ParentId": "att_bld_religion_grecoroman_minor_2",
+          "Name": "Column of the Divine",
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 5
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_grecoroman_minor_4",
+          "ParentId": "att_bld_religion_grecoroman_minor_3",
+          "Name": "Altar of the Di Superi",
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_religion_orthodox_legendary",
+      "Name": "Pentarchy Orthodox Temple",
+      "SlotType": 2,
+      "ReligionId": 6,
+      "ResourceId": 14,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_religion_orthodox_legendary_1",
+          "Name": "Greek Patriarchal Chapel",
+          "Maintenance": -200,
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 6
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_orthodox_legendary_2",
+          "ParentId": "att_bld_religion_orthodox_legendary_1",
+          "Name": "Greek Patriarchal Church",
+          "Maintenance": -600,
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 6
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_orthodox_legendary_3",
+          "ParentId": "att_bld_religion_orthodox_legendary_2",
+          "Name": "Greek Patriarchal Basilica",
+          "Maintenance": -1000,
+          "Effect": {
+            "PublicOrder": 7,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 6
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_orthodox_legendary_4",
+          "ParentId": "att_bld_religion_orthodox_legendary_3",
+          "Name": "Greek Patriarchal Cathedral",
+          "Maintenance": -1500,
+          "Effect": {
+            "PublicOrder": 10,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 6
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_orthodox_legendary_5",
+          "ParentId": "att_bld_religion_orthodox_legendary_4",
+          "Name": "Greek Patriarchal See",
+          "Maintenance": -3000,
+          "Effect": {
+            "PublicOrder": 15,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 15,
+                "ReligionId": 6
+              }
+            ]
+          }
         }
       ]
     },
@@ -230,57 +611,450 @@
         {
           "Id": "att_bld_religion_orthodox_major_1",
           "Name": "Greek Chapel",
-          "EffectId": 85,
           "Maintenance": -200,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_orthodox_major_church_2",
           "ParentId": "att_bld_religion_orthodox_major_1",
           "Name": "Greek Church",
-          "EffectId": 86,
           "Maintenance": -600,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_orthodox_major_church_3",
           "ParentId": "att_bld_religion_orthodox_major_church_2",
           "Name": "Greek Basilica",
-          "EffectId": 87,
           "Maintenance": -1000,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_orthodox_major_church_4",
           "ParentId": "att_bld_religion_orthodox_major_church_3",
           "Name": "Greek Cathedral",
-          "EffectId": 88,
           "Maintenance": -1500,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_orthodox_major_monestary_2",
           "ParentId": "att_bld_religion_orthodox_major_1",
           "Name": "Greek Hermitage",
-          "EffectId": 89,
           "Maintenance": -600,
-          "Incomes": []
+          "Effect": {
+            "ResearchRate": 4,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_orthodox_major_monestary_3",
           "ParentId": "att_bld_religion_orthodox_major_monestary_2",
           "Name": "Greek Monastery",
-          "EffectId": 90,
           "Maintenance": -1000,
-          "Incomes": []
+          "Effect": {
+            "ResearchRate": 15,
+            "ReligiousOsmosis": 2,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 6
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_orthodox_major_monestary_4",
           "ParentId": "att_bld_religion_orthodox_major_monestary_3",
           "Name": "Greek Monastic School",
-          "EffectId": 91,
           "Maintenance": -1500,
-          "Incomes": []
+          "Effect": {
+            "ResearchRate": 25,
+            "ReligiousOsmosis": 3,
+            "Influences": [
+              {
+                "Value": 6,
+                "ReligionId": 6
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_religion_orthodox_minor",
+      "Name": "Town Orthodox Temple",
+      "SlotType": 2,
+      "RegionType": 1,
+      "ReligionId": 6,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_religion_orthodox_minor_1",
+          "Name": "Greek Baptistry",
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 6
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_orthodox_minor_2",
+          "ParentId": "att_bld_religion_orthodox_minor_1",
+          "Name": "Greek Shrine",
+          "Maintenance": -200,
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 6
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_orthodox_minor_3",
+          "ParentId": "att_bld_religion_orthodox_minor_2",
+          "Name": "Greek Martyrium",
+          "Maintenance": -400,
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 6
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_orthodox_minor_4",
+          "ParentId": "att_bld_religion_orthodox_minor_3",
+          "Name": "Greek Sanctuary",
+          "Maintenance": -600,
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 6
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_religion_catholic_legendary",
+      "Name": "Pentarchy Catholic Temple",
+      "SlotType": 2,
+      "ReligionId": 8,
+      "ResourceId": 14,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_religion_catholic_legendary_1",
+          "Name": "Latin Patriarchal Chapel",
+          "Maintenance": -200,
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_legendary_2",
+          "ParentId": "att_bld_religion_catholic_legendary_1",
+          "Name": "Latin Patriarchal Church",
+          "Maintenance": -600,
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_legendary_3",
+          "ParentId": "att_bld_religion_catholic_legendary_2",
+          "Name": "Latin Patriarchal Basilica",
+          "Maintenance": -1000,
+          "Effect": {
+            "PublicOrder": 6,
+            "Influences": [
+              {
+                "Value": 9,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_legendary_4",
+          "ParentId": "att_bld_religion_catholic_legendary_3",
+          "Name": "Latin Patriarchal Cathedral",
+          "Maintenance": -1500,
+          "Effect": {
+            "PublicOrder": 8,
+            "Influences": [
+              {
+                "Value": 12,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_legendary_5",
+          "ParentId": "att_bld_religion_catholic_legendary_4",
+          "Name": "Latin Patriarchal See",
+          "Maintenance": -3000,
+          "Effect": {
+            "PublicOrder": 12,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 15,
+                "ReligionId": 8
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_religion_catholic_major",
+      "Name": "City Catholic Temple",
+      "SlotType": 2,
+      "RegionType": 0,
+      "ReligionId": 8,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_religion_catholic_major_1",
+          "Name": "Latin Chapel",
+          "Maintenance": -200,
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_major_monestary_2",
+          "ParentId": "att_bld_religion_catholic_major_1",
+          "Name": "Latin Hermitage",
+          "Maintenance": -600,
+          "LocalSanitation": 6,
+          "Effect": {
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_major_monestary_3",
+          "ParentId": "att_bld_religion_catholic_major_monestary_2",
+          "Name": "Latin Monastery",
+          "Maintenance": -1000,
+          "LocalSanitation": 10,
+          "Effect": {
+            "ReligiousOsmosis": 2,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_major_monestary_4",
+          "ParentId": "att_bld_religion_catholic_major_monestary_3",
+          "Name": "Monastic Hospice",
+          "Maintenance": -1500,
+          "LocalSanitation": 15,
+          "Effect": {
+            "ReligiousOsmosis": 3,
+            "Influences": [
+              {
+                "Value": 6,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_major_church_2",
+          "ParentId": "att_bld_religion_catholic_major_1",
+          "Name": "Latin Church",
+          "Maintenance": -600,
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 6,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_major_church_3",
+          "ParentId": "att_bld_religion_catholic_major_church_2",
+          "Name": "Latin Basilica",
+          "Maintenance": -1000,
+          "Effect": {
+            "PublicOrder": 6,
+            "Influences": [
+              {
+                "Value": 9,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_major_church_4",
+          "ParentId": "att_bld_religion_catholic_major_church_3",
+          "Name": "Latin Cathedral",
+          "Maintenance": -1500,
+          "Effect": {
+            "PublicOrder": 8,
+            "Influences": [
+              {
+                "Value": 12,
+                "ReligionId": 8
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "att_bch_religion_catholic_minor",
+      "Name": "Town Catholic Temple",
+      "SlotType": 2,
+      "RegionType": 1,
+      "ReligionId": 8,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "att_bld_religion_catholic_minor_1",
+          "Name": "Latin Baptistry",
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_minor_2",
+          "ParentId": "att_bld_religion_catholic_minor_1",
+          "Name": "Latin Shrine",
+          "Maintenance": -200,
+          "Effect": {
+            "PublicOrder": 3,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_minor_3",
+          "ParentId": "att_bld_religion_catholic_minor_2",
+          "Name": "Latin Martyrium",
+          "Maintenance": -400,
+          "Effect": {
+            "PublicOrder": 4,
+            "ReligiousOsmosis": 2,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 8
+              }
+            ]
+          }
+        },
+        {
+          "Id": "att_bld_religion_catholic_minor_4",
+          "ParentId": "att_bld_religion_catholic_minor_3",
+          "Name": "Latin Sanctuary",
+          "Maintenance": -600,
+          "Effect": {
+            "PublicOrder": 5,
+            "ReligiousOsmosis": 3,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 8
+              }
+            ]
+          }
         }
       ]
     },
@@ -295,40 +1069,78 @@
         {
           "Id": "att_bld_religion_manichaeist_major_1",
           "Name": "Manichaeist Chapel",
-          "EffectId": 92,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 9
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_manichaeist_major_church_2",
           "ParentId": "att_bld_religion_manichaeist_major_1",
           "Name": "Manichaeist Temple",
-          "EffectId": 93,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 9
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_manichaeist_major_church_3",
           "ParentId": "att_bld_religion_manichaeist_major_church_2",
           "Name": "Manichaeist Temple Complex",
-          "EffectId": 94,
           "LocalFood": -90,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 9
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_manichaeist_major_church_4",
           "ParentId": "att_bld_religion_manichaeist_major_church_3",
           "Name": "Manichaeist Basilica",
-          "EffectId": 95,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 9
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_manichaeist_major_monestary_2",
           "ParentId": "att_bld_religion_manichaeist_major_1",
           "Name": "Manichaeist Hermitage",
-          "EffectId": 96,
           "LocalFood": -60,
+          "Effect": {
+            "ReligiousOsmosis": 1,
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 3
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 9
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 300,
@@ -340,8 +1152,22 @@
           "Id": "att_bld_religion_manichaeist_major_monestary_3",
           "ParentId": "att_bld_religion_manichaeist_major_monestary_2",
           "Name": "Manichaeist Monastery",
-          "EffectId": 97,
           "LocalFood": -90,
+          "Effect": {
+            "ReligiousOsmosis": 2,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 3
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 9
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 500,
@@ -352,9 +1178,23 @@
         {
           "Id": "att_bld_religion_manichaeist_major_monestary_4",
           "ParentId": "att_bld_religion_manichaeist_major_monestary_3",
-          "Name": "Manichaeist Hermitage",
-          "EffectId": 98,
+          "Name": "Manichaeist Library",
           "LocalFood": -125,
+          "Effect": {
+            "ReligiousOsmosis": 3,
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 3
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 6,
+                "ReligionId": 9
+              }
+            ]
+          },
           "Incomes": [
             {
               "Value": 750,
@@ -375,33 +1215,61 @@
         {
           "Id": "att_bld_religion_celtic_major_1",
           "Name": "Cairnstones",
-          "EffectId": 99,
           "LocalFood": -20,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_major_2",
           "ParentId": "att_bld_religion_celtic_major_1",
           "Name": "Serpent Stone",
-          "EffectId": 100,
           "LocalFood": -40,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_major_3",
           "ParentId": "att_bld_religion_celtic_major_2",
           "Name": "Stone Circle",
-          "EffectId": 101,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_major_4",
           "ParentId": "att_bld_religion_celtic_major_3",
           "Name": "Temple of Camulos",
-          "EffectId": 102,
           "LocalFood": -80,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 2
+              }
+            ]
+          }
         }
       ]
     },
@@ -416,29 +1284,53 @@
         {
           "Id": "att_bld_religion_tengri_major_1",
           "Name": "Lightning Shrine",
-          "EffectId": 103,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 13
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_tengri_major_2",
           "ParentId": "att_bld_religion_tengri_major_1",
           "Name": "Sky Shrine",
-          "EffectId": 104,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 13
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_tengri_major_3",
           "ParentId": "att_bld_religion_tengri_major_2",
           "Name": "Celestial Temple",
-          "EffectId": 105,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 13
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_tengri_major_4",
           "ParentId": "att_bld_religion_tengri_major_3",
           "Name": "Temple of Eternal Sky",
-          "EffectId": 106,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 13
+              }
+            ]
+          }
         }
       ]
     },
@@ -453,33 +1345,61 @@
         {
           "Id": "att_bld_religion_germanic_major_1",
           "Name": "Hunters' Shrine",
-          "EffectId": 107,
           "LocalFood": -20,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_germanic_major_2",
           "ParentId": "att_bld_religion_germanic_major_1",
           "Name": "Warriors' Shrine",
-          "EffectId": 108,
           "LocalFood": -40,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_germanic_major_3",
           "ParentId": "att_bld_religion_germanic_major_2",
           "Name": "Blood Altar",
-          "EffectId": 109,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_germanic_major_4",
           "ParentId": "att_bld_religion_germanic_major_3",
           "Name": "Temple of Wodan",
-          "EffectId": 110,
           "LocalFood": -80,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 4
+              }
+            ]
+          }
         }
       ]
     },
@@ -494,101 +1414,61 @@
         {
           "Id": "att_bld_religion_zoroastrian_major_fire_1",
           "Name": "Holy Brazier",
-          "EffectId": 111,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_major_fire_2",
           "ParentId": "att_bld_religion_zoroastrian_major_fire_1",
           "Name": "Fire Altar",
-          "EffectId": 112,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_major_fire_3",
           "ParentId": "att_bld_religion_zoroastrian_major_fire_2",
           "Name": "Fire Temple",
-          "EffectId": 113,
           "LocalFood": -90,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_major_fire_4",
           "ParentId": "att_bld_religion_zoroastrian_major_fire_3",
           "Name": "Temple of Great Fires",
-          "EffectId": 114,
           "LocalFood": -125,
-          "Incomes": []
-        }
-      ]
-    },
-    {
-      "Id": "att_bch_religion_arian_major",
-      "Name": "City Arian Temple",
-      "SlotType": 2,
-      "RegionType": 0,
-      "ReligionId": 1,
-      "Interesting": true,
-      "Levels": [
-        {
-          "Id": "att_bld_religion_arian_major_1",
-          "Name": "Arian Chapel",
-          "EffectId": 115,
-          "Maintenance": -200,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_major_church_2",
-          "ParentId": "att_bld_religion_arian_major_1",
-          "Name": "Arian Church",
-          "EffectId": 116,
-          "Maintenance": -600,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_major_church_3",
-          "ParentId": "att_bld_religion_arian_major_church_2",
-          "Name": "Arian Basilica",
-          "EffectId": 117,
-          "Maintenance": -1000,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_major_church_4",
-          "ParentId": "att_bld_religion_arian_major_church_3",
-          "Name": "Arian Cathedral",
-          "EffectId": 118,
-          "Maintenance": -1500,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_major_monestary_2",
-          "ParentId": "att_bld_religion_arian_major_1",
-          "Name": "Arian Hermitage",
-          "EffectId": 119,
-          "Maintenance": -600,
-          "LocalFood": 30,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_major_monestary_3",
-          "ParentId": "att_bld_religion_arian_major_monestary_2",
-          "Name": "Arian Monastery",
-          "EffectId": 120,
-          "Maintenance": -1000,
-          "LocalFood": 40,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_major_monestary_4",
-          "ParentId": "att_bld_religion_arian_major_monestary_3",
-          "Name": "Arian Estates",
-          "EffectId": 121,
-          "Maintenance": -1500,
-          "LocalFood": 50,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 12,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 14
+              }
+            ]
+          }
         }
       ]
     },
@@ -603,33 +1483,65 @@
         {
           "Id": "att_slav_religion_major_1",
           "Name": "Sacred Grove of Perun",
-          "EffectId": 122,
           "LocalFood": -20,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 12
+              }
+            ]
+          }
         },
         {
           "Id": "att_slav_religion_major_2",
           "ParentId": "att_slav_religion_major_1",
           "Name": "Shrine of Perun",
-          "EffectId": 123,
           "LocalFood": -40,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "ReligiousOsmosis": 2,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 12
+              }
+            ]
+          }
         },
         {
           "Id": "att_slav_religion_major_3",
           "ParentId": "att_slav_religion_major_2",
           "Name": "Sanctuary of Perun",
-          "EffectId": 124,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "ReligiousOsmosis": 3,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 12
+              }
+            ]
+          }
         },
         {
           "Id": "att_slav_religion_major_4",
           "ParentId": "att_slav_religion_major_3",
           "Name": "Temple of Perun",
-          "EffectId": 125,
           "LocalFood": -80,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "ReligiousOsmosis": 4,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 12
+              }
+            ]
+          }
         }
       ]
     },
@@ -644,33 +1556,105 @@
         {
           "Id": "att_bld_eos_religion_semitic_major_1",
           "Name": "Altar of the Ibex",
-          "EffectId": 126,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "ReligiousOsmosis": 1,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 1
+              },
+              {
+                "Value": 10,
+                "Category": 2
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 11
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_semitic_major_2",
           "ParentId": "att_bld_eos_religion_semitic_major_1",
           "Name": "Shrine of Athtar",
-          "EffectId": 127,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "ReligiousOsmosis": 1,
+            "Bonuses": [
+              {
+                "Value": 20,
+                "Category": 1
+              },
+              {
+                "Value": 20,
+                "Category": 2
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 11
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_semitic_major_3",
           "ParentId": "att_bld_eos_religion_semitic_major_2",
           "Name": "Temple of the Moon",
-          "EffectId": 128,
           "LocalFood": -90,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7,
+            "ReligiousOsmosis": 1,
+            "Bonuses": [
+              {
+                "Value": 30,
+                "Category": 1
+              },
+              {
+                "Value": 30,
+                "Category": 2
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 11
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_semitic_major_4",
           "ParentId": "att_bld_eos_religion_semitic_major_3",
           "Name": "Enclosure of Almaqah",
-          "EffectId": 129,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "ReligiousOsmosis": 1,
+            "Bonuses": [
+              {
+                "Value": 40,
+                "Category": 1
+              },
+              {
+                "Value": 40,
+                "Category": 2
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 11
+              }
+            ]
+          }
         }
       ]
     },
@@ -685,33 +1669,69 @@
         {
           "Id": "att_bld_eos_religion_judaism_major_1",
           "Name": "Torah Shrine",
-          "EffectId": 130,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "ResearchRate": 5,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 7
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_judaism_major_2",
           "ParentId": "att_bld_eos_religion_judaism_major_1",
           "Name": "Mishnah House",
-          "EffectId": 131,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "ResearchRate": 10,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 6,
+                "ReligionId": 7
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_judaism_major_3",
           "ParentId": "att_bld_eos_religion_judaism_major_2",
           "Name": "Talmud Centre",
-          "EffectId": 132,
           "LocalFood": -90,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7,
+            "ResearchRate": 15,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 8,
+                "ReligionId": 7
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_judaism_major_4",
           "ParentId": "att_bld_eos_religion_judaism_major_3",
           "Name": "Synagogue of the Chosen",
-          "EffectId": 133,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "ResearchRate": 20,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 7
+              }
+            ]
+          }
         }
       ]
     },
@@ -726,33 +1746,69 @@
         {
           "Id": "att_bld_eos_religion_east_church_major_1",
           "Name": "Monks' Quarters",
-          "EffectId": 134,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "ReligiousOsmosis": 1,
+            "CorruptionRate": -1,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 3
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_east_church_major_2",
           "ParentId": "att_bld_eos_religion_east_church_major_1",
           "Name": "Cave Church",
-          "EffectId": 135,
           "LocalFood": -60,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 5,
+            "ReligiousOsmosis": 1,
+            "CorruptionRate": -2,
+            "Influences": [
+              {
+                "Value": 6,
+                "ReligionId": 3
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_east_church_major_3",
           "ParentId": "att_bld_eos_religion_east_church_major_2",
           "Name": "Rock-Cut Church",
-          "EffectId": 136,
           "LocalFood": -90,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 7,
+            "ReligiousOsmosis": 1,
+            "CorruptionRate": -3,
+            "Influences": [
+              {
+                "Value": 8,
+                "ReligionId": 3
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_east_church_major_4",
           "ParentId": "att_bld_eos_religion_east_church_major_3",
           "Name": "Cathedral of Zion",
-          "EffectId": 137,
           "LocalFood": -125,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 10,
+            "ReligiousOsmosis": 1,
+            "CorruptionRate": -4,
+            "Influences": [
+              {
+                "Value": 10,
+                "ReligionId": 3
+              }
+            ]
+          }
         }
       ]
     },
@@ -767,33 +1823,64 @@
         {
           "Id": "att_bld_religion_zoroastrian_major_burial_1",
           "Name": "Burial Platform",
-          "EffectId": 138,
           "LocalSanitation": 2,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_major_burial_2",
           "ParentId": "att_bld_religion_zoroastrian_major_burial_1",
           "Name": "Tower of Silence",
-          "EffectId": 139,
           "LocalSanitation": 3,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 2,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_major_burial_3",
           "ParentId": "att_bld_religion_zoroastrian_major_burial_2",
           "Name": "Ossuary",
-          "EffectId": 140,
           "LocalSanitation": 4,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 3,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_major_burial_4",
           "ParentId": "att_bld_religion_zoroastrian_major_burial_3",
           "Name": "Astudan",
-          "EffectId": 141,
           "LocalSanitation": 5,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 4,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 14
+              }
+            ]
+          }
         }
       ]
     },
@@ -808,25 +1895,46 @@
         {
           "Id": "att_bld_eos_religion_semitic_minor_1",
           "Name": "Minor Stelae Field",
-          "EffectId": 142,
           "LocalFood": 10,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 11
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_semitic_minor_2",
           "ParentId": "att_bld_eos_religion_semitic_minor_1",
           "Name": "Colonnade of the Zodiac",
-          "EffectId": 143,
           "LocalFood": 20,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 11
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_semitic_minor_3",
           "ParentId": "att_bld_eos_religion_semitic_minor_2",
           "Name": "Large Stelae Field",
-          "EffectId": 144,
           "LocalFood": 30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 6,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 11
+              }
+            ]
+          }
         }
       ]
     },
@@ -841,65 +1949,49 @@
         {
           "Id": "att_bld_eos_religion_judaism_minor_1",
           "Name": "River Mikve",
-          "EffectId": 145,
           "LocalFood": -10,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Sanitation": 2,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 7
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_judaism_minor_2",
           "ParentId": "att_bld_eos_religion_judaism_minor_1",
           "Name": "Buried Mikve",
-          "EffectId": 146,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "Sanitation": 4,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 7
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_judaism_minor_3",
           "ParentId": "att_bld_eos_religion_judaism_minor_2",
           "Name": "Monumental Mikve",
-          "EffectId": 147,
           "LocalFood": -50,
-          "Incomes": []
-        }
-      ]
-    },
-    {
-      "Id": "att_bch_religion_arian_minor",
-      "Name": "Town Arian Temple",
-      "SlotType": 2,
-      "RegionType": 1,
-      "ReligionId": 1,
-      "Interesting": true,
-      "Levels": [
-        {
-          "Id": "att_bld_religion_arian_minor_1",
-          "Name": "Arian Baptistry",
-          "EffectId": 148,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_minor_2",
-          "ParentId": "att_bld_religion_arian_minor_1",
-          "Name": "Arian Shrine",
-          "EffectId": 149,
-          "Maintenance": -200,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_minor_3",
-          "ParentId": "att_bld_religion_arian_minor_2",
-          "Name": "Arian Martyrum",
-          "EffectId": 150,
-          "Maintenance": -400,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_arian_minor_4",
-          "ParentId": "att_bld_religion_arian_minor_3",
-          "Name": "Arian Sanctuary",
-          "EffectId": 151,
-          "Maintenance": -600,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 6,
+            "Sanitation": 6,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 7
+              }
+            ]
+          }
         }
       ]
     },
@@ -914,25 +2006,46 @@
         {
           "Id": "att_bld_eos_religion_east_church_minor_1",
           "Name": "Desert Hermitage",
-          "EffectId": 152,
           "LocalFood": -10,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 3
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_east_church_minor_2",
           "ParentId": "att_bld_eos_religion_east_church_minor_1",
           "Name": "Stylite Column",
-          "EffectId": 153,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 5,
+                "ReligionId": 3
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_eos_religion_east_church_minor_3",
           "ParentId": "att_bld_eos_religion_east_church_minor_2",
           "Name": "Clifftop Monastery",
-          "EffectId": 154,
           "LocalFood": -40,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 6,
+            "Influences": [
+              {
+                "Value": 7,
+                "ReligionId": 3
+              }
+            ]
+          }
         }
       ]
     },
@@ -947,53 +2060,105 @@
         {
           "Id": "att_bld_religion_celtic_minor_1",
           "Name": "Holy Grounds",
-          "EffectId": 155,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_minor_burial_2",
           "ParentId": "att_bld_religion_celtic_minor_1",
           "Name": "Symbol Stones",
-          "EffectId": 156,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 1,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_minor_burial_3",
           "ParentId": "att_bld_religion_celtic_minor_burial_2",
           "Name": "Celtic Burial Site",
-          "EffectId": 157,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 2,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_minor_burial_4",
           "ParentId": "att_bld_religion_celtic_minor_burial_3",
           "Name": "Celtic Barrows",
-          "EffectId": 158,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 3,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_minor_water_2",
           "ParentId": "att_bld_religion_celtic_minor_1",
           "Name": "Sacred Well",
-          "EffectId": 159,
           "Maintenance": -120,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_minor_water_3",
           "ParentId": "att_bld_religion_celtic_minor_water_2",
           "Name": "Sacred Marsh",
-          "EffectId": 160,
           "Maintenance": -240,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 2
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_celtic_minor_water_4",
           "ParentId": "att_bld_religion_celtic_minor_water_3",
           "Name": "Sacrificial Grounds",
-          "EffectId": 161,
           "Maintenance": -480,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 2
+              }
+            ]
+          }
         }
       ]
     },
@@ -1008,33 +2173,57 @@
         {
           "Id": "att_bld_religion_manichaeist_minor_1",
           "Name": "Shrine of Mani",
-          "EffectId": 162,
           "LocalFood": -10,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 9
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_manichaeist_minor_2",
           "ParentId": "att_bld_religion_manichaeist_minor_1",
           "Name": "Moon Shrine",
-          "EffectId": 163,
           "LocalFood": -20,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 9
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_manichaeist_minor_3",
           "ParentId": "att_bld_religion_manichaeist_minor_2",
           "Name": "Sun Shrine",
-          "EffectId": 164,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 9
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_manichaeist_minor_4",
           "ParentId": "att_bld_religion_manichaeist_minor_3",
           "Name": "Shrine of Light",
-          "EffectId": 165,
           "LocalFood": -40,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 9
+              }
+            ]
+          }
         }
       ]
     },
@@ -1049,29 +2238,53 @@
         {
           "Id": "att_bld_religion_tengri_minor_1",
           "Name": "Totem Carver",
-          "EffectId": 166,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 13
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_tengri_minor_2",
           "ParentId": "att_bld_religion_tengri_minor_1",
           "Name": "Shaman's Tent",
-          "EffectId": 167,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 13
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_tengri_minor_3",
           "ParentId": "att_bld_religion_tengri_minor_2",
           "Name": "Shamanic Circle",
-          "EffectId": 168,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 13
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_tengri_minor_4",
           "ParentId": "att_bld_religion_tengri_minor_3",
           "Name": "Ancestral Altar",
-          "EffectId": 169,
-          "Incomes": []
+          "Effect": {
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 13
+              }
+            ]
+          }
         }
       ]
     },
@@ -1086,29 +2299,60 @@
         {
           "Id": "att_bld_religion_germanic_minor_1",
           "Name": "Sacred Ground",
-          "EffectId": 170,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_germanic_minor_2",
           "ParentId": "att_bld_religion_germanic_minor_1",
           "Name": "Germanic Standing Stone",
-          "EffectId": 171,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 1,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_germanic_minor_3",
           "ParentId": "att_bld_religion_germanic_minor_2",
           "Name": "Germanic Burial Site",
-          "EffectId": 172,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 2,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 4
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_germanic_minor_4",
           "ParentId": "att_bld_religion_germanic_minor_3",
           "Name": "Germanic Barrows",
-          "EffectId": 173,
-          "Incomes": []
+          "Effect": {
+            "Sanitation": 3,
+            "ReligiousOsmosis": 1,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 4
+              }
+            ]
+          }
         }
       ]
     },
@@ -1123,73 +2367,61 @@
         {
           "Id": "att_bld_religion_zoroastrian_minor_1",
           "Name": "Sacred Site",
-          "EffectId": 174,
           "LocalFood": -10,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_minor_2",
           "ParentId": "att_bld_religion_zoroastrian_minor_1",
           "Name": "Sacred Hill",
-          "EffectId": 175,
           "LocalFood": -20,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_minor_3",
           "ParentId": "att_bld_religion_zoroastrian_minor_2",
           "Name": "Hilltop Shrine",
-          "EffectId": 176,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 14
+              }
+            ]
+          }
         },
         {
           "Id": "att_bld_religion_zoroastrian_minor_4",
           "ParentId": "att_bld_religion_zoroastrian_minor_3",
           "Name": "Pirangah",
-          "EffectId": 177,
           "LocalFood": -50,
-          "Incomes": []
-        }
-      ]
-    },
-    {
-      "Id": "att_bch_religion_orthodox_minor",
-      "Name": "Town Orthodox Temple",
-      "SlotType": 2,
-      "RegionType": 1,
-      "ReligionId": 14,
-      "Interesting": true,
-      "Levels": [
-        {
-          "Id": "att_bld_religion_orthodox_minor_1",
-          "Name": "Greek Baptistry",
-          "EffectId": 178,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_orthodox_minor_2",
-          "ParentId": "att_bld_religion_orthodox_minor_1",
-          "Name": "Greek Shrine",
-          "EffectId": 179,
-          "Maintenance": -200,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_orthodox_minor_3",
-          "ParentId": "att_bld_religion_orthodox_minor_2",
-          "Name": "Greek Martyrium",
-          "EffectId": 180,
-          "Maintenance": -400,
-          "Incomes": []
-        },
-        {
-          "Id": "att_bld_religion_orthodox_minor_4",
-          "ParentId": "att_bld_religion_orthodox_minor_3",
-          "Name": "Greek Sanctuary",
-          "EffectId": 181,
-          "Maintenance": -600,
-          "Incomes": []
+          "Effect": {
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 14
+              }
+            ]
+          }
         }
       ]
     },
@@ -1204,33 +2436,69 @@
         {
           "Id": "att_slav_religion_minor_1",
           "Name": "Sacred Grove of Mokosh",
-          "EffectId": 182,
           "LocalFood": -10,
-          "Incomes": []
+          "Effect": {
+            "Fertility": 1,
+            "Growth": 1,
+            "PublicOrder": 1,
+            "Influences": [
+              {
+                "Value": 1,
+                "ReligionId": 12
+              }
+            ]
+          }
         },
         {
           "Id": "att_slav_religion_minor_2",
           "ParentId": "att_slav_religion_minor_1",
           "Name": "Sacred Grove of Mokosh",
-          "EffectId": 183,
           "LocalFood": -20,
-          "Incomes": []
+          "Effect": {
+            "Fertility": 1,
+            "Growth": 1,
+            "PublicOrder": 2,
+            "Influences": [
+              {
+                "Value": 2,
+                "ReligionId": 12
+              }
+            ]
+          }
         },
         {
           "Id": "att_slav_religion_minor_3",
           "ParentId": "att_slav_religion_minor_2",
           "Name": "Sacred Grove of Mokosh",
-          "EffectId": 184,
           "LocalFood": -30,
-          "Incomes": []
+          "Effect": {
+            "Fertility": 2,
+            "Growth": 2,
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 3,
+                "ReligionId": 12
+              }
+            ]
+          }
         },
         {
           "Id": "att_slav_religion_minor_4",
           "ParentId": "att_slav_religion_minor_3",
           "Name": "Sacred Grove of Mokosh",
-          "EffectId": 185,
           "LocalFood": -50,
-          "Incomes": []
+          "Effect": {
+            "Fertility": 3,
+            "Growth": 3,
+            "PublicOrder": 4,
+            "Influences": [
+              {
+                "Value": 4,
+                "ReligionId": 12
+              }
+            ]
+          }
         }
       ]
     }

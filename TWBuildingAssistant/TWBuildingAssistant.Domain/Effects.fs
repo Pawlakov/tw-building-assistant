@@ -138,7 +138,15 @@ let internal createBonus (rd: Entities.Bonus) =
     | (_, Some category) -> CategoryBonus { Category = category; Value = value }
     | (_, _) -> AllBonus value
 
-let internal createBonusFromJson (jsonBuildingBonus: JsonBuildingBonus) =
+let internal createBonusFromJson_1 (jsonBuildingBonus: JsonBuildingBonus) =
+    let value = jsonBuildingBonus.Value
+    let category = jsonBuildingBonus.Category |> getIncomeCategoryOption
+
+    match (value, category) with
+    | (_, Some category) -> CategoryBonus { Category = category; Value = value }
+    | (_, _) -> AllBonus value
+
+let internal createBonusFromJson_2 (jsonBuildingBonus: JsonTechnologyBonus) =
     let value = jsonBuildingBonus.Value
     let category = jsonBuildingBonus.Category |> getIncomeCategoryOption
 
@@ -163,7 +171,19 @@ let internal createInfluence (rd: Entities.Influence) =
               Value = value }
     | (None, _) -> StateReligion { Value = value }
 
-let internal createInfluenceFromJson (jsonBuildingInfluence: JsonBuildingInfluence) =
+let internal createInfluenceFromJson_1 (jsonBuildingInfluence: JsonBuildingInfluence) =
+    let religionId = jsonBuildingInfluence.ReligionId
+    let value = jsonBuildingInfluence.Value
+
+    match (religionId, value) with
+    | (_, value) when value < 1 -> failwith "Negative influence."
+    | (Some religionId, _) ->
+        SpecificReligion
+            { ReligionId = religionId
+              Value = value }
+    | (None, _) -> StateReligion { Value = value }
+
+let internal createInfluenceFromJson_2 (jsonBuildingInfluence: JsonTechnologyInfluence) =
     let religionId = jsonBuildingInfluence.ReligionId
     let value = jsonBuildingInfluence.Value
 
@@ -215,7 +235,7 @@ let internal getEffect (ctx: DatabaseContext) effectId =
       Bonuses = bonuses
       Influences = influences }
 
-let internal getEffectFromJson (jsonBuildingEffect:JsonBuildingEffect) =
+let internal getEffectFromJson_1 (jsonBuildingEffect:JsonBuildingEffect) =
     let effect =
         { PublicOrder = jsonBuildingEffect.PublicOrder |> Option.defaultValue 0
           Food = jsonBuildingEffect.Food |> Option.defaultValue 0
@@ -229,12 +249,38 @@ let internal getEffectFromJson (jsonBuildingEffect:JsonBuildingEffect) =
 
     let bonuses =
         jsonBuildingEffect.Bonuses
-        |> Seq.map createBonusFromJson
+        |> Seq.map createBonusFromJson_1
         |> Seq.toList
 
     let influences =
         jsonBuildingEffect.Influences
-        |> Seq.map createInfluenceFromJson
+        |> Seq.map createInfluenceFromJson_1
+        |> Seq.toList
+
+    { Effect = effect
+      Bonuses = bonuses
+      Influences = influences }
+
+let internal getEffectFromJson_2 (jsonBuildingEffect:JsonTechnologyEffect) =
+    let effect =
+        { PublicOrder = jsonBuildingEffect.PublicOrder |> Option.defaultValue 0
+          Food = jsonBuildingEffect.Food |> Option.defaultValue 0
+          Sanitation = jsonBuildingEffect.Sanitation |> Option.defaultValue 0
+          ResearchRate = jsonBuildingEffect.ResearchRate |> Option.defaultValue 0
+          Growth = jsonBuildingEffect.Growth |> Option.defaultValue 0
+          Fertility = jsonBuildingEffect.Fertility |> Option.defaultValue 0
+          ReligiousOsmosis = jsonBuildingEffect.ReligiousOsmosis |> Option.defaultValue 0
+          TaxRate = jsonBuildingEffect.TaxRate |> Option.defaultValue 0
+          CorruptionRate = jsonBuildingEffect.CorruptionRate |> Option.defaultValue 0 }
+
+    let bonuses =
+        jsonBuildingEffect.Bonuses
+        |> Seq.map createBonusFromJson_2
+        |> Seq.toList
+
+    let influences =
+        jsonBuildingEffect.Influences
+        |> Seq.map createInfluenceFromJson_2
         |> Seq.toList
 
     { Effect = effect
@@ -246,9 +292,9 @@ let internal getEffectOption (ctx: DatabaseContext) effectId =
     | Some effectId -> effectId |> getEffect ctx
     | None -> emptyEffectSet
 
-let internal getEffectFromJsonOption (jsonBuildingEffect:JsonBuildingEffect option) =
+let internal getEffectFromJsonOption_1 (jsonBuildingEffect:JsonBuildingEffect option) =
     match jsonBuildingEffect with
-    | Some jsonBuildingEffect -> jsonBuildingEffect |> getEffectFromJson
+    | Some jsonBuildingEffect -> jsonBuildingEffect |> getEffectFromJson_1
     | None -> emptyEffectSet
 
 let internal getLocalEffectFromJson (jsonBuildingLevel:JsonBuildingLevel) =
@@ -366,17 +412,11 @@ let internal getFactionwideEffects (ctx: DatabaseContext) (factionsData: JsonFac
 
     effectId |> (getEffectOption ctx)
 
-let internal getTechnologyEffect
-    (ctx: DatabaseContext)
-    (factionsData: JsonFaction [])
-    factionId
-    technologyTier
-    useAntilegacyTechnologies
-    =
-    let getEffectSeq effectIdSeq =
+let internal getTechnologyEffect (factionsData: JsonFaction []) factionId technologyTier useAntilegacyTechnologies =
+    let getEffectSeq (effectIdSeq: JsonTechnologyEffect option seq) =
         effectIdSeq
         |> Seq.choose id
-        |> Seq.map (getEffect ctx)
+        |> Seq.map getEffectFromJson_2
 
     let faction =
         query {
@@ -385,27 +425,27 @@ let internal getTechnologyEffect
                 head
         }
 
-    let universalEffectIds =
+    let universalEffects =
         query {
             for technologyLevel in faction.TechnologyLevels do
                 where (technologyLevel.Order <= technologyTier)
-                select technologyLevel.UniversalEffectId
+                select technologyLevel.UniversalEffect
         }
 
     let effects =
         if useAntilegacyTechnologies then
-            let antilegacyEffectIds =
+            let antilegacyEffects =
                 query {
                     for technologyLevel in faction.TechnologyLevels do
                         where (technologyLevel.Order <= technologyTier)
-                        select technologyLevel.AntilegacyEffectId
+                        select technologyLevel.AntilegacyEffect
                 }
 
-            universalEffectIds
-            |> Seq.append antilegacyEffectIds
+            universalEffects
+            |> Seq.append antilegacyEffects
             |> getEffectSeq
         else
-            universalEffectIds |> getEffectSeq
+            universalEffects |> getEffectSeq
         |> Seq.toList
 
     { Effect =
@@ -518,12 +558,7 @@ let internal getStateFromSettings
     let factionEffects = getFactionwideEffects ctx factionsData settings.FactionId
 
     let technologyEffects =
-        getTechnologyEffect
-            ctx
-            factionsData
-            settings.FactionId
-            settings.TechnologyTier
-            settings.UseAntilegacyTechnologies
+        getTechnologyEffect factionsData settings.FactionId settings.TechnologyTier settings.UseAntilegacyTechnologies
 
     let religionEffects = getReligionEffect ctx religionsData settings.ReligionId
     let provinceEffects = getProvinceEffect ctx provincesData settings.ProvinceId

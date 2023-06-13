@@ -51,11 +51,11 @@
         "Order": {
           "type": "integer"
         },
-        "UniversalEffectId": {
-          "type": "integer"
+        "UniversalEffect": {
+          "$ref": ".\\Effects-schema.json#"
         },
-        "AntilegacyEffectId": {
-          "type": "integer"
+        "AntilegacyEffect": {
+          "$ref": ".\\Effects-schema.json#"
         },
         "UniversalUnlockedBuildingLevelIds": {
           "type": "array",

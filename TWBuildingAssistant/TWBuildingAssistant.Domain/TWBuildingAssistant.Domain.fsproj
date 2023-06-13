@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Data\Effects-schema.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Data\BuildingsAll.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

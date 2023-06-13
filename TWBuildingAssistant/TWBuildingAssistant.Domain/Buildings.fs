@@ -145,7 +145,7 @@ let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (fac
                 { Id = level.Id
                   Name = level.Name
                   LocalEffectSet = (level |> getLocalEffectFromJson)
-                  EffectSet = ( level.Effect |> getEffectFromJsonOption) }: BuildingLevel)
+                  EffectSet = ( level.Effect |> getEffectFromJsonOption_1) }: BuildingLevel)
             |> List.toArray
 
         match levelsOther with
@@ -212,4 +212,4 @@ let internal getBuildingLevel (buildingsData: JsonBuildingBranch []) id =
     { Id = level.Id
       Name = level.Name
       LocalEffectSet = (level |> getLocalEffectFromJson)
-      EffectSet = (level.Effect |> getEffectFromJsonOption) }: BuildingLevel
+      EffectSet = (level.Effect |> getEffectFromJsonOption_1) }: BuildingLevel

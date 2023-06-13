@@ -79,8 +79,52 @@ type FactionsData =
                 {
                     "Id":0, 
                     "Order":0, 
-                    "UniversalEffectId":0, 
-                    "AntilegacyEffectId":0,
+                    "UniversalEffect":{
+                        "PublicOrder":0,
+                        "ResearchRate":0,
+                        "Growth":0,
+                        "Fertility":0,
+                        "ReligiousOsmosis":0,
+                        "Food":0,
+                        "Sanitation":0,
+                        "TaxRate":0,
+                        "CorruptionRate":0,
+                        "Bonuses":[{
+                            "Value":0,
+                            "Category":0
+                        },{
+                            "Value":0
+                        }],
+                        "Influences":[{
+                            "Value":0,
+                            "ReligionId":0
+                        },{
+                            "Value":0
+                        }]
+                    },
+                    "AntilegacyEffect":{
+                        "PublicOrder":0,
+                        "ResearchRate":0,
+                        "Growth":0,
+                        "Fertility":0,
+                        "ReligiousOsmosis":0,
+                        "Food":0,
+                        "Sanitation":0,
+                        "TaxRate":0,
+                        "CorruptionRate":0,
+                        "Bonuses":[{
+                            "Value":0,
+                            "Category":0
+                        },{
+                            "Value":0
+                        }],
+                        "Influences":[{
+                            "Value":0,
+                            "ReligionId":0
+                        },{
+                            "Value":0
+                        }]
+                    },
                     "UniversalUnlockedBuildingLevelIds": [
                       "a"
                     ],
@@ -103,6 +147,12 @@ type FactionsData =
                 {
                     "Id":0, 
                     "Order":0
+                },
+                {
+                    "Id":0, 
+                    "Order":0,
+                    "UniversalEffect":{},
+                    "AntilegacyEffect":{}
                 }
             ]
         }]
@@ -111,6 +161,9 @@ type FactionsData =
 
 type internal JsonFaction = FactionsData.Faction
 type internal JsonTechnologyLevel = FactionsData.TechnologyLevel
+type internal JsonTechnologyEffect = FactionsData.UniversalEffect
+type internal JsonTechnologyBonus = FactionsData.Bonus
+type internal JsonTechnologyInfluence = FactionsData.Influencis
 
 type BuildingsData =
     JsonProvider<Sample="""

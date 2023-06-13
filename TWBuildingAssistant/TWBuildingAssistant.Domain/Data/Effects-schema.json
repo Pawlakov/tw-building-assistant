@@ -1,0 +1,77 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Factions aggregate",
+  "type": "object",
+  "properties": {
+    "PublicOrder": {
+      "type": "integer"
+    },
+    "ResearchRate": {
+      "type": "integer"
+    },
+    "Growth": {
+      "type": "integer"
+    },
+    "Fertility": {
+      "type": "integer"
+    },
+    "ReligiousOsmosis": {
+      "type": "integer"
+    },
+    "Food": {
+      "type": "integer"
+    },
+    "Sanitation": {
+      "type": "integer"
+    },
+    "TaxRate": {
+      "type": "integer"
+    },
+    "CorruptionRate": {
+      "type": "integer"
+    },
+    "Bonuses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/bonus"
+      }
+    },
+    "Influences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/influence"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "bonus": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "integer"
+        },
+        "Category": {
+          "type": "integer"
+        }
+      },
+      "required": [ "Value" ],
+      "additionalProperties": false
+    },
+    "influence": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "integer"
+        },
+        "ReligionId": {
+          "type": "integer"
+        }
+      },
+      "required": [ "Value" ],
+      "additionalProperties": false
+    }
+  }
+}

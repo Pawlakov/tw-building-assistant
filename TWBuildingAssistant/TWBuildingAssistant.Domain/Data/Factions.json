@@ -68,154 +68,6 @@
       ],
       "TechnologyLevels": [
         {
-          "Id": 1,
-          "Order": 1,
-          "UniversalEffectId": 371,
-          "UniversalUnlockedBuildingLevelIds": [
-            "att_bld_all_military_upgrades_armor_2",
-            "att_bld_all_livestock_cows_3",
-            "att_bld_roman_west_military_cavalry_2",
-            "att_bld_roman_west_military_infantry_2",
-            "att_bld_all_industry_minor_quarry_3",
-            "att_bld_all_military_upgrades_wood_2",
-            "att_bld_roman_west_civic_governor_3",
-            "att_bld_all_livestock_sheep_3",
-            "att_bld_roman_west_military_skirmisher_2",
-            "att_bld_all_military_upgrades_weapons_2",
-            "att_bld_all_agriculture_grain_3"
-          ],
-          "AntilegacyLockedBuildingLevelIds": [
-            "att_bld_roman_civic_library_4"
-          ]
-        },
-        {
-          "Id": 2,
-          "Order": 2,
-          "UniversalEffectId": 372,
-          "AntilegacyEffectId": 373,
-          "UniversalUnlockedBuildingLevelIds": [
-            "att_bld_all_industry_major_pottery_3",
-            "att_bld_roman_west_military_cavalry_3",
-            "att_bld_roman_west_city_minor_generic_3",
-            "att_bld_roman_west_city_major_3",
-            "att_bld_all_resources_port_fish_3",
-            "att_bld_roman_civic_market_food_3",
-            "att_bld_roman_west_military_infantry_3",
-            "att_bld_all_industry_major_pewter_3",
-            "att_bld_all_resources_port_military_3",
-            "att_bld_roman_west_military_skirmisher_3",
-            "att_bld_all_industry_minor_tannery_3",
-            "att_bld_all_resources_port_trade_3",
-            "att_bld_all_agriculture_grain_4"
-          ],
-          "AntilegacyLockedBuildingLevelIds": [
-            "att_bld_roman_civic_library_3",
-            "att_bld_roman_civic_entertain_drama_3",
-            "att_bld_roman_civic_entertain_drama_4"
-          ]
-        },
-        {
-          "Id": 3,
-          "Order": 3,
-          "UniversalEffectId": 374,
-          "AntilegacyEffectId": 375,
-          "UniversalUnlockedBuildingLevelIds": [
-            "att_bld_all_military_upgrades_armor_3",
-            "att_bld_all_industry_major_pottery_4",
-            "att_bld_all_livestock_cows_4",
-            "att_bld_roman_west_military_cavalry_4",
-            "att_bld_roman_west_city_minor_generic_4",
-            "att_bld_roman_west_city_major_4",
-            "att_bld_roman_civic_market_food_4",
-            "att_bld_roman_west_military_infantry_4",
-            "att_bld_all_industry_major_pewter_4",
-            "att_bld_all_industry_minor_quarry_4",
-            "att_bld_all_military_upgrades_wood_3",
-            "att_bld_roman_west_civic_monument_3",
-            "att_bld_all_livestock_sheep_4",
-            "att_bld_roman_civic_market_slave_3",
-            "att_bld_all_industry_minor_tannery_4",
-            "att_bld_all_military_upgrades_weapons_3",
-            "att_bld_roman_civic_market_wine_3"
-          ],
-          "AntilegacyUnlockedBuildingLevelIds": [
-            "att_bld_religion_catholic_legendary_3",
-            "att_bld_religion_catholic_legendary_4",
-            "att_bld_religion_catholic_major_church_3",
-            "att_bld_religion_catholic_major_church_4",
-            "att_bld_religion_catholic_major_monestary_3",
-            "att_bld_religion_catholic_major_monestary_4",
-            "att_bld_religion_catholic_minor_4",
-            "att_bld_religion_orthodox_legendary_3",
-            "att_bld_religion_orthodox_legendary_4",
-            "att_bld_religion_orthodox_major_church_3",
-            "att_bld_religion_orthodox_major_church_4",
-            "att_bld_religion_orthodox_major_monestary_3",
-            "att_bld_religion_orthodox_major_monestary_4",
-            "att_bld_religion_arian_legendary_3",
-            "att_bld_religion_arian_legendary_4",
-            "att_bld_religion_arian_major_church_3",
-            "att_bld_religion_arian_major_church_4",
-            "att_bld_religion_arian_major_monestary_3",
-            "att_bld_religion_arian_major_monestary_4",
-            "att_bld_religion_arian_minor_4",
-            "att_bld_religion_orthodox_minor_4"
-          ],
-          "AntilegacyLockedBuildingLevelIds": [
-            "att_bld_roman_civic_entertain_arena_3",
-            "att_bld_roman_civic_entertain_arena_4",
-            "att_bld_roman_water_minor_4",
-            "att_bld_roman_water_sewers_4",
-            "att_bld_roman_water_aqueducts_4"
-          ]
-        },
-        {
-          "Id": 4,
-          "Order": 4,
-          "UniversalEffectId": 376,
-          "AntilegacyEffectId": 377,
-          "UniversalUnlockedBuildingLevelIds": [
-            "att_bld_all_military_upgrades_armor_4",
-            "att_bld_all_resources_dyes_4",
-            "att_bld_all_resources_port_fish_4",
-            "att_bld_all_resources_furs_4",
-            "att_bld_all_resources_gems_4",
-            "att_bld_all_resources_gold_jeweler_4",
-            "att_bld_all_resources_gold_mine_4",
-            "att_bld_all_resources_iron_blacksmith_4",
-            "att_bld_all_resources_iron_armory_4",
-            "att_bld_all_resources_lead_4",
-            "att_bld_all_resources_wood_4",
-            "att_bld_all_resources_marble_quarry_4",
-            "att_bld_all_resources_marble_mason_4",
-            "att_bld_all_resources_port_military_4",
-            "att_bld_all_military_upgrades_wood_4",
-            "att_bld_roman_west_civic_monument_4",
-            "att_bld_all_resources_olives_4",
-            "att_bld_all_resources_orchards_fruit_4",
-            "att_bld_roman_west_civic_governor_4",
-            "att_bld_all_resources_salt_4",
-            "att_bld_all_resources_silk_4",
-            "att_bld_roman_west_military_skirmisher_4",
-            "att_bld_roman_civic_market_slave_4",
-            "att_bld_all_resources_port_spice_4",
-            "att_bld_all_resources_port_trade_4",
-            "att_bld_all_resources_orchards_vineyard_4",
-            "att_bld_all_military_upgrades_weapons_4",
-            "att_bld_roman_civic_market_wine_4"
-          ],
-          "AntilegacyUnlockedBuildingLevelIds": [
-            "att_bld_religion_arian_legendary_5",
-            "att_bld_religion_catholic_legendary_5",
-            "att_bld_religion_orthodox_legendary_5"
-          ],
-          "AntilegacyLockedBuildingLevelIds": [
-            "att_bld_roman_water_minor_3",
-            "att_bld_roman_water_sewers_3",
-            "att_bld_roman_water_aqueducts_3"
-          ]
-        },
-        {
           "Id": 5,
           "Order": 0,
           "UniversalUnlockedBuildingLevelIds": [
@@ -429,6 +281,264 @@
             "att_slav_religion_minor_2",
             "att_slav_religion_minor_3",
             "att_slav_religion_minor_4"
+          ]
+        },
+        {
+          "Id": 1,
+          "Order": 1,
+          "UniversalEffect": {
+            "Growth": 3,
+            "CorruptionRate": -1,
+            "Bonuses": [
+              {
+                "Value": 3,
+                "Category": 3
+              },
+              {
+                "Value": 5,
+                "Category": 1
+              }
+            ]
+          },
+          "UniversalUnlockedBuildingLevelIds": [
+            "att_bld_all_agriculture_grain_3",
+            "att_bld_all_industry_minor_quarry_3",
+            "att_bld_all_livestock_cows_3",
+            "att_bld_all_livestock_sheep_3",
+            "att_bld_all_military_upgrades_armor_2",
+            "att_bld_all_military_upgrades_weapons_2",
+            "att_bld_all_military_upgrades_wood_2",
+
+            "att_bld_roman_west_civic_governor_3",
+            "att_bld_roman_west_military_cavalry_2",
+            "att_bld_roman_west_military_infantry_2",
+            "att_bld_roman_west_military_skirmisher_2"
+          ],
+          "AntilegacyLockedBuildingLevelIds": [
+            "att_bld_roman_civic_library_4"
+          ]
+        },
+        {
+          "Id": 2,
+          "Order": 2,
+          "UniversalEffect": {
+            "Bonuses": [
+              {
+                "Value": 3,
+                "Category": 5
+              },
+              {
+                "Value": 3,
+                "Category": 6
+              },
+              {
+                "Value": 5,
+                "Category": 2
+              }
+            ]
+          },
+          "AntilegacyEffect": {
+            "PublicOrder": 3,
+            "Influences": [
+              {
+                "Value": 1
+              }
+            ]
+          },
+          "UniversalUnlockedBuildingLevelIds": [
+            "att_bld_all_agriculture_grain_4",
+            "att_bld_all_industry_major_pewter_3",
+            "att_bld_all_industry_major_pottery_3",
+            "att_bld_all_industry_minor_tannery_3",
+            "att_bld_all_resources_port_fish_3",
+            "att_bld_all_resources_port_military_3",
+            "att_bld_all_resources_port_trade_3",
+
+            "att_bld_roman_civic_market_food_3",
+
+            "att_bld_roman_west_city_major_3",
+            "att_bld_roman_west_city_minor_generic_3",
+            "att_bld_roman_west_military_cavalry_3",
+            "att_bld_roman_west_military_infantry_3",
+            "att_bld_roman_west_military_skirmisher_3"
+          ],
+          "AntilegacyLockedBuildingLevelIds": [
+            "att_bld_roman_civic_entertain_drama_3",
+            "att_bld_roman_civic_entertain_drama_4",
+            "att_bld_roman_civic_library_3"
+          ]
+        },
+        {
+          "Id": 3,
+          "Order": 3,
+          "UniversalEffect": {
+            "Bonuses": [
+              {
+                "Value": 5,
+                "Category": 1
+              },
+              {
+                "Value": 5,
+                "Category": 3
+              },
+              {
+                "Value": 5,
+                "Category": 4
+              },
+              {
+                "Value": 5,
+                "Category": 5
+              },
+              {
+                "Value": 5,
+                "Category": 6
+              }
+            ]
+          },
+          "AntilegacyEffect": {
+            "TaxRate": 3,
+            "CorruptionRate": -2,
+            "Influences": [
+              {
+                "Value": 2
+              }
+            ]
+          },
+          "UniversalUnlockedBuildingLevelIds": [
+            "att_bld_all_industry_major_pewter_4",
+            "att_bld_all_industry_major_pottery_4",
+            "att_bld_all_industry_minor_quarry_4",
+            "att_bld_all_industry_minor_tannery_4",
+            "att_bld_all_livestock_cows_4",
+            "att_bld_all_livestock_sheep_4",
+            "att_bld_all_military_upgrades_armor_3",
+            "att_bld_all_military_upgrades_weapons_3",
+            "att_bld_all_military_upgrades_wood_3",
+
+            "att_bld_roman_civic_market_food_4",
+            "att_bld_roman_civic_market_slave_3",
+            "att_bld_roman_civic_market_wine_3",
+
+            "att_bld_roman_west_city_major_4",
+            "att_bld_roman_west_city_minor_generic_4",
+            "att_bld_roman_west_civic_monument_3",
+            "att_bld_roman_west_military_cavalry_4",
+            "att_bld_roman_west_military_infantry_4"
+          ],
+          "AntilegacyUnlockedBuildingLevelIds": [
+            "att_bld_religion_arian_legendary_3",
+            "att_bld_religion_arian_legendary_4",
+            "att_bld_religion_arian_major_church_3",
+            "att_bld_religion_arian_major_church_4",
+            "att_bld_religion_arian_major_monestary_3",
+            "att_bld_religion_arian_major_monestary_4",
+            "att_bld_religion_arian_minor_4",
+            "att_bld_religion_catholic_legendary_3",
+            "att_bld_religion_catholic_legendary_4",
+            "att_bld_religion_catholic_major_church_3",
+            "att_bld_religion_catholic_major_church_4",
+            "att_bld_religion_catholic_major_monestary_3",
+            "att_bld_religion_catholic_major_monestary_4",
+            "att_bld_religion_catholic_minor_4",
+            "att_bld_religion_orthodox_legendary_3",
+            "att_bld_religion_orthodox_legendary_4",
+            "att_bld_religion_orthodox_major_church_3",
+            "att_bld_religion_orthodox_major_church_4",
+            "att_bld_religion_orthodox_major_monestary_3",
+            "att_bld_religion_orthodox_major_monestary_4",
+            "att_bld_religion_orthodox_minor_4"
+          ],
+          "AntilegacyLockedBuildingLevelIds": [
+            "att_bld_roman_civic_entertain_arena_3",
+            "att_bld_roman_civic_entertain_arena_4",
+            "att_bld_roman_water_aqueducts_4",
+            "att_bld_roman_water_minor_4",
+            "att_bld_roman_water_sewers_4"
+          ]
+        },
+        {
+          "Id": 4,
+          "Order": 4,
+          "UniversalEffect": {
+            "TaxRate": 5,
+            "CorruptionRate": -1,
+            "Bonuses": [
+              {
+                "Value": 10,
+                "Category": 1
+              },
+              {
+                "Value": 5,
+                "Category": 2
+              },
+              {
+                "Value": 7,
+                "Category": 3
+              },
+              {
+                "Value": 10,
+                "Category": 4
+              },
+              {
+                "Value": 7,
+                "Category": 5
+              },
+              {
+                "Value": 7,
+                "Category": 6
+              },
+              {
+                "Value": 15,
+                "Category": 7
+              }
+            ]
+          },
+          "AntilegacyEffect": {
+            "PublicOrder": 8,
+            "TaxRate": 5,
+            "CorruptionRate": -13
+          },
+          "UniversalUnlockedBuildingLevelIds": [
+            "att_bld_all_military_upgrades_armor_4",
+            "att_bld_all_military_upgrades_weapons_4",
+            "att_bld_all_military_upgrades_wood_4",
+            "att_bld_all_resources_dyes_4",
+            "att_bld_all_resources_furs_4",
+            "att_bld_all_resources_gems_4",
+            "att_bld_all_resources_gold_jeweler_4",
+            "att_bld_all_resources_gold_mine_4",
+            "att_bld_all_resources_iron_armory_4",
+            "att_bld_all_resources_iron_blacksmith_4",
+            "att_bld_all_resources_lead_4",
+            "att_bld_all_resources_marble_mason_4",
+            "att_bld_all_resources_marble_quarry_4",
+            "att_bld_all_resources_olives_4",
+            "att_bld_all_resources_orchards_fruit_4",
+            "att_bld_all_resources_orchards_vineyard_4",
+            "att_bld_all_resources_port_fish_4",
+            "att_bld_all_resources_port_military_4",
+            "att_bld_all_resources_port_spice_4",
+            "att_bld_all_resources_port_trade_4",
+            "att_bld_all_resources_salt_4",
+            "att_bld_all_resources_silk_4",
+            "att_bld_all_resources_wood_4",
+
+            "att_bld_roman_civic_market_slave_4",
+            "att_bld_roman_civic_market_wine_4",
+
+            "att_bld_roman_west_civic_governor_4",
+            "att_bld_roman_west_civic_monument_4",
+            "att_bld_roman_west_military_skirmisher_4"
+          ],
+          "AntilegacyUnlockedBuildingLevelIds": [
+            "att_bld_religion_arian_legendary_5",
+            "att_bld_religion_catholic_legendary_5",
+            "att_bld_religion_orthodox_legendary_5"
+          ],
+          "AntilegacyLockedBuildingLevelIds": [
+            "att_bld_roman_water_aqueducts_3",
+            "att_bld_roman_water_minor_3",
+            "att_bld_roman_water_sewers_3"
           ]
         }
       ]

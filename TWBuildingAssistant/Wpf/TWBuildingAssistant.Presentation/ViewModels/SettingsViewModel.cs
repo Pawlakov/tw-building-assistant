@@ -29,7 +29,7 @@ public class SettingsViewModel
         var options = getSettingOptions();
         this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
         this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
-        this.Factions = new ObservableCollection<NamedIdDto>(options.Factions);
+        this.Factions = new ObservableCollection<NamedStringIdDto>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
         this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
@@ -47,7 +47,7 @@ public class SettingsViewModel
                 TechnologyTier = this.TechnologyTiers[0],
                 UseAntilegacyTechnologies = false,
                 ReligionId = this.Religions[0].Id,
-                FactionId = this.Factions[0].Id,
+                FactionId = this.Factions[0].StringId,
                 WeatherId = this.Weathers[0].Id,
                 SeasonId = this.Seasons[0].Id,
                 CorruptionRate = 1,
@@ -111,16 +111,16 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<NamedIdDto> Factions { get; set; }
+    public ObservableCollection<NamedStringIdDto> Factions { get; set; }
 
-    public NamedIdDto SelectedFaction
+    public NamedStringIdDto SelectedFaction
     {
-        get => this.Factions.FirstOrDefault(x => x.Id == this.settings.FactionId);
+        get => this.Factions.FirstOrDefault(x => x.StringId == this.settings.FactionId);
         set
         {
-            if (this.settings.FactionId != value.Id)
+            if (this.settings.FactionId != value.StringId)
             {
-                this.settings.FactionId = value.Id;
+                this.settings.FactionId = value.StringId;
                 this.OnPropertyChanged(nameof(this.SelectedFaction));
             }
         }

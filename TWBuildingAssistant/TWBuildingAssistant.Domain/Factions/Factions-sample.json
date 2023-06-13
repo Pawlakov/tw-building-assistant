@@ -1,0 +1,163 @@
+﻿{
+  "$schema": ".\\Factions-schema.json",
+  "Factions": [
+    {
+      "Id": "a",
+      "Name": "a",
+      "Effect": {
+        "PublicOrder": 0,
+        "ResearchRate": 0,
+        "Growth": 0,
+        "Fertility": 0,
+        "ReligiousOsmosis": 0,
+        "Food": 0,
+        "Sanitation": 0,
+        "TaxRate": 0,
+        "CorruptionRate": 0,
+        "Bonuses": [
+          {
+            "Value": 0,
+            "Category": 0
+          },
+          {
+            "Value": 0
+          }
+        ],
+        "Influences": [
+          {
+            "Value": 0,
+            "ReligionId": 0
+          },
+          {
+            "Value": 0
+          }
+        ]
+      },
+      "UsedBuildingBranchIds": [ "a" ],
+      "TechnologyLevels": [
+        {
+          "Order": 0,
+          "UniversalPath": {}
+        },
+        {
+          "Order": 0,
+          "UniversalPath": {},
+          "AntilegacyPath": {}
+        },
+        {
+          "Order": 0,
+          "UniversalPath": {
+            "Effect": {}
+          },
+          "AntilegacyPath": {
+            "Effect": {}
+          }
+        },
+        {
+          "Order": 0,
+          "UniversalPath": {
+            "Effect": {
+              "PublicOrder": 0,
+              "ResearchRate": 0,
+              "Growth": 0,
+              "Fertility": 0,
+              "ReligiousOsmosis": 0,
+              "Food": 0,
+              "Sanitation": 0,
+              "TaxRate": 0,
+              "CorruptionRate": 0,
+              "Bonuses": [
+                {
+                  "Value": 0,
+                  "Category": 0
+                },
+                {
+                  "Value": 0
+                }
+              ],
+              "Influences": [
+                {
+                  "Value": 0,
+                  "ReligionId": 0
+                },
+                {
+                  "Value": 0
+                }
+              ]
+            },
+            "UnlockedBuildingLevelIds": [
+              "a"
+            ],
+            "LockedBuildingLevelIds": [
+              "a"
+            ]
+          },
+          "AntilegacyPath": {
+            "Effect": {
+              "PublicOrder": 0,
+              "ResearchRate": 0,
+              "Growth": 0,
+              "Fertility": 0,
+              "ReligiousOsmosis": 0,
+              "Food": 0,
+              "Sanitation": 0,
+              "TaxRate": 0,
+              "CorruptionRate": 0,
+              "Bonuses": [
+                {
+                  "Value": 0,
+                  "Category": 0
+                },
+                {
+                  "Value": 0
+                }
+              ],
+              "Influences": [
+                {
+                  "Value": 0,
+                  "ReligionId": 0
+                },
+                {
+                  "Value": 0
+                }
+              ]
+            },
+            "UnlockedBuildingLevelIds": [
+              "a"
+            ],
+            "LockedBuildingLevelIds": [
+              "a"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "Id": "a",
+      "Name": "a",
+      "Effect": {},
+      "UsedBuildingBranchIds": [
+        "a"
+      ],
+      "TechnologyLevels": [
+        {
+          "Order": 0,
+          "UniversalPath": {}
+        }
+      ]
+    },
+    {
+      "Id": "a",
+      "Name": "a",
+      "UsedBuildingBranchIds": [
+        "a"
+      ],
+      "TechnologyLevels": [
+        {
+          "Order": 0,
+          "UniversalPath": {}
+        }
+      ]
+    }
+  ]
+}

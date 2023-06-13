@@ -18,7 +18,7 @@ type SettingOptions =
       Weathers:NamedIdDto[]
       Seasons:NamedIdDto[]
       Religions:NamedIdDto[]
-      Factions:NamedIdDto[]
+      Factions:NamedStringIdDto[]
       Difficulties:NamedIdDto[]
       Taxes:NamedIdDto[]
       PowerLevels:NamedIdDto[] }
@@ -29,7 +29,7 @@ type SettingsDto =
       TechnologyTier:int 
       UseAntilegacyTechnologies:bool 
       ReligionId:int
-      FactionId:int
+      FactionId:string
       WeatherId:int
       SeasonId:int
       DifficultyId:int

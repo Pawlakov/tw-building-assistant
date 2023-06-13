@@ -1,6 +1,7 @@
 ﻿module TWBuildingAssistant.Domain.Buildings
 
-open TWBuildingAssistant.Data.Sqlite
+open TWBuildingAssistant.Domain.Factions
+
 open Data
 open Effects
 open Province
@@ -34,39 +35,41 @@ let internal emptyBuildingBranch =
       Interesting = true
       Levels = [| emptyBuildingLevel |] }
 
-let internal getUnlockedBuildingLevelIds (factionsData: JsonFaction []) settings =
-    let faction =
-        query {
-            for faction in factionsData do
-                where (faction.Id = settings.FactionId)
-                head
-        }
-
-    let techs =
+let internal getUnlockedBuildingLevelIds (faction:FactionsData.JsonFaction) settings =
+    let ulockedTechLevels =
         query {
             for tech in faction.TechnologyLevels do
                 where (tech.Order <= settings.TechnologyTier)
                 select tech
         }
 
-    let loopWithAntilegacy (lockedIds, unlockedIds) (tech: FactionsData.TechnologyLevel) =
-        (Array.concat [lockedIds; tech.AntilegacyLockedBuildingLevelIds], Array.concat [unlockedIds; tech.AntilegacyUnlockedBuildingLevelIds; tech.UniversalUnlockedBuildingLevelIds])
-
-    let loopWithoutAntilegacy (lockedIds, unlockedIds) (tech: FactionsData.TechnologyLevel) =
-        (lockedIds, Array.concat [unlockedIds; tech.UniversalUnlockedBuildingLevelIds])
+    let collectBuildingLevelIds withAntilegacy (lockedIds, unlockedIds) (tech: FactionsData.JsonTechnologyLevel) =
+        match withAntilegacy, tech.AntilegacyPath with
+        | false, _ | _, None ->
+            let newLocakedIds = 
+                Array.concat [lockedIds; tech.UniversalPath.LockedBuildingLevelIds]
+            let newUnlockedIds = 
+                Array.concat [unlockedIds; tech.UniversalPath.UnlockedBuildingLevelIds]
+            (newLocakedIds, newUnlockedIds)
+        | true, Some antilegacyPath ->
+            let newLocakedIds = 
+                Array.concat [lockedIds; antilegacyPath.LockedBuildingLevelIds; tech.UniversalPath.LockedBuildingLevelIds]
+            let newUnlockedIds = 
+                Array.concat [unlockedIds; antilegacyPath.UnlockedBuildingLevelIds; tech.UniversalPath.UnlockedBuildingLevelIds]
+            (newLocakedIds, newUnlockedIds)
 
     let (lockedIds, unlockedIds) = 
         match settings.UseAntilegacyTechnologies with
         | true ->
-            techs 
-            |> Seq.fold loopWithAntilegacy ([||], [||])
+            ulockedTechLevels 
+            |> Seq.fold (collectBuildingLevelIds true) ([||], [||])
         | false ->
-            techs 
-            |> Seq.fold loopWithoutAntilegacy ([||], [||])
+            ulockedTechLevels 
+            |> Seq.fold (collectBuildingLevelIds false) ([||], [||])
 
     unlockedIds |> Array.except lockedIds
 
-let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (factionsData: JsonFaction []) settings descriptor =
+let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (factionsData: FactionsData.JsonFaction []) settings descriptor =
     let faction =
         query {
             for faction in factionsData do
@@ -134,7 +137,7 @@ let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (fac
 
     let strainPairs = usedBranches |> Seq.fold firstLoop []
 
-    let unlockedLevelIds = getUnlockedBuildingLevelIds factionsData settings
+    let unlockedLevelIds = getUnlockedBuildingLevelIds faction settings
 
     let secondLoop finalDictionary ((branch: JsonBuildingBranch), (levels:JsonBuildingLevel list)) =
         let levelsOther =

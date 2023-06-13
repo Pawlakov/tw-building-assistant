@@ -10,7 +10,8 @@
       "type": "array",
       "items": {
         "$ref": "#/definitions/faction"
-      }
+      },
+      "minItems": 1
     }
   },
   "required": [ "$schema", "Factions" ],
@@ -20,20 +21,24 @@
       "type": "object",
       "properties": {
         "Id": {
-          "type": "integer"
+          "type": "string"
         },
         "Name": {
           "type": "string"
         },
+        "Effect": {
+          "$ref": "..\\Data\\Effects-schema.json#"
+        },
         "UsedBuildingBranchIds": {
           "type": "array",
+          "minItems": 1,
           "items": {
             "type": "string"
           }
         },
         "TechnologyLevels": {
           "type": "array",
-          "minItems": 3,
+          "minItems": 1,
           "items": {
             "$ref": "#/definitions/technology_level"
           }
@@ -45,38 +50,40 @@
     "technology_level": {
       "type": "object",
       "properties": {
-        "Id": {
-          "type": "integer"
-        },
         "Order": {
           "type": "integer"
         },
-        "UniversalEffect": {
-          "$ref": ".\\Effects-schema.json#"
+        "UniversalPath": {
+          "$ref": "#/definitions/technology_path"
         },
-        "AntilegacyEffect": {
-          "$ref": ".\\Effects-schema.json#"
-        },
-        "UniversalUnlockedBuildingLevelIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "AntilegacyUnlockedBuildingLevelIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "AntilegacyLockedBuildingLevelIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "AntilegacyPath": {
+          "$ref": "#/definitions/technology_path"
         }
       },
-      "required": [ "Id", "Order" ],
+      "required": [ "Order", "UniversalPath" ],
+      "additionalProperties": false
+    },
+    "technology_path": {
+      "type": "object",
+      "properties": {
+        "Effect": {
+          "$ref": "..\\Data\\Effects-schema.json#"
+        },
+        "UnlockedBuildingLevelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "LockedBuildingLevelIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      },
       "additionalProperties": false
     }
   }

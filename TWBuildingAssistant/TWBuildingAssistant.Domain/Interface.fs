@@ -1,11 +1,14 @@
 ﻿module TWBuildingAssistant.Domain.Interface
 
 open TWBuildingAssistant.Data.Sqlite
+open TWBuildingAssistant.Domain.Factions
 open DTOs
 open Data
 open System.IO
 
 let internal mapNamedIdToDTO (model: Settings.NamedId) = { Id = model.Id; Name = model.Name }
+
+let internal mapNamedStringIdToDTO (model: Settings.NamedStringId) = { StringId = model.StringId; Name = model.Name }
 
 let internal mapOptionSetToDTO (model: Settings.OptionSet) =
     { Provinces =
@@ -26,7 +29,7 @@ let internal mapOptionSetToDTO (model: Settings.OptionSet) =
         |> List.toArray
       Factions =
         model.Factions
-        |> List.map mapNamedIdToDTO
+        |> List.map mapNamedStringIdToDTO
         |> List.toArray
       Difficulties =
         model.Difficulties
@@ -221,9 +224,6 @@ let internal getPowerLevelsData () =
     |> File.ReadAllText
     |> PowerLevelsData.ParseList
 
-let internal getFactionsData () =
-    ("Data/Factions.json" |> File.ReadAllText |> FactionsData.Parse).Factions
-
 let internal getBuildingsData () =
     let all = ("Data/BuildingsAll.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
     let resource = ("Data/BuildingsResource.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
@@ -241,7 +241,7 @@ let getSettingOptions () =
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
-    let factionsData = getFactionsData ()
+    let getFactionTupleSeq = FactionsData.getFactionsData >> Factions.getFactionPairs
 
     let options =
         Settings.getOptions
@@ -252,7 +252,7 @@ let getSettingOptions () =
             difficultiesData
             taxesData
             powerLevelsData
-            factionsData
+            getFactionTupleSeq
 
     options |> mapOptionSetToDTO
 
@@ -266,7 +266,7 @@ let getProvince provinceId =
 
 let getBuildingLibrary settings =
     let provincesData = getProvincesData ()
-    let factionsData = getFactionsData ()
+    let factionsData = FactionsData.getFactionsData ()
     let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
@@ -283,7 +283,7 @@ let getState ctx buildingLevelIds settings =
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
-    let factionsData = getFactionsData ()
+    let factionsData = FactionsData.getFactionsData ()
     let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
@@ -297,7 +297,8 @@ let getState ctx buildingLevelIds settings =
             difficultiesData
             taxesData
             powerLevelsData
-            factionsData
+            (factionsData |> Factions.getFactionEffects)
+            (factionsData |> Factions.getTechnologyEffects)
             settingsModel
 
     let buildings =
@@ -327,7 +328,7 @@ let seek
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
-    let factionsData = getFactionsData ()
+    let factionsData = FactionsData.getFactionsData ()
     let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
@@ -341,7 +342,8 @@ let seek
             difficultiesData
             taxesData
             powerLevelsData
-            factionsData
+            (factionsData |> Factions.getFactionEffects)
+            (factionsData |> Factions.getTechnologyEffects)
             settingsModel
 
     let buildingLibrary = Buildings.getBuildingLibrary buildingsData factionsData provincesData settingsModel

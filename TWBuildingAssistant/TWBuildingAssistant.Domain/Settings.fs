@@ -1,16 +1,17 @@
 ﻿module TWBuildingAssistant.Domain.Settings
 
-open TWBuildingAssistant.Data.Sqlite
 open Data
 
 type NamedId = { Id: int; Name: string }
+
+type NamedStringId = { StringId: string; Name: string }
 
 type OptionSet =
     { Provinces: NamedId list
       Weathers: NamedId list
       Seasons: NamedId list
       Religions: NamedId list
-      Factions: NamedId list
+      Factions: NamedStringId list
       Difficulties: NamedId list
       Taxes: NamedId list
       PowerLevels: NamedId list }
@@ -21,7 +22,7 @@ type internal Settings =
       TechnologyTier: int
       UseAntilegacyTechnologies: bool
       ReligionId: int
-      FactionId: int
+      FactionId: string
       WeatherId: int
       SeasonId: int
       DifficultyId: int
@@ -30,7 +31,10 @@ type internal Settings =
       CorruptionRate: int
       PiracyRate: int }
 
-let internal getProvinceOptions (provincesData: ProvincesData.Root []) =
+let private createOptions (tuples: seq<string*string>) =
+    query { for (id, name) in tuples do select { StringId = id; Name = name } } |> Seq.toList
+
+let private getProvinceOptions (provincesData: ProvincesData.Root []) =
     let query =
         query {
             for province in provincesData do
@@ -43,7 +47,7 @@ let internal getProvinceOptions (provincesData: ProvincesData.Root []) =
 
     result
 
-let internal getWeatherOptions (weathersData: WeathersData.Root []) =
+let private getWeatherOptions (weathersData: WeathersData.Root []) =
     let query =
         query {
             for province in weathersData do
@@ -56,7 +60,7 @@ let internal getWeatherOptions (weathersData: WeathersData.Root []) =
 
     result
 
-let internal getSeasonOptions (seasonsData: SeasonsData.Root []) =
+let private getSeasonOptions (seasonsData: SeasonsData.Root []) =
     let query =
         query {
             for province in seasonsData do
@@ -69,7 +73,7 @@ let internal getSeasonOptions (seasonsData: SeasonsData.Root []) =
 
     result
 
-let internal getReligionOptions (religionsData: ReligionsData.Root []) =
+let private getReligionOptions (religionsData: ReligionsData.Root []) =
     let query =
         query {
             for religion in religionsData do
@@ -82,20 +86,7 @@ let internal getReligionOptions (religionsData: ReligionsData.Root []) =
 
     result
 
-let internal getFactionOptions (factionsData: JsonFaction []) =
-    let query =
-        query {
-            for province in factionsData do
-                select
-                    { Id = province.Id
-                      Name = province.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
-
-let internal getDifficultyOptions (difficultiesData: DifficultiesData.Root []) =
+let private getDifficultyOptions (difficultiesData: DifficultiesData.Root []) =
     let query =
         query {
             for province in difficultiesData do
@@ -108,7 +99,7 @@ let internal getDifficultyOptions (difficultiesData: DifficultiesData.Root []) =
 
     result
 
-let internal getTaxOptions (taxesData: TaxesData.Root []) =
+let private getTaxOptions (taxesData: TaxesData.Root []) =
     let query =
         query {
             for tax in taxesData do
@@ -119,7 +110,7 @@ let internal getTaxOptions (taxesData: TaxesData.Root []) =
 
     result
 
-let internal getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
+let private getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
     let query =
         query {
             for powerLevel in powerLevelsData do
@@ -132,12 +123,12 @@ let internal getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
 
     result
 
-let getOptions weathersData seasonsData provincesData religionsData difficultiesData taxesData powerLevelsData factionsData =
+let getOptions weathersData seasonsData provincesData religionsData difficultiesData taxesData powerLevelsData getFactionTupleSeq =
     { Provinces = getProvinceOptions provincesData
       Weathers = getWeatherOptions weathersData
       Seasons = getSeasonOptions seasonsData
       Religions = getReligionOptions religionsData
-      Factions = getFactionOptions factionsData
+      Factions = () |> getFactionTupleSeq |> createOptions
       Difficulties = getDifficultyOptions difficultiesData
       Taxes = getTaxOptions taxesData
       PowerLevels = getPowerLevelOptions powerLevelsData }

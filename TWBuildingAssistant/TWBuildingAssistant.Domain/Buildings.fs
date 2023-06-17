@@ -1,7 +1,5 @@
 ﻿module TWBuildingAssistant.Domain.Buildings
 
-open TWBuildingAssistant.Domain.Factions
-
 open Data
 open Effects
 open Province
@@ -23,6 +21,7 @@ type internal BuildingLibraryEntry =
     { Descriptor: SlotDescriptor
       BuildingBranches: BuildingBranch [] }
 
+
 let internal emptyBuildingLevel =
     { Id = ""
       Name = "Empty"
@@ -35,52 +34,8 @@ let internal emptyBuildingBranch =
       Interesting = true
       Levels = [| emptyBuildingLevel |] }
 
-let internal getUnlockedBuildingLevelIds (faction:FactionsData.JsonFaction) settings =
-    let ulockedTechLevels =
-        query {
-            for tech in faction.TechnologyLevels do
-                where (tech.Order <= settings.TechnologyTier)
-                select tech
-        }
 
-    let collectBuildingLevelIds withAntilegacy (lockedIds, unlockedIds) (tech: FactionsData.JsonTechnologyLevel) =
-        match withAntilegacy, tech.AntilegacyPath with
-        | false, _ | _, None ->
-            let newLocakedIds = 
-                Array.concat [lockedIds; tech.UniversalPath.LockedBuildingLevelIds]
-            let newUnlockedIds = 
-                Array.concat [unlockedIds; tech.UniversalPath.UnlockedBuildingLevelIds]
-            (newLocakedIds, newUnlockedIds)
-        | true, Some antilegacyPath ->
-            let newLocakedIds = 
-                Array.concat [lockedIds; antilegacyPath.LockedBuildingLevelIds; tech.UniversalPath.LockedBuildingLevelIds]
-            let newUnlockedIds = 
-                Array.concat [unlockedIds; antilegacyPath.UnlockedBuildingLevelIds; tech.UniversalPath.UnlockedBuildingLevelIds]
-            (newLocakedIds, newUnlockedIds)
-
-    let (lockedIds, unlockedIds) = 
-        match settings.UseAntilegacyTechnologies with
-        | true ->
-            ulockedTechLevels 
-            |> Seq.fold (collectBuildingLevelIds true) ([||], [||])
-        | false ->
-            ulockedTechLevels 
-            |> Seq.fold (collectBuildingLevelIds false) ([||], [||])
-
-    unlockedIds |> Array.except lockedIds
-
-let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (factionsData: FactionsData.JsonFaction []) settings descriptor =
-    let faction =
-        query {
-            for faction in factionsData do
-                where (faction.Id = settings.FactionId)
-                head
-        }
-    
-    let usedBranchIds =
-        faction.UsedBuildingBranchIds
-        |> Array.toList
-
+let private getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (usedBuildingBranchIdSeq: seq<string>) (unlockedBuildingLevelIdSeq: seq<string>) settings descriptor =
     let slotTypeInt =
         match descriptor.SlotType with
         | Main -> 0
@@ -95,7 +50,7 @@ let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (fac
     let usedBranches =
         query {
             for branch in buildingsData do
-                where (List.contains branch.Id usedBranchIds)
+                where (Seq.contains branch.Id usedBuildingBranchIdSeq)
                 where (branch.SlotType = slotTypeInt)
                 where (branch.RegionType = None || branch.RegionType = Some regionTypeInt)
                 where (branch.ReligionId = None || branch.ReligionId = Some settings.ReligionId)
@@ -137,13 +92,11 @@ let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (fac
 
     let strainPairs = usedBranches |> Seq.fold firstLoop []
 
-    let unlockedLevelIds = getUnlockedBuildingLevelIds faction settings
-
     let secondLoop finalDictionary ((branch: JsonBuildingBranch), (levels:JsonBuildingLevel list)) =
         let levelsOther =
             levels
             |> List.filter (fun x -> 
-                Array.contains x.Id unlockedLevelIds)
+                Seq.contains x.Id unlockedBuildingLevelIdSeq)
             |> List.map (fun level ->
                 { Id = level.Id
                   Name = level.Name
@@ -170,7 +123,8 @@ let internal getBuildingLibraryEntry (buildingsData: JsonBuildingBranch []) (fac
     { Descriptor = descriptor
       BuildingBranches = (finalFinalDictionary |> List.toArray) }
 
-let internal getBuildingLibrary buildingsData factionsData (provincesData: ProvincesData.Root []) settings =
+
+let internal getBuildingLibrary buildingsData getUsedBuildingBranchIdSeq getUnlockedBuildingLevelIdSeq (provincesData: ProvincesData.Root []) settings =
     let slotTypes = [ Main; Coastal; General ]
     let regionTypes = [ City; Town ]
 
@@ -196,9 +150,13 @@ let internal getBuildingLibrary buildingsData factionsData (provincesData: Provi
                       RegionType = regionType
                       ResourceId = resourceId })))
 
+    let usedBuildingBranchIdSeq = settings |> getUsedBuildingBranchIdSeq
+
+    let unlockedBuildingLevelIdSeq = settings |> getUnlockedBuildingLevelIdSeq
+
     let results =
         descriptors
-        |> List.map (getBuildingLibraryEntry buildingsData factionsData settings)
+        |> List.map (getBuildingLibraryEntry buildingsData usedBuildingBranchIdSeq unlockedBuildingLevelIdSeq settings)
         |> List.toArray
 
     results

@@ -10,7 +10,7 @@ public class SettingOptionsDTO
 
     public NamedIdDTO[] Religions { get; set; }
 
-    public NamedIdDTO[] Factions { get; set; }
+    public NamedStringIdDTO[] Factions { get; set; }
 
     public NamedIdDTO[] Difficulties { get; set; }
 

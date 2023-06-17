@@ -30,7 +30,7 @@ public class SettingsViewModel
         this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
         this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
         this.Factions = new ObservableCollection<NamedStringIdDto>(options.Factions);
-        this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4 });
+        this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4, 5 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
         this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
         this.Seasons = new ObservableCollection<NamedIdDto>(options.Seasons);

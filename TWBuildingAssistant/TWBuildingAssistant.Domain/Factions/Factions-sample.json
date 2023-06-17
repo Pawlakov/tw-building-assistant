@@ -33,102 +33,197 @@
           }
         ]
       },
-      "UsedBuildingBranchIds": [ "a" ],
-      "TechnologyLevels": [
+      "UsedBuildingBranchIds": [
+        "a"
+      ],
+      "StartingBuildingLevelIds": [
+        "a"
+      ],
+      "TechnologyGroups": [
         {
           "Order": 0,
-          "UniversalPath": {}
-        },
-        {
-          "Order": 0,
-          "UniversalPath": {},
-          "AntilegacyPath": {}
-        },
-        {
-          "Order": 0,
-          "UniversalPath": {
-            "Effect": {}
-          },
-          "AntilegacyPath": {
-            "Effect": {}
-          }
-        },
-        {
-          "Order": 0,
-          "UniversalPath": {
-            "Effect": {
-              "PublicOrder": 0,
-              "ResearchRate": 0,
-              "Growth": 0,
-              "Fertility": 0,
-              "ReligiousOsmosis": 0,
-              "Food": 0,
-              "Sanitation": 0,
-              "TaxRate": 0,
-              "CorruptionRate": 0,
-              "Bonuses": [
-                {
-                  "Value": 0,
-                  "Category": 0
-                },
-                {
-                  "Value": 0
-                }
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a",
+              "Effect": {
+                "PublicOrder": 0,
+                "ResearchRate": 0,
+                "Growth": 0,
+                "Fertility": 0,
+                "ReligiousOsmosis": 0,
+                "Food": 0,
+                "Sanitation": 0,
+                "TaxRate": 0,
+                "CorruptionRate": 0,
+                "Bonuses": [
+                  {
+                    "Value": 0,
+                    "Category": 0
+                  },
+                  {
+                    "Value": 0
+                  }
+                ],
+                "Influences": [
+                  {
+                    "Value": 0,
+                    "ReligionId": 0
+                  },
+                  {
+                    "Value": 0
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "a"
               ],
-              "Influences": [
-                {
-                  "Value": 0,
-                  "ReligionId": 0
-                },
-                {
-                  "Value": 0
-                }
+              "NegatedIds": [
+                "a"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "a"
               ]
             },
-            "UnlockedBuildingLevelIds": [
-              "a"
-            ],
-            "LockedBuildingLevelIds": [
-              "a"
-            ]
-          },
-          "AntilegacyPath": {
-            "Effect": {
-              "PublicOrder": 0,
-              "ResearchRate": 0,
-              "Growth": 0,
-              "Fertility": 0,
-              "ReligiousOsmosis": 0,
-              "Food": 0,
-              "Sanitation": 0,
-              "TaxRate": 0,
-              "CorruptionRate": 0,
-              "Bonuses": [
-                {
-                  "Value": 0,
-                  "Category": 0
-                },
-                {
-                  "Value": 0
-                }
-              ],
-              "Influences": [
-                {
-                  "Value": 0,
-                  "ReligionId": 0
-                },
-                {
-                  "Value": 0
-                }
-              ]
+            {
+              "Id": "a",
+              "Name": "a",
+              "Effect": {}
             },
-            "UnlockedBuildingLevelIds": [
-              "a"
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ],
+          "CompletionEffect": {
+            "PublicOrder": 0,
+            "ResearchRate": 0,
+            "Growth": 0,
+            "Fertility": 0,
+            "ReligiousOsmosis": 0,
+            "Food": 0,
+            "Sanitation": 0,
+            "TaxRate": 0,
+            "CorruptionRate": 0,
+            "Bonuses": [
+              {
+                "Value": 0,
+                "Category": 0
+              },
+              {
+                "Value": 0
+              }
             ],
-            "LockedBuildingLevelIds": [
-              "a"
+            "Influences": [
+              {
+                "Value": 0,
+                "ReligionId": 0
+              },
+              {
+                "Value": 0
+              }
             ]
           }
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ],
+          "CompletionEffect": {}
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
         }
       ]
     },
@@ -139,10 +234,117 @@
       "UsedBuildingBranchIds": [
         "a"
       ],
-      "TechnologyLevels": [
+      "StartingBuildingLevelIds": [
+        "a"
+      ],
+      "TechnologyGroups": [
         {
           "Order": 0,
-          "UniversalPath": {}
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
         }
       ]
     },
@@ -152,10 +354,117 @@
       "UsedBuildingBranchIds": [
         "a"
       ],
-      "TechnologyLevels": [
+      "StartingBuildingLevelIds": [
+        "a"
+      ],
+      "TechnologyGroups": [
         {
           "Order": 0,
-          "UniversalPath": {}
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "a",
+              "Name": "a"
+            }
+          ]
         }
       ]
     }

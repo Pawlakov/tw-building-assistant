@@ -67,7 +67,6 @@
     <EmbeddedResource Include="Factions\Factions.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Compile Include="Factions\FactionsData.fs" />
     <Compile Include="Factions\Factions.fs" />
     <Compile Include="Province.fs" />
     <Compile Include="Buildings.fs" />

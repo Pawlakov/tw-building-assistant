@@ -66,493 +66,988 @@
         "att_slav_bch_religion_major",
         "att_slav_bch_religion_minor"
       ],
-      "TechnologyLevels": [
+      "StartingBuildingLevelIds": [
+        "att_bld_roman_west_civic_major_1",
+        "att_bld_all_industry_major_pottery_2",
+        "att_bld_all_livestock_cows_2",
+        "att_bld_roman_west_city_minor_generic_1",
+        "att_bld_roman_west_city_major_1",
+        "att_bld_all_resources_dyes_1",
+        "att_bld_all_resources_dyes_2",
+        "att_bld_all_resources_dyes_3",
+        "att_bld_all_agriculture_generic_1",
+        "att_bld_all_resources_port_fish_2",
+        "att_bld_roman_civic_major_1",
+        "att_bld_roman_water_minor_1",
+        "att_bld_roman_water_minor_2",
+        "att_bld_all_resources_furs_1",
+        "att_bld_all_resources_furs_2",
+        "att_bld_all_resources_furs_3",
+        "att_bld_roman_west_civic_garrison_1",
+        "att_bld_roman_west_civic_garrison_2",
+        "att_bld_roman_west_civic_garrison_3",
+        "att_bld_roman_west_civic_garrison_4",
+        "att_bld_all_resources_gems_1",
+        "att_bld_all_resources_gems_2",
+        "att_bld_all_resources_gems_3",
+        "att_bld_all_resources_gold_1",
+        "att_bld_all_resources_gold_jeweler_2",
+        "att_bld_all_resources_gold_jeweler_3",
+        "att_bld_all_resources_gold_mine_2",
+        "att_bld_all_resources_gold_mine_3",
+        "att_bld_religion_grecoroman_major_4_hermes",
+        "att_bld_roman_water_major_1",
+        "att_bld_religion_grecoroman_major_4_cult",
+        "att_bld_all_industry_minor_generic_1",
+        "att_bld_all_industry_major_generic_1",
+        "att_bld_all_resources_iron_1",
+        "att_bld_all_resources_iron_blacksmith_2",
+        "att_bld_all_resources_iron_blacksmith_3",
+        "att_bld_all_resources_iron_armory_2",
+        "att_bld_all_resources_iron_armory_3",
+        "att_bld_religion_grecoroman_major_4_isis",
+        "att_bld_religion_catholic_legendary_1",
+        "att_bld_religion_catholic_legendary_2",
+        "att_bld_religion_catholic_major_1",
+        "att_bld_religion_catholic_major_monestary_2",
+        "att_bld_religion_catholic_major_church_2",
+        "att_bld_religion_catholic_minor_1",
+        "att_bld_religion_catholic_minor_2",
+        "att_bld_religion_catholic_minor_3",
+        "att_bld_all_resources_lead_1",
+        "att_bld_all_resources_lead_2",
+        "att_bld_all_resources_lead_3",
+        "att_bld_roman_civic_library_2",
+        "att_bld_all_resources_wood_1",
+        "att_bld_all_resources_wood_2",
+        "att_bld_all_resources_wood_3",
+        "att_bld_all_resources_marble_1",
+        "att_bld_all_resources_marble_quarry_2",
+        "att_bld_all_resources_marble_quarry_3",
+        "att_bld_all_resources_marble_mason_2",
+        "att_bld_all_resources_marble_mason_3",
+        "att_bld_roman_civic_market_2",
+        "att_bld_all_industry_major_pewter_2",
+        "att_bld_all_resources_port_military_2",
+        "att_bld_all_industry_minor_quarry_2",
+        "att_bld_roman_west_civic_monument_2",
+        "att_bld_all_resources_olives_1",
+        "att_bld_all_resources_olives_2",
+        "att_bld_all_resources_olives_3",
+        "att_bld_all_resources_orchards_fruit_2",
+        "att_bld_all_resources_orchards_fruit_3",
+        "att_bld_religion_grecoroman_minor_1",
+        "att_bld_religion_grecoroman_major_1",
+        "att_bld_religion_grecoroman_minor_2",
+        "att_bld_religion_grecoroman_major_2",
+        "att_bld_religion_grecoroman_minor_3",
+        "att_bld_religion_grecoroman_major_3",
+        "att_bld_religion_grecoroman_minor_4",
+        "att_bld_roman_west_civic_governor_2",
+        "att_bld_all_resources_port_generic_1",
+        "att_bld_all_resources_salt_1",
+        "att_bld_all_resources_salt_2",
+        "att_bld_all_resources_salt_3",
+        "att_bld_religion_grecoroman_major_4_serapis",
+        "att_bld_roman_water_sewers_2",
+        "att_bld_all_livestock_sheep_2",
+        "att_bld_all_resources_silk_1",
+        "att_bld_all_resources_silk_2",
+        "att_bld_all_resources_silk_3",
+        "att_bld_religion_grecoroman_major_4_sol",
+        "att_bld_all_resources_port_spice_1",
+        "att_bld_all_resources_port_spice_2",
+        "att_bld_all_resources_port_spice_3",
+        "att_bld_all_industry_minor_tannery_2",
+        "att_bld_roman_civic_entertain_2",
+        "att_bld_all_resources_port_trade_2",
+        "att_bld_all_resources_orchards_vineyard_2",
+        "att_bld_all_resources_orchards_vineyard_3",
+        "att_bld_roman_water_aqueducts_2",
+        "att_bld_all_agriculture_grain_2",
+        "att_bld_all_resources_orchards_1",
+        "att_bld_all_military_upgrades_1",
+        "att_bld_religion_orthodox_legendary_1",
+        "att_bld_religion_orthodox_legendary_2",
+        "att_bld_religion_orthodox_major_1",
+        "att_bld_religion_orthodox_major_church_2",
+        "att_bld_religion_orthodox_major_monestary_2",
+        "att_bld_religion_manichaeist_major_1",
+        "att_bld_religion_manichaeist_major_church_2",
+        "att_bld_religion_manichaeist_major_church_3",
+        "att_bld_religion_manichaeist_major_church_4",
+        "att_bld_religion_manichaeist_major_monestary_2",
+        "att_bld_religion_manichaeist_major_monestary_3",
+        "att_bld_religion_manichaeist_major_monestary_4",
+        "att_bld_religion_celtic_major_1",
+        "att_bld_religion_celtic_major_2",
+        "att_bld_religion_celtic_major_3",
+        "att_bld_religion_celtic_major_4",
+        "att_bld_religion_tengri_major_1",
+        "att_bld_religion_tengri_major_2",
+        "att_bld_religion_tengri_major_3",
+        "att_bld_religion_tengri_major_4",
+        "att_bld_religion_germanic_major_1",
+        "att_bld_religion_germanic_major_2",
+        "att_bld_religion_germanic_major_3",
+        "att_bld_religion_germanic_major_4",
+        "att_bld_religion_zoroastrian_major_fire_1",
+        "att_bld_religion_zoroastrian_major_fire_2",
+        "att_bld_religion_zoroastrian_major_fire_3",
+        "att_bld_religion_zoroastrian_major_fire_4",
+        "att_bld_religion_arian_legendary_1",
+        "att_bld_religion_arian_legendary_2",
+        "att_bld_religion_arian_major_1",
+        "att_bld_religion_arian_major_church_2",
+        "att_bld_religion_arian_major_monestary_2",
+        "att_slav_religion_major_1",
+        "att_slav_religion_major_2",
+        "att_slav_religion_major_3",
+        "att_slav_religion_major_4",
+        "att_bld_eos_religion_semitic_major_1",
+        "att_bld_eos_religion_semitic_major_2",
+        "att_bld_eos_religion_semitic_major_3",
+        "att_bld_eos_religion_semitic_major_4",
+        "att_bld_eos_religion_judaism_major_1",
+        "att_bld_eos_religion_judaism_major_2",
+        "att_bld_eos_religion_judaism_major_3",
+        "att_bld_eos_religion_judaism_major_4",
+        "att_bld_eos_religion_east_church_major_1",
+        "att_bld_eos_religion_east_church_major_2",
+        "att_bld_eos_religion_east_church_major_3",
+        "att_bld_eos_religion_east_church_major_4",
+        "att_bld_religion_zoroastrian_major_burial_1",
+        "att_bld_religion_zoroastrian_major_burial_2",
+        "att_bld_religion_zoroastrian_major_burial_3",
+        "att_bld_religion_zoroastrian_major_burial_4",
+        "att_bld_eos_religion_semitic_minor_1",
+        "att_bld_eos_religion_semitic_minor_2",
+        "att_bld_eos_religion_semitic_minor_3",
+        "att_bld_eos_religion_judaism_minor_1",
+        "att_bld_eos_religion_judaism_minor_2",
+        "att_bld_eos_religion_judaism_minor_3",
+        "att_bld_religion_arian_minor_1",
+        "att_bld_religion_arian_minor_2",
+        "att_bld_religion_arian_minor_3",
+        "att_bld_eos_religion_east_church_minor_1",
+        "att_bld_eos_religion_east_church_minor_2",
+        "att_bld_eos_religion_east_church_minor_3",
+        "att_bld_religion_celtic_minor_1",
+        "att_bld_religion_celtic_minor_burial_2",
+        "att_bld_religion_celtic_minor_burial_3",
+        "att_bld_religion_celtic_minor_burial_4",
+        "att_bld_religion_celtic_minor_water_2",
+        "att_bld_religion_celtic_minor_water_3",
+        "att_bld_religion_celtic_minor_water_4",
+        "att_bld_religion_manichaeist_minor_1",
+        "att_bld_religion_manichaeist_minor_2",
+        "att_bld_religion_manichaeist_minor_3",
+        "att_bld_religion_manichaeist_minor_4",
+        "att_bld_religion_tengri_minor_1",
+        "att_bld_religion_tengri_minor_2",
+        "att_bld_religion_tengri_minor_3",
+        "att_bld_religion_tengri_minor_4",
+        "att_bld_religion_germanic_minor_1",
+        "att_bld_religion_germanic_minor_2",
+        "att_bld_religion_germanic_minor_3",
+        "att_bld_religion_germanic_minor_4",
+        "att_bld_religion_zoroastrian_minor_1",
+        "att_bld_religion_zoroastrian_minor_2",
+        "att_bld_religion_zoroastrian_minor_3",
+        "att_bld_religion_zoroastrian_minor_4",
+        "att_bld_religion_orthodox_minor_1",
+        "att_bld_religion_orthodox_minor_2",
+        "att_bld_religion_orthodox_minor_3",
+        "att_slav_religion_minor_1",
+        "att_slav_religion_minor_2",
+        "att_slav_religion_minor_3",
+        "att_slav_religion_minor_4"
+      ],
+      "TechnologyGroups": [
         {
           "Order": 0,
-          "UniversalPath": {
-            "UnlockedBuildingLevelIds": [
-              "att_bld_roman_west_civic_major_1",
-              "att_bld_roman_civic_entertain_arena_3",
-              "att_bld_roman_civic_entertain_arena_4",
-              "att_bld_roman_west_military_1",
-              "att_bld_all_industry_major_pottery_2",
-              "att_bld_all_livestock_cows_2",
-              "att_bld_roman_west_city_minor_generic_1",
-              "att_bld_roman_west_city_major_1",
-              "att_bld_roman_west_city_minor_generic_2",
-              "att_bld_roman_west_city_major_2",
-              "att_bld_all_resources_dyes_1",
-              "att_bld_all_resources_dyes_2",
-              "att_bld_all_resources_dyes_3",
-              "att_bld_all_agriculture_generic_1",
-              "att_bld_all_resources_port_fish_2",
-              "att_bld_roman_civic_major_1",
-              "att_bld_roman_water_minor_1",
-              "att_bld_roman_water_minor_2",
-              "att_bld_roman_water_minor_3",
-              "att_bld_roman_water_minor_4",
-              "att_bld_all_resources_furs_1",
-              "att_bld_all_resources_furs_2",
-              "att_bld_all_resources_furs_3",
-              "att_bld_roman_west_civic_garrison_1",
-              "att_bld_roman_west_civic_garrison_2",
-              "att_bld_roman_west_civic_garrison_3",
-              "att_bld_roman_west_civic_garrison_4",
-              "att_bld_all_resources_gems_1",
-              "att_bld_all_resources_gems_2",
-              "att_bld_all_resources_gems_3",
-              "att_bld_all_resources_gold_1",
-              "att_bld_all_resources_gold_jeweler_2",
-              "att_bld_all_resources_gold_jeweler_3",
-              "att_bld_all_resources_gold_mine_2",
-              "att_bld_all_resources_gold_mine_3",
-              "att_bld_religion_grecoroman_major_4_hermes",
-              "att_bld_roman_water_major_1",
-              "att_bld_religion_grecoroman_major_4_cult",
-              "att_bld_all_industry_minor_generic_1",
-              "att_bld_all_industry_major_generic_1",
-              "att_bld_all_resources_iron_1",
-              "att_bld_all_resources_iron_blacksmith_2",
-              "att_bld_all_resources_iron_blacksmith_3",
-              "att_bld_all_resources_iron_armory_2",
-              "att_bld_all_resources_iron_armory_3",
-              "att_bld_religion_grecoroman_major_4_isis",
-              "att_bld_religion_catholic_legendary_1",
-              "att_bld_religion_catholic_legendary_2",
-              "att_bld_religion_catholic_major_1",
-              "att_bld_religion_catholic_major_monestary_2",
-              "att_bld_religion_catholic_major_church_2",
-              "att_bld_religion_catholic_minor_1",
-              "att_bld_religion_catholic_minor_2",
-              "att_bld_religion_catholic_minor_3",
-              "att_bld_all_resources_lead_1",
-              "att_bld_all_resources_lead_2",
-              "att_bld_all_resources_lead_3",
-              "att_bld_roman_civic_library_2",
-              "att_bld_roman_civic_library_3",
-              "att_bld_roman_civic_library_4",
-              "att_bld_all_resources_wood_1",
-              "att_bld_all_resources_wood_2",
-              "att_bld_all_resources_wood_3",
-              "att_bld_all_resources_marble_1",
-              "att_bld_all_resources_marble_quarry_2",
-              "att_bld_all_resources_marble_quarry_3",
-              "att_bld_all_resources_marble_mason_2",
-              "att_bld_all_resources_marble_mason_3",
-              "att_bld_roman_civic_market_2",
-              "att_bld_all_industry_major_pewter_2",
-              "att_bld_all_resources_port_military_2",
-              "att_bld_all_industry_minor_quarry_2",
-              "att_bld_roman_west_civic_monument_2",
-              "att_bld_all_resources_olives_1",
-              "att_bld_all_resources_olives_2",
-              "att_bld_all_resources_olives_3",
-              "att_bld_all_resources_orchards_fruit_2",
-              "att_bld_all_resources_orchards_fruit_3",
-              "att_bld_religion_grecoroman_minor_1",
-              "att_bld_religion_grecoroman_major_1",
-              "att_bld_religion_grecoroman_minor_2",
-              "att_bld_religion_grecoroman_major_2",
-              "att_bld_religion_grecoroman_minor_3",
-              "att_bld_religion_grecoroman_major_3",
-              "att_bld_religion_grecoroman_minor_4",
-              "att_bld_roman_west_civic_governor_2",
-              "att_bld_all_resources_port_generic_1",
-              "att_bld_all_resources_salt_1",
-              "att_bld_all_resources_salt_2",
-              "att_bld_all_resources_salt_3",
-              "att_bld_religion_grecoroman_major_4_serapis",
-              "att_bld_roman_water_sewers_2",
-              "att_bld_roman_water_sewers_3",
-              "att_bld_roman_water_sewers_4",
-              "att_bld_all_livestock_sheep_2",
-              "att_bld_all_resources_silk_1",
-              "att_bld_all_resources_silk_2",
-              "att_bld_all_resources_silk_3",
-              "att_bld_religion_grecoroman_major_4_sol",
-              "att_bld_all_resources_port_spice_1",
-              "att_bld_all_resources_port_spice_2",
-              "att_bld_all_resources_port_spice_3",
-              "att_bld_all_industry_minor_tannery_2",
-              "att_bld_roman_civic_entertain_2",
-              "att_bld_roman_civic_entertain_drama_3",
-              "att_bld_roman_civic_entertain_drama_4",
-              "att_bld_all_resources_port_trade_2",
-              "att_bld_all_resources_orchards_vineyard_2",
-              "att_bld_all_resources_orchards_vineyard_3",
-              "att_bld_roman_water_aqueducts_2",
-              "att_bld_roman_water_aqueducts_3",
-              "att_bld_roman_water_aqueducts_4",
-              "att_bld_all_agriculture_grain_2",
-              "att_bld_all_resources_orchards_1",
-              "att_bld_all_military_upgrades_1",
-              "att_bld_religion_orthodox_legendary_1",
-              "att_bld_religion_orthodox_legendary_2",
-              "att_bld_religion_orthodox_major_1",
-              "att_bld_religion_orthodox_major_church_2",
-              "att_bld_religion_orthodox_major_monestary_2",
-              "att_bld_religion_manichaeist_major_1",
-              "att_bld_religion_manichaeist_major_church_2",
-              "att_bld_religion_manichaeist_major_church_3",
-              "att_bld_religion_manichaeist_major_church_4",
-              "att_bld_religion_manichaeist_major_monestary_2",
-              "att_bld_religion_manichaeist_major_monestary_3",
-              "att_bld_religion_manichaeist_major_monestary_4",
-              "att_bld_religion_celtic_major_1",
-              "att_bld_religion_celtic_major_2",
-              "att_bld_religion_celtic_major_3",
-              "att_bld_religion_celtic_major_4",
-              "att_bld_religion_tengri_major_1",
-              "att_bld_religion_tengri_major_2",
-              "att_bld_religion_tengri_major_3",
-              "att_bld_religion_tengri_major_4",
-              "att_bld_religion_germanic_major_1",
-              "att_bld_religion_germanic_major_2",
-              "att_bld_religion_germanic_major_3",
-              "att_bld_religion_germanic_major_4",
-              "att_bld_religion_zoroastrian_major_fire_1",
-              "att_bld_religion_zoroastrian_major_fire_2",
-              "att_bld_religion_zoroastrian_major_fire_3",
-              "att_bld_religion_zoroastrian_major_fire_4",
-              "att_bld_religion_arian_legendary_1",
-              "att_bld_religion_arian_legendary_2",
-              "att_bld_religion_arian_major_1",
-              "att_bld_religion_arian_major_church_2",
-              "att_bld_religion_arian_major_monestary_2",
-              "att_slav_religion_major_1",
-              "att_slav_religion_major_2",
-              "att_slav_religion_major_3",
-              "att_slav_religion_major_4",
-              "att_bld_eos_religion_semitic_major_1",
-              "att_bld_eos_religion_semitic_major_2",
-              "att_bld_eos_religion_semitic_major_3",
-              "att_bld_eos_religion_semitic_major_4",
-              "att_bld_eos_religion_judaism_major_1",
-              "att_bld_eos_religion_judaism_major_2",
-              "att_bld_eos_religion_judaism_major_3",
-              "att_bld_eos_religion_judaism_major_4",
-              "att_bld_eos_religion_east_church_major_1",
-              "att_bld_eos_religion_east_church_major_2",
-              "att_bld_eos_religion_east_church_major_3",
-              "att_bld_eos_religion_east_church_major_4",
-              "att_bld_religion_zoroastrian_major_burial_1",
-              "att_bld_religion_zoroastrian_major_burial_2",
-              "att_bld_religion_zoroastrian_major_burial_3",
-              "att_bld_religion_zoroastrian_major_burial_4",
-              "att_bld_eos_religion_semitic_minor_1",
-              "att_bld_eos_religion_semitic_minor_2",
-              "att_bld_eos_religion_semitic_minor_3",
-              "att_bld_eos_religion_judaism_minor_1",
-              "att_bld_eos_religion_judaism_minor_2",
-              "att_bld_eos_religion_judaism_minor_3",
-              "att_bld_religion_arian_minor_1",
-              "att_bld_religion_arian_minor_2",
-              "att_bld_religion_arian_minor_3",
-              "att_bld_eos_religion_east_church_minor_1",
-              "att_bld_eos_religion_east_church_minor_2",
-              "att_bld_eos_religion_east_church_minor_3",
-              "att_bld_religion_celtic_minor_1",
-              "att_bld_religion_celtic_minor_burial_2",
-              "att_bld_religion_celtic_minor_burial_3",
-              "att_bld_religion_celtic_minor_burial_4",
-              "att_bld_religion_celtic_minor_water_2",
-              "att_bld_religion_celtic_minor_water_3",
-              "att_bld_religion_celtic_minor_water_4",
-              "att_bld_religion_manichaeist_minor_1",
-              "att_bld_religion_manichaeist_minor_2",
-              "att_bld_religion_manichaeist_minor_3",
-              "att_bld_religion_manichaeist_minor_4",
-              "att_bld_religion_tengri_minor_1",
-              "att_bld_religion_tengri_minor_2",
-              "att_bld_religion_tengri_minor_3",
-              "att_bld_religion_tengri_minor_4",
-              "att_bld_religion_germanic_minor_1",
-              "att_bld_religion_germanic_minor_2",
-              "att_bld_religion_germanic_minor_3",
-              "att_bld_religion_germanic_minor_4",
-              "att_bld_religion_zoroastrian_minor_1",
-              "att_bld_religion_zoroastrian_minor_2",
-              "att_bld_religion_zoroastrian_minor_3",
-              "att_bld_religion_zoroastrian_minor_4",
-              "att_bld_religion_orthodox_minor_1",
-              "att_bld_religion_orthodox_minor_2",
-              "att_bld_religion_orthodox_minor_3",
-              "att_slav_religion_minor_1",
-              "att_slav_religion_minor_2",
-              "att_slav_religion_minor_3",
-              "att_slav_religion_minor_4"
-            ]
-          }
+          "Technologies": [
+            {
+              "Id": "att_roman_military_professional_soldiery",
+              "Name": "Professional Soldiery",
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_military_1"
+              ]
+            }
+          ]
+        },
+        {
+          "Order": 0,
+          "Technologies": [
+            {
+              "Id": "att_roman_civil_new_roman_ethics",
+              "Name": "Roman Ethics",
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_city_major_2",
+                "att_bld_roman_west_city_minor_generic_2"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_legacy_1",
+              "Name": "Moulded Architecture",
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_civic_entertain_arena_4",
+                "att_bld_roman_civic_entertain_drama_4",
+                "att_bld_roman_civic_library_4"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_legacy_2",
+              "Name": "Natural Philosophy",
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_civic_entertain_arena_3",
+                "att_bld_roman_civic_entertain_drama_3",
+                "att_bld_roman_civic_library_3"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_legacy_3",
+              "Name": "Improved Plumbing",
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_water_aqueducts_4",
+                "att_bld_roman_water_minor_4",
+                "att_bld_roman_water_sewers_4"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_legacy_4",
+              "Name": "Concrete",
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_water_aqueducts_3",
+                "att_bld_roman_water_minor_3",
+                "att_bld_roman_water_sewers_3"
+              ]
+            }
+          ]
         },
         {
           "Order": 1,
-          "UniversalPath": {
-            "Effect": {
-              "Growth": 3,
-              "CorruptionRate": -1,
-              "Bonuses": [
-                {
-                  "Value": 3,
-                  "Category": 3
-                },
-                {
-                  "Value": 5,
-                  "Category": 1
-                }
+          "Technologies": [
+            {
+              "Id": "att_roman_military_specialisation_of_functions",
+              "Name": "Functional Specialisation",
+              "RequiredIds": [
+                "att_roman_military_professional_soldiery"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_military_cavalry_2",
+                "att_bld_roman_west_military_infantry_2",
+                "att_bld_roman_west_military_skirmisher_2"
               ]
             },
-            "UnlockedBuildingLevelIds": [
-              "att_bld_all_agriculture_grain_3",
-              "att_bld_all_industry_minor_quarry_3",
-              "att_bld_all_livestock_cows_3",
-              "att_bld_all_livestock_sheep_3",
-              "att_bld_all_military_upgrades_armor_2",
-              "att_bld_all_military_upgrades_weapons_2",
-              "att_bld_all_military_upgrades_wood_2",
-
-              "att_bld_roman_west_civic_governor_3",
-              "att_bld_roman_west_military_cavalry_2",
-              "att_bld_roman_west_military_infantry_2",
-              "att_bld_roman_west_military_skirmisher_2"
-            ]
-          },
-          "AntilegacyPath": {
-            "LockedBuildingLevelIds": [
-              "att_bld_roman_civic_library_4"
-            ]
+            {
+              "Id": "att_roman_military_hereditary_service",
+              "Name": "Hereditary Service",
+              "RequiredIds": [
+                "att_roman_military_specialisation_of_functions"
+              ]
+            },
+            {
+              "Id": "att_roman_military_military_provisions",
+              "Name": "Military Provisions",
+              "RequiredIds": [
+                "att_roman_military_specialisation_of_functions"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_military_upgrades_armor_2",
+                "att_bld_all_military_upgrades_weapons_2",
+                "att_bld_all_military_upgrades_wood_2"
+              ]
+            },
+            {
+              "Id": "att_roman_military_payment_in_kind",
+              "Name": "Payment in Kind",
+              "RequiredIds": [
+                "att_roman_military_military_provisions"
+              ]
+            }
+          ]
+        },
+        {
+          "Order": 1,
+          "Technologies": [
+            {
+              "Id": "att_roman_west_civil_classical_philosophy",
+              "Name": "Classical Philosophy",
+              "Effect": {
+                "CorruptionRate": -1
+              },
+              "RequiredIds": [
+                "att_roman_civil_new_roman_ethics"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_tributarii",
+              "Name": "Regional Traditions",
+              "Effect": {
+                "Growth": 1
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_classical_philosophy"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_agriculture_grain_3",
+                "att_bld_all_industry_minor_quarry_3",
+                "att_bld_all_livestock_sheep_3"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_legal_science",
+              "Name": "Legal Science",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 3,
+                    "Category": 3
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_classical_philosophy"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_civic_governor_3"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_specialised_cultivation",
+              "Name": "Tributary Servants",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 1
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_tributarii"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_livestock_cows_3"
+              ]
+            }
+          ],
+          "CompletionEffect": {
+            "Growth": 2
           }
         },
         {
           "Order": 2,
-          "UniversalPath": {
-            "Effect": {
-              "Bonuses": [
-                {
-                  "Value": 3,
-                  "Category": 5
-                },
-                {
-                  "Value": 3,
-                  "Category": 6
-                },
-                {
-                  "Value": 5,
-                  "Category": 2
-                }
+          "Technologies": [
+            {
+              "Id": "att_roman_military_traditions_of_strategy",
+              "Name": "Traditions of Strategy",
+              "RequiredIds": [
+                "att_roman_military_hereditary_service"
               ]
             },
-            "UnlockedBuildingLevelIds": [
-              "att_bld_all_agriculture_grain_4",
-              "att_bld_all_industry_major_pewter_3",
-              "att_bld_all_industry_major_pottery_3",
-              "att_bld_all_industry_minor_tannery_3",
-              "att_bld_all_resources_port_fish_3",
-              "att_bld_all_resources_port_military_3",
-              "att_bld_all_resources_port_trade_3",
-
-              "att_bld_roman_civic_market_food_3",
-
-              "att_bld_roman_west_city_major_3",
-              "att_bld_roman_west_city_minor_generic_3",
-              "att_bld_roman_west_military_cavalry_3",
-              "att_bld_roman_west_military_infantry_3",
-              "att_bld_roman_west_military_skirmisher_3"
-            ]
-          },
-          "AntilegacyPath": {
-            "Effect": {
-              "PublicOrder": 3,
-              "Influences": [
-                {
-                  "Value": 1
-                }
+            {
+              "Id": "att_roman_military_standardisation_of_the_military",
+              "Name": "Military Standarisation",
+              "RequiredIds": [
+                "att_roman_military_specialisation_of_functions"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_military_infantry_3"
               ]
             },
-            "LockedBuildingLevelIds": [
-              "att_bld_roman_civic_entertain_drama_3",
-              "att_bld_roman_civic_entertain_drama_4",
-              "att_bld_roman_civic_library_3"
-            ]
+            {
+              "Id": "att_roman_military_regionalisation_of_the_army",
+              "Name": "Military Regionalisation",
+              "RequiredIds": [
+                "att_roman_military_payment_in_kind"
+              ]
+            },
+            {
+              "Id": "att_roman_military_compulsory_levy",
+              "Name": "Compulsory Levy",
+              "RequiredIds": [
+                "att_roman_military_hereditary_service"
+              ]
+            },
+            {
+              "Id": "att_roman_military_imperial_transport_service",
+              "Name": "Imperial Transport Service",
+              "RequiredIds": [
+                "att_roman_military_traditions_of_strategy",
+                "att_roman_military_standardisation_of_the_military"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_port_military_3",
+                "att_bld_roman_west_military_cavalry_3",
+                "att_bld_roman_west_military_skirmisher_3"
+              ]
+            }
+          ]
+        },
+        {
+          "Order": 2,
+          "Technologies": [
+            {
+              "Id": "att_roman_civil_specialised_craftsmen",
+              "Name": "Specialised Craftsmen",
+              "RequiredIds": [
+                "att_roman_civil_tributarii"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_industry_major_pewter_3",
+                "att_bld_all_industry_major_pottery_3",
+                "att_bld_all_industry_minor_tannery_3"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_intermarriage_regulations",
+              "Name": "Intermarital Regulations",
+              "RequiredIds": [
+                "att_roman_west_civil_legal_science"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_city_major_3",
+                "att_bld_roman_west_city_minor_generic_3"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_imperial_church",
+              "Name": "Imperial Church",
+              "Effect": {
+                "PublicOrder": 2,
+                "Influences": [
+                  {
+                    "Value": 1
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_intermarriage_regulations",
+                "att_roman_civil_specialised_cultivation"
+              ],
+              "NegatedIds": [
+                "att_roman_civil_legacy_1"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_provincial_authority",
+              "Name": "Provincial Authority",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 3,
+                    "Category": 5
+                  },
+                  {
+                    "Value": 3,
+                    "Category": 6
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_legal_science"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_port_fish_3",
+                "att_bld_all_resources_port_trade_3",
+                "att_bld_roman_civic_market_food_3"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_agricultual_diversity",
+              "Name": "Land Tenancy",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 2
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_specialised_cultivation"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_agriculture_grain_4"
+              ]
+            }
+          ],
+          "CompletionEffect": {
+            "PublicOrder": 1
           }
         },
         {
           "Order": 3,
-          "UniversalPath": {
-            "Effect": {
-              "Bonuses": [
-                {
-                  "Value": 5,
-                  "Category": 1
-                },
-                {
-                  "Value": 5,
-                  "Category": 3
-                },
-                {
-                  "Value": 5,
-                  "Category": 4
-                },
-                {
-                  "Value": 5,
-                  "Category": 5
-                },
-                {
-                  "Value": 5,
-                  "Category": 6
-                }
+          "Technologies": [
+            {
+              "Id": "att_roman_military_system_of_tactics",
+              "Name": "New Tactics",
+              "RequiredIds": [
+                "att_roman_military_imperial_transport_service"
               ]
             },
-            "UnlockedBuildingLevelIds": [
-              "att_bld_all_industry_major_pewter_4",
-              "att_bld_all_industry_major_pottery_4",
-              "att_bld_all_industry_minor_quarry_4",
-              "att_bld_all_industry_minor_tannery_4",
-              "att_bld_all_livestock_cows_4",
-              "att_bld_all_livestock_sheep_4",
-              "att_bld_all_military_upgrades_armor_3",
-              "att_bld_all_military_upgrades_weapons_3",
-              "att_bld_all_military_upgrades_wood_3",
-
-              "att_bld_roman_civic_market_food_4",
-              "att_bld_roman_civic_market_slave_3",
-              "att_bld_roman_civic_market_wine_3",
-
-              "att_bld_roman_west_city_major_4",
-              "att_bld_roman_west_city_minor_generic_4",
-              "att_bld_roman_west_civic_monument_3",
-              "att_bld_roman_west_military_cavalry_4",
-              "att_bld_roman_west_military_infantry_4"
-            ]
-          },
-          "AntilegacyPath": {
-            "Effect": {
-              "TaxRate": 3,
-              "CorruptionRate": -2,
-              "Influences": [
-                {
-                  "Value": 2
-                }
+            {
+              "Id": "att_roman_military_weapon_manufactories",
+              "Name": "Weapon Manufactories",
+              "RequiredIds": [
+                "att_roman_military_regionalisation_of_the_army",
+                "att_roman_military_military_provisions"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_military_upgrades_armor_3",
+                "att_bld_all_military_upgrades_weapons_3",
+                "att_bld_all_military_upgrades_wood_3"
               ]
             },
-            "UnlockedBuildingLevelIds": [
-              "att_bld_religion_arian_legendary_3",
-              "att_bld_religion_arian_legendary_4",
-              "att_bld_religion_arian_major_church_3",
-              "att_bld_religion_arian_major_church_4",
-              "att_bld_religion_arian_major_monestary_3",
-              "att_bld_religion_arian_major_monestary_4",
-              "att_bld_religion_arian_minor_4",
-              "att_bld_religion_catholic_legendary_3",
-              "att_bld_religion_catholic_legendary_4",
-              "att_bld_religion_catholic_major_church_3",
-              "att_bld_religion_catholic_major_church_4",
-              "att_bld_religion_catholic_major_monestary_3",
-              "att_bld_religion_catholic_major_monestary_4",
-              "att_bld_religion_catholic_minor_4",
-              "att_bld_religion_orthodox_legendary_3",
-              "att_bld_religion_orthodox_legendary_4",
-              "att_bld_religion_orthodox_major_church_3",
-              "att_bld_religion_orthodox_major_church_4",
-              "att_bld_religion_orthodox_major_monestary_3",
-              "att_bld_religion_orthodox_major_monestary_4",
-              "att_bld_religion_orthodox_minor_4"
-            ],
-            "LockedBuildingLevelIds": [
-              "att_bld_roman_civic_entertain_arena_3",
-              "att_bld_roman_civic_entertain_arena_4",
-              "att_bld_roman_water_aqueducts_4",
-              "att_bld_roman_water_minor_4",
-              "att_bld_roman_water_sewers_4"
-            ]
+            {
+              "Id": "att_roman_military_new_conscription_system",
+              "Name": "New Conscription System",
+              "RequiredIds": [
+                "att_roman_military_compulsory_levy",
+                "att_roman_military_system_of_tactics"
+              ]
+            },
+            {
+              "Id": "att_roman_military_enhanced_troop_privileges",
+              "Name": "Elite Privileges",
+              "RequiredIds": [
+                "att_roman_military_imperial_transport_service",
+                "att_roman_military_weapon_manufactories"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_military_cavalry_4",
+                "att_bld_roman_west_military_infantry_4"
+              ]
+            },
+            {
+              "Id": "att_roman_military_defence_in_depth",
+              "Name": "Defence in Depth",
+              "RequiredIds": [
+                "att_roman_military_regionalisation_of_the_army"
+              ]
+            },
+            {
+              "Id": "att_roman_military_heavy_cavalry_tactics_west",
+              "Name": "Western Heavy Cavalry Tactics",
+              "RequiredIds": [
+                "att_roman_military_system_of_tactics",
+                "att_roman_military_new_conscription_system"
+              ]
+            }
+          ]
+        },
+        {
+          "Order": 3,
+          "Technologies": [
+            {
+              "Id": "att_roman_civil_hereditary_careers",
+              "Name": "Hereditary Careers",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 4
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_specialised_craftsmen"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_industry_major_pewter_4",
+                "att_bld_all_industry_major_pottery_4",
+                "att_bld_all_industry_minor_quarry_4",
+                "att_bld_all_industry_minor_tannery_4"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_canon_law",
+              "Name": "Canonical Law",
+              "Effect": {
+                "Influences": [
+                  {
+                    "Value": 1
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_imperial_church"
+              ],
+              "NegatedIds": [
+                "att_roman_civil_legacy_2"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_religion_arian_legendary_3",
+                "att_bld_religion_arian_major_church_3",
+                "att_bld_religion_arian_major_monestary_3",
+                "att_bld_religion_arian_minor_4",
+                "att_bld_religion_catholic_legendary_3",
+                "att_bld_religion_catholic_major_church_3",
+                "att_bld_religion_catholic_major_monestary_3",
+                "att_bld_religion_catholic_minor_4",
+                "att_bld_religion_orthodox_legendary_3",
+                "att_bld_religion_orthodox_major_church_3",
+                "att_bld_religion_orthodox_major_monestary_3",
+                "att_bld_religion_orthodox_minor_4"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_local_trade_venues",
+              "Name": "Local Trade Venues",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 5
+                  },
+                  {
+                    "Value": 5,
+                    "Category": 6
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_provincial_authority"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_civic_market_food_4",
+                "att_bld_roman_civic_market_slave_3",
+                "att_bld_roman_civic_market_wine_3"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_long_lease_contracts",
+              "Name": "Long Lease Contracts",
+              "RequiredIds": [
+                "att_roman_civil_agricultual_diversity",
+                "att_roman_civil_hereditary_careers"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_livestock_cows_4",
+                "att_bld_all_livestock_sheep_4"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_barbarian_enclaves",
+              "Name": "Barbarian Enclaves",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 3
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_intermarriage_regulations"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_city_major_4",
+                "att_bld_roman_west_city_minor_generic_4",
+                "att_bld_roman_west_civic_monument_3"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_ecclesiastical_jurisdiction",
+              "Name": "Ecclesiastical Jurisdiction",
+              "Effect": {
+                "CorruptionRate": -2,
+                "Influences": [
+                  {
+                    "Value": 1
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_canon_law",
+                "att_roman_civil_long_lease_contracts",
+                "att_roman_west_civil_barbarian_enclaves"
+              ],
+              "NegatedIds": [
+                "att_roman_civil_legacy_3"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_religion_arian_legendary_4",
+                "att_bld_religion_arian_major_church_4",
+                "att_bld_religion_arian_major_monestary_4",
+                "att_bld_religion_catholic_legendary_4",
+                "att_bld_religion_catholic_major_church_4",
+                "att_bld_religion_catholic_major_monestary_4",
+                "att_bld_religion_orthodox_legendary_4",
+                "att_bld_religion_orthodox_major_church_4",
+                "att_bld_religion_orthodox_major_monestary_4"
+              ]
+            }
+          ],
+          "CompletionEffect": {
+            "TaxRate": 3
           }
         },
         {
           "Order": 4,
-          "UniversalPath": {
-            "Effect": {
-              "TaxRate": 5,
-              "CorruptionRate": -1,
-              "Bonuses": [
-                {
-                  "Value": 10,
-                  "Category": 1
-                },
-                {
-                  "Value": 5,
-                  "Category": 2
-                },
-                {
-                  "Value": 7,
-                  "Category": 3
-                },
-                {
-                  "Value": 10,
-                  "Category": 4
-                },
-                {
-                  "Value": 7,
-                  "Category": 5
-                },
-                {
-                  "Value": 7,
-                  "Category": 6
-                },
-                {
-                  "Value": 15,
-                  "Category": 7
-                }
+          "Technologies": [
+            {
+              "Id": "att_roman_military_barbarian_recruits",
+              "Name": "Barbarian Recruits",
+              "RequiredIds": [
+                "att_roman_military_new_conscription_system"
               ]
             },
-            "UnlockedBuildingLevelIds": [
-              "att_bld_all_military_upgrades_armor_4",
-              "att_bld_all_military_upgrades_weapons_4",
-              "att_bld_all_military_upgrades_wood_4",
-              "att_bld_all_resources_dyes_4",
-              "att_bld_all_resources_furs_4",
-              "att_bld_all_resources_gems_4",
-              "att_bld_all_resources_gold_jeweler_4",
-              "att_bld_all_resources_gold_mine_4",
-              "att_bld_all_resources_iron_armory_4",
-              "att_bld_all_resources_iron_blacksmith_4",
-              "att_bld_all_resources_lead_4",
-              "att_bld_all_resources_marble_mason_4",
-              "att_bld_all_resources_marble_quarry_4",
-              "att_bld_all_resources_olives_4",
-              "att_bld_all_resources_orchards_fruit_4",
-              "att_bld_all_resources_orchards_vineyard_4",
-              "att_bld_all_resources_port_fish_4",
-              "att_bld_all_resources_port_military_4",
-              "att_bld_all_resources_port_spice_4",
-              "att_bld_all_resources_port_trade_4",
-              "att_bld_all_resources_salt_4",
-              "att_bld_all_resources_silk_4",
-              "att_bld_all_resources_wood_4",
-
-              "att_bld_roman_civic_market_slave_4",
-              "att_bld_roman_civic_market_wine_4",
-
-              "att_bld_roman_west_civic_governor_4",
-              "att_bld_roman_west_civic_monument_4",
-              "att_bld_roman_west_military_skirmisher_4"
-            ]
-          },
-          "AntilegacyPath": {
-            "Effect": {
-              "PublicOrder": 8,
-              "TaxRate": 5,
-              "CorruptionRate": -13
+            {
+              "Id": "att_roman_military_federate_forces",
+              "Name": "Federate Forces",
+              "RequiredIds": [
+                "att_roman_military_enhanced_troop_privileges",
+                "att_roman_military_heavy_cavalry_tactics_west"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_port_military_4",
+                "att_bld_roman_west_military_skirmisher_4"
+              ]
             },
-            "UnlockedBuildingLevelIds": [
-              "att_bld_religion_arian_legendary_5",
-              "att_bld_religion_catholic_legendary_5",
-              "att_bld_religion_orthodox_legendary_5"
-            ],
-            "LockedBuildingLevelIds": [
-              "att_bld_roman_water_aqueducts_3",
-              "att_bld_roman_water_minor_3",
-              "att_bld_roman_water_sewers_3"
-            ]
+            {
+              "Id": "att_roman_military_defensive_logistical_expenditure",
+              "Name": "Defensive Logistics",
+              "RequiredIds": [
+                "att_roman_military_weapon_manufactories",
+                "att_roman_military_defence_in_depth"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_military_upgrades_armor_4",
+                "att_bld_all_military_upgrades_weapons_4",
+                "att_bld_all_military_upgrades_wood_4"
+              ]
+            },
+            {
+              "Id": "att_roman_military_improved_incendiary_warfare",
+              "Name": "Improved Incendiary Warfare",
+              "RequiredIds": [
+                "att_roman_military_defensive_logistical_expenditure"
+              ]
+            },
+            {
+              "Id": "att_roman_military_mercenary_exploitation",
+              "Name": "Mercenary Exploitation",
+              "RequiredIds": [
+                "att_roman_military_barbarian_recruits"
+              ]
+            },
+            {
+              "Id": "att_roman_military_billiting",
+              "Name": "Billeting",
+              "RequiredIds": [
+                "att_roman_military_federate_forces",
+                "att_roman_military_defensive_logistical_expenditure"
+              ]
+            },
+            {
+              "Id": "att_roman_military_language_of_comradeship",
+              "Name": "Language of Comradeship",
+              "RequiredIds": [
+                "att_roman_military_defence_in_depth"
+              ]
+            }
+          ]
+        },
+        {
+          "Order": 4,
+          "Technologies": [
+            {
+              "Id": "att_roman_civil_taxes_in_kind",
+              "Name": "Taxes in Kind",
+              "Effect": {
+                "TaxRate": 2,
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 1
+                  },
+                  {
+                    "Value": 5,
+                    "Category": 2
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_long_lease_contracts"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_furs_4",
+                "att_bld_all_resources_olives_4",
+                "att_bld_all_resources_orchards_fruit_4",
+                "att_bld_all_resources_orchards_vineyard_4"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_tax_farming",
+              "Name": "Tax Farming",
+              "Effect": {
+                "TaxRate": 3
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_local_trade_venues"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_port_fish_4",
+                "att_bld_all_resources_port_trade_4",
+                "att_bld_roman_civic_market_slave_4",
+                "att_bld_roman_civic_market_wine_4"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_specialised_industry",
+              "Name": "Specialised Industry",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 4
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_hereditary_careers",
+                "att_roman_civil_taxes_in_kind"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_iron_armory_4",
+                "att_bld_all_resources_iron_blacksmith_4",
+                "att_bld_all_resources_lead_4",
+                "att_bld_all_resources_wood_4"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_divine_right",
+              "Name": "Divine Right",
+              "Effect": {
+                "PublicOrder": 3
+              },
+              "RequiredIds": [
+                "att_roman_civil_ecclesiastical_jurisdiction"
+              ],
+              "NegatedIds": [
+                "att_roman_civil_legacy_4"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_religion_arian_legendary_5",
+                "att_bld_religion_catholic_legendary_5",
+                "att_bld_religion_orthodox_legendary_5"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_new_aristocracy",
+              "Name": "New Aristocracy",
+              "Effect": {
+                "CorruptionRate": -1,
+                "Bonuses": [
+                  {
+                    "Value": 7,
+                    "Category": 3
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_barbarian_enclaves",
+                "att_roman_west_civil_tax_farming"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_roman_west_civic_governor_4",
+                "att_bld_roman_west_civic_monument_4"
+              ]
+            },
+            {
+              "Id": "att_roman_civil_organisation_of_production",
+              "Name": "Craft Organisations",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 5,
+                    "Category": 1
+                  },
+                  {
+                    "Value": 5,
+                    "Category": 4
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_civil_specialised_industry"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_dyes_4",
+                "att_bld_all_resources_gold_mine_4",
+                "att_bld_all_resources_marble_mason_4",
+                "att_bld_all_resources_marble_quarry_4",
+                "att_bld_all_resources_salt_4"
+              ]
+            },
+            {
+              "Id": "att_roman_west_civil_decentralised_state",
+              "Name": "Decentralised State",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 7,
+                    "Category": 5
+                  },
+                  {
+                    "Value": 7,
+                    "Category": 6
+                  },
+                  {
+                    "Value": 15,
+                    "Category": 7
+                  }
+                ]
+              },
+              "RequiredIds": [
+                "att_roman_west_civil_tax_farming"
+              ],
+              "UnlockedBuildingLevelIds": [
+                "att_bld_all_resources_gems_4",
+                "att_bld_all_resources_gold_jeweler_4",
+                "att_bld_all_resources_port_spice_4",
+                "att_bld_all_resources_silk_4"
+              ]
+            }
+          ],
+          "CompletionEffect": {
+            "CorruptionRate": -10
           }
+        },
+        {
+          "Order": 5,
+          "Technologies": [
+            {
+              "Id": "att_roman_military_militarised_society",
+              "Name": "Militarised Society",
+              "RequiredIds": [
+                "att_roman_military_billiting",
+                "att_roman_military_language_of_comradeship"
+              ]
+            }
+          ]
+        },
+        {
+          "Order": 5,
+          "Technologies": [
+            {
+              "Id": "att_roman_west_civil_hereditary_monarchy",
+              "Name": "Hereditary Monarchy",
+              "Effect": {
+                "CorruptionRate": -3,
+                "TaxRate": 5,
+                "PublicOrder": 5
+              },
+              "RequiredIds": [
+                "att_roman_civil_taxes_in_kind",
+                "att_roman_civil_divine_right",
+                "att_roman_west_civil_new_aristocracy"
+              ]
+            }
+          ]
         }
       ]
     }

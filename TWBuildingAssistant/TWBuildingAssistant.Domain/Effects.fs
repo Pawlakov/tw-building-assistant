@@ -514,15 +514,9 @@ let internal getStateFromSettings
             { Category = MaritimeCommerce
               Value = -settings.PiracyRate }
 
-    let factionEffects = 
-        settings.FactionId 
-        |> getFactionEffectTupleSeq 
-        |> createEffectSets
+    let factionEffects = settings |> getFactionEffectTupleSeq |> createEffectSets
 
-    let technologyEffects = 
-        (settings.FactionId, settings.TechnologyTier, settings.UseAntilegacyTechnologies) 
-        |> getTechnologyEffectTupleSeq 
-        |> createEffectSets
+    let technologyEffects = settings |> getTechnologyEffectTupleSeq |> createEffectSets
 
     let effectSets =
         factionEffects@

@@ -1,7 +1,6 @@
 ﻿module TWBuildingAssistant.Domain.Interface
 
 open TWBuildingAssistant.Data.Sqlite
-open TWBuildingAssistant.Domain.Factions
 open DTOs
 open Data
 open System.IO
@@ -241,7 +240,7 @@ let getSettingOptions () =
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
-    let getFactionTupleSeq = FactionsData.getFactionsData >> Factions.getFactionPairs
+    let getFactionTupleSeq = Factions.Data.getFactionsData >> Factions.getFactionPairs
 
     let options =
         Settings.getOptions
@@ -266,12 +265,18 @@ let getProvince provinceId =
 
 let getBuildingLibrary settings =
     let provincesData = getProvincesData ()
-    let factionsData = FactionsData.getFactionsData ()
+    let factionsData = Factions.Data.getFactionsData ()
     let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
-    let buildingsModels = Buildings.getBuildingLibrary buildingsData factionsData provincesData settingsModel
+    let buildingsModels = 
+        Buildings.getBuildingLibrary 
+            buildingsData 
+            (factionsData |> Factions.getUsedBuildingBranchIds) 
+            (factionsData |> Factions.getUnlockedBuildingLevelIds)  
+            provincesData 
+            settingsModel
 
     buildingsModels
     |> Array.map mapBuildingLibraryEntryToDTO
@@ -283,7 +288,7 @@ let getState ctx buildingLevelIds settings =
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
-    let factionsData = FactionsData.getFactionsData ()
+    let factionsData = Factions.Data.getFactionsData ()
     let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
@@ -328,7 +333,7 @@ let seek
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
-    let factionsData = FactionsData.getFactionsData ()
+    let factionsData = Factions.Data.getFactionsData ()
     let buildingsData = getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
@@ -346,7 +351,13 @@ let seek
             (factionsData |> Factions.getTechnologyEffects)
             settingsModel
 
-    let buildingLibrary = Buildings.getBuildingLibrary buildingsData factionsData provincesData settingsModel
+    let buildingLibrary = 
+        Buildings.getBuildingLibrary 
+            buildingsData 
+            (factionsData |> Factions.getUsedBuildingBranchIds) 
+            (factionsData |> Factions.getUnlockedBuildingLevelIds) 
+            provincesData 
+            settingsModel
 
     let seekerSettingsModel =
         seekerSettings

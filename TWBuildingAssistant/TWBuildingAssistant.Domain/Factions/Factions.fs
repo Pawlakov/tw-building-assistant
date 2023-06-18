@@ -6,7 +6,7 @@ module Data =
     open System.IO
     open System.Reflection
 
-    type private JsonData = JsonProvider<Sample="Factions\Factions-sample.json", SampleIsList=true>
+    type private JsonData = JsonProvider<Sample="Factions\Factions-sample.json", SampleIsList=false>
 
     type internal JsonFaction = JsonData.Faction
     type internal JsonFactionEffect = JsonData.Effect
@@ -21,19 +21,20 @@ module Data =
         use reader = new StreamReader (stream)
         (() |> reader.ReadToEnd |> JsonData.Parse).Factions
 
-let private getBonusTupleFromJson (jsonBonus: Data.JsonFactionBonus) =
+// Constructors
+let private createBonusFromJson (jsonBonus: Data.JsonFactionBonus) =
     let value = jsonBonus.Value
-    let category = jsonBonus.Category
+    let category = jsonBonus.Category |> Effects.createIncomeCategoryOption
 
-    (value, category)
+    Effects.createBonus value category
 
-let private getInfluenceTupleFromJson (jsonInfluence: Data.JsonFactionInfluence) =
+let private createInfluenceFromJson (jsonInfluence: Data.JsonFactionInfluence) =
     let religionId = jsonInfluence.ReligionId
     let value = jsonInfluence.Value
 
-    (value, religionId)
+    Effects.createInfluence value religionId
 
-let private getEffectSetTupleFromJson (jsonEffect: Data.JsonFactionEffect) =
+let private createEffectSetFromJson (jsonEffect: Data.JsonFactionEffect) =
     let publicOrder = jsonEffect.PublicOrder |> Option.defaultValue 0
     let food = jsonEffect.Food |> Option.defaultValue 0
     let sanitation = jsonEffect.Sanitation |> Option.defaultValue 0
@@ -44,13 +45,16 @@ let private getEffectSetTupleFromJson (jsonEffect: Data.JsonFactionEffect) =
     let taxRate = jsonEffect.TaxRate |> Option.defaultValue 0
     let corruptionRate = jsonEffect.CorruptionRate |> Option.defaultValue 0
 
-    let effectTuple = (publicOrder, food, sanitation, researchRate, growth, fertility, religiousOsmosis, taxRate, corruptionRate)
+    let effect = Effects.createEffect publicOrder food sanitation researchRate growth fertility religiousOsmosis taxRate corruptionRate
 
-    let bonusTupleSeq = query { for jsonBonus in jsonEffect.Bonuses do select (getBonusTupleFromJson jsonBonus) }
+    let bonusSeq = jsonEffect.Bonuses |> Seq.map createBonusFromJson
 
-    let influenceTupleSeq = query { for jsonBonus in jsonEffect.Influences do select (getInfluenceTupleFromJson jsonBonus) }
+    let influenceSeq = jsonEffect.Influences |> Seq.map createInfluenceFromJson
 
-    ( effectTuple, bonusTupleSeq, influenceTupleSeq )
+    Effects.createEffectSet effect bonusSeq influenceSeq
+
+let private createEffectSetFromJsonOption = Option.map createEffectSetFromJson >> Option.defaultValue Effects.emptyEffectSet
+//
 
 let private isAntilegacy (jsonTechnology: Data.JsonTechnology) =
     (Array.length jsonTechnology.NegatedIds) > 0
@@ -75,10 +79,10 @@ let private getEffectSetsFromTechnologyGroupSeq (jsonTechnologyIdSeq: seq<string
     let allInGroupIdEffectPairs = jsonTechnologyGroup.Technologies |> Seq.map (fun x -> x.Id, x.Effect)
     let unlockedEffectPairs = allInGroupIdEffectPairs |> Seq.map (fun (x, y) -> (jsonTechnologyIdSeq |> Seq.contains x, y))
 
-    let technologyEffecs = unlockedEffectPairs |> Seq.map snd |> Seq.choose id |> Seq.map getEffectSetTupleFromJson
+    let technologyEffecs = unlockedEffectPairs |> Seq.map snd |> Seq.choose id |> Seq.map createEffectSetFromJson
     match unlockedEffectPairs |> Seq.forall (fun (x, _) -> x) with
     | true ->
-        Seq.concat [technologyEffecs; (jsonTechnologyGroup.CompletionEffect |> Option.map getEffectSetTupleFromJson |> Option.toList |> List.toSeq)]
+        Seq.concat [technologyEffecs; (jsonTechnologyGroup.CompletionEffect |> Option.map createEffectSetFromJson |> Option.toList |> List.toSeq)]
     | false ->
         technologyEffecs
 
@@ -89,7 +93,7 @@ let private getBuildingIdsFromTechnologyGroupSeq (jsonTechnologyIdSeq: seq<strin
     unlockedEffectPairs |> Seq.map snd |> Seq.concat
 
 
-let internal getFactionEffects (factionsData: Data.JsonFaction []) (settings: Settings.Settings) =
+let internal getFactionEffect (factionsData: Data.JsonFaction []) (settings: Settings.Settings) =
     let jsonEffect = query {
             for jsonFaction in factionsData do
                 where (jsonFaction.Id = settings.FactionId)
@@ -97,10 +101,7 @@ let internal getFactionEffects (factionsData: Data.JsonFaction []) (settings: Se
                 exactlyOne
         }
 
-    jsonEffect 
-    |> Option.map getEffectSetTupleFromJson
-    |> Option.toList
-    |> List.toSeq
+    jsonEffect |> createEffectSetFromJsonOption
 
 let internal getTechnologyEffects (factionsData: Data.JsonFaction []) (settings: Settings.Settings) =
     let faction =

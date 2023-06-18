@@ -1,4 +1,4 @@
-﻿module TWBuildingAssistant.Domain.Province
+﻿module TWBuildingAssistant.Domain.Provinces
 
 open Data
 
@@ -72,7 +72,7 @@ let internal createProvince id name city townFirst townSecond =
     | _ ->
         { Id = id; Name = name; Regions = [| city; townFirst; townSecond |] }
 
-let internal getProvince (provincesData:ProvincesData.Root[]) (resourcesData:ResourcesData.Root[]) provinceId =
+let internal getProvince (provincesData: ProvincesData.Root[]) (resourcesData: ResourcesData.Root[]) provinceId =
     let province =
         query {
             for province in provincesData do
@@ -117,3 +117,28 @@ let internal getProvince (provincesData:ProvincesData.Root[]) (resourcesData:Res
     let townSecond = regionMap (TownSecondData province.TownSecond)
 
     createProvince province.Id province.Name city townFirst townSecond
+
+let internal getDescriptors (provincesData: ProvincesData.Root[]) (settings: Settings.Settings) =
+    let slotTypes = [ Main; Coastal; General ]
+    let regionTypes = [ City; Town ]
+
+    let province =
+        query {
+            for province in provincesData do
+                where (province.Id = settings.ProvinceId)
+                head
+        }
+
+    let resourceIdsInProvince =
+        [province.City.ResourceId; province.TownFirst.ResourceId; province.TownSecond.ResourceId]
+        |> List.distinct
+
+    slotTypes
+    |> List.collect (fun slotType ->
+        regionTypes
+        |> List.collect (fun regionType ->
+            resourceIdsInProvince
+            |> List.map (fun resourceId ->
+                { SlotType = slotType
+                  RegionType = regionType
+                  ResourceId = resourceId })))

@@ -1,0 +1,95 @@
+﻿{
+  "$schema": ".\\Buildings-schema.json",
+  "Branches": [
+    {
+      "Id": "a",
+      "Name": "a",
+      "SlotType": 0,
+      "RegionType": 0,
+      "ReligionId": 0,
+      "ResourceId": 0,
+      "AllowParallel": true,
+      "Interesting": true,
+      "Levels": [
+        {
+          "Id": "a",
+          "ParentId": "a",
+          "Name": "a",
+          "Maintenance": 0,
+          "LocalFood": 0,
+          "LocalFoodFromFertility": 0,
+          "LocalSanitation": 0,
+          "CapitalTier": 0,
+          "Effect": {
+            "PublicOrder": 0,
+            "ResearchRate": 0,
+            "Growth": 0,
+            "Fertility": 0,
+            "ReligiousOsmosis": 0,
+            "Food": 0,
+            "Sanitation": 0,
+            "TaxRate": 0,
+            "CorruptionRate": 0,
+            "Bonuses": [
+              {
+                "Value": 0,
+                "Category": 0
+              },
+              {
+                "Value": 0
+              }
+            ],
+            "Influences": [
+              {
+                "Value": 0,
+                "ReligionId": 0
+              },
+              {
+                "Value": 0
+              }
+            ]
+          },
+          "Incomes": [
+            {
+              "Value": 0,
+              "Category": 0,
+              "IsFertilityDependent": true
+            },
+            {
+              "Value": 0,
+              "Category": 0
+            }
+          ]
+        },
+        {
+          "Id": "a",
+          "Name": "a",
+          "Effect": {}
+        },
+        {
+          "Id": "a",
+          "Name": "a"
+        }
+      ]
+    },
+    {
+      "Id": "a",
+      "Name": "a",
+      "SlotType": 0,
+      "Levels": [
+        {
+          "Id": "a",
+          "Name": "a"
+        },
+        {
+          "Id": "a",
+          "Name": "a"
+        },
+        {
+          "Id": "a",
+          "Name": "a"
+        }
+      ]
+    }
+  ]
+}

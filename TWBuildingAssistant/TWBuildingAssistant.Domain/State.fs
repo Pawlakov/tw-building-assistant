@@ -27,7 +27,7 @@ let internal gatherRegionLocalEffects regionBuildings =
     let localEffect =
         regionBuildings 
         |> Seq.map (fun x -> x.LocalEffectSet.LocalEffect)
-        |> collectLocalEffectsSeq
+        |> collectLocalEffects
     let incomes =
         regionBuildings
         |> Seq.collect (fun x -> x.LocalEffectSet.Incomes)
@@ -43,7 +43,7 @@ let internal gatherEffects buildings predefinedEffect =
         provinceBuildings 
         |> Seq.map (fun x -> x.EffectSet.Effect)
         |> Seq.append (Seq.singleton predefinedEffect.Effect)
-        |> collectEffectsSeq
+        |> collectEffects
 
     let bonuses = 
         provinceBuildings 
@@ -100,7 +100,7 @@ let internal getState buildings settings predefinedEffectSet =
         provinceEffectSet.Effect.Food + Array.sumBy (fun x -> x.Food) regionStates
 
     let publicOrder = 
-        provinceEffectSet.Effect.PublicOrder + collectInfluencesSeq settings.ReligionId provinceEffectSet.Influences
+        provinceEffectSet.Effect.PublicOrder + collectInfluences settings.ReligionId provinceEffectSet.Influences
 
     let totalWealth =
         Array.sumBy (fun x -> x.Wealth) regionStates

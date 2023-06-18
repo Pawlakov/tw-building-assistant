@@ -43,30 +43,30 @@ let internal mapOptionSetToDTO (model: Settings.OptionSet) =
         |> List.map mapNamedIdToDTO
         |> List.toArray }
 
-let internal mapSlotToDTO (model: Province.SlotDescriptor) =
+let internal mapSlotToDTO (model: Provinces.SlotDescriptor) =
     let mapSlotType slotType =
         match slotType with
-        | Province.Main -> 0
-        | Province.Coastal -> 1
-        | Province.General -> 2
+        | Provinces.Main -> 0
+        | Provinces.Coastal -> 1
+        | Provinces.General -> 2
 
     let mapRegionType regionType =
         match regionType with
-        | Province.City -> 0
-        | Province.Town -> 1
+        | Provinces.City -> 0
+        | Provinces.Town -> 1
 
     { SlotType = model.SlotType |> mapSlotType
       RegionType = model.RegionType |> mapRegionType
       ResourceId = model.ResourceId }
 
-let internal mapRegionToDTO (model: Province.Region) =
+let internal mapRegionToDTO (model: Provinces.Region) =
     { Id = model.Id
       Name = model.Name
       ResourceId = model.ResourceId
       ResourceName = model.ResourceName
       Slots = model.Slots |> Array.map mapSlotToDTO }
 
-let internal mapProvinceToDTO (model: Province.Province) =
+let internal mapProvinceToDTO (model: Provinces.Province) =
     { Id = model.Id
       Name = model.Name
       Regions = model.Regions |> Array.map mapRegionToDTO }
@@ -127,20 +127,20 @@ let internal mapSettingsFromDTO dto : Settings.Settings =
 let internal mapSlotFromDTO dto =
     let mapSlotType slotType =
         match slotType with
-        | 0 -> Province.Main
-        | 1 -> Province.Coastal
-        | 2 -> Province.General
+        | 0 -> Provinces.Main
+        | 1 -> Provinces.Coastal
+        | 2 -> Provinces.General
         | _ -> failwith ""
 
     let mapRegionType regionType =
         match regionType with
-        | 0 -> Province.City
-        | 1 -> Province.Town
+        | 0 -> Provinces.City
+        | 1 -> Provinces.Town
         | _ -> failwith ""
 
     { SlotType = dto.SlotType |> mapSlotType
       RegionType = dto.RegionType |> mapRegionType
-      ResourceId = dto.ResourceId }: Province.SlotDescriptor
+      ResourceId = dto.ResourceId }: Provinces.SlotDescriptor
 
 let internal mapSeekerSettingsSlotFromDTO (buildingLibrary: Buildings.BuildingLibraryEntry []) seekerSettingsSlot =
     let descriptor = seekerSettingsSlot.Descriptor |> mapSlotFromDTO
@@ -223,15 +223,6 @@ let internal getPowerLevelsData () =
     |> File.ReadAllText
     |> PowerLevelsData.ParseList
 
-let internal getBuildingsData () =
-    let all = ("Data/BuildingsAll.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
-    let resource = ("Data/BuildingsResource.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
-    let religion = ("Data/BuildingsReligion.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
-    let roman = ("Data/BuildingsRoman.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
-    let romanWest = ("Data/BuildingsRomanWest.json" |> File.ReadAllText |> BuildingsData.Parse).Branches
-
-    Array.concat [all; resource; religion; roman; romanWest]
-
 let getSettingOptions () =
     let weathersData = getWeathersData ()
     let seasonsData = getSeasonsData ()
@@ -259,14 +250,14 @@ let getProvince provinceId =
     let resourcesData = getResourcesData ()
     let provincesData = getProvincesData ()
 
-    let province = Province.getProvince provincesData resourcesData provinceId
+    let province = Provinces.getProvince provincesData resourcesData provinceId
 
     province |> mapProvinceToDTO
 
 let getBuildingLibrary settings =
     let provincesData = getProvincesData ()
     let factionsData = Factions.Data.getFactionsData ()
-    let buildingsData = getBuildingsData ()
+    let buildingsData = Buildings.Data.getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
@@ -275,7 +266,7 @@ let getBuildingLibrary settings =
             buildingsData 
             (factionsData |> Factions.getUsedBuildingBranchIds) 
             (factionsData |> Factions.getUnlockedBuildingLevelIds)  
-            provincesData 
+            (provincesData |> Provinces.getDescriptors)
             settingsModel
 
     buildingsModels
@@ -289,7 +280,7 @@ let getState ctx buildingLevelIds settings =
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
     let factionsData = Factions.Data.getFactionsData ()
-    let buildingsData = getBuildingsData ()
+    let buildingsData = Buildings.Data.getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
@@ -302,7 +293,7 @@ let getState ctx buildingLevelIds settings =
             difficultiesData
             taxesData
             powerLevelsData
-            (factionsData |> Factions.getFactionEffects)
+            (factionsData |> Factions.getFactionEffect)
             (factionsData |> Factions.getTechnologyEffects)
             settingsModel
 
@@ -334,7 +325,7 @@ let seek
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
     let factionsData = Factions.Data.getFactionsData ()
-    let buildingsData = getBuildingsData ()
+    let buildingsData = Buildings.Data.getBuildingsData ()
 
     let settingsModel = settings |> mapSettingsFromDTO
 
@@ -347,7 +338,7 @@ let seek
             difficultiesData
             taxesData
             powerLevelsData
-            (factionsData |> Factions.getFactionEffects)
+            (factionsData |> Factions.getFactionEffect)
             (factionsData |> Factions.getTechnologyEffects)
             settingsModel
 
@@ -356,7 +347,7 @@ let seek
             buildingsData 
             (factionsData |> Factions.getUsedBuildingBranchIds) 
             (factionsData |> Factions.getUnlockedBuildingLevelIds) 
-            provincesData 
+            (provincesData |> Provinces.getDescriptors)
             settingsModel
 
     let seekerSettingsModel =

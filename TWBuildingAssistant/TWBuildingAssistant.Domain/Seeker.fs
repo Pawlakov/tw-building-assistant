@@ -1,13 +1,9 @@
 ﻿module TWBuildingAssistant.Domain.Seeker
 
-open Buildings
-open Province
-open State
-
 type internal CalculationSlot =
-    { Descriptor:SlotDescriptor
-      Branch:BuildingBranch option
-      Level:BuildingLevel option
+    { Descriptor:Provinces.SlotDescriptor
+      Branch:Buildings.BuildingBranch option
+      Level:Buildings.BuildingLevel option
       RegionId:int
       SlotIndex:int }
 
@@ -18,9 +14,9 @@ type internal CombinationTask =
     { Regions:CombinationTaskRegion[] }
 
 type internal SeekerSettingsSlot = 
-    { Branch:BuildingBranch option
-      Level:BuildingLevel option
-      Descriptor:SlotDescriptor
+    { Branch:Buildings.BuildingBranch option
+      Level:Buildings.BuildingLevel option
+      Descriptor:Provinces.SlotDescriptor
       RegionId:int
       SlotIndex:int }
 
@@ -28,8 +24,8 @@ type internal SeekerSettingsRegion =
     { Slots:SeekerSettingsSlot[] }
 
 type internal SeekerResult = 
-    { Branch:BuildingBranch
-      Level:BuildingLevel
+    { Branch:Buildings.BuildingBranch
+      Level:Buildings.BuildingLevel
       RegionId:int
       SlotIndex:int }
 
@@ -39,7 +35,7 @@ type internal SeekerResultWithIncome =
       CapitalTierSum:int
       Result:SeekerResult[] }
 
-let internal getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]) regionSeekerSettings =
+let internal getRegionCombinationsToSeek (buildingLibrary:Buildings.BuildingLibraryEntry[]) regionSeekerSettings =
     let simulationSlots = 
         regionSeekerSettings.Slots
         |> Array.map (fun y -> { Descriptor = y.Descriptor; Branch = y.Branch; Level = y.Level; RegionId = y.RegionId; SlotIndex = y.SlotIndex }:CalculationSlot)
@@ -60,7 +56,7 @@ let internal getRegionCombinationsToSeek (buildingLibrary:BuildingLibraryEntry[]
             | Some level ->
                 recursiveSeek (slotIndex + 1) (combination |> Array.append [|slot|])
             | None ->
-                let branchFilter (branch:BuildingBranch) =
+                let branchFilter (branch: Buildings.BuildingBranch) =
                     match (branch.Id, branch.Interesting) with
                     | _, false -> false
                     | "", _ -> true
@@ -93,7 +89,7 @@ let internal getCombinationsToSeek buildingLibrary (seekerSettings:SeekerSetting
 
     recursiveSeek 0 [||]
 
-let internal combinationComparer left right =
+let internal combinationComparerAscending left right =
     let capitalTiersMinCompare = compare left.CapitalTierMin right.CapitalTierMin
     if capitalTiersMinCompare = 0 then
 
@@ -104,6 +100,9 @@ let internal combinationComparer left right =
             capitalTiersSumCompare
     else
         capitalTiersMinCompare
+
+let internal combinationComparerDescending left right =
+    -1 * (combinationComparerAscending left right)
 
 let internal seek settings predefinedEffect buildingLibrary seekerSettings minimalCondition resetProgress incrementProgress =
     resetProgress 0
@@ -129,7 +128,7 @@ let internal seek settings predefinedEffect buildingLibrary seekerSettings minim
                 else
                     recursiveSeek (regionIndex + 1) 0 (combinationRegionResult::combinationResult) []
             else
-                let state = getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
+                let state = State.getState (combinationResult |> List.map (fun x -> x |> List.map (fun y -> y.Level))) settings predefinedEffect
                 if (minimalCondition state) then
                     let capitalTiers = state.Regions |> Array.map (fun x -> x.CapitalTier)
                     let capitalTierMin = capitalTiers |> Array.min
@@ -148,7 +147,7 @@ let internal seek settings predefinedEffect buildingLibrary seekerSettings minim
         combinations
         |> Array.map loop
         |> Array.choose id
-        |> Array.sortWith combinationComparer
+        |> Array.sortWith combinationComparerDescending
         |> Array.tryHead
 
     match bestCombination with

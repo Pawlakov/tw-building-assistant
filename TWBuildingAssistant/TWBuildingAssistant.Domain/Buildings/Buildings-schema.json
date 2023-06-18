@@ -67,7 +67,7 @@
           "type": "string"
         },
         "Effect": {
-          "$ref": ".\\Effects-schema.json#"
+          "$ref": "..\\Data\\Effects-schema.json#"
         },
         "Maintenance": {
           "type": "integer"

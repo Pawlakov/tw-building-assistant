@@ -10,24 +10,6 @@
     <None Include="Data\Effects-schema.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Data\BuildingsAll.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\BuildingsResource.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\BuildingsReligion.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\BuildingsRoman.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\BuildingsRomanWest.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Buildings-schema.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Data\Taxes.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -58,6 +40,7 @@
     <Compile Include="Data.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Effects.fs" />
+    <Compile Include="Provinces.fs" />
     <EmbeddedResource Include="Factions\Factions-schema.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -68,8 +51,28 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <Compile Include="Factions\Factions.fs" />
-    <Compile Include="Province.fs" />
-    <Compile Include="Buildings.fs" />
+    <EmbeddedResource Include="Buildings\Buildings-schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Buildings\Buildings-sample.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Buildings\BuildingsAll.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Buildings\BuildingsResource.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Buildings\BuildingsReligion.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Buildings\BuildingsRoman.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Buildings\BuildingsRomanWest.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Buildings\Buildings.fs" />
     <Compile Include="State.fs" />
     <Compile Include="Seeker.fs" />
     <Compile Include="DTOs.fs" />

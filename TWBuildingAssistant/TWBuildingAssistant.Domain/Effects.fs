@@ -94,7 +94,8 @@ let internal emptyLocalEffectSet =
       Incomes = [] }
 
 
-let private getIncomeCategory intValue =
+// Constructors
+let internal createIncomeCategory intValue =
     match intValue with
     | 1 -> Agriculture
     | 2 -> Husbandry
@@ -105,7 +106,9 @@ let private getIncomeCategory intValue =
     | 7 -> Subsistence
     | _ -> failwith "Invalid value"
 
-let private createEffect (publicOrder, food, sanitation, researchRate, growth, fertility, religiousOsmosis, taxRate, corruptionRate) =
+let internal createIncomeCategoryOption = Option.map createIncomeCategory
+
+let internal createEffect publicOrder food sanitation researchRate growth fertility religiousOsmosis taxRate corruptionRate =
     { PublicOrder = publicOrder
       Food = food
       Sanitation = sanitation
@@ -116,33 +119,23 @@ let private createEffect (publicOrder, food, sanitation, researchRate, growth, f
       TaxRate = taxRate
       CorruptionRate = corruptionRate }
 
-let private createBonus (value, categoryInt) =
-    match (value, categoryInt) with
-    | (_, Some categoryInt) -> CategoryBonus { Category = (categoryInt |> getIncomeCategory); Value = value }
+let internal createBonus value category =
+    match (value, category) with
+    | (_, Some category) -> CategoryBonus { Category = category; Value = value }
     | (_, _) -> AllBonus value
 
-let private createInfluence (value, religionId) =
+let internal createInfluence value religionId =
     match (religionId, value) with
     | (_, value) when value < 1 -> failwith "Negative influence."
     | (Some religionId, _) -> SpecificReligion { ReligionId = religionId; Value = value }
     | (None, _) -> StateReligion { Value = value }
 
-let private createEffectSet (effectTuple, bonusTupleSeq: seq<int*int option>, influenceTupleSeq: seq<int*int option>) =
-    { Effect = effectTuple |> createEffect
-      Bonuses = query { for tuple in bonusTupleSeq do select (createBonus tuple) } |> Seq.toList
-      Influences = query { for tuple in influenceTupleSeq do select (createInfluence tuple) } |> Seq.toList }
+let internal createEffectSet effect bonusSeq influenceSeq =
+    { Effect = effect
+      Bonuses = bonusSeq |> Seq.toList
+      Influences = influenceSeq |> Seq.toList }
 
-let private createEffectSets (tupleSeq: seq<(int*int*int*int*int*int*int*int*int)*seq<int*int option>*seq<int*int option>>) =
-    query { for tuple in tupleSeq do select (createEffectSet tuple) } |> Seq.toList
-
-let private getIncomeCategoryOption intValue =
-    intValue |> Option.map getIncomeCategory
-
-let private createIncomeFromJson (jsonBuildingIncome: JsonBuildingIncome) =
-    let value = jsonBuildingIncome.Value
-    let category = jsonBuildingIncome.Category |> getIncomeCategory
-    let isFertilityDependent = jsonBuildingIncome.IsFertilityDependent |> Option.defaultValue false
-
+let internal createIncome value category isFertilityDependent =
     match isFertilityDependent with
     | false ->
         { Category = category
@@ -157,6 +150,102 @@ let private createIncomeFromJson (jsonBuildingIncome: JsonBuildingIncome) =
               Value = FertilityDependent value }
         | (_, _) -> failwith "Invalid fertility-based income."
 
+let internal createLocalEffect maintenance food foodFromFertility sanitation capitalTier =
+    { Maintenance = maintenance
+      Food = food
+      FoodFromFertility = foodFromFertility
+      Sanitation = sanitation
+      CapitalTier = capitalTier }
+
+let internal createLocalEffectSet localEffect incomeSeq =
+    { LocalEffect = localEffect
+      Incomes = incomeSeq |> Seq.toList }
+//
+
+// Collectors
+let internal collectEffects effectSeq =
+    let effectFolder state effect =
+        { PublicOrder = state.PublicOrder + effect.PublicOrder
+          Food = state.Food + effect.Food
+          Sanitation = state.Sanitation + effect.Sanitation
+          ResearchRate = state.ResearchRate + effect.ResearchRate
+          Growth = state.Growth + effect.Growth
+          Fertility = state.Fertility + effect.Fertility
+          ReligiousOsmosis = state.ReligiousOsmosis + effect.ReligiousOsmosis
+          TaxRate = state.TaxRate + effect.TaxRate
+          CorruptionRate = state.CorruptionRate + effect.CorruptionRate }
+
+    Seq.fold effectFolder emptyEffect effectSeq
+
+let internal collectIncomes fertilityLevel bonusSeq incomeSeq =
+    let bonusFolder (records, allBonus) bonus =
+        match bonus with
+        | AllBonus value -> (records, allBonus + value)
+        | CategoryBonus income -> (income :: records, allBonus)
+
+    let (categoryBonuses, allBonus) = Seq.fold bonusFolder ([], 0) bonusSeq
+
+    let bonusesGrouped =
+        categoryBonuses
+        |> List.groupBy (fun x -> x.Category)
+
+    let incomesGrouped = Seq.groupBy (fun (x: Income) -> x.Category) incomeSeq
+
+    let incomeCategoryFolder total (category, categoryIncomes) =
+        let incomeFolder sum (income: Income) =
+            match income.Value with
+            | Simple value -> sum + value
+            | FertilityDependent value -> sum + (value * fertilityLevel)
+
+        let basePercentage = 100 + allBonus
+
+        let percentage =
+            bonusesGrouped
+            |> List.tryPick (fun (x, y) -> if x = category then Some y else None)
+            |> Option.map (fun x -> x |> List.sumBy (fun y -> y.Value))
+            |> Option.fold (fun x y -> x + y) basePercentage
+
+        let sum = Seq.fold incomeFolder 0 categoryIncomes
+
+        total + (float (sum * percentage) * 0.01)
+
+    let total = Seq.fold incomeCategoryFolder 0 incomesGrouped
+
+    total
+
+let internal collectInfluences stateReligionId influenceSeq =
+    let influenceFolder (state, all) influence =
+        match influence with
+        | StateReligion influence ->
+            (state + influence.Value, all + influence.Value)
+        | SpecificReligion influence when influence.ReligionId = stateReligionId ->
+            (state + influence.Value, all + influence.Value)
+        | SpecificReligion influence ->
+            (state, all + influence.Value)
+
+    let (state, all) = Seq.fold influenceFolder (0, 0) influenceSeq
+
+    let percentage =
+        match all with
+        | 0 -> 100.0
+        | _ -> 100.0 * float (state) / float (all)
+
+    let result = 0 - int (System.Math.Floor((750.0 - (percentage * 7.0)) * 0.01))
+
+    result
+
+let internal collectLocalEffects localEffectSeq =
+    let localEffectFolder state effect =
+        { Maintenance = state.Maintenance + effect.Maintenance
+          Food = state.Food + effect.Food
+          FoodFromFertility = state.FoodFromFertility + effect.FoodFromFertility
+          Sanitation = state.Sanitation + effect.Sanitation
+          CapitalTier = System.Math.Max (state.CapitalTier, effect.CapitalTier) }
+
+    Seq.fold localEffectFolder emptyLocalEffect localEffectSeq
+//
+
+// Legacy constructors (TODO remove)
 let private createBonusFromEntity (rd: Entities.Bonus) =
     let value = rd.Value
 
@@ -165,19 +254,9 @@ let private createBonusFromEntity (rd: Entities.Bonus) =
              Some rd.Category.Value
          else
              None)
-        |> getIncomeCategoryOption
+        |> createIncomeCategoryOption
 
-    match (value, category) with
-    | (_, Some category) -> CategoryBonus { Category = category; Value = value }
-    | (_, _) -> AllBonus value
-
-let private createBonusFromJson_1 (jsonBuildingBonus: JsonBuildingBonus) =
-    let value = jsonBuildingBonus.Value
-    let category = jsonBuildingBonus.Category |> getIncomeCategoryOption
-
-    match (value, category) with
-    | (_, Some category) -> CategoryBonus { Category = category; Value = value }
-    | (_, _) -> AllBonus value
+    createBonus value category
 
 let private createInfluenceFromEntity (rd: Entities.Influence) =
     let religionId =
@@ -188,26 +267,7 @@ let private createInfluenceFromEntity (rd: Entities.Influence) =
 
     let value = rd.Value
 
-    match (religionId, value) with
-    | (_, value) when value < 1 -> failwith "Negative influence."
-    | (Some religionId, _) ->
-        SpecificReligion
-            { ReligionId = religionId
-              Value = value }
-    | (None, _) -> StateReligion { Value = value }
-
-let private createInfluenceFromJson_1 (jsonBuildingInfluence: JsonBuildingInfluence) =
-    let religionId = jsonBuildingInfluence.ReligionId
-    let value = jsonBuildingInfluence.Value
-
-    match (religionId, value) with
-    | (_, value) when value < 1 -> failwith "Negative influence."
-    | (Some religionId, _) ->
-        SpecificReligion
-            { ReligionId = religionId
-              Value = value }
-    | (None, _) -> StateReligion { Value = value }
-
+    createInfluence value religionId
 
 let internal getEffect (ctx: DatabaseContext) effectId =
     let effect =
@@ -249,145 +309,7 @@ let internal getEffect (ctx: DatabaseContext) effectId =
       Bonuses = bonuses
       Influences = influences }
 
-let internal getEffectFromJson_1 (jsonBuildingEffect: JsonBuildingEffect) =
-    let effect =
-        { PublicOrder = jsonBuildingEffect.PublicOrder |> Option.defaultValue 0
-          Food = jsonBuildingEffect.Food |> Option.defaultValue 0
-          Sanitation = jsonBuildingEffect.Sanitation |> Option.defaultValue 0
-          ResearchRate = jsonBuildingEffect.ResearchRate |> Option.defaultValue 0
-          Growth = jsonBuildingEffect.Growth |> Option.defaultValue 0
-          Fertility = jsonBuildingEffect.Fertility |> Option.defaultValue 0
-          ReligiousOsmosis = jsonBuildingEffect.ReligiousOsmosis |> Option.defaultValue 0
-          TaxRate = jsonBuildingEffect.TaxRate |> Option.defaultValue 0
-          CorruptionRate = jsonBuildingEffect.CorruptionRate |> Option.defaultValue 0 }
-
-    let bonuses =
-        jsonBuildingEffect.Bonuses
-        |> Seq.map createBonusFromJson_1
-        |> Seq.toList
-
-    let influences =
-        jsonBuildingEffect.Influences
-        |> Seq.map createInfluenceFromJson_1
-        |> Seq.toList
-
-    { Effect = effect
-      Bonuses = bonuses
-      Influences = influences }
-
-let internal getEffectOption (ctx: DatabaseContext) effectId =
-    match effectId with
-    | Some effectId -> effectId |> getEffect ctx
-    | None -> emptyEffectSet
-
-let internal getEffectFromJsonOption_1 (jsonBuildingEffect:JsonBuildingEffect option) =
-    match jsonBuildingEffect with
-    | Some jsonBuildingEffect -> jsonBuildingEffect |> getEffectFromJson_1
-    | None -> emptyEffectSet
-
-let internal getLocalEffectFromJson (jsonBuildingLevel:JsonBuildingLevel) =
-    let localEffect =
-        { Maintenance = jsonBuildingLevel.Maintenance |> Option.defaultValue 0
-          Food = jsonBuildingLevel.LocalFood |> Option.defaultValue 0
-          FoodFromFertility = jsonBuildingLevel.LocalFoodFromFertility |> Option.defaultValue 0
-          Sanitation = jsonBuildingLevel.LocalSanitation |> Option.defaultValue 0
-          CapitalTier = jsonBuildingLevel.CapitalTier |> Option.defaultValue 0 }
-
-    let incomes =
-        jsonBuildingLevel.Incomes
-        |> Seq.map createIncomeFromJson
-        |> Seq.toList
-
-    { LocalEffect = localEffect
-      Incomes = incomes }
-
-let internal collectEffects (effects: Effect list) =
-    { PublicOrder = effects |> List.sumBy (fun x -> x.PublicOrder)
-      Food = effects |> List.sumBy (fun x -> x.Food)
-      Sanitation = effects |> List.sumBy (fun x -> x.Sanitation)
-      ResearchRate = effects |> List.sumBy (fun x -> x.ResearchRate)
-      Growth = effects |> List.sumBy (fun x -> x.Growth)
-      Fertility = effects |> List.sumBy (fun x -> x.Fertility)
-      ReligiousOsmosis =
-        effects
-        |> List.sumBy (fun x -> x.ReligiousOsmosis)
-      TaxRate = effects |> List.sumBy (fun x -> x.TaxRate)
-      CorruptionRate = effects |> List.sumBy (fun x -> x.CorruptionRate) }
-
-let internal collectIncomes fertilityLevel bonuses (incomes: Income list) =
-    let firstLoop (records, allBonus) (bonus: Bonus) =
-        match bonus with
-        | AllBonus value -> (records, allBonus + value)
-        | CategoryBonus income -> (income :: records, allBonus)
-
-    let (categoryBonuses, allBonus) = bonuses |> List.fold firstLoop ([], 0)
-
-    let bonusesGrouped =
-        categoryBonuses
-        |> List.groupBy (fun x -> x.Category)
-
-    let incomesGrouped = incomes |> List.groupBy (fun x -> x.Category)
-
-    let secondLoop total (category, categoryIncomes) =
-        let thirdLoop sum (income: Income) =
-            match income.Value with
-            | Simple value -> sum + value
-            | FertilityDependent value -> sum + (value * fertilityLevel)
-
-        let basePercentage = 100 + allBonus
-
-        let percentage =
-            bonusesGrouped
-            |> List.tryPick (fun (x, y) -> if x = category then Some y else None)
-            |> Option.map (fun x -> x |> List.sumBy (fun y -> y.Value))
-            |> Option.fold (fun x y -> x + y) basePercentage
-
-        let sum = categoryIncomes |> List.fold thirdLoop 0
-
-        total + (float (sum * percentage) * 0.01)
-
-    let total = incomesGrouped |> List.fold secondLoop 0
-
-    total
-
-let internal collectInfluences stateReligionId influences =
-    let loop (state, all) (influence: Influence) =
-        match influence with
-        | StateReligion influence -> (state + influence.Value, all + influence.Value)
-        | SpecificReligion influence when influence.ReligionId = stateReligionId ->
-            (state + influence.Value, all + influence.Value)
-        | SpecificReligion influence -> (state, all + influence.Value)
-
-    let (state, all) = influences |> List.fold loop (0, 0)
-
-    let percentage =
-        match all with
-        | 0 -> 100.0
-        | _ -> 100.0 * float (state) / float (all)
-
-    let result =
-        0
-        - int (System.Math.Floor((750.0 - (percentage * 7.0)) * 0.01))
-
-    result
-
-let internal collectLocalEffects (localEffects: LocalEffect list) =
-    { Maintenance =
-        localEffects
-        |> List.sumBy (fun x -> x.Maintenance)
-      Food = 
-        localEffects 
-        |> List.sumBy (fun x -> x.Food)
-      FoodFromFertility =
-        localEffects
-        |> List.sumBy (fun x -> x.FoodFromFertility)
-      Sanitation = 
-        localEffects 
-        |> List.sumBy (fun x -> x.Sanitation)
-      CapitalTier =
-        localEffects
-        |> List.map (fun x -> x.CapitalTier)
-        |> List.max }
+let internal getEffectOption (ctx: DatabaseContext) = Option.map (getEffect ctx) >> Option.defaultValue emptyEffectSet
 
 let internal getReligionEffect (ctx: DatabaseContext) (religionsData: ReligionsData.Root []) religionId =
     let effectId =
@@ -477,6 +399,7 @@ let internal getPowerLevelEffect (ctx: DatabaseContext) (powerLevelsData: PowerL
         }
 
     effectId |> (getEffect ctx)
+//
 
 let internal getStateFromSettings
     (ctx: DatabaseContext)
@@ -486,8 +409,8 @@ let internal getStateFromSettings
     difficultiesData
     taxesData
     powerLevelsData
-    getFactionEffectTupleSeq
-    getTechnologyEffectTupleSeq
+    getFactionEffectSet
+    getTechnologyEffectSetSeq
     (settings: Settings)
     =
     let religionEffects = getReligionEffect ctx religionsData settings.ReligionId
@@ -514,13 +437,13 @@ let internal getStateFromSettings
             { Category = MaritimeCommerce
               Value = -settings.PiracyRate }
 
-    let factionEffects = settings |> getFactionEffectTupleSeq |> createEffectSets
+    let factionEffectSet = settings |> getFactionEffectSet
 
-    let technologyEffects = settings |> getTechnologyEffectTupleSeq |> createEffectSets
+    let technologyEffectSetSeq = settings |> getTechnologyEffectSetSeq |> Seq.toList
 
     let effectSets =
-        factionEffects@
-        technologyEffects@
+        factionEffectSet::
+        technologyEffectSetSeq@
         [ religionEffects
           provinceEffects
           climateEffects
@@ -549,13 +472,3 @@ let internal getStateFromSettings
     { Effect = effect
       Bonuses = bonuses
       Influences = influences }
-
-let internal collectEffectsSeq effects = effects |> Seq.toList |> collectEffects
-
-let internal collectLocalEffectsSeq localEffects =
-    localEffects |> Seq.toList |> collectLocalEffects
-
-let internal collectInfluencesSeq stateReligionId influences =
-    influences
-    |> Seq.toList
-    |> collectInfluences stateReligionId

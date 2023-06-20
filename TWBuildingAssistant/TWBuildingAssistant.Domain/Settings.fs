@@ -7,7 +7,7 @@ type NamedId = { Id: int; Name: string }
 type NamedStringId = { StringId: string; Name: string }
 
 type OptionSet =
-    { Provinces: NamedId list
+    { Provinces: NamedStringId list
       Weathers: NamedId list
       Seasons: NamedId list
       Religions: NamedId list
@@ -17,7 +17,7 @@ type OptionSet =
       PowerLevels: NamedId list }
 
 type internal Settings =
-    { ProvinceId: int
+    { ProvinceId: string
       FertilityDrop: int
       TechnologyTier: int
       UseAntilegacyTechnologies: bool
@@ -33,19 +33,6 @@ type internal Settings =
 
 let private createOptions (tuples: seq<string*string>) =
     query { for (id, name) in tuples do select { StringId = id; Name = name } } |> Seq.toList
-
-let private getProvinceOptions (provincesData: ProvincesData.Root []) =
-    let query =
-        query {
-            for province in provincesData do
-                select
-                    { Id = province.Id
-                      Name = province.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
 
 let private getWeatherOptions (weathersData: WeathersData.Root []) =
     let query =
@@ -123,8 +110,8 @@ let private getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
 
     result
 
-let getOptions weathersData seasonsData provincesData religionsData difficultiesData taxesData powerLevelsData getFactionTupleSeq =
-    { Provinces = getProvinceOptions provincesData
+let getOptions weathersData seasonsData getProvinceTupleSeq religionsData difficultiesData taxesData powerLevelsData getFactionTupleSeq =
+    { Provinces = () |> getProvinceTupleSeq |> createOptions
       Weathers = getWeatherOptions weathersData
       Seasons = getSeasonOptions seasonsData
       Religions = getReligionOptions religionsData

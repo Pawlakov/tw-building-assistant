@@ -17,7 +17,7 @@ public class SlotViewModel
 
     private bool selected;
 
-    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, int regionId, int slotIndex, SlotDescriptorDto descriptor)
+    public SlotViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, string regionId, int slotIndex, SlotDescriptorDto descriptor)
     {
         this.settingsStore = settingsStore;
         this.provinceStore = provinceStore;
@@ -31,10 +31,10 @@ public class SlotViewModel
         if (this.provinceStore.BuildingLevels.ContainsKey((this.RegionId, this.SlotIndex)))
         {
             var fromStore = this.provinceStore.BuildingLevels[(this.RegionId, this.SlotIndex)];
-            if (this.BuildingBranches.Any(x => x.StringId == fromStore.BuildingBranchId))
+            var matchingBranches = this.BuildingBranches.Where(x => x.StringId == fromStore.BuildingBranchId);
+            if (matchingBranches.Count() > 0)
             {
-                var matchingBranches = this.BuildingBranches.Where(x => x.StringId == fromStore.BuildingBranchId);
-                this.selectedBuildingBranch = matchingBranches.Single(x => x.Items.Any(y => y.StringId == fromStore.BuildingLevelId));
+                this.selectedBuildingBranch = matchingBranches.First(x => x.Items.Any(y => y.StringId == fromStore.BuildingLevelId));
 
                 this.BuildingLevels = new ObservableCollection<NamedStringIdDto>(this.selectedBuildingBranch.Items);
                 if (this.BuildingLevels.Any(x => x.StringId == fromStore.BuildingLevelId))
@@ -64,7 +64,7 @@ public class SlotViewModel
         if (correspondingResult != default)
         {
             var matchingBranches = this.BuildingBranches.Where(x => x.StringId == correspondingResult.BranchId);
-            this.selectedBuildingBranch = matchingBranches.Single(x => x.Items.Any(y => y.StringId == correspondingResult.LevelId));
+            this.selectedBuildingBranch = matchingBranches.First(x => x.Items.Any(y => y.StringId == correspondingResult.LevelId));
             this.BuildingLevels = new ObservableCollection<NamedStringIdDto>(this.selectedBuildingBranch.Items);
             this.selectedBuildingLevel = this.BuildingLevels.Single(x => x.StringId == correspondingResult.LevelId);
 
@@ -125,7 +125,7 @@ public class SlotViewModel
 
     public SlotDescriptorDto Descriptor { get; init; }
 
-    public int RegionId { get; init; }
+    public string RegionId { get; init; }
 
     public int SlotIndex { get; init; }
 

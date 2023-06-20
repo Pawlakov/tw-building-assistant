@@ -28,7 +28,7 @@ public class SettingsViewModel
 
         var options = getSettingOptions();
         this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
-        this.Provinces = new ObservableCollection<NamedIdDto>(options.Provinces);
+        this.Provinces = new ObservableCollection<NamedStringIdDto>(options.Provinces);
         this.Factions = new ObservableCollection<NamedStringIdDto>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4, 5 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
@@ -52,7 +52,7 @@ public class SettingsViewModel
                 SeasonId = this.Seasons[0].Id,
                 CorruptionRate = 1,
                 PiracyRate = 1,
-                ProvinceId = this.Provinces[0].Id,
+                ProvinceId = this.Provinces[0].StringId,
                 DifficultyId = this.Difficulties[0].Id,
                 TaxId = this.Taxes[0].Id,
                 PowerLevelId = this.PowerLevels[0].Id,
@@ -96,16 +96,16 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<NamedIdDto> Provinces { get; set; }
+    public ObservableCollection<NamedStringIdDto> Provinces { get; set; }
 
-    public NamedIdDto SelectedProvince
+    public NamedStringIdDto SelectedProvince
     {
-        get => this.Provinces.FirstOrDefault(x => x.Id == this.settings.ProvinceId);
+        get => this.Provinces.FirstOrDefault(x => x.StringId == this.settings.ProvinceId);
         set
         {
-            if (this.settings.ProvinceId != value.Id)
+            if (this.settings.ProvinceId != value.StringId)
             {
-                this.settings.ProvinceId = value.Id;
+                this.settings.ProvinceId = value.StringId;
                 this.OnPropertyChanged(nameof(this.SelectedProvince));
             }
         }

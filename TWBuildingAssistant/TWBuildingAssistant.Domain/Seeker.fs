@@ -4,7 +4,7 @@ type internal CalculationSlot =
     { Descriptor:Provinces.SlotDescriptor
       Branch:Buildings.BuildingBranch option
       Level:Buildings.BuildingLevel option
-      RegionId:int
+      RegionId:string
       SlotIndex:int }
 
 type internal CombinationTaskRegion = 
@@ -17,7 +17,7 @@ type internal SeekerSettingsSlot =
     { Branch:Buildings.BuildingBranch option
       Level:Buildings.BuildingLevel option
       Descriptor:Provinces.SlotDescriptor
-      RegionId:int
+      RegionId:string
       SlotIndex:int }
 
 type internal SeekerSettingsRegion = 
@@ -26,7 +26,7 @@ type internal SeekerSettingsRegion =
 type internal SeekerResult = 
     { Branch:Buildings.BuildingBranch
       Level:Buildings.BuildingLevel
-      RegionId:int
+      RegionId:string
       SlotIndex:int }
 
 type internal SeekerResultWithIncome =

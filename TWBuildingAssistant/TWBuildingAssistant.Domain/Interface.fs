@@ -12,7 +12,7 @@ let internal mapNamedStringIdToDTO (model: Settings.NamedStringId) = { StringId 
 let internal mapOptionSetToDTO (model: Settings.OptionSet) =
     { Provinces =
         model.Provinces
-        |> List.map mapNamedIdToDTO
+        |> List.map mapNamedStringIdToDTO
         |> List.toArray
       Weathers =
         model.Weathers
@@ -193,16 +193,6 @@ let internal getClimatesData () =
     |> File.ReadAllText
     |> ClimatesData.ParseList
 
-let internal getResourcesData () =
-    "Data/Resources.json"
-    |> File.ReadAllText
-    |> ResourcesData.ParseList
-
-let internal getProvincesData () =
-    "Data/Provinces.json"
-    |> File.ReadAllText
-    |> ProvincesData.ParseList
-
 let internal getReligionsData () =
     "Data/Religions.json"
     |> File.ReadAllText
@@ -226,7 +216,7 @@ let internal getPowerLevelsData () =
 let getSettingOptions () =
     let weathersData = getWeathersData ()
     let seasonsData = getSeasonsData ()
-    let provincesData = getProvincesData ()
+    let getProvinceTupleSeq = Provinces.Data.getProvincesData >> Provinces.getProvincePairs
     let religionsData = getReligionsData ()
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
@@ -237,7 +227,7 @@ let getSettingOptions () =
         Settings.getOptions
             weathersData
             seasonsData
-            provincesData
+            getProvinceTupleSeq
             religionsData
             difficultiesData
             taxesData
@@ -247,15 +237,19 @@ let getSettingOptions () =
     options |> mapOptionSetToDTO
 
 let getProvince provinceId =
-    let resourcesData = getResourcesData ()
-    let provincesData = getProvincesData ()
+    let resourcesData = Resources.Data.getResourcesData ()
+    let provincesData = Provinces.Data.getProvincesData ()
 
-    let province = Provinces.getProvince provincesData resourcesData provinceId
+    let province = 
+        Provinces.getProvince
+            provincesData 
+            (resourcesData |> Resources.getResourcesByIds)
+            provinceId
 
     province |> mapProvinceToDTO
 
 let getBuildingLibrary settings =
-    let provincesData = getProvincesData ()
+    let provincesData = Provinces.Data.getProvincesData ()
     let factionsData = Factions.Data.getFactionsData ()
     let buildingsData = Buildings.Data.getBuildingsData ()
 
@@ -274,7 +268,7 @@ let getBuildingLibrary settings =
 
 let getState ctx buildingLevelIds settings =
     let climatesData = getClimatesData ()
-    let provincesData = getProvincesData ()
+    let provincesData = Provinces.Data.getProvincesData ()
     let religionsData = getReligionsData ()
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
@@ -288,7 +282,8 @@ let getState ctx buildingLevelIds settings =
         Effects.getStateFromSettings
             ctx
             climatesData
-            provincesData
+            (provincesData |> Provinces.getProvinceClimateId)
+            (provincesData |> Provinces.getProvinceEffect)
             religionsData
             difficultiesData
             taxesData
@@ -319,7 +314,7 @@ let seek
     (incrementProgress: IncrementProgressDelegate)
     =
     let climatesData = getClimatesData ()
-    let provincesData = getProvincesData ()
+    let provincesData = Provinces.Data.getProvincesData ()
     let religionsData = getReligionsData ()
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
@@ -333,7 +328,8 @@ let seek
         Effects.getStateFromSettings
             ctx
             climatesData
-            provincesData
+            (provincesData |> Provinces.getProvinceClimateId)
+            (provincesData |> Provinces.getProvinceEffect)
             religionsData
             difficultiesData
             taxesData

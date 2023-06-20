@@ -1,0 +1,2323 @@
+﻿{
+  "$schema": ".\\Provinces-schema.json",
+  "Provinces": [
+    {
+      "Id": "att_prov_aegyptus",
+      "Name": "Aegyptus",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 4,
+            "ReligionId": 1
+          },
+          {
+            "Value": 1,
+            "ReligionId": 5
+          },
+          {
+            "Value": 1,
+            "ReligionId": 6
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_aegyptus_alexandria",
+        "Name": "Alexandria",
+        "IsCoastal": true,
+        "ResourceId": 14
+      },
+      "TownFirst": {
+        "Id": "att_reg_aegyptus_berenice",
+        "Name": "Berenice",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_aegyptus_oxyrhynchus",
+        "Name": "Oxyrhynchus",
+        "ResourceId": 4
+      }
+    },
+    {
+      "Id": "att_prov_aethiopia",
+      "Name": "Aethiopia",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 1,
+            "ReligionId": 3
+          },
+          {
+            "Value": 1,
+            "ReligionId": 11
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_aethiopia_aksum",
+        "Name": "Aksum",
+        "ResourceId": 2
+      },
+      "TownFirst": {
+        "Id": "att_reg_aethiopia_adulis",
+        "Name": "Adulis",
+        "ResourceId": 12,
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_aethiopia_pachoras",
+        "Name": "Pachoras"
+      }
+    },
+    {
+      "Id": "att_prov_africa",
+      "Name": "Africa",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_africa_carthago",
+        "Name": "Carthago",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_africa_constantina",
+        "Name": "Constantina",
+        "ResourceId": 8
+      },
+      "TownSecond": {
+        "Id": "att_reg_africa_hadrumentum",
+        "Name": "Hadrumentum",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_aquitania",
+      "Name": "Aquitania",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_aquitania_burdigala",
+        "Name": "Burdigala",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_aquitania_avaricum",
+        "Name": "Avaricum",
+        "ResourceId": 4
+      },
+      "TownSecond": {
+        "Id": "att_reg_aquitania_elusa",
+        "Name": "Elusa"
+      }
+    },
+    {
+      "Id": "att_prov_arabia_felix",
+      "Name": "Arabia Felix",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 0,
+        "Influences": [
+          {
+            "Value": 2,
+            "ReligionId": 7
+          },
+          {
+            "Value": 2,
+            "ReligionId": 11
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_arabia_felix_zafar",
+        "Name": "Zafar",
+        "ResourceId": 6
+      },
+      "TownFirst": {
+        "Id": "att_reg_arabia_felix_eudaemon",
+        "Name": "Eudaemon",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_arabia_felix_omana",
+        "Name": "Omana",
+        "IsCoastal": true,
+        "ResourceId": 12
+      }
+    },
+    {
+      "Id": "att_prov_arabia_magna",
+      "Name": "Arabia Magna",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 0,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 3
+          },
+          {
+            "Value": 2,
+            "ReligionId": 14
+          },
+          {
+            "Value": 1,
+            "ReligionId": 7
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_arabia_magna_yathrib",
+        "Name": "Yathrib",
+        "ResourceId": 5
+      },
+      "TownFirst": {
+        "Id": "att_reg_arabia_magna_dumatha",
+        "Name": "Damatha"
+      },
+      "TownSecond": {
+        "Id": "att_reg_arabia_magna_hira",
+        "Name": "Hira"
+      }
+    },
+    {
+      "Id": "att_prov_armenia",
+      "Name": "Armenia",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          },
+          {
+            "Value": 1,
+            "ReligionId": 5
+          },
+          {
+            "Value": 1,
+            "ReligionId": 6
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_armenia_duin",
+        "Name": "Duin"
+      },
+      "TownFirst": {
+        "Id": "att_reg_armenia_payttakaran",
+        "Name": "Payttakaran"
+      },
+      "TownSecond": {
+        "Id": "att_reg_armenia_tosp",
+        "Name": "Tosp",
+        "ResourceId": 7
+      }
+    },
+    {
+      "Id": "att_prov_asia",
+      "Name": "Asia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 1,
+            "ReligionId": 1
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_asia_ephesus",
+        "Name": "Ephesus",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_asia_cyzicus",
+        "Name": "Cyzicus",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_asia_synnada",
+        "Name": "Synnada",
+        "ResourceId": 8
+      }
+    },
+    {
+      "Id": "att_prov_asorstan",
+      "Name": "Asorastan",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 4,
+            "ReligionId": 9
+          },
+          {
+            "Value": 4,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_asorstan_ctesiphon",
+        "Name": "Ctesiphon"
+      },
+      "TownFirst": {
+        "Id": "att_reg_asorstan_arbela",
+        "Name": "Arbela",
+        "ResourceId": 8
+      },
+      "TownSecond": {
+        "Id": "att_reg_asorstan_meshan",
+        "Name": "Meshan",
+        "ResourceId": 12,
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_baetica",
+      "Name": "Baetica",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_baetica_corduba",
+        "Name": "Corduba"
+      },
+      "TownFirst": {
+        "Id": "att_reg_baetica_hispalis",
+        "Name": "Hispalis"
+      },
+      "TownSecond": {
+        "Id": "att_reg_baetica_malaca",
+        "Name": "Malaca",
+        "ResourceId": 13,
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_belgica",
+      "Name": "Belgica",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 9
+          },
+          {
+            "Value": 1,
+            "ReligionId": 1
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_belgica_augusta_treverorum",
+        "Name": "Augusta Treverorum",
+        "ResourceId": 7
+      },
+      "TownFirst": {
+        "Id": "att_reg_belgica_colonia_agrippina",
+        "Name": "Colonia Agrippina"
+      },
+      "TownSecond": {
+        "Id": "att_reg_belgica_durocorterum",
+        "Name": "Durocortorum"
+      }
+    },
+    {
+      "Id": "att_prov_bithynia",
+      "Name": "Bithynia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 1,
+            "ReligionId": 1
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_bithynia_ancyra",
+        "Name": "Ancyra",
+        "ResourceId": 11,
+        "SlotsCountOffset": -1
+      },
+      "TownFirst": {
+        "Id": "att_reg_bithynia_nicomedia",
+        "Name": "Nicomedia",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_bithynia_amasea",
+        "Name": "Sinope"
+      }
+    },
+    {
+      "Id": "att_prov_britannia_inferior",
+      "Name": "Britannia Inferior",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 2,
+            "ReligionId": 1
+          },
+          {
+            "Value": 2,
+            "ReligionId": 5
+          },
+          {
+            "Value": 1,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_britannia_inferior_eboracum",
+        "Name": "Eburacum"
+      },
+      "TownFirst": {
+        "Id": "att_reg_britannia_inferior_lindum",
+        "Name": "Lindum"
+      },
+      "TownSecond": {
+        "Id": "att_reg_britannia_inferior_segontium",
+        "Name": "Segontium",
+        "IsCoastal": true,
+        "ResourceId": 6
+      }
+    },
+    {
+      "Id": "att_prov_britannia_superior",
+      "Name": "Britannia Superior",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_britannia_superior_londinium",
+        "Name": "Londinium",
+        "ResourceId": 5
+      },
+      "TownFirst": {
+        "Id": "att_reg_britannia_superior_camulodunon",
+        "Name": "Camulodunum",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_britannia_superior_corinium",
+        "Name": "Corinium"
+      }
+    },
+    {
+      "Id": "att_prov_caledonia_et_hbernia",
+      "Name": "Caledonia et Hibernia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 2
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_caledonia_et_hibernia_tuesis",
+        "Name": "Tuesis"
+      },
+      "TownFirst": {
+        "Id": "att_reg_caledonia_et_hibernia_eblana",
+        "Name": "Eblana",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_caledonia_et_hibernia_eildon",
+        "Name": "Eildon",
+        "ResourceId": 7
+      }
+    },
+    {
+      "Id": "att_prov_cappadocia",
+      "Name": "Cappadocia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_cappadocia_caesarea_eusebia",
+        "Name": "Caesarea Eusebia",
+        "SlotsCountOffset": -1
+      },
+      "TownFirst": {
+        "Id": "att_reg_cappadocia_melitene",
+        "Name": "Melitene",
+        "ResourceId": 6
+      },
+      "TownSecond": {
+        "Id": "att_reg_cappadocia_trapezus",
+        "Name": "Trapezus",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_carthaginensis",
+      "Name": "Carthaginensis",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 8
+          },
+          {
+            "Value": 1,
+            "ReligionId": 2
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_carthaginensis_carthago_nova",
+        "Name": "Carthago Nova",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_carthaginensis_segobriga",
+        "Name": "Segobriga",
+        "ResourceId": 9
+      },
+      "TownSecond": {
+        "Id": "att_reg_carthaginensis_toletum",
+        "Name": "Toletum"
+      }
+    },
+    {
+      "Id": "att_prov_caucasia",
+      "Name": "Caucasia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 14
+          },
+          {
+            "Value": 2,
+            "ReligionId": 10
+          },
+          {
+            "Value": 1,
+            "ReligionId": 5
+          },
+          {
+            "Value": 1,
+            "ReligionId": 6
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_caucasia_mtskheta",
+        "Name": "Mtskheta"
+      },
+      "TownFirst": {
+        "Id": "att_reg_caucasia_gabala",
+        "Name": "Gabala"
+      },
+      "TownSecond": {
+        "Id": "att_reg_caucasia_kotais",
+        "Name": "Kotais",
+        "ResourceId": 11
+      }
+    },
+    {
+      "Id": "att_prov_cilicia",
+      "Name": "Cilicia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_cilicia_tarsus",
+        "Name": "Tarsus",
+        "IsCoastal": true,
+        "ResourceId": 9
+      },
+      "TownFirst": {
+        "Id": "att_reg_cilicia_iconium",
+        "Name": "Iconium"
+      },
+      "TownSecond": {
+        "Id": "att_reg_cilicia_myra",
+        "Name": "Myra",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_dacia",
+      "Name": "Dacia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 4
+          },
+          {
+            "Value": 1,
+            "ReligionId": 10
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_dacia_apulum",
+        "Name": "Apulum",
+        "ResourceId": 10
+      },
+      "TownFirst": {
+        "Id": "att_reg_dacia_petrodava",
+        "Name": "Petrodava"
+      },
+      "TownSecond": {
+        "Id": "att_reg_dacia_romula",
+        "Name": "Romula",
+        "ResourceId": 5
+      }
+    },
+    {
+      "Id": "att_prov_dalmatia",
+      "Name": "Dalmatia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_dalmatia_salona",
+        "Name": "Salona",
+        "IsCoastal": true,
+        "ResourceId": 13
+      },
+      "TownFirst": {
+        "Id": "att_reg_dalmatia_domavia",
+        "Name": "Domavia"
+      },
+      "TownSecond": {
+        "Id": "att_reg_dalmatia_siscia",
+        "Name": "Siscia"
+      }
+    },
+    {
+      "Id": "att_prov_dardania",
+      "Name": "Dardania",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_dardania_serdica",
+        "Name": "Serdica"
+      },
+      "TownFirst": {
+        "Id": "att_reg_dardania_scupi",
+        "Name": "Scupi",
+        "ResourceId": 6
+      },
+      "TownSecond": {
+        "Id": "att_reg_dardania_viminacium",
+        "Name": "Viminacium"
+      }
+    },
+    {
+      "Id": "att_prov_frisia",
+      "Name": "Frisia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 4
+          },
+          {
+            "Value": 1,
+            "ReligionId": 1
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_frisia_tulifurdum",
+        "Name": "Tulifurdum",
+        "ResourceId": 2
+      },
+      "TownFirst": {
+        "Id": "att_reg_frisia_angulus",
+        "Name": "Angulus",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_frisia_flevum",
+        "Name": "Flevum"
+      }
+    },
+    {
+      "Id": "att_prov_gallaecia",
+      "Name": "Gallaecia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_gallaecia_bracara",
+        "Name": "Bracara",
+        "ResourceId": 4
+      },
+      "TownFirst": {
+        "Id": "att_reg_gallaecia_asturica",
+        "Name": "Asturica"
+      },
+      "TownSecond": {
+        "Id": "att_reg_gallaecia_brigantium",
+        "Name": "Brigantium",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_germania",
+      "Name": "Germania",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 4
+          },
+          {
+            "Value": 1,
+            "ReligionId": 1
+          },
+          {
+            "Value": 1,
+            "ReligionId": 2
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_germania_uburzis",
+        "Name": "Uburzis",
+        "ResourceId": 3
+      },
+      "TownFirst": {
+        "Id": "att_reg_germania_aregelia",
+        "Name": "Aregelia"
+      },
+      "TownSecond": {
+        "Id": "att_reg_germania_lupfurdum",
+        "Name": "Lupfurdum"
+      }
+    },
+    {
+      "Id": "att_prov_germano-sarmatia",
+      "Name": "Germanosarmatia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 1,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 10
+          },
+          {
+            "Value": 2,
+            "ReligionId": 4
+          },
+          {
+            "Value": 2,
+            "ReligionId": 12
+          },
+          {
+            "Value": 1,
+            "ReligionId": 13
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_germano_sarmatia_palteskja",
+        "Name": "Palteskja"
+      },
+      "TownFirst": {
+        "Id": "att_reg_germano_sarmatia_duna",
+        "Name": "Duna",
+        "IsCoastal": true,
+        "ResourceId": 3
+      },
+      "TownSecond": {
+        "Id": "att_reg_germano_sarmatia_oium",
+        "Name": "Oium"
+      }
+    },
+    {
+      "Id": "att_prov_gothiscandza",
+      "Name": "Gothiscandza",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 4
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_gothiscandza_gothiscandza",
+        "Name": "Gothiscandza",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_gothiscandza_ascaucalis",
+        "Name": "Ascaucalis",
+        "ResourceId": 10
+      },
+      "TownSecond": {
+        "Id": "att_reg_gothiscandza_rugion",
+        "Name": "Rugion",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_hercynia",
+      "Name": "Hercynia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 4
+          },
+          {
+            "Value": 2,
+            "ReligionId": 1
+          },
+          {
+            "Value": 1,
+            "ReligionId": 10
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_hercynia_casurgis",
+        "Name": "Casurgis"
+      },
+      "TownFirst": {
+        "Id": "att_reg_hercynia_budorgis",
+        "Name": "Budorgis",
+        "ResourceId": 6
+      },
+      "TownSecond": {
+        "Id": "att_reg_hercynia_nitrahwa",
+        "Name": "Nitrahwa"
+      }
+    },
+    {
+      "Id": "att_prov_hyperborea",
+      "Name": "Hyperborea",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 10
+          },
+          {
+            "Value": 3,
+            "ReligionId": 13
+          },
+          {
+            "Value": 1,
+            "ReligionId": 12
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_hyperborea_kariskos",
+        "Name": "Kariskos",
+        "ResourceId": 2
+      },
+      "TownFirst": {
+        "Id": "att_reg_hyperborea_moramar",
+        "Name": "Moramar"
+      },
+      "TownSecond": {
+        "Id": "att_reg_hyperborea_sylis",
+        "Name": "Sylis"
+      }
+    },
+    {
+      "Id": "att_prov_mediterraneus_occidentalis",
+      "Name": "Insulae Occidentalis",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_mediterraneus_occidentalis_caralis",
+        "Name": "Caralis",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_mediterraneus_occidentalis_ajax",
+        "Name": "Ajax",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_mediterraneus_occidentalis_palma",
+        "Name": "Palma",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_mediterraneus_orientalis",
+      "Name": "Insulae Orientalis",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_mediterraneus_orientalis_gortyna",
+        "Name": "Gortyna",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_mediterraneus_orientalis_constantia",
+        "Name": "Constantia",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_mediterraneus_orientalis_rhodes",
+        "Name": "Rhodes",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_italia",
+      "Name": "Italia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 13,
+            "ReligionId": 5
+          },
+          {
+            "Value": 4,
+            "ReligionId": 8
+          },
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 2,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_italia_roma",
+        "Name": "Roma",
+        "ResourceId": 14
+      },
+      "TownFirst": {
+        "Id": "att_reg_italia_fiorentia",
+        "Name": "Fiorentia"
+      },
+      "TownSecond": {
+        "Id": "att_reg_italia_neapolis",
+        "Name": "Neapolis",
+        "IsCoastal": true,
+        "ResourceId": 10
+      }
+    },
+    {
+      "Id": "att_prov_khwarasan",
+      "Name": "Khwarasan",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 4,
+            "ReligionId": 9
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          },
+          {
+            "Value": 2,
+            "ReligionId": 10
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_khwarasan_abarshahr",
+        "Name": "Abarshahr"
+      },
+      "TownFirst": {
+        "Id": "att_reg_khwarasan_harey",
+        "Name": "Harev"
+      },
+      "TownSecond": {
+        "Id": "att_reg_khwarasan_merv",
+        "Name": "Merv",
+        "ResourceId": 11
+      }
+    },
+    {
+      "Id": "att_prov_liguria",
+      "Name": "Liguria",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_liguria_mediolanum",
+        "Name": "Mediolanum"
+      },
+      "TownFirst": {
+        "Id": "att_reg_liguria_genua",
+        "Name": "Genua",
+        "IsCoastal": true,
+        "ResourceId": 8
+      },
+      "TownSecond": {
+        "Id": "att_reg_liguria_segusio",
+        "Name": "Segusio"
+      }
+    },
+    {
+      "Id": "att_prov_lugdunensis",
+      "Name": "Lugdunensis",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_lugdunensis_lugdunum",
+        "Name": "Lugdunum"
+      },
+      "TownFirst": {
+        "Id": "att_reg_lugdunensis_rotomagus",
+        "Name": "Rotomagus",
+        "IsCoastal": true,
+        "ResourceId": 10
+      },
+      "TownSecond": {
+        "Id": "att_reg_lugdunensis_turonum",
+        "Name": "Turonum"
+      }
+    },
+    {
+      "Id": "att_prov_lusitania",
+      "Name": "Lusitania",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 2
+          },
+          {
+            "Value": 1,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_lusitania_emerita_augusta",
+        "Name": "Emerita Augusta"
+      },
+      "TownFirst": {
+        "Id": "att_reg_lusitania_olisipo",
+        "Name": "Olispo",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_lusitania_pax_augusta",
+        "Name": "Pax Augusta",
+        "ResourceId": 5
+      }
+    },
+    {
+      "Id": "att_prov_libya",
+      "Name": "Libya",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 1,
+            "ReligionId": 10
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_libya_ptolemais",
+        "Name": "Ptolemais",
+        "IsCoastal": true,
+        "ResourceId": 9
+      },
+      "TownFirst": {
+        "Id": "att_reg_libya_augila",
+        "Name": "Augila"
+      },
+      "TownSecond": {
+        "Id": "att_reg_libya_paraetonium",
+        "Name": "Paraetonium",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_macedonia",
+      "Name": "Macedonia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 13,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 2,
+            "ReligionId": 1
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_macedonia_thessalonica",
+        "Name": "Thessalonica",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_macedonia_corinthus",
+        "Name": "Corinthus",
+        "IsCoastal": true,
+        "ResourceId": 8
+      },
+      "TownSecond": {
+        "Id": "att_reg_macedonia_dyrrhachium",
+        "Name": "Dyrrachium",
+        "IsCoastal": true,
+        "ResourceId": 9
+      }
+    },
+    {
+      "Id": "att_prov_magna_graecia",
+      "Name": "Magna Graecia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 13,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_magna_graecia_tarentum",
+        "Name": "Tarentum",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_magna_graecia_rhegium",
+        "Name": "Rhegium",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_magna_graecia_syracusae",
+        "Name": "Syracusae",
+        "IsCoastal": true,
+        "ResourceId": 13
+      }
+    },
+    {
+      "Id": "att_prov_makran",
+      "Name": "Makran",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          },
+          {
+            "Value": 2,
+            "ReligionId": 10
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_makran_pura",
+        "Name": "Pura"
+      },
+      "TownFirst": {
+        "Id": "att_reg_makran_harmosia",
+        "Name": "Harmosia",
+        "IsCoastal": true,
+        "ResourceId": 12
+      },
+      "TownSecond": {
+        "Id": "att_reg_makran_phra",
+        "Name": "Phra",
+        "ResourceId": 10
+      }
+    },
+    {
+      "Id": "att_prov_mauretania",
+      "Name": "Mauretania",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_mauretania_caesarea",
+        "Name": "Caesarea",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_mauretania_tamousiga",
+        "Name": "Tamousiga",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_mauretania_tingis",
+        "Name": "Tingis",
+        "IsCoastal": true,
+        "ResourceId": 7
+      }
+    },
+    {
+      "Id": "att_prov_maxima_sequanorum",
+      "Name": "Maxima Sequanorum",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_maxima_sequanorum_vesontio",
+        "Name": "Vesontio"
+      },
+      "TownFirst": {
+        "Id": "att_reg_maxima_sequanorum_argentoratum",
+        "Name": "Argentoratum",
+        "SlotsCountOffset": -1
+      },
+      "TownSecond": {
+        "Id": "att_reg_maxima_sequanorum_octodurus",
+        "Name": "Octodurum",
+        "ResourceId": 5
+      }
+    },
+    {
+      "Id": "att_prov_media_atropatene",
+      "Name": "Media Atropatene",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_media_atropatene_ecbatana",
+        "Name": "Ecbatana",
+        "ResourceId": 11
+      },
+      "TownFirst": {
+        "Id": "att_reg_media_atropatene_ganzaga",
+        "Name": "Ganzaga"
+      },
+      "TownSecond": {
+        "Id": "att_reg_media_atropatene_rhaga",
+        "Name": "Rhaga"
+      }
+    },
+    {
+      "Id": "att_prov_narbonensis",
+      "Name": "Narbonensis",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 8
+          },
+          {
+            "Value": 1,
+            "ReligionId": 2
+          },
+          {
+            "Value": 1,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_narbonensis_aquae_sextiae",
+        "Name": "Aquae Sextiae",
+        "ResourceId": 13
+      },
+      "TownFirst": {
+        "Id": "att_reg_narbonensis_narbo",
+        "Name": "Narbo",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_narbonensis_vienna",
+        "Name": "Vienna"
+      }
+    },
+    {
+      "Id": "att_prov_osroene",
+      "Name": "Osroene",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          },
+          {
+            "Value": 2,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 6
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_osroene_edessa",
+        "Name": "Edessa",
+        "ResourceId": 13
+      },
+      "TownFirst": {
+        "Id": "att_reg_osroene_amida",
+        "Name": "Amida"
+      },
+      "TownSecond": {
+        "Id": "att_reg_osroene_nisibis",
+        "Name": "Nisibis"
+      }
+    },
+    {
+      "Id": "att_prov_palaestinea",
+      "Name": "Palaestinea",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 2,
+            "ReligionId": 7
+          },
+          {
+            "Value": 1,
+            "ReligionId": 8
+          },
+          {
+            "Value": 1,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_palaestinea_nova_trajana_bostra",
+        "Name": "Nova Trajana Bostra",
+        "SlotsCountOffset": -1
+      },
+      "TownFirst": {
+        "Id": "att_reg_palaestinea_aelia_capitolina",
+        "Name": "Aelia Capitolina",
+        "ResourceId": 14
+      },
+      "TownSecond": {
+        "Id": "att_reg_palaestinea_aila",
+        "Name": "Aila",
+        "IsCoastal": true,
+        "ResourceId": 3
+      }
+    },
+    {
+      "Id": "att_prov_pannonia",
+      "Name": "Pannonia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 1,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_pannonia_sirmium",
+        "Name": "Sirmium"
+      },
+      "TownFirst": {
+        "Id": "att_reg_pannonia_savaria",
+        "Name": "Savaria",
+        "ResourceId": 2
+      },
+      "TownSecond": {
+        "Id": "att_reg_pannonia_sopianae",
+        "Name": "Sopianae"
+      }
+    },
+    {
+      "Id": "att_prov_persis",
+      "Name": "Persis",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_persis_stakhr",
+        "Name": "Stakhr"
+      },
+      "TownFirst": {
+        "Id": "att_reg_persis_behdeshir",
+        "Name": "Behdesir"
+      },
+      "TownSecond": {
+        "Id": "att_reg_persis_siraf",
+        "Name": "Straf",
+        "ResourceId": 1
+      }
+    },
+    {
+      "Id": "att_prov_raetia_et_noricum",
+      "Name": "Raetia et Noricum",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_raetia_et_noricum_augusta_vindelicorum",
+        "Name": "Augusta Vindelicorum"
+      },
+      "TownFirst": {
+        "Id": "att_reg_raetia_et_noricum_iuvavum",
+        "Name": "Iuvavum",
+        "ResourceId": 7
+      },
+      "TownSecond": {
+        "Id": "att_reg_raetia_et_noricum_virunum",
+        "Name": "Virunum"
+      }
+    },
+    {
+      "Id": "att_prov_phazania",
+      "Name": "Phazania",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 0,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 2,
+            "ReligionId": 8
+          },
+          {
+            "Value": 2,
+            "ReligionId": 11
+          },
+          {
+            "Value": 1,
+            "ReligionId": 5
+          },
+          {
+            "Value": 1,
+            "ReligionId": 10
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_phazania_garama",
+        "Name": "Garama"
+      },
+      "TownFirst": {
+        "Id": "att_reg_phazania_cydamus",
+        "Name": "Cydamus"
+      },
+      "TownSecond": {
+        "Id": "att_reg_phazania_dimmidi",
+        "Name": "Dimmidi",
+        "ResourceId": 3
+      }
+    },
+    {
+      "Id": "att_prov_sarmatia_asiatica",
+      "Name": "Sarmatia Asiatica",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 10
+          },
+          {
+            "Value": 2,
+            "ReligionId": 13
+          },
+          {
+            "Value": 1,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_sarmatia_asiatica_anacopia",
+        "Name": "Anacopia",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_sarmatia_asiatica_samandar",
+        "Name": "Samandar"
+      },
+      "TownSecond": {
+        "Id": "att_reg_sarmatia_asiatica_tanais",
+        "Name": "Tanais",
+        "IsCoastal": true,
+        "ResourceId": 4
+      }
+    },
+    {
+      "Id": "att_prov_sarmatia_europaea",
+      "Name": "Sarmatia Europaea",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 2,
+            "ReligionId": 1
+          },
+          {
+            "Value": 1,
+            "ReligionId": 5
+          },
+          {
+            "Value": 1,
+            "ReligionId": 6
+          },
+          {
+            "Value": 1,
+            "ReligionId": 12
+          },
+          {
+            "Value": 1,
+            "ReligionId": 13
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_sarmatia_europaea_chersonessus",
+        "Name": "Chersonessus",
+        "IsCoastal": true,
+        "ResourceId": 13
+      },
+      "TownFirst": {
+        "Id": "att_reg_sarmatia_europaea_gelonus",
+        "Name": "Gelonus"
+      },
+      "TownSecond": {
+        "Id": "att_reg_sarmatia_europaea_olbia",
+        "Name": "Olbia",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_scandza",
+      "Name": "Scandza",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 4
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_scandza_hrefnesholt",
+        "Name": "Hrefnesholt",
+        "IsCoastal": true,
+        "ResourceId": 7
+      },
+      "TownFirst": {
+        "Id": "att_reg_scandza_alabu",
+        "Name": "Alabu",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_scandza_hafn",
+        "Name": "Hafn",
+        "IsCoastal": true
+      }
+    },
+    {
+      "Id": "att_prov_scythia",
+      "Name": "Scythia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 1,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 10
+          },
+          {
+            "Value": 3,
+            "ReligionId": 13
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_scythia_sarai",
+        "Name": "Sarai"
+      },
+      "TownFirst": {
+        "Id": "att_reg_scythia_bolghar",
+        "Name": "Bolghar"
+      },
+      "TownSecond": {
+        "Id": "att_reg_scythia_ra",
+        "Name": "Raha",
+        "ResourceId": 7
+      }
+    },
+    {
+      "Id": "att_prov_spahan",
+      "Name": "Spahan",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 2,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_spahan_spahan",
+        "Name": "Spahan",
+        "ResourceId": 4
+      },
+      "TownFirst": {
+        "Id": "att_reg_spahan_issatis",
+        "Name": "Issatis"
+      },
+      "TownSecond": {
+        "Id": "att_reg_spahan_susa",
+        "Name": "Susa"
+      }
+    },
+    {
+      "Id": "att_prov_syria",
+      "Name": "Syria",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          },
+          {
+            "Value": 1,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_syria_antiochia",
+        "Name": "Antiochia",
+        "IsCoastal": true,
+        "ResourceId": 14
+      },
+      "TownFirst": {
+        "Id": "att_reg_syria_emesa",
+        "Name": "Emesa"
+      },
+      "TownSecond": {
+        "Id": "att_reg_syria_tyrus",
+        "Name": "Tyrus",
+        "IsCoastal": true,
+        "ResourceId": 1
+      }
+    },
+    {
+      "Id": "att_prov_tarraconensis",
+      "Name": "Tarraconensis",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 2
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 2,
+            "ReligionId": 1
+          },
+          {
+            "Value": 1,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_tarraconensis_tarraco",
+        "Name": "Tarraco",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_tarraconensis_caesaraugusta",
+        "Name": "Caesaraugusta"
+      },
+      "TownSecond": {
+        "Id": "att_reg_tarraconensis_pompaelo",
+        "Name": "Pompaelo",
+        "ResourceId": 8
+      }
+    },
+    {
+      "Id": "att_prov_thracia",
+      "Name": "Thracia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 4,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 6
+          },
+          {
+            "Value": 2,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_thracia_constantinopolis",
+        "Name": "Constantinopolis",
+        "IsCoastal": true,
+        "ResourceId": 14
+      },
+      "TownFirst": {
+        "Id": "att_reg_thracia_marcianopolis",
+        "Name": "Marcianopolis"
+      },
+      "TownSecond": {
+        "Id": "att_reg_thracia_trimontium",
+        "Name": "Trimontium",
+        "ResourceId": 4
+      }
+    },
+    {
+      "Id": "att_prov_transcarpathia",
+      "Name": "Transcarpathia",
+      "ClimateId": 1,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 10
+          },
+          {
+            "Value": 2,
+            "ReligionId": 4
+          },
+          {
+            "Value": 2,
+            "ReligionId": 12
+          },
+          {
+            "Value": 1,
+            "ReligionId": 13
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_transcarpathia_arheimar",
+        "Name": "Arheimar"
+      },
+      "TownFirst": {
+        "Id": "att_reg_transcarpathia_belz",
+        "Name": "Belz"
+      },
+      "TownSecond": {
+        "Id": "att_reg_transcarpathia_leopolis",
+        "Name": "Leopolis",
+        "ResourceId": 1
+      }
+    },
+    {
+      "Id": "att_prov_transcaspia",
+      "Name": "Transcaspia",
+      "ClimateId": 3,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 10
+          },
+          {
+            "Value": 3,
+            "ReligionId": 14
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_transcaspia_kath",
+        "Name": "Kath",
+        "ResourceId": 5
+      },
+      "TownFirst": {
+        "Id": "att_reg_transcaspia_dahistan",
+        "Name": "Dahistan"
+      },
+      "TownSecond": {
+        "Id": "att_reg_transcaspia_siahkuh",
+        "Name": "Siahkuh",
+        "ResourceId": 1
+      }
+    },
+    {
+      "Id": "att_prov_tripolitana",
+      "Name": "Tripolitana",
+      "ClimateId": 4,
+      "Effect": {
+        "Fertility": 3,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_tripolitana_leptis_magna",
+        "Name": "Leptis Magna",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_tripolitana_macomades",
+        "Name": "Macomades",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_tripolitana_sabrata",
+        "Name": "Sabrata",
+        "IsCoastal": true,
+        "ResourceId": 1
+      }
+    },
+    {
+      "Id": "att_prov_venetia",
+      "Name": "Venetia",
+      "ClimateId": 2,
+      "Effect": {
+        "Fertility": 5,
+        "Influences": [
+          {
+            "Value": 3,
+            "ReligionId": 1
+          },
+          {
+            "Value": 3,
+            "ReligionId": 5
+          },
+          {
+            "Value": 3,
+            "ReligionId": 8
+          },
+          {
+            "Value": 3,
+            "ReligionId": 9
+          }
+        ]
+      },
+      "City": {
+        "Id": "att_reg_venetia_ravenna",
+        "Name": "Ravenna",
+        "IsCoastal": true
+      },
+      "TownFirst": {
+        "Id": "att_reg_venetia_aquileia",
+        "Name": "Aquilea",
+        "IsCoastal": true
+      },
+      "TownSecond": {
+        "Id": "att_reg_venetia_verona",
+        "Name": "Verona",
+        "ResourceId": 9
+      }
+    }
+  ]
+}

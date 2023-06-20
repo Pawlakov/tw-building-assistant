@@ -322,33 +322,13 @@ let internal getReligionEffect (ctx: DatabaseContext) (religionsData: ReligionsD
 
     effectId |> (getEffectOption ctx)
 
-let internal getProvinceEffect (ctx: DatabaseContext) (provincesData: ProvincesData.Root []) provinceId =
-    let effectId =
-        query {
-            for province in provincesData do
-                where (province.Id = provinceId)
-                select province.EffectId
-                head
-        }
-
-    effectId |> (getEffect ctx)
-
 let internal getClimateEffect
     (ctx: DatabaseContext)
-    (provincesData: ProvincesData.Root [])
+    climateId
     (climatesData: ClimatesData.Root [])
-    provinceId
     seasonId
     weatherId
     =
-    let climateId =
-        query {
-            for province in provincesData do
-                where (province.Id = provinceId)
-                select province.ClimateId
-                head
-        }
-
     let climate =
         query {
             for climate in climatesData do
@@ -404,7 +384,8 @@ let internal getPowerLevelEffect (ctx: DatabaseContext) (powerLevelsData: PowerL
 let internal getStateFromSettings
     (ctx: DatabaseContext)
     climatesData
-    provincesData
+    getProvinceClimateId
+    getProvinceEffectSet
     religionsData
     difficultiesData
     taxesData
@@ -414,10 +395,12 @@ let internal getStateFromSettings
     (settings: Settings)
     =
     let religionEffects = getReligionEffect ctx religionsData settings.ReligionId
-    let provinceEffects = getProvinceEffect ctx provincesData settings.ProvinceId
+
+    let provinceEffectSet = settings |> getProvinceEffectSet
+    let provinceClimateId = settings |> getProvinceClimateId
 
     let climateEffects =
-        getClimateEffect ctx provincesData climatesData settings.ProvinceId settings.SeasonId settings.WeatherId
+        getClimateEffect ctx provinceClimateId climatesData settings.SeasonId settings.WeatherId
 
     let difficultyEffects =
         getDifficultyEffect ctx difficultiesData settings.DifficultyId
@@ -442,10 +425,10 @@ let internal getStateFromSettings
     let technologyEffectSetSeq = settings |> getTechnologyEffectSetSeq |> Seq.toList
 
     let effectSets =
-        factionEffectSet::
         technologyEffectSetSeq@
-        [ religionEffects
-          provinceEffects
+        [ factionEffectSet
+          religionEffects
+          provinceEffectSet
           climateEffects
           difficultyEffects
           taxEffects

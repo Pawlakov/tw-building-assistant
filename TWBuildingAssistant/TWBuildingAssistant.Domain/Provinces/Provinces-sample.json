@@ -1,0 +1,78 @@
+﻿{
+  "$schema": ".\\Provinces-schema.json",
+  "Provinces": [
+    {
+      "Id": "a",
+      "Name": "a",
+      "ClimateId": 0,
+      "Effect": {
+        "PublicOrder": 0,
+        "ResearchRate": 0,
+        "Growth": 0,
+        "Fertility": 0,
+        "ReligiousOsmosis": 0,
+        "Food": 0,
+        "Sanitation": 0,
+        "TaxRate": 0,
+        "CorruptionRate": 0,
+        "Bonuses": [
+          {
+            "Value": 0,
+            "Category": 0
+          },
+          {
+            "Value": 0
+          }
+        ],
+        "Influences": [
+          {
+            "Value": 0,
+            "ReligionId": 0
+          },
+          {
+            "Value": 0
+          }
+        ]
+      },
+      "City": {
+        "Id": "a",
+        "Name": "a",
+        "IsCoastal": true,
+        "ResourceId": 0,
+        "SlotsCountOffset": 0
+      },
+      "TownFirst": {
+        "Id": "a",
+        "Name": "a",
+        "IsCoastal": true,
+        "ResourceId": 0,
+        "SlotsCountOffset": 0
+      },
+      "TownSecond": {
+        "Id": "a",
+        "Name": "a",
+        "IsCoastal": true,
+        "ResourceId": 0,
+        "SlotsCountOffset": 0
+      }
+    },
+    {
+      "Id": "a",
+      "Name": "a",
+      "ClimateId": 0,
+      "Effect": {},
+      "City": {
+        "Id": "a",
+        "Name": "a"
+      },
+      "TownFirst": {
+        "Id": "a",
+        "Name": "a"
+      },
+      "TownSecond": {
+        "Id": "a",
+        "Name": "a"
+      }
+    }
+  ]
+}

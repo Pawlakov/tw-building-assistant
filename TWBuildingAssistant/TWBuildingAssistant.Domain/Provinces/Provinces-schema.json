@@ -1,0 +1,75 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Provinces aggregate",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "Provinces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/province"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [ "$schema", "Provinces" ],
+  "additionalProperties": false,
+  "definitions": {
+    "province": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ClimateId": {
+          "type": "integer"
+        },
+        "Effect": {
+          "$ref": "..\\Data\\Effects-schema.json#"
+        },
+        "City": {
+          "$ref": "#/definitions/region"
+        },
+        "TownFirst": {
+          "$ref": "#/definitions/region"
+        },
+        "TownSecond": {
+          "$ref": "#/definitions/region"
+        }
+      },
+      "required": ["Id", "Name", "Effect", "ClimateId"],
+      "additionalProperties": false
+    },
+    "region": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ResourceId": {
+          "type": "integer"
+        },
+        "IsCoastal": {
+          "type": "boolean"
+        },
+        "SlotsCountOffset": {
+          "type": "integer"
+        }
+      },
+      "required": [ "Id", "Name" ],
+      "additionalProperties": false
+    }
+  }
+}

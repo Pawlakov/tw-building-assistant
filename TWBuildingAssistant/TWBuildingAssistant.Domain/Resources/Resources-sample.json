@@ -1,0 +1,9 @@
+﻿{
+  "$schema": ".\\Resources-schema.json",
+  "Resources": [
+    {
+      "Id": 0,
+      "Name": "a"
+    }
+  ]
+}

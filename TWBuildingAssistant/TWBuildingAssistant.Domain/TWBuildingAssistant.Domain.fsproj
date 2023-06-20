@@ -22,16 +22,10 @@
     <None Include="Data\Religions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Resources.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Data\Weathers.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\Seasons.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Provinces.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\Climates.json">
@@ -40,7 +34,22 @@
     <Compile Include="Data.fs" />
     <Compile Include="Settings.fs" />
     <Compile Include="Effects.fs" />
-    <Compile Include="Provinces.fs" />
+    <EmbeddedResource Include="Resources\Resources-schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resources-sample.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resources.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Resources\Resources.fs" />
+    <EmbeddedResource Include="Provinces\Provinces-schema.json" />
+    <EmbeddedResource Include="Provinces\Provinces-sample.json" />
+    <EmbeddedResource Include="Provinces\Provinces.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Provinces\Provinces.fs" />
     <EmbeddedResource Include="Factions\Factions-schema.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

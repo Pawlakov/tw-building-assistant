@@ -1,0 +1,35 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Resources aggregate",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "Resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/resource"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [ "$schema", "Resources" ],
+  "additionalProperties": false,
+  "definitions": {
+    "resource": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [ "Id", "Name" ],
+      "additionalProperties": false
+    }
+  }
+}

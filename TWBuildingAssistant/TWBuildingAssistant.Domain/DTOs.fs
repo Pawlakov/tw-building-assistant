@@ -14,7 +14,7 @@ type NamedStringIdWithItemsDto =
       Items:NamedStringIdDto[] }
 
 type SettingOptions =
-    { Provinces:NamedIdDto[]
+    { Provinces:NamedStringIdDto[]
       Weathers:NamedIdDto[]
       Seasons:NamedIdDto[]
       Religions:NamedIdDto[]
@@ -24,7 +24,7 @@ type SettingOptions =
       PowerLevels:NamedIdDto[] }
 
 type SettingsDto =
-    { ProvinceId:int
+    { ProvinceId:string
       FertilityDrop:int 
       TechnologyTier:int 
       UseAntilegacyTechnologies:bool 
@@ -44,14 +44,14 @@ type SlotDescriptorDto =
       ResourceId:int option }
 
 type RegionDto =
-    { Id:int
+    { Id:string
       Name:string
       ResourceId:int option
       ResourceName: string option
       Slots:SlotDescriptorDto[] }
 
 type ProvinceDto =
-    { Id:int 
+    { Id:string 
       Name:string
       Regions:RegionDto[] }
 
@@ -82,7 +82,7 @@ type SeekerSettingsSlotDto =
     { BranchId:string option
       LevelId:string option
       Descriptor:SlotDescriptorDto
-      RegionId:int
+      RegionId:string
       SlotIndex:int }
 
 type SeekerSettingsRegionDto = 
@@ -96,7 +96,7 @@ type MinimalConditionDto =
 type SeekerResultDto = 
     { BranchId:string
       LevelId:string
-      RegionId:int
+      RegionId:string
       SlotIndex:int }
 
 type ResetProgressDelegate = 

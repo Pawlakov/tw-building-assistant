@@ -1,0 +1,61 @@
+﻿{
+  "$schema": ".\\Resources-schema.json",
+  "Resources": [
+    {
+      "Id": 1,
+      "Name": "Dye"
+    },
+    {
+      "Id": 2,
+      "Name": "Fur"
+    },
+    {
+      "Id": 3,
+      "Name": "Gemstones"
+    },
+    {
+      "Id": 4,
+      "Name": "Gold"
+    },
+    {
+      "Id": 5,
+      "Name": "Iron"
+    },
+    {
+      "Id": 6,
+      "Name": "Lead"
+    },
+    {
+      "Id": 7,
+      "Name": "Lumber"
+    },
+    {
+      "Id": 8,
+      "Name": "Marble"
+    },
+    {
+      "Id": 9,
+      "Name": "Olive"
+    },
+    {
+      "Id": 10,
+      "Name": "Salt"
+    },
+    {
+      "Id": 11,
+      "Name": "Silk"
+    },
+    {
+      "Id": 12,
+      "Name": "Spice"
+    },
+    {
+      "Id": 13,
+      "Name": "Wine"
+    },
+    {
+      "Id": 14,
+      "Name": "Pentarchy See"
+    }
+  ]
+}

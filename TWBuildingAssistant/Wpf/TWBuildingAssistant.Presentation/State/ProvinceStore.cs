@@ -8,11 +8,11 @@ public class ProvinceStore
 {
     public ProvinceStore()
     {
-        this.BuildingLevels = new Dictionary<(int RegionId, int SlotIndex), (string BuildingBranchId, string BuildingLevelId)>();
+        this.BuildingLevels = new Dictionary<(string RegionId, int SlotIndex), (string BuildingBranchId, string BuildingLevelId)>();
         this.SeekerResults = new List<SeekerResultDto>();
     }
 
-    public Dictionary<(int RegionId, int SlotIndex), (string BuildingBranchId, string BuildingLevelId)> BuildingLevels { get; }
+    public Dictionary<(string RegionId, int SlotIndex), (string BuildingBranchId, string BuildingLevelId)> BuildingLevels { get; }
 
     public SeekerSettingsRegionDto[] SeekerSettings { get; set; }
 

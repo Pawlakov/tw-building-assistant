@@ -50,6 +50,10 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <Compile Include="Provinces\Provinces.fs" />
+    <EmbeddedResource Include="Wonders\Wonders-schema.json" />
+    <EmbeddedResource Include="Wonders\Wonders-sample.json" />
+    <EmbeddedResource Include="Wonders\Wonders.json" />
+    <Compile Include="Wonders\Wonders.fs" />
     <EmbeddedResource Include="Factions\Factions-schema.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

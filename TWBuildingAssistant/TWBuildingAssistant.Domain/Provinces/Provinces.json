@@ -1139,7 +1139,7 @@
         "Fertility": 5,
         "Influences": [
           {
-            "Value": 13,
+            "Value": 3,
             "ReligionId": 5
           },
           {
@@ -1372,7 +1372,7 @@
         "Fertility": 3,
         "Influences": [
           {
-            "Value": 13,
+            "Value": 3,
             "ReligionId": 5
           },
           {
@@ -1415,7 +1415,7 @@
         "Fertility": 4,
         "Influences": [
           {
-            "Value": 13,
+            "Value": 3,
             "ReligionId": 5
           },
           {

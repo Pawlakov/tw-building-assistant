@@ -27,7 +27,7 @@ public class SeekerFunction
         var model = Interface.getSettingOptions();
         var dto = new SettingOptionsDTO
         {
-            Provinces = model.Provinces.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
+            Provinces = model.Provinces.Select(x => new NamedStringIdDTO { StringId = x.StringId, Name = x.Name }).ToArray(),
             Weathers = model.Weathers.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
             Seasons = model.Seasons.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
             Religions = model.Religions.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),

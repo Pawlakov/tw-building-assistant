@@ -1,0 +1,51 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Wonders aggregate",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "Wonders": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/wonder"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [ "$schema", "Wonders" ],
+  "additionalProperties": false,
+  "definitions": {
+    "wonder": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "RegionIds": {
+          "title": "array",
+          "minLength": 1,
+          "maxLength": 2,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "FactionwideEffect": {
+          "$ref": "..\\Data\\Effects-schema.json#"
+        },
+        "LocalEffect": {
+          "$ref": "..\\Data\\Effects-schema.json#"
+        }
+      },
+      "required": [ "Id", "Name", "RegionIds" ],
+      "additionalProperties": false
+    }
+  }
+}

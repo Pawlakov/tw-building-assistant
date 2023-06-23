@@ -2,7 +2,7 @@
 
 public class SettingOptionsDTO
 {
-    public NamedIdDTO[] Provinces { get; set; }
+    public NamedStringIdDTO[] Provinces { get; set; }
 
     public NamedIdDTO[] Weathers { get; set; }
 

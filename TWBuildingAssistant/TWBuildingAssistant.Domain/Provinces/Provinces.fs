@@ -196,5 +196,13 @@ let internal getProvinceClimateId (provincesData: Data.JsonProvince []) (setting
                 exactlyOne
         }
 
+let internal getProvinceRegionIdSeq (provincesData: Data.JsonProvince []) (settings: Settings.Settings) =
+    query {
+            for jsonProvince in provincesData do
+                where (jsonProvince.Id = settings.ProvinceId)
+                select [jsonProvince.City.Id; jsonProvince.TownFirst.Id; jsonProvince.TownSecond.Id]
+                exactlyOne
+        } |> List.toSeq
+
 let internal getProvincePairs (provincesData: Data.JsonProvince []) =
     query { for province in provincesData do select (province.Id, province.Name) }

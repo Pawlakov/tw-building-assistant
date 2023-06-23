@@ -1,0 +1,80 @@
+﻿{
+  "$schema": ".\\Wonders-schema.json",
+  "Wonders": [
+    {
+      "Id": "a",
+      "Name": "a",
+      "RegionIds": [ "a" ],
+      "FactionwideEffect": {
+        "PublicOrder": 0,
+        "ResearchRate": 0,
+        "Growth": 0,
+        "Fertility": 0,
+        "ReligiousOsmosis": 0,
+        "Food": 0,
+        "Sanitation": 0,
+        "TaxRate": 0,
+        "CorruptionRate": 0,
+        "Bonuses": [
+          {
+            "Value": 0,
+            "Category": 0
+          },
+          {
+            "Value": 0
+          }
+        ],
+        "Influences": [
+          {
+            "Value": 0,
+            "ReligionId": 0
+          },
+          {
+            "Value": 0
+          }
+        ]
+      },
+      "LocalEffect": {
+        "PublicOrder": 0,
+        "ResearchRate": 0,
+        "Growth": 0,
+        "Fertility": 0,
+        "ReligiousOsmosis": 0,
+        "Food": 0,
+        "Sanitation": 0,
+        "TaxRate": 0,
+        "CorruptionRate": 0,
+        "Bonuses": [
+          {
+            "Value": 0,
+            "Category": 0
+          },
+          {
+            "Value": 0
+          }
+        ],
+        "Influences": [
+          {
+            "Value": 0,
+            "ReligionId": 0
+          },
+          {
+            "Value": 0
+          }
+        ]
+      }
+    },
+    {
+      "Id": "a",
+      "Name": "a",
+      "RegionIds": [ "a" ],
+      "FactionwideEffect": {},
+      "LocalEffect": {}
+    },
+    {
+      "Id": "a",
+      "Name": "a",
+      "RegionIds": [ "a" ]
+    }
+  ]
+}

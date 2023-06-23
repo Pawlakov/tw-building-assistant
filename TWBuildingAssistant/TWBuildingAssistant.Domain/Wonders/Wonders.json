@@ -1,0 +1,242 @@
+﻿{
+  "$schema": ".\\Wonders-schema.json",
+  "Wonders": [
+    {
+      "Id": "att_wonder_pharos_alexandria",
+      "Name": "The Pharos & Pyramids",
+      "RegionIds": [
+        "att_reg_aegyptus_alexandria"
+      ],
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 5,
+            "Category": 6
+          }
+        ]
+      }
+    },
+    {
+      "Id": "att_wonder_mausoleum_mausolus",
+      "Name": "The Mausoleum at Halicarnassus",
+      "RegionIds": [
+        "att_reg_asia_ephesus"
+      ],
+      "Effect": {
+        "TaxRate": 2
+      }
+    },
+    {
+      "Id": "att_wonder_babylon",
+      "Name": "Ctesiphon & Babylon",
+      "RegionIds": [
+        "att_reg_asorstan_ctesiphon"
+      ],
+      "Effect": {
+        "ResearchRate": 3,
+        "Growth": 2
+      }
+    },
+    {
+      "Id": "att_wonder_stonehenge",
+      "Name": "Stonehenge",
+      "RegionIds": [
+        "att_reg_britannia_superior_corinium"
+      ],
+      "Effect": {
+        "ResearchRate": 3
+      }
+    },
+    {
+      "Id": "att_wonder_mount_argaeus",
+      "Name": "Mount Argaeus",
+      "RegionIds": [
+        "att_reg_cappadocia_caesarea_eusebia"
+      ]
+    },
+    {
+      "Id": "att_wonder_mount_vesuvius",
+      "Name": "Mount Vesuvius",
+      "RegionIds": [
+        "att_reg_italia_neapolis"
+      ],
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 2,
+            "Category": 1
+          },
+          {
+            "Value": 2,
+            "Category": 2
+          }
+        ]
+      },
+      "LocalEffect": {
+        "Influences": [
+          {
+            "Value": 10,
+            "ReligionId": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": "att_wonder_rome",
+      "Name": "Rome",
+      "RegionIds": [
+        "att_reg_italia_roma"
+      ],
+      "LocalEffect": {
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": "att_wonder_oracle_amun_re",
+      "Name": "Ruined Oracle of Amun-Re",
+      "RegionIds": [
+        "att_reg_libya_paraetonium"
+      ],
+      "Effect": {
+        "PublicOrder": 1
+      }
+    },
+    {
+      "Id": "att_wonder_karnag",
+      "Name": "The Dolmens of Karnag",
+      "RegionIds": [
+        "att_reg_lugdunensis_turonum"
+      ],
+      "Effect": {
+        "ResearchRate": 3,
+        "Growth": 2
+      }
+    },
+    {
+      "Id": "att_wonder_mount_olympus",
+      "Name": "Mount Olympus",
+      "RegionIds": [
+        "att_reg_macedonia_thessalonica"
+      ],
+      "LocalEffect": {
+        "Influences": [
+          {
+            "Value": 10,
+            "ReligionId": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": "att_wonder_mount_etna",
+      "Name": "Mount Etna",
+      "RegionIds": [
+        "att_reg_magna_graecia_syracusae"
+      ],
+      "Effect": {
+        "Bonuses": [
+          {
+            "Value": 2,
+            "Category": 1
+          },
+          {
+            "Value": 2,
+            "Category": 2
+          }
+        ]
+      },
+      "LocalEffect": {
+        "Influences": [
+          {
+            "Value": 10,
+            "ReligionId": 5
+          }
+        ]
+      }
+    },
+    {
+      "Id": "att_wonder_pillars_hercules",
+      "Name": "The Pillars of Hercules",
+      "RegionIds": [
+        "att_reg_mauretania_tingis",
+        "att_reg_baetica_hispalis"
+      ]
+    },
+    {
+      "Id": "att_wonder_mount_behistun",
+      "Name": "Mount Behistun",
+      "RegionIds": [
+        "att_reg_media_atropatene_ecbatana"
+      ],
+      "Effect": {
+        "ResearchRate": 3
+      }
+    },
+    {
+      "Id": "att_wonder_mount_damavand",
+      "Name": "Mount Damavand",
+      "RegionIds": [
+        "att_reg_media_atropatene_rhaga"
+      ],
+      "Effect": {
+        "PublicOrder": 2
+      }
+    },
+    {
+      "Id": "att_wonder_colossus_rhodes",
+      "Name": "Ruins of the Colossus",
+      "RegionIds": [
+        "att_reg_mediterraneus_orientalis_rhodes"
+      ]
+    },
+    {
+      "Id": "att_wonder_bam_citadel",
+      "Name": "The Bam Citadel",
+      "RegionIds": [
+        "att_reg_persis_behdeshir"
+      ]
+    },
+    {
+      "Id": "att_wonder_necropolis_rostam",
+      "Name": "The Necropolis of Rostam",
+      "RegionIds": [
+        "att_reg_persis_stakhr"
+      ]
+    },
+    {
+      "Id": "att_wonder_constantinople",
+      "Name": "Constantinople",
+      "RegionIds": [
+        "att_reg_thracia_constantinopolis"
+      ],
+      "LocalEffect": {
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": 3
+          }
+        ]
+      }
+    },
+    {
+      "Id": "att_wonder_ravenna",
+      "Name": "Ravenna",
+      "RegionIds": [
+        "att_reg_venetia_ravenna"
+      ],
+      "LocalEffect": {
+        "Bonuses": [
+          {
+            "Value": 10,
+            "Category": 3
+          }
+        ]
+      }
+    }
+  ]
+}

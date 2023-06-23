@@ -386,6 +386,7 @@ let internal getStateFromSettings
     climatesData
     getProvinceClimateId
     getProvinceEffectSet
+    getWonderEffectSetSeq
     religionsData
     difficultiesData
     taxesData
@@ -395,6 +396,8 @@ let internal getStateFromSettings
     (settings: Settings)
     =
     let religionEffects = getReligionEffect ctx religionsData settings.ReligionId
+
+    let wonderFEffectSetSeq = settings |> getWonderEffectSetSeq |> Seq.toList
 
     let provinceEffectSet = settings |> getProvinceEffectSet
     let provinceClimateId = settings |> getProvinceClimateId
@@ -425,6 +428,7 @@ let internal getStateFromSettings
     let technologyEffectSetSeq = settings |> getTechnologyEffectSetSeq |> Seq.toList
 
     let effectSets =
+        wonderFEffectSetSeq@
         technologyEffectSetSeq@
         [ factionEffectSet
           religionEffects

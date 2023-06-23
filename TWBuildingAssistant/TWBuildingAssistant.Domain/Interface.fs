@@ -269,6 +269,7 @@ let getBuildingLibrary settings =
 let getState ctx buildingLevelIds settings =
     let climatesData = getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
+    let wondersData = Wonders.Data.getWondersData ()
     let religionsData = getReligionsData ()
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
@@ -282,14 +283,15 @@ let getState ctx buildingLevelIds settings =
         Effects.getStateFromSettings
             ctx
             climatesData
-            (provincesData |> Provinces.getProvinceClimateId)
-            (provincesData |> Provinces.getProvinceEffect)
+            (Provinces.getProvinceClimateId provincesData)
+            (Provinces.getProvinceEffect provincesData)
+            (Wonders.getWonderEffectSeq wondersData (Provinces.getProvinceRegionIdSeq provincesData))
             religionsData
             difficultiesData
             taxesData
             powerLevelsData
-            (factionsData |> Factions.getFactionEffect)
-            (factionsData |> Factions.getTechnologyEffects)
+            (Factions.getFactionEffect factionsData)
+            (Factions.getTechnologyEffects factionsData)
             settingsModel
 
     let buildings =
@@ -315,6 +317,7 @@ let seek
     =
     let climatesData = getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
+    let wondersData = Wonders.Data.getWondersData ()
     let religionsData = getReligionsData ()
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
@@ -328,14 +331,15 @@ let seek
         Effects.getStateFromSettings
             ctx
             climatesData
-            (provincesData |> Provinces.getProvinceClimateId)
-            (provincesData |> Provinces.getProvinceEffect)
+            (Provinces.getProvinceClimateId provincesData)
+            (Provinces.getProvinceEffect provincesData)
+            (Wonders.getWonderEffectSeq wondersData (Provinces.getProvinceRegionIdSeq provincesData))
             religionsData
             difficultiesData
             taxesData
             powerLevelsData
-            (factionsData |> Factions.getFactionEffect)
-            (factionsData |> Factions.getTechnologyEffects)
+            (Factions.getFactionEffect factionsData)
+            (Factions.getTechnologyEffects factionsData)
             settingsModel
 
     let buildingLibrary = 

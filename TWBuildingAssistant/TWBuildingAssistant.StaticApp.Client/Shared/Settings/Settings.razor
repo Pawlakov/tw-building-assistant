@@ -80,7 +80,7 @@
                 <SettingsControl For="@(() => this.model.ProvinceId)" Label="Province" FaClass="fa-earth-europe">
                     <SettingsSelect @bind-Value="this.model.ProvinceId" Options="@this.options?.Provinces">
                         <OptionTemplate Context="option">
-                            <option value="@option.Id">@option.Name</option>
+                            <option value="@option.StringId">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>

@@ -26,7 +26,7 @@
                 <SettingsControl For="@(() => this.model.RelligionId)" Label="Religion" FaClass="fa-person-praying">
                     <SettingsSelect @bind-Value="this.model.RelligionId" Options="@this.options?.Religions">
                         <OptionTemplate Context="option">
-                            <option value="@option.Id">@option.Name</option>
+                            <option value="@option.StringId">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>

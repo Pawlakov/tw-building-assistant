@@ -26,7 +26,7 @@
         "Influences": [
           {
             "Value": 0,
-            "ReligionId": 0
+            "ReligionId": "a"
           },
           {
             "Value": 0
@@ -68,7 +68,7 @@
                 "Influences": [
                   {
                     "Value": 0,
-                    "ReligionId": 0
+                    "ReligionId": "a"
                   },
                   {
                     "Value": 0
@@ -117,7 +117,7 @@
             "Influences": [
               {
                 "Value": 0,
-                "ReligionId": 0
+                "ReligionId": "a"
               },
               {
                 "Value": 0

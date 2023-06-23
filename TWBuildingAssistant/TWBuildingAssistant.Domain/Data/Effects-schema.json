@@ -67,7 +67,8 @@
           "type": "integer"
         },
         "ReligionId": {
-          "type": "integer"
+          "type": "string",
+          "minLength": 1
         }
       },
       "required": [ "Value" ],

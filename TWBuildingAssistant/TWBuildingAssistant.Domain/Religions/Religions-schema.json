@@ -1,0 +1,39 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Resources aggregate",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "Religions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/religion"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [ "$schema", "Religions" ],
+  "additionalProperties": false,
+  "definitions": {
+    "religion": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Effect": {
+          "$ref": "..\\Data\\Effects-schema.json#"
+        }
+      },
+      "required": [ "Id", "Name" ],
+      "additionalProperties": false
+    }
+  }
+}

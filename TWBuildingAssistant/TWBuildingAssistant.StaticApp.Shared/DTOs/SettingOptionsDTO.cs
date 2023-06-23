@@ -8,7 +8,7 @@ public class SettingOptionsDTO
 
     public NamedIdDTO[] Seasons { get; set; }
 
-    public NamedIdDTO[] Religions { get; set; }
+    public NamedStringIdDTO[] Religions { get; set; }
 
     public NamedStringIdDTO[] Factions { get; set; }
 

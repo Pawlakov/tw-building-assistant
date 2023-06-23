@@ -17,7 +17,7 @@ type SettingOptions =
     { Provinces:NamedStringIdDto[]
       Weathers:NamedIdDto[]
       Seasons:NamedIdDto[]
-      Religions:NamedIdDto[]
+      Religions:NamedStringIdDto[]
       Factions:NamedStringIdDto[]
       Difficulties:NamedIdDto[]
       Taxes:NamedIdDto[]
@@ -28,7 +28,7 @@ type SettingsDto =
       FertilityDrop:int 
       TechnologyTier:int 
       UseAntilegacyTechnologies:bool 
-      ReligionId:int
+      ReligionId:string
       FactionId:string
       WeatherId:int
       SeasonId:int

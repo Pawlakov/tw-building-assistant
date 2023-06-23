@@ -10,15 +10,15 @@
         "Influences": [
           {
             "Value": 4,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 1,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 1,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           }
         ]
       },
@@ -48,11 +48,11 @@
         "Influences": [
           {
             "Value": 1,
-            "ReligionId": 3
+            "ReligionId": "att_rel_church_east"
           },
           {
             "Value": 1,
-            "ReligionId": 11
+            "ReligionId": "att_rel_semitic_paganism"
           }
         ]
       },
@@ -81,15 +81,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -118,15 +118,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           }
         ]
       },
@@ -154,11 +154,11 @@
         "Influences": [
           {
             "Value": 2,
-            "ReligionId": 7
+            "ReligionId": "att_rel_judaism"
           },
           {
             "Value": 2,
-            "ReligionId": 11
+            "ReligionId": "att_rel_semitic_paganism"
           }
         ]
       },
@@ -188,15 +188,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 3
+            "ReligionId": "att_rel_church_east"
           },
           {
             "Value": 2,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           },
           {
             "Value": 1,
-            "ReligionId": 7
+            "ReligionId": "att_rel_judaism"
           }
         ]
       },
@@ -223,19 +223,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           },
           {
             "Value": 1,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 1,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           }
         ]
       },
@@ -262,19 +262,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 1,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           }
         ]
       },
@@ -303,11 +303,11 @@
         "Influences": [
           {
             "Value": 4,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 4,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -336,15 +336,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -372,19 +372,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 1,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           }
         ]
       },
@@ -411,19 +411,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 1,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           }
         ]
       },
@@ -452,19 +452,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 2,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 2,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 1,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -492,19 +492,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -532,7 +532,7 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           }
         ]
       },
@@ -560,15 +560,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -597,19 +597,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 1,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           }
         ]
       },
@@ -637,19 +637,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           },
           {
             "Value": 2,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           },
           {
             "Value": 1,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 1,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           }
         ]
       },
@@ -676,15 +676,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -713,19 +713,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           },
           {
             "Value": 1,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           }
         ]
       },
@@ -753,19 +753,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -793,19 +793,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -832,11 +832,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           },
           {
             "Value": 1,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           }
         ]
       },
@@ -864,15 +864,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           }
         ]
       },
@@ -900,15 +900,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           },
           {
             "Value": 1,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 1,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           }
         ]
       },
@@ -935,19 +935,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           },
           {
             "Value": 2,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           },
           {
             "Value": 2,
-            "ReligionId": 12
+            "ReligionId": "att_rel_pag_slavic"
           },
           {
             "Value": 1,
-            "ReligionId": 13
+            "ReligionId": "att_rel_pag_tengri"
           }
         ]
       },
@@ -975,7 +975,7 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           }
         ]
       },
@@ -1004,15 +1004,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           },
           {
             "Value": 2,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 1,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           }
         ]
       },
@@ -1039,15 +1039,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           },
           {
             "Value": 3,
-            "ReligionId": 13
+            "ReligionId": "att_rel_pag_tengri"
           },
           {
             "Value": 1,
-            "ReligionId": 12
+            "ReligionId": "att_rel_pag_slavic"
           }
         ]
       },
@@ -1074,11 +1074,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -1107,11 +1107,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           }
         ]
       },
@@ -1140,19 +1140,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 4,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 2,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -1181,15 +1181,15 @@
         "Influences": [
           {
             "Value": 4,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           },
           {
             "Value": 2,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           }
         ]
       },
@@ -1216,19 +1216,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -1256,19 +1256,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -1296,19 +1296,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 1,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -1336,15 +1336,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 1,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           }
         ]
       },
@@ -1373,19 +1373,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 2,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           }
         ]
       },
@@ -1416,15 +1416,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -1454,15 +1454,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           },
           {
             "Value": 2,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           }
         ]
       },
@@ -1491,15 +1491,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -1529,15 +1529,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           }
         ]
       },
@@ -1565,11 +1565,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -1596,23 +1596,23 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 1,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 1,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -1640,19 +1640,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           },
           {
             "Value": 2,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           }
         ]
       },
@@ -1679,27 +1679,27 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 2,
-            "ReligionId": 7
+            "ReligionId": "att_rel_judaism"
           },
           {
             "Value": 1,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 1,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -1729,19 +1729,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 1,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -1768,11 +1768,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -1799,19 +1799,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -1838,23 +1838,23 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 2,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 2,
-            "ReligionId": 11
+            "ReligionId": "att_rel_semitic_paganism"
           },
           {
             "Value": 1,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 1,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           }
         ]
       },
@@ -1881,15 +1881,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           },
           {
             "Value": 2,
-            "ReligionId": 13
+            "ReligionId": "att_rel_pag_tengri"
           },
           {
             "Value": 1,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -1918,23 +1918,23 @@
         "Influences": [
           {
             "Value": 2,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 1,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 1,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 1,
-            "ReligionId": 12
+            "ReligionId": "att_rel_pag_slavic"
           },
           {
             "Value": 1,
-            "ReligionId": 13
+            "ReligionId": "att_rel_pag_tengri"
           }
         ]
       },
@@ -1963,7 +1963,7 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           }
         ]
       },
@@ -1993,11 +1993,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           },
           {
             "Value": 3,
-            "ReligionId": 13
+            "ReligionId": "att_rel_pag_tengri"
           }
         ]
       },
@@ -2024,11 +2024,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -2055,19 +2055,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           },
           {
             "Value": 1,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -2097,19 +2097,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 2
+            "ReligionId": "att_rel_pag_celtic"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 2,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 1,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -2137,19 +2137,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 6
+            "ReligionId": "att_rel_chr_orthodox"
           },
           {
             "Value": 2,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },
@@ -2178,19 +2178,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           },
           {
             "Value": 2,
-            "ReligionId": 4
+            "ReligionId": "att_rel_pag_germanic"
           },
           {
             "Value": 2,
-            "ReligionId": 12
+            "ReligionId": "att_rel_pag_slavic"
           },
           {
             "Value": 1,
-            "ReligionId": 13
+            "ReligionId": "att_rel_pag_tengri"
           }
         ]
       },
@@ -2217,11 +2217,11 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 10
+            "ReligionId": "att_rel_other"
           },
           {
             "Value": 3,
-            "ReligionId": 14
+            "ReligionId": "att_rel_east_zoroastrian"
           }
         ]
       },
@@ -2249,15 +2249,15 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           }
         ]
       },
@@ -2287,19 +2287,19 @@
         "Influences": [
           {
             "Value": 3,
-            "ReligionId": 1
+            "ReligionId": "att_rel_chr_arian"
           },
           {
             "Value": 3,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           },
           {
             "Value": 3,
-            "ReligionId": 8
+            "ReligionId": "att_rel_chr_catholic"
           },
           {
             "Value": 3,
-            "ReligionId": 9
+            "ReligionId": "att_rel_east_manichaeism"
           }
         ]
       },

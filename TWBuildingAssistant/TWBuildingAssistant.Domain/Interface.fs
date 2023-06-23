@@ -24,7 +24,7 @@ let internal mapOptionSetToDTO (model: Settings.OptionSet) =
         |> List.toArray
       Religions =
         model.Religions
-        |> List.map mapNamedIdToDTO
+        |> List.map mapNamedStringIdToDTO
         |> List.toArray
       Factions =
         model.Factions
@@ -193,11 +193,6 @@ let internal getClimatesData () =
     |> File.ReadAllText
     |> ClimatesData.ParseList
 
-let internal getReligionsData () =
-    "Data/Religions.json"
-    |> File.ReadAllText
-    |> ReligionsData.ParseList
-
 let internal getDifficultiesData () =
     "Data/Difficulties.json"
     |> File.ReadAllText
@@ -217,7 +212,7 @@ let getSettingOptions () =
     let weathersData = getWeathersData ()
     let seasonsData = getSeasonsData ()
     let getProvinceTupleSeq = Provinces.Data.getProvincesData >> Provinces.getProvincePairs
-    let religionsData = getReligionsData ()
+    let religionsData = Religions.Data.getReligionsData >> Religions.getReligionPairs
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
@@ -270,7 +265,7 @@ let getState ctx buildingLevelIds settings =
     let climatesData = getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
     let wondersData = Wonders.Data.getWondersData ()
-    let religionsData = getReligionsData ()
+    let religionsData = Religions.Data.getReligionsData ()
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
@@ -286,7 +281,7 @@ let getState ctx buildingLevelIds settings =
             (Provinces.getProvinceClimateId provincesData)
             (Provinces.getProvinceEffect provincesData)
             (Wonders.getWonderEffectSeq wondersData (Provinces.getProvinceRegionIdSeq provincesData))
-            religionsData
+            (Religions.getReligionEffect religionsData)
             difficultiesData
             taxesData
             powerLevelsData
@@ -318,7 +313,7 @@ let seek
     let climatesData = getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
     let wondersData = Wonders.Data.getWondersData ()
-    let religionsData = getReligionsData ()
+    let religionsData = Religions.Data.getReligionsData ()
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
@@ -334,7 +329,7 @@ let seek
             (Provinces.getProvinceClimateId provincesData)
             (Provinces.getProvinceEffect provincesData)
             (Wonders.getWonderEffectSeq wondersData (Provinces.getProvinceRegionIdSeq provincesData))
-            religionsData
+            (Religions.getReligionEffect religionsData)
             difficultiesData
             taxesData
             powerLevelsData

@@ -32,7 +32,8 @@
           "type": "integer"
         },
         "ReligionId": {
-          "type": "integer"
+          "type": "string",
+          "minLength": 1
         },
         "ResourceId": {
           "type": "integer"

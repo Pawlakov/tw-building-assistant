@@ -50,7 +50,7 @@ type internal Bonus =
 
 type internal StateReligionInfluence = { Value: int }
 
-type internal SpecificReligionInfluence = { ReligionId: int; Value: int }
+type internal SpecificReligionInfluence = { ReligionId: string; Value: int }
 
 type internal Influence =
     | StateReligion of StateReligionInfluence
@@ -267,7 +267,7 @@ let private createInfluenceFromEntity (rd: Entities.Influence) =
 
     let value = rd.Value
 
-    createInfluence value religionId
+    createInfluence value (Some "OBSOLETE")
 
 let internal getEffect (ctx: DatabaseContext) effectId =
     let effect =
@@ -310,17 +310,6 @@ let internal getEffect (ctx: DatabaseContext) effectId =
       Influences = influences }
 
 let internal getEffectOption (ctx: DatabaseContext) = Option.map (getEffect ctx) >> Option.defaultValue emptyEffectSet
-
-let internal getReligionEffect (ctx: DatabaseContext) (religionsData: ReligionsData.Root []) religionId =
-    let effectId =
-        query {
-            for religion in religionsData do
-                where (religion.Id = religionId)
-                select religion.EffectId
-                head
-        }
-
-    effectId |> (getEffectOption ctx)
 
 let internal getClimateEffect
     (ctx: DatabaseContext)
@@ -387,7 +376,7 @@ let internal getStateFromSettings
     getProvinceClimateId
     getProvinceEffectSet
     getWonderEffectSetSeq
-    religionsData
+    getReligionEffectSet
     difficultiesData
     taxesData
     powerLevelsData
@@ -395,7 +384,7 @@ let internal getStateFromSettings
     getTechnologyEffectSetSeq
     (settings: Settings)
     =
-    let religionEffects = getReligionEffect ctx religionsData settings.ReligionId
+    let religionEffectSet = settings |> getReligionEffectSet
 
     let wonderFEffectSetSeq = settings |> getWonderEffectSetSeq |> Seq.toList
 
@@ -431,7 +420,7 @@ let internal getStateFromSettings
         wonderFEffectSetSeq@
         technologyEffectSetSeq@
         [ factionEffectSet
-          religionEffects
+          religionEffectSet
           provinceEffectSet
           climateEffects
           difficultyEffects

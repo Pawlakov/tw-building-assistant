@@ -6,7 +6,7 @@
       "Name": "a",
       "SlotType": 0,
       "RegionType": 0,
-      "ReligionId": 0,
+      "ReligionId": "a",
       "ResourceId": 0,
       "AllowParallel": true,
       "Interesting": true,
@@ -42,7 +42,7 @@
             "Influences": [
               {
                 "Value": 0,
-                "ReligionId": 0
+                "ReligionId": "a"
               },
               {
                 "Value": 0

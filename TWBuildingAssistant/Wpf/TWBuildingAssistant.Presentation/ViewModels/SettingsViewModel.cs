@@ -27,7 +27,7 @@ public class SettingsViewModel
         this.configuration = configuration;
 
         var options = getSettingOptions();
-        this.Religions = new ObservableCollection<NamedIdDto>(options.Religions);
+        this.Religions = new ObservableCollection<NamedStringIdDto>(options.Religions);
         this.Provinces = new ObservableCollection<NamedStringIdDto>(options.Provinces);
         this.Factions = new ObservableCollection<NamedStringIdDto>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4, 5 });
@@ -46,7 +46,7 @@ public class SettingsViewModel
                 FertilityDrop = this.FertilityDrops[0],
                 TechnologyTier = this.TechnologyTiers[0],
                 UseAntilegacyTechnologies = false,
-                ReligionId = this.Religions[0].Id,
+                ReligionId = this.Religions[0].StringId,
                 FactionId = this.Factions[0].StringId,
                 WeatherId = this.Weathers[0].Id,
                 SeasonId = this.Seasons[0].Id,
@@ -81,16 +81,16 @@ public class SettingsViewModel
         this.NextCommand = new AsyncRelayCommand(this.Next);
     }
 
-    public ObservableCollection<NamedIdDto> Religions { get; set; }
+    public ObservableCollection<NamedStringIdDto> Religions { get; set; }
 
-    public NamedIdDto SelectedReligion
+    public NamedStringIdDto SelectedReligion
     {
-        get => this.Religions.FirstOrDefault(x => x.Id == this.settings.ReligionId);
+        get => this.Religions.FirstOrDefault(x => x.StringId == this.settings.ReligionId);
         set
         {
-            if (this.settings.ReligionId != value.Id)
+            if (this.settings.ReligionId != value.StringId)
             {
-                this.settings.ReligionId = value.Id;
+                this.settings.ReligionId = value.StringId;
                 this.OnPropertyChanged(nameof(this.SelectedReligion));
             }
         }

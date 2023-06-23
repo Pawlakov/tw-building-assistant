@@ -10,7 +10,7 @@ type OptionSet =
     { Provinces: NamedStringId list
       Weathers: NamedId list
       Seasons: NamedId list
-      Religions: NamedId list
+      Religions: NamedStringId list
       Factions: NamedStringId list
       Difficulties: NamedId list
       Taxes: NamedId list
@@ -21,7 +21,7 @@ type internal Settings =
       FertilityDrop: int
       TechnologyTier: int
       UseAntilegacyTechnologies: bool
-      ReligionId: int
+      ReligionId: string
       FactionId: string
       WeatherId: int
       SeasonId: int
@@ -54,19 +54,6 @@ let private getSeasonOptions (seasonsData: SeasonsData.Root []) =
                 select
                     { Id = province.Id
                       Name = province.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
-
-let private getReligionOptions (religionsData: ReligionsData.Root []) =
-    let query =
-        query {
-            for religion in religionsData do
-                select
-                    { Id = religion.Id
-                      Name = religion.Name }
         }
 
     let result = query |> Seq.toList
@@ -110,11 +97,11 @@ let private getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
 
     result
 
-let getOptions weathersData seasonsData getProvinceTupleSeq religionsData difficultiesData taxesData powerLevelsData getFactionTupleSeq =
+let getOptions weathersData seasonsData getProvinceTupleSeq getReligionTupleSeq difficultiesData taxesData powerLevelsData getFactionTupleSeq =
     { Provinces = () |> getProvinceTupleSeq |> createOptions
       Weathers = getWeatherOptions weathersData
       Seasons = getSeasonOptions seasonsData
-      Religions = getReligionOptions religionsData
+      Religions = () |> getReligionTupleSeq |> createOptions
       Factions = () |> getFactionTupleSeq |> createOptions
       Difficulties = getDifficultyOptions difficultiesData
       Taxes = getTaxOptions taxesData

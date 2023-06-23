@@ -76,7 +76,7 @@
         "Influences": [
           {
             "Value": 10,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           }
         ]
       }
@@ -127,7 +127,7 @@
         "Influences": [
           {
             "Value": 10,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           }
         ]
       }
@@ -154,7 +154,7 @@
         "Influences": [
           {
             "Value": 10,
-            "ReligionId": 5
+            "ReligionId": "att_rel_pag_roman"
           }
         ]
       }

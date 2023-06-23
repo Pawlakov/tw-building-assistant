@@ -5,7 +5,7 @@
       "Id": "att_bch_religion_arian_legendary",
       "Name": "Pentarchy Arian Temple",
       "SlotType": 2,
-      "ReligionId": 1,
+      "ReligionId": "att_rel_chr_arian",
       "ResourceId": 14,
       "Interesting": true,
       "Levels": [
@@ -18,7 +18,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -33,7 +33,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -48,7 +48,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -63,7 +63,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -79,7 +79,7 @@
             "Influences": [
               {
                 "Value": 15,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -91,7 +91,7 @@
       "Name": "City Arian Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 1,
+      "ReligionId": "att_rel_chr_arian",
       "Interesting": true,
       "Levels": [
         {
@@ -103,7 +103,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -118,7 +118,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -133,7 +133,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -148,7 +148,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -174,7 +174,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -200,7 +200,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -226,7 +226,7 @@
             "Influences": [
               {
                 "Value": 6,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -238,7 +238,7 @@
       "Name": "Town Arian Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 1,
+      "ReligionId": "att_rel_chr_arian",
       "Interesting": true,
       "Levels": [
         {
@@ -249,7 +249,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -264,7 +264,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -279,7 +279,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -294,7 +294,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 1
+                "ReligionId": "att_rel_chr_arian"
               }
             ]
           }
@@ -306,7 +306,7 @@
       "Name": "City Grecoroman Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 5,
+      "ReligionId": "att_rel_pag_roman",
       "Interesting": true,
       "Levels": [
         {
@@ -318,7 +318,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -333,7 +333,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -348,7 +348,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -373,7 +373,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -389,7 +389,7 @@
             "Influences": [
               {
                 "Value": 8,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -411,7 +411,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -432,7 +432,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -447,7 +447,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -459,7 +459,7 @@
       "Name": "Town Grecoroman Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 5,
+      "ReligionId": "att_rel_pag_roman",
       "Interesting": true,
       "Levels": [
         {
@@ -469,7 +469,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -482,7 +482,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -495,7 +495,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -508,7 +508,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 5
+                "ReligionId": "att_rel_pag_roman"
               }
             ]
           }
@@ -519,7 +519,7 @@
       "Id": "att_bch_religion_orthodox_legendary",
       "Name": "Pentarchy Orthodox Temple",
       "SlotType": 2,
-      "ReligionId": 6,
+      "ReligionId": "att_rel_chr_orthodox",
       "ResourceId": 14,
       "Interesting": true,
       "Levels": [
@@ -532,7 +532,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -547,7 +547,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -562,7 +562,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -577,7 +577,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -593,7 +593,7 @@
             "Influences": [
               {
                 "Value": 15,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -605,7 +605,7 @@
       "Name": "City Orthodox Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 6,
+      "ReligionId": "att_rel_chr_orthodox",
       "Interesting": true,
       "Levels": [
         {
@@ -617,7 +617,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -632,7 +632,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -647,7 +647,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -662,7 +662,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -678,7 +678,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -694,7 +694,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -710,7 +710,7 @@
             "Influences": [
               {
                 "Value": 6,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -722,7 +722,7 @@
       "Name": "Town Orthodox Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 6,
+      "ReligionId": "att_rel_chr_orthodox",
       "Interesting": true,
       "Levels": [
         {
@@ -733,7 +733,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -748,7 +748,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -763,7 +763,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -778,7 +778,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 6
+                "ReligionId": "att_rel_chr_orthodox"
               }
             ]
           }
@@ -789,7 +789,7 @@
       "Id": "att_bch_religion_catholic_legendary",
       "Name": "Pentarchy Catholic Temple",
       "SlotType": 2,
-      "ReligionId": 8,
+      "ReligionId": "att_rel_chr_catholic",
       "ResourceId": 14,
       "Interesting": true,
       "Levels": [
@@ -802,7 +802,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -817,7 +817,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -832,7 +832,7 @@
             "Influences": [
               {
                 "Value": 9,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -847,7 +847,7 @@
             "Influences": [
               {
                 "Value": 12,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -863,7 +863,7 @@
             "Influences": [
               {
                 "Value": 15,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -875,7 +875,7 @@
       "Name": "City Catholic Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 8,
+      "ReligionId": "att_rel_chr_catholic",
       "Interesting": true,
       "Levels": [
         {
@@ -887,7 +887,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -903,7 +903,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -919,7 +919,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -935,7 +935,7 @@
             "Influences": [
               {
                 "Value": 6,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -950,7 +950,7 @@
             "Influences": [
               {
                 "Value": 6,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -965,7 +965,7 @@
             "Influences": [
               {
                 "Value": 9,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -980,7 +980,7 @@
             "Influences": [
               {
                 "Value": 12,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -992,7 +992,7 @@
       "Name": "Town Catholic Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 8,
+      "ReligionId": "att_rel_chr_catholic",
       "Interesting": true,
       "Levels": [
         {
@@ -1003,7 +1003,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -1019,7 +1019,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -1035,7 +1035,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -1051,7 +1051,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 8
+                "ReligionId": "att_rel_chr_catholic"
               }
             ]
           }
@@ -1063,7 +1063,7 @@
       "Name": "City Manichaeist Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 9,
+      "ReligionId": "att_rel_east_manichaeism",
       "Interesting": true,
       "Levels": [
         {
@@ -1074,7 +1074,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -1088,7 +1088,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -1102,7 +1102,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -1116,7 +1116,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -1137,7 +1137,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           },
@@ -1164,7 +1164,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           },
@@ -1191,7 +1191,7 @@
             "Influences": [
               {
                 "Value": 6,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           },
@@ -1209,7 +1209,7 @@
       "Name": "City Celtic Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 2,
+      "ReligionId": "att_rel_pag_celtic",
       "Interesting": true,
       "Levels": [
         {
@@ -1221,7 +1221,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -1236,7 +1236,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -1251,7 +1251,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -1266,7 +1266,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -1278,7 +1278,7 @@
       "Name": "City Tengri Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 13,
+      "ReligionId": "att_rel_pag_tengri",
       "Interesting": true,
       "Levels": [
         {
@@ -1288,7 +1288,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -1301,7 +1301,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -1314,7 +1314,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -1327,7 +1327,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -1339,7 +1339,7 @@
       "Name": "City Germanic Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 4,
+      "ReligionId": "att_rel_pag_germanic",
       "Interesting": true,
       "Levels": [
         {
@@ -1351,7 +1351,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -1366,7 +1366,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -1381,7 +1381,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -1396,7 +1396,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -1408,7 +1408,7 @@
       "Name": "City Zoroastrian Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 14,
+      "ReligionId": "att_rel_east_zoroastrian",
       "Interesting": true,
       "Levels": [
         {
@@ -1420,7 +1420,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1435,7 +1435,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1450,7 +1450,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1465,7 +1465,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1477,7 +1477,7 @@
       "Name": "City Slavic Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 12,
+      "ReligionId": "att_rel_pag_slavic",
       "Interesting": true,
       "Levels": [
         {
@@ -1490,7 +1490,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }
@@ -1506,7 +1506,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }
@@ -1522,7 +1522,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }
@@ -1538,7 +1538,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }
@@ -1550,7 +1550,7 @@
       "Name": "City Semitic Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 11,
+      "ReligionId": "att_rel_semitic_paganism",
       "Interesting": true,
       "Levels": [
         {
@@ -1573,7 +1573,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 11
+                "ReligionId": "att_rel_semitic_paganism"
               }
             ]
           }
@@ -1599,7 +1599,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 11
+                "ReligionId": "att_rel_semitic_paganism"
               }
             ]
           }
@@ -1625,7 +1625,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 11
+                "ReligionId": "att_rel_semitic_paganism"
               }
             ]
           }
@@ -1651,7 +1651,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 11
+                "ReligionId": "att_rel_semitic_paganism"
               }
             ]
           }
@@ -1663,7 +1663,7 @@
       "Name": "City Judaic Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 7,
+      "ReligionId": "att_rel_judaism",
       "Interesting": true,
       "Levels": [
         {
@@ -1677,7 +1677,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 7
+                "ReligionId": "att_rel_judaism"
               }
             ]
           }
@@ -1694,7 +1694,7 @@
             "Influences": [
               {
                 "Value": 6,
-                "ReligionId": 7
+                "ReligionId": "att_rel_judaism"
               }
             ]
           }
@@ -1711,7 +1711,7 @@
             "Influences": [
               {
                 "Value": 8,
-                "ReligionId": 7
+                "ReligionId": "att_rel_judaism"
               }
             ]
           }
@@ -1728,7 +1728,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 7
+                "ReligionId": "att_rel_judaism"
               }
             ]
           }
@@ -1740,7 +1740,7 @@
       "Name": "City East Temple",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 3,
+      "ReligionId": "att_rel_church_east",
       "Interesting": true,
       "Levels": [
         {
@@ -1754,7 +1754,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 3
+                "ReligionId": "att_rel_church_east"
               }
             ]
           }
@@ -1771,7 +1771,7 @@
             "Influences": [
               {
                 "Value": 6,
-                "ReligionId": 3
+                "ReligionId": "att_rel_church_east"
               }
             ]
           }
@@ -1788,7 +1788,7 @@
             "Influences": [
               {
                 "Value": 8,
-                "ReligionId": 3
+                "ReligionId": "att_rel_church_east"
               }
             ]
           }
@@ -1805,7 +1805,7 @@
             "Influences": [
               {
                 "Value": 10,
-                "ReligionId": 3
+                "ReligionId": "att_rel_church_east"
               }
             ]
           }
@@ -1817,7 +1817,7 @@
       "Name": "Zoroastrian Burial",
       "SlotType": 2,
       "RegionType": 0,
-      "ReligionId": 14,
+      "ReligionId": "att_rel_east_zoroastrian",
       "Interesting": true,
       "Levels": [
         {
@@ -1829,7 +1829,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1845,7 +1845,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1861,7 +1861,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1877,7 +1877,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -1889,7 +1889,7 @@
       "Name": "Town Semitic Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 11,
+      "ReligionId": "att_rel_semitic_paganism",
       "Interesting": true,
       "Levels": [
         {
@@ -1901,7 +1901,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 11
+                "ReligionId": "att_rel_semitic_paganism"
               }
             ]
           }
@@ -1916,7 +1916,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 11
+                "ReligionId": "att_rel_semitic_paganism"
               }
             ]
           }
@@ -1931,7 +1931,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 11
+                "ReligionId": "att_rel_semitic_paganism"
               }
             ]
           }
@@ -1943,7 +1943,7 @@
       "Name": "Town Judaic Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 7,
+      "ReligionId": "att_rel_judaism",
       "Interesting": true,
       "Levels": [
         {
@@ -1956,7 +1956,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 7
+                "ReligionId": "att_rel_judaism"
               }
             ]
           }
@@ -1972,7 +1972,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 7
+                "ReligionId": "att_rel_judaism"
               }
             ]
           }
@@ -1988,7 +1988,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 7
+                "ReligionId": "att_rel_judaism"
               }
             ]
           }
@@ -2000,7 +2000,7 @@
       "Name": "Town East Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 3,
+      "ReligionId": "att_rel_church_east",
       "Interesting": true,
       "Levels": [
         {
@@ -2012,7 +2012,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 3
+                "ReligionId": "att_rel_church_east"
               }
             ]
           }
@@ -2027,7 +2027,7 @@
             "Influences": [
               {
                 "Value": 5,
-                "ReligionId": 3
+                "ReligionId": "att_rel_church_east"
               }
             ]
           }
@@ -2042,7 +2042,7 @@
             "Influences": [
               {
                 "Value": 7,
-                "ReligionId": 3
+                "ReligionId": "att_rel_church_east"
               }
             ]
           }
@@ -2054,7 +2054,7 @@
       "Name": "Town Celtic Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 2,
+      "ReligionId": "att_rel_pag_celtic",
       "Interesting": true,
       "Levels": [
         {
@@ -2065,7 +2065,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -2080,7 +2080,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -2095,7 +2095,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -2110,7 +2110,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -2125,7 +2125,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -2140,7 +2140,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -2155,7 +2155,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 2
+                "ReligionId": "att_rel_pag_celtic"
               }
             ]
           }
@@ -2167,7 +2167,7 @@
       "Name": "Town Manichaeist Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 9,
+      "ReligionId": "att_rel_east_manichaeism",
       "Interesting": true,
       "Levels": [
         {
@@ -2178,7 +2178,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -2192,7 +2192,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -2206,7 +2206,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -2220,7 +2220,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 9
+                "ReligionId": "att_rel_east_manichaeism"
               }
             ]
           }
@@ -2232,7 +2232,7 @@
       "Name": "Town Tengri Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 13,
+      "ReligionId": "att_rel_pag_tengri",
       "Interesting": true,
       "Levels": [
         {
@@ -2242,7 +2242,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -2255,7 +2255,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -2268,7 +2268,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -2281,7 +2281,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 13
+                "ReligionId": "att_rel_pag_tengri"
               }
             ]
           }
@@ -2293,7 +2293,7 @@
       "Name": "Town Germanic Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 4,
+      "ReligionId": "att_rel_pag_germanic",
       "Interesting": true,
       "Levels": [
         {
@@ -2304,7 +2304,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -2319,7 +2319,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -2334,7 +2334,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -2349,7 +2349,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 4
+                "ReligionId": "att_rel_pag_germanic"
               }
             ]
           }
@@ -2361,7 +2361,7 @@
       "Name": "Town Zoroastrian Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 14,
+      "ReligionId": "att_rel_east_zoroastrian",
       "Interesting": true,
       "Levels": [
         {
@@ -2373,7 +2373,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -2388,7 +2388,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -2403,7 +2403,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -2418,7 +2418,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 14
+                "ReligionId": "att_rel_east_zoroastrian"
               }
             ]
           }
@@ -2430,7 +2430,7 @@
       "Name": "Town Slavic Temple",
       "SlotType": 2,
       "RegionType": 1,
-      "ReligionId": 12,
+      "ReligionId": "att_rel_pag_slavic",
       "Interesting": true,
       "Levels": [
         {
@@ -2444,7 +2444,7 @@
             "Influences": [
               {
                 "Value": 1,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }
@@ -2461,7 +2461,7 @@
             "Influences": [
               {
                 "Value": 2,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }
@@ -2478,7 +2478,7 @@
             "Influences": [
               {
                 "Value": 3,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }
@@ -2495,7 +2495,7 @@
             "Influences": [
               {
                 "Value": 4,
-                "ReligionId": 12
+                "ReligionId": "att_rel_pag_slavic"
               }
             ]
           }

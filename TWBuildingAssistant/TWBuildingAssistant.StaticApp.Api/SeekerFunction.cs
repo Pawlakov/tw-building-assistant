@@ -30,7 +30,7 @@ public class SeekerFunction
             Provinces = model.Provinces.Select(x => new NamedStringIdDTO { StringId = x.StringId, Name = x.Name }).ToArray(),
             Weathers = model.Weathers.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
             Seasons = model.Seasons.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
-            Religions = model.Religions.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
+            Religions = model.Religions.Select(x => new NamedStringIdDTO { StringId = x.StringId, Name = x.Name }).ToArray(),
             Factions = model.Factions.Select(x => new NamedStringIdDTO { StringId = x.StringId, Name = x.Name }).ToArray(),
             Difficulties = model.Difficulties.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
             Taxes = model.Taxes.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),

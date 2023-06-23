@@ -19,9 +19,6 @@
     <None Include="Data\PowerLevels.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Religions.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Data\Weathers.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -44,6 +41,16 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <Compile Include="Resources\Resources.fs" />
+    <EmbeddedResource Include="Religions\Religions-schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Religions\Religions-sample.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Religions\Religions.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Religions\Religions.fs" />
     <EmbeddedResource Include="Provinces\Provinces-schema.json" />
     <EmbeddedResource Include="Provinces\Provinces-sample.json" />
     <EmbeddedResource Include="Provinces\Provinces.json">

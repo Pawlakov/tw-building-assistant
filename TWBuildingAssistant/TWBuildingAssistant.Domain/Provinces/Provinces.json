@@ -26,7 +26,7 @@
         "Id": "att_reg_aegyptus_alexandria",
         "Name": "Alexandria",
         "IsCoastal": true,
-        "ResourceId": 14
+        "ResourceId": "res_att_see"
       },
       "TownFirst": {
         "Id": "att_reg_aegyptus_berenice",
@@ -36,7 +36,7 @@
       "TownSecond": {
         "Id": "att_reg_aegyptus_oxyrhynchus",
         "Name": "Oxyrhynchus",
-        "ResourceId": 4
+        "ResourceId": "res_att_gold"
       }
     },
     {
@@ -59,12 +59,12 @@
       "City": {
         "Id": "att_reg_aethiopia_aksum",
         "Name": "Aksum",
-        "ResourceId": 2
+        "ResourceId": "res_rom_leather"
       },
       "TownFirst": {
         "Id": "att_reg_aethiopia_adulis",
         "Name": "Adulis",
-        "ResourceId": 12,
+        "ResourceId": "res_att_spices",
         "IsCoastal": true
       },
       "TownSecond": {
@@ -101,7 +101,7 @@
       "TownFirst": {
         "Id": "att_reg_africa_constantina",
         "Name": "Constantina",
-        "ResourceId": 8
+        "ResourceId": "res_rom_marble"
       },
       "TownSecond": {
         "Id": "att_reg_africa_hadrumentum",
@@ -138,7 +138,7 @@
       "TownFirst": {
         "Id": "att_reg_aquitania_avaricum",
         "Name": "Avaricum",
-        "ResourceId": 4
+        "ResourceId": "res_att_gold"
       },
       "TownSecond": {
         "Id": "att_reg_aquitania_elusa",
@@ -165,7 +165,7 @@
       "City": {
         "Id": "att_reg_arabia_felix_zafar",
         "Name": "Zafar",
-        "ResourceId": 6
+        "ResourceId": "res_rom_lead"
       },
       "TownFirst": {
         "Id": "att_reg_arabia_felix_eudaemon",
@@ -176,7 +176,7 @@
         "Id": "att_reg_arabia_felix_omana",
         "Name": "Omana",
         "IsCoastal": true,
-        "ResourceId": 12
+        "ResourceId": "res_att_spices"
       }
     },
     {
@@ -203,7 +203,7 @@
       "City": {
         "Id": "att_reg_arabia_magna_yathrib",
         "Name": "Yathrib",
-        "ResourceId": 5
+        "ResourceId": "res_rom_iron"
       },
       "TownFirst": {
         "Id": "att_reg_arabia_magna_dumatha",
@@ -250,7 +250,7 @@
       "TownSecond": {
         "Id": "att_reg_armenia_tosp",
         "Name": "Tosp",
-        "ResourceId": 7
+        "ResourceId": "res_rom_timber"
       }
     },
     {
@@ -291,7 +291,7 @@
       "TownSecond": {
         "Id": "att_reg_asia_synnada",
         "Name": "Synnada",
-        "ResourceId": 8
+        "ResourceId": "res_rom_marble"
       }
     },
     {
@@ -318,12 +318,12 @@
       "TownFirst": {
         "Id": "att_reg_asorstan_arbela",
         "Name": "Arbela",
-        "ResourceId": 8
+        "ResourceId": "res_rom_marble"
       },
       "TownSecond": {
         "Id": "att_reg_asorstan_meshan",
         "Name": "Meshan",
-        "ResourceId": 12,
+        "ResourceId": "res_att_spices",
         "IsCoastal": true
       }
     },
@@ -359,7 +359,7 @@
       "TownSecond": {
         "Id": "att_reg_baetica_malaca",
         "Name": "Malaca",
-        "ResourceId": 13,
+        "ResourceId": "res_rom_wine",
         "IsCoastal": true
       }
     },
@@ -391,7 +391,7 @@
       "City": {
         "Id": "att_reg_belgica_augusta_treverorum",
         "Name": "Augusta Treverorum",
-        "ResourceId": 7
+        "ResourceId": "res_rom_timber"
       },
       "TownFirst": {
         "Id": "att_reg_belgica_colonia_agrippina",
@@ -430,7 +430,7 @@
       "City": {
         "Id": "att_reg_bithynia_ancyra",
         "Name": "Ancyra",
-        "ResourceId": 11,
+        "ResourceId": "res_rom_textiles",
         "SlotsCountOffset": -1
       },
       "TownFirst": {
@@ -480,7 +480,7 @@
         "Id": "att_reg_britannia_inferior_segontium",
         "Name": "Segontium",
         "IsCoastal": true,
-        "ResourceId": 6
+        "ResourceId": "res_rom_lead"
       }
     },
     {
@@ -511,7 +511,7 @@
       "City": {
         "Id": "att_reg_britannia_superior_londinium",
         "Name": "Londinium",
-        "ResourceId": 5
+        "ResourceId": "res_rom_iron"
       },
       "TownFirst": {
         "Id": "att_reg_britannia_superior_camulodunon",
@@ -548,7 +548,7 @@
       "TownSecond": {
         "Id": "att_reg_caledonia_et_hibernia_eildon",
         "Name": "Eildon",
-        "ResourceId": 7
+        "ResourceId": "res_rom_timber"
       }
     },
     {
@@ -580,7 +580,7 @@
       "TownFirst": {
         "Id": "att_reg_cappadocia_melitene",
         "Name": "Melitene",
-        "ResourceId": 6
+        "ResourceId": "res_rom_lead"
       },
       "TownSecond": {
         "Id": "att_reg_cappadocia_trapezus",
@@ -621,7 +621,7 @@
       "TownFirst": {
         "Id": "att_reg_carthaginensis_segobriga",
         "Name": "Segobriga",
-        "ResourceId": 9
+        "ResourceId": "res_rom_oil"
       },
       "TownSecond": {
         "Id": "att_reg_carthaginensis_toletum",
@@ -664,7 +664,7 @@
       "TownSecond": {
         "Id": "att_reg_caucasia_kotais",
         "Name": "Kotais",
-        "ResourceId": 11
+        "ResourceId": "res_rom_textiles"
       }
     },
     {
@@ -692,7 +692,7 @@
         "Id": "att_reg_cilicia_tarsus",
         "Name": "Tarsus",
         "IsCoastal": true,
-        "ResourceId": 9
+        "ResourceId": "res_rom_oil"
       },
       "TownFirst": {
         "Id": "att_reg_cilicia_iconium",
@@ -732,7 +732,7 @@
       "City": {
         "Id": "att_reg_dacia_apulum",
         "Name": "Apulum",
-        "ResourceId": 10
+        "ResourceId": "res_att_salt"
       },
       "TownFirst": {
         "Id": "att_reg_dacia_petrodava",
@@ -741,7 +741,7 @@
       "TownSecond": {
         "Id": "att_reg_dacia_romula",
         "Name": "Romula",
-        "ResourceId": 5
+        "ResourceId": "res_rom_iron"
       }
     },
     {
@@ -773,7 +773,7 @@
         "Id": "att_reg_dalmatia_salona",
         "Name": "Salona",
         "IsCoastal": true,
-        "ResourceId": 13
+        "ResourceId": "res_rom_wine"
       },
       "TownFirst": {
         "Id": "att_reg_dalmatia_domavia",
@@ -816,7 +816,7 @@
       "TownFirst": {
         "Id": "att_reg_dardania_scupi",
         "Name": "Scupi",
-        "ResourceId": 6
+        "ResourceId": "res_rom_lead"
       },
       "TownSecond": {
         "Id": "att_reg_dardania_viminacium",
@@ -843,7 +843,7 @@
       "City": {
         "Id": "att_reg_frisia_tulifurdum",
         "Name": "Tulifurdum",
-        "ResourceId": 2
+        "ResourceId": "res_rom_leather"
       },
       "TownFirst": {
         "Id": "att_reg_frisia_angulus",
@@ -879,7 +879,7 @@
       "City": {
         "Id": "att_reg_gallaecia_bracara",
         "Name": "Bracara",
-        "ResourceId": 4
+        "ResourceId": "res_att_gold"
       },
       "TownFirst": {
         "Id": "att_reg_gallaecia_asturica",
@@ -915,7 +915,7 @@
       "City": {
         "Id": "att_reg_germania_uburzis",
         "Name": "Uburzis",
-        "ResourceId": 3
+        "ResourceId": "res_att_gems"
       },
       "TownFirst": {
         "Id": "att_reg_germania_aregelia",
@@ -959,7 +959,7 @@
         "Id": "att_reg_germano_sarmatia_duna",
         "Name": "Duna",
         "IsCoastal": true,
-        "ResourceId": 3
+        "ResourceId": "res_att_gems"
       },
       "TownSecond": {
         "Id": "att_reg_germano_sarmatia_oium",
@@ -987,7 +987,7 @@
       "TownFirst": {
         "Id": "att_reg_gothiscandza_ascaucalis",
         "Name": "Ascaucalis",
-        "ResourceId": 10
+        "ResourceId": "res_att_salt"
       },
       "TownSecond": {
         "Id": "att_reg_gothiscandza_rugion",
@@ -1023,7 +1023,7 @@
       "TownFirst": {
         "Id": "att_reg_hercynia_budorgis",
         "Name": "Budorgis",
-        "ResourceId": 6
+        "ResourceId": "res_rom_lead"
       },
       "TownSecond": {
         "Id": "att_reg_hercynia_nitrahwa",
@@ -1054,7 +1054,7 @@
       "City": {
         "Id": "att_reg_hyperborea_kariskos",
         "Name": "Kariskos",
-        "ResourceId": 2
+        "ResourceId": "res_rom_leather"
       },
       "TownFirst": {
         "Id": "att_reg_hyperborea_moramar",
@@ -1159,7 +1159,7 @@
       "City": {
         "Id": "att_reg_italia_roma",
         "Name": "Roma",
-        "ResourceId": 14
+        "ResourceId": "res_att_see"
       },
       "TownFirst": {
         "Id": "att_reg_italia_fiorentia",
@@ -1169,7 +1169,7 @@
         "Id": "att_reg_italia_neapolis",
         "Name": "Neapolis",
         "IsCoastal": true,
-        "ResourceId": 10
+        "ResourceId": "res_att_salt"
       }
     },
     {
@@ -1204,7 +1204,7 @@
       "TownSecond": {
         "Id": "att_reg_khwarasan_merv",
         "Name": "Merv",
-        "ResourceId": 11
+        "ResourceId": "res_rom_textiles"
       }
     },
     {
@@ -1240,7 +1240,7 @@
         "Id": "att_reg_liguria_genua",
         "Name": "Genua",
         "IsCoastal": true,
-        "ResourceId": 8
+        "ResourceId": "res_rom_marble"
       },
       "TownSecond": {
         "Id": "att_reg_liguria_segusio",
@@ -1280,7 +1280,7 @@
         "Id": "att_reg_lugdunensis_rotomagus",
         "Name": "Rotomagus",
         "IsCoastal": true,
-        "ResourceId": 10
+        "ResourceId": "res_att_salt"
       },
       "TownSecond": {
         "Id": "att_reg_lugdunensis_turonum",
@@ -1324,7 +1324,7 @@
       "TownSecond": {
         "Id": "att_reg_lusitania_pax_augusta",
         "Name": "Pax Augusta",
-        "ResourceId": 5
+        "ResourceId": "res_rom_iron"
       }
     },
     {
@@ -1352,7 +1352,7 @@
         "Id": "att_reg_libya_ptolemais",
         "Name": "Ptolemais",
         "IsCoastal": true,
-        "ResourceId": 9
+        "ResourceId": "res_rom_oil"
       },
       "TownFirst": {
         "Id": "att_reg_libya_augila",
@@ -1398,13 +1398,13 @@
         "Id": "att_reg_macedonia_corinthus",
         "Name": "Corinthus",
         "IsCoastal": true,
-        "ResourceId": 8
+        "ResourceId": "res_rom_marble"
       },
       "TownSecond": {
         "Id": "att_reg_macedonia_dyrrhachium",
         "Name": "Dyrrachium",
         "IsCoastal": true,
-        "ResourceId": 9
+        "ResourceId": "res_rom_oil"
       }
     },
     {
@@ -1442,7 +1442,7 @@
         "Id": "att_reg_magna_graecia_syracusae",
         "Name": "Syracusae",
         "IsCoastal": true,
-        "ResourceId": 13
+        "ResourceId": "res_rom_wine"
       }
     },
     {
@@ -1474,12 +1474,12 @@
         "Id": "att_reg_makran_harmosia",
         "Name": "Harmosia",
         "IsCoastal": true,
-        "ResourceId": 12
+        "ResourceId": "res_att_spices"
       },
       "TownSecond": {
         "Id": "att_reg_makran_phra",
         "Name": "Phra",
-        "ResourceId": 10
+        "ResourceId": "res_att_salt"
       }
     },
     {
@@ -1517,7 +1517,7 @@
         "Id": "att_reg_mauretania_tingis",
         "Name": "Tingis",
         "IsCoastal": true,
-        "ResourceId": 7
+        "ResourceId": "res_rom_timber"
       }
     },
     {
@@ -1553,7 +1553,7 @@
       "TownSecond": {
         "Id": "att_reg_maxima_sequanorum_octodurus",
         "Name": "Octodurum",
-        "ResourceId": 5
+        "ResourceId": "res_rom_iron"
       }
     },
     {
@@ -1576,7 +1576,7 @@
       "City": {
         "Id": "att_reg_media_atropatene_ecbatana",
         "Name": "Ecbatana",
-        "ResourceId": 11
+        "ResourceId": "res_rom_textiles"
       },
       "TownFirst": {
         "Id": "att_reg_media_atropatene_ganzaga",
@@ -1619,7 +1619,7 @@
       "City": {
         "Id": "att_reg_narbonensis_aquae_sextiae",
         "Name": "Aquae Sextiae",
-        "ResourceId": 13
+        "ResourceId": "res_rom_wine"
       },
       "TownFirst": {
         "Id": "att_reg_narbonensis_narbo",
@@ -1659,7 +1659,7 @@
       "City": {
         "Id": "att_reg_osroene_edessa",
         "Name": "Edessa",
-        "ResourceId": 13
+        "ResourceId": "res_rom_wine"
       },
       "TownFirst": {
         "Id": "att_reg_osroene_amida",
@@ -1711,13 +1711,13 @@
       "TownFirst": {
         "Id": "att_reg_palaestinea_aelia_capitolina",
         "Name": "Aelia Capitolina",
-        "ResourceId": 14
+        "ResourceId": "res_att_see"
       },
       "TownSecond": {
         "Id": "att_reg_palaestinea_aila",
         "Name": "Aila",
         "IsCoastal": true,
-        "ResourceId": 3
+        "ResourceId": "res_att_gems"
       }
     },
     {
@@ -1752,7 +1752,7 @@
       "TownFirst": {
         "Id": "att_reg_pannonia_savaria",
         "Name": "Savaria",
-        "ResourceId": 2
+        "ResourceId": "res_rom_leather"
       },
       "TownSecond": {
         "Id": "att_reg_pannonia_sopianae",
@@ -1787,7 +1787,7 @@
       "TownSecond": {
         "Id": "att_reg_persis_siraf",
         "Name": "Straf",
-        "ResourceId": 1
+        "ResourceId": "res_att_dye"
       }
     },
     {
@@ -1822,7 +1822,7 @@
       "TownFirst": {
         "Id": "att_reg_raetia_et_noricum_iuvavum",
         "Name": "Iuvavum",
-        "ResourceId": 7
+        "ResourceId": "res_rom_timber"
       },
       "TownSecond": {
         "Id": "att_reg_raetia_et_noricum_virunum",
@@ -1869,7 +1869,7 @@
       "TownSecond": {
         "Id": "att_reg_phazania_dimmidi",
         "Name": "Dimmidi",
-        "ResourceId": 3
+        "ResourceId": "res_att_gems"
       }
     },
     {
@@ -1906,7 +1906,7 @@
         "Id": "att_reg_sarmatia_asiatica_tanais",
         "Name": "Tanais",
         "IsCoastal": true,
-        "ResourceId": 4
+        "ResourceId": "res_att_gold"
       }
     },
     {
@@ -1942,7 +1942,7 @@
         "Id": "att_reg_sarmatia_europaea_chersonessus",
         "Name": "Chersonessus",
         "IsCoastal": true,
-        "ResourceId": 13
+        "ResourceId": "res_rom_wine"
       },
       "TownFirst": {
         "Id": "att_reg_sarmatia_europaea_gelonus",
@@ -1971,7 +1971,7 @@
         "Id": "att_reg_scandza_hrefnesholt",
         "Name": "Hrefnesholt",
         "IsCoastal": true,
-        "ResourceId": 7
+        "ResourceId": "res_rom_timber"
       },
       "TownFirst": {
         "Id": "att_reg_scandza_alabu",
@@ -2012,7 +2012,7 @@
       "TownSecond": {
         "Id": "att_reg_scythia_ra",
         "Name": "Raha",
-        "ResourceId": 7
+        "ResourceId": "res_rom_timber"
       }
     },
     {
@@ -2035,7 +2035,7 @@
       "City": {
         "Id": "att_reg_spahan_spahan",
         "Name": "Spahan",
-        "ResourceId": 4
+        "ResourceId": "res_att_gold"
       },
       "TownFirst": {
         "Id": "att_reg_spahan_issatis",
@@ -2075,7 +2075,7 @@
         "Id": "att_reg_syria_antiochia",
         "Name": "Antiochia",
         "IsCoastal": true,
-        "ResourceId": 14
+        "ResourceId": "res_att_see"
       },
       "TownFirst": {
         "Id": "att_reg_syria_emesa",
@@ -2085,7 +2085,7 @@
         "Id": "att_reg_syria_tyrus",
         "Name": "Tyrus",
         "IsCoastal": true,
-        "ResourceId": 1
+        "ResourceId": "res_att_dye"
       }
     },
     {
@@ -2125,7 +2125,7 @@
       "TownSecond": {
         "Id": "att_reg_tarraconensis_pompaelo",
         "Name": "Pompaelo",
-        "ResourceId": 8
+        "ResourceId": "res_rom_marble"
       }
     },
     {
@@ -2157,7 +2157,7 @@
         "Id": "att_reg_thracia_constantinopolis",
         "Name": "Constantinopolis",
         "IsCoastal": true,
-        "ResourceId": 14
+        "ResourceId": "res_att_see"
       },
       "TownFirst": {
         "Id": "att_reg_thracia_marcianopolis",
@@ -2166,7 +2166,7 @@
       "TownSecond": {
         "Id": "att_reg_thracia_trimontium",
         "Name": "Trimontium",
-        "ResourceId": 4
+        "ResourceId": "res_att_gold"
       }
     },
     {
@@ -2205,7 +2205,7 @@
       "TownSecond": {
         "Id": "att_reg_transcarpathia_leopolis",
         "Name": "Leopolis",
-        "ResourceId": 1
+        "ResourceId": "res_att_dye"
       }
     },
     {
@@ -2228,7 +2228,7 @@
       "City": {
         "Id": "att_reg_transcaspia_kath",
         "Name": "Kath",
-        "ResourceId": 5
+        "ResourceId": "res_rom_iron"
       },
       "TownFirst": {
         "Id": "att_reg_transcaspia_dahistan",
@@ -2237,7 +2237,7 @@
       "TownSecond": {
         "Id": "att_reg_transcaspia_siahkuh",
         "Name": "Siahkuh",
-        "ResourceId": 1
+        "ResourceId": "res_att_dye"
       }
     },
     {
@@ -2275,7 +2275,7 @@
         "Id": "att_reg_tripolitana_sabrata",
         "Name": "Sabrata",
         "IsCoastal": true,
-        "ResourceId": 1
+        "ResourceId": "res_att_dye"
       }
     },
     {
@@ -2316,7 +2316,7 @@
       "TownSecond": {
         "Id": "att_reg_venetia_verona",
         "Name": "Verona",
-        "ResourceId": 9
+        "ResourceId": "res_rom_oil"
       }
     }
   ]

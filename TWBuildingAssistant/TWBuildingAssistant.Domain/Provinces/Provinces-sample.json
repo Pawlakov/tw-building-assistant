@@ -38,21 +38,21 @@
         "Id": "a",
         "Name": "a",
         "IsCoastal": true,
-        "ResourceId": 0,
+        "ResourceId": "a",
         "SlotsCountOffset": 0
       },
       "TownFirst": {
         "Id": "a",
         "Name": "a",
         "IsCoastal": true,
-        "ResourceId": 0,
+        "ResourceId": "a",
         "SlotsCountOffset": 0
       },
       "TownSecond": {
         "Id": "a",
         "Name": "a",
         "IsCoastal": true,
-        "ResourceId": 0,
+        "ResourceId": "a",
         "SlotsCountOffset": 0
       }
     },

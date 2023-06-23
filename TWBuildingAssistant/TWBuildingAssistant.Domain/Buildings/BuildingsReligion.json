@@ -6,7 +6,7 @@
       "Name": "Pentarchy Arian Temple",
       "SlotType": 2,
       "ReligionId": "att_rel_chr_arian",
-      "ResourceId": 14,
+      "ResourceId": "res_att_see",
       "Interesting": true,
       "Levels": [
         {
@@ -520,7 +520,7 @@
       "Name": "Pentarchy Orthodox Temple",
       "SlotType": 2,
       "ReligionId": "att_rel_chr_orthodox",
-      "ResourceId": 14,
+      "ResourceId": "res_att_see",
       "Interesting": true,
       "Levels": [
         {
@@ -790,7 +790,7 @@
       "Name": "Pentarchy Catholic Temple",
       "SlotType": 2,
       "ReligionId": "att_rel_chr_catholic",
-      "ResourceId": 14,
+      "ResourceId": "res_att_see",
       "Interesting": true,
       "Levels": [
         {

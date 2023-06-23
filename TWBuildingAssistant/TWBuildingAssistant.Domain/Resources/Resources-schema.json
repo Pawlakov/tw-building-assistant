@@ -21,7 +21,8 @@
       "type": "object",
       "properties": {
         "Id": {
-          "type": "integer"
+          "type": "string",
+          "minLength": 1
         },
         "Name": {
           "type": "string",

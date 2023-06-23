@@ -7,7 +7,7 @@
       "SlotType": 0,
       "RegionType": 0,
       "ReligionId": "a",
-      "ResourceId": 0,
+      "ResourceId": "a",
       "AllowParallel": true,
       "Interesting": true,
       "Levels": [

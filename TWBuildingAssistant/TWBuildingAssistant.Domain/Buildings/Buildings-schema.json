@@ -36,7 +36,8 @@
           "minLength": 1
         },
         "ResourceId": {
-          "type": "integer"
+          "type": "string",
+          "minLength": 1
         },
         "AllowParallel": {
           "type": "boolean"

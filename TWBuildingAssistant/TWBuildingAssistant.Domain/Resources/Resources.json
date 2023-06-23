@@ -2,59 +2,59 @@
   "$schema": ".\\Resources-schema.json",
   "Resources": [
     {
-      "Id": 1,
+      "Id": "res_att_dye",
       "Name": "Dye"
     },
     {
-      "Id": 2,
+      "Id": "res_rom_leather",
       "Name": "Fur"
     },
     {
-      "Id": 3,
+      "Id": "res_att_gems",
       "Name": "Gemstones"
     },
     {
-      "Id": 4,
+      "Id": "res_att_gold",
       "Name": "Gold"
     },
     {
-      "Id": 5,
+      "Id": "res_rom_iron",
       "Name": "Iron"
     },
     {
-      "Id": 6,
+      "Id": "res_rom_lead",
       "Name": "Lead"
     },
     {
-      "Id": 7,
+      "Id": "res_rom_timber",
       "Name": "Lumber"
     },
     {
-      "Id": 8,
+      "Id": "res_rom_marble",
       "Name": "Marble"
     },
     {
-      "Id": 9,
+      "Id": "res_rom_oil",
       "Name": "Olive"
     },
     {
-      "Id": 10,
+      "Id": "res_att_salt",
       "Name": "Salt"
     },
     {
-      "Id": 11,
+      "Id": "res_rom_textiles",
       "Name": "Silk"
     },
     {
-      "Id": 12,
+      "Id": "res_att_spices",
       "Name": "Spice"
     },
     {
-      "Id": 13,
+      "Id": "res_rom_wine",
       "Name": "Wine"
     },
     {
-      "Id": 14,
+      "Id": "res_att_see",
       "Name": "Pentarchy See"
     }
   ]

@@ -41,13 +41,13 @@ type SettingsDto =
 type SlotDescriptorDto =
     { SlotType:int
       RegionType:int
-      ResourceId:int option }
+      ResourceId:string option }
 
 type RegionDto =
     { Id:string
       Name:string
-      ResourceId:int option
-      ResourceName: string option
+      ResourceId:string option
+      ResourceName:string option
       Slots:SlotDescriptorDto[] }
 
 type ProvinceDto =

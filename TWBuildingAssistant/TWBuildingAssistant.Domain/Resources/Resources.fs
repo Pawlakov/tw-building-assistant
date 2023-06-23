@@ -17,16 +17,16 @@ module Data =
         (() |> reader.ReadToEnd |> JsonData.Parse).Resources
 
 type internal Resource =
-    { Id: int
+    { Id: string
       Name: string }
 
 // Constructors
 let private createResource id name =
     match (id, name) with
-    | 0, _ ->
-        failwith "Province without id."
+    | "", _ ->
+        failwith "Resource without id."
     | _, "" ->
-        failwith "Province without name."
+        failwith "Resource without name."
     | _ ->
         { Id = id; Name = name }
 

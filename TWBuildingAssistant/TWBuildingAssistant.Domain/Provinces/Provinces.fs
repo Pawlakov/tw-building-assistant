@@ -32,13 +32,13 @@ type internal SlotType =
 type internal SlotDescriptor =
     { SlotType:SlotType
       RegionType:RegionType
-      ResourceId:int option }
+      ResourceId:string option }
 
 type internal Region =
     { Id:string
       Name:string
       RegionType:RegionType
-      ResourceId:int option
+      ResourceId:string option
       ResourceName: string option
       Slots:SlotDescriptor[] }
 

@@ -4,7 +4,7 @@
     {
       "Id": "a",
       "Name": "a",
-      "ClimateId": 0,
+      "ClimateId": "a",
       "Effect": {
         "PublicOrder": 0,
         "ResearchRate": 0,
@@ -59,7 +59,7 @@
     {
       "Id": "a",
       "Name": "a",
-      "ClimateId": 0,
+      "ClimateId": "a",
       "Effect": {},
       "City": {
         "Id": "a",

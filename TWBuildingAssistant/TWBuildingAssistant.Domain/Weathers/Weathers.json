@@ -1,0 +1,20 @@
+﻿{
+  "$schema": ".\\Weathers-schema.json",
+  "Weathers": [
+    {
+      "Id": "weather_good",
+      "Name": "Good",
+      "Order": 1
+    },
+    {
+      "Id": "weather_average",
+      "Name": "Average",
+      "Order": 2
+    },
+    {
+      "Id": "weather_bad",
+      "Name": "Bad",
+      "Order": 3
+    }
+  ]
+}

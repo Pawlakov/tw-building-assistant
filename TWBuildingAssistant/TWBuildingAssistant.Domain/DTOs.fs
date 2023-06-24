@@ -15,8 +15,8 @@ type NamedStringIdWithItemsDto =
 
 type SettingOptions =
     { Provinces:NamedStringIdDto[]
-      Weathers:NamedIdDto[]
-      Seasons:NamedIdDto[]
+      Weathers:NamedStringIdDto[]
+      Seasons:NamedStringIdDto[]
       Religions:NamedStringIdDto[]
       Factions:NamedStringIdDto[]
       Difficulties:NamedIdDto[]
@@ -30,8 +30,8 @@ type SettingsDto =
       UseAntilegacyTechnologies:bool 
       ReligionId:string
       FactionId:string
-      WeatherId:int
-      SeasonId:int
+      WeatherId:string
+      SeasonId:string
       DifficultyId:int
       TaxId:int
       PowerLevelId:int

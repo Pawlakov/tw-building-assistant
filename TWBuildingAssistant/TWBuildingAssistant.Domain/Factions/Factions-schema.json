@@ -34,6 +34,7 @@
         "UsedBuildingBranchIds": {
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string",
             "minLength": 1
@@ -42,6 +43,7 @@
         "StartingBuildingLevelIds": {
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string",
             "minLength": 1
@@ -51,6 +53,7 @@
           "type": "array",
           "minItems": 12,
           "maxItems": 12,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/technology_group"
           }
@@ -68,6 +71,7 @@
         "Technologies": {
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/technology"
           }
@@ -92,27 +96,30 @@
         },
         "RequiredIds": {
           "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string"
-          },
-          "minItems": 1
+          }
         },
         "NegatedIds": {
           "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string"
-          },
-          "minItems": 1
+          }
         },
         "Effect": {
           "$ref": "..\\Data\\Effects-schema.json#"
         },
         "UnlockedBuildingLevelIds": {
           "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "type": "string"
-          },
-          "minItems": 1
+          }
         }
       },
       "required": [ "Id", "Name" ],

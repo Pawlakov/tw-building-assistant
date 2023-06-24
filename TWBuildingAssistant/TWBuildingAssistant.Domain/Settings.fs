@@ -8,8 +8,8 @@ type NamedStringId = { StringId: string; Name: string }
 
 type OptionSet =
     { Provinces: NamedStringId list
-      Weathers: NamedId list
-      Seasons: NamedId list
+      Weathers: NamedStringId list
+      Seasons: NamedStringId list
       Religions: NamedStringId list
       Factions: NamedStringId list
       Difficulties: NamedId list
@@ -23,8 +23,8 @@ type internal Settings =
       UseAntilegacyTechnologies: bool
       ReligionId: string
       FactionId: string
-      WeatherId: int
-      SeasonId: int
+      WeatherId: string
+      SeasonId: string
       DifficultyId: int
       TaxId: int
       PowerLevelId: int
@@ -33,32 +33,6 @@ type internal Settings =
 
 let private createOptions (tuples: seq<string*string>) =
     query { for (id, name) in tuples do select { StringId = id; Name = name } } |> Seq.toList
-
-let private getWeatherOptions (weathersData: WeathersData.Root []) =
-    let query =
-        query {
-            for province in weathersData do
-                select
-                    { Id = province.Id
-                      Name = province.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
-
-let private getSeasonOptions (seasonsData: SeasonsData.Root []) =
-    let query =
-        query {
-            for province in seasonsData do
-                select
-                    { Id = province.Id
-                      Name = province.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
 
 let private getDifficultyOptions (difficultiesData: DifficultiesData.Root []) =
     let query =
@@ -97,10 +71,10 @@ let private getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
 
     result
 
-let getOptions weathersData seasonsData getProvinceTupleSeq getReligionTupleSeq difficultiesData taxesData powerLevelsData getFactionTupleSeq =
+let getOptions getWeatherTupleSeq getSeasonTupleSeq getProvinceTupleSeq getReligionTupleSeq difficultiesData taxesData powerLevelsData getFactionTupleSeq =
     { Provinces = () |> getProvinceTupleSeq |> createOptions
-      Weathers = getWeatherOptions weathersData
-      Seasons = getSeasonOptions seasonsData
+      Weathers = () |> getWeatherTupleSeq |> createOptions
+      Seasons = () |> getSeasonTupleSeq |> createOptions
       Religions = () |> getReligionTupleSeq |> createOptions
       Factions = () |> getFactionTupleSeq |> createOptions
       Difficulties = getDifficultyOptions difficultiesData

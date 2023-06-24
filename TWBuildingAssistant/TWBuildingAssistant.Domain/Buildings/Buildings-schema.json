@@ -48,6 +48,7 @@
         "Levels": {
           "type": "array",
           "minItems": 3,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/level"
           }
@@ -89,6 +90,7 @@
         "Incomes": {
           "type": "array",
           "minItems": 1,
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/income"
           }

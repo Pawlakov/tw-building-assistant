@@ -7,7 +7,7 @@
       "RegionIds": [
         "att_reg_aegyptus_alexandria"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "Bonuses": [
           {
             "Value": 5,
@@ -22,7 +22,7 @@
       "RegionIds": [
         "att_reg_asia_ephesus"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "TaxRate": 2
       }
     },
@@ -32,7 +32,7 @@
       "RegionIds": [
         "att_reg_asorstan_ctesiphon"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "ResearchRate": 3,
         "Growth": 2
       }
@@ -43,7 +43,7 @@
       "RegionIds": [
         "att_reg_britannia_superior_corinium"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "ResearchRate": 3
       }
     },
@@ -60,7 +60,7 @@
       "RegionIds": [
         "att_reg_italia_neapolis"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "Bonuses": [
           {
             "Value": 2,
@@ -102,7 +102,7 @@
       "RegionIds": [
         "att_reg_libya_paraetonium"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "PublicOrder": 1
       }
     },
@@ -112,7 +112,7 @@
       "RegionIds": [
         "att_reg_lugdunensis_turonum"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "ResearchRate": 3,
         "Growth": 2
       }
@@ -138,7 +138,7 @@
       "RegionIds": [
         "att_reg_magna_graecia_syracusae"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "Bonuses": [
           {
             "Value": 2,
@@ -173,7 +173,7 @@
       "RegionIds": [
         "att_reg_media_atropatene_ecbatana"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "ResearchRate": 3
       }
     },
@@ -183,7 +183,7 @@
       "RegionIds": [
         "att_reg_media_atropatene_rhaga"
       ],
-      "Effect": {
+      "FactionwideEffect": {
         "PublicOrder": 2
       }
     },

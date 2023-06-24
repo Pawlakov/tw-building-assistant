@@ -33,6 +33,7 @@
     "Bonuses": {
       "type": "array",
       "minItems": 1,
+      "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/bonus"
       }
@@ -40,6 +41,7 @@
     "Influences": {
       "type": "array",
       "minItems": 1,
+      "uniqueItems": true,
       "items": {
         "$ref": "#/definitions/influence"
       }

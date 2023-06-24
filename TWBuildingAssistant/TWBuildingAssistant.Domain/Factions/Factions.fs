@@ -168,5 +168,5 @@ let internal getUsedBuildingBranchIds (factionsData: Data.JsonFaction []) (setti
                 exactlyOne
         } |> Seq.ofArray
 
-let internal getFactionPairs (factionsData: Data.JsonFaction []) =
+let internal getFactionPairSeq (factionsData: Data.JsonFaction []) =
     query { for faction in factionsData do select (faction.Id, faction.Name) }

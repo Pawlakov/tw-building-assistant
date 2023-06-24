@@ -1,0 +1,25 @@
+﻿{
+  "$schema": ".\\Seasons-schema.json",
+  "Seasons": [
+    {
+      "Id": "season_spring",
+      "Name": "Spring",
+      "Order": 1
+    },
+    {
+      "Id": "season_summer",
+      "Name": "Summer",
+      "Order": 2
+    },
+    {
+      "Id": "season_autumn",
+      "Name": "Autumn",
+      "Order": 3
+    },
+    {
+      "Id": "season_winter",
+      "Name": "Winter",
+      "Order": 4
+    }
+  ]
+}

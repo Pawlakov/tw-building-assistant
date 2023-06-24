@@ -1,0 +1,52 @@
+﻿{
+  "$schema": ".\\Climates-schema.json",
+  "Climates": [
+    {
+      "Id": "a",
+      "Name": "a",
+      "Effects": [
+        {
+          "SeasonId": "a",
+          "Effects": [
+            {
+              "WeatherId": "a",
+              "Effect": {
+                "PublicOrder": 0,
+                "ResearchRate": 0,
+                "Growth": 0,
+                "Fertility": 0,
+                "ReligiousOsmosis": 0,
+                "Food": 0,
+                "Sanitation": 0,
+                "TaxRate": 0,
+                "CorruptionRate": 0,
+                "Bonuses": [
+                  {
+                    "Value": 0,
+                    "Category": 0
+                  },
+                  {
+                    "Value": 0
+                  }
+                ],
+                "Influences": [
+                  {
+                    "Value": 0,
+                    "ReligionId": "a"
+                  },
+                  {
+                    "Value": 0
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "a",
+              "Effect": {}
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

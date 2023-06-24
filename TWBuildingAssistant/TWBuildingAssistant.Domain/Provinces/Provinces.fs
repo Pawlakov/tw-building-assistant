@@ -204,5 +204,5 @@ let internal getProvinceRegionIdSeq (provincesData: Data.JsonProvince []) (setti
                 exactlyOne
         } |> List.toSeq
 
-let internal getProvincePairs (provincesData: Data.JsonProvince []) =
+let internal getProvincePairSeq (provincesData: Data.JsonProvince []) =
     query { for province in provincesData do select (province.Id, province.Name) }

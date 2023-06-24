@@ -1,4 +1,4 @@
-﻿module TWBuildingAssistant.Domain.Religions
+﻿module TWBuildingAssistant.Domain.Climates
 
 module Data =
     open FSharp.Data
@@ -6,33 +6,35 @@ module Data =
     open System.IO
     open System.Reflection
 
-    type private JsonData = JsonProvider<Sample="Religions\Religions-sample.json", SampleIsList=false>
+    type private JsonData = JsonProvider<Sample="Climates\Climates-sample.json", SampleIsList=false>
 
-    type internal JsonReligion = JsonData.Religion
-    type internal JsonReligionEffect = JsonData.Effect
-    type internal JsonReligionBonus = JsonData.Bonus
-    type internal JsonReligionInfluence = JsonData.Influencis
+    type internal JsonClimate = JsonData.Climate
+    type internal JsonSeasonEffect = JsonData.Effect
+    type internal JsonWeatherEffect = JsonData.Effect2
+    type internal JsonClimateEffect = JsonData.Effect3
+    type internal JsonClimateBonus = JsonData.Bonus
+    type internal JsonClimateInfluence = JsonData.Influencis
 
-    let internal getReligionsData () =
+    let internal getClimatesData () =
         let assembly = Assembly.GetExecutingAssembly ()
-        use stream = assembly.GetManifestResourceStream ("TWBuildingAssistant.Domain.Religions.Religions.json")
+        use stream = assembly.GetManifestResourceStream ("TWBuildingAssistant.Domain.Climates.Climates.json")
         use reader = new StreamReader (stream)
-        (() |> reader.ReadToEnd |> JsonData.Parse).Religions
+        (() |> reader.ReadToEnd |> JsonData.Parse).Climates
 
 // Constructors
-let private createBonusFromJson (jsonBonus: Data.JsonReligionBonus) =
+let private createBonusFromJson (jsonBonus: Data.JsonClimateBonus) =
     let value = jsonBonus.Value
     let category = jsonBonus.Category |> Effects.createIncomeCategoryOption
 
     Effects.createBonus value category
 
-let private createInfluenceFromJson (jsonInfluence: Data.JsonReligionInfluence) =
+let private createInfluenceFromJson (jsonInfluence: Data.JsonClimateInfluence) =
     let religionId = jsonInfluence.ReligionId
     let value = jsonInfluence.Value
 
     Effects.createInfluence value religionId
 
-let private createEffectSetFromJson (jsonEffect: Data.JsonReligionEffect) =
+let private createEffectSetFromJson (jsonEffect: Data.JsonClimateEffect) =
     let publicOrder = jsonEffect.PublicOrder |> Option.defaultValue 0
     let food = jsonEffect.Food |> Option.defaultValue 0
     let sanitation = jsonEffect.Sanitation |> Option.defaultValue 0
@@ -54,16 +56,23 @@ let private createEffectSetFromJson (jsonEffect: Data.JsonReligionEffect) =
 let private createEffectSetFromJsonOption = Option.map createEffectSetFromJson >> Option.defaultValue Effects.emptyEffectSet
 //
 
-let internal getReligionEffect (religionsData: Data.JsonReligion []) (settings: Settings.Settings) =
-    let effectJson =
+let internal getClimateEffect (climatesData: Data.JsonClimate []) getProvinceClimateId (settings: Settings.Settings) =
+    let climateId = settings |> getProvinceClimateId
+    
+    let climate =
         query {
-            for religion in religionsData do
-                where (religion.Id = settings.ReligionId)
-                select religion.Effect
+            for climate in climatesData do
+                where (climate.Id = climateId)
+                select climate
                 head
         }
 
-    effectJson |> createEffectSetFromJsonOption
+    let jsonEffect =
+        climate.Effects
+        |> Seq.tryFind (fun x -> x.SeasonId = settings.SeasonId)
+        |> Option.bind (fun x ->
+            x.Effects
+            |> Seq.tryFind (fun y -> y.WeatherId = settings.WeatherId)
+            |> Option.map (fun z -> z.Effect))
 
-let internal getReligionPairSeq (religionsData: Data.JsonReligion []) =
-    query { for religion in religionsData do select (religion.Id, religion.Name) }
+    jsonEffect |> createEffectSetFromJsonOption

@@ -1,0 +1,10 @@
+﻿{
+  "$schema": ".\\Weathers-schema.json",
+  "Weathers": [
+    {
+      "Id": "a",
+      "Name": "a",
+      "Order": 0
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "title": "JSON Schema for Climates aggregate",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "Climates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/climate"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [ "$schema", "Climates" ],
+  "additionalProperties": false,
+  "definitions": {
+    "climate": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Effects": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/season_effect"
+          }
+        }
+      },
+      "required": [ "Id", "Name", "Effects" ],
+      "additionalProperties": false
+    },
+    "season_effect": {
+      "type": "object",
+      "properties": {
+        "SeasonId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Effects": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/weather_effect"
+          }
+        }
+      },
+      "required": [ "SeasonId", "Effects" ],
+      "additionalProperties": false
+    },
+    "weather_effect": {
+      "type": "object",
+      "properties": {
+        "WeatherId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Effect": {
+          "$ref": "..\\Data\\Effects-schema.json#"
+        }
+      },
+      "required": [ "WeatherId", "Effect" ],
+      "additionalProperties": false
+    }
+  }
+}

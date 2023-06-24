@@ -1,0 +1,10 @@
+﻿{
+  "$schema": ".\\Seasons-schema.json",
+  "Seasons": [
+    {
+      "Id": "a",
+      "Name": "a",
+      "Order": 0
+    }
+  ]
+}

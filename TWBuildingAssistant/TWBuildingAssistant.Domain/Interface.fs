@@ -16,11 +16,11 @@ let internal mapOptionSetToDTO (model: Settings.OptionSet) =
         |> List.toArray
       Weathers =
         model.Weathers
-        |> List.map mapNamedIdToDTO
+        |> List.map mapNamedStringIdToDTO
         |> List.toArray
       Seasons =
         model.Seasons
-        |> List.map mapNamedIdToDTO
+        |> List.map mapNamedStringIdToDTO
         |> List.toArray
       Religions =
         model.Religions
@@ -178,21 +178,6 @@ let internal mapSeekerSettingsSlotFromDTO (buildingLibrary: Buildings.BuildingLi
       RegionId = seekerSettingsSlot.RegionId
       SlotIndex = seekerSettingsSlot.SlotIndex }: Seeker.SeekerSettingsSlot
 
-let internal getWeathersData () =
-    "Data/Weathers.json"
-    |> File.ReadAllText
-    |> WeathersData.ParseList
-
-let internal getSeasonsData () =
-    "Data/Seasons.json"
-    |> File.ReadAllText
-    |> SeasonsData.ParseList
-
-let internal getClimatesData () =
-    "Data/Climates.json"
-    |> File.ReadAllText
-    |> ClimatesData.ParseList
-
 let internal getDifficultiesData () =
     "Data/Difficulties.json"
     |> File.ReadAllText
@@ -209,21 +194,21 @@ let internal getPowerLevelsData () =
     |> PowerLevelsData.ParseList
 
 let getSettingOptions () =
-    let weathersData = getWeathersData ()
-    let seasonsData = getSeasonsData ()
-    let getProvinceTupleSeq = Provinces.Data.getProvincesData >> Provinces.getProvincePairs
-    let religionsData = Religions.Data.getReligionsData >> Religions.getReligionPairs
+    let getWeatherTupleSeq = Weathers.Data.getWeathersData >> Weathers.getWeatherPairSeq
+    let getSeasonTupleSeq = Seasons.Data.getSeasonsData >> Seasons.getSeasonPairSeq
+    let getProvinceTupleSeq = Provinces.Data.getProvincesData >> Provinces.getProvincePairSeq
+    let getReligionTupleSeq = Religions.Data.getReligionsData >> Religions.getReligionPairSeq
     let difficultiesData = getDifficultiesData ()
     let taxesData = getTaxesData ()
     let powerLevelsData = getPowerLevelsData ()
-    let getFactionTupleSeq = Factions.Data.getFactionsData >> Factions.getFactionPairs
+    let getFactionTupleSeq = Factions.Data.getFactionsData >> Factions.getFactionPairSeq
 
     let options =
         Settings.getOptions
-            weathersData
-            seasonsData
+            getWeatherTupleSeq
+            getSeasonTupleSeq
             getProvinceTupleSeq
-            religionsData
+            getReligionTupleSeq
             difficultiesData
             taxesData
             powerLevelsData
@@ -262,7 +247,7 @@ let getBuildingLibrary settings =
     |> Array.map mapBuildingLibraryEntryToDTO
 
 let getState ctx buildingLevelIds settings =
-    let climatesData = getClimatesData ()
+    let climatesData = Climates.Data.getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
     let wondersData = Wonders.Data.getWondersData ()
     let religionsData = Religions.Data.getReligionsData ()
@@ -277,8 +262,7 @@ let getState ctx buildingLevelIds settings =
     let predefinedEffectSet =
         Effects.getStateFromSettings
             ctx
-            climatesData
-            (Provinces.getProvinceClimateId provincesData)
+            (Climates.getClimateEffect climatesData (Provinces.getProvinceClimateId provincesData))
             (Provinces.getProvinceEffect provincesData)
             (Wonders.getWonderEffectSeq wondersData (Provinces.getProvinceRegionIdSeq provincesData))
             (Religions.getReligionEffect religionsData)
@@ -310,7 +294,7 @@ let seek
     (resetProgress: ResetProgressDelegate)
     (incrementProgress: IncrementProgressDelegate)
     =
-    let climatesData = getClimatesData ()
+    let climatesData = Climates.Data.getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
     let wondersData = Wonders.Data.getWondersData ()
     let religionsData = Religions.Data.getReligionsData ()
@@ -325,8 +309,7 @@ let seek
     let predefinedEffectSet =
         Effects.getStateFromSettings
             ctx
-            climatesData
-            (Provinces.getProvinceClimateId provincesData)
+            (Climates.getClimateEffect climatesData (Provinces.getProvinceClimateId provincesData))
             (Provinces.getProvinceEffect provincesData)
             (Wonders.getWonderEffectSeq wondersData (Provinces.getProvinceRegionIdSeq provincesData))
             (Religions.getReligionEffect religionsData)

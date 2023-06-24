@@ -1,0 +1,529 @@
+﻿{
+  "$schema": ".\\Climates-schema.json",
+  "Climates": [
+    {
+      "Id": "att_climate_north",
+      "Name": "Northern",
+      "Effects": [
+        {
+          "SeasonId": "season_spring",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 3
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": -3
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_summer",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": 10,
+                    "Category": 2
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Growth": 10
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": -10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": -10,
+                    "Category": 2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_autumn",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "PublicOrder": 5,
+                "Food": 17
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Food": 14
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "PublicOrder": -5,
+                "Food": 11
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_winter",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Sanitation": 2,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Sanitation": -5,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "att_climate_med",
+      "Name": "Mediterranean",
+      "Effects": [
+        {
+          "SeasonId": "season_spring",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 3
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": -3
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_summer",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": 10,
+                    "Category": 2
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Growth": 10
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": -10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": -10,
+                    "Category": 2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_autumn",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "PublicOrder": 5,
+                "Food": 20
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Food": 17
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "PublicOrder": -5,
+                "Food": 14
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_winter",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Sanitation": 2,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Sanitation": -5,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "att_climate_east",
+      "Name": "Eastern",
+      "Effects": [
+        {
+          "SeasonId": "season_spring",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 3
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": -3
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_summer",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": 10,
+                    "Category": 2
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Growth": 10
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": -10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": -10,
+                    "Category": 2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_autumn",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "PublicOrder": 5,
+                "Food": 18
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Food": 15
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "PublicOrder": -5,
+                "Food": 12
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_winter",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Sanitation": 2,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Sanitation": -5,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Id": "att_climate_south",
+      "Name": "Southern",
+      "Effects": [
+        {
+          "SeasonId": "season_spring",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 3
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": -3
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_summer",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": 10,
+                    "Category": 2
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Growth": 10
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Growth": 10,
+                "Bonuses": [
+                  {
+                    "Value": -10,
+                    "Category": 1
+                  },
+                  {
+                    "Value": -10,
+                    "Category": 2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_autumn",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "PublicOrder": 5,
+                "Food": 18
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Food": 15
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "PublicOrder": -5,
+                "Food": 12
+              }
+            }
+          ]
+        },
+        {
+          "SeasonId": "season_winter",
+          "Effects": [
+            {
+              "WeatherId": "weather_good",
+              "Effect": {
+                "Sanitation": 2,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_average",
+              "Effect": {
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            },
+            {
+              "WeatherId": "weather_bad",
+              "Effect": {
+                "Sanitation": -5,
+                "Bonuses": [
+                  {
+                    "Value": 10,
+                    "Category": 4
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

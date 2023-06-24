@@ -311,31 +311,6 @@ let internal getEffect (ctx: DatabaseContext) effectId =
 
 let internal getEffectOption (ctx: DatabaseContext) = Option.map (getEffect ctx) >> Option.defaultValue emptyEffectSet
 
-let internal getClimateEffect
-    (ctx: DatabaseContext)
-    climateId
-    (climatesData: ClimatesData.Root [])
-    seasonId
-    weatherId
-    =
-    let climate =
-        query {
-            for climate in climatesData do
-                where (climate.Id = climateId)
-                select climate
-                head
-        }
-
-    let effectId =
-        climate.Effects
-        |> Seq.tryFind (fun x -> x.SeasonId = seasonId)
-        |> Option.bind (fun x ->
-            x.Effects
-            |> Seq.tryFind (fun y -> y.WeatherId = weatherId)
-            |> Option.map (fun z -> z.EffectId))
-
-    effectId |> (getEffectOption ctx)
-
 let internal getDifficultyEffect (ctx: DatabaseContext) (difficultiesData: DifficultiesData.Root []) difficultyId =
     let effectId =
         query {
@@ -372,8 +347,7 @@ let internal getPowerLevelEffect (ctx: DatabaseContext) (powerLevelsData: PowerL
 
 let internal getStateFromSettings
     (ctx: DatabaseContext)
-    climatesData
-    getProvinceClimateId
+    getClimateEffectSet
     getProvinceEffectSet
     getWonderEffectSetSeq
     getReligionEffectSet
@@ -386,21 +360,17 @@ let internal getStateFromSettings
     =
     let religionEffectSet = settings |> getReligionEffectSet
 
-    let wonderFEffectSetSeq = settings |> getWonderEffectSetSeq |> Seq.toList
+    let wonderEffectSetSeq = settings |> getWonderEffectSetSeq |> Seq.toList
 
     let provinceEffectSet = settings |> getProvinceEffectSet
-    let provinceClimateId = settings |> getProvinceClimateId
 
-    let climateEffects =
-        getClimateEffect ctx provinceClimateId climatesData settings.SeasonId settings.WeatherId
+    let climateEffects = settings |> getClimateEffectSet
 
-    let difficultyEffects =
-        getDifficultyEffect ctx difficultiesData settings.DifficultyId
+    let difficultyEffects = getDifficultyEffect ctx difficultiesData settings.DifficultyId
 
     let taxEffects = getTaxEffect ctx taxesData settings.TaxId
 
-    let powerLevelEffects =
-        getPowerLevelEffect ctx powerLevelsData settings.PowerLevelId
+    let powerLevelEffects = getPowerLevelEffect ctx powerLevelsData settings.PowerLevelId
 
     let fertilityDropAndCorruptionEffect =
         { emptyEffect with
@@ -417,7 +387,7 @@ let internal getStateFromSettings
     let technologyEffectSetSeq = settings |> getTechnologyEffectSetSeq |> Seq.toList
 
     let effectSets =
-        wonderFEffectSetSeq@
+        wonderEffectSetSeq@
         technologyEffectSetSeq@
         [ factionEffectSet
           religionEffectSet

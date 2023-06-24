@@ -29,7 +29,8 @@
           "minLength": 1
         },
         "ClimateId": {
-          "type": "integer"
+          "type": "string",
+          "minLength": 1
         },
         "Effect": {
           "$ref": "..\\Data\\Effects-schema.json#"

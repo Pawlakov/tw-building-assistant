@@ -32,8 +32,8 @@ public class SettingsViewModel
         this.Factions = new ObservableCollection<NamedStringIdDto>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4, 5 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<NamedIdDto>(options.Weathers);
-        this.Seasons = new ObservableCollection<NamedIdDto>(options.Seasons);
+        this.Weathers = new ObservableCollection<NamedStringIdDto>(options.Weathers);
+        this.Seasons = new ObservableCollection<NamedStringIdDto>(options.Seasons);
         this.Difficulties = new ObservableCollection<NamedIdDto>(options.Difficulties);
         this.Taxes = new ObservableCollection<NamedIdDto>(options.Taxes);
         this.PowerLevels = new ObservableCollection<NamedIdDto>(options.PowerLevels);
@@ -48,8 +48,8 @@ public class SettingsViewModel
                 UseAntilegacyTechnologies = false,
                 ReligionId = this.Religions[0].StringId,
                 FactionId = this.Factions[0].StringId,
-                WeatherId = this.Weathers[0].Id,
-                SeasonId = this.Seasons[0].Id,
+                WeatherId = this.Weathers[0].StringId,
+                SeasonId = this.Seasons[0].StringId,
                 CorruptionRate = 1,
                 PiracyRate = 1,
                 ProvinceId = this.Provinces[0].StringId,
@@ -169,31 +169,31 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<NamedIdDto> Weathers { get; set; }
+    public ObservableCollection<NamedStringIdDto> Weathers { get; set; }
 
-    public NamedIdDto SelectedWeather
+    public NamedStringIdDto SelectedWeather
     {
-        get => this.Weathers.FirstOrDefault(x => x.Id == this.settings.WeatherId);
+        get => this.Weathers.FirstOrDefault(x => x.StringId == this.settings.WeatherId);
         set
         {
-            if (this.settings.WeatherId != value.Id)
+            if (this.settings.WeatherId != value.StringId)
             {
-                this.settings.WeatherId = value.Id;
+                this.settings.WeatherId = value.StringId;
                 this.OnPropertyChanged(nameof(this.SelectedWeather));
             }
         }
     }
 
-    public ObservableCollection<NamedIdDto> Seasons { get; set; }
+    public ObservableCollection<NamedStringIdDto> Seasons { get; set; }
 
-    public NamedIdDto SelectedSeason
+    public NamedStringIdDto SelectedSeason
     {
-        get => this.Seasons.FirstOrDefault(x => x.Id == this.settings.SeasonId);
+        get => this.Seasons.FirstOrDefault(x => x.StringId == this.settings.SeasonId);
         set
         {
-            if (this.settings.SeasonId != value.Id)
+            if (this.settings.SeasonId != value.StringId)
             {
-                this.settings.SeasonId = value.Id;
+                this.settings.SeasonId = value.StringId;
                 this.OnPropertyChanged(nameof(this.SelectedSeason));
             }
         }

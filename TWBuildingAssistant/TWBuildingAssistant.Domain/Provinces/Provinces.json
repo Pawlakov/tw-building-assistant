@@ -4,7 +4,7 @@
     {
       "Id": "att_prov_aegyptus",
       "Name": "Aegyptus",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -42,7 +42,7 @@
     {
       "Id": "att_prov_aethiopia",
       "Name": "Aethiopia",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -75,7 +75,7 @@
     {
       "Id": "att_prov_africa",
       "Name": "Africa",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -112,7 +112,7 @@
     {
       "Id": "att_prov_aquitania",
       "Name": "Aquitania",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -148,7 +148,7 @@
     {
       "Id": "att_prov_arabia_felix",
       "Name": "Arabia Felix",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 0,
         "Influences": [
@@ -182,7 +182,7 @@
     {
       "Id": "att_prov_arabia_magna",
       "Name": "Arabia Magna",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 0,
         "Influences": [
@@ -217,7 +217,7 @@
     {
       "Id": "att_prov_armenia",
       "Name": "Armenia",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -256,7 +256,7 @@
     {
       "Id": "att_prov_asia",
       "Name": "Asia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -297,7 +297,7 @@
     {
       "Id": "att_prov_asorstan",
       "Name": "Asorastan",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -330,7 +330,7 @@
     {
       "Id": "att_prov_baetica",
       "Name": "Baetica",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -366,7 +366,7 @@
     {
       "Id": "att_prov_belgica",
       "Name": "Belgica",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -405,7 +405,7 @@
     {
       "Id": "att_prov_bithynia",
       "Name": "Bithynia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -446,7 +446,7 @@
     {
       "Id": "att_prov_britannia_inferior",
       "Name": "Britannia Inferior",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -486,7 +486,7 @@
     {
       "Id": "att_prov_britannia_superior",
       "Name": "Britannia Superior",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -526,7 +526,7 @@
     {
       "Id": "att_prov_caledonia_et_hbernia",
       "Name": "Caledonia et Hibernia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -554,7 +554,7 @@
     {
       "Id": "att_prov_cappadocia",
       "Name": "Cappadocia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -591,7 +591,7 @@
     {
       "Id": "att_prov_carthaginensis",
       "Name": "Carthaginensis",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -631,7 +631,7 @@
     {
       "Id": "att_prov_caucasia",
       "Name": "Caucasia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -670,7 +670,7 @@
     {
       "Id": "att_prov_cilicia",
       "Name": "Cilicia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -707,7 +707,7 @@
     {
       "Id": "att_prov_dacia",
       "Name": "Dacia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -747,7 +747,7 @@
     {
       "Id": "att_prov_dalmatia",
       "Name": "Dalmatia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -787,7 +787,7 @@
     {
       "Id": "att_prov_dardania",
       "Name": "Dardania",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -826,7 +826,7 @@
     {
       "Id": "att_prov_frisia",
       "Name": "Frisia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -858,7 +858,7 @@
     {
       "Id": "att_prov_gallaecia",
       "Name": "Gallaecia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -894,7 +894,7 @@
     {
       "Id": "att_prov_germania",
       "Name": "Germania",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -929,7 +929,7 @@
     {
       "Id": "att_prov_germano-sarmatia",
       "Name": "Germanosarmatia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 1,
         "Influences": [
@@ -969,7 +969,7 @@
     {
       "Id": "att_prov_gothiscandza",
       "Name": "Gothiscandza",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -998,7 +998,7 @@
     {
       "Id": "att_prov_hercynia",
       "Name": "Hercynia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -1033,7 +1033,7 @@
     {
       "Id": "att_prov_hyperborea",
       "Name": "Hyperborea",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -1068,7 +1068,7 @@
     {
       "Id": "att_prov_mediterraneus_occidentalis",
       "Name": "Insulae Occidentalis",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1101,7 +1101,7 @@
     {
       "Id": "att_prov_mediterraneus_orientalis",
       "Name": "Insulae Orientalis",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1134,7 +1134,7 @@
     {
       "Id": "att_prov_italia",
       "Name": "Italia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1175,7 +1175,7 @@
     {
       "Id": "att_prov_khwarasan",
       "Name": "Khwarasan",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -1210,7 +1210,7 @@
     {
       "Id": "att_prov_liguria",
       "Name": "Liguria",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1250,7 +1250,7 @@
     {
       "Id": "att_prov_lugdunensis",
       "Name": "Lugdunensis",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -1290,7 +1290,7 @@
     {
       "Id": "att_prov_lusitania",
       "Name": "Lusitania",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1330,7 +1330,7 @@
     {
       "Id": "att_prov_libya",
       "Name": "Libya",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -1367,7 +1367,7 @@
     {
       "Id": "att_prov_macedonia",
       "Name": "Macedonia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -1410,7 +1410,7 @@
     {
       "Id": "att_prov_magna_graecia",
       "Name": "Magna Graecia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -1448,7 +1448,7 @@
     {
       "Id": "att_prov_makran",
       "Name": "Makran",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -1485,7 +1485,7 @@
     {
       "Id": "att_prov_mauretania",
       "Name": "Mauretania",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1523,7 +1523,7 @@
     {
       "Id": "att_prov_maxima_sequanorum",
       "Name": "Maxima Sequanorum",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -1559,7 +1559,7 @@
     {
       "Id": "att_prov_media_atropatene",
       "Name": "Media Atropatene",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -1590,7 +1590,7 @@
     {
       "Id": "att_prov_narbonensis",
       "Name": "Narbonensis",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1634,7 +1634,7 @@
     {
       "Id": "att_prov_osroene",
       "Name": "Osroene",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1673,7 +1673,7 @@
     {
       "Id": "att_prov_palaestinea",
       "Name": "Palaestinea",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -1723,7 +1723,7 @@
     {
       "Id": "att_prov_pannonia",
       "Name": "Pannonia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -1762,7 +1762,7 @@
     {
       "Id": "att_prov_persis",
       "Name": "Persis",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -1793,7 +1793,7 @@
     {
       "Id": "att_prov_raetia_et_noricum",
       "Name": "Raetia et Noricum",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -1832,7 +1832,7 @@
     {
       "Id": "att_prov_phazania",
       "Name": "Phazania",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 0,
         "Influences": [
@@ -1875,7 +1875,7 @@
     {
       "Id": "att_prov_sarmatia_asiatica",
       "Name": "Sarmatia Asiatica",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -1912,7 +1912,7 @@
     {
       "Id": "att_prov_sarmatia_europaea",
       "Name": "Sarmatia Europaea",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -1957,7 +1957,7 @@
     {
       "Id": "att_prov_scandza",
       "Name": "Scandza",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -1987,7 +1987,7 @@
     {
       "Id": "att_prov_scythia",
       "Name": "Scythia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 1,
         "Influences": [
@@ -2018,7 +2018,7 @@
     {
       "Id": "att_prov_spahan",
       "Name": "Spahan",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 2,
         "Influences": [
@@ -2049,7 +2049,7 @@
     {
       "Id": "att_prov_syria",
       "Name": "Syria",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -2091,7 +2091,7 @@
     {
       "Id": "att_prov_tarraconensis",
       "Name": "Tarraconensis",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -2131,7 +2131,7 @@
     {
       "Id": "att_prov_thracia",
       "Name": "Thracia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 4,
         "Influences": [
@@ -2172,7 +2172,7 @@
     {
       "Id": "att_prov_transcarpathia",
       "Name": "Transcarpathia",
-      "ClimateId": 1,
+      "ClimateId": "att_climate_north",
       "Effect": {
         "Fertility": 5,
         "Influences": [
@@ -2211,7 +2211,7 @@
     {
       "Id": "att_prov_transcaspia",
       "Name": "Transcaspia",
-      "ClimateId": 3,
+      "ClimateId": "att_climate_east",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -2243,7 +2243,7 @@
     {
       "Id": "att_prov_tripolitana",
       "Name": "Tripolitana",
-      "ClimateId": 4,
+      "ClimateId": "att_climate_south",
       "Effect": {
         "Fertility": 3,
         "Influences": [
@@ -2281,7 +2281,7 @@
     {
       "Id": "att_prov_venetia",
       "Name": "Venetia",
-      "ClimateId": 2,
+      "ClimateId": "att_climate_med",
       "Effect": {
         "Fertility": 5,
         "Influences": [

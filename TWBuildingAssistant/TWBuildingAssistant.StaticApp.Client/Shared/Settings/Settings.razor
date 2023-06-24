@@ -87,14 +87,14 @@
                 <SettingsControl For="@(() => this.model.SeasonId)" Label="Season" FaClass="fa-tree">
                     <SettingsSelect @bind-Value="this.model.SeasonId" Options="@this.options?.Seasons">
                         <OptionTemplate Context="option">
-                            <option value="@option.Id">@option.Name</option>
+                            <option value="@option.StringId">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>
                 <SettingsControl For="@(() => this.model.WeatherId)" Label="Weather" FaClass="fa-cloud">
                     <SettingsSelect @bind-Value="this.model.WeatherId" Options="@this.options?.Weathers">
                         <OptionTemplate Context="option">
-                            <option value="@option.Id">@option.Name</option>
+                            <option value="@option.StringId">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>

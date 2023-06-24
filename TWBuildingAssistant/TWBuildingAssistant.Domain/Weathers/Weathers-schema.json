@@ -1,23 +1,23 @@
 ﻿{
   "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "JSON Schema for Religions aggregate",
+  "title": "JSON Schema for Weathers aggregate",
   "type": "object",
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "Religions": {
+    "Weathers": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/religion"
+        "$ref": "#/definitions/weather"
       },
       "minItems": 1
     }
   },
-  "required": [ "$schema", "Religions" ],
+  "required": [ "$schema", "Weathers" ],
   "additionalProperties": false,
   "definitions": {
-    "religion": {
+    "weather": {
       "type": "object",
       "properties": {
         "Id": {
@@ -28,11 +28,11 @@
           "type": "string",
           "minLength": 1
         },
-        "Effect": {
-          "$ref": "..\\Data\\Effects-schema.json#"
+        "Order": {
+          "type": "integer"
         }
       },
-      "required": [ "Id", "Name" ],
+      "required": [ "Id", "Name", "Order" ],
       "additionalProperties": false
     }
   }

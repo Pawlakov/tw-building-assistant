@@ -5,28 +5,28 @@ using System.ComponentModel.DataAnnotations;
 public class SettingsModel
 {
     [Required]
-    public int? ProvinceId { get; set; }
+    public string? ProvinceId { get; set; }
 
     [Required]
-    public int? FactionId { get; set; }
+    public string? FactionId { get; set; }
 
     [Required]
-    public int? RelligionId { get; set; }
+    public string? RelligionId { get; set; }
 
     [Required]
-    public int? DifficultyId { get; set; }
+    public string? DifficultyId { get; set; }
 
     [Required]
-    public int? TaxId { get; set; }
+    public string? TaxId { get; set; }
 
     [Required]
-    public int? PowerLevelId { get; set; }
+    public string? PowerLevelId { get; set; }
 
     [Required]
-    public int? SeasonId { get; set; }
+    public string? SeasonId { get; set; }
 
     [Required]
-    public int? WeatherId { get; set; }
+    public string? WeatherId { get; set; }
 
     [Required]
     public int? FertilityDrop { get; set; }

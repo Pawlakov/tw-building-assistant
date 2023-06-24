@@ -7,7 +7,7 @@ public interface IProvinceStore
 {
     Dictionary<(string RegionId, int SlotIndex), (string BuildingBranchId, string BuildingLevelId)> BuildingLevels { get; }
 
-    SeekerSettingsRegionDto[] SeekerSettings { get; set; }
+    SeekerSettingsRegionDTO[] SeekerSettings { get; set; }
 
-    List<SeekerResultDto> SeekerResults { get; }
+    List<SeekerResultDTO> SeekerResults { get; }
 }

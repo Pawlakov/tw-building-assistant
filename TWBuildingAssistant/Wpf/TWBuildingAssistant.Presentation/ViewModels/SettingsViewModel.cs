@@ -27,16 +27,16 @@ public class SettingsViewModel
         this.configuration = configuration;
 
         var options = getSettingOptions();
-        this.Religions = new ObservableCollection<NamedStringIdDto>(options.Religions);
-        this.Provinces = new ObservableCollection<NamedStringIdDto>(options.Provinces);
-        this.Factions = new ObservableCollection<NamedStringIdDto>(options.Factions);
+        this.Religions = new ObservableCollection<NamedIdDTO>(options.Religions);
+        this.Provinces = new ObservableCollection<NamedIdDTO>(options.Provinces);
+        this.Factions = new ObservableCollection<NamedIdDTO>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4, 5 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
-        this.Weathers = new ObservableCollection<NamedStringIdDto>(options.Weathers);
-        this.Seasons = new ObservableCollection<NamedStringIdDto>(options.Seasons);
-        this.Difficulties = new ObservableCollection<NamedIdDto>(options.Difficulties);
-        this.Taxes = new ObservableCollection<NamedIdDto>(options.Taxes);
-        this.PowerLevels = new ObservableCollection<NamedIdDto>(options.PowerLevels);
+        this.Weathers = new ObservableCollection<NamedIdDTO>(options.Weathers);
+        this.Seasons = new ObservableCollection<NamedIdDTO>(options.Seasons);
+        this.Difficulties = new ObservableCollection<NamedIdDTO>(options.Difficulties);
+        this.Taxes = new ObservableCollection<NamedIdDTO>(options.Taxes);
+        this.PowerLevels = new ObservableCollection<NamedIdDTO>(options.PowerLevels);
 
         var settings = this.configuration.GetSettings();
         if (settings == null)
@@ -46,13 +46,13 @@ public class SettingsViewModel
                 FertilityDrop = this.FertilityDrops[0],
                 TechnologyTier = this.TechnologyTiers[0],
                 UseAntilegacyTechnologies = false,
-                ReligionId = this.Religions[0].StringId,
-                FactionId = this.Factions[0].StringId,
-                WeatherId = this.Weathers[0].StringId,
-                SeasonId = this.Seasons[0].StringId,
+                ReligionId = this.Religions[0].Id,
+                FactionId = this.Factions[0].Id,
+                WeatherId = this.Weathers[0].Id,
+                SeasonId = this.Seasons[0].Id,
                 CorruptionRate = 1,
                 PiracyRate = 1,
-                ProvinceId = this.Provinces[0].StringId,
+                ProvinceId = this.Provinces[0].Id,
                 DifficultyId = this.Difficulties[0].Id,
                 TaxId = this.Taxes[0].Id,
                 PowerLevelId = this.PowerLevels[0].Id,
@@ -81,46 +81,46 @@ public class SettingsViewModel
         this.NextCommand = new AsyncRelayCommand(this.Next);
     }
 
-    public ObservableCollection<NamedStringIdDto> Religions { get; set; }
+    public ObservableCollection<NamedIdDTO> Religions { get; set; }
 
-    public NamedStringIdDto SelectedReligion
+    public NamedIdDTO SelectedReligion
     {
-        get => this.Religions.FirstOrDefault(x => x.StringId == this.settings.ReligionId);
+        get => this.Religions.FirstOrDefault(x => x.Id == this.settings.ReligionId);
         set
         {
-            if (this.settings.ReligionId != value.StringId)
+            if (this.settings.ReligionId != value.Id)
             {
-                this.settings.ReligionId = value.StringId;
+                this.settings.ReligionId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedReligion));
             }
         }
     }
 
-    public ObservableCollection<NamedStringIdDto> Provinces { get; set; }
+    public ObservableCollection<NamedIdDTO> Provinces { get; set; }
 
-    public NamedStringIdDto SelectedProvince
+    public NamedIdDTO SelectedProvince
     {
-        get => this.Provinces.FirstOrDefault(x => x.StringId == this.settings.ProvinceId);
+        get => this.Provinces.FirstOrDefault(x => x.Id == this.settings.ProvinceId);
         set
         {
-            if (this.settings.ProvinceId != value.StringId)
+            if (this.settings.ProvinceId != value.Id)
             {
-                this.settings.ProvinceId = value.StringId;
+                this.settings.ProvinceId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedProvince));
             }
         }
     }
 
-    public ObservableCollection<NamedStringIdDto> Factions { get; set; }
+    public ObservableCollection<NamedIdDTO> Factions { get; set; }
 
-    public NamedStringIdDto SelectedFaction
+    public NamedIdDTO SelectedFaction
     {
-        get => this.Factions.FirstOrDefault(x => x.StringId == this.settings.FactionId);
+        get => this.Factions.FirstOrDefault(x => x.Id == this.settings.FactionId);
         set
         {
-            if (this.settings.FactionId != value.StringId)
+            if (this.settings.FactionId != value.Id)
             {
-                this.settings.FactionId = value.StringId;
+                this.settings.FactionId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedFaction));
             }
         }
@@ -169,39 +169,39 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<NamedStringIdDto> Weathers { get; set; }
+    public ObservableCollection<NamedIdDTO> Weathers { get; set; }
 
-    public NamedStringIdDto SelectedWeather
+    public NamedIdDTO SelectedWeather
     {
-        get => this.Weathers.FirstOrDefault(x => x.StringId == this.settings.WeatherId);
+        get => this.Weathers.FirstOrDefault(x => x.Id == this.settings.WeatherId);
         set
         {
-            if (this.settings.WeatherId != value.StringId)
+            if (this.settings.WeatherId != value.Id)
             {
-                this.settings.WeatherId = value.StringId;
+                this.settings.WeatherId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedWeather));
             }
         }
     }
 
-    public ObservableCollection<NamedStringIdDto> Seasons { get; set; }
+    public ObservableCollection<NamedIdDTO> Seasons { get; set; }
 
-    public NamedStringIdDto SelectedSeason
+    public NamedIdDTO SelectedSeason
     {
-        get => this.Seasons.FirstOrDefault(x => x.StringId == this.settings.SeasonId);
+        get => this.Seasons.FirstOrDefault(x => x.Id == this.settings.SeasonId);
         set
         {
-            if (this.settings.SeasonId != value.StringId)
+            if (this.settings.SeasonId != value.Id)
             {
-                this.settings.SeasonId = value.StringId;
+                this.settings.SeasonId = value.Id;
                 this.OnPropertyChanged(nameof(this.SelectedSeason));
             }
         }
     }
 
-    public ObservableCollection<NamedIdDto> Difficulties { get; set; }
+    public ObservableCollection<NamedIdDTO> Difficulties { get; set; }
 
-    public NamedIdDto SelectedDifficulty
+    public NamedIdDTO SelectedDifficulty
     {
         get => this.Difficulties.FirstOrDefault(x => x.Id == this.settings.DifficultyId);
         set
@@ -214,9 +214,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<NamedIdDto> Taxes { get; set; }
+    public ObservableCollection<NamedIdDTO> Taxes { get; set; }
 
-    public NamedIdDto SelectedTax
+    public NamedIdDTO SelectedTax
     {
         get => this.Taxes.FirstOrDefault(x => x.Id == this.settings.TaxId);
         set
@@ -229,9 +229,9 @@ public class SettingsViewModel
         }
     }
 
-    public ObservableCollection<NamedIdDto> PowerLevels { get; set; }
+    public ObservableCollection<NamedIdDTO> PowerLevels { get; set; }
 
-    public NamedIdDto SelectedPowerLevel
+    public NamedIdDTO SelectedPowerLevel
     {
         get => this.PowerLevels.FirstOrDefault(x => x.Id == this.settings.PowerLevelId);
         set
@@ -292,7 +292,7 @@ public class SettingsViewModel
 
     public async Task Next()
     {
-        var settings = new SettingsDto(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
+        var settings = new SettingsDTO(this.settings.ProvinceId, this.settings.FertilityDrop, this.settings.TechnologyTier, this.settings.UseAntilegacyTechnologies, this.settings.ReligionId, this.settings.FactionId, this.settings.WeatherId, this.settings.SeasonId, this.settings.DifficultyId, this.settings.TaxId, this.settings.PowerLevelId, this.settings.CorruptionRate, this.settings.PiracyRate);
         this.configuration.SetSettings(settings);
 
         this.settingsStore.BuildingLibrary = getBuildingLibrary(settings);

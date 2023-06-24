@@ -1,17 +1,13 @@
 ﻿module TWBuildingAssistant.Domain.Settings
 
-open Data
-
-type NamedId = { Id: int; Name: string }
-
-type NamedStringId = { StringId: string; Name: string }
+type NamedId = { Id: string; Name: string }
 
 type OptionSet =
-    { Provinces: NamedStringId list
-      Weathers: NamedStringId list
-      Seasons: NamedStringId list
-      Religions: NamedStringId list
-      Factions: NamedStringId list
+    { Provinces: NamedId list
+      Weathers: NamedId list
+      Seasons: NamedId list
+      Religions: NamedId list
+      Factions: NamedId list
       Difficulties: NamedId list
       Taxes: NamedId list
       PowerLevels: NamedId list }
@@ -25,58 +21,21 @@ type internal Settings =
       FactionId: string
       WeatherId: string
       SeasonId: string
-      DifficultyId: int
-      TaxId: int
-      PowerLevelId: int
+      DifficultyId: string
+      TaxId: string
+      PowerLevelId: string
       CorruptionRate: int
       PiracyRate: int }
 
 let private createOptions (tuples: seq<string*string>) =
-    query { for (id, name) in tuples do select { StringId = id; Name = name } } |> Seq.toList
+    query { for (id, name) in tuples do select { Id = id; Name = name } } |> Seq.toList
 
-let private getDifficultyOptions (difficultiesData: DifficultiesData.Root []) =
-    let query =
-        query {
-            for province in difficultiesData do
-                select
-                    { Id = province.Id
-                      Name = province.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
-
-let private getTaxOptions (taxesData: TaxesData.Root []) =
-    let query =
-        query {
-            for tax in taxesData do
-                select { Id = tax.Id; Name = tax.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
-
-let private getPowerLevelOptions (powerLevelsData: PowerLevelsData.Root []) =
-    let query =
-        query {
-            for powerLevel in powerLevelsData do
-                select
-                    { Id = powerLevel.Id
-                      Name = powerLevel.Name }
-        }
-
-    let result = query |> Seq.toList
-
-    result
-
-let getOptions getWeatherTupleSeq getSeasonTupleSeq getProvinceTupleSeq getReligionTupleSeq difficultiesData taxesData powerLevelsData getFactionTupleSeq =
+let getOptions getWeatherTupleSeq getSeasonTupleSeq getProvinceTupleSeq getReligionTupleSeq getDifficultyTupleSeq getTaxTupleSeq getPowerLevelTupleSeq getFactionTupleSeq =
     { Provinces = () |> getProvinceTupleSeq |> createOptions
       Weathers = () |> getWeatherTupleSeq |> createOptions
       Seasons = () |> getSeasonTupleSeq |> createOptions
       Religions = () |> getReligionTupleSeq |> createOptions
       Factions = () |> getFactionTupleSeq |> createOptions
-      Difficulties = getDifficultyOptions difficultiesData
-      Taxes = getTaxOptions taxesData
-      PowerLevels = getPowerLevelOptions powerLevelsData }
+      Difficulties = () |> getDifficultyTupleSeq |> createOptions
+      Taxes = () |> getTaxTupleSeq |> createOptions
+      PowerLevels = () |> getPowerLevelTupleSeq |> createOptions }

@@ -1,0 +1,53 @@
+﻿{
+  "$schema": ".\\Taxes-schema.json",
+  "Taxes": [
+    {
+      "Id": "tax_minimal",
+      "Name": "Minimal",
+      "Order": 1,
+      "Effect": {
+        "Growth": 4,
+        "TaxRate": -50
+      }
+    },
+    {
+      "Id": "tax_low",
+      "Name": "Low",
+      "Order": 2,
+      "Effect": {
+        "PublicOrder": -1,
+        "Growth": 2,
+        "TaxRate": -25
+      }
+    },
+    {
+      "Id": "tax_normal",
+      "Name": "Normal",
+      "Order": 3,
+      "Effect": {
+        "PublicOrder": -4,
+        "TaxRate": 0
+      }
+    },
+    {
+      "Id": "tax_high",
+      "Name": "High",
+      "Order": 4,
+      "Effect": {
+        "PublicOrder": -10,
+        "Growth": -1,
+        "TaxRate": 20
+      }
+    },
+    {
+      "Id": "tax_extortionate",
+      "Name": "Extortionate",
+      "Order": 5,
+      "Effect": {
+        "PublicOrder": -25,
+        "Growth": -3,
+        "TaxRate": 40
+      }
+    }
+  ]
+}

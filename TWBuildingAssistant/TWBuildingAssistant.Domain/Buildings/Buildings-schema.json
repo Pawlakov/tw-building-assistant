@@ -70,7 +70,7 @@
           "type": "string"
         },
         "Effect": {
-          "$ref": "..\\Data\\Effects-schema.json#"
+          "$ref": "..\\Effects\\Effects-schema.json#"
         },
         "Maintenance": {
           "type": "integer"
@@ -106,7 +106,9 @@
           "type": "integer"
         },
         "Category": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
         },
         "IsFertilityDependent": {
           "type": "boolean"

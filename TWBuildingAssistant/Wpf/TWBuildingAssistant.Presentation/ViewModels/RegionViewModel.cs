@@ -9,7 +9,7 @@ public class RegionViewModel
 {
     private string performance;
 
-    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, RegionDto region)
+    public RegionViewModel(ISettingsStore settingsStore, IProvinceStore provinceStore, RegionDTO region)
     {
         this.Slots = new ObservableCollection<SlotViewModel>();
         var slotIndex = 0;

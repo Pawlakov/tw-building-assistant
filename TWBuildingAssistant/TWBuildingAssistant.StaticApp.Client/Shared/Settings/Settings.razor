@@ -19,14 +19,14 @@
                 <SettingsControl For="@(() => this.model.FactionId)" Label="Faction" FaClass="fa-flag">
                     <SettingsSelect @bind-Value="this.model.FactionId" Options="@this.options?.Factions">
                         <OptionTemplate Context="option">
-                            <option value="@option.StringId">@option.Name</option>
+                            <option value="@option.Id">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>
                 <SettingsControl For="@(() => this.model.RelligionId)" Label="Religion" FaClass="fa-person-praying">
                     <SettingsSelect @bind-Value="this.model.RelligionId" Options="@this.options?.Religions">
                         <OptionTemplate Context="option">
-                            <option value="@option.StringId">@option.Name</option>
+                            <option value="@option.Id">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>
@@ -80,21 +80,21 @@
                 <SettingsControl For="@(() => this.model.ProvinceId)" Label="Province" FaClass="fa-earth-europe">
                     <SettingsSelect @bind-Value="this.model.ProvinceId" Options="@this.options?.Provinces">
                         <OptionTemplate Context="option">
-                            <option value="@option.StringId">@option.Name</option>
+                            <option value="@option.Id">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>
                 <SettingsControl For="@(() => this.model.SeasonId)" Label="Season" FaClass="fa-tree">
                     <SettingsSelect @bind-Value="this.model.SeasonId" Options="@this.options?.Seasons">
                         <OptionTemplate Context="option">
-                            <option value="@option.StringId">@option.Name</option>
+                            <option value="@option.Id">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>
                 <SettingsControl For="@(() => this.model.WeatherId)" Label="Weather" FaClass="fa-cloud">
                     <SettingsSelect @bind-Value="this.model.WeatherId" Options="@this.options?.Weathers">
                         <OptionTemplate Context="option">
-                            <option value="@option.StringId">@option.Name</option>
+                            <option value="@option.Id">@option.Name</option>
                         </OptionTemplate>
                     </SettingsSelect>
                 </SettingsControl>

@@ -81,10 +81,10 @@ public class ProvinceViewModel
         this.provinceStore.SeekerSettings = this.Regions
             .Select(x =>
             {
-                return new SeekerSettingsRegionDto(
+                return new SeekerSettingsRegionDTO(
                     x.Slots
-                        .Where(y => !string.IsNullOrWhiteSpace(y.SelectedBuildingBranch.StringId) || y.Selected)
-                        .Select(y => new SeekerSettingsSlotDto(y.Selected ? Microsoft.FSharp.Core.FSharpOption<string>.None : y.SelectedBuildingBranch.StringId, y.Selected ? Microsoft.FSharp.Core.FSharpOption<string>.None : y.SelectedBuildingLevel.StringId, y.Descriptor, y.RegionId, y.SlotIndex))
+                        .Where(y => !string.IsNullOrWhiteSpace(y.SelectedBuildingBranch.Id) || y.Selected)
+                        .Select(y => new SeekerSettingsSlotDTO(y.Selected ? Microsoft.FSharp.Core.FSharpOption<string>.None : y.SelectedBuildingBranch.Id, y.Selected ? Microsoft.FSharp.Core.FSharpOption<string>.None : y.SelectedBuildingLevel.Id, y.Descriptor, y.RegionId, y.SlotIndex))
                         .ToArray());
             })
             .ToArray();
@@ -96,7 +96,7 @@ public class ProvinceViewModel
     {
         using (var dbContext = this.dbContextFactory.CreateDbContext())
         {
-            var state = getState(dbContext, this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel.StringId).ToArray()).ToArray(), this.configuration.GetSettings());
+            var state = getState(dbContext, this.Regions.Select(x => x.Slots.Select(y => y.SelectedBuildingLevel.Id).ToArray()).ToArray(), this.configuration.GetSettings());
             var provinceBuilder = new StringBuilder();
             provinceBuilder.AppendLine($"Total Wealth: {state.TotalWealth}");
             provinceBuilder.AppendLine($"Tax Rate: {state.TaxRate}%");

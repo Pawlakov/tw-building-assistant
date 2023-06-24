@@ -7,21 +7,41 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Data\Effects-schema.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Taxes.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\Difficulties.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\PowerLevels.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Compile Include="Data.fs" />
     <Compile Include="Settings.fs" />
-    <Compile Include="Effects.fs" />
+    <None Include="Effects\Effects-schema.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Compile Include="Effects\Effects.fs" />
+    <EmbeddedResource Include="PowerLevels\PowerLevels-schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PowerLevels\PowerLevels-sample.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PowerLevels\PowerLevels.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="PowerLevels\PowerLevels.fs" />
+    <EmbeddedResource Include="Difficulties\Difficulties-schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Difficulties\Difficulties-sample.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Difficulties\Difficulties.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Difficulties\Difficulties.fs" />
+    <EmbeddedResource Include="Taxes\Taxes-schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Taxes\Taxes-sample.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Taxes\Taxes.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Taxes\Taxes.fs" />
     <EmbeddedResource Include="Weathers\Weathers-schema.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>

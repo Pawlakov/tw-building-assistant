@@ -157,8 +157,8 @@ public class SeekerViewModel
         return !this.processing;
     }
 
-    private MinimalConditionDto MinimalCondition()
+    private MinimalConditionDTO MinimalCondition()
     {
-        return new MinimalConditionDto(this.RequireSantitation, true, this.MinimalPublicOrder);
+        return new MinimalConditionDTO(this.RequireSantitation, true, this.MinimalPublicOrder);
     }
 }

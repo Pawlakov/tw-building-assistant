@@ -56,7 +56,9 @@
           "type": "integer"
         },
         "Category": {
-          "type": "integer"
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
         }
       },
       "required": [ "Value" ],

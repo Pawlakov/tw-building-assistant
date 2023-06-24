@@ -1,0 +1,42 @@
+﻿{
+  "$schema": ".\\Difficulties-schema.json",
+  "Difficulties": [
+    {
+      "Id": "att_difficulty_01",
+      "Name": "Easy",
+      "Order": 1
+    },
+    {
+      "Id": "att_difficulty_02",
+      "Name": "Normal",
+      "Order": 2,
+      "Effect": {
+        "PublicOrder": -2
+      }
+    },
+    {
+      "Id": "att_difficulty_03",
+      "Name": "Hard",
+      "Order": 3,
+      "Effect": {
+        "PublicOrder": -4
+      }
+    },
+    {
+      "Id": "att_difficulty_04",
+      "Name": "Very Hard",
+      "Order": 4,
+      "Effect": {
+        "PublicOrder": -6
+      }
+    },
+    {
+      "Id": "att_difficulty_05",
+      "Name": "Legendary",
+      "Order": 5,
+      "Effect": {
+        "PublicOrder": -8
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+﻿{
+  "$schema": ".\\PowerLevels-schema.json",
+  "PowerLevels": [
+    {
+      "Id": "att_political_power_01",
+      "Name": "Impotent",
+      "Order": 1,
+      "Effect": {
+        "PublicOrder": 7,
+        "Growth": 8,
+        "TaxRate": -16
+      }
+    },
+    {
+      "Id": "att_political_power_02",
+      "Name": "Pitful",
+      "Order": 2,
+      "Effect": {
+        "PublicOrder": 5,
+        "Growth": 4,
+        "TaxRate": -8
+      }
+    },
+    {
+      "Id": "att_political_power_03",
+      "Name": "Weak",
+      "Order": 3,
+      "Effect": {
+        "PublicOrder": 3,
+        "Growth": 2,
+        "TaxRate": -4
+      }
+    },
+    {
+      "Id": "att_political_power_04",
+      "Name": "Acceptable",
+      "Order": 4,
+      "Effect": {
+        "PublicOrder": 1,
+        "TaxRate": -2
+      }
+    },
+    {
+      "Id": "att_political_power_05",
+      "Name": "Balanced",
+      "Order": 5,
+      "Effect": {
+        "TaxRate": -1
+      }
+    },
+    {
+      "Id": "att_political_power_06",
+      "Name": "Respectable",
+      "Order": 6,
+      "Effect": {
+        "PublicOrder": -1
+      }
+    },
+    {
+      "Id": "att_political_power_07",
+      "Name": "Powerful",
+      "Order": 7,
+      "Effect": {
+        "PublicOrder": -3,
+        "Growth": -2,
+        "TaxRate": 1
+      }
+    },
+    {
+      "Id": "att_political_power_08",
+      "Name": "Dominant",
+      "Order": 8,
+      "Effect": {
+        "PublicOrder": -5,
+        "Growth": -4,
+        "TaxRate": 2
+      }
+    },
+    {
+      "Id": "att_political_power_09",
+      "Name": "Absolute",
+      "Order": 9,
+      "Effect": {
+        "PublicOrder": -7,
+        "Growth": -8,
+        "TaxRate": 4
+      }
+    }
+  ]
+}

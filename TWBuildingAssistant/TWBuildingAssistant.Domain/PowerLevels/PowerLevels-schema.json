@@ -1,23 +1,23 @@
 ﻿{
   "$schema": "http://json-schema.org/draft-04/schema",
-  "title": "JSON Schema for Wonders aggregate",
+  "title": "JSON Schema for Power Levels aggregate",
   "type": "object",
   "properties": {
     "$schema": {
       "type": "string"
     },
-    "Wonders": {
+    "PowerLevels": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/wonder"
+        "$ref": "#/definitions/power_level"
       },
       "minItems": 1
     }
   },
-  "required": [ "$schema", "Wonders" ],
+  "required": [ "$schema", "PowerLevels" ],
   "additionalProperties": false,
   "definitions": {
-    "wonder": {
+    "power_level": {
       "type": "object",
       "properties": {
         "Id": {
@@ -28,24 +28,14 @@
           "type": "string",
           "minLength": 1
         },
-        "RegionIds": {
-          "title": "array",
-          "minLength": 1,
-          "maxLength": 2,
-          "uniqueItems": true,
-          "items": {
-            "type": "string",
-            "minLength": 1
-          }
+        "Order": {
+          "type": "integer"
         },
-        "FactionwideEffect": {
-          "$ref": "..\\Effects\\Effects-schema.json#"
-        },
-        "LocalEffect": {
+        "Effect": {
           "$ref": "..\\Effects\\Effects-schema.json#"
         }
       },
-      "required": [ "Id", "Name", "RegionIds" ],
+      "required": [ "Id", "Name", "Order" ],
       "additionalProperties": false
     }
   }

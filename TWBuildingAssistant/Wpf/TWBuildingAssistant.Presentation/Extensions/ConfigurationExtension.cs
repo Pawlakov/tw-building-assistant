@@ -11,13 +11,13 @@ public static class ConfigurationExtension
     private const string CertainValueKey = "CertainValue";
     private const string SettingsKey = "Settings";
 
-    public static SettingsDto? GetSettings(this IConfiguration configuration)
+    public static SettingsDTO? GetSettings(this IConfiguration configuration)
     {
         if (configuration.GetSection(SettingsKey).Exists())
         {
             try
             {
-                return configuration.GetSection(SettingsKey).Get<SettingsDto>();
+                return configuration.GetSection(SettingsKey).Get<SettingsDTO>();
             }
             catch
             {
@@ -33,7 +33,7 @@ public static class ConfigurationExtension
         AddOrUpdateAppSettings(CertainValueKey, value);
     }
 
-    public static void SetSettings(this IConfiguration configuration, SettingsDto value)
+    public static void SetSettings(this IConfiguration configuration, SettingsDTO value)
     {
         configuration[SettingsKey] = JsonConvert.SerializeObject(value);
         AddOrUpdateAppSettings(SettingsKey, (dynamic)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(value)));

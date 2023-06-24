@@ -33,7 +33,7 @@
           "minLength": 1
         },
         "Effect": {
-          "$ref": "..\\Data\\Effects-schema.json#"
+          "$ref": "..\\Effects\\Effects-schema.json#"
         },
         "City": {
           "$ref": "#/definitions/region"

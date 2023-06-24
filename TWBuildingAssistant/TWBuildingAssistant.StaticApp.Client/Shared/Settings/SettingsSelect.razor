@@ -2,6 +2,7 @@
 @using TWBuildingAssistant.StaticApp.Shared.DTOs
 
 @typeparam TOption
+@typeparam TValue
 
 <div class="select is-fullwidth @(this.Options == null ? "is-loading" : "")">
     <InputSelect Value="@this.Value" ValueExpression="@this.ValueExpression" ValueChanged="@this.ValueChanged">
@@ -21,13 +22,13 @@
     public RenderFragment<TOption> OptionTemplate { get; set; }
 
     [Parameter]
-    public int? Value { get; set; }
+    public TValue Value { get; set; }
 
     [Parameter]
-    public EventCallback<int?> ValueChanged { get; set; }
+    public EventCallback<TValue> ValueChanged { get; set; }
 
     [Parameter]
-    public Expression<Func<int?>> ValueExpression { get; set; }
+    public Expression<Func<TValue>> ValueExpression { get; set; }
 
     [Parameter]
     public IEnumerable<TOption>? Options { get; set; }

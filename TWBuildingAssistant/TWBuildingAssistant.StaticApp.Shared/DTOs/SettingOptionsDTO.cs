@@ -2,15 +2,15 @@
 
 public class SettingOptionsDTO
 {
-    public NamedStringIdDTO[] Provinces { get; set; }
+    public NamedIdDTO[] Provinces { get; set; }
 
-    public NamedStringIdDTO[] Weathers { get; set; }
+    public NamedIdDTO[] Weathers { get; set; }
 
-    public NamedStringIdDTO[] Seasons { get; set; }
+    public NamedIdDTO[] Seasons { get; set; }
 
-    public NamedStringIdDTO[] Religions { get; set; }
+    public NamedIdDTO[] Religions { get; set; }
 
-    public NamedStringIdDTO[] Factions { get; set; }
+    public NamedIdDTO[] Factions { get; set; }
 
     public NamedIdDTO[] Difficulties { get; set; }
 

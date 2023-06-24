@@ -1,10 +1,5 @@
 ﻿module TWBuildingAssistant.Domain.Effects
 
-open TWBuildingAssistant.Data.Sqlite
-
-open Data
-open Settings
-
 type internal Effect =
     { PublicOrder: int
       Food: int
@@ -245,118 +240,17 @@ let internal collectLocalEffects localEffectSeq =
     Seq.fold localEffectFolder emptyLocalEffect localEffectSeq
 //
 
-// Legacy constructors (TODO remove)
-let private createBonusFromEntity (rd: Entities.Bonus) =
-    let value = rd.Value
-
-    let category =
-        (if rd.Category.HasValue then
-             Some rd.Category.Value
-         else
-             None)
-        |> createIncomeCategoryOption
-
-    createBonus value category
-
-let private createInfluenceFromEntity (rd: Entities.Influence) =
-    let religionId =
-        (if rd.ReligionId.HasValue then
-             Some rd.ReligionId.Value
-         else
-             None)
-
-    let value = rd.Value
-
-    createInfluence value (Some "OBSOLETE")
-
-let internal getEffect (ctx: DatabaseContext) effectId =
-    let effect =
-        query {
-            for effect in ctx.Effects do
-                where (effect.Id = effectId)
-
-                select
-                    { PublicOrder = effect.PublicOrder
-                      Food = effect.Food
-                      Sanitation = effect.Sanitation
-                      ResearchRate = effect.ResearchRate
-                      Growth = effect.Growth
-                      Fertility = effect.Fertility
-                      ReligiousOsmosis = effect.ReligiousOsmosis
-                      TaxRate = effect.TaxRate
-                      CorruptionRate = effect.CorruptionRate }
-
-                head
-        }
-
-    let bonuses =
-        query {
-            for bonus in ctx.Bonuses do
-                where (bonus.EffectId = effectId)
-        }
-        |> Seq.map createBonusFromEntity
-        |> Seq.toList
-
-    let influences =
-        query {
-            for influence in ctx.Influences do
-                where (influence.EffectId = effectId)
-        }
-        |> Seq.map createInfluenceFromEntity
-        |> Seq.toList
-
-    { Effect = effect
-      Bonuses = bonuses
-      Influences = influences }
-
-let internal getEffectOption (ctx: DatabaseContext) = Option.map (getEffect ctx) >> Option.defaultValue emptyEffectSet
-
-let internal getDifficultyEffect (ctx: DatabaseContext) (difficultiesData: DifficultiesData.Root []) difficultyId =
-    let effectId =
-        query {
-            for difficulty in difficultiesData do
-                where (difficulty.Id = difficultyId)
-                select difficulty.EffectId
-                head
-        }
-
-    effectId |> (getEffectOption ctx)
-
-let internal getTaxEffect (ctx: DatabaseContext) (taxesData: TaxesData.Root []) taxId =
-    let effectId =
-        query {
-            for tax in taxesData do
-                where (tax.Id = taxId)
-                select tax.EffectId
-                head
-        }
-
-    effectId |> (getEffect ctx)
-
-let internal getPowerLevelEffect (ctx: DatabaseContext) (powerLevelsData: PowerLevelsData.Root []) powerLevelId =
-    let effectId =
-        query {
-            for powerLevel in powerLevelsData do
-                where (powerLevel.Id = powerLevelId)
-                select powerLevel.EffectId
-                head
-        }
-
-    effectId |> (getEffect ctx)
-//
-
 let internal getStateFromSettings
-    (ctx: DatabaseContext)
     getClimateEffectSet
     getProvinceEffectSet
     getWonderEffectSetSeq
     getReligionEffectSet
-    difficultiesData
-    taxesData
-    powerLevelsData
+    getDifficultyEffectSet
+    getTaxEffectSet
+    getPowerLevelEffectSet
     getFactionEffectSet
     getTechnologyEffectSetSeq
-    (settings: Settings)
+    (settings: Settings.Settings)
     =
     let religionEffectSet = settings |> getReligionEffectSet
 
@@ -364,13 +258,13 @@ let internal getStateFromSettings
 
     let provinceEffectSet = settings |> getProvinceEffectSet
 
-    let climateEffects = settings |> getClimateEffectSet
+    let climateEffectSet = settings |> getClimateEffectSet
 
-    let difficultyEffects = getDifficultyEffect ctx difficultiesData settings.DifficultyId
+    let difficultyEffectSet = settings |> getDifficultyEffectSet
 
-    let taxEffects = getTaxEffect ctx taxesData settings.TaxId
+    let taxEffectSet = settings |> getTaxEffectSet
 
-    let powerLevelEffects = getPowerLevelEffect ctx powerLevelsData settings.PowerLevelId
+    let powerLevelEffectSet = settings |> getPowerLevelEffectSet
 
     let fertilityDropAndCorruptionEffect =
         { emptyEffect with
@@ -392,10 +286,10 @@ let internal getStateFromSettings
         [ factionEffectSet
           religionEffectSet
           provinceEffectSet
-          climateEffects
-          difficultyEffects
-          taxEffects
-          powerLevelEffects
+          climateEffectSet
+          difficultyEffectSet
+          taxEffectSet
+          powerLevelEffectSet
           { Effect = fertilityDropAndCorruptionEffect
             Bonuses = [ piracyBonus ]
             Influences = [] } ]

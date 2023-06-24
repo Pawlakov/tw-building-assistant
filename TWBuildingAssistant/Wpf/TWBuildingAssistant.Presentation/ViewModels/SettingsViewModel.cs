@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Configuration;
-using TWBuildingAssistant.Data.Sqlite;
 using TWBuildingAssistant.Presentation.Extensions;
 using TWBuildingAssistant.Presentation.State;
 using static TWBuildingAssistant.Domain.DTOs;

@@ -3,7 +3,6 @@
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TWBuildingAssistant.Data.HostBuilders;
 using TWBuildingAssistant.Presentation.HostBuilders;
 using TWBuildingAssistant.Presentation.Views;
 
@@ -20,8 +19,6 @@ public partial class App
     public static IHostBuilder CreateHostBuilder(string[]? args = null)
     {
         return Host.CreateDefaultBuilder(args)
-            .AddConfiguration()
-            .AddDbContextLocal()
             .AddStores()
             .AddViewModels()
             .AddViews();

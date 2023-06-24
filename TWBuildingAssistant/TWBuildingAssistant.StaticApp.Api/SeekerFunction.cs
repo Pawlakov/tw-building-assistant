@@ -7,10 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using System.Net;
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
 using TWBuildingAssistant.Domain;
-using TWBuildingAssistant.Data.Sqlite;
 
 public class SeekerFunction
 {

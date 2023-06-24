@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="Settings.fs" />
-    <None Include="Effects\Effects-schema.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="Effects\Effects-schema.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Compile Include="Effects\Effects.fs" />
     <EmbeddedResource Include="PowerLevels\PowerLevels-schema.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
@@ -141,15 +141,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FSharp.Data" Version="6.0.1-beta001" />
+    <PackageReference Include="FSharp.Data" Version="6.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Meta\TWBuildingAssistant.Data\TWBuildingAssistant.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="6.0.6" />
+    <PackageReference Update="FSharp.Core" Version="7.0.400-beta.23281.1" />
   </ItemGroup>
 
 </Project>

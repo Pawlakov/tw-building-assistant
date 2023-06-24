@@ -53,7 +53,7 @@ let getBuildingLibrary settings =
     buildingsModels
     |> Array.map DTOs.mapBuildingLibraryEntryToDTO
 
-let getState ctx buildingLevelIds settings =
+let getState buildingLevelIds settings =
     let climatesData = Climates.Data.getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
     let wondersData = Wonders.Data.getWondersData ()
@@ -92,7 +92,7 @@ let getState ctx buildingLevelIds settings =
 
     state |> DTOs.mapProvinceStateToDTO
 
-let seek ctx settings (seekerSettings: DTOs.SeekerSettingsRegionDTO []) (minimalCondition: DTOs.MinimalConditionDTO) (resetProgress: DTOs.ResetProgressDelegate) (incrementProgress: DTOs.IncrementProgressDelegate) =
+let seek settings (seekerSettings: DTOs.SeekerSettingsRegionDTO []) (minimalCondition: DTOs.MinimalConditionDTO) (resetProgress: DTOs.ResetProgressDelegate) (incrementProgress: DTOs.IncrementProgressDelegate) =
     let climatesData = Climates.Data.getClimatesData ()
     let provincesData = Provinces.Data.getProvincesData ()
     let wondersData = Wonders.Data.getWondersData ()

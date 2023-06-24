@@ -3,7 +3,6 @@
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using TWBuildingAssistant.Data.HostBuilders;
 
 public class Program
 {
@@ -11,7 +10,6 @@ public class Program
     {
         var host = new HostBuilder()
             .ConfigureAppConfiguration(configBuilder => configBuilder.AddEnvironmentVariables())
-            .AddDbContextAzure()
             .ConfigureFunctionsWorkerDefaults(builder =>
             {
                 builder

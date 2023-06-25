@@ -10,7 +10,7 @@
   },
   "routes": [
     {
-      "route": "*",
+      "route": "/",
       "allowedRoles": [ "authenticated" ]
     },
     {

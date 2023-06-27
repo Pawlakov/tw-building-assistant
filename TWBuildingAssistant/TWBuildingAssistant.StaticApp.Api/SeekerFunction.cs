@@ -19,7 +19,7 @@ public class SeekerFunction
     }
 
     [Function("GetSettingOptions")]
-    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "get")] HttpRequestData req)
+    public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
     {
         var model = Interface.getSettingOptions();
         var dto = new SettingOptionsDTO

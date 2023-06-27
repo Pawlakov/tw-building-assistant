@@ -10,6 +10,10 @@
   },
   "routes": [
     {
+      "route": "",
+      "allowedRoles": [ "authenticated" ]
+    },
+    {
       "route": "/",
       "allowedRoles": [ "authenticated" ]
     },

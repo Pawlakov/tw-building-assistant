@@ -1,9 +1,9 @@
-﻿namespace TWBuildingAssistant.Presentation.HostBuilders;
+﻿namespace TWBuildingAssistant.Actor.HostBuilders;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using TWBuildingAssistant.Presentation.ViewModels;
-using TWBuildingAssistant.Presentation.Views;
+using TWBuildingAssistant.Actor.ViewModels;
+using TWBuildingAssistant.Actor.Views;
 
 public static class ViewsHostBuilderExtensions
 {

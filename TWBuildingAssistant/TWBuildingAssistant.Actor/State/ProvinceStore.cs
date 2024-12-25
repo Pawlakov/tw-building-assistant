@@ -1,4 +1,4 @@
-﻿namespace TWBuildingAssistant.Presentation.State;
+﻿namespace TWBuildingAssistant.Actor.State;
 
 using System.Collections.Generic;
 using static TWBuildingAssistant.Domain.DTOs;

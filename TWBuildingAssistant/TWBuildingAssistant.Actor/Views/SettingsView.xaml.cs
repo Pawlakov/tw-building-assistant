@@ -1,8 +1,8 @@
-﻿namespace TWBuildingAssistant.Presentation.Views;
+﻿namespace TWBuildingAssistant.Actor.Views;
 
 using System.Windows.Controls;
 
-public partial class SettingsView 
+public partial class SettingsView
     : UserControl
 {
     public SettingsView()

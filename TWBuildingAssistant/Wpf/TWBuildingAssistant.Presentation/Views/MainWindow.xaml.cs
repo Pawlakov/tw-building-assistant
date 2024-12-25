@@ -5,9 +5,9 @@ using System.Windows;
 public partial class MainWindow 
     : Window
 {
-    public MainWindow(object dataContex)
+    public MainWindow(object dataContext)
     {
         this.InitializeComponent();
-        this.DataContext = dataContex;
+        this.DataContext = dataContext;
     }
 }

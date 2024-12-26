@@ -4,20 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              mc:Ignorable="d"
              x:Class="TWBuildingAssistant.Actor.Views.SlotView">
-    <StackPanel Orientation="Horizontal">
-        <ComboBox Width="128" ItemsSource="{Binding BuildingBranches}" SelectedItem="{Binding SelectedBuildingBranch}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-        <ComboBox Width="128" ItemsSource="{Binding BuildingLevels}" SelectedItem="{Binding SelectedBuildingLevel}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-    </StackPanel>
+    <Border Margin="1" BorderThickness="3" BorderBrush="DarkGray">
+        <StackPanel Orientation="Vertical">
+            <ComboBox Width="108" Height="38" 
+                      ItemsSource="{Binding BuildingBranches}" 
+                      SelectedItem="{Binding SelectedBuildingBranch}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox Width="108" Height="38" 
+                      ItemsSource="{Binding BuildingLevels}" 
+                      SelectedItem="{Binding SelectedBuildingLevel}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </StackPanel>
+    </Border>
 </UserControl>

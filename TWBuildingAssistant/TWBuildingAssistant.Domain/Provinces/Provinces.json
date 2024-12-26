@@ -2309,14 +2309,14 @@
         "IsCoastal": true
       },
       "TownFirst": {
-        "Id": "att_reg_venetia_aquileia",
-        "Name": "Aquilea",
-        "IsCoastal": true
-      },
-      "TownSecond": {
         "Id": "att_reg_venetia_verona",
         "Name": "Verona",
         "ResourceId": "res_rom_oil"
+      },
+      "TownSecond": {
+        "Id": "att_reg_venetia_aquileia",
+        "Name": "Aquilea",
+        "IsCoastal": true
       }
     }
   ]

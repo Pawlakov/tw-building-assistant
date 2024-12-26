@@ -44,4 +44,6 @@ public class RegionViewModel
             }
         }
     }
+
+    public int MaxWidth => (this.Slots.Count / 2) * 116;
 }

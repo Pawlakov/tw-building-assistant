@@ -8,11 +8,17 @@
         <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="{Binding Name}" HorizontalAlignment="Center"/>
-                <ItemsControl ItemsSource="{Binding Slots}"></ItemsControl>
+                <ItemsControl ItemsSource="{Binding Slots}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" MaxWidth="{Binding MaxWidth}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </StackPanel>
         </Border>
         <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
-            <TextBlock Width="256" Text="{Binding Performance}"/>
+            <TextBlock Text="{Binding Performance}"/>
         </Border>
     </StackPanel>
 </UserControl>

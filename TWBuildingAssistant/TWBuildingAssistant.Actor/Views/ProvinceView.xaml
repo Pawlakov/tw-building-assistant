@@ -17,10 +17,10 @@
         </ItemsControl>
         <StackPanel Orientation="Horizontal">
             <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
-                <Button Width="256" Command="{Binding PreviousCommand}">Previous</Button>
+                <Button Width="348" Command="{Binding PreviousCommand}">Previous</Button>
             </Border>
             <Border Padding="4" Margin="3" BorderThickness="1" BorderBrush="DarkGray">
-                <TextBlock Width="256" Text="{Binding Performance}"/>
+                <TextBlock Width="232" Text="{Binding Performance}"/>
             </Border>
         </StackPanel>
     </StackPanel>

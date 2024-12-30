@@ -10,14 +10,16 @@ type NamedIdWithItemsDTO =
       Items:NamedIdDTO[] }
 
 type SettingOptions =
-    { Provinces:NamedIdDTO[]
-      Weathers:NamedIdDTO[]
+    { Weathers:NamedIdDTO[]
       Seasons:NamedIdDTO[]
       Religions:NamedIdDTO[]
       Factions:NamedIdDTO[]
       Difficulties:NamedIdDTO[]
       Taxes:NamedIdDTO[]
       PowerLevels:NamedIdDTO[] }
+
+type ProvinceOptions =
+    { Provinces:NamedIdDTO[] }
 
 type SettingsDTO =
     { ProvinceId:string
@@ -104,11 +106,7 @@ type IncrementProgressDelegate =
 let internal mapNamedIdToDTO (model: Settings.NamedId) = { Id = model.Id; Name = model.Name }
 
 let internal mapOptionSetToDTO (model: Settings.OptionSet) =
-    { Provinces =
-        model.Provinces
-        |> List.map mapNamedIdToDTO
-        |> List.toArray
-      Weathers =
+    { Weathers =
         model.Weathers
         |> List.map mapNamedIdToDTO
         |> List.toArray
@@ -134,6 +132,12 @@ let internal mapOptionSetToDTO (model: Settings.OptionSet) =
         |> List.toArray
       PowerLevels =
         model.PowerLevels
+        |> List.map mapNamedIdToDTO
+        |> List.toArray }
+
+let internal mapProvinceOptionSetToDTO (model: Settings.ProvinceOptionSet) =
+    { Provinces =
+        model.Provinces
         |> List.map mapNamedIdToDTO
         |> List.toArray }
 

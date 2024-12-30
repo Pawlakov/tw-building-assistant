@@ -1,15 +1,13 @@
-﻿namespace TWBuildingAssistant.HybridActor
-{
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
-        }
+﻿namespace TWBuildingAssistant.HybridActor;
 
-        protected override Window CreateWindow(IActivationState? activationState)
-        {
-            return new Window(new MainPage()) { Title = "TWBuildingAssistant.HybridActor" };
-        }
-    }
+using System.Configuration;
+using System.Data;
+using System.Windows;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App
+    : Application
+{
 }

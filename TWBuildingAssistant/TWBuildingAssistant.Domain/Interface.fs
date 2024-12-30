@@ -1,9 +1,16 @@
 ﻿module TWBuildingAssistant.Domain.Interface
 
+let getProvinceOptions () =
+    let getProvinceTupleSeq = Provinces.Data.getProvincesData >> Provinces.getProvincePairSeq
+
+    let options =
+        Settings.getProvinceOptions getProvinceTupleSeq
+
+    options |> DTOs.mapProvinceOptionSetToDTO
+
 let getSettingOptions () =
     let getWeatherTupleSeq = Weathers.Data.getWeathersData >> Weathers.getWeatherPairSeq
     let getSeasonTupleSeq = Seasons.Data.getSeasonsData >> Seasons.getSeasonPairSeq
-    let getProvinceTupleSeq = Provinces.Data.getProvincesData >> Provinces.getProvincePairSeq
     let getReligionTupleSeq = Religions.Data.getReligionsData >> Religions.getReligionPairSeq
     let getDifficultyTupleSeq = Difficulties.Data.getDifficultiesData >> Difficulties.getDifficultyPairSeq
     let getTaxTupleSeq = Taxes.Data.getTaxesData >> Taxes.getTaxPairSeq
@@ -14,7 +21,6 @@ let getSettingOptions () =
         Settings.getOptions
             getWeatherTupleSeq
             getSeasonTupleSeq
-            getProvinceTupleSeq
             getReligionTupleSeq
             getDifficultyTupleSeq
             getTaxTupleSeq

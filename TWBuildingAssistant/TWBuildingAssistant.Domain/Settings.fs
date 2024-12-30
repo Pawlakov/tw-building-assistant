@@ -3,14 +3,16 @@
 type NamedId = { Id: string; Name: string }
 
 type OptionSet =
-    { Provinces: NamedId list
-      Weathers: NamedId list
+    { Weathers: NamedId list
       Seasons: NamedId list
       Religions: NamedId list
       Factions: NamedId list
       Difficulties: NamedId list
       Taxes: NamedId list
       PowerLevels: NamedId list }
+
+type ProvinceOptionSet =
+    { Provinces: NamedId list }
 
 type internal Settings =
     { ProvinceId: string
@@ -30,12 +32,14 @@ type internal Settings =
 let private createOptions (tuples: seq<string*string>) =
     query { for (id, name) in tuples do select { Id = id; Name = name } } |> Seq.toList
 
-let getOptions getWeatherTupleSeq getSeasonTupleSeq getProvinceTupleSeq getReligionTupleSeq getDifficultyTupleSeq getTaxTupleSeq getPowerLevelTupleSeq getFactionTupleSeq =
-    { Provinces = () |> getProvinceTupleSeq |> createOptions
-      Weathers = () |> getWeatherTupleSeq |> createOptions
+let getOptions getWeatherTupleSeq getSeasonTupleSeq getReligionTupleSeq getDifficultyTupleSeq getTaxTupleSeq getPowerLevelTupleSeq getFactionTupleSeq =
+    { Weathers = () |> getWeatherTupleSeq |> createOptions
       Seasons = () |> getSeasonTupleSeq |> createOptions
       Religions = () |> getReligionTupleSeq |> createOptions
       Factions = () |> getFactionTupleSeq |> createOptions
       Difficulties = () |> getDifficultyTupleSeq |> createOptions
       Taxes = () |> getTaxTupleSeq |> createOptions
       PowerLevels = () |> getPowerLevelTupleSeq |> createOptions }
+
+let getProvinceOptions getProvinceTupleSeq =
+    { Provinces = () |> getProvinceTupleSeq |> createOptions }

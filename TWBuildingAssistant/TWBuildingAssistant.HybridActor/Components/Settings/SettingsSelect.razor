@@ -1,0 +1,35 @@
+﻿@using System.Linq.Expressions
+@using Microsoft.AspNetCore.Components.Forms
+
+@typeparam TOption
+@typeparam TValue
+
+<div class="select is-fullwidth @(this.Options == null ? "is-loading" : "")">
+    <InputSelect Value="@this.Value" ValueExpression="@this.ValueExpression" ValueChanged="@this.ValueChanged">
+        <option></option>
+        @if (this.Options != null)
+        {
+            @foreach (var option in this.Options)
+            {
+                @this.OptionTemplate(option)
+            }
+        }
+    </InputSelect>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment<TOption> OptionTemplate { get; set; }
+
+    [Parameter]
+    public TValue Value { get; set; }
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<TValue>> ValueExpression { get; set; }
+
+    [Parameter]
+    public IEnumerable<TOption>? Options { get; set; }
+}

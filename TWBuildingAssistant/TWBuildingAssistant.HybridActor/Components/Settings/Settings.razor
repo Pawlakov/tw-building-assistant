@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using TWBuildingAssistant.HybridActor.Models
+
+<EditForm Model="@this.model" OnValidSubmit="@this.HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <div class="panel is-info">
+        <p class="panel-heading">
+            Settings
+        </p>
+        @if (this.model != null)
+        {
+            <SettingsControl For="@(() => this.model.ProvinceId)" Label="Province">
+                <SettingsSelect @bind-Value="@this.model.ProvinceId" Options="@this.options?.Provinces">
+                    <OptionTemplate Context="option">
+                        <option value="@option.Id">@option.Name</option>
+                    </OptionTemplate>
+                </SettingsSelect>
+            </SettingsControl>
+            <div class="panel-block has-background-white">
+                <button class="button is-success" type="submit">Submit</button>
+            </div>
+        }
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public bool Visible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> VisibleChanged { get; set; }
+
+    private SettingsModel? model;
+    private Domain.DTOs.ProvinceOptions? options;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.model = new SettingsModel();
+        this.options = Domain.Interface.getProvinceOptions();
+
+        await base.OnInitializedAsync();
+    }
+
+    private void HandleValidSubmit()
+    {
+    }
+}

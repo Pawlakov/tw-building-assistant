@@ -1,0 +1,23 @@
+﻿@using System.Linq.Expressions
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="panel-block has-background-white">
+    <div class="control">
+        @this.ChildContent
+        @if (this.For != null)
+        {
+            <ValidationMessage For="@this.For" class="help is-danger" />
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public Expression<Func<object>> For { get; set; }
+
+    [Parameter]
+    public string Label { get; set; }
+}

@@ -22,9 +22,10 @@ public class SeekerFunction
     public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
     {
         var model = Interface.getSettingOptions();
+        var provinceModel = Interface.getProvinceOptions();
         var dto = new SettingOptionsDTO
         {
-            Provinces = model.Provinces.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
+            Provinces = provinceModel.Provinces.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
             Weathers = model.Weathers.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
             Seasons = model.Seasons.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),
             Religions = model.Religions.Select(x => new NamedIdDTO { Id = x.Id, Name = x.Name }).ToArray(),

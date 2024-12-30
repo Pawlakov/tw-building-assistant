@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TWBuildingAssistant.StaticA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.Actor", "TWBuildingAssistant.Actor\TWBuildingAssistant.Actor.csproj", "{D73069F3-880B-4384-95C7-1C7F6E6C8568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.HybridActor", "TWBuildingAssistant.HybridActor\TWBuildingAssistant.HybridActor.csproj", "{8D2AC93F-9E26-422E-9F89-85A5FE90E6D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TWBuildingAssistant.HybridActor", "TWBuildingAssistant.HybridActor\TWBuildingAssistant.HybridActor.csproj", "{1B3C283A-37D3-4715-9E0D-B1441D9BF812}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,11 +71,10 @@ Global
 		{D73069F3-880B-4384-95C7-1C7F6E6C8568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D73069F3-880B-4384-95C7-1C7F6E6C8568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D73069F3-880B-4384-95C7-1C7F6E6C8568}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D2AC93F-9E26-422E-9F89-85A5FE90E6D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D2AC93F-9E26-422E-9F89-85A5FE90E6D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D2AC93F-9E26-422E-9F89-85A5FE90E6D8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{8D2AC93F-9E26-422E-9F89-85A5FE90E6D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D2AC93F-9E26-422E-9F89-85A5FE90E6D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B3C283A-37D3-4715-9E0D-B1441D9BF812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B3C283A-37D3-4715-9E0D-B1441D9BF812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B3C283A-37D3-4715-9E0D-B1441D9BF812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B3C283A-37D3-4715-9E0D-B1441D9BF812}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,7 +88,7 @@ Global
 		{F42CFDA3-8E10-4B82-B2A7-8B74B72B085D} = {35C37CA1-9736-459E-A3D8-EEC3D0B27DFA}
 		{CBC3A026-0383-4EDE-9ADB-DB798794D3D5} = {35C37CA1-9736-459E-A3D8-EEC3D0B27DFA}
 		{D73069F3-880B-4384-95C7-1C7F6E6C8568} = {8F6D1756-48CC-4362-A9D9-8B94453232A7}
-		{8D2AC93F-9E26-422E-9F89-85A5FE90E6D8} = {8F6D1756-48CC-4362-A9D9-8B94453232A7}
+		{1B3C283A-37D3-4715-9E0D-B1441D9BF812} = {8F6D1756-48CC-4362-A9D9-8B94453232A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {101DA20B-E11F-4C58-B119-E90A857E6C46}

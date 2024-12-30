@@ -26,8 +26,9 @@ public class SettingsViewModel
         this.configuration = configuration;
 
         var options = getSettingOptions();
+        var provinceOptions = getProvinceOptions();
         this.Religions = new ObservableCollection<NamedIdDTO>(options.Religions);
-        this.Provinces = new ObservableCollection<NamedIdDTO>(options.Provinces);
+        this.Provinces = new ObservableCollection<NamedIdDTO>(provinceOptions.Provinces);
         this.Factions = new ObservableCollection<NamedIdDTO>(options.Factions);
         this.TechnologyTiers = new ObservableCollection<int>(new int[] { 0, 1, 2, 3, 4, 5 });
         this.FertilityDrops = new ObservableCollection<int>(new int[] { 0, -1, -2, -3, -4 });
